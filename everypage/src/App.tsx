@@ -1,36 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
 
-import { Root, addPrefetchExcludes } from 'react-static';
+import { Root } from 'react-static';
 
 import siteContent from './site';
+import { GlobalCss } from './globalCss';
+import { GlobalHead } from './globalHead';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
-import { Stack, IStackItemProps } from 'components/layout';
+import { Stack, IStackItemProps } from './components/layout';
 
 
 // Any routes that start with 'dynamic' will be treated as non-static routes
-addPrefetchExcludes(['dynamic']);
-
-export const GlobalCss = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap');
-
-  html {
-    overflow: hidden;
-  }
-
-  html, body {
-    height: 100%;
-    width: 100%;
-  }
-
-  body {
-    font-size: 16px;
-    background-color: white;
-    overflow: auto;
-  }
-`;
+// addPrefetchExcludes(['dynamic']);
 
 const StyledApp = styled.div`
 
@@ -48,6 +30,13 @@ const App = (): React.ReactElement => {
   return (
     <StyledApp>
       <GlobalCss />
+      <GlobalHead
+        title={siteContent.title}
+        description={siteContent.description}
+        fontUrls={[
+          'https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap',
+        ]}
+      />
       <Root>
         <Stack>{ stackItems }</Stack>
       </Root>

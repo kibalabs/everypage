@@ -14,7 +14,7 @@ interface HeroSignup1Props {
   emailSubtitle?: string;
 }
 
-const Section = styled.nav`
+const Section = styled.div`
 `;
 
 const Header = styled.h1`
@@ -33,10 +33,10 @@ const Text = styled.span`
   line-height: 1.2em;
 `;
 
-const EmailForm = styled.nav`
+const EmailForm = styled.div`
 `;
 
-const EmailInput = styled.nav`
+const EmailInput = styled.div`
 `;
 
 export const HeroSignup1 = (props: HeroSignup1Props): React.ReactElement => (
