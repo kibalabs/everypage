@@ -2,56 +2,50 @@ import React from 'react';
 import Markdown from 'react-markdown';
 import styled from 'styled-components';
 
-import { Container, Grid } from 'components/layout';
-import { Image } from 'components/image';
+import { Container, Grid, Image, Button, Text } from '../components';
+import { textTheme, headerTextTheme } from '../theme';
 
-
-interface HeroSignup1Props {
+// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+interface IHeroSignup1Props {
   logoImageUrl?: string;
-  title?: string;
-  subtitle?: string;
-  emailPlaceholder?: string;
-  emailSubtitle?: string;
+  titleText?: string;
+  subtitleText?: string;
+  emailPlaceholderText?: string;
+  emailButtonText?: string;
+  emailSubtitleText?: string;
 }
 
 const Section = styled.div`
 `;
 
-const Header = styled.h1`
-  font-size: 2.5em;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  color: #222222;
-  line-height: 1.2em;
-`;
-
-const Text = styled.span`
-  font-size: 1em;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: normal;
-  color: #777777;
-  line-height: 1.2em;
-`;
-
 const EmailForm = styled.div`
 `;
 
-const EmailInput = styled.div`
+const EmailInput = styled.input`
+  width: 100%;
 `;
 
-export const HeroSignup1 = (props: HeroSignup1Props): React.ReactElement => (
+export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => (
   <Container>
-    <Grid shouldShowGutters={false}>
-      <Grid.Item sizeSmall={1} sizeMedium={2} sizeLarge={3}><div></div></Grid.Item>
-      <Grid.Item sizeSmall={10} sizeMedium={8} sizeLarge={6}>
+    <Grid>
+      <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
+      <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
         <Section>
-          { props.logoImageUrl && <Image source={props.logoImageUrl} alternativeText='logo' /> }
-          <Header><Markdown source={props.title} /></Header>
-          <Text><Markdown source={props.subtitle} /></Text>
+          { props.logoImageUrl && (
+            <Grid>
+              <Grid.Item size={1} sizeLarge={2}><div /></Grid.Item>
+              <Grid.Item size={10} sizeLarge={8}>
+                <Image source={props.logoImageUrl} alternativeText='logo' />
+              </Grid.Item>
+            </Grid>
+          )}
+          <Text theme={headerTextTheme} alignment='center'><Markdown source={props.titleText}/></Text>
+          <Text theme={textTheme} alignment='left'><Markdown source={props.subtitleText}/></Text>
           <EmailForm>
-            <EmailInput></EmailInput>
-            {props.emailSubtitle && (
-              <Text><Markdown source={props.emailSubtitle} /></Text>
+            <EmailInput placeholder={props.emailPlaceholderText}></EmailInput>
+            <Button text={props.emailButtonText}></Button>
+            {props.emailSubtitleText && (
+              <Text><Markdown source={props.emailSubtitleText} /></Text>
             )}
           </EmailForm>
         </Section>

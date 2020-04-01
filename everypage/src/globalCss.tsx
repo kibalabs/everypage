@@ -8,10 +8,12 @@ export const GlobalCss = createGlobalStyle`
   html, body {
     height: 100%;
     width: 100%;
+    padding: 0;
+    margin: 0;
   }
 
   body {
-    font-size: 16px;
+    font-size: 14px;
     background-color: white;
     overflow: auto;
   }
