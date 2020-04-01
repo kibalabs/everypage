@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 import styled from 'styled-components';
 
 import { Container, Grid, Image, Button, Text } from '../components';
-import { textTheme, headerTextTheme } from '../theme';
+
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IHeroSignup1Props {
@@ -39,8 +39,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => (
               </Grid.Item>
             </Grid>
           )}
-          <Text theme={headerTextTheme} alignment='center'><Markdown source={props.titleText}/></Text>
-          <Text theme={textTheme} alignment='left'><Markdown source={props.subtitleText}/></Text>
+          <Text mode='header' alignment='center'><Markdown source={props.titleText}/></Text>
+          <Text alignment='left'><Markdown source={props.subtitleText}/></Text>
           <EmailForm>
             <EmailInput placeholder={props.emailPlaceholderText}></EmailInput>
             <Button text={props.emailButtonText}></Button>

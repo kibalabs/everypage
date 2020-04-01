@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CssTheme, themeToCss, ISingleAnyChildProps } from '../util';
-import { textTheme } from '../theme';
+import { CssTheme, themeToCss, ISingleAnyChildProps, useTheme } from '../util';
 
 
 export interface ITextTheme extends CssTheme {
@@ -16,6 +15,7 @@ export interface ITextTheme extends CssTheme {
 
 interface ITextProps extends ISingleAnyChildProps {
   theme?: ITextTheme;
+  mode?: string;
   alignment?: 'center' | 'left' | 'right' | 'justify';
 }
 
@@ -33,7 +33,7 @@ const StyledText = styled.span<IStyledTextProps>`
 
 
 export const Text = (props: ITextProps): React.ReactElement => {
-  const theme = props.theme || textTheme;
+  const theme = props.theme || useTheme('texts', props.mode);
   return (
     <StyledText
       alignment={props.alignment}
@@ -46,4 +46,5 @@ export const Text = (props: ITextProps): React.ReactElement => {
 
 Text.defaultProps = {
   alignment: 'left',
+  mode: 'text',
 }

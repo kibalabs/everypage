@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { Root } from 'react-static';
 
 import siteContent from './site';
+import theme from './theme';
+
+import { ThemeProvider } from './util'
 import { GlobalCss } from './globalCss';
 import { GlobalHead } from './globalHead';
 import { Attribution } from './sections/attribution';
@@ -38,7 +41,9 @@ const App = (): React.ReactElement => {
         ]}
       />
       <Root>
-        <Stack>{ stackItems }</Stack>
+        <ThemeProvider theme={theme}>
+          <Stack>{ stackItems }</Stack>
+        </ThemeProvider>
       </Root>
     </StyledApp>
   )

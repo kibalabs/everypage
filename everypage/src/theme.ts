@@ -16,3 +16,13 @@ export const headerTextTheme: ITextTheme = mergeTheme(textTheme, {
   'color': '#373737',
   'line-height': '1.2em',
 });
+
+
+const theme = {
+  texts: {
+    text: textTheme,
+    header: headerTextTheme,
+  }
+};
+
+export default theme;
