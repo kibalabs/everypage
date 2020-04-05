@@ -1,13 +1,13 @@
 import React from 'react';
 
-// import { ITheme } from './theme';
 import { ISingleAnyChildProps, ThemeType } from '.';
+import { ITheme } from '.';
 
 
-export const ThemeContext = React.createContext<any | null>(null);
+export const ThemeContext = React.createContext<ITheme | null>(null);
 
 interface IThemeProviderProps extends ISingleAnyChildProps {
-  theme: any;
+  theme: ITheme;
 }
 
 export const ThemeProvider = (props: IThemeProviderProps): React.ReactElement => (

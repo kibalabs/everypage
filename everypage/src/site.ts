@@ -3,9 +3,6 @@ const siteContent = {
     description: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
     sections: [{
         type: "hero-signup-1",
-        background: {
-            color: "##f7f7f9",
-        },
         logoImageUrl: "https://kiwidocs.co/logo-color-white.svg",
         titleText: "Managed documentation for growing developer teams",
         subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",

@@ -1,15 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
+import { ITheme } from './util';
 
-export const GlobalCss = createGlobalStyle`
-  html {
-    overflow: hidden;
-  }
+interface IGlobalCssProps {
+  theme: ITheme;
+  resetCss: string;
+}
+
+export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
+  ${(props: IGlobalCssProps): string => props.resetCss}
 
   html, body {
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
+  }
+
+  html {
+    overflow: hidden;
   }
 
   body {

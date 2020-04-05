@@ -18,6 +18,8 @@ export type ThemeType = {
   [key: string]: string | number | ThemeType;
 }
 
+export type ITheme = ThemeType;
+
 export function mergeTheme<ThemeType>(baseTheme: ThemeType, themeValues: RecursivePartial<ThemeType>, overrideTheme?: RecursivePartial<ThemeType>): ThemeType {
   // @ts-ignore
   return merge(baseTheme, themeValues || {}, overrideTheme || {});

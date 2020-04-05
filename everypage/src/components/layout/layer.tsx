@@ -18,17 +18,13 @@ const StyledLayerContainer = styled.div`
 `;
 
 interface ILayerContainerProps extends IMultiAnyChildProps {
-  id?: string;
-  className: string;
 }
 
 export const LayerContainer = (props: ILayerContainerProps): React.ReactElement => {
   const children = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null);
+  console.log('children', children);
   return (
-    <StyledLayerContainer
-      id={props.id}
-      className={`layer ${props.className}`}
-    >
+    <StyledLayerContainer>
       { children.map((child: React.ReactNode, index: number): React.ReactElement => (
         <StyledLayer key={index}>
           {child}
@@ -38,7 +34,5 @@ export const LayerContainer = (props: ILayerContainerProps): React.ReactElement 
   );
 };
 
-LayerContainer.displayName = 'LayerContainer';
 LayerContainer.defaultProps = {
-  className: '',
 };

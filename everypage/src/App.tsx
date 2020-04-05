@@ -6,7 +6,7 @@ import { Root } from 'react-static';
 import siteContent from './site';
 import theme from './theme';
 
-import { ThemeProvider } from './util'
+import { ThemeProvider, resetCss } from './util'
 import { GlobalCss } from './globalCss';
 import { GlobalHead } from './globalHead';
 import { Attribution } from './sections/attribution';
@@ -32,7 +32,7 @@ const App = (): React.ReactElement => {
   );
   return (
     <StyledApp>
-      <GlobalCss />
+      <GlobalCss resetCss={resetCss}/>
       <GlobalHead
         title={siteContent.title}
         description={siteContent.description}
