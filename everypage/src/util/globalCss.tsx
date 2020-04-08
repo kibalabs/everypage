@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import { ITheme } from './util';
+
+import { ITheme, themeToCss } from '../theming';
 
 interface IGlobalCssProps {
   theme: ITheme;
@@ -21,7 +22,8 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   }
 
   body {
-    font-size: 14px;
+    ${(props: IGlobalCssProps): string => themeToCss(props.theme.texts.text)};
+    background-color: ${(props: IGlobalCssProps): string => props.theme.colors.background};
     background-color: white;
     overflow: auto;
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IComponentProps, defaultComponentProps } from './componentProps';
-import { CssTheme, themeToCss, ISingleAnyChildProps, useTheme } from '../util';
+import { CssTheme, themeToCss, useTheme } from '../theming';
+import { ISingleAnyChildProps } from '../util';
 
 
 export interface ITextTheme extends CssTheme {

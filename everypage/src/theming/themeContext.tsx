@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ISingleAnyChildProps, ThemeType } from '.';
-import { ITheme } from '.';
+import { ITheme, ThemeType } from '.';
+import { ISingleAnyChildProps } from '../util';
 
 
 export const ThemeContext = React.createContext<ITheme | null>(null);

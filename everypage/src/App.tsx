@@ -6,9 +6,10 @@ import { Root } from 'react-static';
 import siteContent from './site';
 import theme from './theme';
 
-import { ThemeProvider, resetCss } from './util'
-import { GlobalCss } from './globalCss';
-import { GlobalHead } from './globalHead';
+import { ThemeProvider } from './theming'
+import { resetCss } from './util'
+import { GlobalCss } from './util/globalCss';
+import { GlobalHead } from './util/globalHead';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
 import { Stack, IStackItemProps } from './components/layout';
@@ -32,12 +33,15 @@ const App = (): React.ReactElement => {
   );
   return (
     <StyledApp>
-      <GlobalCss resetCss={resetCss}/>
+      <GlobalCss
+        theme={theme}
+        resetCss={resetCss}
+      />
       <GlobalHead
         title={siteContent.title}
         description={siteContent.description}
         fontUrls={[
-          'https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap',
+          'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900',
         ]}
       />
       <Root>
