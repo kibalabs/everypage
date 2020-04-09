@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps } from '.';
-import { IDimensionGuide, useTheme } from '../theming';
-import { Direction } from './direction';
+import { IComponentProps, defaultComponentProps } from '..';
+import { IDimensionGuide, useTheme } from '../../theming';
+import { Direction } from '../direction';
 
 
 export enum SpacingSize {

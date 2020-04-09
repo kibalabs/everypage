@@ -10,7 +10,7 @@ import { ThemeProvider } from './theming'
 import { resetCss, GlobalCss, GlobalHead } from './util';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
-import { Stack, IStackItemProps } from './components/layout';
+import { Stack, IStackItemProps } from './components/layouts';
 
 
 // Any routes that start with 'dynamic' will be treated as non-static routes

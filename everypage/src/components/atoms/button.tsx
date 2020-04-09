@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { themeToCss, ThemeType, useTheme, RecursivePartial } from '../theming';
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '.';
+import { themeToCss, ThemeType, useTheme, RecursivePartial } from '../../theming';
+import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '..';
 
 
 export interface IButtonThemeBase extends ThemeType {

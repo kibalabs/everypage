@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps } from './componentProps';
-import { themeToCss, CssTheme, useTheme } from '../theming';
-import { ISingleAnyChildProps } from '../util';
+import { IComponentProps, defaultComponentProps } from '../componentProps';
+import { themeToCss, CssTheme, useTheme } from '../../theming';
+import { ISingleAnyChildProps } from '../../util';
 
 
 export interface IBoxTheme extends CssTheme {
