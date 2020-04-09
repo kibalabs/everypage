@@ -24,7 +24,6 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   body {
     ${(props: IGlobalCssProps): string => themeToCss(props.theme.texts.text)};
     background-color: ${(props: IGlobalCssProps): string => props.theme.colors.background};
-    background-color: white;
     overflow: auto;
   }
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 // import { castChildren } from '@carbonnv/speck';
 
-import { IMultiChildProps, ISingleAnyChildProps } from '../../util';
+import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
 // import { useTheme, IDimensionsGuide } from '../themes';
 
 
@@ -57,7 +57,7 @@ const StyledStack = styled.div<IStyledStackProps>`
   max-height: 100%;
 `;
 
-interface IStackProps extends IMultiChildProps<IStackItemProps> {
+interface IStackProps extends IMultiAnyChildProps {
   id?: string;
   className: string;
   // theme?: IDimensionsGuide;
@@ -68,7 +68,9 @@ interface IStackProps extends IMultiChildProps<IStackItemProps> {
 
 export const Stack = (props: IStackProps): React.ReactElement => {
   // const theme = props.theme || useTheme<IDimensionsGuide>('dimensions');
-  // const typedChildren = castChildren(props.children, StackItem);
+  const children = React.Children.map(props.children, (child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => {
+    return child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child;
+  });
   return (
     <StyledStack
       id={props.id}
@@ -76,7 +78,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       direction={props.direction}
       contentAlignment={props.contentAlignment}
     >
-      { React.Children.map(props.children, (child: React.ReactElement<IStackItemProps>, index: number): React.ReactElement => (
+      { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
         <StyledStackItem
           key={index}
           id={child.props.id}

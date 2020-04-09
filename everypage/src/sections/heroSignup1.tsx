@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Container, Grid, Image, Button, MarkdownText, Spacing, TextAlignment } from '../components';
+import { Section } from '.';
+import { Grid, Image, Button, MarkdownText, Spacing, TextAlignment, Stack } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -13,9 +14,6 @@ interface IHeroSignup1Props {
   emailButtonText?: string;
   emailSubtitleText?: string;
 }
-
-const Section = styled.div`
-`;
 
 const EmailForm = styled.div`
 `;
@@ -30,11 +28,11 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   }
 
   return (
-    <Container>
+    <Section>
       <Grid>
         <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
-          <Section>
+          <Stack>
             <Spacing size='extra-extra-wide'/>
             { props.logoImageUrl && (
               <React.Fragment>
@@ -68,9 +66,9 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
               )}
             </EmailForm>
             <Spacing size='extra-extra-wide'/>
-          </Section>
+          </Stack>
         </Grid.Item>
       </Grid>
-    </Container>
+    </Section>
   );
 };
