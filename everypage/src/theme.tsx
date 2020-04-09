@@ -32,5 +32,5 @@ export const dimensions: IDimensionGuide = {
   screenWidthMax: '1200px',
 };
 
-const defaultTheme = buildTheme(colors, dimensions);
+export const defaultTheme = buildTheme(colors, dimensions);
 export default defaultTheme;

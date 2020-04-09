@@ -51,8 +51,8 @@ interface IStyledSpacingProps {
 
 
 const StyledDiv = styled.div<IStyledSpacingProps>`
-  width: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size, props.theme))};
-  height: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size, props.theme))};
+  margin-left: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size, props.theme))};
+  margin-top: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size, props.theme))};
 `;
 
 

@@ -14,6 +14,10 @@ export interface IBoxTheme extends CssTheme {
   'border-style': string;
   'padding': string;
   'box-shadow': string;
+  'outline-style': string;
+  'outline-color': string;
+  'outline-width': string;
+  'outline-offset': string;
 }
 
 interface IStyledBoxProps {

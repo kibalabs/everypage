@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 
 import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeStatusAction } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase } from '../components';
 import { ITheme, IColorGuide, IDimensionGuide } from './theme';
 
 
@@ -29,6 +29,10 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'border-width': '0',
     'box-shadow': 'none',
     'padding': '0',
+    'outline-style': 'solid',
+    'outline-color': 'transparent',
+    'outline-width': '0',
+    'outline-offset': '0',
   };
 
   const defaultBoxTheme = mergeTheme(transparentBoxTheme, {
@@ -37,7 +41,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'padding': dimensions.padding,
   });
 
-  const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeStatusAction>({
+  const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeBase>({
     background: mergeTheme(defaultBoxTheme, {
       'background-color': colors.brandPrimary,
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
@@ -49,33 +53,44 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     }),
   });
 
-  const defaultDisabledPrimaryButtonTheme = mergeTheme(defaultNormalPrimaryButtonTheme, {
-    background: {
-      'background-color': '#999999',
-    },
-    text: {
-      'color': '#444444',
-    },
-  });
+  const focusBorder: Partial<IBoxTheme> = {
+    'outline-color': colors.brandPrimary,
+    'outline-offset': '0.1em',
+    'outline-width': '2px',
+    'outline-style': 'solid',
+  }
 
   const primaryButtonTheme = mergeTheme<IButtonTheme>({
     normal: {
       default: defaultNormalPrimaryButtonTheme,
-      hover: mergeTheme(defaultNormalPrimaryButtonTheme, {
+      hover: {
         background: {
           'background-color': colors.brandSecondary,
         },
-      }),
-      press: mergeTheme(defaultNormalPrimaryButtonTheme, {
+      },
+      press: {
         background: {
           'background-color': darken(0.1, colors.brandSecondary),
         },
-      }),
+      },
+      focus: {
+        background: focusBorder,
+      },
     },
     disabled: {
-      default: defaultDisabledPrimaryButtonTheme,
-      hover: defaultDisabledPrimaryButtonTheme,
-      press: defaultDisabledPrimaryButtonTheme,
+      default: mergeTheme(defaultNormalPrimaryButtonTheme, {
+        background: {
+          'background-color': '#999999',
+        },
+        text: {
+          'color': '#444444',
+        },
+      }),
+      hover: {},
+      press: {},
+      focus: {
+        background: focusBorder,
+      },
     },
   });
 

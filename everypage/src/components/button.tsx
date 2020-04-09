@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { themeToCss, ThemeType, useTheme } from '../theming';
+import { themeToCss, ThemeType, useTheme, RecursivePartial } from '../theming';
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '.';
 
 
-export interface IButtonThemeStatusAction extends ThemeType {
+export interface IButtonThemeBase extends ThemeType {
   text: ITextTheme;
   background: IBoxTheme;
 }
 
 export interface IButtonThemeStatus extends ThemeType {
-  default: IButtonThemeStatusAction;
-  hover: IButtonThemeStatusAction;
-  press: IButtonThemeStatusAction;
+  default: IButtonThemeBase;
+  hover: RecursivePartial<IButtonThemeBase>;
+  press: RecursivePartial<IButtonThemeBase>;
+  focus: RecursivePartial<IButtonThemeBase>;
 }
 
 export interface IButtonTheme extends ThemeType {
@@ -46,6 +47,10 @@ const StyledButton = styled.button<IStyledButtonProps>`
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press.text)};
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press.background)};
   }
+  &:focus {
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus.background)};
+  }
   &.disabled {
     cursor: not-allowed;
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default.text)};
@@ -57,6 +62,10 @@ const StyledButton = styled.button<IStyledButtonProps>`
     &:active {
       ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press.text)};
       ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press.background)};
+    }
+    &:focus {
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus.text)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus.background)};
     }
   }
 `;
