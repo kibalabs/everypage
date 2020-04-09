@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 
 import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme } from '../components';
 import { ITheme, IColorGuide, IDimensionGuide } from './theme';
 
 
@@ -40,6 +40,9 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'border-radius': dimensions.borderRadius,
     'padding': dimensions.padding,
   });
+
+  const defaultImageTheme: IImageTheme = {
+  }
 
   const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeBase>({
     background: mergeTheme(defaultBoxTheme, {
@@ -108,6 +111,9 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       default: textTheme,
       text: textTheme,
       header: headerTextTheme,
+    },
+    images: {
+      default: defaultImageTheme,
     },
     buttons: {
       default: secondaryButtonTheme,

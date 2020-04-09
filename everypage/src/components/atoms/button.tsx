@@ -107,7 +107,6 @@ export const Button = (props: IButtonProps): React.ReactElement => {
   );
 };
 
-Button.displayName = 'Button';
 Button.defaultProps = {
   ...defaultComponentProps,
   isLoading: false,
