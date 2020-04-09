@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IComponentProps, defaultComponentProps } from '.';
-import { IDimensionGuide } from '../theming';
+import { IDimensionGuide, useTheme } from '../theming';
 import { Direction } from './direction';
 
 
@@ -16,25 +16,25 @@ export enum SpacingSize {
 }
 
 
-const getSize = (size: SpacingSize): string => {
+const getSize = (size: SpacingSize, theme: IDimensionGuide): string => {
   switch (size) {
     case SpacingSize.ExtraNarrow: {
-      return '0.25em';
+      return theme.paddingExtraNarrow;
     }
     case SpacingSize.Narrow: {
-      return '0.5em';
+      return theme.paddingNarrow;
     }
     case SpacingSize.Default: {
-      return '1em';
+      return theme.padding;
     }
     case SpacingSize.Wide: {
-      return '2em';
+      return theme.paddingWide;
     }
     case SpacingSize.ExtraWide: {
-      return '4em';
+      return theme.paddingExtraWide;
     }
     case SpacingSize.ExtraExtraWide: {
-      return '8em';
+      return theme.paddingExtraExtraWide;
     }
     default: {
       return '0';
@@ -46,12 +46,13 @@ const getSize = (size: SpacingSize): string => {
 interface IStyledSpacingProps {
   size: SpacingSize;
   direction: Direction;
+  theme: IDimensionGuide;
 }
 
 
 const StyledDiv = styled.div<IStyledSpacingProps>`
-  width: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size))};
-  height: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size))};
+  width: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size, props.theme))};
+  height: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size, props.theme))};
 `;
 
 
@@ -61,8 +62,12 @@ interface ISpacingProps extends IComponentProps<IDimensionGuide> {
 
 
 export const Spacing = (props: ISpacingProps): React.ReactElement => {
+  const theme = props.theme || useTheme('dimensions');
   return (
     <StyledDiv
+      id={props.id}
+      className={`spacing ${props.className}`}
+      theme={theme}
       size={props.mode as SpacingSize}
       direction={props.direction}
     />

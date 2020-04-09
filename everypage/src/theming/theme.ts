@@ -21,6 +21,7 @@ export interface IDimensionGuide extends ThemeType {
   paddingExtraExtraNarrow: string,
   paddingWide: string,
   paddingExtraWide: string,
+  paddingExtraExtraWide: string,
 
   columnCount: number,
   gutterSize: string,

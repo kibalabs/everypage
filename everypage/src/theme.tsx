@@ -20,6 +20,7 @@ export const dimensions: IDimensionGuide = {
   paddingExtraExtraNarrow: '0.1em',
   paddingWide: '2em',
   paddingExtraWide: '4em',
+  paddingExtraExtraWide: '8em',
 
   columnCount: 12,
   gutterSize: '0.5em',
