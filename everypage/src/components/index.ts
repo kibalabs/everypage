@@ -1,3 +1,5 @@
+export * from './direction';
+
 export * from './box';
 export * from './button';
 export * from './componentProps';

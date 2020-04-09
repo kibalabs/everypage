@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section } from '.';
-import { Grid, Image, Button, MarkdownText, Spacing, TextAlignment, Stack } from '../components';
+import { Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -33,7 +33,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
         <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
           <Stack>
-            <Spacing size='extra-extra-wide'/>
+            <Spacing mode={SpacingSize.ExtraExtraWide}/>
             { props.logoImageUrl && (
               <React.Fragment>
                 <Grid>
@@ -42,16 +42,16 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Image source={props.logoImageUrl} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing size='wide'/>
+                <Spacing mode={SpacingSize.Wide} />
               </React.Fragment>
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            <Spacing size='wide'/>
+            <Spacing mode={SpacingSize.Wide} />
             <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
-            <Spacing size='wide'/>
+            <Spacing mode={SpacingSize.Wide} />
             <EmailForm>
               <EmailInput placeholder={props.emailPlaceholderText}></EmailInput>
-              <Spacing size='narrow'/>
+              <Spacing mode={SpacingSize.Narrow}/>
               <Button
                 mode='primary'
                 isFullWidth={true}
@@ -60,12 +60,12 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
               />
               {props.emailSubtitleText && (
                 <React.Fragment>
-                  <Spacing size='wide'/>
+                  <Spacing mode={SpacingSize.Wide} />
                   <MarkdownText text={props.emailSubtitleText} />
                 </React.Fragment>
               )}
             </EmailForm>
-            <Spacing size='extra-extra-wide'/>
+            <Spacing mode={SpacingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>
