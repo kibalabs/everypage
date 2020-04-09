@@ -63,21 +63,19 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       default: defaultNormalPrimaryButtonTheme,
       hover: mergeTheme(defaultNormalPrimaryButtonTheme, {
         background: {
-          'background-color': darken(0.1, colors.brandPrimary),
+          'background-color': colors.brandSecondary,
         },
       }),
       press: mergeTheme(defaultNormalPrimaryButtonTheme, {
         background: {
-          'background-color': darken(0.2, colors.brandPrimary),
+          'background-color': darken(0.1, colors.brandSecondary),
         },
       }),
     },
     disabled: {
       default: defaultDisabledPrimaryButtonTheme,
-      hover: mergeTheme(defaultDisabledPrimaryButtonTheme, {
-      }),
-      press: mergeTheme(defaultDisabledPrimaryButtonTheme, {
-      }),
+      hover: defaultDisabledPrimaryButtonTheme,
+      press: defaultDisabledPrimaryButtonTheme,
     },
   });
 

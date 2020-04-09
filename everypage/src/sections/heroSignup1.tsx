@@ -45,7 +45,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Image source={props.logoImageUrl} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing size='extra-wide'/>
+                <Spacing size='wide'/>
               </React.Fragment>
             )}
             <Text mode='header' alignment='center'><Markdown source={props.titleText}/></Text>
@@ -68,7 +68,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 </React.Fragment>
               )}
             </EmailForm>
-            <Spacing size='extra-wide'/>
+            <Spacing size='extra-extra-wide'/>
           </Section>
         </Grid.Item>
       </Grid>
