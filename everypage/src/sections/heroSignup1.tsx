@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Container, Grid, Image, Button, MarkdownText, Spacing } from '../components';
+import { Container, Grid, Image, Button, MarkdownText, Spacing, TextAlignment } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -47,9 +47,9 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 <Spacing size='wide'/>
               </React.Fragment>
             )}
-            <MarkdownText mode='header' alignment='center' text={props.titleText}/>
+            <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
             <Spacing size='wide'/>
-            <MarkdownText alignment='left' text={props.subtitleText}/>
+            <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
             <Spacing size='wide'/>
             <EmailForm>
               <EmailInput placeholder={props.emailPlaceholderText}></EmailInput>

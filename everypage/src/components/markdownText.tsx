@@ -1,12 +1,12 @@
 import React from 'react';
 import Markdown from 'react-markdown';
 
-import { IComponentProps, Text, ITextTheme, defaultComponentProps } from '.';
+import { IComponentProps, Text, ITextTheme, TextAlignment, defaultComponentProps } from '.';
 
 
 interface IMarkdownTextProps extends IComponentProps<ITextTheme> {
   text: string;
-  alignment?: 'center' | 'left' | 'right' | 'justify';
+  alignment?: TextAlignment;
 }
 
 export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
@@ -22,5 +22,4 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
 
 MarkdownText.defaultProps = {
   ...defaultComponentProps,
-  alignment: 'left',
 }

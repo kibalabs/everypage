@@ -15,14 +15,22 @@ export interface ITextTheme extends CssTheme {
 }
 
 
+export enum TextAlignment {
+  Center = 'center',
+  Left = 'left',
+  Right = 'right',
+  Justify = 'justify',
+}
+
+
 export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChildProps {
-  alignment?: 'center' | 'left' | 'right' | 'justify';
+  alignment?: TextAlignment;
 }
 
 
 interface IStyledTextProps {
   theme: ITextTheme;
-  alignment: 'center' | 'left' | 'right' | 'justify';
+  alignment: TextAlignment;
 }
 
 
@@ -48,5 +56,5 @@ export const Text = (props: ITextProps): React.ReactElement => {
 
 Text.defaultProps = {
   ...defaultComponentProps,
-  alignment: 'left',
+  alignment: TextAlignment.Left,
 }

@@ -7,9 +7,7 @@ import siteContent from './site';
 import theme from './theme';
 
 import { ThemeProvider } from './theming'
-import { resetCss } from './util'
-import { GlobalCss } from './util/globalCss';
-import { GlobalHead } from './util/globalHead';
+import { resetCss, GlobalCss, GlobalHead } from './util';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
 import { Stack, IStackItemProps } from './components/layout';
