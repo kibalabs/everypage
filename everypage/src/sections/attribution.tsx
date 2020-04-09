@@ -1,7 +1,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 
-import { Text, Stack, Container } from '../components';
+import { MarkdownText, Stack, Container } from '../components';
 
 
 // const StyledAttribution = styled.nav`
@@ -17,7 +17,7 @@ export const Attribution = (): React.ReactElement => (
   <Container>
     <Stack contentAlignment='center' shouldShowGutters={true}>
       <Stack.Item>
-        <Text alignment='center'>Made with EveryPage</Text>
+        <MarkdownText alignment='center' text='Made with [EveryPage](https://everypagehq.com)' />
       </Stack.Item>
     </Stack>
   </Container>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps } from './componentProps';
+import { IComponentProps, defaultComponentProps } from '.';
 import { CssTheme, themeToCss, useTheme } from '../theming';
 import { ISingleAnyChildProps } from '../util';
 
@@ -15,7 +15,7 @@ export interface ITextTheme extends CssTheme {
 }
 
 
-interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChildProps {
+export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChildProps {
   alignment?: 'center' | 'left' | 'right' | 'justify';
 }
 
