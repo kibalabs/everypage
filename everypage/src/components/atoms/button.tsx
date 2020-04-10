@@ -10,7 +10,7 @@ export interface IButtonThemeBase extends ThemeType {
   background: IBoxTheme;
 }
 
-export interface IButtonThemeStatus extends ThemeType {
+export interface IButtonThemeState extends ThemeType {
   default: IButtonThemeBase;
   hover: RecursivePartial<IButtonThemeBase>;
   press: RecursivePartial<IButtonThemeBase>;
@@ -18,8 +18,8 @@ export interface IButtonThemeStatus extends ThemeType {
 }
 
 export interface IButtonTheme extends ThemeType {
-  normal: IButtonThemeStatus;
-  disabled: IButtonThemeStatus;
+  normal: IButtonThemeState;
+  disabled: IButtonThemeState;
 }
 
 interface IStyledButtonProps {

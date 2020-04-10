@@ -1,2 +1,2 @@
 export * from './button';
-export * from '../subatoms/image';
+export * from './inputWrapper';

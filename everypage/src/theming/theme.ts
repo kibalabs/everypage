@@ -1,5 +1,5 @@
 import { ThemeType } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IImageTheme } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme } from '../components';
 
 export interface IColorGuide extends ThemeType {
   brandPrimary: string,
@@ -38,12 +38,18 @@ interface ThemeMap<Theme extends ThemeType> extends Record<string, Theme>, Theme
 };
 
 export interface ITheme extends ThemeType {
+  // Base
   colors: IColorGuide,
   dimensions: IDimensionGuide,
+
+  // Subatoms
   boxes: ThemeMap<IBoxTheme>,
   texts: ThemeMap<ITextTheme>,
   images: ThemeMap<IImageTheme>,
+
+  // Atoms
   buttons: ThemeMap<IButtonTheme>,
+  inputWrappers: ThemeMap<IInputWrapperTheme>,
 }
 
 

@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 
 import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase } from '../components';
 import { ITheme, IColorGuide, IDimensionGuide } from './theme';
 
 
@@ -100,6 +100,35 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
   const secondaryButtonTheme: IButtonTheme = primaryButtonTheme;
   const tertiaryButtonTheme: IButtonTheme = primaryButtonTheme;
 
+  const defaultNormalInputWrapperThemeBase: IInputWrapperThemeBase = {
+    text: textTheme,
+    errorText: mergeTheme(textTheme, {
+      'color': '#ff0000',
+    }),
+    placeholderText: mergeTheme(textTheme, {
+      'color': '#AAAAAA',
+    }),
+    background: defaultBoxTheme,
+  }
+
+  const defaultInputWrapperTheme: IInputWrapperTheme = {
+    normal: {
+      default: defaultNormalInputWrapperThemeBase,
+      hover: defaultNormalInputWrapperThemeBase,
+      focus: defaultNormalInputWrapperThemeBase,
+    },
+    error: {
+      default: defaultNormalInputWrapperThemeBase,
+      hover: defaultNormalInputWrapperThemeBase,
+      focus: defaultNormalInputWrapperThemeBase,
+    },
+    disabled: {
+      default: defaultNormalInputWrapperThemeBase,
+      hover: defaultNormalInputWrapperThemeBase,
+      focus: defaultNormalInputWrapperThemeBase,
+    },
+  }
+
   return {
     colors: colors,
     dimensions: dimensions,
@@ -120,6 +149,9 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       primary: primaryButtonTheme,
       secondary: secondaryButtonTheme,
       tertiary: tertiaryButtonTheme,
+    },
+    inputWrappers: {
+      default: defaultInputWrapperTheme,
     },
   };
 };

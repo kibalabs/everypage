@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section } from '.';
-import { Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack } from '../components';
+import { Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -18,11 +18,9 @@ interface IHeroSignup1Props {
 const EmailForm = styled.div`
 `;
 
-const EmailInput = styled.input`
-  width: 100%;
-`;
-
 export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
+  const [email, setEmail] = React.useState<string>(null);
+
   const onEmailSubmitClicked = (): void => {
     console.log('onEmailSubmitClicked');
   }
@@ -50,7 +48,12 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
             <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
             <Spacing mode={SpacingSize.Wide} />
             <EmailForm>
-              <EmailInput placeholder={props.emailPlaceholderText}></EmailInput>
+              <SingleLineInput
+                inputType='email'
+                placeholderText={props.emailPlaceholderText}
+                value={email}
+                onValueChanged={setEmail}
+              />
               <Spacing mode={SpacingSize.Narrow}/>
               <Button
                 mode='primary'
