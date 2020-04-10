@@ -22,7 +22,6 @@ interface ILayerContainerProps extends IMultiAnyChildProps {
 
 export const LayerContainer = (props: ILayerContainerProps): React.ReactElement => {
   const children = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null);
-  console.log('children', children);
   return (
     <StyledLayerContainer>
       { children.map((child: React.ReactNode, index: number): React.ReactElement => (

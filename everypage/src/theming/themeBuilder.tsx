@@ -1,4 +1,4 @@
-import { darken } from 'polished';
+import { lighten, darken } from 'polished';
 
 import { mergeTheme } from '.';
 import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase } from '../components';
@@ -56,7 +56,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     }),
   });
 
-  const focusBorder: Partial<IBoxTheme> = {
+  const focusBorderBox: Partial<IBoxTheme> = {
     'outline-color': colors.brandPrimary,
     'outline-offset': '0.1em',
     'outline-width': '2px',
@@ -77,7 +77,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
         },
       },
       focus: {
-        background: focusBorder,
+        background: focusBorderBox,
       },
     },
     disabled: {
@@ -92,7 +92,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       hover: {},
       press: {},
       focus: {
-        background: focusBorder,
+        background: focusBorderBox,
       },
     },
   });
@@ -108,14 +108,29 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     placeholderText: mergeTheme(textTheme, {
       'color': '#AAAAAA',
     }),
-    background: defaultBoxTheme,
+    background: mergeTheme(transparentBoxTheme, {
+      'background-color': 'white',
+      'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
+      'border-radius': '3em',
+      'border-width': dimensions.borderWidthNarrow,
+      'border-color': darken(0.1, colors.background),
+      'border-style': 'solid',
+    }),
   }
 
   const defaultInputWrapperTheme: IInputWrapperTheme = {
     normal: {
       default: defaultNormalInputWrapperThemeBase,
-      hover: defaultNormalInputWrapperThemeBase,
-      focus: defaultNormalInputWrapperThemeBase,
+      hover: {
+        background: {
+          'border-color': lighten(0.1, colors.brandPrimary),
+        },
+      },
+      focus: {
+        background: {
+          'border-color': colors.brandPrimary,
+        },
+      },
     },
     error: {
       default: defaultNormalInputWrapperThemeBase,

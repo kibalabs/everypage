@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '..';
-import { ThemeType, themeToCss, useTheme } from '../../theming';
+import { ThemeType, themeToCss, useTheme, RecursivePartial } from '../../theming';
 import { ISingleAnyChildProps,  } from '../../util';
 
 
@@ -15,8 +15,8 @@ export interface IInputWrapperThemeBase extends ThemeType {
 
 export interface IInputWrapperThemeState extends ThemeType {
   default: IInputWrapperThemeBase;
-  hover: IInputWrapperThemeBase;
-  focus: IInputWrapperThemeBase;
+  hover: RecursivePartial<IInputWrapperThemeBase>;
+  focus: RecursivePartial<IInputWrapperThemeBase>;
 }
 
 export interface IInputWrapperTheme extends ThemeType {
@@ -62,7 +62,6 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
   }
 
   &.focus, &:focus {
-    outline: none;
     ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.focus.text)};
     ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.focus.background)};
     & ::placeholder, .wrapped-input:empty::before {

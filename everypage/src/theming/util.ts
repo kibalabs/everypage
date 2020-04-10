@@ -8,7 +8,6 @@ export const themeToCss = (theme?: CssTheme): string => {
   }
   const output: string[] = [];
   Object.keys(theme).forEach((key: string): void => {
-    console.log(key, theme[key]);
     output.push(`${key}: ${theme[key]};`);
   });
   return output.join('\n');
