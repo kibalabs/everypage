@@ -113,7 +113,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
       'border-radius': '3em',
       'border-width': dimensions.borderWidthNarrow,
-      'border-color': darken(0.1, colors.background),
+      'border-color': darken(0.05, colors.background),
       'border-style': 'solid',
     }),
   }

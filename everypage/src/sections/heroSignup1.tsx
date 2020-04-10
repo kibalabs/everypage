@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Section } from '.';
+import { Section, ISectionProps } from '.';
 import { Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IHeroSignup1Props {
+interface IHeroSignup1Props extends ISectionProps {
   logoImageUrl?: string;
   titleText?: string;
   subtitleText?: string;
@@ -26,7 +26,11 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   }
 
   return (
-    <Section>
+    <Section
+      id={props.id}
+      className={props.className}
+      background={props.background}
+    >
       <Grid>
         <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
@@ -68,7 +72,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 </React.Fragment>
               )}
             </EmailForm>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={SpacingSize.ExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

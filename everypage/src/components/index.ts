@@ -1,3 +1,4 @@
+export * from './background';
 export * from './direction';
 export * from './componentProps';
 

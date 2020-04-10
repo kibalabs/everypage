@@ -46,49 +46,49 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
   }
   width: 100%;
   overflow: hidden;
-  ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.default.text)};
-  ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.default.background)};
+  ${(props) => themeToCss(props.theme.normal.default.text)};
+  ${(props) => themeToCss(props.theme.normal.default.background)};
   & ::placeholder, .wrapped-input:empty::before {
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.default.placeholderText)};
+    ${(props) => themeToCss(props.theme.normal.default.placeholderText)};
   }
 
   &:hover {
     box-shadow: none;
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.hover.text)};
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.hover.background)};
+    ${(props) => themeToCss(props.theme.normal.hover.text)};
+    ${(props) => themeToCss(props.theme.normal.hover.background)};
     & ::placeholder, .wrapped-input:empty::before {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.hover.placeholderText)};
+      ${(props) => themeToCss(props.theme.normal.hover.placeholderText)};
     }
   }
 
   &.focus, &:focus {
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.focus.text)};
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.focus.background)};
+    ${(props) => themeToCss(props.theme.normal.focus.text)};
+    ${(props) => themeToCss(props.theme.normal.focus.background)};
     & ::placeholder, .wrapped-input:empty::before {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.focus.placeholderText)};
+      ${(props) => themeToCss(props.theme.normal.focus.placeholderText)};
     }
   }
 
   &.error {
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.default.text)};
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.default.background)};
+    ${(props) => themeToCss(props.theme.error.default.text)};
+    ${(props) => themeToCss(props.theme.error.default.background)};
     & ::placeholder, .wrapped-input:empty::before {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.default.placeholderText)};
+      ${(props) => themeToCss(props.theme.error.default.placeholderText)};
     }
 
     &:hover {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.hover.text)};
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.hover.background)};
+      ${(props) => themeToCss(props.theme.error.hover.text)};
+      ${(props) => themeToCss(props.theme.error.hover.background)};
       & ::placeholder, .wrapped-input:empty::before {
-        ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.hover.placeholderText)};
+        ${(props) => themeToCss(props.theme.error.hover.placeholderText)};
       }
     }
 
     &.focus, &:focus {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.focus.text)};
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.focus.background)};
+      ${(props) => themeToCss(props.theme.error.focus.text)};
+      ${(props) => themeToCss(props.theme.error.focus.background)};
       & ::placeholder, .wrapped-input:empty::before {
-        ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.error.focus.placeholderText)};
+        ${(props) => themeToCss(props.theme.error.focus.placeholderText)};
       }
     }
   }
@@ -96,32 +96,32 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
   &.disabled {
     cursor: not-allowed;
     pointer-events: none;
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.default.text)};
-    ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.default.background)};
+    ${(props) => themeToCss(props.theme.disabled.default.text)};
+    ${(props) => themeToCss(props.theme.disabled.default.background)};
     & ::placeholder, .wrapped-input:empty::before {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.default.placeholderText)};
+      ${(props) => themeToCss(props.theme.disabled.default.placeholderText)};
     }
 
     &:hover {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.hover.text)};
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.hover.background)};
+      ${(props) => themeToCss(props.theme.disabled.hover.text)};
+      ${(props) => themeToCss(props.theme.disabled.hover.background)};
       & ::placeholder, .wrapped-input:empty::before {
-        ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.hover.placeholderText)};
+        ${(props) => themeToCss(props.theme.disabled.hover.placeholderText)};
       }
     }
 
     &.focus, &:focus {
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.focus.text)};
-      ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.focus.background)};
+      ${(props) => themeToCss(props.theme.disabled.focus.text)};
+      ${(props) => themeToCss(props.theme.disabled.focus.background)};
       & ::placeholder, .wrapped-input:empty::before {
-        ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.disabled.focus.placeholderText)};
+        ${(props) => themeToCss(props.theme.disabled.focus.placeholderText)};
       }
     }
   }
 `;
 
 const StyledError = styled.p`
-  ${(props: IInputWrapperInnerProps): string => themeToCss(props.theme.normal.default.errorText)};
+  ${(props) => themeToCss(props.theme.normal.default.errorText)};
   margin-top: 0.5em;
   overflow: auto;
   width: 100%;
