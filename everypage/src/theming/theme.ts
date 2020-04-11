@@ -6,7 +6,9 @@ export interface IColorGuide extends ThemeType {
   brandSecondary: string,
   text: string,
   textOnBrand: string,
+  textOnDark: string,
   background: string,
+  backgroundDark: string,
 }
 
 export interface IDimensionGuide extends ThemeType {

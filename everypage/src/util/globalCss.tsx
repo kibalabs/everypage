@@ -26,4 +26,8 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
     background-color: ${(props: IGlobalCssProps): string => props.theme.colors.background};
     overflow: auto;
   }
+
+  strong {
+    font-weight: bold;
+  }
 `;

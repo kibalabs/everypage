@@ -14,7 +14,7 @@ export interface IBackgroundLayer {
 
 // Allow someone to use a single background instead of specifying layers
 export interface IBackgroundConfig extends IBackgroundLayer {
-  layers: IBackgroundLayer[];
+  layers?: IBackgroundLayer[];
 }
 
 

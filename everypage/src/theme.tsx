@@ -5,7 +5,9 @@ const colors: IColorGuide = {
   brandSecondary: '#1A6F6F',
   text: '#333',
   textOnBrand: '#f5f5f5',
+  textOnDark: '#f5f5f5',
   background: '#f5f5f5',
+  backgroundDark: '#151515',
 }
 
 export const dimensions: IDimensionGuide = {

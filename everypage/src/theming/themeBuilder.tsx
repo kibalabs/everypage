@@ -14,7 +14,11 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'line-height': '1.6em',
   };
 
-  const headerTextTheme: ITextTheme = mergeTheme(textTheme, {
+  const darkTextTheme = mergeTheme(textTheme, {
+    'color': colors.textOnDark,
+  });
+
+  const headerTextTheme = mergeTheme(textTheme, {
     'font-size': '2.5em',
     'font-weight': '700',
     'color': '#171717',
@@ -154,6 +158,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     texts: {
       default: textTheme,
       text: textTheme,
+      dark: darkTextTheme,
       header: headerTextTheme,
     },
     images: {

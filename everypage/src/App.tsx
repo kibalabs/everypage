@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Root } from 'react-static';
 
@@ -13,16 +12,9 @@ import { SectionRenderer } from './sectionRenderer';
 import { Stack, IStackItemProps } from './components/layouts';
 
 
-// Any routes that start with 'dynamic' will be treated as non-static routes
-// addPrefetchExcludes(['dynamic']);
-
-const StyledApp = styled.div`
-
-`;
-
 const App = (): React.ReactElement => {
   const stackItems: React.ReactElement<IStackItemProps>[] = siteContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
-    <Stack.Item key={index}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
+    <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
   stackItems.push(
     <Stack.Item key={siteContent.sections.length + 1}>
@@ -30,7 +22,7 @@ const App = (): React.ReactElement => {
     </Stack.Item>
   );
   return (
-    <StyledApp>
+    <Root>
       <GlobalCss
         theme={theme}
         resetCss={resetCss}
@@ -42,12 +34,10 @@ const App = (): React.ReactElement => {
           'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900',
         ]}
       />
-      <Root>
-        <ThemeProvider theme={theme}>
-          <Stack>{ stackItems }</Stack>
-        </ThemeProvider>
-      </Root>
-    </StyledApp>
+      <ThemeProvider theme={theme}>
+        <Stack>{ stackItems }</Stack>
+      </ThemeProvider>
+    </Root>
   )
 }
 
