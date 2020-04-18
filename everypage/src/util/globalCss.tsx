@@ -27,6 +27,13 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
     overflow: auto;
   }
 
+  a {
+    color: ${(props: IGlobalCssProps): string => props.theme.links.default.normal.default.text.color};
+    :hover {
+      color: ${(props: IGlobalCssProps): string => props.theme.links.default.normal.hover.text.color};
+    }
+  }
+
   strong {
     font-weight: bold;
   }

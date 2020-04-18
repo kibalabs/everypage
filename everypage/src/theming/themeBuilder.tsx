@@ -1,7 +1,7 @@
 import { lighten, darken } from 'polished';
 
 import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase } from '../components';
 import { ITheme, IColorGuide, IDimensionGuide } from './theme';
 
 
@@ -166,6 +166,46 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'color': 'black',
   });
 
+  const defaultNormalDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
+    text: mergeTheme<ITextTheme>(textTheme, {
+      'color': colors.brandPrimary,
+    }),
+  });
+  const defaultDisabledDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
+    text: mergeTheme<ITextTheme>(textTheme, {
+      'color': colors.disabled,
+    }),
+  });
+
+  const defaultVisitedDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
+    text: mergeTheme<ITextTheme>(textTheme, {
+      'color': darken(0.1, colors.brandPrimary),
+    }),
+  });
+
+  const defaultLinkTheme = mergeTheme<ILinkTheme>({
+    normal: {
+      default: defaultNormalDefaultLinkTheme,
+      hover: mergeTheme<ILinkThemeBase>({
+        text: mergeTheme<ITextTheme>(textTheme, {
+          'color': darken(0.2, colors.brandPrimary),
+        }),
+      }),
+    },
+    disabled: {
+      default: defaultDisabledDefaultLinkTheme,
+      hover: defaultDisabledDefaultLinkTheme,
+    },
+    visited: {
+      default: defaultVisitedDefaultLinkTheme,
+      hover: mergeTheme<ILinkThemeBase>({
+        text: mergeTheme<ITextTheme>(textTheme, {
+          'color': darken(0.1, colors.brandPrimary),
+        }),
+      }),
+    },
+  });
+
   return {
     colors: colors,
     dimensions: dimensions,
@@ -195,6 +235,9 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     },
     inputWrappers: {
       default: defaultInputWrapperTheme,
+    },
+    links: {
+      default: defaultLinkTheme,
     },
   };
 };

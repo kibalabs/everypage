@@ -97,7 +97,6 @@ export const Stack = (props: IStackProps): React.ReactElement => {
   );
 };
 
-Stack.displayName = 'Stack';
 Stack.defaultProps = {
   className: '',
   direction: 'vertical',

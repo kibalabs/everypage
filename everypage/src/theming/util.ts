@@ -1,6 +1,6 @@
 import * as merge from 'deepmerge';
 
-export type CssTheme = Record<string, string>;
+export type CssTheme = Record<string, Readonly<string>>;
 
 export const themeToCss = (theme?: CssTheme): string => {
   if (!theme) {

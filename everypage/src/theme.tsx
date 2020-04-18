@@ -8,6 +8,7 @@ const colors: IColorGuide = {
   textOnDark: '#f5f5f5',
   background: '#f5f5f5',
   backgroundDark: '#151515',
+  disabled: '#333333',
 }
 
 export const dimensions: IDimensionGuide = {
@@ -36,3 +37,4 @@ export const dimensions: IDimensionGuide = {
 
 export const defaultTheme = buildTheme(colors, dimensions);
 export default defaultTheme;
+console.log(defaultTheme.links.default.normal.default.text.color);

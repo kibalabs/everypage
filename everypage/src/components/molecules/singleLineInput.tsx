@@ -90,7 +90,6 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
   );
 };
 
-SingleLineInput.displayName = 'SingleLineInput';
 SingleLineInput.defaultProps = {
   ...defaultMoleculeProps,
   isEnabled: true,

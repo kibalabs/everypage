@@ -1,5 +1,5 @@
 import { ThemeType } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme, ILoadingSpinnerTheme } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '../components';
 
 export interface IColorGuide extends ThemeType {
   brandPrimary: string,
@@ -7,6 +7,7 @@ export interface IColorGuide extends ThemeType {
   text: string,
   textOnBrand: string,
   textOnDark: string,
+  disabled: string,
   background: string,
   backgroundDark: string,
 }
@@ -53,6 +54,7 @@ export interface ITheme extends ThemeType {
   // Atoms
   buttons: ThemeMap<IButtonTheme>,
   inputWrappers: ThemeMap<IInputWrapperTheme>,
+  links: ThemeMap<ILinkTheme>,
 }
 
 

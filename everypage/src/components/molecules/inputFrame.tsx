@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
@@ -55,7 +55,6 @@ export const InputFrame = (props: IInputFrameProps): React.ReactElement => {
   );
 };
 
-InputFrame.displayName = 'InputFrame';
 InputFrame.defaultProps = {
   ...defaultMoleculeProps,
   iEnabled: true,
