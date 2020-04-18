@@ -18,7 +18,7 @@ export type RecursivePartial<T> = {
 };
 
 export type ThemeType = {
-  [key: string]: Readonly<string | number | ThemeType>;
+  [key: string]: Readonly<string | number | ThemeType | RecursivePartial<ThemeType>>;
 }
 
 export function mergeTheme<ThemeType>(baseTheme: ThemeType, themeValues?: RecursivePartial<ThemeType>, overrideTheme?: RecursivePartial<ThemeType>): ThemeType {

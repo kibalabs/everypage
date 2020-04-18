@@ -40,32 +40,32 @@ const StyledButton = styled.button<IStyledButtonProps>`
   justify-content: center;
   transition: 0.3s;
   &:hover {
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover.text)};
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover.background)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.background)};
   }
   &:active {
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press.text)};
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press.background)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press?.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.press?.background)};
   }
   &:focus {
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus.text)};
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus.background)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus?.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.focus?.background)};
   }
   &.disabled {
     cursor: not-allowed;
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default.text)};
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default.background)};
     &:hover {
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover.text)};
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover.background)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover?.text)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover?.background)};
     }
     &:active {
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press.text)};
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press.background)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press?.text)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.press?.background)};
     }
     &:focus {
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus.text)};
-      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus.background)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus?.text)};
+      ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.focus?.background)};
     }
   }
 `;

@@ -19,7 +19,7 @@ const EmailForm = styled.div`
 `;
 
 export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
-  const [email, setEmail] = React.useState<string>(null);
+  const [email, setEmail] = React.useState<string | null>(null);
 
   const onEmailSubmitClicked = (): void => {
     console.log('onEmailSubmitClicked');

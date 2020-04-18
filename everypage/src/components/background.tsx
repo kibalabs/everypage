@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ISingleAnyChildProps } from 'src/util';
+import { ISingleAnyChildProps } from '../util';
 
 
 export interface IBackgroundLayer {
