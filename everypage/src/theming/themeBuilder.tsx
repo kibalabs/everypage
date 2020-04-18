@@ -1,7 +1,7 @@
 import { lighten, darken } from 'polished';
 
 import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase } from '../components';
+import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme } from '../components';
 import { ITheme, IColorGuide, IDimensionGuide } from './theme';
 
 
@@ -48,24 +48,30 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
   const defaultImageTheme: IImageTheme = {
   }
 
+  const focusableBorderBox: Partial<IBoxTheme> = {
+    'border-color': 'transparent',
+    'border-width': '2px',
+    'border-style': 'solid',
+  }
+
+  const focusBorderBox: Partial<IBoxTheme> = {
+    'border-color': lighten(0.3, 'black'),
+    'border-width': '2px',
+    'border-style': 'solid',
+  }
+
   const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeBase>({
-    background: mergeTheme(defaultBoxTheme, {
+    background: mergeTheme(defaultBoxTheme, focusableBorderBox, {
       'background-color': colors.brandPrimary,
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
-      'border-radius': '3em',
+      'border-radius': '0.5em',
     }),
     text: mergeTheme(textTheme, {
       'color': colors.textOnBrand,
       'font-weight': '600',
     }),
   });
-
-  const focusBorderBox: Partial<IBoxTheme> = {
-    'outline-color': colors.brandPrimary,
-    'outline-offset': '0.1em',
-    'outline-width': '2px',
-    'outline-style': 'solid',
-  }
+  console.log('defaultNormalPrimaryButtonTheme', defaultNormalPrimaryButtonTheme);
 
   const primaryButtonTheme = mergeTheme<IButtonTheme>({
     normal: {
@@ -115,7 +121,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     background: mergeTheme(transparentBoxTheme, {
       'background-color': 'white',
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
-      'border-radius': '3em',
+      'border-radius': '0.5em',
       'border-width': dimensions.borderWidthNarrow,
       'border-color': darken(0.05, colors.background),
       'border-style': 'solid',
@@ -146,7 +152,19 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       hover: defaultNormalInputWrapperThemeBase,
       focus: defaultNormalInputWrapperThemeBase,
     },
-  }
+  };
+
+  const defaultLoadingSpinnerTheme: ILoadingSpinnerTheme = {
+    'color': colors.brandPrimary,
+  };
+
+  const lightLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>(defaultLoadingSpinnerTheme, {
+    'color': 'white',
+  });
+
+  const darkLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>(defaultLoadingSpinnerTheme, {
+    'color': 'black',
+  });
 
   return {
     colors: colors,
@@ -163,6 +181,11 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     },
     images: {
       default: defaultImageTheme,
+    },
+    loadingSpinners: {
+      default: defaultLoadingSpinnerTheme,
+      light: lightLoadingSpinnerTheme,
+      dark: darkLoadingSpinnerTheme,
     },
     buttons: {
       default: secondaryButtonTheme,

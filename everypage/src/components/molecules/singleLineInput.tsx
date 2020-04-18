@@ -19,8 +19,6 @@ const StyledSingleLineInput = styled.input`
   overflow: hidden;
   white-space: nowrap;
   box-shadow: none;
-  padding: 1px 0;
-  margin: 1px;
   &:hover {
     box-shadow: none;
   }

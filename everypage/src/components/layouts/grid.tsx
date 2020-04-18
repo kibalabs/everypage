@@ -96,7 +96,11 @@ const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: n
 
 const columnCountToCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string): string => (
   // NOTE(rikhil): we have to se the height, margin-left, margin-right all to 0 if the columnCount is 0. Find a better way to do this?
-  `@media (min-width: ${screenWidth}) { width: ${getCssSize(totalColumnCount, gutterSize, columnCount)}; ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px' : null}; }`
+  `@media (min-width: ${screenWidth}) {
+    width: ${getCssSize(totalColumnCount, gutterSize, columnCount)};
+    ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px' : null};
+    ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px; display: none;' : null};
+  }`
 );
 
 const columnCountsToCss = (totalColumnCount: number, gutterSize: string, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, columnCountNormal?: number, columnCountSmall?: number, columnCountMedium?: number, columnCountLarge?: number, columnCountExtraLarge?: number): string => {

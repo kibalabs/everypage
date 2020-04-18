@@ -6,9 +6,10 @@ const siteContent = {
         logoImageUrl: "https://kiwidocs.co/logo-color-white.svg",
         titleText: "Managed documentation for growing developer teams",
         subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
-        emailPlaceholderText: "Sign up to get updates and early access  👀",
-        emailButtonText: "Subscribe Now",
+        emailPlaceholderText: "Sign up for updates and early access  👀",
+        emailButtonText: "Subscribe",
         emailSubtitleText: "We're building in the open - you can follow along on [Indie Hackers](https://www.indiehackers.com/product/kiwidocs) 🚧.",
+        successfulSignupText: "You're signed up 🎉",
     }],
 };
 

@@ -23,5 +23,5 @@ export type ThemeType = {
 
 export function mergeTheme<ThemeType>(baseTheme: ThemeType, themeValues?: RecursivePartial<ThemeType>, overrideTheme?: RecursivePartial<ThemeType>): ThemeType {
   // @ts-ignore
-  return merge(baseTheme, themeValues || {}, overrideTheme || {});
+  return merge(merge(baseTheme, themeValues || {}), overrideTheme || {});
 }

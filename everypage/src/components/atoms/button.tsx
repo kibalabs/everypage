@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { themeToCss, ThemeType, useTheme, RecursivePartial } from '../../theming';
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '..';
+import { LoadingSpinner } from '../subatoms';
 
 
 export interface IButtonThemeBase extends ThemeType {
@@ -38,6 +39,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background-clip: padding-box;
   transition: 0.3s;
   &:hover {
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.text)};
@@ -71,16 +73,15 @@ const StyledButton = styled.button<IStyledButtonProps>`
 `;
 
 interface IButtonProps extends IComponentProps<IButtonTheme> {
-  // type: 'button' | 'reset' | 'submit';
+  buttonType: 'button' | 'reset' | 'submit';
   text: string;
   isEnabled: boolean;
   isLoading: boolean;
   isFullWidth: boolean;
   // rightIcon?: React.ComponentClass<IIconProps>;
   // leftIcon?: React.ComponentClass<IIconProps>;
-  // TODO(krish): this should be imported from the baseIcon instead
   // iconSize: 'default' | 'small' | 'large' | 'full';
-  onClicked(): void;
+  onClicked?(): void;
 }
 
 export const Button = (props: IButtonProps): React.ReactElement => {
@@ -88,8 +89,14 @@ export const Button = (props: IButtonProps): React.ReactElement => {
     if (props.isLoading) {
       return;
     }
-    props.onClicked();
+    if (props.onClicked) {
+      props.onClicked();
+    }
   };
+
+  if (props.onClicked && props.buttonType == 'submit') {
+    throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
+  }
 
   const theme = props.theme || useTheme('buttons', props.mode);
   return (
@@ -102,13 +109,15 @@ export const Button = (props: IButtonProps): React.ReactElement => {
       disabled={!props.isEnabled}
       isFullWidth={props.isFullWidth}
     >
-      { props.text }
+      { !props.isLoading && props.text }
+      { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} mode='light' size='small'/> }
     </StyledButton>
   );
 };
 
 Button.defaultProps = {
   ...defaultComponentProps,
+  buttonType: 'button',
   isLoading: false,
   isEnabled: true,
   isFullWidth: false,
