@@ -19,3 +19,4 @@ export const Attribution = (): React.ReactElement => {
     </Section>
   );
 };
+Attribution.displayName = 'attribution';

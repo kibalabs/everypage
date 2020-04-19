@@ -17,7 +17,7 @@ const App = (): React.ReactElement => {
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
   stackItems.push(
-    <Stack.Item key={siteContent.sections.length + 1}>
+    <Stack.Item key={siteContent.sections.length + 1} growthFactor={1}>
       <Attribution />
     </Stack.Item>
   );

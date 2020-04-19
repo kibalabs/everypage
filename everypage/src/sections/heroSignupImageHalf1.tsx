@@ -7,7 +7,7 @@ import { isValidEmail } from '../util';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IHeroSignup1Props extends ISectionProps {
+interface IHeroSignupImageHalf1Props extends ISectionProps {
   logoImageUrl?: string;
   titleText?: string;
   subtitleText?: string;
@@ -15,12 +15,18 @@ interface IHeroSignup1Props extends ISectionProps {
   inputButtonText?: string;
   inputSubtitleText?: string;
   inputSuccessMessageText?: string;
+  leftImageUrl?: string;
+  rightImageUrl?: string;
 }
 
-export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
+export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.ReactElement => {
   const [email, setEmail] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
+  if (props.leftImageUrl && props.rightImageUrl) {
+    throw new Error('Only one of {leftImageUrl, rightImageUrl} should be provided to hero-signup-image-half-1')
+  }
 
   const onFormSubmitted = (): void => {
     if (!isValidEmail(email)) {
@@ -136,4 +142,4 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
     </Section>
   );
 };
-HeroSignup1.displayName = 'hero-signup-1';
+HeroSignupImageHalf1.displayName = 'hero-signup-image-half-1';
