@@ -10,8 +10,8 @@ interface IStyledNavigationBarProps {
 }
 
 const StyledNavigationBar = styled.nav<IStyledNavigationBarProps>`
-  height: 50px;
-  padding: ${(props: IStyledNavigationBarProps): string => (`${props.dimensions.paddingNarrow} ${props.dimensions.padding}`)};
+  height: 4em;
+  padding: ${(props: IStyledNavigationBarProps): string => props.dimensions.padding};
 `;
 
 interface INavBar1Props extends ISectionProps {
