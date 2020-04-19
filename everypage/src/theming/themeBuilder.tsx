@@ -12,9 +12,10 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'font-weight': 'normal',
     'color': colors.text,
     'line-height': '1.6em',
+    'text-decoration': 'none',
   };
 
-  const darkTextTheme = mergeTheme(textTheme, {
+  const inverseTextTheme = mergeTheme(textTheme, {
     'color': colors.textOnDark,
   });
 
@@ -71,7 +72,6 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       'font-weight': '600',
     }),
   });
-  console.log('defaultNormalPrimaryButtonTheme', defaultNormalPrimaryButtonTheme);
 
   const primaryButtonTheme = mergeTheme<IButtonTheme>({
     normal: {
@@ -169,28 +169,29 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
   const defaultNormalDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
     text: mergeTheme<ITextTheme>(textTheme, {
       'color': colors.brandPrimary,
+      'text-decoration': 'underline',
     }),
   });
-  const defaultDisabledDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
-    text: mergeTheme<ITextTheme>(textTheme, {
+  const defaultDisabledDefaultLinkTheme = mergeTheme(defaultNormalDefaultLinkTheme, {
+    text: {
       'color': colors.disabled,
-    }),
+    },
   });
 
-  const defaultVisitedDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
-    text: mergeTheme<ITextTheme>(textTheme, {
-      'color': darken(0.1, colors.brandPrimary),
-    }),
+  const defaultVisitedDefaultLinkTheme = mergeTheme(defaultNormalDefaultLinkTheme, {
+    text: {
+      'color': darken(0.2, colors.brandPrimary),
+    },
   });
 
   const defaultLinkTheme = mergeTheme<ILinkTheme>({
     normal: {
       default: defaultNormalDefaultLinkTheme,
-      hover: mergeTheme<ILinkThemeBase>({
-        text: mergeTheme<ITextTheme>(textTheme, {
-          'color': darken(0.2, colors.brandPrimary),
-        }),
-      }),
+      hover: {
+        text: {
+          'color': colors.brandSecondary,
+        },
+      },
     },
     disabled: {
       default: defaultDisabledDefaultLinkTheme,
@@ -198,11 +199,21 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     },
     visited: {
       default: defaultVisitedDefaultLinkTheme,
-      hover: mergeTheme<ILinkThemeBase>({
-        text: mergeTheme<ITextTheme>(textTheme, {
-          'color': darken(0.1, colors.brandPrimary),
-        }),
-      }),
+      hover: {
+        text: {
+          'color': colors.brandSecondary,
+        },
+      },
+    },
+  });
+
+  const inverseLinkTheme = mergeTheme<ILinkTheme>(defaultLinkTheme, {
+    normal: {
+      default: {
+        text: {
+          'color': 'white',
+        }
+      }
     },
   });
 
@@ -216,7 +227,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     texts: {
       default: textTheme,
       text: textTheme,
-      dark: darkTextTheme,
+      inverse: inverseTextTheme,
       header: headerTextTheme,
     },
     images: {
@@ -238,6 +249,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     },
     links: {
       default: defaultLinkTheme,
+      inverse: inverseLinkTheme,
     },
   };
 };

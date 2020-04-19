@@ -28,9 +28,12 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   }
 
   a {
-    color: ${(props: IGlobalCssProps): string => props.theme.links.default.normal.default.text.color};
+    ${(props: IGlobalCssProps): string => themeToCss(props.theme.links.default.normal.default.text)};
     :hover {
-      color: ${(props: IGlobalCssProps): string => props.theme.links.default.normal.hover.text.color};
+      ${(props: IGlobalCssProps): string => themeToCss(props.theme.links.default.normal.hover.text)};
+    }
+    :visited {
+      ${(props: IGlobalCssProps): string => themeToCss(props.theme.links.default.visited.default.text)};
     }
   }
 

@@ -12,6 +12,7 @@ export interface ITextTheme extends CssTheme {
   'font-weight': string;
   'color': string;
   'line-height': string;
+  'text-decoration': string;
 }
 
 

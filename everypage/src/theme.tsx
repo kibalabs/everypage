@@ -37,4 +37,3 @@ export const dimensions: IDimensionGuide = {
 
 export const defaultTheme = buildTheme(colors, dimensions);
 export default defaultTheme;
-console.log(defaultTheme.links.default.normal.default.text.color);
