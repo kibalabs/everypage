@@ -8,7 +8,7 @@ import { useTheme, IColorGuide } from '../theming';
 export const Attribution = (): React.ReactElement => {
   const theme = useTheme<IColorGuide>('colors');
   return (
-    <Section background={{solidColor: theme.backgroundDark}}>
+    <Section background={{color: theme.backgroundDark}}>
       <Stack contentAlignment='center' shouldShowGutters={true}>
         <Spacing mode='extra-narrow'/>
         <Text alignment={TextAlignment.Center} mode='inverse'>

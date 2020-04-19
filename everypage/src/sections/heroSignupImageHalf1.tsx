@@ -51,48 +51,67 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
       className={props.className}
       background={props.background}
     >
-      <Grid>
-        { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-        { props.leftImageUrl && (
-          <Grid.Item size={0} sizeMedium={4}>
-            <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
-          </Grid.Item>
-        )}
-        <Grid.Item size={1}><div /></Grid.Item>
-        <Grid.Item size={10} sizeMedium={5}>
-          <Stack
-            direction={Direction.Vertical}
-          >
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
-            { props.logoImageUrl && (
-              <React.Fragment>
-                <Grid>
-                  <Grid.Item size={1}><div /></Grid.Item>
-                  <Grid.Item size={10}>
-                    <Image source={props.logoImageUrl} alternativeText='logo' />
-                  </Grid.Item>
-                </Grid>
-                <Spacing mode={SpacingSize.ExtraWide} />
-              </React.Fragment>
-            )}
-            <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-            <Spacing mode={SpacingSize.Wide} />
-            <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
-            <Spacing mode={SpacingSize.Wide} />
-            <Form onFormSubmitted={onFormSubmitted}>
-              <Stack
-                id='form-inner'
-                direction={Direction.Vertical}
-                contentAlignment='fill'
-              >
-                <Grid>
-                  <Grid.Item id='form-inner-inner-horizontal' size={0} sizeMedium={12}>
-                    <Stack
-                      direction={Direction.Horizontal}
-                      contentAlignment='start'
-                    >
-                      <Stack.Item
-                        growthFactor={1}
+      <Stack direction={Direction.Vertical}>
+        <Spacing mode={SpacingSize.ExtraExtraWide}/>
+        <Grid>
+          { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.leftImageUrl && (
+            <Grid.Item size={0} sizeMedium={4}>
+              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+            </Grid.Item>
+          )}
+          <Grid.Item size={1}><div /></Grid.Item>
+          <Grid.Item size={10} sizeMedium={5}>
+            <Stack direction={Direction.Vertical}>
+              { props.logoImageUrl && (
+                <React.Fragment>
+                  <Grid>
+                    <Grid.Item size={1}><div /></Grid.Item>
+                    <Grid.Item size={10}>
+                      <Image source={props.logoImageUrl} alternativeText='logo' />
+                    </Grid.Item>
+                  </Grid>
+                  <Spacing mode={SpacingSize.ExtraWide} />
+                </React.Fragment>
+              )}
+              <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
+              <Spacing mode={SpacingSize.Wide} />
+              <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
+              <Spacing mode={SpacingSize.Wide} />
+              <Form onFormSubmitted={onFormSubmitted}>
+                <Stack
+                  id='form-inner'
+                  direction={Direction.Vertical}
+                  contentAlignment='fill'
+                >
+                  <Grid>
+                    <Grid.Item id='form-inner-inner-horizontal' size={0} sizeMedium={12}>
+                      <Stack
+                        direction={Direction.Horizontal}
+                        contentAlignment='start'
+                      >
+                        <Stack.Item growthFactor={1}>
+                          <SingleLineInput
+                            inputType={props.inputType}
+                            placeholderText={props.inputPlaceholderText}
+                            value={email}
+                            onValueChanged={setEmail}
+                            errorText={errorMessage}
+                          />
+                        </Stack.Item>
+                        <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
+                        <Button
+                          mode='primary'
+                          buttonType='submit'
+                          text={props.inputButtonText}
+                          isLoading={isLoading}
+                        />
+                      </Stack>
+                    </Grid.Item>
+                    <Grid.Item id='form-inner-inner-vertical' size={12} sizeMedium={0}>
+                      <Stack
+                        direction={Direction.Vertical}
+                        contentAlignment='fill'
                       >
                         <SingleLineInput
                           inputType={props.inputType}
@@ -101,62 +120,42 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                           onValueChanged={setEmail}
                           errorText={errorMessage}
                         />
-                      </Stack.Item>
-                      <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        text={props.inputButtonText}
-                        isLoading={isLoading}
-                      />
-                    </Stack>
-                  </Grid.Item>
-                  <Grid.Item id='form-inner-inner-vertical' size={12} sizeMedium={0}>
-                    <Stack
-                      direction={Direction.Vertical}
-                      contentAlignment='fill'
-                    >
-                      <SingleLineInput
-                        inputType={props.inputType}
-                        placeholderText={props.inputPlaceholderText}
-                        value={email}
-                        onValueChanged={setEmail}
-                        errorText={errorMessage}
-                      />
-                      <Spacing direction={Direction.Vertical} mode={SpacingSize.Narrow}/>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        isFullWidth={true}
-                        text={props.inputButtonText}
-                      />
-                    </Stack>
-                  </Grid.Item>
-                </Grid>
-              </Stack>
-            </Form>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
-          </Stack>
-        </Grid.Item>
-        <Grid.Item size={1}><div /></Grid.Item>
-        { props.rightImageUrl && (
-          <Grid.Item size={0} sizeMedium={4}>
-            <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+                        <Spacing direction={Direction.Vertical} mode={SpacingSize.Narrow}/>
+                        <Button
+                          mode='primary'
+                          buttonType='submit'
+                          isFullWidth={true}
+                          text={props.inputButtonText}
+                        />
+                      </Stack>
+                    </Grid.Item>
+                  </Grid>
+                </Stack>
+              </Form>
+              <Spacing mode={SpacingSize.ExtraWide}/>
+            </Stack>
           </Grid.Item>
-        )}
-        { props.rightImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-        <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
-        { props.leftImageUrl && (
-          <Grid.Item size={8} sizeMedium={0}>
-            <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
-          </Grid.Item>
-        )}
-        { props.rightImageUrl && (
-          <Grid.Item size={8} sizeMedium={4}>
-            <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
-          </Grid.Item>
-        )}
-      </Grid>
+          <Grid.Item size={1}><div /></Grid.Item>
+          { props.rightImageUrl && (
+            <Grid.Item size={0} sizeMedium={4}>
+              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+            </Grid.Item>
+          )}
+          { props.rightImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
+          { props.leftImageUrl && (
+            <Grid.Item size={8} sizeMedium={0}>
+              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+            </Grid.Item>
+          )}
+          { props.rightImageUrl && (
+            <Grid.Item size={8} sizeMedium={0}>
+              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+            </Grid.Item>
+          )}
+        </Grid>
+        <Spacing mode={SpacingSize.ExtraWide}/>
+      </Stack>
     </Section>
   );
 };

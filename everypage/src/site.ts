@@ -19,25 +19,13 @@ const siteContent = {
             logoImageUrl: null,
             titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
             subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
-            inputType: "email",
+            inputType: "text",
             inputPlaceholderText: "Enter a url to see the magic",
             inputButtonText: "GO",
             inputSuccessMessageText: null,
             rightImageUrl: null,
             leftImageUrl: "https://cdn.versoly.com/img/website_setup.svg",
         },
-        {
-            type: "hero-signup-image-half-1",
-            logoImageUrl: null,
-            titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
-            subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
-            inputType: "email",
-            inputPlaceholderText: "Enter a url to see the magic",
-            inputButtonText: "GO",
-            inputSuccessMessageText: null,
-            leftImageUrl: null,
-            rightImageUrl: "https://cdn.versoly.com/img/website_setup.svg",
-        }
     ],
 };
 

@@ -5,7 +5,7 @@ import { ISingleAnyChildProps } from '../util';
 
 
 export interface IBackgroundLayer {
-  solidColor?: string;
+  color?: string;
   linearGradient?: string;
   radialGradient?: string;
   image?: string;
@@ -25,8 +25,8 @@ export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProp
 
 const getBackgroundCss = (backgroundLayer: IBackgroundLayer): string => {
   let output = '';
-  if (backgroundLayer.solidColor) {
-    output += `background-color: ${backgroundLayer.solidColor};`;
+  if (backgroundLayer.color) {
+    output += `background-color: ${backgroundLayer.color};`;
   }
   if (backgroundLayer.linearGradient) {
     output += `background-image: linear-gradient(${backgroundLayer.linearGradient});`;
@@ -49,9 +49,9 @@ const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
 
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
-  if (props.solidColor || props.linearGradient || props.radialGradient || props.image || props.pattern) {
+  if (props.color || props.linearGradient || props.radialGradient || props.image || props.pattern) {
     layers.splice(0, 0, {
-      solidColor: props.solidColor,
+      color: props.color,
       linearGradient: props.linearGradient,
       radialGradient: props.radialGradient,
       image: props.image,
