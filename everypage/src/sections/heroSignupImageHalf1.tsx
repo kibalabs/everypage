@@ -13,7 +13,6 @@ interface IHeroSignupImageHalf1Props extends ISectionProps {
   subtitleText?: string;
   inputPlaceholderText?: string;
   inputButtonText?: string;
-  inputSubtitleText?: string;
   inputSuccessMessageText?: string;
   leftImageUrl?: string;
   rightImageUrl?: string;
@@ -52,8 +51,8 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
       background={props.background}
     >
       <Grid>
-        <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
-        <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
+        <Grid.Item size={1}><div /></Grid.Item>
+        <Grid.Item size={5}>
           <Stack
             direction={Direction.Vertical}
           >
@@ -127,12 +126,6 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                     </Stack>
                   </Grid.Item>
                 </Grid>
-                {props.inputSubtitleText && (
-                  <React.Fragment>
-                    <Spacing mode={SpacingSize.Wide} />
-                    <MarkdownText text={props.inputSubtitleText} />
-                  </React.Fragment>
-                )}
               </Stack>
             </Form>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>

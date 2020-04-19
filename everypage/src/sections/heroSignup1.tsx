@@ -13,7 +13,6 @@ interface IHeroSignup1Props extends ISectionProps {
   subtitleText?: string;
   inputPlaceholderText?: string;
   inputButtonText?: string;
-  inputSubtitleText?: string;
   inputSuccessMessageText?: string;
 }
 
@@ -121,12 +120,6 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     </Stack>
                   </Grid.Item>
                 </Grid>
-                {props.inputSubtitleText && (
-                  <React.Fragment>
-                    <Spacing mode={SpacingSize.Wide} />
-                    <MarkdownText text={props.inputSubtitleText} />
-                  </React.Fragment>
-                )}
               </Stack>
             </Form>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>

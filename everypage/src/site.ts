@@ -21,7 +21,6 @@ const siteContent = {
             inputType: "email",
             inputPlaceholderText: "Sign up for updates and early access  👀",
             inputButtonText: "Subscribe",
-            inputSubtitleText: "We're building in the open - you can follow along on [Indie Hackers](https://www.indiehackers.com/product/kiwidocs) 🚧.",
             inputSuccessMessageText: null,
             leftImageUrl: null,
             rightImageUrl: "https://cdn.versoly.com/img/website_setup.svg",
