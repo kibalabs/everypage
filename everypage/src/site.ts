@@ -15,6 +15,10 @@ const siteContent = {
         //     inputSuccessMessageText: "You're signed up 🎉"
         // },
         {
+            type: "navbar-1",
+            logoImageUrl: "/assets/everysize-wordmark.svg",
+        },
+        {
             type: "hero-signup-image-half-1",
             logoImageUrl: null,
             titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",

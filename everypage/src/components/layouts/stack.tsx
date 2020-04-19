@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { castChildren } from '@carbonnv/speck';
 
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
-// import { useTheme, IDimensionsGuide } from '../themes';
+import { useTheme, IDimensionGuide } from '../../theming';
 
 
 export interface IStackItemProps extends ISingleAnyChildProps {
@@ -22,7 +21,7 @@ class StackItem extends React.Component<IStackItemProps> {
     growthFactor: 0,
     shrinkFactor: 0,
     // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
-    baseSize: '0',
+    baseSize: 'auto',
     shouldAllowScrolling: false,
   };
 }
@@ -60,20 +59,18 @@ const StyledStack = styled.div<IStyledStackProps>`
 interface IStackProps extends IMultiAnyChildProps {
   id?: string;
   className: string;
-  // theme?: IDimensionsGuide;
+  theme?: IDimensionGuide;
   direction: 'horizontal' | 'vertical';
   contentAlignment: 'start' | 'end' | 'fill' | 'center';
   shouldShowGutters: boolean;
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
-  // const theme = props.theme || useTheme<IDimensionsGuide>('dimensions');
-  const children = React.Children.map(props.children, (child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => {
-    if (!child) {
-      return <React.Fragment />;
-    }
-    return child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child;
-  });
+  const dimensions = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const realChildren = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null && child !== undefined);
+  const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
+    child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child
+  ));
   return (
     <StyledStack
       id={props.id}
@@ -90,7 +87,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           shrinkFactor={child.props.shrinkFactor}
           baseSize={child.props.baseSize}
           shouldAllowScrolling={child.props.shouldAllowScrolling}
-          gutterSize={props.shouldShowGutters ? /* theme.gutterSize */ '10px' : '0'}
+          gutterSize={props.shouldShowGutters ? dimensions.gutterSize : '0'}
           direction={props.direction}
         >
           {child.props.children}

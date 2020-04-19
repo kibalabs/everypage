@@ -13,6 +13,7 @@ export enum SpacingSize {
   Wide = 'wide',
   ExtraWide = 'extra-wide',
   ExtraExtraWide = 'extra-extra-wide',
+  ExtraExtraExtraWide = 'extra-extra-extra-wide',
 }
 
 
@@ -35,6 +36,9 @@ const getSize = (size: SpacingSize, theme: IDimensionGuide): string => {
     }
     case SpacingSize.ExtraExtraWide: {
       return theme.paddingExtraExtraWide;
+    }
+    case SpacingSize.ExtraExtraExtraWide: {
+      return theme.paddingExtraExtraExtraWide;
     }
     default: {
       return '0';

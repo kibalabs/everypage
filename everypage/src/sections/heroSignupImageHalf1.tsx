@@ -52,7 +52,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
       background={props.background}
     >
       <Stack direction={Direction.Vertical}>
-        <Spacing mode={SpacingSize.ExtraExtraWide}/>
+        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid>
           { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           { props.leftImageUrl && (
@@ -71,13 +71,13 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                       <Image source={props.logoImageUrl} alternativeText='logo' />
                     </Grid.Item>
                   </Grid>
-                  <Spacing mode={SpacingSize.ExtraWide} />
+                  <Spacing mode={SpacingSize.ExtraExtraWide} />
                 </React.Fragment>
               )}
               <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-              <Spacing mode={SpacingSize.Wide} />
+              <Spacing mode={SpacingSize.ExtraWide} />
               <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
-              <Spacing mode={SpacingSize.Wide} />
+              <Spacing mode={SpacingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
                 <Stack
                   id='form-inner'
@@ -99,7 +99,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                             errorText={errorMessage}
                           />
                         </Stack.Item>
-                        <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
+                        <Spacing direction={Direction.Horizontal} mode={SpacingSize.Default}/>
                         <Button
                           mode='primary'
                           buttonType='submit'
@@ -120,7 +120,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                           onValueChanged={setEmail}
                           errorText={errorMessage}
                         />
-                        <Spacing direction={Direction.Vertical} mode={SpacingSize.Narrow}/>
+                        <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
                         <Button
                           mode='primary'
                           buttonType='submit'
@@ -132,7 +132,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                   </Grid>
                 </Stack>
               </Form>
-              <Spacing mode={SpacingSize.ExtraWide}/>
+              <Spacing mode={SpacingSize.ExtraExtraWide}/>
             </Stack>
           </Grid.Item>
           <Grid.Item size={1}><div /></Grid.Item>
@@ -154,7 +154,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={SpacingSize.ExtraWide}/>
+        <Spacing mode={SpacingSize.ExtraExtraWide}/>
       </Stack>
     </Section>
   );

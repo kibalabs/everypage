@@ -51,7 +51,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
           <Stack
             direction={Direction.Vertical}
           >
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
             { props.logoImageUrl && (
               <React.Fragment>
                 <Grid>
@@ -60,13 +60,13 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Image source={props.logoImageUrl} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing mode={SpacingSize.ExtraWide} />
+                <Spacing mode={SpacingSize.ExtraExtraWide} />
               </React.Fragment>
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            <Spacing mode={SpacingSize.Wide} />
+            <Spacing mode={SpacingSize.ExtraWide} />
             <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
-            <Spacing mode={SpacingSize.Wide} />
+            <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Stack
                 id='form-inner'
@@ -111,7 +111,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                         onValueChanged={setEmail}
                         errorText={errorMessage}
                       />
-                      <Spacing direction={Direction.Vertical} mode={SpacingSize.Narrow}/>
+                      <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
                       <Button
                         mode='primary'
                         buttonType='submit'
@@ -123,7 +123,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 </Grid>
               </Stack>
             </Form>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>
