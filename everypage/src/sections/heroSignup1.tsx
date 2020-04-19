@@ -65,7 +65,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
             <Spacing mode={SpacingSize.ExtraWide} />
-            <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
+            {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Stack

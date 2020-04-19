@@ -76,7 +76,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
               )}
               <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
               <Spacing mode={SpacingSize.ExtraWide} />
-              <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
+              {props.subtitleText && <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
                 <Stack

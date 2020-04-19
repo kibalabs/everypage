@@ -22,7 +22,7 @@ const siteContent = {
             type: "hero-signup-image-half-1",
             logoImageUrl: null,
             titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
-            subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
+            subtitleText: null,
             inputType: "text",
             inputPlaceholderText: "Enter a url to see the magic",
             inputButtonText: "GO",
