@@ -32,6 +32,9 @@ const siteContent = {
         },
         {
             type: "feature-image-half-1",
+            background: {
+                color: "white",
+            },
             titleText: "Some awesome feature!",
             subtitleText: "This is why this feature is important!",
             leftImageUrl: null,
@@ -46,11 +49,23 @@ const siteContent = {
         },
         {
             type: "feature-image-half-1",
+            background: {
+                color: "white",
+            },
             titleText: "Some awesome feature!",
             subtitleText: "This is why this feature is important!",
             leftImageUrl: null,
             rightImageUrl: "/assets/feature3.svg",
         },
+        {
+            type: "signup-1",
+            titleText: "Enter a url to see the magic",
+            subtitleText: null,
+            inputType: "text",
+            inputPlaceholderText: "https://yourawesomesite.com",
+            inputButtonText: "GO",
+            inputSuccessMessageText: null,
+        }
     ],
 };
 

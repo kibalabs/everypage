@@ -23,7 +23,13 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'font-size': '2.5em',
     'font-weight': '700',
     'color': '#171717',
-    'line-height': '1.2em',
+    'line-height': '1.3em',
+  });
+
+  const titleTextTheme = mergeTheme(textTheme, {
+    'font-size': '2em',
+    'font-weight': 'bold',
+    'color': '#171717',
   });
 
   const transparentBoxTheme: IBoxTheme = {
@@ -229,6 +235,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       text: textTheme,
       inverse: inverseTextTheme,
       header: headerTextTheme,
+      title: titleTextTheme,
     },
     images: {
       default: defaultImageTheme,

@@ -35,10 +35,10 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
           <Grid.Item size={1}><div /></Grid.Item>
           <Grid.Item size={10} sizeMedium={5}>
             <Stack direction={Direction.Vertical}>
-              <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-              <Spacing mode={SpacingSize.ExtraWide} />
+              <MarkdownText mode='title' alignment={TextAlignment.Left} text={props.titleText}/>
+              <Spacing mode={SpacingSize.Wide} />
               <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
-              <Spacing mode={SpacingSize.ExtraExtraWide}/>
+              <Spacing mode={SpacingSize.Wide}/>
             </Stack>
           </Grid.Item>
           <Grid.Item size={1}><div /></Grid.Item>
