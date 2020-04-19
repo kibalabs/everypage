@@ -24,7 +24,7 @@ const siteContent = {
             inputButtonText: "GO",
             inputSuccessMessageText: null,
             rightImageUrl: null,
-            leftImageUrl: "https://cdn.versoly.com/img/website_setup.svg",
+            leftImageUrl: "/assets/website_setup.svg",
         },
     ],
 };
