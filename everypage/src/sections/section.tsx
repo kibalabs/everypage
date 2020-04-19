@@ -28,6 +28,7 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => (
   </Background>
 );
 
+Section.displayName = 'section';
 Section.defaultProps = {
   className: '',
 };

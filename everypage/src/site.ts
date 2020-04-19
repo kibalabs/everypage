@@ -1,5 +1,6 @@
 const siteContent = {
-    title: "Kiwi - Managed documentation for growing developer teams",
+    name: "everysize",
+    title: "everysize - Check your responsive webpage looks great in every size 🖥 💻 📱",
     description: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
     sections: [
         // {
@@ -15,12 +16,24 @@ const siteContent = {
         // },
         {
             type: "hero-signup-image-half-1",
-            logoImageUrl: "https://kiwidocs.co/logo-color-white.svg",
-            titleText: "Managed documentation for growing developer teams",
+            logoImageUrl: null,
+            titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
             subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
             inputType: "email",
-            inputPlaceholderText: "Sign up for updates and early access  👀",
-            inputButtonText: "Subscribe",
+            inputPlaceholderText: "Enter a url to see the magic",
+            inputButtonText: "GO",
+            inputSuccessMessageText: null,
+            rightImageUrl: null,
+            leftImageUrl: "https://cdn.versoly.com/img/website_setup.svg",
+        },
+        {
+            type: "hero-signup-image-half-1",
+            logoImageUrl: null,
+            titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
+            subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
+            inputType: "email",
+            inputPlaceholderText: "Enter a url to see the magic",
+            inputButtonText: "GO",
             inputSuccessMessageText: null,
             leftImageUrl: null,
             rightImageUrl: "https://cdn.versoly.com/img/website_setup.svg",

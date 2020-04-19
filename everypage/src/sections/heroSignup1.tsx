@@ -2,7 +2,7 @@ import React from 'react';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction } from '../components';
+import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '../components';
 import { isValidEmail } from '../util';
 
 
@@ -12,6 +12,7 @@ interface IHeroSignup1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   inputPlaceholderText?: string;
+  inputType?: InputType;
   inputButtonText?: string;
   inputSuccessMessageText?: string;
 }
@@ -82,7 +83,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                         growthFactor={1}
                       >
                         <SingleLineInput
-                          inputType='email'
+                          inputType={props.inputType}
                           placeholderText={props.inputPlaceholderText}
                           value={email}
                           onValueChanged={setEmail}
@@ -104,7 +105,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                       contentAlignment='fill'
                     >
                       <SingleLineInput
-                        inputType='email'
+                        inputType={props.inputType}
                         placeholderText={props.inputPlaceholderText}
                         value={email}
                         onValueChanged={setEmail}

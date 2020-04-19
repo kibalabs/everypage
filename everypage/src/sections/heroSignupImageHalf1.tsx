@@ -2,7 +2,7 @@ import React from 'react';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction } from '../components';
+import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '../components';
 import { isValidEmail } from '../util';
 
 
@@ -14,6 +14,7 @@ interface IHeroSignupImageHalf1Props extends ISectionProps {
   inputPlaceholderText?: string;
   inputButtonText?: string;
   inputSuccessMessageText?: string;
+  inputType?: InputType;
   leftImageUrl?: string;
   rightImageUrl?: string;
 }
@@ -51,8 +52,14 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
       background={props.background}
     >
       <Grid>
+        { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+        { props.leftImageUrl && (
+          <Grid.Item size={0} sizeMedium={4}>
+            <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+          </Grid.Item>
+        )}
         <Grid.Item size={1}><div /></Grid.Item>
-        <Grid.Item size={5}>
+        <Grid.Item size={10} sizeMedium={5}>
           <Stack
             direction={Direction.Vertical}
           >
@@ -68,9 +75,9 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                 <Spacing mode={SpacingSize.ExtraWide} />
               </React.Fragment>
             )}
-            <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
+            <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
             <Spacing mode={SpacingSize.Wide} />
-            <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>
+            <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
             <Spacing mode={SpacingSize.Wide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Stack
@@ -88,7 +95,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                         growthFactor={1}
                       >
                         <SingleLineInput
-                          inputType='email'
+                          inputType={props.inputType}
                           placeholderText={props.inputPlaceholderText}
                           value={email}
                           onValueChanged={setEmail}
@@ -110,7 +117,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                       contentAlignment='fill'
                     >
                       <SingleLineInput
-                        inputType='email'
+                        inputType={props.inputType}
                         placeholderText={props.inputPlaceholderText}
                         value={email}
                         onValueChanged={setEmail}
@@ -131,6 +138,24 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
             <Spacing mode={SpacingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
+        <Grid.Item size={1}><div /></Grid.Item>
+        { props.rightImageUrl && (
+          <Grid.Item size={0} sizeMedium={4}>
+            <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+          </Grid.Item>
+        )}
+        { props.rightImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+        <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
+        { props.leftImageUrl && (
+          <Grid.Item size={8} sizeMedium={0}>
+            <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+          </Grid.Item>
+        )}
+        { props.rightImageUrl && (
+          <Grid.Item size={8} sizeMedium={4}>
+            <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+          </Grid.Item>
+        )}
       </Grid>
     </Section>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
-import { InputFrame, IInputFrameTheme } from './inputFrame';
+import { IMoleculeProps, defaultMoleculeProps, InputFrame, IInputFrameTheme } from '.';
+import { InputType } from '..';
 
 
 export interface ISingleLineInputTheme {
@@ -35,7 +35,7 @@ export interface ISingleLineInputProps extends IMoleculeProps<ISingleLineInputTh
   isEnabled: boolean;
   placeholderText?: string;
   errorText?: string;
-  inputType: 'text' | 'password' | 'email';
+  inputType: InputType;
   onKeyUp?(key: string): void;
   onKeyDown?(key: string): void;
   onClick?(): void;
@@ -93,5 +93,5 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
 SingleLineInput.defaultProps = {
   ...defaultMoleculeProps,
   isEnabled: true,
-  inputType: 'text',
+  inputType: InputType.Text,
 };

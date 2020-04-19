@@ -69,6 +69,9 @@ interface IStackProps extends IMultiAnyChildProps {
 export const Stack = (props: IStackProps): React.ReactElement => {
   // const theme = props.theme || useTheme<IDimensionsGuide>('dimensions');
   const children = React.Children.map(props.children, (child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => {
+    if (!child) {
+      return <React.Fragment />;
+    }
     return child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child;
   });
   return (

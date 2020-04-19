@@ -58,25 +58,27 @@ export const Grid = (props: IGridProps): React.ReactElement => {
       isFullHeight={props.isFullHeight}
     >
       { React.Children.map(props.children, (child: React.ReactElement<IGridItemProps>, index: number): React.ReactElement => (
-        <StyledGridItem
-          key={index}
-          id={child.props.id}
-          className={`grid-item ${child.props.className}`}
-          size={child.props.size}
-          sizeSmall={child.props.sizeSmall}
-          sizeMedium={child.props.sizeMedium}
-          sizeLarge={child.props.sizeLarge}
-          sizeExtraLarge={child.props.sizeExtraLarge}
-          screenWidthSmall={'576px' /*theme.screenWidthSmall*/}
-          screenWidthMedium={'768px' /*theme.screenWidthMedium*/}
-          screenWidthLarge={'992px' /*theme.screenWidthLarge*/}
-          screenWidthExtraLarge={'1200px' /*theme.screenWidthExtraLarge*/}
-          isFullHeight={child.props.isFullHeight}
-          totalColumnCount={12 /*theme.columnCount*/}
-          gutterSize={props.shouldShowGutters ? /*theme.gutterSize*/'10px' : '0px'}
-        >
-          {child.props.children}
-        </StyledGridItem>
+        (!child) ? <React.Fragment /> : (
+          <StyledGridItem
+            key={index}
+            id={child.props.id}
+            className={`grid-item ${child.props.className}`}
+            size={child.props.size}
+            sizeSmall={child.props.sizeSmall}
+            sizeMedium={child.props.sizeMedium}
+            sizeLarge={child.props.sizeLarge}
+            sizeExtraLarge={child.props.sizeExtraLarge}
+            screenWidthSmall={'576px' /*theme.screenWidthSmall*/}
+            screenWidthMedium={'768px' /*theme.screenWidthMedium*/}
+            screenWidthLarge={'992px' /*theme.screenWidthLarge*/}
+            screenWidthExtraLarge={'1200px' /*theme.screenWidthExtraLarge*/}
+            isFullHeight={child.props.isFullHeight}
+            totalColumnCount={12 /*theme.columnCount*/}
+            gutterSize={props.shouldShowGutters ? /*theme.gutterSize*/'10px' : '0px'}
+          >
+            {child.props.children}
+          </StyledGridItem>
+        )
       ))}
     </StyledGrid>
   );

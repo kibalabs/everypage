@@ -1,8 +1,10 @@
 import { IColorGuide, IDimensionGuide, buildTheme } from './theming';
 
 const colors: IColorGuide = {
-  brandPrimary: '#1C8F51',
-  brandSecondary: '#1A6F6F',
+  // brandPrimary: '#1C8F51',
+  // brandSecondary: '#1A6F6F',
+  brandPrimary: '#5C258D',
+  brandSecondary: '#4389A2',
   text: '#333',
   textOnBrand: '#f5f5f5',
   textOnDark: '#f5f5f5',

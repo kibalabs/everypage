@@ -17,3 +17,4 @@ export const NavBar1 = (): React.ReactElement => (
     </StyledNav>
   </Section>
 );
+NavBar1.displayName = 'navbar-1';
