@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Direction, Alignment } from '..';
+import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment } from '..';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
 import { useTheme, IDimensionGuide } from '../../theming';
-
-// See https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-alignment--cms-30183
-// to learn about alignment
 
 export interface IStackItemProps extends ISingleAnyChildProps {
   id?: string;
@@ -30,32 +27,6 @@ class StackItem extends React.Component<IStackItemProps> {
   };
 }
 
-const getFlexItemAlignment = (childAlignment: string): string => {
-  if (childAlignment === Alignment.Start) {
-    return 'flex-start';
-  }
-  if (childAlignment === Alignment.End) {
-    return 'flex-end';
-  }
-  if (childAlignment === Alignment.Center) {
-    return 'center';
-  }
-  return 'stretch';
-};
-
-const getFlexContentAlignment = (childAlignment: string): string => {
-  if (childAlignment === Alignment.Start) {
-    return 'flex-start';
-  }
-  if (childAlignment === Alignment.End) {
-    return 'flex-end';
-  }
-  if (childAlignment === Alignment.Center) {
-    return 'center';
-  }
-  return 'space-between';
-};
-
 interface IStyledStackProps {
   direction: string;
   childAlignment: Alignment;
@@ -71,8 +42,8 @@ const StyledStack = styled.div<IStyledStackProps>`
   flex-direction: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
   overflow-x: ${(props: IStyledStackProps): string => (props.direction === Direction.Horizontal ? 'auto' : 'visible')};
   overflow-y: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'auto' : 'visible')};
+  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
   align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
-  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.childAlignment)};
 `;
 
 interface IStackProps extends IMultiAnyChildProps {
@@ -114,6 +85,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           shouldAllowScrolling={child.props.shouldAllowScrolling}
           gutterSize={props.shouldShowGutters ? dimensions.gutterSize : '0'}
           direction={props.direction}
+          alignment={child.props.alignment}
         >
           {child.props.children}
         </StyledStackItem>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '../components';
+import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -25,7 +25,7 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
     >
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
-        <Grid>
+        <Grid childAlignment={Alignment.Center}>
           { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           { props.leftImageUrl && (
             <Grid.Item size={0} sizeMedium={4}>
@@ -60,7 +60,7 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={SpacingSize.ExtraExtraWide}/>
+        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
       </Stack>
     </Section>
   );

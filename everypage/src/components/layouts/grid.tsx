@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { castChildren } from '@carbonnv/speck';
 
+import { Alignment, getFlexItemAlignment } from '..';
 import { IMultiChildProps, ISingleAnyChildProps } from '../../util';
-// import { useTheme, IDimensionsGuide } from '../themes';
+import { useTheme, IDimensionGuide } from '../../theming';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {
@@ -15,6 +15,7 @@ export interface IGridItemProps extends ISingleAnyChildProps {
   sizeLarge?: number;
   sizeExtraLarge?: number;
   isFullHeight: boolean;
+  alignment?: Alignment;
 }
 
 class GridItem extends React.Component<IGridItemProps> {
@@ -26,9 +27,9 @@ class GridItem extends React.Component<IGridItemProps> {
   };
 }
 
-
 interface IStyledGridProps {
   isFullHeight?: boolean;
+  childAlignment: Alignment;
 }
 
 const StyledGrid = styled.div<IStyledGridProps>`
@@ -38,24 +39,26 @@ const StyledGrid = styled.div<IStyledGridProps>`
   flex-direction: row;
   flex-wrap: wrap;
   overflow-x: auto;
+  align-items: ${(props: IStyledGridProps): string => getFlexItemAlignment(props.childAlignment)};
 `;
 
 export interface IGridProps extends IMultiChildProps<IGridItemProps> {
   id?: string;
   className?: string;
-  // theme?: IDimensionsGuide;
+  theme?: IDimensionGuide;
   isFullHeight?: boolean;
   shouldShowGutters?: boolean;
+  childAlignment: Alignment;
 }
 
 export const Grid = (props: IGridProps): React.ReactElement => {
-  // const theme = props.theme || useTheme<IDimensionsGuide>('dimensions');
-  // const typedChildren = castChildren(props.children, GridItem);
+  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
   return (
     <StyledGrid
       id={props.id}
       className={`grid ${props.className}`}
       isFullHeight={props.isFullHeight}
+      childAlignment={props.childAlignment}
     >
       { React.Children.map(props.children, (child: React.ReactElement<IGridItemProps>, index: number): React.ReactElement => (
         (!child) ? <React.Fragment /> : (
@@ -68,13 +71,14 @@ export const Grid = (props: IGridProps): React.ReactElement => {
             sizeMedium={child.props.sizeMedium}
             sizeLarge={child.props.sizeLarge}
             sizeExtraLarge={child.props.sizeExtraLarge}
-            screenWidthSmall={'576px' /*theme.screenWidthSmall*/}
-            screenWidthMedium={'768px' /*theme.screenWidthMedium*/}
-            screenWidthLarge={'992px' /*theme.screenWidthLarge*/}
-            screenWidthExtraLarge={'1200px' /*theme.screenWidthExtraLarge*/}
+            screenWidthSmall={theme.screenWidthSmall}
+            screenWidthMedium={theme.screenWidthMedium}
+            screenWidthLarge={theme.screenWidthLarge}
+            screenWidthExtraLarge={theme.screenWidthExtraLarge}
             isFullHeight={child.props.isFullHeight}
-            totalColumnCount={12 /*theme.columnCount*/}
-            gutterSize={props.shouldShowGutters ? /*theme.gutterSize*/'10px' : '0px'}
+            totalColumnCount={theme.columnCount}
+            gutterSize={props.shouldShowGutters ? theme.gutterSize : '0px'}
+            alignment={child.props.alignment}
           >
             {child.props.children}
           </StyledGridItem>
@@ -88,6 +92,7 @@ Grid.defaultProps = {
   className: '',
   isFullHeight: true,
   shouldShowGutters: false,
+  childAlignment: Alignment.Fill,
 };
 Grid.Item = GridItem;
 
@@ -131,6 +136,7 @@ interface IStyledGridItemProps extends IGridItemProps {
   screenWidthLarge: string;
   screenWidthExtraLarge: string;
   totalColumnCount: number;
+  alignment?: Alignment;
 }
 
 const StyledGridItem = styled.div<IStyledGridItemProps>`
@@ -143,4 +149,5 @@ const StyledGridItem = styled.div<IStyledGridItemProps>`
   overflow-y: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? 'auto' : 'hidden')};
   margin-left: ${(props: IStyledGridItemProps): string => props.gutterSize};
   margin-right: ${(props: IStyledGridItemProps): string => props.gutterSize};
+  align-self: ${(props: IStyledGridItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;
