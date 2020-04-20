@@ -81,11 +81,8 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
               <Form onFormSubmitted={onFormSubmitted}>
                 <Stack direction={Direction.Vertical}>
                   <Grid>
-                    <Grid.Item id='form-inner-inner-horizontal' size={0} sizeMedium={12}>
-                      <Stack
-                        direction={Direction.Horizontal}
-                        contentAlignment={Alignment.Start}
-                      >
+                    <Grid.Item id='form-inner-inner-horizontal' size={0} sizeSmall={12}>
+                      <Stack direction={Direction.Horizontal}>
                         <Stack.Item growthFactor={1}>
                           <SingleLineInput
                             inputType={props.inputType}
@@ -104,7 +101,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                         />
                       </Stack>
                     </Grid.Item>
-                    <Grid.Item id='form-inner-inner-vertical' size={12} sizeMedium={0}>
+                    <Grid.Item id='form-inner-inner-vertical' size={12} sizeSmall={0}>
                       <Stack direction={Direction.Vertical}>
                         <SingleLineInput
                           inputType={props.inputType}

@@ -69,7 +69,7 @@ const siteContent = {
         },
         {
             type: "footer-1",
-            text: null,
+            text: "© 2020 [Kiba Labs](https://www.kibalabs.com)",
         }
     ],
 };

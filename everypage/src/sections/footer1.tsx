@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing } from '../components';
 import { useWebsite } from '../util';
 
 interface IFooter1Props extends ISectionProps {
@@ -17,7 +17,11 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
       className={props.className}
       background={props.background}
     >
-      <MarkdownText text={text}/>
+      <Stack childAlignment={Alignment.Center} shouldShowGutters={true}>
+        <Spacing mode='extra-narrow'/>
+        <MarkdownText text={text}/>
+        <Spacing mode='extra-narrow'/>
+      </Stack>
     </Section>
   );
 };

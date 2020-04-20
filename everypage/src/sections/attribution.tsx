@@ -9,7 +9,7 @@ export const Attribution = (): React.ReactElement => {
   const theme = useTheme<IColorGuide>('colors');
   return (
     <Section background={{color: theme.backgroundDark}}>
-      <Stack contentAlignment={Alignment.Center} shouldShowGutters={true}>
+      <Stack childAlignment={Alignment.Center} shouldShowGutters={true}>
         <Spacing mode='extra-narrow'/>
         <Text alignment={TextAlignment.Center} mode='inverse'>
           <span>Made with <Link mode='inverse' destination='https://everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>
