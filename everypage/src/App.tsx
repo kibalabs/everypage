@@ -10,6 +10,7 @@ import { resetCss, GlobalCss, GlobalHead } from './util';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
 import { Stack, IStackItemProps } from './components/layouts';
+import { IWebsite, WebsiteProvider } from './util';
 
 
 const App = (): React.ReactElement => {
@@ -23,20 +24,22 @@ const App = (): React.ReactElement => {
   );
   return (
     <Root>
-      <GlobalCss
-        theme={theme}
-        resetCss={resetCss}
-      />
-      <GlobalHead
-        title={siteContent.title}
-        description={siteContent.description}
-        fontUrls={[
-          'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900',
-        ]}
-      />
-      <ThemeProvider theme={theme}>
-        <Stack>{ stackItems }</Stack>
-      </ThemeProvider>
+      <WebsiteProvider website={siteContent as IWebsite}>
+        <React.Fragment>
+          <GlobalCss
+            theme={theme}
+            resetCss={resetCss}
+          />
+          <GlobalHead
+            fontUrls={[
+              'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900',
+            ]}
+          />
+          <ThemeProvider theme={theme}>
+            <Stack>{ stackItems }</Stack>
+          </ThemeProvider>
+        </React.Fragment>
+      </WebsiteProvider>
     </Root>
   )
 }
