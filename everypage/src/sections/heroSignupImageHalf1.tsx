@@ -4,6 +4,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { Section, ISectionProps } from '.';
 import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
 import { isValidEmail } from '../util';
+import { validateInput } from '../util/inputValidation';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -20,7 +21,7 @@ interface IHeroSignupImageHalf1Props extends ISectionProps {
 }
 
 export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.ReactElement => {
-  const [email, setEmail] = React.useState<string | null>(null);
+  const [input, setInput] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
@@ -29,13 +30,14 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
   }
 
   const onFormSubmitted = (): void => {
-    if (!isValidEmail(email)) {
-      setErrorMessage('Please enter a valid email address');
+    const validationResult = validateInput(input, props.inputType);
+    if (!validationResult.isValid) {
+      setErrorMessage(validationResult.errorMessage);
       return;
     }
     setIsLoading(true);
     setErrorMessage(null);
-    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {email: email, topic: 'kiwi'}).then((response: AxiosResponse) => {
+    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {input: input, topic: 'kiwi'}).then((response: AxiosResponse) => {
       setIsLoading(false);
       // TODO(krish): show a success toast with this text
       // setSuccessMessage(props.inputSuccessMessageText)
@@ -87,8 +89,8 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                           <SingleLineInput
                             inputType={props.inputType}
                             placeholderText={props.inputPlaceholderText}
-                            value={email}
-                            onValueChanged={setEmail}
+                            value={input}
+                            onValueChanged={setInput}
                             errorText={errorMessage}
                           />
                         </Stack.Item>
@@ -106,8 +108,8 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                         <SingleLineInput
                           inputType={props.inputType}
                           placeholderText={props.inputPlaceholderText}
-                          value={email}
-                          onValueChanged={setEmail}
+                          value={input}
+                          onValueChanged={setInput}
                           errorText={errorMessage}
                         />
                         <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>

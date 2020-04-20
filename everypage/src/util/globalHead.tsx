@@ -1,7 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { IWebsite, useWebsite } from '.';
+import { useWebsite } from '.';
+import { IWebsite } from '../model';
 
 
 export interface IGlobalHeadProps {

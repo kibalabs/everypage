@@ -6,11 +6,11 @@ import siteContent from './site';
 import theme from './theme';
 
 import { ThemeProvider } from './theming'
-import { resetCss, GlobalCss, GlobalHead } from './util';
+import { resetCss, GlobalCss, GlobalHead, WebsiteProvider } from './util';
 import { Attribution } from './sections/attribution';
 import { SectionRenderer } from './sectionRenderer';
 import { Stack, IStackItemProps } from './components/layouts';
-import { IWebsite, WebsiteProvider } from './util';
+import { IWebsite } from './model';
 
 
 const App = (): React.ReactElement => {

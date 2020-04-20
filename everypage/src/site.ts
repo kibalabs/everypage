@@ -4,17 +4,17 @@ const siteContent = {
     company: "Kiba Labs",
     description: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
     sections: [
-        // {
-        //     type: "hero-signup-1",
-        //     logoImageUrl: "https://kiwidocs.co/logo-color-white.svg",
-        //     titleText: "Managed documentation for growing developer teams",
-        //     subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
-        //     inputType: "email",
-        //     inputPlaceholderText: "Sign up for updates and early access  👀",
-        //     inputButtonText: "Subscribe",
-        //     inputSubtitleText: "We're building in the open - you can follow along on [Indie Hackers](https://www.indiehackers.com/product/kiwidocs) 🚧.",
-        //     inputSuccessMessageText: "You're signed up 🎉"
-        // },
+        {
+            type: "hero-signup-1",
+            logoImageUrl: "https://kiwidocs.co/logo-color-white.svg",
+            titleText: "Managed documentation for growing developer teams",
+            subtitleText: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
+            inputType: "email",
+            inputPlaceholderText: "Sign up for updates and early access  👀",
+            inputButtonText: "Subscribe",
+            inputSubtitleText: "We're building in the open - you can follow along on [Indie Hackers](https://www.indiehackers.com/product/kiwidocs) 🚧.",
+            inputSuccessMessageText: "You're signed up 🎉"
+        },
         {
             type: "navbar-1",
             logoImageUrl: "/assets/everysize-wordmark.svg",
@@ -24,7 +24,7 @@ const siteContent = {
             logoImageUrl: null,
             titleText: "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
             subtitleText: null,
-            inputType: "text",
+            inputType: "url",
             inputPlaceholderText: "Enter a url to see the magic",
             inputButtonText: "GO",
             inputSuccessMessageText: null,
@@ -62,7 +62,7 @@ const siteContent = {
             type: "signup-1",
             titleText: "Enter a url to see the magic",
             subtitleText: null,
-            inputType: "text",
+            inputType: "url",
             inputPlaceholderText: "https://yourawesomesite.com",
             inputButtonText: "GO",
             inputSuccessMessageText: null,

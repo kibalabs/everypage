@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { IWebsite, ISingleAnyChildProps } from './';
+import { IWebsite } from '../model';
+import { ISingleAnyChildProps } from './';
 
 export const WebsiteContext = React.createContext<IWebsite | null>(null);
 

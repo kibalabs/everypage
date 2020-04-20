@@ -2,8 +2,9 @@ import React from 'react';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
+import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '../components';
 import { isValidEmail } from '../util';
+import { validateInput } from '../util/inputValidation';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -18,18 +19,19 @@ interface IHeroSignup1Props extends ISectionProps {
 }
 
 export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
-  const [email, setEmail] = React.useState<string | null>(null);
+  const [input, setInput] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   const onFormSubmitted = (): void => {
-    if (!isValidEmail(email)) {
-      setErrorMessage('Please enter a valid email address');
+    const validationResult = validateInput(input, props.inputType);
+    if (!validationResult.isValid) {
+      setErrorMessage(validationResult.errorMessage);
       return;
     }
     setIsLoading(true);
     setErrorMessage(null);
-    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {email: email, topic: 'kiwi'}).then((response: AxiosResponse) => {
+    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {input: input, topic: 'kiwi'}).then((response: AxiosResponse) => {
       setIsLoading(false);
       // TODO(krish): show a success toast with this text
       // setSuccessMessage(props.inputSuccessMessageText)
@@ -57,10 +59,10 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 <Grid>
                   <Grid.Item size={1}><div /></Grid.Item>
                   <Grid.Item size={10}>
-                    <Image source={props.logoImageUrl} alternativeText='logo' />
+                    <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing mode={SpacingSize.ExtraExtraWide} />
+                <Spacing mode={SpacingSize.ExtraWide} />
               </React.Fragment>
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
@@ -76,8 +78,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                         <SingleLineInput
                           inputType={props.inputType}
                           placeholderText={props.inputPlaceholderText}
-                          value={email}
-                          onValueChanged={setEmail}
+                          value={input}
+                          onValueChanged={setInput}
                           errorText={errorMessage}
                         />
                       </Stack.Item>
@@ -95,8 +97,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                       <SingleLineInput
                         inputType={props.inputType}
                         placeholderText={props.inputPlaceholderText}
-                        value={email}
-                        onValueChanged={setEmail}
+                        value={input}
+                        onValueChanged={setInput}
                         errorText={errorMessage}
                       />
                       <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
