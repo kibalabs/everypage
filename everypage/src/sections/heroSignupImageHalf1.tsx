@@ -1,14 +1,13 @@
 import React from 'react';
-import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
 import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
-import { isValidEmail } from '../util';
-import { validateInput } from '../util/inputValidation';
+import { submitForm, validateInput } from '../internal';
+import { IFormProps, defaultFormProps } from '../model';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IHeroSignupImageHalf1Props extends ISectionProps {
+interface IHeroSignupImageHalf1Props extends ISectionProps, IFormProps {
   logoImageUrl?: string;
   titleText?: string;
   subtitleText?: string;
@@ -16,6 +15,7 @@ interface IHeroSignupImageHalf1Props extends ISectionProps {
   inputButtonText?: string;
   inputSuccessMessageText?: string;
   inputType?: InputType;
+  inputName?: string;
   leftImageUrl?: string;
   rightImageUrl?: string;
 }
@@ -29,7 +29,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
     throw new Error('Only one of {leftImageUrl, rightImageUrl} should be provided to hero-signup-image-half-1')
   }
 
-  const onFormSubmitted = (): void => {
+  const onFormSubmitted = async (): Promise<void> => {
     const validationResult = validateInput(input, props.inputType);
     if (!validationResult.isValid) {
       setErrorMessage(validationResult.errorMessage);
@@ -37,15 +37,14 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
     }
     setIsLoading(true);
     setErrorMessage(null);
-    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {input: input, topic: 'kiwi'}).then((response: AxiosResponse) => {
-      setIsLoading(false);
-      // TODO(krish): show a success toast with this text
+    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget);
+    setIsLoading(false);
+    if (result.isSuccessful) {
       // setSuccessMessage(props.inputSuccessMessageText)
-    }).catch((error: AxiosError): void => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
-  }
+    } else {
+      setErrorMessage(result.responseMessage);
+    }
+  };
 
   return (
     <Section
@@ -88,6 +87,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                         <Stack.Item growthFactor={1}>
                           <SingleLineInput
                             inputType={props.inputType}
+                            name={props.inputName}
                             placeholderText={props.inputPlaceholderText}
                             value={input}
                             onValueChanged={setInput}
@@ -107,6 +107,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                       <Stack direction={Direction.Vertical}>
                         <SingleLineInput
                           inputType={props.inputType}
+                          name={props.inputName}
                           placeholderText={props.inputPlaceholderText}
                           value={input}
                           onValueChanged={setInput}
@@ -152,3 +153,6 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
   );
 };
 HeroSignupImageHalf1.displayName = 'hero-signup-image-half-1';
+HeroSignupImageHalf1.defaultProps = {
+  ...defaultFormProps,
+};

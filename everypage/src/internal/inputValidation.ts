@@ -1,12 +1,12 @@
 import {InputType } from '../components';
-import { isValidEmail, isValidUrl } from '.';
+import { isValidEmail, isValidUrl } from '../util';
 
-export interface IValidationResult {
+export interface IInputValidationResult {
   isValid: boolean;
   errorMessage?: string;
 }
 
-export const validateInput = (input: string, inputType: InputType): IValidationResult => {
+export const validateInput = (input: string, inputType: InputType): IInputValidationResult => {
   switch (inputType) {
     case InputType.Email: {
       if (!isValidEmail(input)) {

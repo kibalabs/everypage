@@ -12,8 +12,15 @@ const siteContent = {
             inputType: "email",
             inputPlaceholderText: "Sign up for updates and early access  👀",
             inputButtonText: "Subscribe",
-            inputSubtitleText: "We're building in the open - you can follow along on [Indie Hackers](https://www.indiehackers.com/product/kiwidocs) 🚧.",
-            inputSuccessMessageText: "You're signed up 🎉"
+            inputSuccessMessageText: "You're signed up 🎉",
+            inputName: "email",
+            formTarget: "https://api.kiba.dev/v1/newsletter-subscriptions",
+            formAdditionalInputs: [{
+                name: "topic",
+                type: "text",
+                value: "kiwi",
+            }],
+            formAction: "POST"
         },
         {
             type: "navbar-1",
@@ -30,6 +37,9 @@ const siteContent = {
             inputSuccessMessageText: null,
             leftImageUrl: "/assets/hero_image.svg",
             rightImageUrl: null,
+            inputName: "url",
+            formTarget: "https://everysize.kibalabs.com",
+            formAction: "OPEN"
         },
         {
             type: "feature-image-half-1",
@@ -66,6 +76,9 @@ const siteContent = {
             inputPlaceholderText: "https://yourawesomesite.com",
             inputButtonText: "GO",
             inputSuccessMessageText: null,
+            inputName: "url",
+            formTarget: "https://everysize.kibalabs.com",
+            formAction: "OPEN"
         },
         {
             type: "footer-1",

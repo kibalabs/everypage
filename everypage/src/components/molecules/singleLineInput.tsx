@@ -30,12 +30,22 @@ const StyledSingleLineInput = styled.input`
   }
 `;
 
+const getAutocompleteType = (inputType: InputType): string | null => {
+  if (inputType === InputType.Email) {
+    return 'email';
+  } else if (inputType === InputType.Url) {
+    return 'url';
+  }
+  return null;
+}
+
 export interface ISingleLineInputProps extends IMoleculeProps<ISingleLineInputTheme> {
   value: string;
   isEnabled: boolean;
   placeholderText?: string;
   errorText?: string;
   inputType: InputType;
+  name?: string;
   onKeyUp?(key: string): void;
   onKeyDown?(key: string): void;
   onClick?(): void;
@@ -79,6 +89,8 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
         id={props.id && `${props.id}-textarea`}
         className={`singleline-input-textarea ${props.errorText ? 'error' : ''} ${props.isEnabled === false ? 'disabled' : ''}`}
         type={props.inputType}
+        name={props.name}
+        autoComplete={getAutocompleteType(props.inputType)}
         value={props.value || ''}
         onKeyUp={onKeyUp}
         onKeyDown={onKeyDown}

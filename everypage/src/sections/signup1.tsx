@@ -1,18 +1,18 @@
 import React from 'react';
-import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
 import { Form, Grid, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
-import { isValidEmail } from '../util';
-import { validateInput } from '../util/inputValidation';
+import { submitForm, validateInput } from '../internal';
+import { IFormProps, defaultFormProps } from '../model';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface ISignup1Props extends ISectionProps {
+interface ISignup1Props extends ISectionProps, IFormProps {
   titleText?: string;
   subtitleText?: string;
   inputPlaceholderText?: string;
   inputType?: InputType;
+  inputName?: string;
   inputButtonText?: string;
   inputSuccessMessageText?: string;
 }
@@ -22,7 +22,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  const onFormSubmitted = (): void => {
+  const onFormSubmitted = async (): Promise<void> => {
     const validationResult = validateInput(input, props.inputType);
     if (!validationResult.isValid) {
       setErrorMessage(validationResult.errorMessage);
@@ -30,15 +30,14 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
     }
     setIsLoading(true);
     setErrorMessage(null);
-    axios.post('https://api.kiba.dev/v1/newsletter-subscriptions', {input: input, topic: 'kiwi'}).then((response: AxiosResponse) => {
-      setIsLoading(false);
-      // TODO(krish): show a success toast with this text
+    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget);
+    setIsLoading(false);
+    if (result.isSuccessful) {
       // setSuccessMessage(props.inputSuccessMessageText)
-    }).catch((error: AxiosError): void => {
-      setIsLoading(false);
-      setErrorMessage(error.message);
-    });
-  }
+    } else {
+      setErrorMessage(result.responseMessage);
+    }
+  };
 
   return (
     <Section
@@ -70,6 +69,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       >
                         <SingleLineInput
                           inputType={props.inputType}
+                          name={props.inputName}
                           placeholderText={props.inputPlaceholderText}
                           value={input}
                           onValueChanged={setInput}
@@ -89,6 +89,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                     <Stack direction={Direction.Vertical}>
                       <SingleLineInput
                         inputType={props.inputType}
+                        name={props.inputName}
                         placeholderText={props.inputPlaceholderText}
                         value={input}
                         onValueChanged={setInput}
@@ -114,3 +115,6 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
   );
 };
 Signup1.displayName = 'signup-1';
+Signup1.defaultProps = {
+  ...defaultFormProps,
+};
