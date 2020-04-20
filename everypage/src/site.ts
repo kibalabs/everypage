@@ -1,5 +1,6 @@
 const siteContent = {
     name: "everysize",
+    company: "Kiba Labs",
     title: "everysize - Check your responsive webpage looks great in every size 🖥 💻 📱",
     description: "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation 🚀",
     sections: [
@@ -65,6 +66,10 @@ const siteContent = {
             inputPlaceholderText: "https://yourawesomesite.com",
             inputButtonText: "GO",
             inputSuccessMessageText: null,
+        },
+        {
+            type: "footer-1",
+            text: null,
         }
     ],
 };

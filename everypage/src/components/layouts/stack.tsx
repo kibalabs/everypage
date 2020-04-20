@@ -26,11 +26,6 @@ class StackItem extends React.Component<IStackItemProps> {
   };
 }
 
-interface IStyledStackProps {
-  direction: string;
-  contentAlignment: string;
-}
-
 const getFlexAlignment = (contentAlignment: string): string => {
   if (contentAlignment === 'start') {
     return 'flex-start';
@@ -44,9 +39,16 @@ const getFlexAlignment = (contentAlignment: string): string => {
   return 'stretch';
 };
 
+interface IStyledStackProps {
+  direction: string;
+  contentAlignment: string;
+  isFullWidth: boolean;
+  isFullHeight: boolean;
+}
+
 const StyledStack = styled.div<IStyledStackProps>`
-  width: 100%;
-  height: 100%;
+  width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   display: flex;
   flex-direction: ${(props: IStyledStackProps): string => (props.direction === 'vertical' ? 'column' : 'row')};
   overflow-x: ${(props: IStyledStackProps): string => (props.direction === 'horizontal' ? 'auto' : 'visible')};
@@ -63,6 +65,8 @@ interface IStackProps extends IMultiAnyChildProps {
   direction: 'horizontal' | 'vertical';
   contentAlignment: 'start' | 'end' | 'fill' | 'center';
   shouldShowGutters: boolean;
+  isFullWidth: boolean;
+  isFullHeight: boolean;
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
@@ -77,6 +81,8 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       className={`stack ${props.className}`}
       direction={props.direction}
       contentAlignment={props.contentAlignment}
+      isFullWidth={props.isFullWidth}
+      isFullHeight={props.isFullHeight}
     >
       { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
         <StyledStackItem
@@ -102,6 +108,8 @@ Stack.defaultProps = {
   direction: 'vertical',
   contentAlignment: 'fill',
   shouldShowGutters: false,
+  isFullWidth: false,
+  isFullHeight: false,
 };
 Stack.Item = StackItem;
 
