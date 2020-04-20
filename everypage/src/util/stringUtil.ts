@@ -33,6 +33,7 @@ export const isValidEmail = (email: string): boolean => {
 };
 
 export const isValidUrl = (email: string): boolean => {
-  const re = /^https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
-  return re.test(email);
+  return true;
+  // const re = /^https?:\/\/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+  // return re.test(email);
 };
