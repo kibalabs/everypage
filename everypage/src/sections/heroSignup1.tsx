@@ -2,7 +2,7 @@ import React from 'react';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '../components';
+import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
 import { isValidEmail } from '../util';
 
 
@@ -68,16 +68,12 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
             {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
-              <Stack
-                id='form-inner'
-                direction={Direction.Vertical}
-                contentAlignment='fill'
-              >
+              <Stack direction={Direction.Vertical}>
                 <Grid>
                   <Grid.Item id='form-inner-inner-horizontal' size={0} sizeMedium={12}>
                     <Stack
                       direction={Direction.Horizontal}
-                      contentAlignment='start'
+                      contentAlignment={Alignment.Start}
                     >
                       <Stack.Item
                         growthFactor={1}
@@ -100,10 +96,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     </Stack>
                   </Grid.Item>
                   <Grid.Item id='form-inner-inner-vertical' size={12} sizeMedium={0}>
-                    <Stack
-                      direction={Direction.Vertical}
-                      contentAlignment='fill'
-                    >
+                    <Stack direction={Direction.Vertical}>
                       <SingleLineInput
                         inputType={props.inputType}
                         placeholderText={props.inputPlaceholderText}

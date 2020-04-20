@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Direction, Alignment } from '..';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
 import { useTheme, IDimensionGuide } from '../../theming';
 
+// See https://webdesign.tutsplus.com/tutorials/a-comprehensive-guide-to-flexbox-alignment--cms-30183
+// to learn about alignment
 
 export interface IStackItemProps extends ISingleAnyChildProps {
   id?: string;
@@ -12,6 +15,7 @@ export interface IStackItemProps extends ISingleAnyChildProps {
   shrinkFactor: number;
   baseSize: string;
   shouldAllowScrolling: boolean;
+  alignment?: Alignment;
 }
 
 class StackItem extends React.Component<IStackItemProps> {
@@ -26,22 +30,36 @@ class StackItem extends React.Component<IStackItemProps> {
   };
 }
 
-const getFlexAlignment = (contentAlignment: string): string => {
-  if (contentAlignment === 'start') {
+const getFlexItemAlignment = (childAlignment: string): string => {
+  if (childAlignment === Alignment.Start) {
     return 'flex-start';
   }
-  if (contentAlignment === 'end') {
+  if (childAlignment === Alignment.End) {
     return 'flex-end';
   }
-  if (contentAlignment === 'center') {
+  if (childAlignment === Alignment.Center) {
     return 'center';
   }
   return 'stretch';
 };
 
+const getFlexContentAlignment = (childAlignment: string): string => {
+  if (childAlignment === Alignment.Start) {
+    return 'flex-start';
+  }
+  if (childAlignment === Alignment.End) {
+    return 'flex-end';
+  }
+  if (childAlignment === Alignment.Center) {
+    return 'center';
+  }
+  return 'space-between';
+};
+
 interface IStyledStackProps {
   direction: string;
-  contentAlignment: string;
+  childAlignment: Alignment;
+  contentAlignment: Alignment;
   isFullWidth: boolean;
   isFullHeight: boolean;
 }
@@ -50,20 +68,20 @@ const StyledStack = styled.div<IStyledStackProps>`
   width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   display: flex;
-  flex-direction: ${(props: IStyledStackProps): string => (props.direction === 'vertical' ? 'column' : 'row')};
-  overflow-x: ${(props: IStyledStackProps): string => (props.direction === 'horizontal' ? 'auto' : 'visible')};
-  overflow-y: ${(props: IStyledStackProps): string => (props.direction === 'vertical' ? 'auto' : 'visible')};
-  align-items: ${(props: IStyledStackProps): string => getFlexAlignment(props.contentAlignment)};
-  justify-content: stretch;
-  max-height: 100%;
+  flex-direction: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
+  overflow-x: ${(props: IStyledStackProps): string => (props.direction === Direction.Horizontal ? 'auto' : 'visible')};
+  overflow-y: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'auto' : 'visible')};
+  align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
+  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.childAlignment)};
 `;
 
 interface IStackProps extends IMultiAnyChildProps {
   id?: string;
   className: string;
   theme?: IDimensionGuide;
-  direction: 'horizontal' | 'vertical';
-  contentAlignment: 'start' | 'end' | 'fill' | 'center';
+  direction: Direction;
+  childAlignment: Alignment;
+  contentAlignment: Alignment;
   shouldShowGutters: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
@@ -80,6 +98,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       id={props.id}
       className={`stack ${props.className}`}
       direction={props.direction}
+      childAlignment={props.childAlignment}
       contentAlignment={props.contentAlignment}
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
@@ -105,8 +124,9 @@ export const Stack = (props: IStackProps): React.ReactElement => {
 
 Stack.defaultProps = {
   className: '',
-  direction: 'vertical',
-  contentAlignment: 'fill',
+  direction: Direction.Vertical,
+  childAlignment: Alignment.Fill,
+  contentAlignment: Alignment.Fill,
   shouldShowGutters: false,
   isFullWidth: false,
   isFullHeight: false,
@@ -114,7 +134,8 @@ Stack.defaultProps = {
 Stack.Item = StackItem;
 
 interface IStyledStackItemProps extends IStackItemProps {
-  direction: 'horizontal' | 'vertical';
+  direction: Direction;
+  alignment?: Alignment;
   gutterSize: string;
 }
 
@@ -122,10 +143,11 @@ const StyledStackItem = styled.div<IStyledStackItemProps>`
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
-  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === 'vertical' ? 'auto' : 'visible')};
-  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === 'horizontal' ? 'auto' : 'visible')};
-  margin-top: ${(props: IStyledStackItemProps): string => (props.direction === 'vertical' ? props.gutterSize : '0')};
-  margin-bottom: ${(props: IStyledStackItemProps): string => (props.direction === 'vertical' ? props.gutterSize : '0')};
-  margin-left: ${(props: IStyledStackItemProps): string => (props.direction === 'horizontal' ? props.gutterSize : '0')};
-  margin-right: ${(props: IStyledStackItemProps): string => (props.direction === 'horizontal' ? props.gutterSize : '0')};
+  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'visible')};
+  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'visible')};
+  margin-top: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
+  margin-bottom: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
+  margin-left: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};
+  margin-right: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};
+  align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;

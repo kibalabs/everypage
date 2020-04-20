@@ -1,3 +1,4 @@
+export * from './alignment';
 export * from './background';
 export * from './direction';
 export * from './inputType';
