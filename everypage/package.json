@@ -2,13 +2,8 @@
   "name": "@kibalabs/everypage",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "scripts/dev.js --dev --site site.json",
-    "build": "scripts/build.js --site site.json --output-directory dist",
-    "serve": "serve dist -p 3000 -s"
-  },
   "bin": {
-    "everypage-start": "scripts/start.js",
+    "everypage-dev": "scripts/dev.js",
     "everypage-build": "scripts/build.js"
   },
   "dependencies": {
