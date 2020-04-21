@@ -1,4 +1,4 @@
-import { IColorGuide, IDimensionGuide, buildTheme } from './theming';
+import { IColorGuide, IDimensionGuide, buildTheme } from '@kibalabs/everypage/src/theming';
 
 const colors: IColorGuide = {
   // brandPrimary: '#1C8F51',

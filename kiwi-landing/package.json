@@ -1,0 +1,13 @@
+{
+  "name": "everysize-landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "everypage-start --dev --site site.json",
+    "build": "everypage-build --site site.json --output-directory dist",
+    "serve": "serve dist -p 3000 -s"
+  },
+  "dependencies": {
+    "@kibalabs/everypage": "file:everypage/kibalabs-everypage-0.1.0.tgz"
+  }
+}
