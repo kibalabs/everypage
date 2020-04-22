@@ -5,7 +5,7 @@ import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IIma
 
 export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): ITheme => {
   const textTheme: ITextTheme = {
-    'font-size': '14px',
+    'font-size': '16px',
     'font-family': '"Montserrat", sans-serif',
     'font-weight': 'normal',
     'color': colors.text,
@@ -18,14 +18,14 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
   });
 
   const headerTextTheme = mergeTheme(textTheme, {
-    'font-size': '2.5em',
+    'font-size': '2.4em',
     'font-weight': '700',
     'color': '#171717',
     'line-height': '1.3em',
   });
 
   const titleTextTheme = mergeTheme(textTheme, {
-    'font-size': '2em',
+    'font-size': '1.8em',
     'font-weight': 'bold',
     'color': '#171717',
   });

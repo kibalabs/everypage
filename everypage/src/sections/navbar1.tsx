@@ -35,7 +35,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
           {props.logoImageUrl && <Stack.Item><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
           {props.titleText && <Stack.Item><Text mode='header'>{props.titleText}</Text></Stack.Item>}
           <Stack.Item growthFactor={1}><div /></Stack.Item>
-          <Stack.Item><Button mode='secondary' text='Try now'/></Stack.Item>
+          {/* <Stack.Item><Button mode='secondary' text='Try now'/></Stack.Item> */}
         </Stack>
       </StyledNavigationBar>
     </Section>
