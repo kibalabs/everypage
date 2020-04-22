@@ -2,7 +2,7 @@ import path from 'path'
 import { GetStaticProps } from 'next'
 
 import { IndexPage, IPageProps } from '@kibalabs/everypage';
-import defaultTheme from './theme';
+import defaultTheme from '../theme';
 export default IndexPage;
 
 // NOTE(krish): why does process.env not work if we use this instead:

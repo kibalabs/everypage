@@ -13,11 +13,11 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   const stackItems: React.ReactElement<IStackItemProps>[] = props.pageContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
-  stackItems.push(
-    <Stack.Item key={props.pageContent.sections.length + 1} growthFactor={1}>
-      <Attribution />
-    </Stack.Item>
-  );
+  // stackItems.push(
+  //   <Stack.Item key={props.pageContent.sections.length + 1} growthFactor={1}>
+  //     <Attribution />
+  //   </Stack.Item>
+  // );
 
   return (
     <WebsiteProvider website={props.pageContent as IWebsite}>

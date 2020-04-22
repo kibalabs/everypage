@@ -21,7 +21,7 @@
             "leftImageUrl": "/assets/hero.gif",
             "rightImageUrl": null,
             "inputName": "url",
-            "formTarget": "https://everysize.kibalabs.com",
+            "formTarget": "https://everysize-app.kibalabs.com",
             "formAction": "OPEN"
         },
         {
@@ -60,7 +60,7 @@
             "inputButtonText": "GO",
             "inputSuccessMessageText": null,
             "inputName": "url",
-            "formTarget": "https://everysize.kibalabs.com",
+            "formTarget": "https://everysize-app.kibalabs.com",
             "formAction": "OPEN"
         },
         {
