@@ -1,13 +1,22 @@
 {
-  "name": "everysize-landing",
+  "name": "kiwi-landing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "everypage-start --dev --site site.json",
-    "build": "everypage-build --site site.json --output-directory dist",
-    "serve": "serve dist -p 3000 -s"
+    "dev": "everypage start --site-file site.json --theme-file theme.js ",
+    "build": "everypage build --site-file site.json --theme-file theme.js --output-directory dist",
+    "serve": "everypage serve --site-file site.json --theme-file theme.js --output-directory dist"
   },
   "dependencies": {
-    "@kibalabs/everypage": "file:../everypage/kibalabs-everypage-0.1.0.tgz"
+    "@kibalabs/everypage": "file:../everypage/dist/kibalabs-everypage-0.1.0.tgz",
+    "next": "^9.3.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.2",
+    "@types/react": "^16.9.34",
+    "typescript": "^3.8.3"
   }
 }

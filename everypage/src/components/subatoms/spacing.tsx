@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps } from '..';
-import { IDimensionGuide, useTheme } from '../../theming';
-import { Direction } from '../direction';
+import { IComponentProps, defaultComponentProps, Direction, IDimensionGuide, useTheme } from '..';
 
 
 export enum SpacingSize {
@@ -66,7 +64,7 @@ interface ISpacingProps extends IComponentProps<IDimensionGuide> {
 
 
 export const Spacing = (props: ISpacingProps): React.ReactElement => {
-  const theme = props.theme || useTheme('dimensions');
+  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
   return (
     <StyledDiv
       id={props.id}

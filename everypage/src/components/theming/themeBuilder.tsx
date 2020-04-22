@@ -1,8 +1,6 @@
 import { lighten, darken } from 'polished';
 
-import { mergeTheme } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase } from '../components';
-import { ITheme, IColorGuide, IDimensionGuide } from './theme';
+import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide } from '..';
 
 
 export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): ITheme => {

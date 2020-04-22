@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useTheme, ThemeType } from '../../theming';
-import { IComponentProps, defaultComponentProps } from '..';
+import { IComponentProps, defaultComponentProps, useTheme, ThemeType } from '..';
 
 
 export interface ILoadingSpinnerTheme extends ThemeType {

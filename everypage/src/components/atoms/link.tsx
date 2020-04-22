@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, ITextTheme } from '..';
-import { useTheme, themeToCss, ThemeType, RecursivePartial } from '../../theming';
+import { IComponentProps, defaultComponentProps, ITextTheme, useTheme, themeToCss, ThemeType, RecursivePartial } from '..';
 
 
 export interface ILinkThemeBase extends ThemeType {

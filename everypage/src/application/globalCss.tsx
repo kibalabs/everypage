@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { ITheme, themeToCss } from '../theming';
+import { ITheme, themeToCss } from '../components';
 
 interface IGlobalCssProps {
   theme: ITheme;

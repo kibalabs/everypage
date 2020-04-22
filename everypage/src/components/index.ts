@@ -1,8 +1,6 @@
-export * from './alignment';
+export * from './model';
+export * from './theming';
 export * from './background';
-export * from './direction';
-export * from './inputType';
-export * from './componentProps';
 
 export * from './layouts';
 export * from './atoms';

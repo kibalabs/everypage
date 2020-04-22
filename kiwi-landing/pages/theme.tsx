@@ -1,6 +1,6 @@
-import { IColorGuide, IDimensionGuide, buildTheme } from '@kibalabs/everypage/src/theming';
+import { buildTheme } from '@kibalabs/everypage';
 
-const colors: IColorGuide = {
+const colors = {
   // brandPrimary: '#1C8F51',
   // brandSecondary: '#1A6F6F',
   brandPrimary: '#5C258D',
@@ -13,7 +13,7 @@ const colors: IColorGuide = {
   disabled: '#333333',
 }
 
-export const dimensions: IDimensionGuide = {
+const dimensions = {
   borderRadius: '0.2em',
   borderWidth: '2px',
   borderWidthNarrow: '1px',

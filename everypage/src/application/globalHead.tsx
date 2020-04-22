@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head'
 
-import { useWebsite } from '.';
+import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 
 

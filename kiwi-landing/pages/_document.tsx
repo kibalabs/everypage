@@ -1,2 +1,2 @@
-import { EverypageDocument } from '@kibalabs/everypage/src/internal';
+import { EverypageDocument } from '@kibalabs/everypage';
 export default EverypageDocument;

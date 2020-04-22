@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Section } from '.';
-import { Text, Stack, TextAlignment, Spacing, Link, Alignment } from '../components';
-import { useTheme, IColorGuide } from '../theming';
+import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useTheme, IColorGuide } from '../components';
 
 
 export const Attribution = (): React.ReactElement => {

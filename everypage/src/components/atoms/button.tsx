@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { themeToCss, ThemeType, useTheme, RecursivePartial } from '../../theming';
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '..';
-import { LoadingSpinner } from '../subatoms';
+import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, LoadingSpinner, themeToCss, ThemeType, useTheme, RecursivePartial } from '..';
 
 
 export interface IButtonThemeBase extends ThemeType {

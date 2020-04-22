@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Alignment, getFlexItemAlignment } from '..';
+import { Alignment, getFlexItemAlignment, useTheme, IDimensionGuide } from '..';
 import { IMultiChildProps, ISingleAnyChildProps } from '../../util';
-import { useTheme, IDimensionGuide } from '../../theming';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {

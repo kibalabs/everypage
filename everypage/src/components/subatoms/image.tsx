@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ThemeType, useTheme } from '../../theming';
-import { IComponentProps, defaultComponentProps } from '../componentProps';
+import { IComponentProps, defaultComponentProps, ThemeType, useTheme } from '..';
 
 
 export interface IImageTheme extends ThemeType {

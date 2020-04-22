@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps } from '../componentProps';
-import { themeToCss, CssTheme, useTheme } from '../../theming';
+import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useTheme } from '..';
 import { ISingleAnyChildProps } from '../../util';
 
 

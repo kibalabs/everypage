@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme } from '..';
-import { ThemeType, themeToCss, useTheme, RecursivePartial } from '../../theming';
-import { ISingleAnyChildProps,  } from '../../util';
+import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useTheme, RecursivePartial } from '..';
+import { ISingleAnyChildProps } from '../../util';
 
 
 export interface IInputWrapperThemeBase extends ThemeType {

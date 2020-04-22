@@ -2,16 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Text, Button } from '../components';
-import { useTheme, IColorGuide, IDimensionGuide } from '../theming';
+import { Stack, Direction, Image, Text, Button, useTheme, IColorGuide, IDimensionGuide } from '../components';
 
 interface IStyledNavigationBarProps {
-  dimensions: IDimensionGuide;
+  theme: IDimensionGuide;
 }
 
 const StyledNavigationBar = styled.nav<IStyledNavigationBarProps>`
   height: 4em;
-  padding: ${(props: IStyledNavigationBarProps): string => props.dimensions.padding};
+  padding: ${(props: IStyledNavigationBarProps): string => props.theme.padding};
 `;
 
 interface INavBar1Props extends ISectionProps {
@@ -21,7 +20,7 @@ interface INavBar1Props extends ISectionProps {
 
 export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
   const colors = useTheme<IColorGuide>('colors');
-  const dimensions = useTheme<IDimensionGuide>('dimensions');
+  const theme = useTheme<IDimensionGuide>('dimensions');
   const backgroundConfig = props.background || {
     color: colors.background,
   }
@@ -31,7 +30,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
       className={props.className}
       background={backgroundConfig}
     >
-      <StyledNavigationBar dimensions={dimensions}>
+      <StyledNavigationBar theme={theme}>
         <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
           {props.logoImageUrl && <Stack.Item><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
           {props.titleText && <Stack.Item><Text mode='header'>{props.titleText}</Text></Stack.Item>}

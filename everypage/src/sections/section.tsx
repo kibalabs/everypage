@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Container } from '../components';
+import { Container, Background, IBackgroundConfig } from '../components';
 import { ISingleAnyChildProps } from '../util';
-import { Background, IBackgroundConfig } from '../components';
 
 export interface ISectionProps {
   id?: string;
@@ -13,20 +12,22 @@ export interface ISectionProps {
 interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
 }
 
-export const Section = (props: IInternalSectionProps): React.ReactElement => (
-  <Background
-    id={props.id}
-    className={`section ${props.className}`}
-    { ...props.background }
-  >
-    <Container
-      id={props.id && `${props.id}-container`}
-      className={'section-container'}
+export const Section = (props: IInternalSectionProps): React.ReactElement => {
+  return (
+    <Background
+      id={props.id}
+      className={`section ${props.className}`}
+      { ...props.background }
     >
-      { props.children }
-    </Container>
-  </Background>
-);
+      <Container
+        id={props.id && `${props.id}-container`}
+        className={'section-container'}
+      >
+        { props.children }
+      </Container>
+    </Background>
+  );
+};
 
 Section.displayName = 'section';
 Section.defaultProps = {

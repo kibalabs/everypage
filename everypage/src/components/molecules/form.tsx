@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
-import { Box, IBoxTheme, LoadingSpinner, ILoadingSpinnerTheme } from '..';
-import { ThemeType } from '../../theming';
+import { Box, IBoxTheme, LoadingSpinner, ILoadingSpinnerTheme, ThemeType, IMoleculeProps, defaultMoleculeProps } from '..';
 import { ISingleAnyChildProps } from '../../util';
 
 

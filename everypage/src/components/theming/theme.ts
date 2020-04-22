@@ -1,5 +1,4 @@
-import { ThemeType } from '.';
-import { IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '../components';
+import { ThemeType, IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
 
 export interface IColorGuide extends ThemeType {
   brandPrimary: string,

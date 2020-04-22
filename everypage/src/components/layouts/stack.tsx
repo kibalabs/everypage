@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment } from '..';
+import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useTheme, IDimensionGuide } from '..';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
-import { useTheme, IDimensionGuide } from '../../theming';
 
 export interface IStackItemProps extends ISingleAnyChildProps {
   id?: string;
@@ -59,7 +58,7 @@ interface IStackProps extends IMultiAnyChildProps {
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
-  const dimensions = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
   const realChildren = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null && child !== undefined);
   const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
     child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child
@@ -83,7 +82,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           shrinkFactor={child.props.shrinkFactor}
           baseSize={child.props.baseSize}
           shouldAllowScrolling={child.props.shouldAllowScrolling}
-          gutterSize={props.shouldShowGutters ? dimensions.gutterSize : '0'}
+          gutterSize={props.shouldShowGutters ? theme.gutterSize : '0'}
           direction={props.direction}
           alignment={child.props.alignment}
         >

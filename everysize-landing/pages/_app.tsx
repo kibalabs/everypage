@@ -1,2 +1,2 @@
-import { EverypageApp } from '@kibalabs/everypage/src/internal';
+import { EverypageApp } from '@kibalabs/everypage';
 export default EverypageApp;
