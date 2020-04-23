@@ -1,12 +1,7 @@
 {
-  "name": "kiwi-landing",
+  "name": "awesome-landing",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "everypage start --site-file site.json --theme-file theme.json ",
-    "build": "everypage build --site-file site.json --theme-file theme.json --output-directory dist",
-    "serve": "everypage serve --site-file site.json --theme-file theme.json --output-directory dist"
-  },
   "dependencies": {
     "@kibalabs/everypage": "file:../everypage/dist/kibalabs-everypage-0.1.0.tgz",
     "next": "^9.3.3",

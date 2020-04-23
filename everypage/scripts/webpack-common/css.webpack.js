@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const isDevelopment = process.env.CARBON_BUILD_MODE === 'development';
+const isDevelopment = process.env.BUILD_MODE === 'development';
 
 const styleLoader = {
   loader: 'style-loader',

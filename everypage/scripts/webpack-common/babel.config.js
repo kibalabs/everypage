@@ -1,4 +1,4 @@
-const isDevelopment = process.env.CARBON_BUILD_MODE === 'development';
+const isDevelopment = process.env.BUILD_MODE === 'development';
 
 module.exports = {
   presets: [

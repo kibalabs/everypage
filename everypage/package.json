@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "scripts/react-component/build.js",
-    "start": "scripts/react-component/start.js",
-    "start-dev": "scripts/react-component/start.js --dev"
+    "build": "scripts/react-component/compile.js --build",
+    "start": "scripts/react-component/compile.js",
+    "start-dev": "scripts/react-component/compile.js --dev"
   },
   "bin": {
     "everypage": "scripts/everypage.js"
