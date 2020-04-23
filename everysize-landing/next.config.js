@@ -8,5 +8,5 @@ module.exports = {
     return config
   },
   distDir: 'build',
-  target: 'serverless',
+  target: 'serverless'
 };

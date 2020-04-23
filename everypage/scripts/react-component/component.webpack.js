@@ -18,7 +18,7 @@ const scriptCopyCommands = package.bin ? Object.values(package.bin).map((value) 
 module.exports = {
   name: package.name,
   entry: path.join(process.cwd(), './src/index.ts'),
-  target: 'web',
+  target: 'node',
   output: {
     chunkFilename: '[name].bundle.js',
     filename: '[name].js',

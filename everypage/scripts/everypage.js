@@ -17,8 +17,8 @@ program
   .requiredOption('-t, --theme-file <path>')
   .option('-p, --port <number>')
   .action((params) => {
-    process.env['NEXT_APP_SITE_FILE'] = params.siteFile;
-    process.env['NEXT_APP_THEME_FILE'] = params.themeFile;
+    process.env.EVERYPAGE_SITE_FILE = params.siteFile;
+    process.env.EVERYPAGE_THEME_FILE = params.themeFile;
     const port = params.port || 3000;
 
     const app = next({ dev: true });
@@ -43,8 +43,8 @@ program
   .requiredOption('-t, --theme-file <path>')
   .requiredOption('-o, --output-directory <path>')
   .action((params) => {
-    process.env['NEXT_APP_SITE_FILE'] = params.siteFile;
-    process.env['NEXT_APP_THEME_FILE'] = params.themeFile;
+    process.env.EVERYPAGE_SITE_FILE = params.siteFile;
+    process.env.EVERYPAGE_THEME_FILE = params.themeFile;
 
     childProcess.execSync('npx next build');
     childProcess.execSync(`npx next export -- -o ${params.outputDirectory}`);
@@ -58,8 +58,8 @@ program
   .requiredOption('-o, --output-directory <path>')
   .option('-p, --port <number>')
   .action((params) => {
-    process.env['NEXT_APP_SITE_FILE'] = params.siteFile;
-    process.env['NEXT_APP_THEME_FILE'] = params.themeFile;
+    process.env.EVERYPAGE_SITE_FILE = params.siteFile;
+    process.env.EVERYPAGE_THEME_FILE = params.themeFile;
     const port = params.port || 3000;
 
     childProcess.execSync('npx next build');
