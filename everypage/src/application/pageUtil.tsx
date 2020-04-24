@@ -1,4 +1,3 @@
-import path from 'path'
 import { GetStaticProps } from 'next'
 
 import { IWebsite } from '../model';
@@ -12,18 +11,16 @@ export interface IPageProps {
   pageTheme: ITheme;
 }
 
-export const getIndexPageStaticProps: GetStaticProps = async (context): Promise<{props: IPageProps}> => {
+export const getIndexPageStaticProps: GetStaticProps = async (): Promise<{props: IPageProps}> => {
   if (!process.env.EVERYPAGE_SITE_FILE) {
     throw Error('EVERYPAGE_SITE_FILE env var needs to be set to the path of the site file')
   }
-  const siteFilePath = path.join(process.cwd(), process.env.EVERYPAGE_SITE_FILE);
-  const siteContent = eval('require')(siteFilePath);
+  const siteContent = eval('require')(process.env.EVERYPAGE_SITE_FILE);
 
   if (!process.env.EVERYPAGE_THEME_FILE) {
     throw Error('EVERYPAGE_THEME_FILE env var needs to be set to the path of the site file')
   }
-  const themeFilePath = path.join(process.cwd(), process.env.EVERYPAGE_THEME_FILE);
-  const theme = eval('require')(themeFilePath);
+  const theme = eval('require')(process.env.EVERYPAGE_THEME_FILE);
 
   return {
     props: {

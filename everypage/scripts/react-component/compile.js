@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+const path = require('path');
 const chalk = require('chalk');
 const glob = require('glob');
 const commander = require('commander');
@@ -14,7 +15,7 @@ const generateDeclarations = require('../typing/generateDeclarations');
 const tsConfig = require('../typing/tsconfig');
 
 const params = commander
-  .option('-wp, --webpack-config-part <path>')
+  .option('-wp, --webpack-config-modifier <path>')
   .option('-me, --multi-entry <name>')
   .option('-d, --dev')
   .option('-b, --build')
@@ -22,15 +23,19 @@ const params = commander
 
 process.env.BUILD_MODE = params.dev ? 'development' : 'production';
 
-const mergedConfig = webpackMerge(
+var mergedConfig = webpackMerge(
   require('../webpack-common/common.webpack'),
   require('../webpack-common/js.webpack'),
   require('../webpack-common/css.webpack'),
   require('../webpack-common/images.webpack'),
   require('./component.webpack'),
   params.dev ? require('./dev.webpack') : require('./prod.webpack'),
-  params.webpackConfigPart ? require(params.webpackConfigPart) : {},
 );
+
+if (params.webpackConfigModifier) {
+  const webpackConfigModifier = require(path.join(process.cwd(), params.webpackConfigModifier));
+  mergedConfig = webpackConfigModifier(mergedConfig);
+}
 
 if (params.multiEntry) {
   const indicesOnly = true;
@@ -84,6 +89,7 @@ const processWebpackOutput = (err, stats) => {
 if (params.build) {
   compiler.run((err, stats) => {
     const messages = processWebpackOutput(err, stats);
+    childProcess.execSync('npm pack', { cwd: mergedConfig.output.path });
     if (messages.warnings.length > 0) {
       console.log(chalk.yellow(messages.warnings.join('\n\n')));
       notifier.notify({title: mergedConfig.name, message: `Built with ${messages.warnings.length} warnings` });

@@ -11,7 +11,7 @@ export const Attribution = (): React.ReactElement => {
       <Stack childAlignment={Alignment.Center} shouldShowGutters={true}>
         <Spacing mode='extra-narrow'/>
         <Text alignment={TextAlignment.Center} mode='inverse'>
-          <span>Made with <Link mode='inverse' destination='https://everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>
+          <span>Made with <Link mode='inverse' destination='https://www.everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>
         </Text>
         <Spacing mode='extra-narrow'/>
       </Stack>
