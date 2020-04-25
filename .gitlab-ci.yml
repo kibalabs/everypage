@@ -11,12 +11,13 @@ build and push image:
     - docker:19.03.8-dind
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
   script:
-    # NOTE(krish): this is the only way i found to get commit count but it always gives 50!
-    - apk update && apk add git
-    - COMMIT_COUNT=$(git rev-list --count HEAD)
-    - echo $COMMIT_COUNT
-    - docker build --tag $CI_REGISTRY_IMAGE:latest everypage # --tag $CI_REGISTRY_IMAGE:$COMMIT_COUNT
+    # # NOTE(krish): this is the only way i found to get commit count but it always gives 50!
+    # - apk update && apk add git
+    # - COMMIT_COUNT=$(git rev-list --count HEAD)
+    # - echo $COMMIT_COUNT
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:latest everypage # --tag $CI_REGISTRY_IMAGE:$COMMIT_COUNT
     - docker push $CI_REGISTRY_IMAGE:latest # $CI_REGISTRY_IMAGE:$COMMIT_COUNT
 
 build and push package:
@@ -27,6 +28,6 @@ build and push package:
   before_script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  script:
     - docker pull $CI_REGISTRY_IMAGE:latest
-    - docker run -v .npmrc:/root/.npmrc $CI_REGISTRY_IMAGE:latest npm run publish
+  script:
+    - docker run -v $(pwd)/.npmrc:/root/.npmrc $CI_REGISTRY_IMAGE:latest npm run publish
