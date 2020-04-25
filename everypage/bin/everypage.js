@@ -69,6 +69,7 @@ const run = (command, params) => {
   if (command === 'build') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
     copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
+    cleanBuildDirectory();
   } else if (command === 'serve') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
     copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
@@ -76,6 +77,7 @@ const run = (command, params) => {
     process.on('SIGTERM', () => {
       console.log('Shutting down server');
       server.kill();
+      cleanBuildDirectory();
     });
   } else if (command === 'start') {
     const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')], { stdio: 'inherit' });
@@ -100,10 +102,6 @@ const run = (command, params) => {
       server.kill();
     });
   }
-  // process.on('SIGTERM', () => {
-  //   cleanBuildDirectory();
-  // });
-  // cleanBuildDirectory();
 }
 
 const program = commander.program;
