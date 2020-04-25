@@ -12,6 +12,3 @@ COPY . .
 
 # Build app
 RUN npm run build
-
-# Install globally so `npx everypage` can be used by child containers
-RUN npm install -g ./dist/kibalabs-everypage-*.tgz
