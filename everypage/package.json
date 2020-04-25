@@ -1,11 +1,11 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
   "scripts": {
     "build": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js --build",
     "start": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js",
-    "start-dev": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js --dev"
+    "start-dev": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js --dev",
+    "publish": "scripts/publish.js"
   },
   "bin": {
     "everypage": "bin/everypage.js"
