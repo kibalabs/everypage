@@ -115,10 +115,10 @@ if (params.build) {
     if (isFirstRun) {
       isFirstRun = false;
       console.log(`Installing prod dependencies into ${mergedConfig.output.path}...`);
-      const { stdout, stderr } = childProcess.execSync('npm install --only=prod', { cwd: mergedConfig.output.path })
-      console.log(stdout);
-      if (stderr) {
-        console.log(chalk.red(stderr));
+      try {
+        childProcess.execSync('npm install --only=prod', { cwd: mergedConfig.output.path, stdio: 'inherit' })
+      } catch (error) {
+        console.log(chalk.red(error));
         notifier.notify({title: mergedConfig.name, message: `Error installing dependencies!` });
         return;
       }

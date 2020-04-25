@@ -40,10 +40,6 @@ const run = (command, params) => {
   const themeFilePath = path.join(directory, 'theme.json');
   const assetsDirectory = path.join(directory, 'assets');
 
-  const a = require.resolve('typescript');
-  console.log(a);
-  require.resolve('@kibalabs/react-static');
-
   if (params.clean) {
     console.log('Clearing build and output directories');
     rimraf.sync(buildDirectory);
@@ -151,6 +147,8 @@ program
         "@kibalabs/react-static": "^7.3.0",
         "@kibalabs/react-static-plugin-styled-components": "^7.3.0",
         "@kibalabs/react-static-plugin-typescript": "^7.3.0",
+        "typescript": "^3.8.3",
+        "@babel/runtime": "^7.9.2",
       }
       const requirementsString = Object.entries(requirements).map((value) => `${value[0]}@${value[1]}`).join(' ');
       childProcess.execSync(`npm install --no-save ${requirementsString}`, { stdio: 'inherit' })
