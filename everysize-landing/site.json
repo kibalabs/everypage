@@ -2,7 +2,7 @@
     "name": "everysize",
     "tagline": "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
     "company": "Kiba Labs",
-    "companyWebiste": "https://www.kibalabs.com",
+    "companyWebsite": "https://www.kibalabs.com",
     "description": "We believe developer teams should have well-managed documentation tools and processes from day 1, just like with their coding. We're building the future of developer documentation :rocket:",
     "sections": [
         {
@@ -12,7 +12,7 @@
         {
             "type": "hero-signup-image-half-1",
             "logoImageUrl": null,
-            "titleText": "Check your responsive webpage looks aaaa great in every size 🖥 💻 📱 👀",
+            "titleText": "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
             "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀",
             "inputType": "url",
             "inputPlaceholderText": "Enter a url to see the magic",

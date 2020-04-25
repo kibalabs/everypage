@@ -1,5 +1,5 @@
 import React from 'react';
-import Head from 'next/head'
+import { Helmet } from 'react-helmet';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
@@ -13,13 +13,13 @@ export interface IGlobalHeadProps {
 export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   const website = props.website || useWebsite();
   return (
-    <Head>
+    <Helmet>
       <meta charSet='utf-8' />
       <title>{website.title || `${website.name} - ${website.tagline}`}</title>
       { website.description && <meta name='description' content={website.description} /> }
       { props.fontUrls && props.fontUrls.map((fontUrl: string, index: number): React.ReactElement => (
         <link key={index} href={fontUrl} rel='stylesheet' />
       ))}
-    </Head>
+    </Helmet>
   );
 };

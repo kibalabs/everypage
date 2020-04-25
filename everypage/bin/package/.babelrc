@@ -1,6 +1,7 @@
 {
   "presets": [
-    "next/babel"
+    // "next/babel"
+    "@kibalabs/react-static/babel-preset.js"
   ],
   "plugins": [
     [
