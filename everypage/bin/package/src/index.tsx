@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as ReactStatic from '@kibalabs/react-static';
 import { AppContainer } from 'react-hot-loader';
 
 import { IndexPage } from '@kibalabs/everypage';
 
+const RootInternal = (): React.ReactElement => {
+  const siteData = ReactStatic.useSiteData();
+  return (
+    <IndexPage pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
+  );
+};
+
 export const Root = (): React.ReactElement => {
   return (
-    <React.Suspense fallback={<div>loading...</div>}><IndexPage /></React.Suspense>
+    <React.Suspense fallback={<div>loading...</div>}>
+      <RootInternal />
+    </React.Suspense>
   );
 };
 export default Root;

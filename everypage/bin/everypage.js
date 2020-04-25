@@ -40,6 +40,10 @@ const run = (command, params) => {
   const themeFilePath = path.join(directory, 'theme.json');
   const assetsDirectory = path.join(directory, 'assets');
 
+  const a = require.resolve('typescript');
+  console.log(a);
+  require.resolve('@kibalabs/react-static');
+
   if (params.clean) {
     console.log('Clearing build and output directories');
     rimraf.sync(buildDirectory);
@@ -100,6 +104,7 @@ const run = (command, params) => {
     process.on('SIGTERM', () => {
       console.log('Shutting down server');
       server.kill();
+      cleanBuildDirectory();
     });
   }
 }
@@ -134,5 +139,21 @@ program
   .option('-o, --output-directory <path>')
   .option('-p, --port <number>')
   .action((params) => run('serve', params));
+
+  program
+    .command('install-deps')
+    .description('Install all dependencies locally')
+    .action(() => {
+      const requirements = {
+        "react": "^16.13.0",
+        "react-dom": "^16.13.0",
+        "styled-components": "^5.1.0",
+        "@kibalabs/react-static": "^7.3.0",
+        "@kibalabs/react-static-plugin-styled-components": "^7.3.0",
+        "@kibalabs/react-static-plugin-typescript": "^7.3.0",
+      }
+      const requirementsString = Object.entries(requirements).map((value) => `${value[0]}@${value[1]}`).join(' ');
+      childProcess.execSync(`npm install --no-save ${requirementsString}`, { stdio: 'inherit' })
+    });
 
 program.parse(process.argv);
