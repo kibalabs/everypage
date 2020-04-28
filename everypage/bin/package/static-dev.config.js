@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import { reloadClientData } from '@kibalabs/react-static/node'
+import chokidar from 'chokidar';
 
 console.log(`Running with root: ${__dirname}`)
 const siteFilePath = path.join(__dirname, 'site.json');
 const themeFilePath = path.join(__dirname, 'theme.json');
-fs.watch(siteFilePath, () => reloadClientData());
-fs.watch(themeFilePath, () => reloadClientData());
+chokidar.watch(siteFilePath).add(themeFilePath).on('all', () => reloadClientData());
 
 export default {
   paths: {
@@ -14,20 +14,23 @@ export default {
   },
   entry: 'index.tsx',
   plugins: [
-    ['@kibalabs/react-static-plugin-typescript', { typeCheck: false }],
-    '@kibalabs/react-static-plugin-styled-components',
+    ['react-static-plugin-typescript', { typeCheck: false }],
+    'react-static-plugin-styled-components',
   ],
   getSiteData: async () => {
-    return sleep(100, () => {
-      return {
-        pageContent: JSON.parse(fs.readFileSync(siteFilePath)),
-        pageTheme: JSON.parse(fs.readFileSync(themeFilePath)),
-      };
+    return sleep(15, async () => {
+      const promises = [fs.promises.readFile(siteFilePath), fs.promises.readFile(themeFilePath)];
+      return Promise.all(promises).then((values) => {
+        return {
+          pageContent: JSON.parse(values[0]),
+          pageTheme: JSON.parse(values[1]),
+        }
+      });
     });
   },
 };
 
-async function sleep(ms, fn, ...args) {
+async function sleep(ms, fn) {
   await new Promise(resolve => setTimeout(resolve, ms));
-  return fn(...args);
+  return fn();
 };

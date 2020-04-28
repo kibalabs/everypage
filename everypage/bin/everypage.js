@@ -144,14 +144,15 @@ program
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
         "styled-components": "^5.1.0",
-        "@kibalabs/react-static": "^7.3.0",
-        "@kibalabs/react-static-plugin-styled-components": "^7.3.0",
-        "@kibalabs/react-static-plugin-typescript": "^7.3.0",
+        "@kibalabs/react-static": "7.2.3-kiba.2",
+        "react-static-plugin-styled-components": "^7.2.2",
+        "react-static-plugin-typescript": "^7.2.2",
         "typescript": "^3.8.3",
         "@babel/runtime": "^7.9.2",
+        "chokidar": "^3.4.0",
       }
       const requirementsString = Object.entries(requirements).map((value) => `${value[0]}@${value[1]}`).join(' ');
-      childProcess.execSync(`npm install --no-save ${requirementsString}`, { stdio: 'inherit' })
+      childProcess.execSync(`npm install --no-save --silent ${requirementsString}`, { stdio: 'inherit' })
     });
 
 program.parse(process.argv);

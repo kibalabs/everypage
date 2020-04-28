@@ -131,6 +131,6 @@ if (params.build) {
       console.log(chalk.green(`Successfully compiled ${mergedConfig.name} 🚀\n`));
       notifier.notify({title: mergedConfig.name, message: `Successfully compiled 🚀` });
     }
-    console.log('Run', chalk.cyan(`npm uninstall ${mergedConfig.name}; npm install ${mergedConfig.output.path}`), `to use ${mergedConfig.name} live 🖥\n`);
+    console.log('Run', chalk.cyan(`npm uninstall ${mergedConfig.name}; npm install --no-save ${mergedConfig.output.path}`), `to use ${mergedConfig.name} live 🖥\n`);
   });
 }
