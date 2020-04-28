@@ -3,15 +3,17 @@ import { Helmet } from 'react-helmet';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
+import { ITheme, useTheme, IFont } from '../components';
 
 
 export interface IGlobalHeadProps {
   website?: IWebsite;
-  fontUrls?: string[];
+  theme?: ITheme;
 }
 
 export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   const website = props.website || useWebsite();
+  const theme = props.theme || useTheme();
   return (
     <Helmet>
       <meta charSet='utf-8' />
@@ -23,8 +25,8 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       { website.version && <meta name='version' content={website.version} /> }
       { website.description && <meta name='description' content={website.description} /> }
       <title>{website.title || `${website.name} - ${website.tagline}`}</title>
-      { props.fontUrls && props.fontUrls.map((fontUrl: string, index: number): React.ReactElement => (
-        <link key={index} href={fontUrl} rel='stylesheet' />
+      { Object.values(theme.fonts).map((font: IFont, index: number): React.ReactElement => (
+        <link key={index} href={font.url} rel='stylesheet' />
       ))}
     </Helmet>
   );

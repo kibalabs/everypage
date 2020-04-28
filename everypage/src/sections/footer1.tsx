@@ -15,7 +15,6 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
     companyText = `[${companyText}](${website.companyUrl})`;
   }
   const text = props.text || `© ${new Date().getFullYear()} ${companyText}`;
-  console.log('text', text);
   return (
     <Section
       id={props.id}

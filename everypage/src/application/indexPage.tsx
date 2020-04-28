@@ -29,12 +29,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             theme={props.pageTheme}
             resetCss={resetCss}
           />
-          <GlobalHead
-            website={props.pageContent as IWebsite}
-            fontUrls={[
-              'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900',
-            ]}
-          />
+          <GlobalHead />
           <Stack>{ stackItems }</Stack>
         </React.Fragment>
       </ThemeProvider>

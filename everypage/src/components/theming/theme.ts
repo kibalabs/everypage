@@ -1,39 +1,43 @@
 import { ThemeType, IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
 
 export interface IColorGuide extends ThemeType {
-  brandPrimary: string,
-  brandSecondary: string,
-  text: string,
-  textOnBrand: string,
-  textOnDark: string,
-  disabled: string,
-  background: string,
-  backgroundDark: string,
+  brandPrimary: string;
+  brandSecondary: string;
+  text: string;
+  textOnBrand: string;
+  textOnDark: string;
+  disabled: string;
+  background: string;
+  backgroundDark: string;
 }
 
 export interface IDimensionGuide extends ThemeType {
-  borderRadius: string,
-  borderWidth: string,
-  borderWidthNarrow: string,
-  borderWidthWide: string,
+  borderRadius: string;
+  borderWidth: string;
+  borderWidthNarrow: string;
+  borderWidthWide: string;
 
-  padding: string,
-  paddingNarrow: string,
-  paddingExtraNarrow: string,
-  paddingExtraExtraNarrow: string,
-  paddingWide: string,
-  paddingExtraWide: string,
-  paddingExtraExtraWide: string,
-  paddingExtraExtraExtraWide: string,
+  padding: string;
+  paddingNarrow: string;
+  paddingExtraNarrow: string;
+  paddingExtraExtraNarrow: string;
+  paddingWide: string;
+  paddingExtraWide: string;
+  paddingExtraExtraWide: string;
+  paddingExtraExtraExtraWide: string;
 
-  columnCount: number,
-  gutterSize: string,
+  columnCount: number;
+  gutterSize: string;
 
-  screenWidthSmall: string,
-  screenWidthMedium: string,
-  screenWidthLarge: string,
-  screenWidthExtraLarge: string,
-  screenWidthMax: string,
+  screenWidthSmall: string;
+  screenWidthMedium: string;
+  screenWidthLarge: string;
+  screenWidthExtraLarge: string;
+  screenWidthMax: string;
+}
+
+export interface IFont extends ThemeType {
+  url: string;
 }
 
 interface ThemeMap<Theme extends ThemeType> extends Record<string, Theme>, ThemeType {
@@ -44,6 +48,7 @@ export interface ITheme extends ThemeType {
   // Base
   colors: IColorGuide,
   dimensions: IDimensionGuide,
+  fonts: Record<string, IFont>,
 
   // Subatoms
   boxes: ThemeMap<IBoxTheme>,

@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "build": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js --build",
     "start": "scripts/react-component/compile.js --webpack-config-modifier ./config.webpack.js",
