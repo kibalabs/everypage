@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const package = JSON.parse(fs.readFileSync(path.join(process.cwd(), './package.json'), 'utf8'));
 const externalPackages = Object.keys(package.dependencies || {}).concat(Object.keys(package.peerDependencies || {})).concat(Object.keys(package.optionalDependencies || {}));
@@ -35,6 +36,11 @@ module.exports = {
       { from: path.join(process.cwd(), './.npmrc') },
       ...scriptCopyCommands,
     ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        PACKAGE_VERSION: JSON.stringify(package.version),
+      }
+    })
   ],
   externals: [
     function(context, request, callback) {

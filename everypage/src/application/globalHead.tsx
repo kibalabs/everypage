@@ -15,8 +15,14 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   return (
     <Helmet>
       <meta charSet='utf-8' />
-      <title>{website.title || `${website.name} - ${website.tagline}`}</title>
+      <meta name='author' content={website.company} />
+      <meta name='copyright' content={website.company} />
+      <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
+      <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
+      { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
+      { website.version && <meta name='version' content={website.version} /> }
       { website.description && <meta name='description' content={website.description} /> }
+      <title>{website.title || `${website.name} - ${website.tagline}`}</title>
       { props.fontUrls && props.fontUrls.map((fontUrl: string, index: number): React.ReactElement => (
         <link key={index} href={fontUrl} rel='stylesheet' />
       ))}
