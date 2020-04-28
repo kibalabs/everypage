@@ -10,7 +10,12 @@ interface IFooter1Props extends ISectionProps {
 
 export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   const website = useWebsite();
-  const text = props.text || `© 2020 ${website.company}`;
+  let companyText = `${website.company}`;
+  if (website.companyUrl) {
+    companyText = `[${companyText}](${website.companyUrl})`;
+  }
+  const text = props.text || `© ${new Date().getFullYear()} ${companyText}`;
+  console.log('text', text);
   return (
     <Section
       id={props.id}
