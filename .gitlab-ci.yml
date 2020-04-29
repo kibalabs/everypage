@@ -37,3 +37,21 @@ build and push packages:
     - docker pull ${CI_REGISTRY_IMAGE}:latest
   script:
     - docker run -v $(pwd)/.npmrc:/root/.npmrc ${CI_REGISTRY_IMAGE}:latest npm run publish
+
+run on freebox:
+  stage: run
+  image: debian:buster-slim
+  variables:
+    RUNNABLE_DIRECTORY: "~/deployments/$CI_PROJECT_PATH/$CI_COMMIT_SHORT_SHA"
+  before_script:
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "${FREEBOX_SSH_KEY}" | ssh-add -
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ssh $FREEBOX_USER@$FREEBOX_URL "
+        rm -rf $CI_REPOSITORY_URL $RUNNABLE_DIRECTORY &&
+        git clone $CI_REPOSITORY_URL $RUNNABLE_DIRECTORY &&
+        cd $RUNNABLE_DIRECTORY &&
+        ./run.sh
