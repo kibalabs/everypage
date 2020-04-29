@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "scripts": {
     "build": "build-react-component --webpack-config-modifier ./config.webpack.js",
     "start": "build-react-component --webpack-config-modifier ./config.webpack.js --start",
@@ -20,7 +20,7 @@
     "react-markdown": "^4.3.1"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.1.9",
+    "@kibalabs/build": "0.1.10",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.0.1",
