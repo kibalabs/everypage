@@ -2,6 +2,8 @@ stages:
   - deploy
   - publish
 
+# TODO(krish): currently using different tags for each image instead of repos cos gitlab throws an error
+
 build and push base image:
   stage: deploy
   only:
@@ -19,10 +21,10 @@ build and push base image:
     # - echo ${COMMIT_COUNT}
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target build --tag ${CI_REGISTRY_IMAGE}:latest src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
     - docker push ${CI_REGISTRY_IMAGE}:latest # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
-    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target canvas --tag ${CI_REGISTRY_IMAGE}-canvas:latest src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
-    - docker push ${CI_REGISTRY_IMAGE}-canvas:latest # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
-    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target landing --tag ${CI_REGISTRY_IMAGE}-landing:latest src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
-    - docker push ${CI_REGISTRY_IMAGE}-landing:latest # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target canvas --tag ${CI_REGISTRY_IMAGE}:canvas src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
+    - docker push ${CI_REGISTRY_IMAGE}:canvas # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target landing --tag ${CI_REGISTRY_IMAGE}:landing src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
+    - docker push ${CI_REGISTRY_IMAGE}:landing # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
 
 build and push packages:
   stage: publish
