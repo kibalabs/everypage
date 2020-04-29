@@ -3,8 +3,8 @@ set -e -o pipefail
 
 name="everypage-canvas"
 url="canvas.everypagehq.com"
-dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app"
-dockerTag="canvas"
+dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app/canvas"
+dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
 varsFile=~/.${name}.vars
@@ -26,8 +26,8 @@ docker run \
 
 name="everypage-landing"
 url="www.everypagehq.com"
-dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app"
-dockerTag="landing"
+dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app/landing"
+dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
 varsFile=~/.${name}.vars
