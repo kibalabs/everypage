@@ -1,6 +1,7 @@
 stages:
   - deploy
   - publish
+  - run
 
 # TODO(krish): currently using different tags for each image instead of repos cos gitlab throws an error
 
