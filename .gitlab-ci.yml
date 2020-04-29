@@ -5,7 +5,7 @@ stages:
 
 # TODO(krish): currently using different tags for each image instead of repos cos gitlab throws an error
 
-build and push base image:
+build and push images:
   stage: deploy
   only:
     - master
@@ -27,7 +27,7 @@ build and push base image:
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target landing --tag ${CI_REGISTRY_IMAGE}:landing src # --tag ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
     - docker push ${CI_REGISTRY_IMAGE}:landing # ${CI_REGISTRY_IMAGE}:${COMMIT_COUNT}
 
-build and push packages:
+push packages:
   stage: publish
   image: docker:19.03.8
   services:

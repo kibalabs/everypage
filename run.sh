@@ -22,6 +22,7 @@ docker run \
     --env VIRTUAL_HOST=$url \
     --env LETSENCRYPT_HOST=$url \
     --env-file ${varsFile} \
+    ${dockerImage}
 
 name="everypage-landing"
 url="www.everypagehq.com"
@@ -44,3 +45,4 @@ docker run \
     --env VIRTUAL_HOST=$url \
     --env LETSENCRYPT_HOST=$url \
     --env-file ${varsFile} \
+    ${dockerImage}
