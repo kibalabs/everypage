@@ -1,0 +1,32 @@
+{
+  "name": "@kibalabs/everypage",
+  "version": "0.1.9",
+  "scripts": {
+    "publish": "kiba-publish"
+  },
+  "bin": {
+    "everypage": "bin/everypage.js"
+  },
+  "files": [
+    "bin/*"
+  ],
+  "dependencies": {
+    "@babel/runtime": "7.9.2",
+    "@kibalabs/everypage-core": "0.1.9",
+    "@kibalabs/react-static": "7.2.3-kiba.2",
+    "chalk": "4.0.0",
+    "chokidar": "3.4.0",
+    "commander": "5.0.0",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "react-static-plugin-styled-components": "7.2.2",
+    "react-static-plugin-typescript": "7.2.2",
+    "rimraf": "3.0.2",
+    "serve": "11.3.0",
+    "styled-components": "5.1.0",
+    "typescript": "3.8.3"
+  },
+  "devDependencies": {
+    "@kibalabs/build": "0.1.9"
+  }
+}

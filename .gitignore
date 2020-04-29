@@ -4,11 +4,8 @@
 # IDEs
 .idea/
 .vscode/
-tmp/
 *.swp
-
-# Autoenv
-.activate
+*.log
 
 # Protobufs
 *_pb2.*
@@ -22,16 +19,13 @@ lint.xml
 nosetests.xml
 eslint.xml
 jest.xml
-test.log
-lint.log
-pylint.log
-pipdeptree.log
 local_testing*
-mypy.log
-build*.log
 
-# Generated Code
+# Generated
 generated/
+dist/
+build/
+tmp/
 
 # Python
 __pycache__/
@@ -44,8 +38,6 @@ build/
 
 # JS
 node_modules/
-dist/
-build/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -1,0 +1,16 @@
+{
+  "name": "everypage",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "start": "lerna run start --parallel",
+    "start-canvas": "lerna run start-dev --parallel --scope @kibalabs/everypage-canvas --include-dependencies",
+    "start-landing": "lerna run start-dev --parallel --scope @kibalabs/everypage-landing --include-dependencies",
+    "build": "lerna run build",
+    "publish": "lerna publish from-package --no-git-tag-version --no-push --yes",
+    "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes"
+  },
+  "devDependencies": {
+    "lerna": "3.20.2"
+  }
+}
