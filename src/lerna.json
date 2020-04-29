@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.1.9",
+  "npmClient": "npm",
+  "registry": "https://registry.npmjs.org/"
+}
