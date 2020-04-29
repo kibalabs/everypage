@@ -56,3 +56,4 @@ run on freebox:
         git clone $CI_REPOSITORY_URL $RUNNABLE_DIRECTORY &&
         cd $RUNNABLE_DIRECTORY &&
         ./run.sh
+      "
