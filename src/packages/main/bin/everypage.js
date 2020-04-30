@@ -38,6 +38,7 @@ const run = (command, params) => {
   const siteFilePath = path.join(directory, 'site.json');
   const themeFilePath = path.join(directory, 'theme.json');
   const assetsDirectory = path.join(directory, 'assets');
+  const buildHash = params.buildHash || String(new Date().getTime());
 
   if (params.clean) {
     console.log('Clearing build and output directories');
@@ -61,9 +62,9 @@ const run = (command, params) => {
   };
 
   copyDirectorySync(path.join(__dirname, './package'), buildDirectory);
-  copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
-  fs.writeFileSync(path.join(buildDirectory, 'site.json'), fs.readFileSync(siteFilePath));
-  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), fs.readFileSync(themeFilePath));
+  copyDirectorySync(assetsDirectory, path.join(buildDirectory, `./public/assets_${buildHash}`));
+  fs.writeFileSync(path.join(buildDirectory, 'site.json'), String(fs.readFileSync(siteFilePath)).replace('/assets/', `/assets_${buildHash}/`));
+  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), String(fs.readFileSync(themeFilePath)).replace('/assets/', `/assets_${buildHash}/`));
 
   if (command === 'build') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
@@ -112,6 +113,7 @@ program
   .option('-d, --directory <path>')
   .option('-c, --clean', 'delete existing build and output directories before starting')
   .option('-b, --build-directory <path>')
+  .option('-x, --build-hash <str>')
   .option('-o, --output-directory <path>')
   .option('-p, --port <number>')
   .action((params) => run('start', params));
@@ -122,6 +124,7 @@ program
   .option('-d, --directory <path>')
   .option('-c, --clean', 'delete existing build and output directories before starting')
   .option('-b, --build-directory <path>')
+  .option('-x, --build-hash <str>')
   .option('-o, --output-directory <path>')
   .action((params) => run('build', params));
 
@@ -131,6 +134,7 @@ program
   .option('-d, --directory <path>')
   .option('-c, --clean', 'delete existing build and output directories before starting')
   .option('-b, --build-directory <path>')
+  .option('-x, --build-hash <str>')
   .option('-o, --output-directory <path>')
   .option('-p, --port <number>')
   .action((params) => run('serve', params));
