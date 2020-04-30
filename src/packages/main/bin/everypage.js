@@ -68,7 +68,7 @@ const run = (command, params) => {
   if (command === 'build') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
     copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
-    cleanBuildDirectory();
+    // cleanBuildDirectory();
   } else if (command === 'serve') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
     copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);

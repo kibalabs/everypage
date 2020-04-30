@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { reloadClientData } from '@kibalabs/react-static/node'
+import { reloadClientData } from 'react-static/node'
 import chokidar from 'chokidar';
 
 console.log(`Running with root: ${__dirname}`)

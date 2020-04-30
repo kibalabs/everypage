@@ -1,6 +1,6 @@
 {
   "presets": [
-    "@kibalabs/react-static/babel-preset.js"
+    "react-static/babel-preset.js"
   ],
   "plugins": [
     [
@@ -8,7 +8,7 @@
       {
         "ssr": true,
         "displayName": false,
-        "preprocess": false,
+        "preprocess": false
       }
     ]
   ]

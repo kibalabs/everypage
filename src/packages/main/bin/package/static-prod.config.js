@@ -13,6 +13,7 @@ export default {
   plugins: [
     ['react-static-plugin-typescript', { typeCheck: false }],
     'react-static-plugin-styled-components',
+    [ 'react-static-plugin-source-filesystem', {location: path.join(__dirname, './src/pages')}],
   ],
   getSiteData: async () => {
     return {

@@ -1,26 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as ReactStatic from '@kibalabs/react-static';
+import { Root, Routes } from 'react-static';
 import { AppContainer } from 'react-hot-loader';
 
-import { IndexPage } from '@kibalabs/everypage-core';
-
-const RootInternal = (): React.ReactElement => {
-  const siteData = ReactStatic.useSiteData();
-  return (
-    <IndexPage pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
-  );
-};
-
-export const Root = (): React.ReactElement => {
-  return (
+export const App = () => (
+  <Root>
     <React.Suspense fallback={<div>loading...</div>}>
-      <RootInternal />
+      <Routes path='*' />
     </React.Suspense>
-  );
-};
-export default Root;
-
+  </Root>
+);
+export default App;
 
 // For react-static
 if (typeof document !== 'undefined') {
@@ -29,8 +19,8 @@ if (typeof document !== 'undefined') {
   const render = (Component: Function) => {
     renderMethod(<AppContainer><Component /></AppContainer>, target);
   };
-  render(Root)
+  render(App)
   if (module && module.hot) {
-    module.hot.accept('@kibalabs/everypage-core', () => render(Root));
+    module.hot.accept('@kibalabs/everypage-core', () => render(App));
   }
 }
