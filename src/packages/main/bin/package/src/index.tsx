@@ -6,7 +6,7 @@ import { AppContainer } from 'react-hot-loader';
 export const App = () => (
   <Root>
     <React.Suspense fallback={<div>loading...</div>}>
-      <Routes path='*' />
+      <Routes />
     </React.Suspense>
   </Root>
 );
@@ -21,6 +21,6 @@ if (typeof document !== 'undefined') {
   };
   render(App)
   if (module && module.hot) {
-    module.hot.accept('@kibalabs/everypage-core', () => render(App));
+    module.hot.accept('@kibalabs/everypage', () => render(App));
   }
 }

@@ -5,3 +5,4 @@ export const NotFound = (): React.ReactElement => {
     <div>Oh my, not found!</div>
   );
 };
+export default NotFound;

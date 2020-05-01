@@ -1,22 +1,27 @@
 import fs from 'fs'
 import path from 'path'
 
-console.log(`Running with root: ${__dirname}`)
-const siteFilePath = path.join(__dirname, 'site.json');
-const themeFilePath = path.join(__dirname, 'theme.json');
+let rootPath = __dirname;
+if (rootPath.startsWith(process.cwd())) {
+  rootPath = rootPath.replace(process.cwd(), '.');
+}
+console.log(`Running with root: ${process.cwd()}, ${rootPath}`)
+
+const siteFilePath = path.join(rootPath, 'site.json');
+const themeFilePath = path.join(rootPath, 'theme.json');
 const site = JSON.parse(fs.readFileSync(siteFilePath));
 const theme = JSON.parse(fs.readFileSync(themeFilePath));
 
 export default {
   assetsPath: site.buildHash || '',
   paths: {
-    root: __dirname,
+    root: rootPath,
   },
   entry: 'index.tsx',
   plugins: [
     ['react-static-plugin-typescript', { typeCheck: false }],
     'react-static-plugin-styled-components',
-    [ 'react-static-plugin-source-filesystem', {location: path.join(__dirname, './src/pages')}],
+    [ 'react-static-plugin-source-filesystem', { location: path.join(rootPath, 'src/pages') }],
   ],
   getSiteData: async () => {
     return {
