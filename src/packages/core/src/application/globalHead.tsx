@@ -21,7 +21,7 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='copyright' content={website.company} />
       <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
       <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
-      <meta name='build-hash' content={website.buildHash} />
+      <meta name='build-hash' content={website.buildHash || null} />
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
       { website.version && <meta name='version' content={website.version} /> }
       { website.description && <meta name='description' content={website.description} /> }

@@ -48,7 +48,9 @@ const updateAssetPaths = (obj, buildHash) => {
 const copySiteFile = (siteFilePath, targetDirectory, buildHash) => {
   let siteContent = JSON.parse(fs.readFileSync(siteFilePath));
   siteContent.buildHash = buildHash;
-  siteContent = updateAssetPaths(siteContent, buildHash);
+  if (buildHash) {
+    siteContent = updateAssetPaths(siteContent, buildHash);
+  }
   fs.writeFileSync(path.join(targetDirectory, 'site.json'), JSON.stringify(siteContent));
 }
 
@@ -60,7 +62,7 @@ const run = (command, params) => {
   const siteFilePath = path.join(directory, 'site.json');
   const themeFilePath = path.join(directory, 'theme.json');
   const assetsDirectory = path.join(directory, 'assets');
-  const buildHash = params.buildHash || String(new Date().getTime());
+  const buildHash = params.buildHash;
 
   if (params.clean) {
     console.log('Clearing build and output directories');
