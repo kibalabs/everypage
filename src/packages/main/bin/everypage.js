@@ -30,6 +30,12 @@ const copyDirectorySync = (sourceDirectory, targetDirectory) => {
   });
 }
 
+const copySiteFile = (siteFilePath, targetDirectory, buildHash) => {
+  const siteContent = JSON.parse(fs.readFileSync(siteFilePath));
+  siteContent.buildHash = buildHash;
+  fs.writeFileSync(path.join(targetDirectory, 'site.json'), JSON.stringify(siteContent));
+}
+
 const run = (command, params) => {
   const port = params.port || 3000;
   const directory = params.directory ? path.join(process.cwd(), params.directory) : process.cwd();
@@ -62,9 +68,9 @@ const run = (command, params) => {
   };
 
   copyDirectorySync(path.join(__dirname, './package'), buildDirectory);
-  copyDirectorySync(assetsDirectory, path.join(buildDirectory, `./public/assets_${buildHash}`));
-  fs.writeFileSync(path.join(buildDirectory, 'site.json'), String(fs.readFileSync(siteFilePath)).replace('/assets/', `/assets_${buildHash}/`));
-  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), String(fs.readFileSync(themeFilePath)).replace('/assets/', `/assets_${buildHash}/`));
+  copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+  copySiteFile(siteFilePath, buildDirectory, buildHash);
+  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), fs.readFileSync(themeFilePath));
 
   if (command === 'build') {
     childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: 'inherit' });
@@ -89,7 +95,7 @@ const run = (command, params) => {
       if (!fs.existsSync(siteFilePath)) {
         throw new Error(`site file was removed from ${siteFilePath}`);
       }
-      fs.writeFileSync(path.join(buildDirectory, 'site.json'), fs.readFileSync(siteFilePath));
+      copySiteFile(siteFilePath, buildDirectory, buildHash);
     });
     fs.watch(themeFilePath, () => {
       if (!fs.existsSync(themeFilePath)) {

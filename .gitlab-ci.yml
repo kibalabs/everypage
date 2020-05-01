@@ -20,6 +20,8 @@ build and push images:
     - docker push ${CI_REGISTRY_IMAGE}/canvas:latest
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target landing --tag ${CI_REGISTRY_IMAGE}/landing:latest src
     - docker push ${CI_REGISTRY_IMAGE}/landing:latest
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target run --tag ${CI_REGISTRY_IMAGE}/run:latest src
+    - docker push ${CI_REGISTRY_IMAGE}/run:latest
 
 push packages:
   stage: publish

@@ -4,8 +4,12 @@ import path from 'path'
 console.log(`Running with root: ${__dirname}`)
 const siteFilePath = path.join(__dirname, 'site.json');
 const themeFilePath = path.join(__dirname, 'theme.json');
+const site = JSON.parse(fs.readFileSync(siteFilePath));
+const theme = JSON.parse(fs.readFileSync(themeFilePath));
 
 export default {
+  basePath: site.buildHash || '',
+  assetsPath: site.buildHash || '',
   paths: {
     root: __dirname,
   },
@@ -17,8 +21,8 @@ export default {
   ],
   getSiteData: async () => {
     return {
-      pageContent: JSON.parse(fs.readFileSync(siteFilePath)),
-      pageTheme: JSON.parse(fs.readFileSync(themeFilePath)),
+      pageContent: site,
+      pageTheme: theme,
     };
   },
 };

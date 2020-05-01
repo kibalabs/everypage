@@ -48,3 +48,12 @@ COPY --from=build /app/packages/landing/start.sh .
 
 EXPOSE 80
 CMD ["./start.sh"]
+
+# Landing
+FROM node:12.16.1-alpine as run
+
+WORKDIR /app
+
+COPY --from=build /app/packages/main/ _ep/
+RUN npm install -g _ep/
+RUN npx everypage --version
