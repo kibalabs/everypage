@@ -1,12 +1,13 @@
 {
   "name": "@kibalabs/build",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "scripts": {
     "publish": "./scripts/publish.js"
   },
   "bin": {
     "build-react-component": "scripts/react-component/run.js",
     "build-react-app": "scripts/react-app/run.js",
+    "build-module": "scripts/module/run.js",
     "kiba-publish": "scripts/publish.js"
   },
   "files": [
