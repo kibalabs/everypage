@@ -13,15 +13,12 @@ export const CanvasPage = (): React.ReactElement => {
   const stackItems: React.ReactElement<IStackItemProps>[] = pageContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
-  console.log('stackItems', stackItems);
 
   const onJsonUpdated = (parsedJson: object): void => {
     // TODO(krish): verify this is correct (json schema or typing?)
-    console.log('here2');
     try {
       setPageContent(parsedJson as { sections: Record<string, any> } & IWebsite);
     } catch {
-      console.log('input is invalid!')
     }
   }
 

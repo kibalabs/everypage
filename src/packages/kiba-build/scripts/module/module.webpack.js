@@ -8,6 +8,10 @@ module.exports = {
   name: package.name,
   entry: path.join(process.cwd(), './src/index.ts'),
   target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   output: {
     filename: '[name].js',
     libraryTarget: 'umd',

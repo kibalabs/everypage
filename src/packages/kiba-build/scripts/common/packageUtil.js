@@ -7,7 +7,7 @@ const getExternalPackages = (package) => {
 
 const isExternalPackageRequest = (package, request) => {
   return getExternalPackages(package).some((packageName) => {
-    request === packageName || request.indexOf(`${packageName}/`) === 0
+    return (request === packageName) || (request.indexOf(`${packageName}/`) === 0)
   });
 }
 

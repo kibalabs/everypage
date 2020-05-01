@@ -18,7 +18,6 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
 
   const onJsonChanged = (json: object) => {
-    console.log('here', json);
     props.onJsonUpdated(json);
   };
 
@@ -40,7 +39,6 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   };
 
   React.useLayoutEffect(() => {
-    console.log('editorRef.current', editorRef.current);
     if (editorRef.current && !editor) {
       const newEditor = new JSONEditor(editorRef.current, {
         name: 'site',
