@@ -30,9 +30,25 @@ const copyDirectorySync = (sourceDirectory, targetDirectory) => {
   });
 }
 
+const updateAssetPaths = (obj, buildHash) => {
+  return Object.keys(obj).reduce((result, key) => {
+    let value = obj[key];
+    if (typeof value == 'string') {
+      value = value.startsWith('/assets/') ? value.replace(/^/, `/${buildHash}`) : value;
+    } else if (Array.isArray(value)) {
+      value = value.map(v => updateAssetPaths(v, buildHash));
+    } else if (typeof value == 'object') {
+      value = updateAssetPaths(value, buildHash);
+    }
+    result[key] = value;
+    return result
+  }, {});
+};
+
 const copySiteFile = (siteFilePath, targetDirectory, buildHash) => {
-  const siteContent = JSON.parse(fs.readFileSync(siteFilePath));
+  let siteContent = JSON.parse(fs.readFileSync(siteFilePath));
   siteContent.buildHash = buildHash;
+  siteContent = updateAssetPaths(siteContent, buildHash);
   fs.writeFileSync(path.join(targetDirectory, 'site.json'), JSON.stringify(siteContent));
 }
 

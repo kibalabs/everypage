@@ -8,7 +8,6 @@ const site = JSON.parse(fs.readFileSync(siteFilePath));
 const theme = JSON.parse(fs.readFileSync(themeFilePath));
 
 export default {
-  basePath: site.buildHash || '',
   assetsPath: site.buildHash || '',
   paths: {
     root: __dirname,
