@@ -20,8 +20,6 @@ build and push images:
     - docker push ${CI_REGISTRY_IMAGE}/canvas:latest
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target landing --tag ${CI_REGISTRY_IMAGE}/landing:latest src
     - docker push ${CI_REGISTRY_IMAGE}/landing:latest
-    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target run --tag ${CI_REGISTRY_IMAGE}/run:latest src
-    - docker push ${CI_REGISTRY_IMAGE}/run:latest
 
 push packages:
   stage: publish
@@ -34,6 +32,18 @@ push packages:
     - docker pull ${CI_REGISTRY_IMAGE}:latest
   script:
     - docker run -v $(pwd)/.npmrc:/root/.npmrc ${CI_REGISTRY_IMAGE}:latest npm run publish
+
+push run image:
+  stage: run
+  image: docker:19.03.8
+  services:
+    - docker:19.03.8-dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull ${CI_REGISTRY_IMAGE}/run:latest || true
+  script:
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}/run:latest --tag ${CI_REGISTRY_IMAGE}/run:latest -f src/build.Dockerfile src
+    - docker push ${CI_REGISTRY_IMAGE}/run:latest
 
 run on freebox:
   stage: run
