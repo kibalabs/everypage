@@ -23,6 +23,8 @@ build and push images:
 
 push packages:
   stage: publish
+  only:
+    - master
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
@@ -35,6 +37,8 @@ push packages:
 
 push run image:
   stage: run
+  only:
+    - master
   image: docker:19.03.8
   services:
     - docker:19.03.8-dind
@@ -47,6 +51,8 @@ push run image:
 
 run on freebox:
   stage: run
+  only:
+    - master
   image: debian:buster-slim
   variables:
     RUNNABLE_DIRECTORY: "~/deployments/$CI_PROJECT_PATH/$CI_COMMIT_SHORT_SHA"

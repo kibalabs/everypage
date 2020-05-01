@@ -21,7 +21,7 @@ export default {
   plugins: [
     ['react-static-plugin-typescript', { typeCheck: false }],
     'react-static-plugin-styled-components',
-    [ 'react-static-plugin-source-filesystem', { location: path.join(rootPath, 'src/pages') }],
+    [ 'react-static-plugin-source-filesystem', { location: path.join(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {
     return {
