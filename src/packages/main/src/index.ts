@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as rimraf from 'rimraf';
 import * as commander from 'commander';
 import * as childProcess from 'child_process';
+import * as chokidar from 'chokidar';
 
 export const updateAssetPaths = (siteConfig, buildHash) => {
   if (!buildHash) {
@@ -43,24 +44,16 @@ export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
   });
 };
 
-export const loadSite = (siteFilePath, buildHash) => {
-  let siteContent = JSON.parse(String(fs.readFileSync(siteFilePath)));
-  siteContent.buildHash = buildHash;
-  return updateAssetPaths(siteContent, buildHash);
-}
-
-export const loadTheme = (themeFilePath) => {
-  return JSON.parse(String(fs.readFileSync(themeFilePath)));
-}
-
-export const setup = (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
+export const copyPackage = (buildDirectory) => {
   copyDirectorySync(path.join(__dirname, '../bin/package'), buildDirectory);
-  if (assetsDirectory) {
-    copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
-  }
-  fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(loadSite(siteFilePath, buildHash)));
-  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(loadTheme(themeFilePath)));
 };
+
+export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash) => {
+  siteContent.buildHash = buildHash;
+  updateAssetPaths(siteContent, buildHash);
+  fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
+  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
+}
 
 export const build = (buildDirectory, outputDirectory) => {
   console.log(`Building everypage project in ${buildDirectory}`);
@@ -90,28 +83,22 @@ export const start = async (buildDirectory, assetsDirectory, siteFilePath, theme
     server.kill();
   });
   if (assetsDirectory) {
-    fs.watch(assetsDirectory, (event, filename) => {
-      // TODO(krish): use event and filename
+    chokidar.watch(assetsDirectory).on('all', () => {
       copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
     });
   }
-  fs.watch(siteFilePath, () => {
-    if (!fs.existsSync(siteFilePath)) {
-      throw new Error(`site file was removed from ${siteFilePath}`);
-    }
-    fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(loadSite(siteFilePath, buildHash)));
-  });
-  fs.watch(themeFilePath, () => {
-    if (!fs.existsSync(themeFilePath)) {
-      throw new Error(`theme file was removed from ${themeFilePath}`);
-    }
-    fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(loadTheme(themeFilePath)));
+  chokidar.watch(siteFilePath).add(themeFilePath).on('all', () => {
+    writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash);
   });
   process.on('SIGTERM', () => {
     console.log('Shutting down server');
     server.kill();
   });
   return server;
+};
+
+const readJsonFile = (filePath) => {
+  return JSON.parse(String(fs.readFileSync(filePath)));
 };
 
 export const runFromProgram = async (command, params) => {
@@ -140,7 +127,11 @@ export const runFromProgram = async (command, params) => {
     return;
   }
 
-  setup(buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash);
+  copyPackage(buildDirectory);
+  if (assetsDirectory) {
+    copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+  }
+  writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash);
   if (command === 'build') {
     build(buildDirectory, outputDirectory);
   } else if (command === 'serve') {
