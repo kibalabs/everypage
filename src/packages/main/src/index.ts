@@ -55,18 +55,20 @@ export const loadTheme = (themeFilePath) => {
 
 export const setup = (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
   copyDirectorySync(path.join(__dirname, '../bin/package'), buildDirectory);
-  copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+  if (assetsDirectory) {
+    copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+  }
   fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(loadSite(siteFilePath, buildHash)));
   fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(loadTheme(themeFilePath)));
 };
 
 export const build = (buildDirectory, outputDirectory) => {
-  console.log(`Building react-static project in ${buildDirectory}`);
+  console.log(`Building everypage project in ${buildDirectory}`);
   const npxProcess = childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
   if (npxProcess.status !== 0) {
-    throw new Error(`Failed when running react-static: ${npxProcess.stderr} ${npxProcess.error}`);
-  } else if (npxProcess.stderr) {
-    console.warn(`react-static built with error: ${npxProcess.stderr}`);
+    throw new Error(`Failed when building everypage project: ${npxProcess.stderr} ${npxProcess.error}`);
+  } else if (npxProcess.stderr || npxProcess.error) {
+    console.warn(`everypage project built with error: ${npxProcess.stderr} ${npxProcess.error}`);
   }
   copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
 };
@@ -84,13 +86,15 @@ export const serve = async (buildDirectory, outputDirectory, port) => {
 export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
   const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
   server.on('error', (error) => {
-    console.error(`Error starting react-static project: ${error}`);
+    console.error(`Error starting everypage project: ${error}`);
     server.kill();
   });
-  fs.watch(assetsDirectory, (event, filename) => {
-    // TODO(krish): use event and filename
-    copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
-  });
+  if (assetsDirectory) {
+    fs.watch(assetsDirectory, (event, filename) => {
+      // TODO(krish): use event and filename
+      copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+    });
+  }
   fs.watch(siteFilePath, () => {
     if (!fs.existsSync(siteFilePath)) {
       throw new Error(`site file was removed from ${siteFilePath}`);
