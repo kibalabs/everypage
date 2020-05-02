@@ -61,31 +61,32 @@ export const setup = (buildDirectory, assetsDirectory, siteFilePath, themeFilePa
 };
 
 export const build = (buildDirectory, outputDirectory) => {
-  // TODO(krish): this should complain if there is an error!
-  const npxProcess = childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')]);
-  if (npxProcess.status !== 0 || npxProcess.stderr) {
-    throw new Error(`Failed when running react-static: ${npxProcess.stdout} ${npxProcess.stderr} ${npxProcess.error}`);
+  console.log(`Building react-static project in ${buildDirectory}`);
+  const npxProcess = childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
+  if (npxProcess.status !== 0) {
+    throw new Error(`Failed when running react-static: ${npxProcess.stderr} ${npxProcess.error}`);
+  } else if (npxProcess.stderr) {
+    console.warn(`react-static built with error: ${npxProcess.stderr}`);
   }
   copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
-  rimraf.sync(buildDirectory);
 };
 
-export const serve = (buildDirectory, outputDirectory, port) => {
-  const npxProcess = childProcess.spawnSync(`npx`, ['react-static', 'build', '--config', path.join(buildDirectory, 'static-prod.config.js')]);
-  if (npxProcess.status !== 0 || npxProcess.stderr) {
-    throw new Error(`Failed when running react-static: ${npxProcess.stdout} ${npxProcess.stderr} ${npxProcess.error}`);
-  }
-  copyDirectorySync(path.join(buildDirectory, 'dist'), outputDirectory);
+export const serve = async (buildDirectory, outputDirectory, port) => {
+  build(buildDirectory, outputDirectory);
   const server = childProcess.spawn(`npx`, ['serve', outputDirectory, '-p', port]);
-  process.on('SIGTERM', () => {
+  process.on('exit', () => {
     console.log('Shutting down server');
     server.kill();
-    rimraf.sync(buildDirectory);
   });
+  return server;
 };
 
-export const start = (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
-  const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')]);
+export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
+  const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
+  server.on('error', (error) => {
+    console.error(`Error starting react-static project: ${error}`);
+    server.kill();
+  });
   fs.watch(assetsDirectory, (event, filename) => {
     // TODO(krish): use event and filename
     copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
@@ -105,11 +106,11 @@ export const start = (buildDirectory, assetsDirectory, siteFilePath, themeFilePa
   process.on('SIGTERM', () => {
     console.log('Shutting down server');
     server.kill();
-    rimraf.sync(buildDirectory);
   });
+  return server;
 };
 
-export const runFromProgram = (command, params) => {
+export const runFromProgram = async (command, params) => {
   const port = params.port || 3000;
   const directory = params.directory ? path.join(process.cwd(), params.directory) : process.cwd();
   const buildDirectory = params.buildDirectory ? path.join(process.cwd(), params.buildDirectory) : path.join(directory, 'tmp');
@@ -139,10 +140,11 @@ export const runFromProgram = (command, params) => {
   if (command === 'build') {
     build(buildDirectory, outputDirectory);
   } else if (command === 'serve') {
-    serve(buildDirectory, outputDirectory, port)
+    await serve(buildDirectory, outputDirectory, port)
   } else if (command === 'start') {
-    start(buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash);
+    await start(buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash);
   }
+  rimraf.sync(buildDirectory);
 };
 
 export const createProgram = (version) => {

@@ -3,19 +3,25 @@ import path from 'path'
 import { reloadClientData } from 'react-static/node'
 import chokidar from 'chokidar';
 
-console.log(`Running with root: ${__dirname}`)
-const siteFilePath = path.join(__dirname, 'site.json');
-const themeFilePath = path.join(__dirname, 'theme.json');
+let rootPath = __dirname;
+if (rootPath.startsWith(process.cwd())) {
+  rootPath = rootPath.replace(process.cwd(), '.');
+}
+console.log(`Running with root: ${process.cwd()}, ${rootPath}`)
+
+const siteFilePath = path.join(rootPath, 'site.json');
+const themeFilePath = path.join(rootPath, 'theme.json');
 chokidar.watch(siteFilePath).add(themeFilePath).on('all', () => reloadClientData());
 
 export default {
   paths: {
-    root: __dirname,
+    root: rootPath,
   },
   entry: 'index.tsx',
   plugins: [
     ['react-static-plugin-typescript', { typeCheck: false }],
     'react-static-plugin-styled-components',
+    [ 'react-static-plugin-source-filesystem', { location: path.join(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {
     return sleep(15, async () => {
