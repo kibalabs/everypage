@@ -24,25 +24,11 @@ RUN npm run bootstrap
 RUN npm run build
 
 # Canvas
-FROM nginx:1.17.9 as canvas
-
-WORKDIR /app
+FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as canvas
 
 COPY --from=build /app/packages/canvas/dist /usr/share/nginx/html
-COPY --from=build /app/packages/canvas/nginx.conf.template .
-COPY --from=build /app/packages/canvas/start.sh .
-
-EXPOSE 80
-CMD ["./start.sh"]
 
 # Landing
-FROM nginx:1.17.9 as landing
-
-WORKDIR /app
+FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as landing
 
 COPY --from=build /app/packages/landing/dist /usr/share/nginx/html
-COPY --from=build /app/packages/landing/nginx.conf.template .
-COPY --from=build /app/packages/landing/start.sh .
-
-EXPOSE 80
-CMD ["./start.sh"]
