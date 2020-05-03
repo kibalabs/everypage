@@ -6,8 +6,6 @@ WORKDIR /app
 COPY .npmrc .npmrc
 COPY package.json package.json
 COPY package-lock.json package-lock.json
-COPY packages/kiba-build/package.json packges/kiba-build/package.json
-COPY packages/kiba-build/package-lock.json packges/kiba-build/package-lock.json
 COPY packages/core/package.json packges/core/package.json
 # COPY packages/core/package-lock.json packges/core/package-lock.json
 COPY packages/main/package.json packges/main/package.json
