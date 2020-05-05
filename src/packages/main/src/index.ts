@@ -50,7 +50,7 @@ export const copyPackage = (buildDirectory) => {
 
 export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash) => {
   siteContent.buildHash = buildHash;
-  updateAssetPaths(siteContent, buildHash);
+  siteContent = updateAssetPaths(siteContent, buildHash);
   fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
 }
