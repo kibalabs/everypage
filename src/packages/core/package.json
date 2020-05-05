@@ -1,10 +1,10 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "scripts": {
-    "build": "build-react-component --webpack-config-modifier ./config.webpack.js",
-    "start": "build-react-component --webpack-config-modifier ./config.webpack.js --start",
-    "start-dev": "build-react-component --webpack-config-modifier ./config.webpack.js --start --dev",
+    "build": "build-react-component",
+    "start": "build-react-component --start",
+    "start-dev": "build-react-component --start --dev",
     "publish": "kiba-publish"
   },
   "main": "dist/index.js",

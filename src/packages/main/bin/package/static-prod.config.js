@@ -19,9 +19,10 @@ export default {
   },
   entry: 'index.tsx',
   plugins: [
-    ['react-static-plugin-typescript', { typeCheck: false }],
+    'react-static-plugin-everypage',
     'react-static-plugin-styled-components',
-    [ 'react-static-plugin-source-filesystem', { location: path.join(rootPath, './src/pages') }],
+    ['react-static-plugin-typescript', { typeCheck: false }],
+    ['react-static-plugin-source-filesystem', { location: path.join(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {
     return {

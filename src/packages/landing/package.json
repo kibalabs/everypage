@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-landing",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "private": true,
   "scripts": {
     "build": "everypage build --clean",
@@ -8,7 +8,7 @@
     "start-dev": "everypage start --clean"
   },
   "devDependencies": {
-    "@kibalabs/everypage": "0.1.14",
-    "@kibalabs/everypage-core": "0.1.14"
+    "@kibalabs/everypage": "0.1.15",
+    "@kibalabs/everypage-core": "0.1.15"
   }
 }
