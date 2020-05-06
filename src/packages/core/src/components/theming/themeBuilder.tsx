@@ -1,40 +1,128 @@
-import { lighten, darken } from 'polished';
+import * as Polished from 'polished';
 
-import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide } from '..';
+import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
+import { RecursivePartial } from './util';
 
+const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
+  const brandPrimary = base.brandPrimary || '#333333';
+  const brandSecondary = base.brandSecondary || Polished.darken(0.2, brandPrimary);
+  const background = base.background || '#f5f5f5';
+  const text = base.text || Polished.getLuminance(background) > 0.5 ? '#222222' : '#eeeeee';
+  const textOnBrand = base.textOnBrand || Polished.getLuminance(brandPrimary) > 0.5 ? '#222222' : '#eeeeee';
+  const disabled = base.disabled || '#555555';
 
-export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): ITheme => {
-  const textTheme: ITextTheme = {
+  const brandPrimaryInverse = base.brandPrimaryInverse || brandPrimary;
+  const brandSecondaryInverse = base.brandSecondaryInverse || brandSecondary;
+  const backgroundInverse = base.backgroundInverse || Polished.invert(background);
+  const textInverse = base.textInverse || Polished.getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#eeeeee';
+
+  return {
+    brandPrimary: brandPrimary,
+    brandSecondary: brandSecondary,
+    background: background,
+    text: text,
+    textOnBrand: textOnBrand,
+    disabled: disabled,
+
+    brandPrimaryInverse: brandPrimaryInverse,
+    brandSecondaryInverse: brandSecondaryInverse,
+    backgroundInverse: backgroundInverse,
+    textInverse: textInverse,
+  };
+};
+
+const buildDimensions = (base: Partial<IDimensionGuide>): IDimensionGuide => {
+  const borderRadius = base.borderRadius || '0.2em';
+  const borderWidth = base.borderWidth || '2px';
+  const borderWidthNarrow = base.borderWidthNarrow || Polished.math(`${borderWidth} / 2`);
+  const borderWidthWide = base.borderWidthWide || Polished.math(`${borderWidth} * 2`);
+
+  const padding = base.padding || '0.5em';
+  const paddingNarrow = base.paddingNarrow || Polished.math(`${padding} / 2`);
+  const paddingExtraNarrow = base.paddingExtraNarrow || Polished.math(`${paddingNarrow} / 2`);
+  const paddingExtraExtraNarrow = base.paddingExtraExtraNarrow || Polished.math(`${paddingExtraNarrow} / 2`);
+  const paddingWide = base.paddingWide || Polished.math(`${padding} * 2`);
+  const paddingExtraWide = base.paddingExtraWide || Polished.math(`${paddingWide} * 2`);
+  const paddingExtraExtraWide = base.paddingExtraExtraWide || Polished.math(`${paddingExtraWide} * 2`);
+  const paddingExtraExtraExtraWide = base.paddingExtraExtraExtraWide || Polished.math(`${paddingExtraExtraWide} * 2`);
+
+  const columnCount = base.columnCount || 12;
+  const gutterSize = base.gutterSize || '1em';
+  const screenWidthSmall = base.screenWidthSmall || '576px';
+  const screenWidthMedium = base.screenWidthMedium || '768px';
+  const screenWidthLarge = base.screenWidthLarge || '992px';
+  const screenWidthExtraLarge = base.screenWidthExtraLarge || '1200px';
+  const screenWidthMax = base.screenWidthMax || '1200px';
+
+  return {
+    borderRadius: borderRadius,
+    borderWidth: borderWidth,
+    borderWidthNarrow: borderWidthNarrow,
+    borderWidthWide: borderWidthWide,
+    padding: padding,
+    paddingNarrow: paddingNarrow,
+    paddingExtraNarrow: paddingExtraNarrow,
+    paddingExtraExtraNarrow: paddingExtraExtraNarrow,
+    paddingWide: paddingWide,
+    paddingExtraWide: paddingExtraWide,
+    paddingExtraExtraWide: paddingExtraExtraWide,
+    paddingExtraExtraExtraWide: paddingExtraExtraExtraWide,
+    columnCount: columnCount,
+    gutterSize: gutterSize,
+    screenWidthSmall: screenWidthSmall,
+    screenWidthMedium: screenWidthMedium,
+    screenWidthLarge: screenWidthLarge,
+    screenWidthExtraLarge: screenWidthExtraLarge,
+    screenWidthMax: screenWidthMax,
+  };
+};
+
+export const buildFonts = (base: RecursivePartial<Record<string, IFont>>): Record<string, IFont> => {
+  return Object.keys(base).reduce((value: Record<string, IFont>, name: string): Record<string, IFont> => {
+    if (base[name] && base[name].url) {
+      value[name] = {url: base[name].url};
+    }
+    return value;
+  }, {} as Record<string, IFont>);
+}
+
+export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
+  const baseTheme = inputTheme || {}
+  const colors = buildColors(baseTheme.colors || {});
+  const dimensions = buildDimensions(baseTheme.dimensions || {});
+  const fonts = buildFonts(baseTheme.fonts || {});
+
+  const textTheme: ITextTheme = mergeTheme({
     'font-size': '16px',
-    'font-family': '"Montserrat", sans-serif',
+    'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
     'font-weight': 'normal',
     'color': colors.text,
     'line-height': '1.6em',
     'text-decoration': 'none',
-  };
+  }, baseTheme.texts?.default);
 
   const strongTextTheme = mergeTheme(textTheme, {
     'font-weight': 'bold',
-  });
+  }, baseTheme.texts?.strong);
 
   const inverseTextTheme = mergeTheme(textTheme, {
-    'color': colors.textOnDark,
-  });
+    'color': colors.textInverse,
+  }, baseTheme.texts?.inverse);
 
   const headerTextTheme = mergeTheme(textTheme, {
     'font-size': '2.4em',
     'font-weight': '700',
     'color': '#171717',
     'line-height': '1.3em',
-  });
+  }, baseTheme.texts?.header);
 
   const titleTextTheme = mergeTheme(textTheme, {
     'font-size': '1.8em',
     'font-weight': 'bold',
     'color': '#171717',
-  });
+  }, baseTheme.texts?.title);
 
-  const transparentBoxTheme: IBoxTheme = {
+  const transparentBoxTheme: IBoxTheme = mergeTheme({
     'background-color': 'transparent',
     'border-radius': '0',
     'border-color': 'transparent',
@@ -46,28 +134,28 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'outline-color': 'transparent',
     'outline-width': '0',
     'outline-offset': '0',
-  };
+  }, baseTheme.boxes?.transparent);
 
   const defaultBoxTheme = mergeTheme(transparentBoxTheme, {
     'background-color': colors.background,
     'border-radius': dimensions.borderRadius,
     'padding': dimensions.padding,
-  });
+  }, baseTheme.boxes?.default);
 
-  const defaultImageTheme: IImageTheme = {
-  }
+  const defaultImageTheme: IImageTheme = mergeTheme({
+  }, baseTheme.images?.default);
 
   const focusableBorderBox: Partial<IBoxTheme> = {
     'border-color': 'transparent',
     'border-width': '2px',
     'border-style': 'solid',
-  }
+  };
 
   const focusBorderBox: Partial<IBoxTheme> = {
-    'border-color': lighten(0.3, 'black'),
+    'border-color': Polished.lighten(0.3, 'black'),
     'border-width': '2px',
     'border-style': 'solid',
-  }
+  };
 
   const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeBase>({
     background: mergeTheme(defaultBoxTheme, focusableBorderBox, {
@@ -79,7 +167,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       'color': colors.textOnBrand,
       'font-weight': '600',
     }),
-  });
+  }, baseTheme.buttons?.primary?.normal?.default);
 
   const primaryButtonTheme = mergeTheme<IButtonTheme>({
     normal: {
@@ -91,7 +179,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       },
       press: {
         background: {
-          'background-color': darken(0.1, colors.brandSecondary),
+          'background-color': Polished.darken(0.1, colors.brandSecondary),
         },
       },
       focus: {
@@ -113,12 +201,12 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
         background: focusBorderBox,
       },
     },
-  });
+  }, baseTheme.buttons?.primary);
 
-  const secondaryButtonTheme: IButtonTheme = primaryButtonTheme;
-  const tertiaryButtonTheme: IButtonTheme = primaryButtonTheme;
+  const secondaryButtonTheme: IButtonTheme = mergeTheme(primaryButtonTheme, baseTheme.buttons?.secondary);
+  const tertiaryButtonTheme: IButtonTheme = mergeTheme(primaryButtonTheme, baseTheme.buttons?.tertiary);
 
-  const defaultNormalInputWrapperThemeBase: IInputWrapperThemeBase = {
+  const defaultNormalDefaultInputWrapperThemeBase: IInputWrapperThemeBase = mergeTheme({
     text: textTheme,
     errorText: mergeTheme(textTheme, {
       'color': '#ff0000',
@@ -131,17 +219,17 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
       'border-radius': '0.5em',
       'border-width': dimensions.borderWidthNarrow,
-      'border-color': darken(0.05, colors.background),
+      'border-color': Polished.darken(0.05, colors.background),
       'border-style': 'solid',
     }),
-  }
+  }, baseTheme.inputWrappers?.default?.normal?.default);
 
-  const defaultInputWrapperTheme: IInputWrapperTheme = {
+  const defaultInputWrapperTheme: IInputWrapperTheme = mergeTheme({
     normal: {
-      default: defaultNormalInputWrapperThemeBase,
+      default: defaultNormalDefaultInputWrapperThemeBase,
       hover: {
         background: {
-          'border-color': lighten(0.1, colors.brandPrimary),
+          'border-color': Polished.lighten(0.1, colors.brandPrimary),
         },
       },
       focus: {
@@ -151,46 +239,47 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
       },
     },
     error: {
-      default: defaultNormalInputWrapperThemeBase,
-      hover: defaultNormalInputWrapperThemeBase,
-      focus: defaultNormalInputWrapperThemeBase,
+      default: defaultNormalDefaultInputWrapperThemeBase,
+      hover: defaultNormalDefaultInputWrapperThemeBase,
+      focus: defaultNormalDefaultInputWrapperThemeBase,
     },
     disabled: {
-      default: defaultNormalInputWrapperThemeBase,
-      hover: defaultNormalInputWrapperThemeBase,
-      focus: defaultNormalInputWrapperThemeBase,
+      default: defaultNormalDefaultInputWrapperThemeBase,
+      hover: defaultNormalDefaultInputWrapperThemeBase,
+      focus: defaultNormalDefaultInputWrapperThemeBase,
     },
-  };
+  }, baseTheme.inputWrappers?.default);
 
-  const defaultLoadingSpinnerTheme: ILoadingSpinnerTheme = {
+  const defaultLoadingSpinnerTheme: ILoadingSpinnerTheme = mergeTheme({
     'color': colors.brandPrimary,
-  };
+  }, baseTheme.loadingSpinners?.default);
 
   const lightLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>(defaultLoadingSpinnerTheme, {
     'color': 'white',
-  });
+  }, baseTheme.loadingSpinners?.light);
 
   const darkLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>(defaultLoadingSpinnerTheme, {
     'color': 'black',
-  });
+  }, baseTheme.loadingSpinners?.dark);
 
   const defaultNormalDefaultLinkTheme = mergeTheme<ILinkThemeBase>({
     text: mergeTheme<ITextTheme>(textTheme, {
       'color': colors.brandPrimary,
       'text-decoration': 'underline',
     }),
-  });
+  }, baseTheme.links?.default?.normal?.default);
+
   const defaultDisabledDefaultLinkTheme = mergeTheme(defaultNormalDefaultLinkTheme, {
     text: {
       'color': colors.disabled,
     },
-  });
+  }, baseTheme.links?.default?.disabled?.default);
 
   const defaultVisitedDefaultLinkTheme = mergeTheme(defaultNormalDefaultLinkTheme, {
     text: {
-      'color': darken(0.2, colors.brandPrimary),
+      'color': Polished.darken(0.2, colors.brandPrimary),
     },
-  });
+  }, baseTheme.links?.default?.visited?.default);
 
   const defaultLinkTheme = mergeTheme<ILinkTheme>({
     normal: {
@@ -213,22 +302,39 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
         },
       },
     },
-  });
+  }, baseTheme.links?.default);
 
   const inverseLinkTheme = mergeTheme<ILinkTheme>(defaultLinkTheme, {
     normal: {
       default: {
         text: {
-          'color': 'white',
+          'color': colors.brandPrimaryInverse,
         }
-      }
+      },
+      hover: {
+        text: {
+          'color': colors.brandSecondaryInverse,
+        },
+      },
     },
-  });
+    visited:  {
+      default: {
+        text: {
+          'color': Polished.lighten(0.2, colors.brandPrimaryInverse),
+        }
+      },
+      hover: {
+        text: {
+          'color': colors.brandSecondaryInverse,
+        },
+      },
+    },
+  }, baseTheme.links?.inverse);
 
   return {
     colors: colors,
     dimensions: dimensions,
-    fonts: {},
+    fonts: fonts,
     boxes: {
       default: defaultBoxTheme,
       transparent: transparentBoxTheme,

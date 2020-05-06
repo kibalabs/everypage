@@ -3,12 +3,15 @@ import { ThemeType, IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IInputWrap
 export interface IColorGuide extends ThemeType {
   brandPrimary: string;
   brandSecondary: string;
+  background: string;
   text: string;
   textOnBrand: string;
-  textOnDark: string;
   disabled: string;
-  background: string;
-  backgroundDark: string;
+
+  brandPrimaryInverse: string;
+  brandSecondaryInverse: string;
+  backgroundInverse: string;
+  textInverse: string;
 }
 
 export interface IDimensionGuide extends ThemeType {

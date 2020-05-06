@@ -4,15 +4,18 @@ import { IWebsite, WebsiteProvider, Direction, SectionRenderer, ThemeProvider, S
 import { JsonEditor } from './jsonEditor';
 import { ErrorBoundary } from './reactCore/errorBoundary';
 import { useObjectLocalStorageState } from './reactCore/useLocalStorageState';
+import { buildTheme } from '@kibalabs/everypage-core/src/components';
 
 const defaultSiteContent = require('./site.json');
-const defaultSiteTheme = require('./theme.json');
 
 export const CanvasPage = (): React.ReactElement => {
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
 
+  const resolvedSiteContent = (siteContent || defaultSiteContent);
+  const resolvedSiteTheme = buildTheme(siteTheme);
+  
   const stackItems: React.ReactElement<IStackItemProps>[] = siteContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
@@ -26,10 +29,10 @@ export const CanvasPage = (): React.ReactElement => {
   }
 
   return (
-    <WebsiteProvider website={(siteContent || defaultSiteContent) as IWebsite}>
-      <ThemeProvider theme={siteTheme}>
+    <WebsiteProvider website={resolvedSiteContent as IWebsite}>
+      <ThemeProvider theme={resolvedSiteTheme}>
         <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
-          <JsonEditor json={(siteContent || defaultSiteContent)} onJsonUpdated={onJsonUpdated}/>
+          <JsonEditor json={resolvedSiteContent} onJsonUpdated={onJsonUpdated}/>
           <Stack.Item growthFactor={1}>
             <ErrorBoundary>
               <Stack direction={Direction.Vertical} isFullHeight={true}>

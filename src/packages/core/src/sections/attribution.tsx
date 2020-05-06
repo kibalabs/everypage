@@ -7,8 +7,8 @@ import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useTheme, IColorG
 export const Attribution = (): React.ReactElement => {
   const theme = useTheme<IColorGuide>('colors');
   return (
-    <Section background={{color: theme.backgroundDark}}>
-      <Stack childAlignment={Alignment.Center} shouldShowGutters={true}>
+    <Section background={{color: String(theme.backgroundInverse)}}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
         <Spacing mode='extra-narrow'/>
         <Text alignment={TextAlignment.Center} mode='inverse'>
           <span>Made with <Link mode='inverse' destination='https://www.everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>

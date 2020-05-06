@@ -46,7 +46,7 @@ export interface IGridProps extends IMultiChildProps<IGridItemProps> {
   className?: string;
   theme?: IDimensionGuide;
   isFullHeight?: boolean;
-  shouldShowGutters?: boolean;
+  shouldAddGutters?: boolean;
   childAlignment: Alignment;
 }
 
@@ -76,7 +76,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
             screenWidthExtraLarge={theme.screenWidthExtraLarge}
             isFullHeight={child.props.isFullHeight}
             totalColumnCount={theme.columnCount}
-            gutterSize={props.shouldShowGutters ? theme.gutterSize : '0px'}
+            gutterSize={props.shouldAddGutters ? theme.gutterSize : '0px'}
             alignment={child.props.alignment}
           >
             {child.props.children}
@@ -90,7 +90,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
 Grid.defaultProps = {
   className: '',
   isFullHeight: true,
-  shouldShowGutters: false,
+  shouldAddGutters: false,
   childAlignment: Alignment.Fill,
 };
 Grid.Item = GridItem;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { resetCss, GlobalCss, GlobalHead, SectionRenderer } from '.';
 import { WebsiteProvider } from '../util';
-import { ThemeProvider, Stack, IStackItemProps, ITheme } from '../components';
+import { ThemeProvider, Stack, IStackItemProps, ITheme, buildTheme } from '../components';
 import { IWebsite } from '../model';
 import { Attribution } from '../sections';
 
@@ -20,13 +20,14 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
       <Attribution />
     </Stack.Item>
   );
+  const resolvedPageTheme = buildTheme(props.pageTheme);
 
   return (
     <WebsiteProvider website={props.pageContent as IWebsite}>
-      <ThemeProvider theme={props.pageTheme}>
+      <ThemeProvider theme={resolvedPageTheme}>
         <React.Fragment>
           <GlobalCss
-            theme={props.pageTheme}
+            theme={resolvedPageTheme}
             resetCss={resetCss}
           />
           <GlobalHead />

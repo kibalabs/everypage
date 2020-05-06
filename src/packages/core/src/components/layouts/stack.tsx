@@ -52,7 +52,7 @@ interface IStackProps extends IMultiAnyChildProps {
   direction: Direction;
   childAlignment: Alignment;
   contentAlignment: Alignment;
-  shouldShowGutters: boolean;
+  shouldAddGutters: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
 }
@@ -82,7 +82,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           shrinkFactor={child.props.shrinkFactor}
           baseSize={child.props.baseSize}
           shouldAllowScrolling={child.props.shouldAllowScrolling}
-          gutterSize={props.shouldShowGutters ? theme.gutterSize : '0'}
+          gutterSize={props.shouldAddGutters ? theme.gutterSize : '0'}
           direction={props.direction}
           alignment={child.props.alignment}
         >
@@ -98,7 +98,7 @@ Stack.defaultProps = {
   direction: Direction.Vertical,
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Fill,
-  shouldShowGutters: false,
+  shouldAddGutters: false,
   isFullWidth: false,
   isFullHeight: false,
 };

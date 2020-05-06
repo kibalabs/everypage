@@ -21,7 +21,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
       className={props.className}
       background={props.background}
     >
-      <Stack childAlignment={Alignment.Center} shouldShowGutters={true}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
         <Spacing mode='extra-narrow'/>
         <MarkdownText text={text}/>
         <Spacing mode='extra-narrow'/>
