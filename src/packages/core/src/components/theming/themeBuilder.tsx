@@ -13,6 +13,10 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     'text-decoration': 'none',
   };
 
+  const strongTextTheme = mergeTheme(textTheme, {
+    'font-weight': 'bold',
+  });
+
   const inverseTextTheme = mergeTheme(textTheme, {
     'color': colors.textOnDark,
   });
@@ -224,6 +228,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
   return {
     colors: colors,
     dimensions: dimensions,
+    fonts: {},
     boxes: {
       default: defaultBoxTheme,
       transparent: transparentBoxTheme,
@@ -231,6 +236,7 @@ export const buildTheme = (colors: IColorGuide, dimensions: IDimensionGuide): IT
     texts: {
       default: textTheme,
       text: textTheme,
+      strong: strongTextTheme,
       inverse: inverseTextTheme,
       header: headerTextTheme,
       title: titleTextTheme,

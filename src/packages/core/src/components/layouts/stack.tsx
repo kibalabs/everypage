@@ -113,6 +113,8 @@ interface IStyledStackItemProps extends IStackItemProps {
 const StyledStackItem = styled.div<IStyledStackItemProps>`
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
+  /* width: ${(props: IStyledStackItemProps): string => (!props.shouldAllowScrolling && props.direction === Direction.Vertical ? '100%' : 'auto')};
+  height: ${(props: IStyledStackItemProps): string => (!props.shouldAllowScrolling && props.direction === Direction.Horizontal ? '100%' : 'auto')}; */
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
   overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'visible')};
   overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'visible')};
