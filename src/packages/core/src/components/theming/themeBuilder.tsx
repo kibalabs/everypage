@@ -122,6 +122,11 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'color': '#171717',
   }, baseTheme.texts?.title);
 
+  const noteTextTheme = mergeTheme(textTheme, {
+    'font-size': '0.8em',
+    'color': '#777777',
+  }, baseTheme.texts?.note);
+
   const transparentBoxTheme: IBoxTheme = mergeTheme({
     'background-color': 'transparent',
     'border-radius': '0',
@@ -130,6 +135,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'border-width': '0',
     'box-shadow': 'none',
     'padding': '0',
+    'margin': '0',
     'outline-style': 'solid',
     'outline-color': 'transparent',
     'outline-width': '0',
@@ -140,6 +146,16 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'background-color': colors.background,
     'border-radius': dimensions.borderRadius,
     'padding': dimensions.padding,
+  }, baseTheme.boxes?.default);
+
+  const cardBoxTheme = mergeTheme(defaultBoxTheme, {
+    'background-color': colors.background,
+    'border-radius': dimensions.borderRadius,
+    'border-color': Polished.darken(0.05, colors.background),
+    'border-width': '1px',
+    'box-shadow': '0px 4px 6px rgba(0, 0, 0, 0.15)',
+    'margin': '2px 8px 14px 8px',
+    'padding': `${dimensions.paddingWide} ${dimensions.paddingExtraWide}`,
   }, baseTheme.boxes?.default);
 
   const defaultImageTheme: IImageTheme = mergeTheme({
@@ -338,6 +354,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     boxes: {
       default: defaultBoxTheme,
       transparent: transparentBoxTheme,
+      card: cardBoxTheme,
     },
     texts: {
       default: textTheme,
@@ -346,6 +363,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       inverse: inverseTextTheme,
       header: headerTextTheme,
       title: titleTextTheme,
+      note: noteTextTheme,
     },
     images: {
       default: defaultImageTheme,

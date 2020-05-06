@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as Polished from 'polished';
 
 import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useTheme } from '..';
 import { ISingleAnyChildProps } from '../../util';
@@ -13,6 +14,7 @@ export interface IBoxTheme extends CssTheme {
   'border-style': string;
   'padding': string;
   'box-shadow': string;
+  'margin': string;
   'outline-style': string;
   'outline-color': string;
   'outline-width': string;
@@ -48,10 +50,20 @@ interface IBoxProps extends IComponentProps<IBoxTheme>, ISingleAnyChildProps {
 }
 
 export const Box = (props: IBoxProps): React.ReactElement => {
-  const height = props.height || (props.isFullHeight ? '100%' : 'auto');
-  const width = props.width || (props.isFullWidth ? '100%' : 'auto');
-  const blockType = width === '100%' ? 'block' : 'inline-block';
   const theme = props.theme || useTheme('boxes', props.mode);
+  let width = props.width || (props.isFullWidth ? `100%` : 'auto');
+  let height = props.height || (props.isFullHeight ? `100%` : 'auto');
+  const blockType = width === '100%' ? 'block' : 'inline-block';
+  if (theme.margin) {
+    const margin = Polished.margin(...theme.margin.split(' '));
+    console.log('margin', margin);
+    if (width === '100%') {
+      width = `calc(100% - ${margin.marginLeft} - ${margin.marginRight})`;
+    }
+    if (height === '100%') {
+      width = `calc(100% - ${margin.marginTop} - ${margin.marginBottom})`;
+    }
+  }
   return (
     <StyledBox
       id={props.id}

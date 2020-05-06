@@ -19,7 +19,7 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   }
 
   body {
-    font-size: 12px;
+    font-size: 16px;
     font-family: "Montserrat", sans-serif;
     background-color: #f5f5f5;
     overflow: auto;

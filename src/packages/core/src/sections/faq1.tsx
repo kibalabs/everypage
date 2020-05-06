@@ -30,7 +30,6 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
             <Stack childAlignment={Alignment.Start} isFullWidth={true} shouldAddGutters={true}>
               {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
                 <React.Fragment key={index}>
-                  {/* TODO(krish): use strong theme here */}
                   <MarkdownText mode='strong' alignment={TextAlignment.Left} text={question.questionText} />
                   <MarkdownText alignment={TextAlignment.Left} text={question.answerText} />
                 </React.Fragment>
