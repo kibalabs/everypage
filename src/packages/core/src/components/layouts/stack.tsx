@@ -38,10 +38,10 @@ interface IStyledStackProps {
 }
 
 const StyledStack = styled.div<IStyledStackProps>`
-  width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
-  height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   display: flex;
   flex-direction: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
+  width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   overflow-y: ${(props: IStyledStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : (props.isFullHeight ? 'hidden' : 'visible'))};
   overflow-x: ${(props: IStyledStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : (props.isFullWidth ? 'hidden' : 'visible'))};
   justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
@@ -127,8 +127,8 @@ const StyledStackItem = styled.div<IStyledStackItemProps>`
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
-  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'hidden')};
-  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'hidden')};
+  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'visible')};
+  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'visible')};
   margin-top: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-bottom: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-left: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};

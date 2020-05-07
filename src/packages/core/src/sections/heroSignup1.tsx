@@ -94,14 +94,16 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                   </Grid.Item>
                   <Grid.Item id='form-inner-inner-vertical' size={12} sizeSmall={0}>
                     <Stack direction={Direction.Vertical}>
-                      <SingleLineInput
-                        inputType={props.inputType}
-                        name={props.inputName}
-                        placeholderText={props.inputPlaceholderText}
-                        value={input}
-                        onValueChanged={setInput}
-                        errorText={errorMessage}
-                      />
+                      <Stack.Item growthFactor={1}>
+                        <SingleLineInput
+                          inputType={props.inputType}
+                          name={props.inputName}
+                          placeholderText={props.inputPlaceholderText}
+                          value={input}
+                          onValueChanged={setInput}
+                          errorText={errorMessage}
+                        />
+                      </Stack.Item>
                       <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
                       <Button
                         mode='primary'

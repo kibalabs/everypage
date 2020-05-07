@@ -1,6 +1,6 @@
 import React from 'react';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
-import { buildTheme, IndexPage, IWebsite, Direction, ThemeProvider } from '@kibalabs/everypage-core';
+import { buildTheme, IndexPage, Direction, ThemeProvider, updateAssetPaths } from '@kibalabs/everypage-core';
 
 import { JsonEditor } from './jsonEditor';
 import { ErrorBoundary } from './reactCore/errorBoundary';
@@ -41,7 +41,7 @@ export const CanvasPage = (): React.ReactElement => {
             <FrameContextConsumer>{ frameContext => (
               <StyleSheetManager target={frameContext.document.head}>
                 <ErrorBoundary>
-                  <IndexPage pageContent={resolvedSiteContent} pageTheme={siteTheme}/>
+                  <IndexPage pageContent={updateAssetPaths(resolvedSiteContent, 'TODO-KRISH-REPLACE')} pageTheme={siteTheme}/>
                 </ErrorBoundary>
               </StyleSheetManager>
             )}</FrameContextConsumer>

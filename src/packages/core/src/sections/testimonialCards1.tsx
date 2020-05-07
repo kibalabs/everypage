@@ -44,19 +44,19 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
               <Spacing mode='narrow' />
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             </Stack>
-            <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
+            <Grid childAlignment={Alignment.Fill} shouldAddGutters={false}>
               {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
                   <Box mode='card'>
-                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true}>
-                      { getCardIcon(card.type, theme.colors.brandPrimary) }
-                      <Spacing direction={Direction.Horizontal} mode='wide' />
+                    <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
+                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
+                        { getCardIcon(card.type, theme.colors.brandPrimary) }
+                        <Spacing direction={Direction.Horizontal} mode='narrow' />
+                        <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
+                      </Stack>
+                      <Spacing direction={Direction.Vertical} mode='narrow' />
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                          <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
-                          <Spacing direction={Direction.Vertical} mode='narrow' />
-                          <MarkdownText alignment={TextAlignment.Left} text={card.text} />
-                        </Stack>
+                        <MarkdownText alignment={TextAlignment.Left} text={card.text} />
                       </Stack.Item>
                     </Stack>
                   </Box>

@@ -4,24 +4,7 @@ import * as rimraf from 'rimraf';
 import * as commander from 'commander';
 import * as childProcess from 'child_process';
 import * as chokidar from 'chokidar';
-
-export const updateAssetPaths = (siteConfig, buildHash) => {
-  if (!buildHash) {
-    return siteConfig;
-  }
-  return Object.keys(siteConfig).reduce((result, key) => {
-    let value = siteConfig[key];
-    if (typeof value == 'string') {
-      value = value.startsWith('/assets/') ? value.replace(/^/, `/${buildHash}`) : value;
-    } else if (Array.isArray(value)) {
-      value = value.map(entry => updateAssetPaths(entry, buildHash));
-    } else if (typeof value == 'object') {
-      value = updateAssetPaths(value, buildHash);
-    }
-    result[key] = value;
-    return result
-  }, {});
-};
+import * as everypageCore from '@kibalabs/everypage-core';
 
 export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
   console.log(`Copying directory from ${sourceDirectory} to ${targetDirectory}`);
@@ -50,7 +33,7 @@ export const copyPackage = (buildDirectory) => {
 
 export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash) => {
   siteContent.buildHash = buildHash;
-  siteContent = updateAssetPaths(siteContent, buildHash);
+  siteContent = everypageCore.updateAssetPaths(siteContent, `/${buildHash}`);
   fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
 }

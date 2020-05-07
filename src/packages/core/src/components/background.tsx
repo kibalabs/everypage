@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { ISingleAnyChildProps } from '../util';
 
-
 export interface IBackgroundLayer {
   color?: string;
   linearGradient?: string;
@@ -16,7 +15,6 @@ export interface IBackgroundLayer {
 export interface IBackgroundConfig extends IBackgroundLayer {
   layers?: IBackgroundLayer[];
 }
-
 
 export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProps {
   id?: string;
@@ -44,6 +42,8 @@ const getBackgroundCss = (backgroundLayer: IBackgroundLayer): string => {
 }
 
 const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
+  width: 100%;
+  height: 100%;
   ${(props) => getBackgroundCss(props.backgroundLayer)};
 `;
 

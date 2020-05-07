@@ -16,8 +16,8 @@ interface IBaseIconProps extends IIconProps {
 }
 
 interface IStyledBaseIconProps {
-  color?: string;
   size: 'default' | 'small' | 'large' | 'full';
+  color?: string;
 }
 
 const getSize = (size: string): string => {
@@ -37,23 +37,32 @@ const getSize = (size: string): string => {
   }
 }
 
-const StyledBaseIcon = styled.svg<IStyledBaseIconProps>`
+const StyledSvg = styled.svg<IStyledBaseIconProps>`
   fill: ${(props: IStyledBaseIconProps): string => props.color ? props.color : 'currentColor'};
   width: ${(props: IStyledBaseIconProps): string => getSize(props.size)};
   height: ${(props: IStyledBaseIconProps): string => getSize(props.size)};
 `;
 
+const StyledBaseIcon = styled.div<IStyledBaseIconProps>`
+  width: ${(props: IStyledBaseIconProps): string => getSize(props.size)};
+  height: ${(props: IStyledBaseIconProps): string => getSize(props.size)};
+`;
 
 export const BaseIcon = (props: IBaseIconProps): React.ReactElement => {
   return (
     <StyledBaseIcon
       size={props.size}
       color={props._color}
-      viewBox={`${props.contentOriginX} ${props.contentOriginY} ${props.contentHeight} ${props.contentWidth}`}
-      width={props.contentWidth}
-      height={props.contentHeight}
-      dangerouslySetInnerHTML={{ __html: props.svgContent }}
-    />
+    >
+      <StyledSvg
+        size={props.size}
+        color={props._color}
+        viewBox={`${props.contentOriginX} ${props.contentOriginY} ${props.contentHeight} ${props.contentWidth}`}
+        // width={props.contentWidth}
+        // height={props.contentHeight}
+        dangerouslySetInnerHTML={{ __html: props.svgContent }}
+      />
+    </StyledBaseIcon>
   );
 };
 
