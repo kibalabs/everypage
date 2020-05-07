@@ -91,8 +91,13 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           direction={props.direction}
           alignment={child.props.alignment}
         >
-          {/* // NOTE(krish): see note above */}
-          <StackItemInner>{child.props.children}</StackItemInner>
+          <StyledStackItemInner
+            className={`stack-item-inner`}
+            direction={props.direction}
+            alignment={child.props.alignment}
+          >
+            {child.props.children}
+          </StyledStackItemInner>
         </StyledStackItem>
       ))}
     </StyledStack>
@@ -131,6 +136,13 @@ const StyledStackItem = styled.div<IStyledStackItemProps>`
   align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;
 
-const StackItemInner = styled.div`
+interface IStyledStackItemInnerProps extends ISingleAnyChildProps {
+  direction: Direction;
+  alignment?: Alignment;
+}
+
+const StyledStackItemInner = styled.div<IStyledStackItemInnerProps>`
   flex-grow: 1;
+  width: ${(props: IStyledStackItemInnerProps): string => (props.direction === Direction.Vertical ? '100%' : 'auto')};
+  height: ${(props: IStyledStackItemInnerProps): string => (props.direction === Direction.Horizontal ? '100%' : 'auto')};
 `;

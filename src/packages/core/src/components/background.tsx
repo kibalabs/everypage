@@ -47,6 +47,7 @@ const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
   ${(props) => getBackgroundCss(props.backgroundLayer)};
 `;
 
+// TOD0(krish): this doesn't use the id and classname passed in
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
   if (props.color || props.linearGradient || props.radialGradient || props.image || props.pattern) {
