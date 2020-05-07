@@ -10,7 +10,8 @@
     "build": "lerna run build",
     "publish": "lerna publish from-package --no-git-tag-version --no-push --yes",
     "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
-    "clean": "lerna clean --yes; rm -rf node_modules"
+    "clean": "lerna clean --yes; rm -rf node_modules",
+    "clean-deep": "lerna clean --yes; rm -rf node_modules && find . -type d -name dist -exec rm -rf '{}' \\; && find . -type f -name package-lock.json -exec rm '{}' \\;"
   },
   "devDependencies": {
     "lerna": "3.20.2"

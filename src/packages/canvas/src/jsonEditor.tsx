@@ -17,10 +17,12 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const editorRef = React.useRef<HTMLDivElement | null>(null);
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
 
-  const onJsonChanged = (json: object) => {
-    // console.log('editor', editor);
-    // const json = editor.get();
-    props.onJsonUpdated(json);
+  const onChangeText = (jsonText: object) => {
+    try {
+      props.onJsonUpdated(JSON.parse(jsonText));
+    } catch (error) {
+      console.log('Caught error when parsing json')
+    }
   };
 
   const calculateNodeName = (nodeName: NodeName): string  | undefined => {
@@ -44,7 +46,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     if (editorRef.current && !editor) {
       const newEditor = new JSONEditor(editorRef.current, {
         name: 'site',
-        onChangeJSON: onJsonChanged,
+        onChangeText: onChangeText,
         enableSort: false,
         enableTransform: false,
         onNodeName: calculateNodeName,
