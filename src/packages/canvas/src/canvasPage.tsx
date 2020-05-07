@@ -21,6 +21,17 @@ export const CanvasPage = (): React.ReactElement => {
     setSiteContent(parsedJson);
   }
 
+  const onDownloadClicked = async (): Promise<void> => {
+    const blob = new Blob([JSON.stringify(siteContent)], { type: 'application/json' });
+    const href = await URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = 'site.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   // TODO(krish): use core components here again when the bug below is resolved
   // NOTE(krish): both styled components and react-helmet don't work great with iframes
   // https://github.com/styled-components/styled-components/issues/2973
@@ -30,7 +41,11 @@ export const CanvasPage = (): React.ReactElement => {
       <CanvasStack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
         <CanvasStack.Item isFullHeight={true}>
           <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
-            <span>everypage canvas v{APP_VERSION}</span>
+            <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
+              <span>everypage canvas v{APP_VERSION}</span>
+              <div style={{width: '20px'}} />
+              <button onClick={onDownloadClicked}>Download</button>
+            </CanvasStack>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false}>
               <JsonEditor json={resolvedSiteContent} onJsonUpdated={onJsonUpdated}/>
             </CanvasStack.Item>
