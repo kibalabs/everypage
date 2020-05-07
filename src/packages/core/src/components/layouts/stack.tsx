@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useTheme, IDimensionGuide } from '..';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '../../util';
 
+  // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
+
 export interface IStackItemProps extends ISingleAnyChildProps {
   id?: string;
   className: string;
@@ -19,8 +21,8 @@ class StackItem extends React.Component<IStackItemProps> {
   static defaultProps = {
     className: '',
     growthFactor: 0,
-    shrinkFactor: 1,
-    // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
+    shrinkFactor: 0,
+    // NOTE(krish): see note above
     baseSize: 'auto',
     shouldAllowScrolling: false,
   };
@@ -32,6 +34,7 @@ interface IStyledStackProps {
   contentAlignment: Alignment;
   isFullWidth: boolean;
   isFullHeight: boolean;
+  shouldAllowScrolling: boolean;
 }
 
 const StyledStack = styled.div<IStyledStackProps>`
@@ -39,8 +42,8 @@ const StyledStack = styled.div<IStyledStackProps>`
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   display: flex;
   flex-direction: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
-  overflow-x: ${(props: IStyledStackProps): string => (props.direction === Direction.Horizontal ? 'auto' : 'visible')};
-  overflow-y: ${(props: IStyledStackProps): string => (props.direction === Direction.Vertical ? 'auto' : 'visible')};
+  overflow-y: ${(props: IStyledStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : (props.isFullHeight ? 'hidden' : 'visible'))};
+  overflow-x: ${(props: IStyledStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : (props.isFullWidth ? 'hidden' : 'visible'))};
   justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
   align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
 `;
@@ -53,6 +56,7 @@ interface IStackProps extends IMultiAnyChildProps {
   childAlignment: Alignment;
   contentAlignment: Alignment;
   shouldAddGutters: boolean;
+  shouldAllowScrolling: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
 }
@@ -72,6 +76,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       contentAlignment={props.contentAlignment}
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
+      shouldAllowScrolling={props.shouldAllowScrolling}
     >
       { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
         <StyledStackItem
@@ -86,7 +91,8 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           direction={props.direction}
           alignment={child.props.alignment}
         >
-          {child.props.children}
+          {/* // NOTE(krish): see note above */}
+          <StackItemInner>{child.props.children}</StackItemInner>
         </StyledStackItem>
       ))}
     </StyledStack>
@@ -98,6 +104,7 @@ Stack.defaultProps = {
   direction: Direction.Vertical,
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Fill,
+  shouldAllowScrolling: true,
   shouldAddGutters: false,
   isFullWidth: false,
   isFullHeight: false,
@@ -111,16 +118,19 @@ interface IStyledStackItemProps extends IStackItemProps {
 }
 
 const StyledStackItem = styled.div<IStyledStackItemProps>`
+  display: flex;
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
-  /* width: ${(props: IStyledStackItemProps): string => (!props.shouldAllowScrolling && props.direction === Direction.Vertical ? '100%' : 'auto')};
-  height: ${(props: IStyledStackItemProps): string => (!props.shouldAllowScrolling && props.direction === Direction.Horizontal ? '100%' : 'auto')}; */
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
-  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'visible')};
-  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'visible')};
+  overflow-y: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'hidden')};
+  overflow-x: ${(props: IStyledStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'hidden')};
   margin-top: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-bottom: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-left: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};
   margin-right: ${(props: IStyledStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};
   align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
+`;
+
+const StackItemInner = styled.div`
+  flex-grow: 1;
 `;

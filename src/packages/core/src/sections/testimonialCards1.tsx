@@ -48,14 +48,16 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
               {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
                   <Box mode='card'>
-                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start}>
+                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true}>
                       { getCardIcon(card.type, theme.colors.brandPrimary) }
                       <Spacing direction={Direction.Horizontal} mode='wide' />
-                      <Stack direction={Direction.Vertical}>
-                        <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
-                        <Spacing direction={Direction.Vertical} mode='narrow' />
-                        <MarkdownText alignment={TextAlignment.Left} text={card.text} />
-                      </Stack>
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        <Stack direction={Direction.Vertical}>
+                          <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
+                          <Spacing direction={Direction.Vertical} mode='narrow' />
+                          <MarkdownText alignment={TextAlignment.Left} text={card.text} />
+                        </Stack>
+                      </Stack.Item>
                     </Stack>
                   </Box>
                 </Grid.Item>

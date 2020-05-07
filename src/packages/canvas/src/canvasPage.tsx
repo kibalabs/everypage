@@ -33,12 +33,9 @@ export const CanvasPage = (): React.ReactElement => {
       <ThemeProvider theme={resolvedSiteTheme}>
         <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
           <Stack.Item isFullHeight={true}>
-            <Stack direction={Direction.Vertical} isFullHeight={true}>
-              <Stack direction={Direction.Horizontal} isFullWidth={true}>
-                <Text>everypage canvas</Text>
-                <Text>v{APP_VERSION}</Text>
-              </Stack>
-              <Stack.Item growthFactor={1} shrinkFactor={1} isFullWidth={true}>
+            <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+              <Text>everypage canvas v{APP_VERSION}</Text>
+              <Stack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false}>
                 <JsonEditor json={resolvedSiteContent} onJsonUpdated={onJsonUpdated}/>
               </Stack.Item>
             </Stack>
