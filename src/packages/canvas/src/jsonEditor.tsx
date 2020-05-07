@@ -18,6 +18,8 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
 
   const onJsonChanged = (json: object) => {
+    // console.log('editor', editor);
+    // const json = editor.get();
     props.onJsonUpdated(json);
   };
 
@@ -46,8 +48,11 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
         enableSort: false,
         enableTransform: false,
         onNodeName: calculateNodeName,
+        mode: 'tree',
+        modes: ['code', 'tree'],
       });
       newEditor.set(props.json);
+      console.log('newEditor', newEditor);
       setEditor(newEditor);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

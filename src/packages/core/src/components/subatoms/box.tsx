@@ -56,7 +56,6 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   const blockType = width === '100%' ? 'block' : 'inline-block';
   if (theme.margin) {
     const margin = Polished.margin(...theme.margin.split(' '));
-    console.log('margin', margin);
     if (width === '100%') {
       width = `calc(100% - ${margin.marginLeft} - ${margin.marginRight})`;
     }

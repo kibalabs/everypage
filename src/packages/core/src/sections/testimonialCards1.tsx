@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, TwitterIcon, ChatIcon, ProductHuntIcon, Direction, useTheme, ITheme, Link } from '../components';
 
 interface ITestimonialCards1Card {
   text: string;
   author: string;
-  url: string;
+  url?: string;
+  type?: string;
 }
 
 interface ITestimonialCards1Props extends ISectionProps {
@@ -15,7 +16,18 @@ interface ITestimonialCards1Props extends ISectionProps {
   cards?: ITestimonialCards1Card[];
 }
 
+const getCardIcon = (cardType: string, brandColor: string): React.ReactElement => {
+  if (cardType === 'producthunt') {
+    return <ProductHuntIcon _color='#DA552F'/>;
+  }
+  if (cardType === 'twitter') {
+    return <TwitterIcon _color='#1DA1F2'/>;
+  }
+  return <ChatIcon _color={brandColor}/>;
+}
+
 export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactElement => {
+  const theme: ITheme = useTheme();
   return (
     <Section
       id={props.id}
@@ -36,15 +48,20 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
               {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
                   <Box mode='card'>
-                    <React.Fragment>
-                      <MarkdownText alignment={TextAlignment.Left} text={card.text} />
-                      <MarkdownText mode='note' alignment={TextAlignment.Left} text={card.author} />
-                    </React.Fragment>
+                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start}>
+                      { getCardIcon(card.type, theme.colors.brandPrimary) }
+                      <Spacing direction={Direction.Horizontal} mode='wide' />
+                      <Stack direction={Direction.Vertical}>
+                        <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
+                        <Spacing direction={Direction.Vertical} mode='narrow' />
+                        <MarkdownText alignment={TextAlignment.Left} text={card.text} />
+                      </Stack>
+                    </Stack>
                   </Box>
                 </Grid.Item>
               ))}
             </Grid>
-            <Spacing />
+            <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
       </Grid>

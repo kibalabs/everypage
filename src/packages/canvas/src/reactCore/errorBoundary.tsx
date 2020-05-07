@@ -66,9 +66,9 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
       return (
         <ErrorDisplay>
           <ErrorMessage>
-            <strong>Something's wrong here</strong>
+            <strong>Ooops 🤦‍♂️</strong>
             <br/>
-            <strong>Please excuse our silly mistake 🤦‍♂️</strong>
+            <strong>Something's not right here. Check the error below or hit us up for help</strong>
             <br/>
             <br/>
             {this.state.error ? String(this.state.error) : ''}

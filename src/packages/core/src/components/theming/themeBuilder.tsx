@@ -32,8 +32,8 @@ const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
 };
 
 const buildDimensions = (base: Partial<IDimensionGuide>): IDimensionGuide => {
-  const borderRadius = base.borderRadius || '0.2em';
-  const borderWidth = base.borderWidth || '2px';
+  const borderRadius = base.borderRadius || '0.5em';
+  const borderWidth = base.borderWidth || '1px';
   const borderWidthNarrow = base.borderWidthNarrow || Polished.math(`${borderWidth} / 2`);
   const borderWidthWide = base.borderWidthWide || Polished.math(`${borderWidth} * 2`);
 
@@ -155,7 +155,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'border-width': '1px',
     'box-shadow': '0px 4px 6px rgba(0, 0, 0, 0.15)',
     'margin': '2px 8px 14px 8px',
-    'padding': `${dimensions.paddingWide} ${dimensions.paddingExtraWide}`,
+    'padding': `${dimensions.paddingWide} ${dimensions.paddingWide}`,
   }, baseTheme.boxes?.default);
 
   const defaultImageTheme: IImageTheme = mergeTheme({

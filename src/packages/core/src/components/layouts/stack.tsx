@@ -19,7 +19,7 @@ class StackItem extends React.Component<IStackItemProps> {
   static defaultProps = {
     className: '',
     growthFactor: 0,
-    shrinkFactor: 0,
+    shrinkFactor: 1,
     // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
     baseSize: 'auto',
     shouldAllowScrolling: false,

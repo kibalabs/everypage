@@ -1,4 +1,5 @@
 export * from './box';
+export * from './icon';
 export * from './image';
 export * from './loadingSpinner';
 export * from './markdownText';
