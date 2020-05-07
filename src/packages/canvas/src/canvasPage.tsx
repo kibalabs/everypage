@@ -15,7 +15,7 @@ export const CanvasPage = (): React.ReactElement => {
 
   const resolvedSiteContent = (siteContent || defaultSiteContent);
   const resolvedSiteTheme = buildTheme(siteTheme);
-  
+
   const stackItems: React.ReactElement<IStackItemProps>[] = siteContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
@@ -33,7 +33,7 @@ export const CanvasPage = (): React.ReactElement => {
       <ThemeProvider theme={resolvedSiteTheme}>
         <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
           <JsonEditor json={resolvedSiteContent} onJsonUpdated={onJsonUpdated}/>
-          <Stack.Item growthFactor={1}>
+          <Stack.Item growthFactor={1} shrinkFactor={1}>
             <ErrorBoundary>
               <Stack direction={Direction.Vertical} isFullHeight={true}>
                 { stackItems }

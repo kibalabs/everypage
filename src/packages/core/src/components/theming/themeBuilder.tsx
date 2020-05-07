@@ -149,7 +149,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   }, baseTheme.boxes?.default);
 
   const cardBoxTheme = mergeTheme(defaultBoxTheme, {
-    'background-color': colors.background,
+    'background-color': Polished.lighten(0.1, colors.background),
     'border-radius': dimensions.borderRadius,
     'border-color': Polished.darken(0.05, colors.background),
     'border-width': '1px',

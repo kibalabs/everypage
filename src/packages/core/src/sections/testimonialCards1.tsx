@@ -34,7 +34,7 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
-                <Grid.Item key={index} size={4}>
+                <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
                   <Box mode='card'>
                     <React.Fragment>
                       <MarkdownText alignment={TextAlignment.Left} text={card.text} />
