@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { objectToString, objectFromString } from './serializationUtil';
+import { objectToString, objectFromString, booleanToString, booleanFromString } from './serializationUtil';
 
 export default class LocalStorageClient {
   private localStorage: Storage;
@@ -69,6 +69,11 @@ export const useLocalStorageState = (name: string, overrideInitialValue?: string
   };
 
   return [value, valueSetter];
+};
+
+export const useBooleanLocalStorageState = (name: string, overrideInitialValue?: boolean): [boolean | null, (newValue: boolean | null) => void] => {
+  const [value, setValue] = useLocalStorageState(name, booleanToString(overrideInitialValue));
+  return [booleanFromString(value) as boolean | null, ((newValue: boolean | null): void => setValue(booleanToString(newValue) as string | null))];
 };
 
 export const useObjectLocalStorageState = (name: string, overrideInitialValue?: object): [object | null, (newValue: object | null) => void] => {

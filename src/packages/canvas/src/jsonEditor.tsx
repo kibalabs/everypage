@@ -10,7 +10,7 @@ interface IJsonEditorProps {
 
 const StyledJsonEditor = styled.div`
   height: 100%;
-  width: 600px;
+  width: 100%;
 `;
 
 export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {

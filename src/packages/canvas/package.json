@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "@kibalabs/build": "0.2.3",
-    "@types/jsoneditor": "^8.6.0",
-    "@types/node": "^13.13.5",
+    "@types/jsoneditor": "8.6.0",
+    "@types/node": "13.13.4",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.0.1"
