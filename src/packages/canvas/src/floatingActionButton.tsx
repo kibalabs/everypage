@@ -41,7 +41,7 @@ export const FloatingActionButton = (props: IFloatingActionButtonProps): React.R
 
   return (
     <StyledButton bottomOffset={props.bottomOffset} onClick={onClicked}>
-      <span> Open Editor </span>
+      <span>Show Editor</span>
     </StyledButton>
   );
 }

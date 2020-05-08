@@ -11,6 +11,14 @@ interface IJsonEditorProps {
 const StyledJsonEditor = styled.div`
   height: 100%;
   width: 100%;
+
+  .jsoneditor,
+  .jsoneditor-menu {
+    border-width: 0;
+  }
+  .jsoneditor-menu {
+    background-color: #777777;
+  }
 `;
 
 export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {

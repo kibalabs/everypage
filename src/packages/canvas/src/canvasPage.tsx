@@ -9,10 +9,14 @@ import { useObjectLocalStorageState, useBooleanLocalStorageState } from './react
 import { StyleSheetManager } from 'styled-components';
 import { CanvasStack } from './tempCanvasStack';
 import { FloatingActionButton } from './floatingActionButton';
+import { downloadFile } from './core/util/downloadIUtil';
 
 const defaultSiteContent = require('./site.json');
 
-const JsonEditorContainer = styled.div`
+const VerticalLine = styled.div`
+  background-color: #777777;
+  width: 2px;
+  height: 100%;
 `;
 
 export const CanvasPage = (): React.ReactElement => {
@@ -28,14 +32,7 @@ export const CanvasPage = (): React.ReactElement => {
   }
 
   const onDownloadClicked = async (): Promise<void> => {
-    const blob = new Blob([JSON.stringify(siteContent)], { type: 'application/json' });
-    const href = await URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = href;
-    link.download = 'site.json';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadFile('site.json', JSON.stringify(siteContent));
   }
 
   const onHideEditorClicked = (): void => {
@@ -56,15 +53,19 @@ export const CanvasPage = (): React.ReactElement => {
         <CanvasStack.Item isFullHeight={true} baseSize={isEditorHidden ? 0 : '500px'}>
           <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
             <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
-              <span>everypage canvas v{APP_VERSION}</span>
               <button onClick={onDownloadClicked}>Download</button>
               <button onClick={onHideEditorClicked}>Hide</button>
             </CanvasStack>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false}>
               <JsonEditor json={resolvedSiteContent} onJsonUpdated={onJsonUpdated}/>
             </CanvasStack.Item>
+            <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
+              <div />
+              <span>everypage canvas v{APP_VERSION}</span>
+            </CanvasStack>
           </CanvasStack>
         </CanvasStack.Item>
+        <VerticalLine />
         <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
           <Frame style={{height: '100%', width: '100%'}}>
             <FrameContextConsumer>{ frameContext => (
