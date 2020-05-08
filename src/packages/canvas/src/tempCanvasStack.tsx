@@ -12,6 +12,7 @@ export interface ICanvasStackItemProps extends ISingleAnyChildProps {
   shrinkFactor: number;
   baseSize: string;
   shouldAllowScrolling: boolean;
+  isHidden: boolean;
   alignment?: Alignment;
 }
 
@@ -24,6 +25,7 @@ class CanvasStackItem extends React.Component<ICanvasStackItemProps> {
     // NOTE(krish): see note above
     baseSize: 'auto',
     shouldAllowScrolling: false,
+    isHidden: false,
   };
 }
 
@@ -37,10 +39,10 @@ interface IStyledCanvasStackProps {
 }
 
 const StyledCanvasStack = styled.div<IStyledCanvasStackProps>`
-  width: ${(props: IStyledCanvasStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
-  height: ${(props: IStyledCanvasStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   display: flex;
   flex-direction: ${(props: IStyledCanvasStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
+  width: ${(props: IStyledCanvasStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  height: ${(props: IStyledCanvasStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   overflow-y: ${(props: IStyledCanvasStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : (props.isFullHeight ? 'hidden' : 'visible'))};
   overflow-x: ${(props: IStyledCanvasStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : (props.isFullWidth ? 'hidden' : 'visible'))};
   justify-content: ${(props: IStyledCanvasStackProps): string => getFlexContentAlignment(props.contentAlignment)};
@@ -89,6 +91,7 @@ export const CanvasStack = (props: ICanvasStackProps): React.ReactElement => {
           gutterSize={props.shouldAddGutters ? theme.gutterSize : '0'}
           direction={props.direction}
           alignment={child.props.alignment}
+          isHidden={child.props.isHidden}
         >
           <StyledCanvasStackItemInner
             className={`stack-item-inner`}
@@ -122,7 +125,7 @@ interface IStyledCanvasStackItemProps extends ICanvasStackItemProps {
 }
 
 const StyledCanvasStackItem = styled.div<IStyledCanvasStackItemProps>`
-  display: flex;
+  display: ${(props: IStyledCanvasStackItemProps): string => props.isHidden ? 'none' : 'flex'};
   flex-grow: ${(props: IStyledCanvasStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledCanvasStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledCanvasStackItemProps): string => props.baseSize};

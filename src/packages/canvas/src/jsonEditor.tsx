@@ -17,7 +17,7 @@ const StyledJsonEditor = styled.div`
     border-width: 0;
   }
   .jsoneditor-menu {
-    background-color: #777777;
+    background-color: #333333;
   }
 `;
 

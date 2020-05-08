@@ -13,6 +13,7 @@ export interface IStackItemProps extends ISingleAnyChildProps {
   shrinkFactor: number;
   baseSize: string;
   shouldAllowScrolling: boolean;
+  isHidden: boolean;
   alignment?: Alignment;
 }
 
@@ -25,6 +26,7 @@ class StackItem extends React.Component<IStackItemProps> {
     // NOTE(krish): see note above
     baseSize: 'auto',
     shouldAllowScrolling: false,
+    isHidden: false,
   };
 }
 
@@ -90,6 +92,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           gutterSize={props.shouldAddGutters ? theme.gutterSize : '0'}
           direction={props.direction}
           alignment={child.props.alignment}
+          isHidden={child.props.isHidden}
         >
           <StyledStackItemInner
             className={`stack-item-inner`}
@@ -123,7 +126,7 @@ interface IStyledStackItemProps extends IStackItemProps {
 }
 
 const StyledStackItem = styled.div<IStyledStackItemProps>`
-  display: flex;
+  display: ${(props: IStyledCanvasStackItemProps): string => props.isHidden ? 'none' : 'flex'};
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
