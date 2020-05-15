@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
-import { buildTheme, IndexPage, Direction, ThemeProvider, updateAssetPaths } from '@kibalabs/everypage-core';
+import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
 
 import { JsonEditor } from './jsonEditor';
 import { ErrorBoundary } from './reactCore/errorBoundary';
@@ -48,7 +48,6 @@ export const CanvasPage = (): React.ReactElement => {
   const [selectedType, setSelectedType] = React.useState<'site' | 'theme' | 'assets'>('site');
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
   const [assetFiles, setAssetFiles] = React.useState<File[]>([]);
 
@@ -63,11 +62,14 @@ export const CanvasPage = (): React.ReactElement => {
   }
 
   const onAssetFilesChosen = (files: File[]): void => {
-    // TODO(krish): why does this remove the existing files??
     files.forEach((file: File): void => {
       file.preview = URL.createObjectURL(file);
-    })
-    setAssetFiles(assetFiles.concat(files));
+    });
+    // NOTE(krish): not totally sure why this form is needed but its from https://github.com/facebook/react/issues/15041
+    setAssetFiles((currentAssetFiles: File[]): File[] => {
+      const filePaths = files.map((file: File): string => file.path);
+      return [...currentAssetFiles.filter((file: File): boolean => !filePaths.includes(file.path)), ...files];
+    });
   }
 
   const onDownloadClicked = async (): Promise<void> => {
@@ -94,7 +96,12 @@ export const CanvasPage = (): React.ReactElement => {
     setSelectedType('assets');
   }
 
-  console.log('assetFiles', assetFiles);
+  const getFileReplacements = (): Record<string, string> => {
+    return assetFiles.reduce((replacements: Record<string, string>, file: File): Record<string, string> => {
+      replacements[file.path] = file.preview;
+      return replacements;
+    }, {});
+  }
 
   // TODO(krish): use core components here again when the bug below is resolved
   // NOTE(krish): both styled components and react-helmet don't work great with iframes
@@ -136,7 +143,7 @@ export const CanvasPage = (): React.ReactElement => {
             <FrameContextConsumer>{ frameContext => (
               <StyleSheetManager target={frameContext.document.head}>
                 <ErrorBoundary>
-                  <IndexPage pageContent={updateAssetPaths(resolvedSiteContent, 'TODO-KRISH-REPLACE')} pageTheme={siteTheme}/>
+                  <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme}/>
                 </ErrorBoundary>
               </StyleSheetManager>
             )}</FrameContextConsumer>

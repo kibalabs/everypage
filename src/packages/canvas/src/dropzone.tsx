@@ -53,14 +53,16 @@ const ThumbsContainer = styled.div`
 
 const Thumb = styled.div`
   display: inline-flex;
-  border-radius: 2;
   border: 1px solid #eaeaea;
-  margin-bottom: 8;
-  margin-right: 8;
   width: 100px;
   height: 100px;
-  padding: 4;
-  box-sizing: border-box;
+  position: relative;
+`;
+
+const ThumbImageHolder = styled.div`
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
 `;
 
 const ThumbImage = styled.img`
@@ -69,18 +71,30 @@ const ThumbImage = styled.img`
   object-fit: contain;
 `;
 
+const ThumbSubtitle = styled.span`
+  font-size: 0.8em;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  padding: 5px 10px;
+`;
+
 interface IFilePreviewGridProps {
   files: File[];
 }
 
 export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElement => {
   // TODO(krish): change thumb to its own component
-  console.log('previews', props.files.map(file => file.preview));
   return (
     <ThumbsContainer>
       {props.files.map((file: File): React.ReactElement => (
-        <Thumb key={file.name}>
-          <ThumbImage src={file.preview} />
+        <Thumb key={file.path}>
+          <ThumbImageHolder>
+            <ThumbImage src={file.preview} />
+          </ThumbImageHolder>
+          <ThumbSubtitle>{file.path}</ThumbSubtitle>
         </Thumb>
       ))}
     </ThumbsContainer>
