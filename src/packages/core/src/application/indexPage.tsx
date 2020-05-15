@@ -16,7 +16,13 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
     <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
   ));
   stackItems.push(
+    // Push empty stack item the fills any remaining space
     <Stack.Item key={props.pageContent.sections.length + 1} growthFactor={1}>
+      <div />
+    </Stack.Item>
+  );
+  stackItems.push(
+    <Stack.Item key={props.pageContent.sections.length + 2}>
       <Attribution />
     </Stack.Item>
   );
@@ -31,7 +37,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             resetCss={resetCss}
           />
           <GlobalHead />
-          <Stack>{ stackItems }</Stack>
+          <Stack isFullHeight={true}>{ stackItems }</Stack>
         </React.Fragment>
       </ThemeProvider>
     </WebsiteProvider>

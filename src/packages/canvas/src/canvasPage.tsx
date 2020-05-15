@@ -11,6 +11,44 @@ import { CanvasStack } from './tempCanvasStack';
 import { FloatingActionButton } from './floatingActionButton';
 import { downloadFile } from './core/util/downloadIUtil';
 import { Dropzone, FilePreviewGrid } from './dropzone';
+import { ISingleAnyChildProps } from '@kibalabs/everypage-core/src/util';
+
+interface IKibaFrameProps extends ISingleAnyChildProps {
+}
+
+interface IKibaFrameInnerProps extends ISingleAnyChildProps {
+  target: HTMLDocument;
+}
+
+const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
+  React.useEffect(() => {
+    const css = '.frame-root, .frame-content { height:100%; width: 100%; }';
+    const style = props.target.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(props.target.createTextNode(css));
+    props.target.head.appendChild(style);
+  }, [props.target]);
+
+  return (
+    <React.Fragment>{ props.children }</React.Fragment>
+  );
+}
+
+const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
+  return (
+    <Frame style={{height: '100%', width: '100%'}}>
+      <FrameContextConsumer>{ frameContext => (
+        <KibaFrameInner target={frameContext.document}>
+          <StyleSheetManager target={frameContext.document.head}>
+            <ErrorBoundary>
+              { props.children }
+            </ErrorBoundary>
+          </StyleSheetManager>
+        </KibaFrameInner>
+      )}</FrameContextConsumer>
+    </Frame>
+  );
+}
 
 const defaultSiteContent = require('./site.json');
 
@@ -139,15 +177,9 @@ export const CanvasPage = (): React.ReactElement => {
         </CanvasStack.Item>
         <VerticalLine />
         <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
-          <Frame style={{height: '100%', width: '100%'}}>
-            <FrameContextConsumer>{ frameContext => (
-              <StyleSheetManager target={frameContext.document.head}>
-                <ErrorBoundary>
-                  <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme}/>
-                </ErrorBoundary>
-              </StyleSheetManager>
-            )}</FrameContextConsumer>
-          </Frame>
+          <KibaFrame>
+            <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme}/>
+          </KibaFrame>
         </CanvasStack.Item>
         {isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}
       </CanvasStack>
