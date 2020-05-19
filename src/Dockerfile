@@ -10,6 +10,8 @@ COPY packages/core/package.json packges/core/package.json
 # COPY packages/core/package-lock.json packges/core/package-lock.json
 COPY packages/main/package.json packges/main/package.json
 # COPY packages/main/package-lock.json packges/main/package-lock.json
+COPY packages/landing/package.json packges/landing/package.json
+# COPY packages/landing/package-lock.json packges/landing/package-lock.json
 COPY packages/canvas/package.json packges/canvas/package.json
 COPY packages/canvas/package-lock.json packges/canvas/package-lock.json
 COPY package.json package.json
@@ -25,3 +27,8 @@ RUN npm run build
 FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as canvas
 
 COPY --from=build /app/packages/canvas/dist /usr/share/nginx/html
+
+# Landing
+FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as landing
+
+COPY --from=build /app/packages/landing/dist /usr/share/nginx/html
