@@ -22,6 +22,7 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
       <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
       <meta name='build-hash' content={website.buildHash || null} />
+      <script src='https://unpkg.com/ionicons@5.0.1/dist/ionicons.js' />
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
       { website.version && <meta name='version' content={website.version} /> }
       { website.description && <meta name='description' content={website.description} /> }

@@ -161,7 +161,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'border-width': '1px',
     'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
     'margin': '0px 4px 12px 4px',
-    'padding': `${dimensions.paddingWide} ${dimensions.paddingWide}`,
+    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
   }, baseTheme.boxes?.default);
 
   const borderedBoxTheme = mergeTheme(defaultBoxTheme, {
@@ -169,7 +169,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'border-radius': dimensions.borderRadius,
     'border-color': Polished.darken(0.05, colors.background),
     'border-width': '1px',
-    'padding': `${dimensions.paddingWide} ${dimensions.paddingWide}`,
+    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
   }, baseTheme.boxes?.default);
 
   const defaultImageTheme: IImageTheme = mergeTheme({
