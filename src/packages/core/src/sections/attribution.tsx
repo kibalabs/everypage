@@ -8,12 +8,12 @@ export const Attribution = (): React.ReactElement => {
   const theme = useTheme<IColorGuide>('colors');
   return (
     <Section background={{color: String(theme.backgroundInverse)}}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} isFullWidth={true}>
-        <Spacing mode='extra-narrow'/>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={false} isFullWidth={true}>
+        <Spacing mode='wide'/>
         <Text alignment={TextAlignment.Center} mode='inverse'>
           <span>Made with <Link mode='inverse' destination='https://www.everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>
         </Text>
-        <Spacing mode='extra-narrow'/>
+        <Spacing mode='wide'/>
       </Stack>
     </Section>
   );

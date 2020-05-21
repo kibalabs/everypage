@@ -35,8 +35,8 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
       background={props.background}
     >
       <Grid childAlignment={Alignment.Fill}>
-        <Grid.Item size={1} sizeLarge={2}><div /></Grid.Item>
-        <Grid.Item size={10} sizeLarge={8}>
+        <Grid.Item size={1} sizeLarge={0}><div /></Grid.Item>
+        <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
@@ -44,7 +44,7 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
               <Spacing mode='narrow' />
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             </Stack>
-            <Grid childAlignment={Alignment.Fill} shouldAddGutters={false}>
+            <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
                   <Box mode='card'>

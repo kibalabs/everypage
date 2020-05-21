@@ -14,7 +14,7 @@ const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
   const brandPrimaryInverse = base.brandPrimaryInverse || brandPrimary;
   const brandSecondaryInverse = base.brandSecondaryInverse || brandSecondary;
   const backgroundInverse = base.backgroundInverse || Polished.invert(background);
-  const textInverse = base.textInverse || Polished.getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#eeeeee';
+  const textInverse = base.textInverse || Polished.getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#e5e5e5';
 
   return {
     brandPrimary: brandPrimary,
@@ -32,7 +32,7 @@ const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
 };
 
 const buildDimensions = (base: Partial<IDimensionGuide>): IDimensionGuide => {
-  const borderRadius = base.borderRadius || '0.5em';
+  const borderRadius = base.borderRadius || '0.25em';
   const borderWidth = base.borderWidth || '1px';
   const borderWidthNarrow = base.borderWidthNarrow || Polished.math(`${borderWidth} / 2`);
   const borderWidthWide = base.borderWidthWide || Polished.math(`${borderWidth} * 2`);
@@ -47,7 +47,7 @@ const buildDimensions = (base: Partial<IDimensionGuide>): IDimensionGuide => {
   const paddingExtraExtraExtraWide = base.paddingExtraExtraExtraWide || Polished.math(`${paddingExtraExtraWide} * 2`);
 
   const columnCount = base.columnCount || 12;
-  const gutterSize = base.gutterSize || '1em';
+  const gutterSize = base.gutterSize || padding;
   const screenWidthSmall = base.screenWidthSmall || '576px';
   const screenWidthMedium = base.screenWidthMedium || '768px';
   const screenWidthLarge = base.screenWidthLarge || '992px';
@@ -117,10 +117,16 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   }, baseTheme.texts?.header);
 
   const titleTextTheme = mergeTheme(textTheme, {
-    'font-size': '1.8em',
+    'font-size': '2.0em',
     'font-weight': 'bold',
     'color': '#171717',
   }, baseTheme.texts?.title);
+
+  const subtitleTextTheme = mergeTheme(textTheme, {
+    'font-size': '1.4em',
+    'font-weight': 'bold',
+    'color': '#171717',
+  }, baseTheme.texts?.subtitle);
 
   const noteTextTheme = mergeTheme(textTheme, {
     'font-size': '0.8em',
@@ -155,6 +161,14 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'border-width': '1px',
     'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
     'margin': '0px 4px 12px 4px',
+    'padding': `${dimensions.paddingWide} ${dimensions.paddingWide}`,
+  }, baseTheme.boxes?.default);
+
+  const borderedBoxTheme = mergeTheme(defaultBoxTheme, {
+    'background-color': Polished.lighten(0.1, colors.background),
+    'border-radius': dimensions.borderRadius,
+    'border-color': Polished.darken(0.05, colors.background),
+    'border-width': '1px',
     'padding': `${dimensions.paddingWide} ${dimensions.paddingWide}`,
   }, baseTheme.boxes?.default);
 
@@ -355,6 +369,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       default: defaultBoxTheme,
       transparent: transparentBoxTheme,
       card: cardBoxTheme,
+      bordered: borderedBoxTheme,
     },
     texts: {
       default: textTheme,
@@ -363,6 +378,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       inverse: inverseTextTheme,
       header: headerTextTheme,
       title: titleTextTheme,
+      subtitle: subtitleTextTheme,
       note: noteTextTheme,
     },
     images: {

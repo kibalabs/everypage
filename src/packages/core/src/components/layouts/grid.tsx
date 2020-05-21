@@ -146,5 +146,7 @@ const StyledGridItem = styled.div<IStyledGridItemProps>`
   overflow-y: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? 'auto' : 'hidden')};
   margin-left: ${(props: IStyledGridItemProps): string => props.gutterSize};
   margin-right: ${(props: IStyledGridItemProps): string => props.gutterSize};
+  margin-top: ${(props: IStyledGridItemProps): string => props.gutterSize};
+  margin-bottom: ${(props: IStyledGridItemProps): string => props.gutterSize};
   align-self: ${(props: IStyledGridItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;

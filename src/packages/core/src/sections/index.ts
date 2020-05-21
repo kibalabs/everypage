@@ -1,6 +1,7 @@
 export * from './section';
 
 export * from './attribution';
+export * from './featureBoxes1';
 export * from './featureImageHalf1';
 export * from './faq1';
 export * from './footer1';
