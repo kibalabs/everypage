@@ -22,6 +22,14 @@ const StyledImage = styled.img<IStyledImageProps>`
   object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
 `;
 
+const StyledVideo = styled.video<IStyledImageProps>`
+  width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'auto')};
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
+`;
+
 export interface IImageProps extends IComponentProps<IImageTheme> {
   source: string;
   alternativeText: string;
@@ -32,7 +40,30 @@ export interface IImageProps extends IComponentProps<IImageTheme> {
 
 export const Image = (props: IImageProps): React.ReactElement => {
   const theme = props.theme || useTheme('images', props.mode);
-  return (
+
+  const isVideo = (): boolean => {
+    const fileExtension = props.source.split('.').pop().toLowerCase();
+    return fileExtension === 'mp4' || fileExtension === 'webm' || fileExtension === 'ogg';
+  }
+
+  return isVideo() ? (
+    <StyledVideo
+      id={props.id}
+      className={`image ${props.className}`}
+      theme={theme}
+      autoPlay={true}
+      muted={true}
+      playsInline={true}
+      controls={false}
+      loop={true}
+      fitType={props.fitType}
+      isFullWidth={props.isFullWidth}
+      isFullHeight={props.isFullHeight}
+    >
+      <source src={props.source} />
+      {props.alternativeText}
+    </StyledVideo>
+  ) : (
     <StyledImage
       id={props.id}
       className={`image ${props.className}`}
