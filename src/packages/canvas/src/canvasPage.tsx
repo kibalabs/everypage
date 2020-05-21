@@ -178,7 +178,7 @@ export const CanvasPage = (): React.ReactElement => {
         <VerticalLine />
         <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
           <KibaFrame>
-            <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme}/>
+            <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme} shouldIncludeHead={false}/>
           </KibaFrame>
         </CanvasStack.Item>
         {isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}

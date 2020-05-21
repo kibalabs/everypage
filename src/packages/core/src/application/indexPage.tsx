@@ -9,6 +9,7 @@ import { Attribution } from '../sections';
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
   pageTheme: ITheme;
+  shouldIncludeHead: boolean;
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
@@ -36,12 +37,15 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             theme={resolvedPageTheme}
             resetCss={resetCss}
           />
-          <GlobalHead />
+          {props.shouldIncludeHead && <GlobalHead />}
           <Stack isFullHeight={true}>{ stackItems }</Stack>
         </React.Fragment>
       </ThemeProvider>
     </WebsiteProvider>
   )
+}
+IndexPage.defaultProps = {
+  shouldIncludeHead: true,
 }
 
 export default IndexPage;
