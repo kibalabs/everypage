@@ -34,7 +34,7 @@
     "typescript": "3.8.3"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.2.4",
+    "@kibalabs/build": "0.2.5",
     "@types/node": "13.13.4"
   }
 }

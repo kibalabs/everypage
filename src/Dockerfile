@@ -32,7 +32,6 @@ COPY --from=build /app/packages/canvas/dist /usr/share/nginx/html
 # Builder-api
 FROM node:12.16.1-stretch as builder-api
 WORKDIR /app
-COPY --from=build /app/packages/builder-api/dist/ ./dist/
-COPY --from=build /app/packages/builder-api/start.sh .
+COPY --from=build /app/packages/builder-api/dist/ ./
 EXPOSE 5000
-CMD ["./start.sh"]
+CMD ["node", "./main.js"]

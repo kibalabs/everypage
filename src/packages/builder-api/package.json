@@ -1,10 +1,13 @@
 {
-  "name": "everypage-builder-api",
+  "name": "@kibalabs/everypage-builder-api",
   "version": "0.1.0",
-  "main": "server.js",
   "scripts": {
-    "build": "tsc --outDir dist"
+    "build": "build-server --webpack-config-modifier ./config.webpack.js"
   },
+  "main": "dist/main.js",
+  "files": [
+    "dist/*"
+  ],
   "dependencies": {
     "@kibalabs/everypage": "0.1.22",
     "archiver": "4.0.1",
@@ -13,7 +16,7 @@
     "rimraf": "3.0.2"
   },
   "devDependencies": {
-    "@types/node": "13.13.4",
-    "typescript": "3.8.3"
+    "@kibalabs/build": "0.2.5",
+    "@types/node": "13.13.4"
   }
 }
