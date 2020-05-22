@@ -111,7 +111,11 @@ export const CanvasPage = (): React.ReactElement => {
   }
 
   const onDownloadClicked = async (): Promise<void> => {
-    downloadFile('site.json', JSON.stringify(siteContent));
+    if (selectedType === 'site') {
+      downloadFile('site.json', JSON.stringify(siteContent));
+    } else if (selectedType === 'theme') {
+      downloadFile('theme.json', JSON.stringify(siteTheme));
+    }
   }
 
   const onHideEditorClicked = (): void => {

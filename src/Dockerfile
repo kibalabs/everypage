@@ -32,6 +32,9 @@ COPY --from=build /app/packages/canvas/dist /usr/share/nginx/html
 # Builder-api
 FROM node:12.16.1-stretch as builder-api
 WORKDIR /app
-COPY --from=build /app/packages/builder-api/dist/ ./
+COPY --from=build /app/packages/builder-api/package.json .
+RUN npm install
+COPY --from=build /app/packages/builder-api/ ./
+RUN npm run build
 EXPOSE 5000
-CMD ["node", "./main.js"]
+CMD ["./start.sh"]
