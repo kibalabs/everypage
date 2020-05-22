@@ -35,7 +35,7 @@ push packages:
   script:
     - docker run -v $(pwd)/.npmrc:/root/.npmrc ${CI_REGISTRY_IMAGE}:latest npm run publish
 
-push run image:
+build and push run image:
   stage: run
   only:
     - master

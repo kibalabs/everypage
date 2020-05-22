@@ -16,7 +16,11 @@ app.get('/', async (_, response) => {
   response.send('Welcome to Site Builder')
 });
 
-app.post('/v1/generate-site', async (request, response) => {
+app.post('/v1/sites/generate', async (request, response) => {
+  const authSecret = request.body.authSecret;
+  if (!authSecret || authSecret !== 'whatashittypassword$$%%ohman') {
+    return response.status(401).json({message: 'Unauthorised'});
+  }
   const siteName = request.body.siteName;
   if (!siteName) {
     return response.status(400).json({message: 'siteName must be provided in request'});
