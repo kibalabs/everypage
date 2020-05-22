@@ -13,13 +13,13 @@ const sectionMap = (Object.values(sections) as React.ComponentType[]).reduce((pr
 }, {});
 
 interface SectionRendererProps {
-  sectionJson: Record<string, any>;
+  sectionObject: Record<string, any>;
 }
 
 export const SectionRenderer = (props: SectionRendererProps): React.ReactElement => {
-  if (Object.keys(sectionMap).includes(props.sectionJson.type)) {
-    const Component = sectionMap[props.sectionJson.type];
-    return <Component {...props.sectionJson} />;
+  if (Object.keys(sectionMap).includes(props.sectionObject.type)) {
+    const Component = sectionMap[props.sectionObject.type];
+    return <Component {...props.sectionObject} />;
   }
-  throw new Error(`Failed to find section with type "${props.sectionJson.type}"`);
+  throw new Error(`Failed to find section with type "${props.sectionObject.type}"`);
 };

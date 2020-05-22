@@ -1,6 +1,7 @@
 stages:
   - deploy
   - publish
+  - deploy-2
   - run
 
 build and push images:
@@ -34,7 +35,7 @@ push packages:
     - docker run -v $(pwd)/.npmrc:/root/.npmrc ${CI_REGISTRY_IMAGE}:latest npm run publish
 
 build and push run image:
-  stage: run
+  stage: deploy-2
   only:
     - master
   image: docker:19.03.8
@@ -48,7 +49,7 @@ build and push run image:
     - docker push ${CI_REGISTRY_IMAGE}/run:latest
 
 build and push builder-api image:
-  stage: run
+  stage: deploy-2
   only:
     - master
   image: docker:19.03.8

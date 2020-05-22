@@ -19,6 +19,7 @@ export interface IBackgroundConfig extends IBackgroundLayer {
 export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProps {
   id?: string;
   className: string;
+  isFullHeight: boolean;
 }
 
 const getBackgroundCss = (backgroundLayer: IBackgroundLayer): string => {
@@ -59,7 +60,7 @@ export const Background = (props: IBackgroundProps): React.ReactElement => {
       pattern: props.pattern,
     });
   }
-  let child: React.ReactElement = <React.Fragment>{ props.children }</React.Fragment>;
+  let child: React.ReactElement = <React.Fragment>{props.children}</React.Fragment>;
   layers.reverse().forEach((backgroundLayer: IBackgroundLayer) => {
     child = (
       <StyledBackground
@@ -75,4 +76,5 @@ export const Background = (props: IBackgroundProps): React.ReactElement => {
 
 Background.defaultProps = {
   className: '',
+  isFullHeight: true,
 };

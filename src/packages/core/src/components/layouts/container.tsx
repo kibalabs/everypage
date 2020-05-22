@@ -7,17 +7,18 @@ import { ISingleAnyChildProps } from '../../util';
 
 interface IBaseContainerProps {
   theme: IDimensionGuide;
-  isFullHeight?: boolean;
+  isFullHeight: boolean;
+  isMainContainer: boolean;
 }
 
 const BaseContainer = styled.div<IBaseContainerProps>`
   width: 100%;
   max-width: ${(props: IBaseContainerProps): string => props.theme.screenWidthMax};
   height: ${(props: IBaseContainerProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  max-height: 100%;
+  max-height: ${(props: IBaseContainerProps): string => (props.isMainContainer ? '100%' : 'auto')};
   margin-right: auto;
   margin-left: auto;
-  overflow-y: auto;
+  overflow-y: ${(props: IBaseContainerProps): string => (props.isMainContainer ? 'auto' : 'visible')};
   padding-left: ${(props: IBaseContainerProps): string => props.theme.padding};
   padding-right: ${(props: IBaseContainerProps): string => props.theme.padding};
 `;
@@ -46,4 +47,5 @@ export const Container = (props: IContainerProps): React.ReactElement => {
 Container.defaultProps = {
   className: '',
   isFullHeight: true,
+  isMainContainer: true,
 };

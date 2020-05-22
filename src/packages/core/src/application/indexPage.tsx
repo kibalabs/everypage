@@ -2,9 +2,9 @@ import React from 'react';
 
 import { resetCss, GlobalCss, GlobalHead, SectionRenderer } from '.';
 import { WebsiteProvider } from '../util';
-import { ThemeProvider, Stack, IStackItemProps, ITheme, buildTheme } from '../components';
+import { ThemeProvider, ITheme, buildTheme } from '../components';
 import { IWebsite } from '../model';
-import { Attribution } from '../sections';
+import { SectionHolder, ISectionProps } from '../sections';
 
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
@@ -13,19 +13,19 @@ export interface IIndexPageProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
-  const stackItems: React.ReactElement<IStackItemProps>[] = props.pageContent.sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
-    <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
+  const sections: React.ReactElement<ISectionProps>[] = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
+    <SectionRenderer key={index} sectionObject={sectionObject} />
   ));
-  stackItems.push(
-    // Push empty stack item the fills any remaining space
-    <Stack.Item key={props.pageContent.sections.length + 1} growthFactor={1}>
-      <div />
-    </Stack.Item>
-  );
-  stackItems.push(
-    <Stack.Item key={props.pageContent.sections.length + 2}>
-      <Attribution />
-    </Stack.Item>
+  // stackItems.push(
+  //   // Push empty stack item the fills any remaining space
+  //   <Stack.Item key={sections.length} growthFactor={1}>
+  //     <div />
+  //   </Stack.Item>
+  // );
+  sections.push(
+    // <Stack.Item >
+      <SectionRenderer key={sections.length} sectionObject={{type: 'attribution'}}/>
+    // </Stack.Item>
   );
   const resolvedPageTheme = buildTheme(props.pageTheme);
 
@@ -38,7 +38,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             resetCss={resetCss}
           />
           {props.shouldIncludeHead && <GlobalHead />}
-          <Stack isFullHeight={true}>{ stackItems }</Stack>
+          <SectionHolder>{ sections }</SectionHolder>
         </React.Fragment>
       </ThemeProvider>
     </WebsiteProvider>
