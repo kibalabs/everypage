@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "scripts": {
     "build": "build-react-component",
     "start": "build-react-component --start",
