@@ -1,6 +1,7 @@
 {
   "name": "@kibalabs/everypage-builder-api",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
     "build": "build-server --webpack-config-modifier ./config.webpack.js"
   },
