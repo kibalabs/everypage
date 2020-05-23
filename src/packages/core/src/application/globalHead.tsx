@@ -27,9 +27,15 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       { website.version && <meta name='version' content={website.version} /> }
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
 
+      {/* Font loading ideas from https://csswizardry.com/2020/05/the-fastest-google-fonts/ */}
+      <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
       { Object.values(theme.fonts).map((font: IFont, index: number): React.ReactElement => (
-        <link key={index} href={font.url} rel='stylesheet' />
+        <React.Fragment key={index}>
+          <link href={font.url} rel='preload' as='style' />
+          <link href={font.url} rel='stylesheet' media='print' onload='this.media="all"' />
+        </React.Fragment>
       ))}
+      <link rel='preconnect' href='https://assets.evrpg.com' crossorigin />
     </Helmet>
   );
 };
