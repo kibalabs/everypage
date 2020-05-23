@@ -23,3 +23,11 @@ export const SectionRenderer = (props: SectionRendererProps): React.ReactElement
   }
   throw new Error(`Failed to find section with type "${props.sectionObject.type}"`);
 };
+
+export const renderSection = (params: Record<string, any>): React.ReactElement => {
+  if (Object.keys(sectionMap).includes(params.type)) {
+    const Component = sectionMap[params.type];
+    return <Component {...params} />;
+  }
+  throw new Error(`Failed to find section with type "${params.type}"`);
+};

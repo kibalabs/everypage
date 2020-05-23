@@ -1,17 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { StyleSheetManager } from 'styled-components';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
+import { downloadFileFromBrowser } from '@kibalabs/core';
+import { ErrorBoundary, useObjectLocalStorageState, useBooleanLocalStorageState, ISingleAnyChildProps } from '@kibalabs/core-react';
 import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
 
 import { JsonEditor } from './jsonEditor';
-import { ErrorBoundary } from './reactCore/errorBoundary';
-import { useObjectLocalStorageState, useBooleanLocalStorageState } from './reactCore/useLocalStorageState';
-import { StyleSheetManager } from 'styled-components';
 import { CanvasStack } from './tempCanvasStack';
 import { FloatingActionButton } from './floatingActionButton';
-import { downloadFile } from './core/util/downloadIUtil';
 import { Dropzone, FilePreviewGrid } from './dropzone';
-import { ISingleAnyChildProps } from '@kibalabs/everypage-core/src/util';
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
 }
@@ -112,9 +109,9 @@ export const CanvasPage = (): React.ReactElement => {
 
   const onDownloadClicked = async (): Promise<void> => {
     if (selectedType === 'site') {
-      downloadFile('site.json', JSON.stringify(siteContent));
+      downloadFileFromBrowser('site.json', JSON.stringify(siteContent));
     } else if (selectedType === 'theme') {
-      downloadFile('theme.json', JSON.stringify(siteTheme));
+      downloadFileFromBrowser('theme.json', JSON.stringify(siteTheme));
     }
   }
 

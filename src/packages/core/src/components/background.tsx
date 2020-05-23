@@ -51,7 +51,7 @@ const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
 // TOD0(krish): this doesn't use the id and classname passed in
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
-  if (props.color || props.linearGradient || props.radialGradient || props.image || props.pattern) {
+  if (props.color || props.linearGradient || props.radialGradient || props.image || props.pattern || layers.length == 0) {
     layers.splice(0, 0, {
       color: props.color,
       linearGradient: props.linearGradient,

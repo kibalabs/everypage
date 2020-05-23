@@ -1,5 +1,4 @@
 export * from './section';
-export * from './sectionHolder';
 
 export * from './attribution';
 export * from './featureBoxes1';

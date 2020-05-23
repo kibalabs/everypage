@@ -1,5 +1,5 @@
 
-export const downloadFile = async (filename: string, content: string): Promise<void> => {
+export const downloadFileFromBrowser = async (filename: string, content: string): Promise<void> => {
   const blob = new Blob([content]);
   const href = await URL.createObjectURL(blob);
   const link = document.createElement('a');

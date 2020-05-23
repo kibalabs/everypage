@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { objectToString, objectFromString, booleanToString, booleanFromString } from './serializationUtil';
+import { objectToString, objectFromString, booleanToString, booleanFromString } from '@kibalabs/core';
 
 export default class LocalStorageClient {
   private localStorage: Storage;

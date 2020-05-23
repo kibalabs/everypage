@@ -1,10 +1,11 @@
+
 import React from 'react';
 
-import { resetCss, GlobalCss, GlobalHead, SectionRenderer } from '.';
+import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection } from '.';
 import { WebsiteProvider } from '../util';
 import { ThemeProvider, ITheme, buildTheme } from '../components';
 import { IWebsite } from '../model';
-import { SectionHolder, ISectionProps } from '../sections';
+import { ISectionProps } from '../sections';
 
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
@@ -13,21 +14,11 @@ export interface IIndexPageProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
-  const sections: React.ReactElement<ISectionProps>[] = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
-    <SectionRenderer key={index} sectionObject={sectionObject} />
-  ));
-  // stackItems.push(
-  //   // Push empty stack item the fills any remaining space
-  //   <Stack.Item key={sections.length} growthFactor={1}>
-  //     <div />
-  //   </Stack.Item>
-  // );
-  sections.push(
-    // <Stack.Item >
-      <SectionRenderer key={sections.length} sectionObject={{type: 'attribution'}}/>
-    // </Stack.Item>
-  );
   const resolvedPageTheme = buildTheme(props.pageTheme);
+  const sections = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
+    renderSection({...sectionObject, key: index})
+  ));
+  sections.push(renderSection({ key: sections.length, type: 'attribution'}));
 
   return (
     <WebsiteProvider website={props.pageContent as IWebsite}>

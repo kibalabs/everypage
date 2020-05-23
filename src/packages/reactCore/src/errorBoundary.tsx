@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { SiteVersion } from '../everypageClient/resources';
 
 interface IErrorBoundaryState {
   hasError: boolean;

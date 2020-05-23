@@ -47,11 +47,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
   };
 
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid>

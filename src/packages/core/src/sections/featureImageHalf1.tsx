@@ -18,11 +18,7 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
   }
 
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>

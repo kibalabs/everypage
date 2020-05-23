@@ -21,15 +21,8 @@ interface INavBar1Props extends ISectionProps {
 export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
   const colors = useTheme<IColorGuide>('colors');
   const theme = useTheme<IDimensionGuide>('dimensions');
-  const backgroundConfig = props.background || {
-    color: colors.background,
-  }
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={backgroundConfig}
-    >
+    <Section {...props as ISectionProps}>
       <StyledNavigationBar theme={theme}>
         <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
           {props.logoImageUrl && <Stack.Item><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}

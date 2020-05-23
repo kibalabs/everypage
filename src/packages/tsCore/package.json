@@ -1,0 +1,18 @@
+{
+  "name": "@kibalabs/core",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "build-module",
+    "start": "build-module --start",
+    "start-dev": "build-module --start --dev",
+    "publish": "kiba-publish"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "devDependencies": {
+    "@kibalabs/build": "0.2.7"
+  }
+}

@@ -16,11 +16,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   }
   const text = props.text || `© ${new Date().getFullYear()} ${companyText}`;
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
         <Spacing mode='extra-narrow'/>
         <MarkdownText text={text}/>

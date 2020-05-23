@@ -13,7 +13,7 @@ COPY packages/main/package.json packges/main/package.json
 COPY packages/landing/package.json packges/landing/package.json
 # COPY packages/landing/package-lock.json packges/landing/package-lock.json
 COPY packages/canvas/package.json packges/canvas/package.json
-COPY packages/canvas/package-lock.json packges/canvas/package-lock.json
+# COPY packages/canvas/package-lock.json packges/canvas/package-lock.json
 COPY packages/builder-api/package.json packges/builder-api/package.json
 # COPY packages/builder-api/package-lock.json packges/builder-api/package-lock.json
 COPY package.json package.json

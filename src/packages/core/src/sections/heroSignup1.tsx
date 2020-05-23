@@ -41,11 +41,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   };
 
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Grid>
         <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>

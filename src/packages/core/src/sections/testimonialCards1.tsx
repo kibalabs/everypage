@@ -29,11 +29,7 @@ const getCardIcon = (cardType: string, brandColor: string): React.ReactElement =
 export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={1} sizeLarge={0}><div /></Grid.Item>
         <Grid.Item size={10} sizeLarge={12}>

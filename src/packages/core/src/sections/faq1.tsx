@@ -16,11 +16,7 @@ interface IFaq1Props extends ISectionProps {
 
 export const Faq1 = (props: IFaq1Props): React.ReactElement => {
   return (
-    <Section
-      id={props.id}
-      className={props.className}
-      background={props.background}
-    >
+    <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={1} sizeLarge={2}><div /></Grid.Item>
         <Grid.Item size={10} sizeLarge={8}>

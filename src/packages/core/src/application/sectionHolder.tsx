@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useScrollListenerRef } from '@kibalabs/core-react';
 
-import { ISectionProps } from '.';
+import { ISectionProps } from '../sections';
 import { IMultiChildProps } from '../util';
 
 interface IStyledSectionHolderProps {
@@ -25,16 +26,21 @@ interface ISectionHolderProps extends IMultiChildProps<ISectionProps> {
 
 // NOTE(krish): this is just a stripped down stack that prevents having to have multiple layers of children
 export const SectionHolder = (props: ISectionHolderProps): React.ReactElement => {
-  const badChildrenCount = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child && child.type.name !== 'Section' && child.type.name !== 'SectionRenderer').length;
-  if (badChildrenCount > 0) {
-    throw Error(`${badChildrenCount} children are not sections. Bailing out.`)
-  }
+  const [hasRendered, setHasRendered] = React.useState<boolean>(false);
+  const sectionHolderRef = React.useRef<HTMLDivElement>();
+  React.useLayoutEffect(() => {
+    setHasRendered(true);
+  })
+
   return (
     <StyledSectionHolder
       id={props.id}
       className={`section-holder ${props.className}`}
+      ref={sectionHolderRef}
     >
-      {props.children}
+      {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
+        return React.cloneElement(child, { sectionHolderRef: sectionHolderRef });
+      })}
     </StyledSectionHolder>
   );
 };
