@@ -22,11 +22,11 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
       <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
       <meta name='build-hash' content={website.buildHash || null} />
-      <script src='https://unpkg.com/ionicons@5.0.1/dist/ionicons.js' />
-      { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
-      { website.version && <meta name='version' content={website.version} /> }
-      { website.description && <meta name='description' content={website.description} /> }
       <title>{website.title || `${website.name} - ${website.tagline}`}</title>
+      { website.description && <meta name='description' content={website.description} /> }
+      { website.version && <meta name='version' content={website.version} /> }
+      { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
+
       { Object.values(theme.fonts).map((font: IFont, index: number): React.ReactElement => (
         <link key={index} href={font.url} rel='stylesheet' />
       ))}

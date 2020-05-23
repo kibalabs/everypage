@@ -17,7 +17,6 @@
     "@kibalabs/core-react": "0.1.0",
     "axios": "^0.19.2",
     "deepmerge": "^4.2.2",
-    "ionicons": "^5.0.1",
     "polished": "^3.5.1",
     "react-helmet": "^5.2.1",
     "react-markdown": "^4.3.1"
