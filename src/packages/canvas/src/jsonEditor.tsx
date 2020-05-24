@@ -5,6 +5,8 @@ import 'jsoneditor/dist/jsoneditor.css';
 
 interface IJsonEditorProps {
   json: object;
+  schema?: object;
+  name?: string;
   onJsonUpdated: (parsedJson: object) => void;
 }
 
@@ -53,7 +55,8 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   React.useLayoutEffect(() => {
     if (editorRef.current && !editor) {
       const newEditor = new JSONEditor(editorRef.current, {
-        name: 'site',
+        name: props.name || 'json',
+        schema: props.schema,
         onChangeText: onChangeText,
         enableSort: false,
         enableTransform: false,

@@ -9,6 +9,7 @@ import { JsonEditor } from './jsonEditor';
 import { CanvasStack } from './tempCanvasStack';
 import { FloatingActionButton } from './floatingActionButton';
 import { Dropzone, FilePreviewGrid } from './dropzone';
+import { siteSchema } from './siteSchema';
 import { defaultSite } from './defaultSite';
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
@@ -160,10 +161,10 @@ export const CanvasPage = (): React.ReactElement => {
               </CanvasStack>
             </ButtonBar>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'site'}>
-              <JsonEditor json={resolvedSiteContent} onJsonUpdated={onSiteJsonUpdated}/>
+              <JsonEditor name='site' schema={siteSchema} json={resolvedSiteContent} onJsonUpdated={onSiteJsonUpdated}/>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'theme'}>
-              <JsonEditor json={siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
+              <JsonEditor name='theme' json={siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'assets'}>
               <Dropzone onFilesChosen={onAssetFilesChosen} />
