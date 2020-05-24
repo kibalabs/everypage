@@ -6,8 +6,13 @@
     "description": "🙃",
     "sections": [
       {
+        "id": "navbar",
         "type": "navbar-1",
-        "logoImageUrl": "/assets/everysize-wordmark.svg"
+        "background": {
+          "color": "#4db273"
+        },
+        "logoImageUrl": "/assets/everysize-wordmark.svg",
+        "shouldStickToTop": true
       },
       {
         "type": "hero-simple-1",

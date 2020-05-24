@@ -1,0 +1,16 @@
+{
+    "colors": {
+        "brandPrimary": "#4db273",
+        "brandSecondary": "#134E5E"
+    },
+    "fonts": {
+        "main": {
+            "url": "https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap"
+        }
+    },
+    "texts": {
+        "default": {
+            "font-family": "'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif"
+        }
+    }
+}
