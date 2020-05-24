@@ -4,10 +4,7 @@ import { reloadClientData } from 'react-static/node'
 import chokidar from 'chokidar';
 
 let rootPath = __dirname;
-if (rootPath.startsWith(process.cwd())) {
-  rootPath = rootPath.replace(process.cwd(), '.');
-}
-console.log(`Running with root: ${process.cwd()}, ${rootPath}`)
+console.log(`Running with root: ${rootPath}`)
 
 const siteFilePath = path.join(rootPath, 'site.json');
 const themeFilePath = path.join(rootPath, 'theme.json');
@@ -22,7 +19,7 @@ export default {
     'react-static-plugin-everypage',
     'react-static-plugin-styled-components',
     ['react-static-plugin-typescript', { typeCheck: false }],
-    ['react-static-plugin-source-filesystem', { location: path.join(rootPath, './src/pages') }],
+    ['react-static-plugin-source-filesystem', { location: path.resolve(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {
     return sleep(15, async () => {
