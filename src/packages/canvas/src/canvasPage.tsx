@@ -9,6 +9,7 @@ import { JsonEditor } from './jsonEditor';
 import { CanvasStack } from './tempCanvasStack';
 import { FloatingActionButton } from './floatingActionButton';
 import { Dropzone, FilePreviewGrid } from './dropzone';
+import { defaultSite } from './defaultSite';
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
 }
@@ -47,8 +48,6 @@ const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
   );
 }
 
-const defaultSiteContent = require('./site.json');
-
 const VerticalLine = styled.div`
   background-color: #333333;
   width: 2px;
@@ -86,7 +85,7 @@ export const CanvasPage = (): React.ReactElement => {
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
   const [assetFiles, setAssetFiles] = React.useState<File[]>([]);
 
-  const resolvedSiteContent = (siteContent || defaultSiteContent);
+  const resolvedSiteContent = (siteContent || defaultSite);
 
   const onSiteJsonUpdated = (parsedJson: object): void => {
     setSiteContent(parsedJson);

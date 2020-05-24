@@ -1,4 +1,4 @@
-{
+export const defaultSite = {
     "name": "everysize",
     "tagline": "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
     "company": "Kiba Labs",
