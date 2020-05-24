@@ -14,7 +14,6 @@ export interface IGlobalHeadProps {
 export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   const website = props.website || useWebsite();
   const theme = props.theme || useTheme();
-  console.log('theme.fonts', theme.fonts);
   return (
     <Helmet>
       <meta charSet='utf-8' />
