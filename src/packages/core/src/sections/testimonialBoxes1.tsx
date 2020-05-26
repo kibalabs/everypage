@@ -3,30 +3,31 @@ import React from 'react';
 import { Section, ISectionProps } from '.';
 import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, TwitterIcon, ChatIcon, ProductHuntIcon, Direction, useTheme, ITheme, Link } from '../components';
 
-interface ITestimonialCards1Card {
+interface ITestimonialBoxes1Box {
   text: string;
   author: string;
   url?: string;
   type?: string;
 }
 
-interface ITestimonialCards1Props extends ISectionProps {
+interface ITestimonialBoxes1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
-  cards?: ITestimonialCards1Card[];
+  boxMode?: string;
+  boxes?: ITestimonialBoxes1Box[];
 }
 
-const getCardIcon = (cardType: string, brandColor: string): React.ReactElement => {
-  if (cardType === 'producthunt') {
+const getBoxIcon = (boxType: string, brandColor: string): React.ReactElement => {
+  if (boxType === 'producthunt') {
     return <ProductHuntIcon _color='#DA552F'/>;
   }
-  if (cardType === 'twitter') {
+  if (boxType === 'twitter') {
     return <TwitterIcon _color='#1DA1F2'/>;
   }
   return <ChatIcon _color={brandColor}/>;
 }
 
-export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactElement => {
+export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
   return (
     <Section {...props as ISectionProps}>
@@ -41,18 +42,18 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
-              {props.cards.map((card: ITestimonialCards1Card, index: number): React.ReactElement => (
+              {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
-                  <Box mode='card'>
+                  <Box mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                       <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
-                        { getCardIcon(card.type, theme.colors.brandPrimary) }
+                        { getBoxIcon(box.type, theme.colors.brandPrimary) }
                         <Spacing direction={Direction.Horizontal} mode='narrow' />
-                        <Link destination={card.url} text={card.author} isEnabled={!!card.url} />
+                        <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
                       </Stack>
                       <Spacing direction={Direction.Vertical} mode='narrow' />
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <MarkdownText alignment={TextAlignment.Left} text={card.text} />
+                        <MarkdownText alignment={TextAlignment.Left} text={box.text} />
                       </Stack.Item>
                     </Stack>
                   </Box>
@@ -66,4 +67,7 @@ export const TestimonialCards1 = (props: ITestimonialCards1Props): React.ReactEl
     </Section>
   );
 };
-TestimonialCards1.displayName = 'testimonial-cards-1';
+TestimonialBoxes1.displayName = 'testimonial-boxes-1';
+TestimonialBoxes1.defaultProps = {
+  boxMode: 'bordered',
+};

@@ -13,6 +13,7 @@ interface IFeatureBoxes1Feature {
 interface IFeatureBoxes1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
+  boxMode?: string;
   features?: IFeatureBoxes1Feature[];
 }
 
@@ -33,7 +34,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
-                  <Box mode='bordered' isFullHeight={true}>
+                  <Box mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                       <Spacing direction={Direction.Vertical} mode='wide' />
                       {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
@@ -57,3 +58,6 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
   );
 };
 FeatureBoxes1.displayName = 'feature-boxes-1';
+FeatureBoxes1.defaultProps = {
+  boxMode: 'bordered',
+};
