@@ -20,6 +20,7 @@ export interface IMediaProps extends IComponentProps<IMediaTheme> {
   isFullWidth: boolean;
   isFullHeight: boolean;
   fitType: 'crop' | 'scale';
+  isLazyLoadable: boolean;
 }
 
 export const Media = (props: IMediaProps): React.ReactElement => {
@@ -40,4 +41,5 @@ Media.defaultProps = {
   fitType: 'scale',
   isFullWidth: false,
   isFullHeight: false,
+  isLazyLoadable: true,
 };

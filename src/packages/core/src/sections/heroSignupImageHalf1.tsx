@@ -54,7 +54,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
+              <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           <Grid.Item size={1}><div /></Grid.Item>
@@ -65,7 +65,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                   <Grid>
                     <Grid.Item size={1}><div /></Grid.Item>
                     <Grid.Item size={10}>
-                      <Image source={props.logoImageUrl} alternativeText='logo' />
+                      <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                     </Grid.Item>
                   </Grid>
                   <Spacing mode={SpacingSize.ExtraExtraWide} />
@@ -127,19 +127,19 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
           <Grid.Item size={1}><div /></Grid.Item>
           { props.rightMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
+              <Media source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
           { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
+              <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
+              <Media source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>

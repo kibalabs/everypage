@@ -28,6 +28,7 @@ export interface IImageProps extends IComponentProps<IImageTheme> {
   isFullWidth: boolean;
   isFullHeight: boolean;
   fitType: 'crop' | 'scale';
+  isLazyLoadable: boolean;
 }
 
 export const Image = (props: IImageProps): React.ReactElement => {
@@ -35,9 +36,10 @@ export const Image = (props: IImageProps): React.ReactElement => {
   return (
     <StyledImage
       id={props.id}
-      className={`image ${props.className}`}
+      className={`image ${props.className} ${props.isLazyLoadable ? 'lazyload' : ''}`}
       theme={theme}
-      src={props.source}
+      src={props.isLazyLoadable ? undefined : props.source}
+      data-src={props.source}
       alt={props.alternativeText}
       fitType={props.fitType}
       isFullWidth={props.isFullWidth}
@@ -51,4 +53,5 @@ Image.defaultProps = {
   fitType: 'scale',
   isFullWidth: false,
   isFullHeight: false,
+  isLazyLoadable: true,
 };

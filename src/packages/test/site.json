@@ -21,7 +21,7 @@
         "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀"
       },
       {
-        "type": "hero-signup-image-half-1",
+        "type": "hero-signup-media-half-1",
         "logoImageUrl": null,
         "titleText": "Check your awesome responsive webpage looks great in every size 🖥 💻 📱 👀",
         "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀",
@@ -32,8 +32,8 @@
         "inputPlaceholderText": "Enter a url to see the magic",
         "inputButtonText": "GO",
         "inputSuccessMessageText": null,
-        "leftImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/hero.mp4",
-        "rightImageUrl": null,
+        "leftMediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/hero.mp4",
+        "rightMediaUrl": null,
         "inputName": "url",
         "formTarget": "https://everysize-app.kibalabs.com",
         "formAction": "OPEN"
@@ -52,14 +52,14 @@
         "formAction": "OPEN"
       },
       {
-        "type": "feature-image-half-1",
+        "type": "feature-media-half-1",
         "background": {
           "color": "white"
         },
         "titleText": "🔒Browser-based = built in security",
         "subtitleText": "No installation required. We use iframes on your browser so you don't have to enter your credentials on a downloaded application to test your secure pages",
-        "leftImageUrl": null,
-        "rightImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png"
+        "leftMediaUrl": null,
+        "rightMediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png"
       },
       {
         "type": "feature-boxes-1",
@@ -92,20 +92,21 @@
             "description": "Kiwi has a gorgeous base style, but you can make it look however you like with our easy-to-use theming system"
           },
           {
-            "imageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
+            "mediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
             "title": "Your wiki, your data",
             "description": "We don't want you locked in; we promise to allow you to export data in actually readable formats to import wherever you want"
           }
         ]
       },
       {
-        "type": "testimonial-cards-1",
+        "type": "testimonial-boxes-1",
         "titleText": "What people say about us 🤩",
         "subtitleText": "Our customers love us and we love them ",
+        "boxMode": "card",
         "background": {
           "color": "white"
         },
-        "cards": [
+        "boxes": [
           {
             "author": "Guillaume",
             "text": "So handy to work in parallel on multiple screen sizes",

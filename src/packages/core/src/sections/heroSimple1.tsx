@@ -25,7 +25,7 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
                 <Grid>
                   <Grid.Item size={1}><div /></Grid.Item>
                   <Grid.Item size={10}>
-                    <Image source={props.logoImageUrl} alternativeText='logo' />
+                    <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
                 <Spacing mode={SpacingSize.ExtraWide} />

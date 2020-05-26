@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useScrollListener } from '@kibalabs/core-react';
 
 import { Container, Background, IBackgroundConfig } from '../components';
 import { ISingleAnyChildProps } from '../util';
@@ -13,7 +12,7 @@ export interface ISectionProps {
 }
 
 export interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
-  sectionHolderRef?: React.RefObject<HTMLElement> | null;
+  // sectionHolderRef?: React.RefObject<HTMLElement> | null;
 }
 
 interface StyledSectionProps {

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import 'lazysizes';
+import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { ISectionProps } from '../sections';
 import { IMultiChildProps } from '../util';
@@ -25,20 +27,21 @@ interface ISectionHolderProps extends IMultiChildProps<ISectionProps> {
 
 // NOTE(krish): this is just a stripped down stack that prevents having to have multiple layers of children
 export const SectionHolder = (props: ISectionHolderProps): React.ReactElement => {
-  const [hasRendered, setHasRendered] = React.useState<boolean>(false);
-  const sectionHolderRef = React.useRef<HTMLDivElement>();
-  React.useLayoutEffect(() => {
-    setHasRendered(true);
-  })
+  // const [hasRendered, setHasRendered] = React.useState<boolean>(false);
+  // const sectionHolderRef = React.useRef<HTMLDivElement>();
+  // React.useLayoutEffect(() => {
+  //   setHasRendered(true);
+  // })
 
   return (
     <StyledSectionHolder
       id={props.id}
       className={`section-holder ${props.className}`}
-      ref={sectionHolderRef}
+      // ref={sectionHolderRef}
     >
       {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
-        return React.cloneElement(child, { sectionHolderRef: sectionHolderRef });
+        // return React.cloneElement(child, { sectionHolderRef: sectionHolderRef });
+        return child;
       })}
     </StyledSectionHolder>
   );

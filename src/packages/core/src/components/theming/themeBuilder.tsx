@@ -78,11 +78,11 @@ const buildDimensions = (base: Partial<IDimensionGuide>): IDimensionGuide => {
 };
 
 export const buildFonts = (base: RecursivePartial<Record<string, IFont>>): Record<string, IFont> => {
-  return Object.keys(base).reduce((value: Record<string, IFont>, name: string): Record<string, IFont> => {
+  return Object.keys(base).reduce((current: Record<string, IFont>, name: string): Record<string, IFont> => {
     if (base[name] && base[name].url) {
-      value[name] = {url: base[name].url};
+      current[name] = {url: base[name].url.replace('//fonts.googleapis.com/', '//assets.evrpg.com/gfonts/')};
     }
-    return value;
+    return current;
   }, {} as Record<string, IFont>);
 }
 

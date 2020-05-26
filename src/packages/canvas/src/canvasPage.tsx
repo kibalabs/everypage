@@ -26,6 +26,11 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
     style.type = 'text/css';
     style.appendChild(props.target.createTextNode(css));
     props.target.head.appendChild(style);
+    // NOTE(krish): the lazysizes plugin is added here manually due to iframe problems
+    const script = props.target.createElement('script');
+    script.async = true;
+    script.src = 'https://afarkas.github.io/lazysizes/lazysizes.min.js';
+    props.target.head.appendChild(script);
   }, [props.target]);
 
   return (

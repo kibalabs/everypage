@@ -54,7 +54,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 <Grid>
                   <Grid.Item size={1}><div /></Grid.Item>
                   <Grid.Item size={10}>
-                    <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />
+                    <Image source={props.logoImageUrl} isLazyLoadable={false} isFullWidth={true} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
                 <Spacing mode={SpacingSize.ExtraWide} />
