@@ -1,6 +1,6 @@
 import * as Polished from 'polished';
 
-import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
+import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
 import { RecursivePartial } from './util';
 
 const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
@@ -174,6 +174,9 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const defaultImageTheme: IImageTheme = mergeTheme({
   }, baseTheme.images?.default);
+
+  const defaultVideoTheme: IVideoTheme = mergeTheme({
+  }, baseTheme.videos?.default);
 
   const focusableBorderBox: Partial<IBoxTheme> = {
     'border-color': 'transparent',
@@ -383,6 +386,9 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     },
     images: {
       default: defaultImageTheme,
+    },
+    videos: {
+      default: defaultVideoTheme,
     },
     loadingSpinners: {
       default: defaultLoadingSpinnerTheme,

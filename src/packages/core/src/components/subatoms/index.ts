@@ -4,5 +4,7 @@ export * from './ionicon';
 export * from './image';
 export * from './loadingSpinner';
 export * from './markdownText';
+export * from './media';
 export * from './spacing';
 export * from './text';
+export * from './video';

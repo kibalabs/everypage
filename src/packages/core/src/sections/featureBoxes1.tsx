@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Image, Direction, Ionicon, useTheme, ITheme } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Media, Direction, Ionicon, useTheme, ITheme } from '../components';
 
 interface IFeatureBoxes1Feature {
   title?: string;
   description?: string;
-  imageUrl?: string;
+  mediaUrl?: string;
   iconId?: string;
 }
 
@@ -36,8 +36,8 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
                   <Box mode='bordered' isFullHeight={true}>
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                       <Spacing direction={Direction.Vertical} mode='wide' />
-                      {feature.imageUrl && <Image source={feature.imageUrl} alternativeText={feature.title} />}
-                      {!feature.imageUrl && feature.iconId && <Ionicon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                      {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
+                      {!feature.mediaUrl && feature.iconId && <Ionicon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                       <Spacing direction={Direction.Vertical} mode='wide' />
                       {feature.title && <MarkdownText alignment={TextAlignment.Center} mode='subtitle' text={feature.title} />}
                       <Spacing direction={Direction.Vertical} mode='narrow' />

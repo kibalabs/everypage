@@ -12,15 +12,15 @@ export const App = () => (
 );
 export default App;
 
-// For react-static
 if (typeof document !== 'undefined') {
-  const target = document.getElementById('root')
+  const target = document.getElementById('root');
   const renderMethod = target.hasChildNodes() ? ReactDOM.hydrate : ReactDOM.render;
   const render = (Component: Function) => {
     renderMethod(<AppContainer><Component /></AppContainer>, target);
   };
-  render(App)
+  render(App);
   if (module && module.hot) {
     module.hot.accept('@kibalabs/everypage', () => render(App));
+    module.hot.accept('@kibalabs/everypage-core', () => render(App));
   }
 }

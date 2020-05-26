@@ -55,7 +55,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
             <Form onFormSubmitted={onFormSubmitted}>
               <Stack direction={Direction.Vertical}>
                 <Grid>
-                  <Grid.Item id='form-inner-inner-horizontal' size={0} sizeSmall={12}>
+                  <Grid.Item size={0} sizeSmall={12}>
                     <Stack
                       direction={Direction.Horizontal}
                       contentAlignment={Alignment.Start}
@@ -81,7 +81,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       />
                     </Stack>
                   </Grid.Item>
-                  <Grid.Item id='form-inner-inner-vertical' size={12} sizeSmall={0}>
+                  <Grid.Item size={12} sizeSmall={0}>
                     <Stack direction={Direction.Vertical}>
                       <Stack.Item growthFactor={1}>
                         <SingleLineInput

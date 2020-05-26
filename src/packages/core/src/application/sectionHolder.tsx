@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useScrollListenerRef } from '@kibalabs/core-react';
 
 import { ISectionProps } from '../sections';
 import { IMultiChildProps } from '../util';
@@ -8,7 +7,7 @@ import { IMultiChildProps } from '../util';
 interface IStyledSectionHolderProps {
 }
 
-const StyledSectionHolder = styled.div<IStyledSectionHolderProps>`
+const StyledSectionHolder = styled.main<IStyledSectionHolderProps>`
   display: flex;
   flex-direction: column;
   width: 100%;

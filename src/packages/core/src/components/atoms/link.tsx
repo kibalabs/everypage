@@ -60,6 +60,7 @@ export const Link = (props: ILinkProps): React.ReactElement => {
       theme={theme}
       href={props.isEnabled ? props.destination : undefined}
       target={props.shouldOpenNewTab ? '_blank' : '_self'}
+      rel={'noopener'}
     >
       {props.text}
     </StyledLink>

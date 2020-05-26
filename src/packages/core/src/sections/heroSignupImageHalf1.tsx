@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
+import { Form, Grid, Image, Media, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '../components';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IHeroSignupImageHalf1Props extends ISectionProps, IFormProps {
+interface IHeroSignupMediaHalf1Props extends ISectionProps, IFormProps {
   logoImageUrl?: string;
   titleText?: string;
   subtitleText?: string;
@@ -16,17 +16,17 @@ interface IHeroSignupImageHalf1Props extends ISectionProps, IFormProps {
   inputSuccessMessageText?: string;
   inputType?: InputType;
   inputName?: string;
-  leftImageUrl?: string;
-  rightImageUrl?: string;
+  leftMediaUrl?: string;
+  rightMediaUrl?: string;
 }
 
-export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.ReactElement => {
+export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.ReactElement => {
   const [input, setInput] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  if (props.leftImageUrl && props.rightImageUrl) {
-    throw new Error('Only one of {leftImageUrl, rightImageUrl} should be provided to hero-signup-image-half-1')
+  if (props.leftMediaUrl && props.rightMediaUrl) {
+    throw new Error('Only one of {leftMediaUrl, rightMediaUrl} should be provided to hero-signup-media-half-1')
   }
 
   const onFormSubmitted = async (): Promise<void> => {
@@ -51,10 +51,10 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid>
-          { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-          { props.leftImageUrl && (
+          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           <Grid.Item size={1}><div /></Grid.Item>
@@ -78,7 +78,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
               <Form onFormSubmitted={onFormSubmitted}>
                 <Stack direction={Direction.Vertical}>
                   <Grid>
-                    <Grid.Item id='form-inner-inner-horizontal' size={0} sizeSmall={12}>
+                    <Grid.Item size={0} sizeSmall={12}>
                       <Stack direction={Direction.Horizontal}>
                         <Stack.Item growthFactor={1}>
                           <SingleLineInput
@@ -99,7 +99,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
                         />
                       </Stack>
                     </Grid.Item>
-                    <Grid.Item id='form-inner-inner-vertical' size={12} sizeSmall={0}>
+                    <Grid.Item size={12} sizeSmall={0}>
                       <Stack direction={Direction.Vertical}>
                         <SingleLineInput
                           inputType={props.inputType}
@@ -125,21 +125,21 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
             </Stack>
           </Grid.Item>
           <Grid.Item size={1}><div /></Grid.Item>
-          { props.rightImageUrl && (
+          { props.rightMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
-          { props.leftImageUrl && (
+          { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightImageUrl && (
+          { props.rightMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>
@@ -148,7 +148,7 @@ export const HeroSignupImageHalf1 = (props: IHeroSignupImageHalf1Props): React.R
     </Section>
   );
 };
-HeroSignupImageHalf1.displayName = 'hero-signup-image-half-1';
-HeroSignupImageHalf1.defaultProps = {
+HeroSignupMediaHalf1.displayName = 'hero-signup-media-half-1';
+HeroSignupMediaHalf1.defaultProps = {
   ...defaultFormProps,
 };

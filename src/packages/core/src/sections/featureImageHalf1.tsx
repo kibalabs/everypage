@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '../components';
+import { Grid, Media, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IFeatureImageHalf1Props extends ISectionProps {
+interface IFeatureMediaHalf1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
-  leftImageUrl?: string;
-  rightImageUrl?: string;
+  leftMediaUrl?: string;
+  rightMediaUrl?: string;
 }
 
-export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactElement => {
-  if (props.leftImageUrl && props.rightImageUrl) {
-    throw new Error('Only one of {leftImageUrl, rightImageUrl} should be provided to feature-image-half-1')
+export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactElement => {
+  if (props.leftMediaUrl && props.rightMediaUrl) {
+    throw new Error('Only one of {leftMediaUrl, rightMediaUrl} should be provided to feature-media-half-1')
   }
 
   return (
@@ -22,10 +22,10 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>
-          { props.leftImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-          { props.leftImageUrl && (
+          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           <Grid.Item size={1}><div /></Grid.Item>
@@ -38,21 +38,21 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
             </Stack>
           </Grid.Item>
           <Grid.Item size={1}><div /></Grid.Item>
-          { props.rightImageUrl && (
+          { props.rightMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightImageUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
-          { props.leftImageUrl && (
+          { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Image source={props.leftImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightImageUrl && (
+          { props.rightMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Image source={props.rightImageUrl} alternativeText={'hero-image'} />
+              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>
@@ -61,4 +61,4 @@ export const FeatureImageHalf1 = (props: IFeatureImageHalf1Props): React.ReactEl
     </Section>
   );
 };
-FeatureImageHalf1.displayName = 'feature-image-half-1';
+FeatureMediaHalf1.displayName = 'feature-media-half-1';

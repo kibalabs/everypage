@@ -11,7 +11,7 @@
         "background": {
           "color": "#4db273"
         },
-        "logoImageUrl": "/assets/everysize-wordmark.svg",
+        "logoImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/everysize-wordmark.svg",
         "shouldStickToTop": true
       },
       {
@@ -32,7 +32,7 @@
         "inputPlaceholderText": "Enter a url to see the magic",
         "inputButtonText": "GO",
         "inputSuccessMessageText": null,
-        "leftImageUrl": "/assets/hero.gif",
+        "leftImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/hero.mp4",
         "rightImageUrl": null,
         "inputName": "url",
         "formTarget": "https://everysize-app.kibalabs.com",
@@ -59,7 +59,7 @@
         "titleText": "🔒Browser-based = built in security",
         "subtitleText": "No installation required. We use iframes on your browser so you don't have to enter your credentials on a downloaded application to test your secure pages",
         "leftImageUrl": null,
-        "rightImageUrl": "/assets/feature1.png"
+        "rightImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png"
       },
       {
         "type": "feature-boxes-1",
@@ -92,7 +92,7 @@
             "description": "Kiwi has a gorgeous base style, but you can make it look however you like with our easy-to-use theming system"
           },
           {
-            "imageUrl": "/assets/feature1.png",
+            "imageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
             "title": "Your wiki, your data",
             "description": "We don't want you locked in; we promise to allow you to export data in actually readable formats to import wherever you want"
           }
