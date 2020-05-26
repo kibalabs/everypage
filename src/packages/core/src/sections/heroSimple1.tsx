@@ -16,8 +16,8 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps}>
       <Grid isFullHeight={true}>
-        <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
-        <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6} isFullHeight={true}>
+        <Grid.Item size={1} sizeSmall={2} sizeLarge={3}><div /></Grid.Item>
+        <Grid.Item size={10} sizeSmall={8} sizeLarge={6} isFullHeight={true}>
           <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           <Stack direction={Direction.Vertical}>
             { props.logoImageUrl && (

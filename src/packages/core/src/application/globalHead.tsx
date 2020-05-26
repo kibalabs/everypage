@@ -29,14 +29,13 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
 
       {/* Font loading ideas from https://csswizardry.com/2020/05/the-fastest-google-fonts/ */}
       {/* NOTE(krish): helmet doesnt work with fragments (https://github.com/nfl/react-helmet/issues/342) */}
-      <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+      <link rel='preconnect' href='https://assets.evrpg.com' crossorigin />
       { Object.values(theme.fonts).map((font: IFont, index: number): React.ReactElement => (
         <link key={index} href={font.url} rel='preload' as='style' />
       ))}
       { Object.values(theme.fonts).map((font: IFont, index: number): React.ReactElement => (
         <link key={index} href={font.url} rel='stylesheet' media='print' onload='this.media="all"' />
       ))}
-      <link rel='preconnect' href='https://assets.evrpg.com' crossorigin />
     </Helmet>
   );
 };

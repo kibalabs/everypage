@@ -43,11 +43,9 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps}>
       <Grid>
-        <Grid.Item size={1} sizeSmall={2} sizeMedium={2} sizeLarge={3}><div /></Grid.Item>
-        <Grid.Item size={10} sizeSmall={8} sizeMedium={8} sizeLarge={6}>
-          <Stack
-            direction={Direction.Vertical}
-          >
+        <Grid.Item size={1} sizeSmall={2} sizeLarge={3}><div /></Grid.Item>
+        <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
+          <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
             { props.logoImageUrl && (
               <React.Fragment>
@@ -65,52 +63,50 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
             {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
-              <Stack direction={Direction.Vertical}>
-                <Grid>
-                  <Grid.Item size={0} sizeSmall={12}>
-                    <Stack direction={Direction.Horizontal}>
-                      <Stack.Item growthFactor={1}>
-                        <SingleLineInput
-                          inputType={props.inputType}
+              <Grid>
+                <Grid.Item size={0} sizeSmall={12}>
+                  <Stack direction={Direction.Horizontal}>
+                    <Stack.Item growthFactor={1}>
+                      <SingleLineInput
+                        inputType={props.inputType}
                         name={props.inputName}
-                          placeholderText={props.inputPlaceholderText}
-                          value={input}
-                          onValueChanged={setInput}
-                          errorText={errorMessage}
-                        />
-                      </Stack.Item>
-                      <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        text={props.inputButtonText}
-                        isLoading={isLoading}
+                        placeholderText={props.inputPlaceholderText}
+                        value={input}
+                        onValueChanged={setInput}
+                        errorText={errorMessage}
                       />
-                    </Stack>
-                  </Grid.Item>
-                  <Grid.Item size={12} sizeSmall={0}>
-                    <Stack direction={Direction.Vertical}>
-                      <Stack.Item growthFactor={1}>
-                        <SingleLineInput
-                          inputType={props.inputType}
-                          name={props.inputName}
-                          placeholderText={props.inputPlaceholderText}
-                          value={input}
-                          onValueChanged={setInput}
-                          errorText={errorMessage}
-                        />
-                      </Stack.Item>
-                      <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        isFullWidth={true}
-                        text={props.inputButtonText}
+                    </Stack.Item>
+                    <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
+                    <Button
+                      mode='primary'
+                      buttonType='submit'
+                      text={props.inputButtonText}
+                      isLoading={isLoading}
+                    />
+                  </Stack>
+                </Grid.Item>
+                <Grid.Item size={12} sizeSmall={0}>
+                  <Stack direction={Direction.Vertical}>
+                    <Stack.Item growthFactor={1}>
+                      <SingleLineInput
+                        inputType={props.inputType}
+                        name={props.inputName}
+                        placeholderText={props.inputPlaceholderText}
+                        value={input}
+                        onValueChanged={setInput}
+                        errorText={errorMessage}
                       />
-                    </Stack>
-                  </Grid.Item>
-                </Grid>
-              </Stack>
+                    </Stack.Item>
+                    <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
+                    <Button
+                      mode='primary'
+                      buttonType='submit'
+                      isFullWidth={true}
+                      text={props.inputButtonText}
+                    />
+                  </Stack>
+                </Grid.Item>
+              </Grid>
             </Form>
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           </Stack>
