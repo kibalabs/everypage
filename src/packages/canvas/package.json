@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-canvas",
-  "version": "0.1.23",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "build": "build-react-app",
@@ -8,9 +8,9 @@
     "start-dev": "build-react-app --start --dev"
   },
   "dependencies": {
-    "@kibalabs/core": "0.1.0",
-    "@kibalabs/core-react": "0.1.0",
-    "@kibalabs/everypage-core": "0.1.23",
+    "@kibalabs/core": "0.2.0",
+    "@kibalabs/core-react": "0.2.0",
+    "@kibalabs/everypage-core": "0.2.0",
     "axios": "^0.19.2",
     "deep-equal": "2.0.3",
     "jsoneditor": "8.6.6",

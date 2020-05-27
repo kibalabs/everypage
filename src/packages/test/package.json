@@ -1,13 +1,13 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "private": true,
   "description": "",
   "scripts": {
     "build": "everypage build --clean --output-directory dist --build-hash testing123 && cp -R ./dist ./disttemp && mv ./disttemp ./dist/testing123"
   },
   "dependencies": {
-    "@kibalabs/everypage": "0.1.23",
-    "@kibalabs/everypage-core": "0.1.23"
+    "@kibalabs/everypage": "0.2.0",
+    "@kibalabs/everypage-core": "0.2.0"
   }
 }
