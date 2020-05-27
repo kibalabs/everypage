@@ -1,7 +1,7 @@
 import { RestMethod, Requester, ServiceClient } from '@kibalabs/core';
 
-import { Site, SiteVersion, SiteVersionEntry, CreatedSiteVersion } from './resources';
-import { CreateSiteResponse, GetSiteResponse, GetSiteBySlugResponse, ListSiteVersionsResponse, GetSitePrimaryVersionResponse, CreateSiteVersionResponse, PromoteSiteVersionResponse, PromoteSiteVersionRequest, CreateSiteVersionRequest, GetSitePrimaryVersionRequest, ListSiteVersionsRequest, GetSiteBySlugRequest, GetSiteRequest, CreateSiteRequest, GetSiteVersionEntryRequest, GetSiteVersionEntryResponse, GetSiteVersionRequest, GetSiteVersionResponse } from './endpoints';
+import * as Resources from './resources';
+import * as Endpoints from './endpoints';
 
 
 export class EverypageClient extends ServiceClient {
@@ -10,74 +10,106 @@ export class EverypageClient extends ServiceClient {
     super(requester, baseUrl || 'https://api.everypagehq.com')
   }
 
-  public create_site = async (accountId: number, slug: string, name?: string): Promise<Site> => {
+  public create_site = async (accountId: number, slug: string, name?: string): Promise<Resources.Site> => {
     const method = RestMethod.POST;
     const path = `v1/accounts/${accountId}/sites`;
-    const request = new CreateSiteRequest(accountId, slug, name);
-    const response = await this.makeRequest(method, path, request, CreateSiteResponse);
+    const request = new Endpoints.CreateSiteRequest(accountId, slug, name);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateSiteResponse);
     return response.site;
   }
 
-  public get_site = async (siteId: number): Promise<Site> => {
+  public get_site = async (siteId: number): Promise<Resources.Site> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}`;
-    const request = new GetSiteRequest();
-    const response = await this.makeRequest(method, path, request, GetSiteResponse);
+    const request = new Endpoints.GetSiteRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSiteResponse);
     return response.site;
   }
 
-  public get_site_by_slug = async (slug: string): Promise<Site> => {
+  public get_site_by_slug = async (slug: string): Promise<Resources.Site> => {
     const method = RestMethod.GET;
     const path = `v1/sites/slug/${slug}`;
-    const request = new GetSiteBySlugRequest();
-    const response = await this.makeRequest(method, path, request, GetSiteBySlugResponse);
+    const request = new Endpoints.GetSiteBySlugRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSiteBySlugResponse);
     return response.site;
   }
 
-  public list_site_versions = async (siteId: number): Promise<SiteVersion[]> => {
+  public list_site_versions = async (siteId: number): Promise<Resources.SiteVersion[]> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/versions`;
-    const request = new ListSiteVersionsRequest();
-    const response = await this.makeRequest(method, path, request, ListSiteVersionsResponse);
+    const request = new Endpoints.ListSiteVersionsRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.ListSiteVersionsResponse);
     return response.siteVersions;
   }
 
-  public get_site_primary_version = async (siteId: number): Promise<SiteVersion> => {
+  public get_site_primary_version = async (siteId: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/primary-version`;
-    const request = new GetSitePrimaryVersionRequest();
-    const response = await this.makeRequest(method, path, request, GetSitePrimaryVersionResponse);
+    const request = new Endpoints.GetSitePrimaryVersionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSitePrimaryVersionResponse);
     return response.siteVersion;
   }
 
-  public create_site_version = async (siteId: number, siteContent: Record<string, any>, siteTheme: Record<string, any>): Promise<CreatedSiteVersion> => {
+  public create_site_version = async (siteId: number, siteContent: Record<string, any>, siteTheme: Record<string, any>): Promise<Resources.CreatedSiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions`;
-    const request = new CreateSiteVersionRequest(siteContent, siteTheme);
-    const response = await this.makeRequest(method, path, request, CreateSiteVersionResponse);
+    const request = new Endpoints.CreateSiteVersionRequest(siteContent, siteTheme);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateSiteVersionResponse);
     return response.createdSiteVersion;
+  }
+
+  public list_site_version_assets = async (siteId: number, siteVersionId: number): Promise<Resources.AssetFile[]> => {
+    const method = RestMethod.GET;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets`;
+    const request = new Endpoints.ListSiteVersionAssetsRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.ListSiteVersionAssetsResponse);
+    return response.assetFiles;
   }
 
   public promote_site_version = async (siteId: number, siteVersionId: number): Promise<void> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/promote`;
-    const request = new PromoteSiteVersionRequest();
-    await this.makeRequest(method, path, request, PromoteSiteVersionResponse);
+    const request = new Endpoints.PromoteSiteVersionRequest();
+    await this.makeRequest(method, path, request, Endpoints.PromoteSiteVersionResponse);
   }
 
-  public get_site_version = async (siteId: number, siteVersionId: number): Promise<SiteVersion> => {
-    const method = RestMethod.GET;
-    const path = `v1/sites/${siteId}/versions/${siteVersionId}`;
-    const request = new GetSiteVersionRequest();
-    const response = await this.makeRequest(method, path, request, GetSiteVersionResponse);
+  public clone_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/clone`;
+    const request = new Endpoints.CloneSiteVersionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.CloneSiteVersionResponse);
     return response.siteVersion;
   }
 
-  public get_site_version_entry = async (siteId: number, siteVersionId: number): Promise<SiteVersionEntry> => {
+  public generate_asset_upload_for_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.PresignedUpload> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/generate-asset-upload`;
+    const request = new Endpoints.GenerateAssetUploadForSiteVersionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GenerateAssetUploadForSiteVersionResponse);
+    return response.presignedUpload;
+  }
+
+  public get_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
+    const method = RestMethod.GET;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}`;
+    const request = new Endpoints.GetSiteVersionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSiteVersionResponse);
+    return response.siteVersion;
+  }
+
+  public get_site_version_entry = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersionEntry> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
-    const request = new GetSiteVersionEntryRequest();
-    const response = await this.makeRequest(method, path, request, GetSiteVersionEntryResponse);
+    const request = new Endpoints.GetSiteVersionEntryRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSiteVersionEntryResponse);
+    return response.siteVersionEntry;
+  }
+
+  public update_site_version_entry = async (siteId: number, siteVersionId: number, siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null): Promise<Resources.SiteVersionEntry> => {
+    const method = RestMethod.PATH;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
+    const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
+    const response = await this.makeRequest(method, path, request, Endpoints.UpdateSiteVersionEntryResponse);
     return response.siteVersionEntry;
   }
 }

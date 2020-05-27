@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link, useInitialization } from '@kibalabs/core-react';
 import { Requester, Response, KibaException, dateToString } from '@kibalabs/core';
 
-import { Site, SiteVersion, CreatedSiteVersion, PresignedUpload } from '../everypageClient/resources';
+import { Site, SiteVersion, PresignedUpload, AssetFile } from '../everypageClient/resources';
 import { Dropzone } from '../components/dropzone';
 import { useGlobals } from '../globalsContext';
 
@@ -58,6 +58,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const loadVersions = (siteId: number): void => {
     everypageClient.list_site_versions(siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions);
+      everypageClient.list_site_version_assets(siteId, siteVersions[siteVersions.length - 1].siteVersionId).then((assetFiles: AssetFile[]) => {
+        console.log('assetFiles', assetFiles);
+      });
     }).catch((error: KibaException): void => {
       console.log('error', error);
       setVersions([]);
@@ -157,6 +160,17 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     return `https://${site.slug}.evrpg.com`;
   }
 
+  const onCreateNewVersionClicked = (): void => {
+    setIsLoading(true);
+    everypageClient.clone_site_version(site.siteId, primaryVersionId).then((): void => {
+      loadVersions(site.siteId);
+      setIsLoading(false);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      setIsLoading(false);
+    });
+  }
+
   if (site === undefined) {
     return (
       <div>Loading...</div>
@@ -188,9 +202,17 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         <br />
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <StyledButton onClick={onCreateNewVersionClicked}>Create new version</StyledButton>
+        {/* <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <form onSubmit={onFormSubmitted}>
-          <h1>Create new version</h1>
-          <br/>
           Site file: <input type='file' onChange={onSiteFileChanged} />
           <br/>
           Theme file: <input type='file' onChange={onThemeFileChanged} />
@@ -205,7 +227,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           ))}
           </div>
           <StyledButton type='submit'>Create</StyledButton>
-        </form>
+        </form> */}
       </div>
     );
   }

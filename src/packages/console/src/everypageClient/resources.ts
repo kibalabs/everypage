@@ -31,12 +31,18 @@ export class SiteVersion {
   readonly creationDate: Date;
   readonly buildHash: string;
   readonly siteId: number;
+  readonly name: string | null;
+  readonly isPublished: boolean;
+  readonly isArchived: boolean;
 
-  public constructor(siteVersionId: number, creationDate: Date, buildHash: string, siteId: number) {
+  public constructor(siteVersionId: number, creationDate: Date, buildHash: string, siteId: number, name: string | null, isPublished: boolean, isArchived: boolean) {
     this.siteVersionId = siteVersionId;
     this.creationDate = creationDate;
     this.buildHash = buildHash;
     this.siteId = siteId;
+    this.name = name;
+    this.isPublished = isPublished;
+    this.isArchived = isArchived;
   }
 
   public static fromObject = (obj: Record<string, any>): SiteVersion => {
@@ -45,40 +51,9 @@ export class SiteVersion {
       dateFromString(obj.creationDate),
       String(obj.buildHash),
       Number(obj.siteId),
-    );
-  }
-}
-
-export class PresignedUpload {
-  readonly url: string;
-  readonly params: Record<string, string>;
-
-  public constructor(url: string, params: Record<string, string>) {
-    this.url = url;
-    this.params = params;
-  }
-
-  public static fromObject = (obj: Record<string, any>): PresignedUpload => {
-    return new PresignedUpload(
-      String(obj.url),
-      obj.params,
-    );
-  }
-}
-
-export class CreatedSiteVersion {
-  readonly siteVersion: SiteVersion;
-  readonly presignedUpload: PresignedUpload;
-
-  public constructor(siteVersion: SiteVersion, presignedUpload: PresignedUpload) {
-    this.siteVersion = siteVersion;
-    this.presignedUpload = presignedUpload;
-  }
-
-  public static fromObject = (obj: Record<string, any>): CreatedSiteVersion => {
-    return new CreatedSiteVersion(
-      SiteVersion.fromObject(obj.siteVersion),
-      PresignedUpload.fromObject(obj.presignedUpload),
+      obj.name ? String(obj.name) : null,
+      Boolean(obj.isPublished),
+      Boolean(obj.isArchived),
     );
   }
 }
@@ -102,6 +77,37 @@ export class SiteVersionEntry {
       Number(obj.siteVersionId),
       obj.siteContent,
       obj.siteTheme,
+    );
+  }
+}
+
+export class PresignedUpload {
+  readonly url: string;
+  readonly params: Record<string, string>;
+
+  public constructor(url: string, params: Record<string, string>) {
+    this.url = url;
+    this.params = params;
+  }
+
+  public static fromObject = (obj: Record<string, any>): PresignedUpload => {
+    return new PresignedUpload(
+      String(obj.url),
+      obj.params,
+    );
+  }
+}
+
+export class AssetFile {
+  readonly path: string;
+
+  public constructor(path: string) {
+    this.path = path;
+  }
+
+  public static fromObject = (obj: Record<string, any>): AssetFile => {
+    return new AssetFile(
+      String(obj.path),
     );
   }
 }

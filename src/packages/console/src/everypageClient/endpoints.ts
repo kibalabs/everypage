@@ -1,5 +1,6 @@
-import { Site, SiteVersion, CreatedSiteVersion, SiteVersionEntry } from './resources';
 import { RequestData, ResponseData } from '@kibalabs/core';
+
+import * as Resources from './resources';
 
 export class CreateSiteRequest extends RequestData {
   readonly accountId: number;
@@ -23,16 +24,16 @@ export class CreateSiteRequest extends RequestData {
 }
 
 export class CreateSiteResponse extends ResponseData {
-  readonly site: Site;
+  readonly site: Resources.Site;
 
-  public constructor(site: Site) {
+  public constructor(site: Resources.Site) {
     super();
     this.site = site;
   }
 
   public static fromObject = (obj: Record<string, any>): CreateSiteResponse => {
     return new CreateSiteResponse(
-      Site.fromObject(obj.site),
+      Resources.Site.fromObject(obj.site),
     );
   }
 }
@@ -56,16 +57,42 @@ export class CreateSiteVersionRequest extends RequestData {
 }
 
 export class CreateSiteVersionResponse extends ResponseData {
-  readonly createdSiteVersion: CreatedSiteVersion;
+  readonly siteVersion: Resources.SiteVersion;
 
-  public constructor(createdSiteVersion: CreatedSiteVersion) {
+  public constructor(siteVersion: Resources.SiteVersion) {
     super();
-    this.createdSiteVersion = createdSiteVersion;
+    this.siteVersion = siteVersion;
   }
 
   public static fromObject = (obj: Record<string, any>): CreateSiteVersionResponse => {
     return new CreateSiteVersionResponse(
-      CreatedSiteVersion.fromObject(obj.createdSiteVersion),
+      Resources.SiteVersion.fromObject(obj.siteVersion),
+    );
+  }
+}
+
+export class ListSiteVersionAssetsRequest extends RequestData {
+  public constructor() {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class ListSiteVersionAssetsResponse extends ResponseData {
+  readonly assetFiles: [Resources.AssetFile];
+
+  public constructor(assetFiles: [Resources.AssetFile]) {
+    super();
+    this.assetFiles = assetFiles;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ListSiteVersionAssetsResponse => {
+    return new ListSiteVersionAssetsResponse(
+      obj.assetFiles.map((siteVersion: Record<string, any>): Resources.AssetFile => Resources.AssetFile.fromObject(siteVersion)),
     );
   }
 }
@@ -92,6 +119,59 @@ export class PromoteSiteVersionResponse extends ResponseData {
   }
 }
 
+export class CloneSiteVersionRequest extends RequestData {
+  public constructor() {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class CloneSiteVersionResponse extends ResponseData {
+  readonly siteVersion: Resources.SiteVersion;
+
+  public constructor(siteVersion: Resources.SiteVersion) {
+    super();
+    this.siteVersion = siteVersion;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CloneSiteVersionResponse => {
+    return new CloneSiteVersionResponse(
+      Resources.SiteVersion.fromObject(obj.siteVersion),
+    );
+  }
+}
+
+export class GenerateAssetUploadForSiteVersionRequest extends RequestData {
+  public constructor() {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GenerateAssetUploadForSiteVersionResponse extends ResponseData {
+  readonly presignedUpload: Resources.PresignedUpload;
+
+  public constructor(presignedUpload: Resources.PresignedUpload) {
+    super();
+    this.presignedUpload = presignedUpload;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GenerateAssetUploadForSiteVersionResponse => {
+    return new GenerateAssetUploadForSiteVersionResponse(
+      Resources.PresignedUpload.fromObject(obj.presignedUpload),
+    );
+  }
+}
+
+
 export class GetSiteRequest extends RequestData {
   public constructor() {
     super();
@@ -104,16 +184,16 @@ export class GetSiteRequest extends RequestData {
 }
 
 export class GetSiteResponse extends ResponseData {
-  readonly site: Site;
+  readonly site: Resources.Site;
 
-  public constructor(site: Site) {
+  public constructor(site: Resources.Site) {
     super();
     this.site = site;
   }
 
   public static fromObject = (obj: Record<string, any>): GetSiteResponse => {
     return new GetSiteResponse(
-      Site.fromObject(obj.site),
+      Resources.Site.fromObject(obj.site),
     );
   }
 }
@@ -130,16 +210,16 @@ export class GetSiteBySlugRequest extends RequestData {
 }
 
 export class GetSiteBySlugResponse extends ResponseData {
-  readonly site: Site;
+  readonly site: Resources.Site;
 
-  public constructor(site: Site) {
+  public constructor(site: Resources.Site) {
     super();
     this.site = site;
   }
 
   public static fromObject = (obj: Record<string, any>): GetSiteBySlugResponse => {
     return new GetSiteBySlugResponse(
-      Site.fromObject(obj.site),
+      Resources.Site.fromObject(obj.site),
     );
   }
 }
@@ -156,16 +236,16 @@ export class ListSiteVersionsRequest extends RequestData {
 }
 
 export class ListSiteVersionsResponse extends ResponseData {
-  readonly siteVersions: [SiteVersion];
+  readonly siteVersions: [Resources.SiteVersion];
 
-  public constructor(siteVersions: [SiteVersion]) {
+  public constructor(siteVersions: [Resources.SiteVersion]) {
     super();
     this.siteVersions = siteVersions;
   }
 
   public static fromObject = (obj: Record<string, any>): ListSiteVersionsResponse => {
     return new ListSiteVersionsResponse(
-      obj.siteVersions.map((siteVersion: Record<string, any>): SiteVersion => SiteVersion.fromObject(siteVersion)),
+      obj.siteVersions.map((siteVersion: Record<string, any>): Resources.SiteVersion => Resources.SiteVersion.fromObject(siteVersion)),
     );
   }
 }
@@ -182,16 +262,16 @@ export class GetSitePrimaryVersionRequest extends RequestData {
 }
 
 export class GetSitePrimaryVersionResponse extends ResponseData {
-  readonly siteVersion: SiteVersion;
+  readonly siteVersion: Resources.SiteVersion;
 
-  public constructor(siteVersion: SiteVersion) {
+  public constructor(siteVersion: Resources.SiteVersion) {
     super();
     this.siteVersion = siteVersion;
   }
 
   public static fromObject = (obj: Record<string, any>): GetSitePrimaryVersionResponse => {
     return new GetSitePrimaryVersionResponse(
-      SiteVersion.fromObject(obj.siteVersion),
+      Resources.SiteVersion.fromObject(obj.siteVersion),
     );
   }
 }
@@ -209,16 +289,16 @@ export class GetSiteVersionRequest extends RequestData {
 }
 
 export class GetSiteVersionResponse extends ResponseData {
-  readonly siteVersion: SiteVersion;
+  readonly siteVersion: Resources.SiteVersion;
 
-  public constructor(siteVersion: SiteVersion) {
+  public constructor(siteVersion: Resources.SiteVersion) {
     super();
     this.siteVersion = siteVersion;
   }
 
   public static fromObject = (obj: Record<string, any>): GetSiteVersionResponse => {
     return new GetSiteVersionResponse(
-      SiteVersion.fromObject(obj.siteVersion),
+      Resources.SiteVersion.fromObject(obj.siteVersion),
     );
   }
 }
@@ -236,16 +316,49 @@ export class GetSiteVersionEntryRequest extends RequestData {
 }
 
 export class GetSiteVersionEntryResponse extends ResponseData {
-  readonly siteVersionEntry: SiteVersionEntry;
+  readonly siteVersionEntry: Resources.SiteVersionEntry;
 
-  public constructor(siteVersionEntry: SiteVersionEntry) {
+  public constructor(siteVersionEntry: Resources.SiteVersionEntry) {
     super();
     this.siteVersionEntry = siteVersionEntry;
   }
 
   public static fromObject = (obj: Record<string, any>): GetSiteVersionEntryResponse => {
     return new GetSiteVersionEntryResponse(
-      SiteVersionEntry.fromObject(obj.siteVersionEntry),
+      Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
+    );
+  }
+}
+
+export class UpdateSiteVersionEntryRequest extends RequestData {
+  readonly siteContent: Record<string, any> | null;
+  readonly siteTheme: Record<string, any> | null;
+
+  public constructor(siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null) {
+    super();
+    this.siteContent = siteContent;
+    this.siteTheme = siteTheme;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      siteContent: this.siteContent,
+      siteTheme: this.siteTheme,
+    };
+  }
+}
+
+export class UpdateSiteVersionEntryResponse extends ResponseData {
+  readonly siteVersionEntry: Resources.SiteVersionEntry;
+
+  public constructor(siteVersionEntry: Resources.SiteVersionEntry) {
+    super();
+    this.siteVersionEntry = siteVersionEntry;
+  }
+
+  public static fromObject = (obj: Record<string, any>): UpdateSiteVersionEntryResponse => {
+    return new UpdateSiteVersionEntryResponse(
+      Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
     );
   }
 }
