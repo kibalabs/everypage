@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import 'lazysizes';
-import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { ISectionProps } from '../sections';
 import { IMultiChildProps } from '../util';

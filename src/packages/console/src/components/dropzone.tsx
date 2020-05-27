@@ -82,19 +82,19 @@ const ThumbSubtitle = styled.span`
 `;
 
 interface IFilePreviewGridProps {
-  files: File[];
+  fileMap: Record<string, string>;
 }
 
 export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElement => {
   // TODO(krish): change thumb to its own component
   return (
     <ThumbsContainer>
-      {props.files.map((file: File): React.ReactElement => (
-        <Thumb key={file.path}>
+      {Object.keys(props.fileMap).map((filePath: string): React.ReactElement => (
+        <Thumb key={filePath}>
           <ThumbImageHolder>
-            <ThumbImage src={file.preview} />
+            <ThumbImage src={props.fileMap[filePath]} />
           </ThumbImageHolder>
-          <ThumbSubtitle>{file.path}</ThumbSubtitle>
+          <ThumbSubtitle>{filePath}</ThumbSubtitle>
         </Thumb>
       ))}
     </ThumbsContainer>

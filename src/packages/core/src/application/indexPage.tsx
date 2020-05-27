@@ -1,5 +1,6 @@
-
 import React from 'react';
+import 'lazysizes';
+import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection } from '.';
 import { WebsiteProvider } from '../util';

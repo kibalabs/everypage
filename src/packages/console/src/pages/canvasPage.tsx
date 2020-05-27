@@ -1,193 +1,33 @@
 import React from 'react';
-import styled, { StyleSheetManager } from 'styled-components';
-import Frame, { FrameContextConsumer } from 'react-frame-component';
-import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
-import { downloadFileFromBrowser } from '@kibalabs/core';
-import { ErrorBoundary, useObjectLocalStorageState, useBooleanLocalStorageState, ISingleAnyChildProps } from '@kibalabs/core-react';
+import { useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
 
-import { JsonEditor } from '../components/jsonEditor';
-import { CanvasStack } from '../components/tempCanvasStack';
-import { FloatingActionButton } from '../components/floatingActionButton';
-import { Dropzone, FilePreviewGrid } from '../components/dropzone';
+import { Canvas } from '../components/canvas';
 import { defaultSite } from '../defaultSite';
 
-interface IKibaFrameProps extends ISingleAnyChildProps {
-}
-
-interface IKibaFrameInnerProps extends ISingleAnyChildProps {
-  target: HTMLDocument;
-}
-
-const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
-  React.useEffect(() => {
-    const css = '.frame-root, .frame-content { height:100%; width: 100%; }';
-    const style = props.target.createElement('style');
-    style.type = 'text/css';
-    style.appendChild(props.target.createTextNode(css));
-    props.target.head.appendChild(style);
-    // NOTE(krish): the lazysizes plugin is added here manually due to iframe problems
-    const script = props.target.createElement('script');
-    script.async = true;
-    script.src = 'https://afarkas.github.io/lazysizes/lazysizes.min.js';
-    props.target.head.appendChild(script);
-  }, [props.target]);
-
-  return (
-    <React.Fragment>{ props.children }</React.Fragment>
-  );
-}
-
-const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
-  return (
-    <Frame style={{height: '100%', width: '100%'}}>
-      <FrameContextConsumer>{ frameContext => (
-        <KibaFrameInner target={frameContext.document}>
-          <StyleSheetManager target={frameContext.document.head}>
-            <ErrorBoundary>
-              { props.children }
-            </ErrorBoundary>
-          </StyleSheetManager>
-        </KibaFrameInner>
-      )}</FrameContextConsumer>
-    </Frame>
-  );
-}
-
-const VerticalLine = styled.div`
-  background-color: #333333;
-  width: 2px;
-  height: 100%;
-`;
-
-const StyledButton = styled.div`
-  background-color: #333333;
-  padding: 8px 12px;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #292929;
-  }
-
-  &:active {
-    background-color: #222222;
-  }
-
-  &.selected {
-    background-color: #111111;
-  }
-`;
-
-const ButtonBar = styled.div`
-  background-color: #333333;
-  width: 100%;
-`;
-
 export const CanvasPage = (): React.ReactElement => {
-  const [selectedType, setSelectedType] = React.useState<'site' | 'theme' | 'assets'>('site');
-  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
-  const [assetFiles, setAssetFiles] = React.useState<File[]>([]);
-
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const resolvedSiteContent = (siteContent || defaultSite);
 
-  const onSiteJsonUpdated = (parsedJson: object): void => {
-    setSiteContent(parsedJson);
-  }
+  const addAssetFile = (filePath: string, targetPath: string): void => {
+    const newAssetFileMap = {...assetFileMap};
+    newAssetFileMap[filePath] = targetPath;
+    setAssetFileMap(newAssetFileMap);
+  };
 
-  const onThemeJsonUpdated = (parsedJson: object): void => {
-    setSiteTheme(parsedJson);
-  }
-
-  const onAssetFilesChosen = (files: File[]): void => {
-    files.forEach((file: File): void => {
-      file.preview = URL.createObjectURL(file);
-    });
-    // NOTE(krish): not totally sure why this form is needed but its from https://github.com/facebook/react/issues/15041
-    setAssetFiles((currentAssetFiles: File[]): File[] => {
-      const filePaths = files.map((file: File): string => file.path);
-      return [...currentAssetFiles.filter((file: File): boolean => !filePaths.includes(file.path)), ...files];
-    });
-  }
-
-  const onDownloadClicked = async (): Promise<void> => {
-    if (selectedType === 'site') {
-      downloadFileFromBrowser('site.json', JSON.stringify(siteContent));
-    } else if (selectedType === 'theme') {
-      downloadFileFromBrowser('theme.json', JSON.stringify(siteTheme));
-    }
-  }
-
-  const onHideEditorClicked = (): void => {
-    setIsEditorHidden(true);
-  }
-
-  const onShowEditorClicked = (): void => {
-    setIsEditorHidden(false);
-  }
-
-  const onSiteClicked = (): void => {
-    setSelectedType('site');
-  }
-
-  const onThemeClicked = (): void => {
-    setSelectedType('theme');
-  }
-
-  const onAssetsClicked = (): void => {
-    setSelectedType('assets');
-  }
-
-  const getFileReplacements = (): Record<string, string> => {
-    return assetFiles.reduce((replacements: Record<string, string>, file: File): Record<string, string> => {
-      replacements[file.path] = file.preview;
-      return replacements;
-    }, {});
-  }
-
-  // TODO(krish): use core components here again when the bug below is resolved
-  // NOTE(krish): both styled components and react-helmet don't work great with iframes
-  // https://github.com/styled-components/styled-components/issues/2973
-  // https://github.com/nfl/react-helmet/issues/277
+  console.log('assetFileMap', assetFileMap);
   return (
-    <ThemeProvider theme={buildTheme()}>
-      <CanvasStack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
-        <CanvasStack.Item isFullHeight={true} baseSize={isEditorHidden ? '0' : '500px'}>
-          <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
-            <ButtonBar>
-              <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
-                <StyledButton className={selectedType === 'site' ? 'selected' : ''} onClick={onSiteClicked}>Site</StyledButton>
-                <StyledButton className={selectedType === 'theme' ? 'selected' : ''} onClick={onThemeClicked}>Theme</StyledButton>
-                <StyledButton className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</StyledButton>
-                <div />
-                <StyledButton onClick={onHideEditorClicked}>Hide</StyledButton>
-              </CanvasStack>
-            </ButtonBar>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'site'}>
-              <JsonEditor name='site' json={resolvedSiteContent} onJsonUpdated={onSiteJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'theme'}>
-              <JsonEditor name='theme' json={siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'assets'}>
-              <Dropzone onFilesChosen={onAssetFilesChosen} />
-              <FilePreviewGrid files={assetFiles}/>
-            </CanvasStack.Item>
-            <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
-              <button onClick={onDownloadClicked}>Download</button>
-              <span>everypage canvas v{APP_VERSION}</span>
-            </CanvasStack>
-          </CanvasStack>
-        </CanvasStack.Item>
-        <VerticalLine />
-        <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
-          <KibaFrame>
-            <IndexPage pageContent={replaceAssetPaths(resolvedSiteContent, getFileReplacements())} pageTheme={siteTheme} shouldIncludeHead={false}/>
-          </KibaFrame>
-        </CanvasStack.Item>
-        {isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}
-      </CanvasStack>
-    </ThemeProvider>
+    <Canvas
+      siteContent={resolvedSiteContent}
+      onSiteContentUpdated={setSiteContent}
+      siteTheme={siteTheme}
+      onSiteThemeUpdated={setSiteTheme}
+      isEditorHidden={isEditorHidden}
+      onIsEditorHiddenUpdated={setIsEditorHidden}
+      assetFileMap={assetFileMap}
+      addAssetFile={addAssetFile}
+    />
   )
 }
