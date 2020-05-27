@@ -1,5 +1,5 @@
 import {InputType } from '../components';
-import { isValidEmail, isValidUrl } from '../util';
+import { isValidEmail } from '@kibalabs/core';
 
 export interface IInputValidationResult {
   isValid: boolean;
@@ -15,10 +15,10 @@ export const validateInput = (input: string, inputType: InputType): IInputValida
       break;
     }
     case InputType.Url: {
-      if (!isValidUrl(input)) {
-        return {isValid: false, errorMessage: 'Please enter a valid url'};
-      }
-      break;
+      // if (!isValidUrl(input)) {
+      //   return {isValid: false, errorMessage: 'Please enter a valid url'};
+      // }
+      // break;
     }
   }
   return {isValid: true};

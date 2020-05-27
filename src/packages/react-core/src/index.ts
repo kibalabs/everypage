@@ -1,4 +1,5 @@
 export * from './errorBoundary';
+export * from './routing';
 export * from './parentComponentProps';
 export * from './useEventListener';
 export * from './useInitialization';

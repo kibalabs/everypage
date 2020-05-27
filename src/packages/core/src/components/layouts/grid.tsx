@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Alignment, getFlexItemAlignment, useTheme, IDimensionGuide } from '..';
-import { IMultiChildProps, ISingleAnyChildProps } from '../../util';
+import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {

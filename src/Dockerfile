@@ -20,6 +20,8 @@ COPY packages/canvas/package.json packges/canvas/package.json
 # COPY packages/canvas/package-lock.json packges/canvas/package-lock.json
 COPY packages/builder-api/package.json packges/builder-api/package.json
 # COPY packages/builder-api/package-lock.json packges/builder-api/package-lock.json
+COPY packages/console/package.json packges/console/package.json
+# COPY packages/console/package-lock.json packges/console/package-lock.json
 COPY package.json package.json
 COPY package-lock.json package-lock.json
 RUN npm ci
@@ -32,3 +34,7 @@ RUN npm run build
 # Canvas
 FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as canvas
 COPY --from=build /app/packages/canvas/dist /usr/share/nginx/html
+
+# Console
+FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as console
+COPY --from=build /app/packages/console/dist /usr/share/nginx/html
