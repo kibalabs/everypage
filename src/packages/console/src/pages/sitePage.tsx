@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Link, useInitialization } from '@kibalabs/core-react';
 import { Requester, Response, KibaException, dateToString } from '@kibalabs/core';
 
-import { Site, SiteVersion, CreatedSiteVersion, PresignedUpload } from './everypageClient/resources';
-import { Dropzone } from './components/dropzone';
-import { useGlobals } from './globalsContext';
+import { Site, SiteVersion, CreatedSiteVersion, PresignedUpload } from '../everypageClient/resources';
+import { Dropzone } from '../components/dropzone';
+import { useGlobals } from '../globalsContext';
 
 export interface ISitePageProps {
   slug: string;

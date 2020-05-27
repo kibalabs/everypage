@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styled from 'styled-components';
 import * as ReactDropzone from 'react-dropzone';
@@ -40,4 +41,62 @@ export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
       )}
     </StyledDropzone>
   )
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+const ThumbsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const Thumb = styled.div`
+  display: inline-flex;
+  border: 1px solid #eaeaea;
+  width: 100px;
+  height: 100px;
+  position: relative;
+`;
+
+const ThumbImageHolder = styled.div`
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+`;
+
+const ThumbImage = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+`;
+
+const ThumbSubtitle = styled.span`
+  font-size: 0.8em;
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  padding: 5px 10px;
+`;
+
+interface IFilePreviewGridProps {
+  files: File[];
+}
+
+export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElement => {
+  // TODO(krish): change thumb to its own component
+  return (
+    <ThumbsContainer>
+      {props.files.map((file: File): React.ReactElement => (
+        <Thumb key={file.path}>
+          <ThumbImageHolder>
+            <ThumbImage src={file.preview} />
+          </ThumbImageHolder>
+          <ThumbSubtitle>{file.path}</ThumbSubtitle>
+        </Thumb>
+      ))}
+    </ThumbsContainer>
+  );
 }

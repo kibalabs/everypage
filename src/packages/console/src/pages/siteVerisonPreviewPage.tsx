@@ -3,8 +3,8 @@ import { IWebsite, WebsiteProvider, Direction, SectionRenderer, ThemeProvider, S
 import { KibaException, dateToString } from '@kibalabs/core';
 import { useInitialization } from '@kibalabs/core-react';
 
-import { Site, SiteVersion, SiteVersionEntry } from './everypageClient';
-import { useGlobals } from './globalsContext';
+import { Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
+import { useGlobals } from '../globalsContext';
 
 export interface ISiteVersionPreviewPageProps {
   slug: string;

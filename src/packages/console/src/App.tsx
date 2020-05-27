@@ -1,16 +1,18 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Router, Route } from '@kibalabs/core-react';
 import { LocalStorageClient, Requester, RequesterModifier, Request, Response } from '@kibalabs/core';
 
 import { EverypageClient } from './everypageClient/everypageClient';
-import { GlobalCss } from './globalCss';
+import { GlobalCss } from './components/globalCss';
 import { resetCss } from './components/resetCss';
-import { HomePage } from './homePage';
-import { SitePage } from './sitePage';
-import { NotFoundPage } from './notFoundPage';
-import { SiteVersionPreviewPage } from './siteVerisonPreviewPage';
+import { HomePage } from './pages/homePage';
+import { SitePage } from './pages/sitePage';
+import { CanvasPage } from './pages/canvasPage';
+import { NotFoundPage } from './pages/notFoundPage';
+import { SiteVersionPreviewPage } from './pages/siteVerisonPreviewPage';
 import { GlobalsProvider } from './globalsContext';
-import { TawkTo } from './tawkto';
+import { TawkTo } from './components/tawkto';
 
 export class JwtRequestModifier extends RequesterModifier {
   private localStorageClient: LocalStorageClient;
@@ -52,10 +54,14 @@ export const App = (): React.ReactElement => {
   return (
     <GlobalsProvider globals={globals}>
       <React.Fragment>
+        <Helmet>
+          <title>Everypage Console</title>
+        </Helmet>
         <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />
         <GlobalCss resetCss={resetCss} />
         <Router>
           <Route path='/' page={HomePage} />
+          <Route path='/canvas' page={CanvasPage} />
           <Route path='/sites/:slug' page={SitePage} />
           <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} />
           <Route default={true} page={NotFoundPage} />

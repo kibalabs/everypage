@@ -17,8 +17,6 @@ build and push images:
   script:
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target build --tag ${CI_REGISTRY_IMAGE}:latest src
     - docker push ${CI_REGISTRY_IMAGE}:latest
-    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target canvas --tag ${CI_REGISTRY_IMAGE}/canvas:latest src
-    - docker push ${CI_REGISTRY_IMAGE}/canvas:latest
     - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target console --tag ${CI_REGISTRY_IMAGE}/console:latest src
     - docker push ${CI_REGISTRY_IMAGE}/console:latest
 

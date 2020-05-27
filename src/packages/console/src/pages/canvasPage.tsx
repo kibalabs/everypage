@@ -1,15 +1,15 @@
 import React from 'react';
 import styled, { StyleSheetManager } from 'styled-components';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
+import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
 import { downloadFileFromBrowser } from '@kibalabs/core';
 import { ErrorBoundary, useObjectLocalStorageState, useBooleanLocalStorageState, ISingleAnyChildProps } from '@kibalabs/core-react';
-import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
 
-import { JsonEditor } from './jsonEditor';
-import { CanvasStack } from './tempCanvasStack';
-import { FloatingActionButton } from './floatingActionButton';
-import { Dropzone, FilePreviewGrid } from './dropzone';
-import { defaultSite } from './defaultSite';
+import { JsonEditor } from '../components/jsonEditor';
+import { CanvasStack } from '../components/tempCanvasStack';
+import { FloatingActionButton } from '../components/floatingActionButton';
+import { Dropzone, FilePreviewGrid } from '../components/dropzone';
+import { defaultSite } from '../defaultSite';
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
 }

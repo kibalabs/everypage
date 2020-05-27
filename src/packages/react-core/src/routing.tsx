@@ -23,7 +23,7 @@ export interface IRouterProps extends IMultiChildProps<IRouteProps<any>> {
 
 export const Router = (props: IRouterProps): React.ReactElement => {
   return (
-    <Reach.Router>
+    <Reach.Router style={{width: '100%', height: '100%'}}>
       { props.children }
     </Reach.Router>
   )
