@@ -1,8 +1,10 @@
 import React from 'react';
 import { KibaException, dateToString, Requester } from '@kibalabs/core';
 import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { buildTheme, ThemeProvider } from '@kibalabs/everypage-core';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
+import { CanvasStack } from '../components/tempCanvasStack';
 import { Canvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
 
@@ -152,21 +154,27 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   return (
-    <React.Fragment>
-      <br />
-      <div>Viewing site version {site.slug} {siteVersion.name || 'Unnamed'} ({dateToString(siteVersion.creationDate, 'YYYY-MM-DD HH:mm')})</div>
-      <div>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? '...' : 'saved'}</div>
-      <br />
-      <Canvas
-        siteContent={siteContent}
-        onSiteContentUpdated={onSiteContentUpdated}
-        siteTheme={siteTheme}
-        onSiteThemeUpdated={onSiteThemeUpdated}
-        assetFileMap={assetFileMap}
-        addAssetFiles={addAssetFiles}
-        isEditorHidden={isEditorHidden}
-        onIsEditorHiddenUpdated={setIsEditorHidden}
-      />
-    </React.Fragment>
+    <ThemeProvider theme={buildTheme()}>
+      <CanvasStack isFullHeight={true} isFullWidth={true}>
+        <CanvasStack.Item>
+          <br />
+          <div>Viewing site version {site.slug} {siteVersion.name || 'Unnamed'} ({dateToString(siteVersion.creationDate, 'YYYY-MM-DD HH:mm')})</div>
+          <div>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? '...' : 'saved'}</div>
+          <br />
+        </CanvasStack.Item>
+        <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
+          <Canvas
+            siteContent={siteContent}
+            onSiteContentUpdated={onSiteContentUpdated}
+            siteTheme={siteTheme}
+            onSiteThemeUpdated={onSiteThemeUpdated}
+            assetFileMap={assetFileMap}
+            addAssetFiles={addAssetFiles}
+            isEditorHidden={isEditorHidden}
+            onIsEditorHiddenUpdated={setIsEditorHidden}
+          />
+        </CanvasStack.Item>
+      </CanvasStack>
+    </ThemeProvider>
   );
 }
