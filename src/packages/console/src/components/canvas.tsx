@@ -11,9 +11,9 @@ import { Button, ButtonBar } from '../components/button';
 
 interface ICanvasProps {
   siteContent: Record<string, any>;
-  onSiteContentUpdated: (siteContent: Record<string, any>) => Promise<void>;
+  onSiteContentUpdated: (siteContent: Record<string, any>) => void;
   siteTheme: Record<string, any>;
-  onSiteThemeUpdated: (siteTheme: Record<string, any>) => Promise<void>;
+  onSiteThemeUpdated: (siteTheme: Record<string, any>) => void;
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
   isEditorHidden: boolean;

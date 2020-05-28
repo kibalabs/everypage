@@ -54,14 +54,14 @@ const ThumbsContainer = styled.div`
 const Thumb = styled.div`
   display: inline-flex;
   border: 1px solid #eaeaea;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   position: relative;
 `;
 
 const ThumbImageHolder = styled.div`
-  height: 100px;
-  width: 100px;
+  height: 100%;
+  width: 100%;
   object-fit: contain;
 `;
 
@@ -78,7 +78,7 @@ const ThumbSubtitle = styled.span`
   color: white;
   position: absolute;
   bottom: 0;
-  padding: 5px 10px;
+  padding: 10px 20px;
 `;
 
 interface IFilePreviewGridProps {

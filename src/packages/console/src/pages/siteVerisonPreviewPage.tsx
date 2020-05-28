@@ -1,6 +1,6 @@
 import React from 'react';
 import { KibaException, dateToString, Requester } from '@kibalabs/core';
-import { useInitialization, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
 import { Canvas } from '../components/canvas';
@@ -19,6 +19,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
   const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
+  const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
+  const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
 
@@ -29,8 +32,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   React.useEffect((): void => {
     if (site) {
       loadSiteVersion();
-    } else {
-      setSiteVersion(null);
     }
   }, [site]);
 
@@ -38,9 +39,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     if (siteVersion) {
       loadSiteVersionEntry();
       loadSiteVersionAssets();
-    } else {
-      setSiteVersionEntry(null);
-      setAssetFileMap({});
     }
   }, [siteVersion]);
 
@@ -89,15 +87,30 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
 
-  const onSiteContentUpdated = (siteContent: Record<string, any>): Promise<void> => {
+  const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
     setSiteContent(siteContent);
-    return everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, siteContent, null).then();
+    setIsSiteContentChanged(true);
   }
 
-  const onSiteThemeUpdated = (siteTheme: Record<string, any>): Promise<void> => {
+  const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
     setSiteTheme(siteTheme);
-    return everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, null, siteTheme).then();
+    setIsSiteThemeChanged(true);
   }
+
+  // TODO(krish): im sure this can be done better than just every 3 seconds
+  useInterval(3, (): void => {
+    if (isSiteContentChanged || isSiteThemeChanged) {
+      everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
+        console.log('saving...');
+        setIsSiteContentChanged(false);
+        setIsSiteThemeChanged(false);
+        setSavingError(null);
+      }).catch((exception: KibaException): void => {
+        console.log(`Error saving: ${exception}`)
+        setSavingError(exception);
+      });
+    }
+  });
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generate_asset_upload_for_site_version(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
@@ -138,11 +151,11 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     );
   }
 
-  console.log('assetFileMap', assetFileMap);
   return (
     <React.Fragment>
       <br />
       <div>Viewing site version {site.slug} {siteVersion.name} {dateToString(siteVersion.creationDate)}</div>
+      <div>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? '...' : 'saved'}</div>
       <br />
       <Canvas
         siteContent={siteContent}
