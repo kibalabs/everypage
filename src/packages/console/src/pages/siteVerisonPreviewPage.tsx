@@ -1,9 +1,9 @@
 import React from 'react';
-import { IWebsite, WebsiteProvider, Direction, SectionRenderer, ThemeProvider, Stack, IStackItemProps, buildTheme } from '@kibalabs/everypage-core';
 import { KibaException, dateToString } from '@kibalabs/core';
-import { useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
 
 import { Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
+import { Canvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
 
 export interface ISiteVersionPreviewPageProps {
@@ -16,6 +16,11 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
+
+  const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
+  const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
 
   useInitialization((): void => {
     loadSite();
@@ -59,11 +64,12 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const getSiteUrl = (): string => {
-    if (site.customDomain) {
-      return `https://${site.customDomain}`;
-    }
-    return `https://${site.slug}.evrpg.com`;
+    return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
+
+  const addAssetFile = (filePath: string, targetPath: string): void => {
+
+  };
 
   const updateAssetPaths = (siteConfig, buildHash) => {
     if (!buildHash) {
@@ -99,20 +105,19 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   return (
     <React.Fragment>
-      <div>Viewing site version {site.slug} {dateToString(siteVersion.creationDate)}</div>
-      <WebsiteProvider website={updateAssetPaths(siteVersionEntry.siteContent, siteVersion.buildHash) as IWebsite}>
-        <ThemeProvider theme={buildTheme(siteVersionEntry.siteTheme)}>
-          <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
-            <Stack.Item growthFactor={1}>
-              <Stack direction={Direction.Vertical} isFullHeight={true}>
-                { updateAssetPaths(siteVersionEntry.siteContent, siteVersion.buildHash).sections.map((sectionJson: Record<string, any>, index: number): React.ReactElement<IStackItemProps> => (
-                  <Stack.Item key={index} growthFactor={1}><SectionRenderer sectionJson={sectionJson} /></Stack.Item>
-                ))}
-              </Stack>
-            </Stack.Item>
-          </Stack>
-        </ThemeProvider>
-      </WebsiteProvider>
+      <div>Viewing site version {site.slug} {siteVersion.name} {dateToString(siteVersion.creationDate)}</div>
+      <br />
+      <br />
+      <Canvas
+        siteContent={siteContent}
+        onSiteContentUpdated={setSiteContent}
+        siteTheme={siteTheme}
+        onSiteThemeUpdated={setSiteTheme}
+        isEditorHidden={isEditorHidden}
+        onIsEditorHiddenUpdated={setIsEditorHidden}
+        assetFileMap={assetFileMap}
+        addAssetFile={addAssetFile}
+      />
     </React.Fragment>
   )
 }
