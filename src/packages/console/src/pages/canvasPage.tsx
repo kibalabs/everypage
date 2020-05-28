@@ -11,13 +11,17 @@ export const CanvasPage = (): React.ReactElement => {
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const resolvedSiteContent = (siteContent || defaultSite);
 
-  const addAssetFile = (filePath: string, targetPath: string): void => {
+  const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = {...assetFileMap};
-    newAssetFileMap[filePath] = targetPath;
+    files.map((file: File): void => {
+      newAssetFileMap[`/assets/${file.path}`] = URL.createObjectURL(file);
+    });
     setAssetFileMap(newAssetFileMap);
+    return new Promise((resolve: () => void) => {
+      resolve();
+    });
   };
 
-  console.log('assetFileMap', assetFileMap);
   return (
     <Canvas
       siteContent={resolvedSiteContent}
@@ -27,7 +31,7 @@ export const CanvasPage = (): React.ReactElement => {
       isEditorHidden={isEditorHidden}
       onIsEditorHiddenUpdated={setIsEditorHidden}
       assetFileMap={assetFileMap}
-      addAssetFile={addAssetFile}
+      addAssetFiles={addAssetFiles}
     />
   )
 }

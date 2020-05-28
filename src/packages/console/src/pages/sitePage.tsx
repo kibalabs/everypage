@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useInitialization } from '@kibalabs/core-react';
-import { Requester, Response, KibaException, dateToString } from '@kibalabs/core';
+import { KibaException, dateToString } from '@kibalabs/core';
 
-import { Site, SiteVersion, PresignedUpload, AssetFile } from '../everypageClient/resources';
-import { Dropzone } from '../components/dropzone';
+import { Site, SiteVersion } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
 export interface ISitePageProps {
@@ -30,10 +29,18 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [versions, setVersions] = React.useState<SiteVersion[] | undefined>(undefined);
   const [primaryVersionId, setPrimaryVersionId] = React.useState<number | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<Record<string, any> | undefined>(undefined);
-  const [siteTheme, setSiteTheme] = React.useState<Record<string, any> | undefined>(undefined);
-  const [assetFiles, setAssetFiles] = React.useState<File[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  useInitialization((): void => {
+    loadSite();
+  });
+
+  React.useEffect((): void => {
+    if (site) {
+      loadVersions(site.siteId);
+      loadPrimaryVersion(site.siteId);
+    }
+  }, [site]);
 
   const onSetPrimaryClicked = (version: SiteVersion): void => {
     everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
@@ -47,8 +54,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const loadSite = (): void => {
     everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
       setSite(site);
-      loadVersions(site.siteId);
-      loadPrimaryVersion(site.siteId);
     }).catch((error: KibaException): void => {
       console.log('error', error);
       setSite(null);
@@ -58,9 +63,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const loadVersions = (siteId: number): void => {
     everypageClient.list_site_versions(siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions);
-      everypageClient.list_site_version_assets(siteId, siteVersions[siteVersions.length - 1].siteVersionId).then((assetFiles: AssetFile[]) => {
-        console.log('assetFiles', assetFiles);
-      });
     }).catch((error: KibaException): void => {
       console.log('error', error);
       setVersions([]);
@@ -76,88 +78,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
-  const onSiteFileChanged = (event: ChangeEvent<HTMLInputElement>): void => {
-    const reader = new FileReader();
-    reader.onload = async (filePath) => {
-      setSiteContent(JSON.parse(String(filePath.target.result)));
-    };
-    reader.readAsText(event.target.files[0]);
-  }
-
-  const onThemeFileChanged = (event: ChangeEvent<HTMLInputElement>): void => {
-    const reader = new FileReader();
-    reader.onload = async (filePath) => {
-      setSiteTheme(JSON.parse(String(filePath.target.result)));
-    };
-    reader.readAsText(event.target.files[0]);
-  }
-
-  const onAssetFilesChanged = (files: File[]): void => {
-    // TODO(krish): why does this remove the existing files??
-    setAssetFiles(assetFiles.concat(files));
-  }
-
-  const uploadAssets = (presignedUpload: PresignedUpload): void => {
-    const promises = assetFiles.map((file: File): Promise<Response> => {
-      const fileName = file.path.replace(/^\//g, '');
-      const formData = new FormData();
-      Object.keys(presignedUpload.params).forEach((key: string): void => {
-        formData.set(key, presignedUpload.params[key]);
-      });
-      formData.set('key', presignedUpload.params['key'].replace('${filename}', fileName));
-      formData.set('content-type', file.type);
-      formData.append('file', file, file.name);
-      return new Requester().makeFormRequest(presignedUpload.url, formData);
-    });
-    Promise.all(promises).then((results: any[]): void => {
-      setSiteContent(undefined);
-      setSiteTheme(undefined);
-      setAssetFiles([]);
-      setIsLoading(false);
-    });
-  }
-
-  const onFormSubmitted = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    if (!siteContent) {
-      alert('Please upload siteContent!');
-      return;
-    }
-    if (!siteTheme) {
-      alert('Please upload siteTheme!');
-      return;
-    }
-    setIsLoading(true);
-    everypageClient.create_site_version(site.siteId, siteContent, siteTheme).then((createdSiteVersion: CreatedSiteVersion): void => {
-      loadVersions(site.siteId);
-      loadPrimaryVersion(site.siteId);
-      uploadAssets(createdSiteVersion.presignedUpload);
-    }).catch((error: KibaException): void => {
-      console.log('error', error);
-      setIsLoading(false);
-    });
-  }
-
-  useInitialization((): void => {
-    loadSite();
-  });
-
-  const humanFileSize = (size: number): string => {
-    if (size < 1024) {
-      return size + ' B';
-    }
-    const i = Math.floor(Math.log(size) / Math.log(1024));
-    const num = (size / Math.pow(1024, i));
-    const round = Math.round(num);
-    const value = round < 10 ? num.toFixed(2) : round < 100 ? num.toFixed(1) : round;
-    return `${value} ${'KMGTPEZY'[i-1]}B`;
-  }
-
   const getSiteUrl = (): string => {
-    if (site.customDomain) {
-      return `https://${site.customDomain}`;
-    }
-    return `https://${site.slug}.evrpg.com`;
+    return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
 
   const onCreateNewVersionClicked = (): void => {
@@ -194,40 +116,14 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           return (
             <div key={index}>
               {dateToString(version.creationDate, 'YYYY-MM-DD')}
-              {version.siteVersionId === primaryVersionId ? '(*)' : <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton>}
-              <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='View' />
+              {version.siteVersionId === primaryVersionId ? '(*)' : (!version.isArchived && !version.isPublished) ? <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton> : null}
+              {!version.isArchived && !version.isPublished && <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
             </div>
           );
         })}
         <br />
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
         <StyledButton onClick={onCreateNewVersionClicked}>Create new version</StyledButton>
-        {/* <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <form onSubmit={onFormSubmitted}>
-          Site file: <input type='file' onChange={onSiteFileChanged} />
-          <br/>
-          Theme file: <input type='file' onChange={onThemeFileChanged} />
-          <br/>
-          <Dropzone onFilesChosen={onAssetFilesChanged} />
-          <br/>
-          <div>
-          { assetFiles.map((file: File): React.ReactElement => (
-            <li key={file.path}>
-              {file.path} - {humanFileSize(file.size)}
-            </li>
-          ))}
-          </div>
-          <StyledButton type='submit'>Create</StyledButton>
-        </form> */}
       </div>
     );
   }

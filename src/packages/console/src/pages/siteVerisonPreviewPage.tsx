@@ -1,8 +1,8 @@
 import React from 'react';
-import { KibaException, dateToString } from '@kibalabs/core';
-import { useInitialization, useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { KibaException, dateToString, Requester } from '@kibalabs/core';
+import { useInitialization, useBooleanLocalStorageState } from '@kibalabs/core-react';
 
-import { Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
+import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
 import { Canvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
 
@@ -17,8 +17,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
 
-  const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
-  const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
+  const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
+  const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
 
@@ -29,12 +29,20 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   React.useEffect((): void => {
     if (site) {
       loadSiteVersion();
-      loadSiteVersionEntry();
     } else {
-      setSiteVersion(undefined);
-      setSiteVersionEntry(undefined);
+      setSiteVersion(null);
     }
   }, [site]);
+
+  React.useEffect((): void => {
+    if (siteVersion) {
+      loadSiteVersionEntry();
+      loadSiteVersionAssets();
+    } else {
+      setSiteVersionEntry(null);
+      setAssetFileMap({});
+    }
+  }, [siteVersion]);
 
   const loadSite = (): void => {
     everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
@@ -57,6 +65,20 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const loadSiteVersionEntry = (): void => {
     everypageClient.get_site_version_entry(site.siteId, Number(props.siteVersionId)).then((siteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(siteVersionEntry);
+      setSiteContent(siteVersionEntry.siteContent);
+      setSiteTheme(siteVersionEntry.siteTheme);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      setSiteVersionEntry(null);
+    });
+  }
+
+  const loadSiteVersionAssets = (): void => {
+    everypageClient.list_site_version_assets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
+      setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
+        currentMap[assetFile.path] = `${getSiteUrl()}/${siteVersion.buildHash}${assetFile.path}`;
+        return currentMap;
+      }, {}));
     }).catch((error: KibaException): void => {
       console.log('error', error);
       setSiteVersionEntry(null);
@@ -67,28 +89,41 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
 
-  const addAssetFile = (filePath: string, targetPath: string): void => {
+  const onSiteContentUpdated = (siteContent: Record<string, any>): Promise<void> => {
+    setSiteContent(siteContent);
+    return everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, siteContent, null).then();
+  }
 
-  };
+  const onSiteThemeUpdated = (siteTheme: Record<string, any>): Promise<void> => {
+    setSiteTheme(siteTheme);
+    return everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, null, siteTheme).then();
+  }
 
-  const updateAssetPaths = (siteConfig, buildHash) => {
-    if (!buildHash) {
-      return siteConfig;
-    }
-    return Object.keys(siteConfig).reduce((result, key) => {
-      let value = siteConfig[key];
-      if (!value) {
-        value = value;
-      } else if (typeof value == 'string') {
-        value = value.startsWith('/assets/') ? value.replace(/^/, `${getSiteUrl()}/${buildHash}`) : value;
-      } else if (Array.isArray(value)) {
-        value = value.map(entry => updateAssetPaths(entry, buildHash));
-      } else if (typeof value == 'object') {
-        value = updateAssetPaths(value, buildHash);
-      }
-      result[key] = value;
-      return result
-    }, {});
+  const addAssetFiles = (files: File[]): Promise<void> => {
+    return everypageClient.generate_asset_upload_for_site_version(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
+      const promises = files.map((file: File): Promise<Response> => {
+        const fileName = file.path.replace(/^\//g, '');
+        const formData = new FormData();
+        Object.keys(presignedUpload.params).forEach((key: string): void => {
+          formData.set(key, presignedUpload.params[key]);
+        });
+        formData.set('key', presignedUpload.params['key'].replace('${filename}', fileName));
+        formData.set('content-type', file.type);
+        formData.append('file', file, file.name);
+        return new Requester().makeFormRequest(presignedUpload.url, formData);
+      });
+      Promise.all(promises).then((): void => {
+        setAssetFileMap((assetFileMap: Record<string, string>): Record<string, string> => {
+          const newAssetFileMap = {...assetFileMap};
+          files.forEach((file: File): void => {
+            newAssetFileMap[file.path] = `${getSiteUrl()}/${siteVersion.buildHash}/assets/${file.path}`;
+          });
+          return newAssetFileMap
+        });
+      });
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+    });
   };
 
   if (site === null || siteVersion === null || siteVersionEntry === null) {
@@ -97,27 +132,28 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     );
   }
 
-  if (site === undefined || siteVersion === undefined || siteVersionEntry === undefined) {
+  if (!siteContent || !siteTheme) {
     return (
       <div>Loading...</div>
     );
   }
 
+  console.log('assetFileMap', assetFileMap);
   return (
     <React.Fragment>
-      <div>Viewing site version {site.slug} {siteVersion.name} {dateToString(siteVersion.creationDate)}</div>
       <br />
+      <div>Viewing site version {site.slug} {siteVersion.name} {dateToString(siteVersion.creationDate)}</div>
       <br />
       <Canvas
         siteContent={siteContent}
-        onSiteContentUpdated={setSiteContent}
+        onSiteContentUpdated={onSiteContentUpdated}
         siteTheme={siteTheme}
-        onSiteThemeUpdated={setSiteTheme}
+        onSiteThemeUpdated={onSiteThemeUpdated}
+        assetFileMap={assetFileMap}
+        addAssetFiles={addAssetFiles}
         isEditorHidden={isEditorHidden}
         onIsEditorHiddenUpdated={setIsEditorHidden}
-        assetFileMap={assetFileMap}
-        addAssetFile={addAssetFile}
       />
     </React.Fragment>
-  )
+  );
 }

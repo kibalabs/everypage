@@ -11,13 +11,13 @@ import { Button, ButtonBar } from '../components/button';
 
 interface ICanvasProps {
   siteContent: Record<string, any>;
-  onSiteContentUpdated: (siteContent: Record<string, any>) => void;
+  onSiteContentUpdated: (siteContent: Record<string, any>) => Promise<void>;
   siteTheme: Record<string, any>;
-  onSiteThemeUpdated: (siteTheme: Record<string, any>) => void;
+  onSiteThemeUpdated: (siteTheme: Record<string, any>) => Promise<void>;
+  assetFileMap: Record<string, string>;
+  addAssetFiles: (files: File[]) => Promise<void>;
   isEditorHidden: boolean;
   onIsEditorHiddenUpdated: (isEditorHidden: boolean) => void;
-  assetFileMap: Record<string, string>;
-  addAssetFile: (filePath: string, targetPath: string) => void;
 }
 
 const VerticalLine = styled.div`
@@ -38,9 +38,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   }
 
   const onAssetFilesChosen = (files: File[]): void => {
-    files.forEach((file: File): void => {
-      props.addAssetFile(`/assets/${file.path}`, URL.createObjectURL(file));
-    });
+    props.addAssetFiles(files);
   }
 
   const onHideEditorClicked = (): void => {

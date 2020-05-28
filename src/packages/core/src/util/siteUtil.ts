@@ -41,6 +41,5 @@ export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacem
     result[key] = value;
     return result
   }, {});
-  console.log('newSiteContent', newSiteContent);
   return newSiteContent;
 };
