@@ -115,7 +115,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
           return (
             <div key={index}>
-              {dateToString(version.creationDate, 'YYYY-MM-DD')}
+              {version.name || 'Unnamed'} ({dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')})
               {version.siteVersionId === primaryVersionId ? '(*)' : (!version.isArchived && !version.isPublished) ? <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton> : null}
               {!version.isArchived && !version.isPublished && <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
             </div>

@@ -154,7 +154,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   return (
     <React.Fragment>
       <br />
-      <div>Viewing site version {site.slug} {siteVersion.name} {dateToString(siteVersion.creationDate)}</div>
+      <div>Viewing site version {site.slug} {siteVersion.name || 'Unnamed'} ({dateToString(siteVersion.creationDate, 'YYYY-MM-DD HH:mm')})</div>
       <div>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? '...' : 'saved'}</div>
       <br />
       <Canvas
