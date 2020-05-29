@@ -43,11 +43,16 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }, [site]);
 
   const onSetPrimaryClicked = (version: SiteVersion): void => {
+    setIsLoading(true);
     everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
+      setVersions(undefined);
+      setPrimaryVersionId(undefined);
       loadVersions(site.siteId);
       loadPrimaryVersion(site.siteId);
+      setIsLoading(false);
     }).catch((error: KibaException): void => {
       console.log('error', error);
+      setIsLoading(false);
     });
   }
 
@@ -93,7 +98,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
-  if (site === undefined) {
+  if (site === undefined || versions === undefined || primaryVersionId === undefined) {
     return (
       <div>Loading...</div>
     );
