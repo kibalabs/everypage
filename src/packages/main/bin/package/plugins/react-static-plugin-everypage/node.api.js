@@ -21,6 +21,6 @@ export default () => ({
     return config;
   },
   beforeDocumentToFile: async (html) => {
-    return html.replaceAll('/*!sc*/', '');
+    return html.replace(/\/\*!sc\*\//g, '');
   },
 });
