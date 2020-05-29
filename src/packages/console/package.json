@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-console",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "build": "build-react-app",
@@ -8,9 +8,9 @@
     "start-dev": "build-react-app --start --dev"
   },
   "dependencies": {
-    "@kibalabs/core": "0.2.0",
-    "@kibalabs/core-react": "0.2.0",
-    "@kibalabs/everypage-core": "0.2.0",
+    "@kibalabs/core": "0.2.1",
+    "@kibalabs/core-react": "0.2.1",
+    "@kibalabs/everypage-core": "0.2.1",
     "@reach/router": "1.3.3",
     "axios": "^0.19.2",
     "deep-equal": "2.0.3",
