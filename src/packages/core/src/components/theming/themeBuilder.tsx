@@ -133,6 +133,10 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     'color': '#777777',
   }, baseTheme.texts?.note);
 
+  const supersizeTextTheme = mergeTheme(textTheme, {
+    'font-size': '3em',
+  }, baseTheme.texts?.supersize);
+
   const transparentBoxTheme: IBoxTheme = mergeTheme({
     'background-color': 'transparent',
     'border-radius': '0',
@@ -383,6 +387,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       title: titleTextTheme,
       subtitle: subtitleTextTheme,
       note: noteTextTheme,
+      supersize: supersizeTextTheme,
     },
     images: {
       default: defaultImageTheme,

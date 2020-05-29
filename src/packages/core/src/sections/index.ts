@@ -10,4 +10,5 @@ export * from './heroSimple1';
 export * from './heroSignupMediaHalf1';
 export * from './navbar1';
 export * from './signup1';
+export * from './statisticBoxes1';
 export * from './testimonialBoxes1';
