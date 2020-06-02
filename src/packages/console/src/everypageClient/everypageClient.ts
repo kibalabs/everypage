@@ -10,6 +10,27 @@ export class EverypageClient extends ServiceClient {
     super(requester, baseUrl || 'https://api.everypagehq.com')
   }
 
+  public login_user = async (email: string, password: string): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = `v1/users/login`;
+    const request = new Endpoints.LoginUserRequest(email, password);
+    await this.makeRequest(method, path, request, Endpoints.LoginUserResponse);
+  }
+
+  public logout_user = async (): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = `v1/users/logout`;
+    const request = new Endpoints.LogoutUserRequest();
+    await this.makeRequest(method, path, request, Endpoints.LogoutUserResponse);
+  }
+
+  public create_user = async (firstName: string, lastName: string, email: string, password: string, shouldJoinNewsletter?: boolean): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = `v1/users/create`;
+    const request = new Endpoints.CreateUserRequest(firstName, lastName, email, password, shouldJoinNewsletter);
+    await this.makeRequest(method, path, request, Endpoints.CreateUserResponse);
+  }
+
   public create_site = async (accountId: number, slug: string, name?: string): Promise<Resources.Site> => {
     const method = RestMethod.POST;
     const path = `v1/accounts/${accountId}/sites`;

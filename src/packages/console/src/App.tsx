@@ -9,6 +9,8 @@ import { resetCss } from './components/resetCss';
 import { HomePage } from './pages/homePage';
 import { SitePage } from './pages/sitePage';
 import { CanvasPage } from './pages/canvasPage';
+import { LoginPage } from './pages/loginPage';
+import { RegisterPage } from './pages/registerPage';
 import { NotFoundPage } from './pages/notFoundPage';
 import { SiteVersionPreviewPage } from './pages/siteVerisonPreviewPage';
 import { GlobalsProvider } from './globalsContext';
@@ -34,7 +36,6 @@ export class JwtRequestModifier extends RequesterModifier {
 
   public modifyResponse(response: Response): Response {
     if ('x-kiba-token' in response.headers && response.headers['x-kiba-token']) {
-      console.log('Updating jwt')
       this.localStorageClient.setValue(this.jwtStorageKey, response.headers['x-kiba-token']);
     }
     return response;
@@ -48,6 +49,7 @@ requester.addModifier(new JwtRequestModifier(localStorageClient, 'ep-console-jwt
 const everypageClient = new EverypageClient(requester);
 const globals = {
   everypageClient,
+  localStorageClient,
 }
 
 export const App = (): React.ReactElement => {
@@ -61,6 +63,8 @@ export const App = (): React.ReactElement => {
         <GlobalCss resetCss={resetCss} />
         <Router>
           <Route path='/' page={HomePage} />
+          <Route path='/login' page={LoginPage} />
+          <Route path='/register' page={RegisterPage} />
           <Route path='/canvas' page={CanvasPage} />
           <Route path='/sites/:slug' page={SitePage} />
           <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} />

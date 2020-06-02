@@ -2,6 +2,79 @@ import { RequestData, ResponseData } from '@kibalabs/core';
 
 import * as Resources from './resources';
 
+export class LoginUserRequest extends RequestData {
+  readonly email: string;
+  readonly password: string;
+
+  public constructor(email: string, password: string) {
+    super();
+    this.email = email;
+    this.password = password;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      email: this.email,
+      password: this.password,
+    };
+  }
+}
+
+export class LoginUserResponse extends ResponseData {
+  public static fromObject = (obj: Record<string, any>): LoginUserResponse => {
+    return new LoginUserResponse(
+    );
+  }
+}
+
+export class LogoutUserRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class LogoutUserResponse extends ResponseData {
+  public static fromObject = (obj: Record<string, any>): LogoutUserResponse => {
+    return new LogoutUserResponse(
+    );
+  }
+}
+
+export class CreateUserRequest extends RequestData {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly email: string;
+  readonly password: string;
+  readonly shouldJoinNewsletter?: boolean;
+
+  public constructor(firstName: string, lastName: string, email: string, password: string, shouldJoinNewsletter?: boolean) {
+    super();
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.shouldJoinNewsletter = shouldJoinNewsletter;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      password: this.password,
+      shouldJoinNewsletter: this.shouldJoinNewsletter !== undefined ? this.shouldJoinNewsletter : null,
+    };
+  }
+}
+
+export class CreateUserResponse extends ResponseData {
+  public static fromObject = (obj: Record<string, any>): CreateUserResponse => {
+    return new CreateUserResponse(
+    );
+  }
+}
+
 export class CreateSiteRequest extends RequestData {
   readonly accountId: number;
   readonly slug: string;

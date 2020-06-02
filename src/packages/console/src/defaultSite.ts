@@ -10,7 +10,7 @@ export const defaultSite = {
             "logoImageUrl": "/assets/everysize-wordmark.svg"
         },
         {
-            "type": "hero-signup-image-half-1",
+            "type": "hero-signup-media-half-1",
             "logoImageUrl": null,
             "titleText": "Check your responsive webpage looks great in every size 🖥 💻 📱 👀",
             "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀",
@@ -18,38 +18,38 @@ export const defaultSite = {
             "inputPlaceholderText": "Enter a url to see the magic",
             "inputButtonText": "GO",
             "inputSuccessMessageText": null,
-            "leftImageUrl": "/assets/hero.gif",
-            "rightImageUrl": null,
+            "leftMediaUrl": "/assets/hero.gif",
+            "rightMediaUrl": null,
             "inputName": "url",
             "formTarget": "https://everysize-app.kibalabs.com",
             "formAction": "OPEN"
         },
         {
-            "type": "feature-image-half-1",
+            "type": "feature-media-half-1",
             "background": {
                 "color": "white"
             },
             "titleText": "🔒Browser-based = built in security",
             "subtitleText": "No installation required. We use iframes on your browser so you don't have to enter your credentials on a downloaded application to test your secure pages",
-            "leftImageUrl": null,
-            "rightImageUrl": "/assets/feature1.png"
+            "leftMediaUrl": null,
+            "rightMediaUrl": "/assets/feature1.png"
         },
         {
-            "type": "feature-image-half-1",
+            "type": "feature-media-half-1",
             "titleText": "😎 All the sizes you need",
             "subtitleText": "Test pages in all the sizes that matter to you - we have iOS, Android and bootstrap sizes pre-installed. Use the zoom feature to fit all the devices you need on a single page. You can always make your own whacky sizes too",
-            "leftImageUrl": "/assets/feature2.png",
-            "rightImageUrl": null
+            "leftMediaUrl": "/assets/feature2.png",
+            "rightMediaUrl": null
         },
         {
-            "type": "feature-image-half-1",
+            "type": "feature-media-half-1",
             "background": {
                 "color": "white"
             },
             "titleText": "🖥 Create a tailored dashboard",
             "subtitleText": "Once you configure your dashboard it will stay saved for you to check in whenever needed. It will even hot reload if your dev environment is set up for that!",
-            "leftImageUrl": null,
-            "rightImageUrl": "/assets/feature3.png"
+            "leftMediaUrl": null,
+            "rightMediaUrl": "/assets/feature3.png"
         },
         {
             "type": "signup-1",
