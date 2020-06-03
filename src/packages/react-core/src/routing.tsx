@@ -44,6 +44,7 @@ export interface IRouteProps<PagePropsType = {}> {
   path?: string;
   default?: boolean;
   uri?: string;
+  redirectIfAuth?: string;
   redirectIfNoAuth?: string;
   page: React.ComponentType<PagePropsType>;
 }
@@ -58,6 +59,15 @@ export const Route = (props: IRouteProps): React.ReactElement => {
     if (!authManager.getIsUserLoggedIn()) {
       // TODO(krish): using history.navigate would be prefereable here but it didnt work, figure out why
       return <Reach.Redirect noThrow to={props.redirectIfNoAuth} />;
+    }
+  }
+  if (props.redirectIfAuth) {
+    if (!authManager) {
+      throw new Error('Cannot use redirectIfAuth since an authManager has not ben provided to the router');
+    }
+    if (authManager.getIsUserLoggedIn()) {
+      // TODO(krish): using history.navigate would be prefereable here but it didnt work, figure out why
+      return <Reach.Redirect noThrow to={props.redirectIfAuth} />;
     }
   }
   return (

@@ -38,12 +38,12 @@ export const App = (): React.ReactElement => {
         <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />
         <GlobalCss resetCss={resetCss} />
         <Router authManager={authManager}>
-          <Route redirectIfNoAuth={'/login'} path='/' page={HomePage} />
-          <Route redirectIfNoAuth={'/login'} path='/canvas' page={CanvasPage} />
-          <Route redirectIfNoAuth={'/login'} path='/sites/:slug' page={SitePage} />
-          <Route redirectIfNoAuth={'/login'} path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} />
-          <Route path='/login' page={LoginPage} />
-          <Route path='/register' page={RegisterPage} />
+          <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
+          <Route path='/canvas' page={CanvasPage} redirectIfNoAuth={'/login'} />
+          <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
+          <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
+          <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
+          <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
           <Route default={true} page={NotFoundPage} />
         </Router>
       </React.Fragment>
