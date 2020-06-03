@@ -1,5 +1,25 @@
 import { dateFromString } from '@kibalabs/core';
 
+export class Account {
+  readonly accountId: number;
+  readonly accountType: string;
+  readonly name: string;
+
+  public constructor(accountId: number, accountType: string, name: string) {
+    this.accountId = accountId;
+    this.accountType = accountType;
+    this.name = name;
+  }
+
+  public static fromObject = (obj: Record<string, any>): Account => {
+    return new Account(
+      Number(obj.accountId),
+      String(obj.accountType),
+      String(obj.name),
+    );
+  }
+}
+
 export class Site {
   readonly siteId: number;
   readonly accountId: number;

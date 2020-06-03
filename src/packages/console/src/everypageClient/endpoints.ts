@@ -75,6 +75,51 @@ export class CreateUserResponse extends ResponseData {
   }
 }
 
+export class RetrieveAccountsRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class RetrieveAccountsResponse extends ResponseData {
+  readonly accounts: Resources.Account[];
+
+  public constructor(accounts: Resources.Account[]) {
+    super();
+    this.accounts = accounts;
+  }
+
+  public static fromObject = (obj: Record<string, any>): RetrieveAccountsResponse => {
+    return new RetrieveAccountsResponse(
+      obj.accounts.map((account: Record<string, any>): Resources.Account => Resources.Account.fromObject(account)),
+    );
+  }
+}
+
+export class RetrieveSitesForAccountRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class RetrieveSitesForAccountResponse extends ResponseData {
+  readonly sites: Resources.Site[];
+
+  public constructor(sites: Resources.Site[]) {
+    super();
+    this.sites = sites;
+  }
+
+  public static fromObject = (obj: Record<string, any>): RetrieveSitesForAccountResponse => {
+    return new RetrieveSitesForAccountResponse(
+      obj.sites.map((site: Record<string, any>): Resources.Site => Resources.Site.fromObject(site)),
+    );
+  }
+}
+
+
 export class CreateSiteRequest extends RequestData {
   readonly accountId: number;
   readonly slug: string;
@@ -156,9 +201,9 @@ export class ListSiteVersionAssetsRequest extends RequestData {
 }
 
 export class ListSiteVersionAssetsResponse extends ResponseData {
-  readonly assetFiles: [Resources.AssetFile];
+  readonly assetFiles: Resources.AssetFile[];
 
-  public constructor(assetFiles: [Resources.AssetFile]) {
+  public constructor(assetFiles: Resources.AssetFile[]) {
     super();
     this.assetFiles = assetFiles;
   }
@@ -309,9 +354,9 @@ export class ListSiteVersionsRequest extends RequestData {
 }
 
 export class ListSiteVersionsResponse extends ResponseData {
-  readonly siteVersions: [Resources.SiteVersion];
+  readonly siteVersions: Resources.SiteVersion[];
 
-  public constructor(siteVersions: [Resources.SiteVersion]) {
+  public constructor(siteVersions: Resources.SiteVersion[]) {
     super();
     this.siteVersions = siteVersions;
   }

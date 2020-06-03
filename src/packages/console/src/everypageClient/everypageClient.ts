@@ -31,6 +31,22 @@ export class EverypageClient extends ServiceClient {
     await this.makeRequest(method, path, request, Endpoints.CreateUserResponse);
   }
 
+  public retrieve_accounts = async (): Promise<Resources.Account[]> => {
+    const method = RestMethod.POST;
+    const path = `v1/retrieve-accounts`;
+    const request = new Endpoints.RetrieveAccountsRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.RetrieveAccountsResponse);
+    return response.accounts;
+  }
+
+  public retrieve_sites_for_account = async (accountId: number): Promise<Resources.Site[]> => {
+    const method = RestMethod.POST;
+    const path = `v1/accounts/${accountId}/retrieve-sites`;
+    const request = new Endpoints.RetrieveSitesForAccountRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.RetrieveSitesForAccountResponse);
+    return response.sites;
+  }
+
   public create_site = async (accountId: number, slug: string, name?: string): Promise<Resources.Site> => {
     const method = RestMethod.POST;
     const path = `v1/accounts/${accountId}/sites`;
