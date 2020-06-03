@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Router, Route } from '@kibalabs/core-react';
-import { LocalStorageClient, Requester, RequesterModifier, Request, Response } from '@kibalabs/core';
+import { LocalStorageClient, Requester } from '@kibalabs/core';
 
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalCss } from './components/globalCss';
@@ -15,37 +15,13 @@ import { NotFoundPage } from './pages/notFoundPage';
 import { SiteVersionPreviewPage } from './pages/siteVerisonPreviewPage';
 import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
-
-export class JwtRequestModifier extends RequesterModifier {
-  private localStorageClient: LocalStorageClient;
-  private jwtStorageKey: string;
-
-  public constructor(localStorageClient: LocalStorageClient, jwtStorageKey: string) {
-    super();
-    this.localStorageClient = localStorageClient;
-    this.jwtStorageKey = jwtStorageKey;
-  }
-
-  public modifyRequest(request: Request): Request {
-    const jwt = this.localStorageClient.getValue(this.jwtStorageKey);
-    if (jwt) {
-      request.headers['Authorization'] = `Bearer ${jwt}`;
-    }
-    return request;
-  }
-
-  public modifyResponse(response: Response): Response {
-    if ('x-kiba-token' in response.headers && response.headers['x-kiba-token']) {
-      this.localStorageClient.setValue(this.jwtStorageKey, response.headers['x-kiba-token']);
-    }
-    return response;
-  }
-
-}
+import { AuthManager } from './authManager';
+import { JwtRequestModifier } from './jwtRequestModifier';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
+const authManager = new AuthManager(localStorageClient, 'ep-console-jwt');
 const requester = new Requester();
-requester.addModifier(new JwtRequestModifier(localStorageClient, 'ep-console-jwt'));
+requester.addModifier(new JwtRequestModifier(authManager));
 const everypageClient = new EverypageClient(requester);
 const globals = {
   everypageClient,
@@ -61,13 +37,13 @@ export const App = (): React.ReactElement => {
         </Helmet>
         <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />
         <GlobalCss resetCss={resetCss} />
-        <Router>
-          <Route path='/' page={HomePage} />
+        <Router authManager={authManager}>
+          <Route redirectIfNoAuth={'/login'} path='/' page={HomePage} />
+          <Route redirectIfNoAuth={'/login'} path='/canvas' page={CanvasPage} />
+          <Route redirectIfNoAuth={'/login'} path='/sites/:slug' page={SitePage} />
+          <Route redirectIfNoAuth={'/login'} path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} />
           <Route path='/login' page={LoginPage} />
           <Route path='/register' page={RegisterPage} />
-          <Route path='/canvas' page={CanvasPage} />
-          <Route path='/sites/:slug' page={SitePage} />
-          <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} />
           <Route default={true} page={NotFoundPage} />
         </Router>
       </React.Fragment>

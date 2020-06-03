@@ -4,27 +4,6 @@ import * as Reach from '@reach/router'
 import { ErrorBoundary } from './errorBoundary';
 import { IMultiChildProps } from './parentComponentProps';
 
-export interface IRouterAuthManager {
-  getIsUserLoggedIn: () => boolean;
-}
-
-export interface IRouteProps<PagePropsType = {}> {
-  path?: string;
-  default?: boolean;
-  uri?: string;
-  redirectIfNoAuth?: string;
-  page: React.ComponentType<PagePropsType>;
-}
-
-export const Route = (props: IRouteProps): React.ReactElement => {
-  const params = Reach.useParams()
-  return (
-    <ErrorBoundary>
-      <props.page {...params} />
-    </ErrorBoundary>
-  );
-}
-
 export type IHistory = Reach.History;
 
 export const HistoryContext = React.createContext<IHistory | null>(null);
@@ -45,21 +24,57 @@ export const HistoryProvider = (props: IHistoryProviderProps): React.ReactElemen
 export const useHistory = (): IHistory => {
   const history = React.useContext(HistoryContext);
   if (!history) {
-    throw new Error('Cannot use useHistory since HistoryContext has not ben provided above in the hierarchy')
+    throw new Error('Cannot use useHistory since HistoryContext has not ben provided')
   }
   return history;
 }
 
+export interface IRouterAuthManager {
+  getIsUserLoggedIn: () => boolean;
+}
+
 export const RouterAuthManagerContext = React.createContext<IRouterAuthManager | undefined>(undefined);
+
+export const useRouterAuthManager = (): IRouterAuthManager => {
+  const authManager = React.useContext(RouterAuthManagerContext);
+  return authManager;
+}
+
+export interface IRouteProps<PagePropsType = {}> {
+  path?: string;
+  default?: boolean;
+  uri?: string;
+  redirectIfNoAuth?: string;
+  page: React.ComponentType<PagePropsType>;
+}
+
+export const Route = (props: IRouteProps): React.ReactElement => {
+  const params = Reach.useParams();
+  const authManager = useRouterAuthManager();
+  if (props.redirectIfNoAuth) {
+    if (!authManager) {
+      throw new Error('Cannot use redirectIfNoAuth since an authManager has not ben provided to the router');
+    }
+    if (!authManager.getIsUserLoggedIn()) {
+      // TODO(krish): using history.navigate would be prefereable here but it didnt work, figure out why
+      return <Reach.Redirect noThrow to={props.redirectIfNoAuth} />;
+    }
+  }
+  return (
+    <ErrorBoundary>
+      <props.page {...params} />
+    </ErrorBoundary>
+  );
+}
 
 export interface IRouterProps extends IMultiChildProps<IRouteProps<any>> {
   authManager?: IRouterAuthManager;
 }
 
 export const Router = (props: IRouterProps): React.ReactElement => {
-  const history = Reach.createHistory(window);
+  const historyRef = React.useRef(Reach.createHistory(window));
   return (
-    <HistoryProvider history={history}>
+    <HistoryProvider history={historyRef.current}>
       <RouterAuthManagerContext.Provider value={props.authManager}>
         <Reach.Router style={{width: '100%', height: '100%'}}>
           { props.children }

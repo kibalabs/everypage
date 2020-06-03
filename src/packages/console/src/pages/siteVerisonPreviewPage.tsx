@@ -146,13 +146,11 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <div>Error loading site version. Please go back and try again.</div>
     );
   }
-
   if (!siteContent || !siteTheme) {
     return (
       <div>Loading...</div>
     );
   }
-
   return (
     <ThemeProvider theme={buildTheme()}>
       <CanvasStack isFullHeight={true} isFullWidth={true}>

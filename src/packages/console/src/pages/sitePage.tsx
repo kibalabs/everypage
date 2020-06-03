@@ -98,38 +98,39 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
+  if (site === null) {
+    return (
+      <div>Site not found</div>
+    );
+  }
   if (site === undefined || versions === undefined || primaryVersionId === undefined) {
     return (
       <div>Loading...</div>
     );
-  } else if (site === null) {
-    return (
-      <div>Site not found</div>
-    );
-  } else if (isLoading) {
+  }
+  if (isLoading) {
     return (
       <div>Loading...</div>
     );
-  } else {
-    return (
-      <div>
-        <p>Site: <b>{site.name} ({site.siteId})</b></p>
-        <p>Url: <a href={getSiteUrl()}><b>{getSiteUrl()}</b></a></p>
-        <p>Account id: <b>{site.accountId}</b></p>
-        <br/>
-        { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
-          return (
-            <div key={index}>
-              {version.name || 'Unnamed'} ({dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')})
-              {version.siteVersionId === primaryVersionId ? '(*)' : (!version.isArchived && !version.isPublished) ? <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton> : null}
-              {!version.isArchived && !version.isPublished && <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
-            </div>
-          );
-        })}
-        <br />
-        <br />
-        <StyledButton onClick={onCreateNewVersionClicked}>Create new version</StyledButton>
-      </div>
-    );
   }
+  return (
+    <div>
+      <p>Site: <b>{site.name} ({site.siteId})</b></p>
+      <p>Url: <a href={getSiteUrl()}><b>{getSiteUrl()}</b></a></p>
+      <p>Account id: <b>{site.accountId}</b></p>
+      <br/>
+      { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
+        return (
+          <div key={index}>
+            {version.name || 'Unnamed'} ({dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')})
+            {version.siteVersionId === primaryVersionId ? '(*)' : (!version.isArchived && !version.isPublished) ? <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton> : null}
+            {!version.isArchived && !version.isPublished && <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
+          </div>
+        );
+      })}
+      <br />
+      <br />
+      <StyledButton onClick={onCreateNewVersionClicked}>Create new version</StyledButton>
+    </div>
+  );
 }
