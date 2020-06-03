@@ -12,6 +12,7 @@ import { CanvasPage } from './pages/canvasPage';
 import { LoginPage } from './pages/loginPage';
 import { RegisterPage } from './pages/registerPage';
 import { NotFoundPage } from './pages/notFoundPage';
+import { CreateSitePage } from './pages/createSitePage';
 import { SiteVersionPreviewPage } from './pages/siteVerisonPreviewPage';
 import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
@@ -40,6 +41,7 @@ export const App = (): React.ReactElement => {
         <Router authManager={authManager}>
           <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
           <Route path='/canvas' page={CanvasPage} redirectIfNoAuth={'/login'} />
+          <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
           <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />

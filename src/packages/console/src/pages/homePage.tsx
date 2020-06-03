@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
     overflow: 'auto',
   },
   accountName: {
@@ -102,7 +101,7 @@ export const HomePage = (): React.ReactElement => {
   }
 
   const onCreateSiteClicked = (account: Account): void => {
-    console.log('TODO(krish): implement this');
+    history.navigate(`/sites/create?accountId=${account.accountId}`);
   }
 
   return (

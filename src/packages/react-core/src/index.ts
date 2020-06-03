@@ -7,3 +7,4 @@ export * from './useInterval';
 export * from './useLocalStorageState';
 export * from './useScrollListener';
 export * from './useSize';
+export * from './useUrlQueryState';

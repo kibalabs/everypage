@@ -64,6 +64,14 @@ export class Requester {
     var response = Response.fromAxiosResponse(axiosResponse);
     response = this.modifyResponse(response);
     if (response.status >= 400 && response.status < 600) {
+      console.log('response.content', response.content);
+      let errorContent = null;
+      try {
+        errorContent = JSON.parse(response.content);
+      } catch {}
+      if (errorContent && 'message' in errorContent) {
+        throw new KibaException(errorContent.message, response.status);
+      }
       throw new KibaException(response.content, response.status);
     }
     return response;
@@ -91,6 +99,12 @@ export class Requester {
     var response = Response.fromAxiosResponse(axiosResponse);
     response = this.modifyResponse(response);
     if (response.status >= 400 && response.status < 600) {
+      try {
+        const errorContent = JSON.parse(response.content);
+        if ('message' in errorContent) {
+          throw new KibaException(errorContent.message, response.status);
+        }
+      } catch {}
       throw new KibaException(response.content, response.status);
     }
     return response;
