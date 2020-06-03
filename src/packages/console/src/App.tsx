@@ -22,7 +22,7 @@ const localStorageClient = new LocalStorageClient(window.localStorage);
 const authManager = new AuthManager(localStorageClient, 'ep-console-jwt');
 const requester = new Requester();
 requester.addModifier(new JwtRequestModifier(authManager));
-const everypageClient = new EverypageClient(requester, 'http://localhost:5000');
+const everypageClient = new EverypageClient(requester);
 const globals = {
   everypageClient,
   localStorageClient,
