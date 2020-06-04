@@ -13,7 +13,7 @@ import { LoginPage } from './pages/loginPage';
 import { RegisterPage } from './pages/registerPage';
 import { NotFoundPage } from './pages/notFoundPage';
 import { CreateSitePage } from './pages/createSitePage';
-import { SiteVersionPreviewPage } from './pages/siteVerisonPreviewPage';
+import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
 import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';

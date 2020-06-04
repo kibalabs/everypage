@@ -7,6 +7,7 @@ interface IJsonEditorProps {
   json: object;
   schema?: object;
   name?: string;
+  isEditable: boolean;
   onJsonUpdated: (parsedJson: object) => void;
 }
 
@@ -61,6 +62,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
         enableSort: false,
         enableTransform: false,
         onNodeName: calculateNodeName,
+        onEditable: ((): boolean => props.isEditable),
         mode: 'tree',
         modes: ['code', 'tree'],
       });
@@ -76,4 +78,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
       ref={editorRef}
     />
   );
+}
+JsonEditor.defaultProps = {
+  isEditable: true,
 }

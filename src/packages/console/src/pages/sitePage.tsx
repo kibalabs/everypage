@@ -35,9 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
   versionPrimaryLabel: {
     fontSize: '0.9em',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
-  versionEditButtonLabel: {
-    fontSize: '1em',
+  versionButton: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   versionNameLabel: {
     marginRight: theme.spacing(2),
@@ -156,8 +159,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                       <Box display='flex' justifyContent='start' alignItems='baseline'>
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
-                        {!version.archiveDate && !version.publishDate && <Button color='primary'><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
-                        {!version.archiveDate && !version.publishDate && <Button color='primary' onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary'  className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary' className={classes.versionButton}><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
+                        {version.publishDate && <Button color='primary' className={classes.versionButton}><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='VIEW' /></Button>}
                       </Box>
                       {version.archiveDate ? (
                         <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'YYYY-MM-DD HH:mm')}</Typography>

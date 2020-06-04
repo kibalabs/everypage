@@ -58,6 +58,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
+  const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   useInitialization((): void => {
     loadSite();
@@ -133,7 +134,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   // TODO(krish): im sure this can be done better than just every 3 seconds
   useInterval(3, (): void => {
-    if (isSiteContentChanged || isSiteThemeChanged) {
+    if (!siteVersion.publishDate && (isSiteContentChanged || isSiteThemeChanged)) {
       everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
         console.log('saving...');
         setIsSiteContentChanged(false);
@@ -192,11 +193,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             <CanvasStack.Item>
               <Box padding={2} className={classes.metaBox}>
                 <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
-                <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>
+                {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
+                {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
               </Box>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
               <Canvas
+                isEditable={isEditable}
                 siteContent={siteContent}
                 onSiteContentUpdated={onSiteContentUpdated}
                 siteTheme={siteTheme}

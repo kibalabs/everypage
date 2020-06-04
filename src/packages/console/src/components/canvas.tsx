@@ -10,6 +10,7 @@ import { Dropzone, FilePreviewGrid } from '../components/dropzone';
 import { Button, ButtonBar } from '../components/button';
 
 interface ICanvasProps {
+  isEditable: boolean;
   siteContent: Record<string, any>;
   onSiteContentUpdated: (siteContent: Record<string, any>) => void;
   siteTheme: Record<string, any>;
@@ -74,16 +75,16 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
                 <Button className={selectedType === 'site' ? 'selected' : ''} onClick={onSiteClicked}>Site</Button>
                 <Button className={selectedType === 'theme' ? 'selected' : ''} onClick={onThemeClicked}>Theme</Button>
-                <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>
+                {props.isEditable && <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>}
                 <div />
                 <Button onClick={onHideEditorClicked}>Hide</Button>
               </CanvasStack>
             </ButtonBar>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'site'}>
-              <JsonEditor name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
+              <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'theme'}>
-              <JsonEditor name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
+              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'assets'}>
               <Dropzone onFilesChosen={onAssetFilesChosen} />
@@ -101,4 +102,8 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
       </CanvasStack>
     </ThemeProvider>
   )
+}
+
+Canvas.defaultProps = {
+  isEditable: true,
 }
