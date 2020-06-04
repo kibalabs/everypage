@@ -48,32 +48,32 @@ export class Site {
 
 export class SiteVersion {
   readonly siteVersionId: number;
-  readonly creationDate: Date;
   readonly buildHash: string;
   readonly siteId: number;
   readonly name: string | null;
-  readonly isPublished: boolean;
-  readonly isArchived: boolean;
+  readonly publishDate: Date | null;
+  readonly archiveDate: Date | null;
+  readonly lastUpdateDate: Date;
 
-  public constructor(siteVersionId: number, creationDate: Date, buildHash: string, siteId: number, name: string | null, isPublished: boolean, isArchived: boolean) {
+  public constructor(siteVersionId: number, buildHash: string, siteId: number, name: string | null, publishDate: Date | null, archiveDate: Date | null, lastUpdateDate: Date) {
     this.siteVersionId = siteVersionId;
-    this.creationDate = creationDate;
     this.buildHash = buildHash;
     this.siteId = siteId;
     this.name = name;
-    this.isPublished = isPublished;
-    this.isArchived = isArchived;
+    this.publishDate = publishDate;
+    this.archiveDate = archiveDate;
+    this.lastUpdateDate = lastUpdateDate;
   }
 
   public static fromObject = (obj: Record<string, any>): SiteVersion => {
     return new SiteVersion(
       Number(obj.siteVersionId),
-      dateFromString(obj.creationDate),
       String(obj.buildHash),
       Number(obj.siteId),
       obj.name ? String(obj.name) : null,
-      Boolean(obj.isPublished),
-      Boolean(obj.isArchived),
+      obj.publishDate ? dateFromString(obj.publishDate) : null,
+      obj.archiveDate ? dateFromString(obj.creationDate) : null,
+      dateFromString(obj.lastUpdateDate),
     );
   }
 }

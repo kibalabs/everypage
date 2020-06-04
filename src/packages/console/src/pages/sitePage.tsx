@@ -156,10 +156,16 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                       <Box display='flex' justifyContent='start' alignItems='baseline'>
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
-                        {!version.isArchived && !version.isPublished && <Button color='primary'><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
-                        {!version.isArchived && !version.isPublished && <Button color='primary' onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary'><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary' onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
                       </Box>
-                      <Typography color='textSecondary' className={classes.versionDate}>Last edited: {dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                      {version.archiveDate ? (
+                        <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                      ) : version.publishDate ? (
+                        <Typography color='textSecondary' className={classes.versionDate}>Published: {dateToString(version.publishDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                      ) : (
+                        <Typography color='textSecondary' className={classes.versionDate}>Last updated: {dateToString(version.lastUpdateDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                      )}
                     </Box>
                   );
                 })}

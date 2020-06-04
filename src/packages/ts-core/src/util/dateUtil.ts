@@ -12,8 +12,12 @@ export const dateFromString = (dateString: string, format: string = JSON_DATE_FO
   return new Date(parsedDate);
 };
 
-export const dateToString = (date: Date, format: string = JSON_DATE_FORMAT): string => {
-  const formattedDate = moment.utc(date).format(format);
+export const dateToString = (date: Date, format: string = JSON_DATE_FORMAT, convertToLocal: boolean = true): string => {
+  let momentDate = moment.utc(date);
+  if (convertToLocal) {
+    momentDate = momentDate.local();
+  }
+  const formattedDate = momentDate.format(format);
   if (formattedDate === 'Invalid date') {
     throw new KibaException(`Invalid date ${date} passed to datetimeToString method`);
   }
