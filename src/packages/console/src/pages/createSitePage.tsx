@@ -21,14 +21,15 @@ import { useGlobals } from '../globalsContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    minHeight: '100%',
   },
   content: {
     flexGrow: 1,
-    marginTop: theme.spacing(2),
     overflow: 'auto',
+    marginTop: theme.spacing(12),
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     padding: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',

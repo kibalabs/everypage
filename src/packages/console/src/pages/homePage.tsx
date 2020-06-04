@@ -19,16 +19,21 @@ import { useGlobals } from '../globalsContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    minHeight: '100%',
   },
   content: {
     flexGrow: 1,
     overflow: 'auto',
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(12),
   },
   accountBox: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     padding: theme.spacing(2, 4),
     marginBottom: theme.spacing(4),
+  },
+  siteCardGrid: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   accountName: {
     marginRight: theme.spacing(1),
@@ -37,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
   accountType: {
     marginRight: theme.spacing(4),
     display: 'inline',
-  },
-  siteCardGrid: {
-    marginTop: theme.spacing(0),
+    fontSize: '1em',
   },
   siteCardButtonBase: {
     width: '100%',
@@ -49,19 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
   siteNameText: {
     fontWeight: 'bold',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
   },
 }));
 
@@ -122,7 +112,7 @@ export const HomePage = (): React.ReactElement => {
     <div className={classes.root}>
       <NavigationBar />
       <main className={classes.content}>
-        <Container maxWidth='lg' className={classes.container}>
+        <Container maxWidth='lg'>
           {accounts === undefined || accountSites === undefined ? (
             <Typography component='p'>
               {'loading...'}

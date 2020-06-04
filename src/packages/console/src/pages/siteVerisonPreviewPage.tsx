@@ -1,12 +1,43 @@
 import React from 'react';
-import { KibaException, dateToString, Requester } from '@kibalabs/core';
 import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { KibaException, dateToString, Requester } from '@kibalabs/core';
 import { buildTheme, ThemeProvider } from '@kibalabs/everypage-core';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
 import { CanvasStack } from '../components/tempCanvasStack';
 import { Canvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
+import { NavigationBar } from '../components/navigationBar';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    height: '100%',
+  },
+  metaBox: {
+    backgroundColor: 'white',
+    borderBottom: '1px solid #777',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'start',
+    alignItems: 'baseline',
+  },
+  content: {
+    flexGrow: 1,
+    flexShrink: 1,
+    marginTop: theme.spacing(8),
+  },
+  saveStatusText: {
+    marginLeft: theme.spacing(2),
+    fontSize: '1.1em',
+  },
+}));
 
 export interface ISiteVersionPreviewPageProps {
   slug: string;
@@ -14,6 +45,7 @@ export interface ISiteVersionPreviewPageProps {
 }
 
 export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): React.ReactElement => {
+  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
@@ -152,27 +184,32 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     );
   }
   return (
-    <ThemeProvider theme={buildTheme()}>
-      <CanvasStack isFullHeight={true} isFullWidth={true}>
-        <CanvasStack.Item>
-          <br />
-          <div>Viewing site version {site.slug} {siteVersion.name || 'Unnamed'} ({dateToString(siteVersion.creationDate, 'YYYY-MM-DD HH:mm')})</div>
-          <div>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? '...' : 'saved'}</div>
-          <br />
-        </CanvasStack.Item>
-        <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
-          <Canvas
-            siteContent={siteContent}
-            onSiteContentUpdated={onSiteContentUpdated}
-            siteTheme={siteTheme}
-            onSiteThemeUpdated={onSiteThemeUpdated}
-            assetFileMap={assetFileMap}
-            addAssetFiles={addAssetFiles}
-            isEditorHidden={isEditorHidden}
-            onIsEditorHiddenUpdated={setIsEditorHidden}
-          />
-        </CanvasStack.Item>
-      </CanvasStack>
-    </ThemeProvider>
+    <div className={classes.root}>
+      <NavigationBar />
+      <main className={classes.content}>
+        <ThemeProvider theme={buildTheme()}>
+          <CanvasStack isFullHeight={true} isFullWidth={true}>
+            <CanvasStack.Item>
+              <Box padding={2} className={classes.metaBox}>
+                <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
+                <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>
+              </Box>
+            </CanvasStack.Item>
+            <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
+              <Canvas
+                siteContent={siteContent}
+                onSiteContentUpdated={onSiteContentUpdated}
+                siteTheme={siteTheme}
+                onSiteThemeUpdated={onSiteThemeUpdated}
+                assetFileMap={assetFileMap}
+                addAssetFiles={addAssetFiles}
+                isEditorHidden={isEditorHidden}
+                onIsEditorHiddenUpdated={setIsEditorHidden}
+              />
+            </CanvasStack.Item>
+          </CanvasStack>
+        </ThemeProvider>
+      </main>
+    </div>
   );
 }

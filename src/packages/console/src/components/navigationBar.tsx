@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import { useGlobals } from '../globalsContext';
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  title: {
+  spacer: {
     flexGrow: 1,
   },
 }));
@@ -35,12 +36,19 @@ export const NavigationBar = (): React.ReactElement => {
     });
   }
 
+  const onHomeClicked = (): void => {
+    history.navigate('/');
+  }
+
   return (
     <AppBar position="absolute" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          everypage
-        </Typography>
+        <ButtonBase onClick={onHomeClicked}>
+          <Typography component="h1" variant="h6" color="inherit">
+            everypage
+          </Typography>
+        </ButtonBase>
+        <div className={classes.spacer} />
         <Button
           variant='outlined'
           onClick={onLogoutClicked}

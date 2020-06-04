@@ -2,29 +2,57 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useInitialization } from '@kibalabs/core-react';
 import { KibaException, dateToString } from '@kibalabs/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 import { Site, SiteVersion } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
+import { NavigationBar } from '../components/navigationBar';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    minHeight: '100%',
+  },
+  content: {
+    flexGrow: 1,
+    overflow: 'auto',
+    marginTop: theme.spacing(12),
+  },
+  paper: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+  },
+  versionDate: {
+    fontSize: '1em',
+  },
+  versionPrimaryLabel: {
+    fontSize: '0.9em',
+  },
+  versionEditButtonLabel: {
+    fontSize: '1em',
+  },
+  versionNameLabel: {
+    marginRight: theme.spacing(2),
+  },
+  siteNameText: {
+    fontWeight: 'bold',
+  },
+}));
 
 export interface ISitePageProps {
   slug: string;
 }
 
-const StyledButton = styled.button`
-  border: 1px solid currentColor;
-  padding: 4px 8px;
-  border-radius: 2px;
-  cursor: pointer;
-
-  :hover {
-    background-color: #efefef;
-  }
-  :active {
-    background-color: #dfdfdf;
-  }
-`;
-
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
+  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [versions, setVersions] = React.useState<SiteVersion[] | undefined>(undefined);
@@ -98,39 +126,51 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
-  if (site === null) {
-    return (
-      <div>Site not found</div>
-    );
-  }
-  if (site === undefined || versions === undefined || primaryVersionId === undefined) {
-    return (
-      <div>Loading...</div>
-    );
-  }
-  if (isLoading) {
-    return (
-      <div>Loading...</div>
-    );
-  }
   return (
-    <div>
-      <p>Site: <b>{site.name} ({site.siteId})</b></p>
-      <p>Url: <a href={getSiteUrl()}><b>{getSiteUrl()}</b></a></p>
-      <p>Account id: <b>{site.accountId}</b></p>
-      <br/>
-      { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
-        return (
-          <div key={index}>
-            {version.name || 'Unnamed'} ({dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')})
-            {version.siteVersionId === primaryVersionId ? '(*)' : (!version.isArchived && !version.isPublished) ? <StyledButton onClick={() => onSetPrimaryClicked(version)}>Set primary</StyledButton> : null}
-            {!version.isArchived && !version.isPublished && <Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
-          </div>
-        );
-      })}
-      <br />
-      <br />
-      <StyledButton onClick={onCreateNewVersionClicked}>Create new version</StyledButton>
+    <div className={classes.root}>
+      <NavigationBar />
+      <main className={classes.content}>
+        <Container maxWidth='lg'>
+          {isLoading || site === undefined || versions === undefined || primaryVersionId === undefined ? (
+            <div>Loading...</div>
+          ) : site === null ? (
+            <div>Site not found</div>
+          ) : (
+            <React.Fragment>
+              <Paper className={classes.paper}>
+                <Typography variant='h6' className={classes.siteNameText}>
+                  {site.name}
+                </Typography>
+                <Typography color='textSecondary'>
+                  {site.slug}
+                </Typography>
+                <Typography color='textSecondary'>
+                  <a href={getSiteUrl()}>{getSiteUrl()}</a>
+                </Typography>
+              </Paper>
+              <Paper className={classes.paper}>
+                <Typography variant='h6' className={classes.siteNameText}>Site Versions</Typography>
+                { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
+                  return (
+                    <Box key={index} mt={2}>
+                      <Box display='flex' justifyContent='start' alignItems='baseline'>
+                        <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
+                        {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
+                        {!version.isArchived && !version.isPublished && <Button color='primary'><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
+                        {!version.isArchived && !version.isPublished && <Button color='primary' onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                      </Box>
+                      <Typography color='textSecondary' className={classes.versionDate}>Last edited: {dateToString(version.creationDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                    </Box>
+                  );
+                })}
+                <br />
+                <br />
+                <Button variant='contained' color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>
+              </Paper>
+            </React.Fragment>
+          )}
+        </Container>
+      </main>
     </div>
   );
 }
