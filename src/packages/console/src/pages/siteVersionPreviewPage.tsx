@@ -3,11 +3,10 @@ import { useInitialization, useInterval, useBooleanLocalStorageState } from '@ki
 import { KibaException, dateToString, Requester } from '@kibalabs/core';
 import { buildTheme, ThemeProvider } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
 import { CanvasStack } from '../components/tempCanvasStack';
@@ -27,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'start',
     alignItems: 'baseline',
+  },
+  metaBoxSpacer: {
+    flexGrow: 1,
   },
   content: {
     flexGrow: 1,
@@ -58,6 +60,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
+  const [isHeadShown, setIsHeadShown] = React.useState<boolean>(true);
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   useInitialization((): void => {
@@ -174,6 +177,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     });
   };
 
+  const onIsHeadShownToggled = (): void => {
+    setIsHeadShown(!isHeadShown);
+  }
+
   if (site === null || siteVersion === null || siteVersionEntry === null) {
     return (
       <div>Error loading site version. Please go back and try again.</div>
@@ -195,11 +202,23 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
                 {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
                 {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
+                <Box className={classes.metaBoxSpacer}/>
+                <FormControlLabel
+                  label='Show metadata'
+                  control={
+                    <Switch
+                      checked={isHeadShown}
+                      onChange={onIsHeadShownToggled}
+                      name='Show metadata'
+                    />
+                  }
+                />
               </Box>
             </CanvasStack.Item>
             <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
               <Canvas
                 isEditable={isEditable}
+                isHeadShown={isHeadShown}
                 siteContent={siteContent}
                 onSiteContentUpdated={onSiteContentUpdated}
                 siteTheme={siteTheme}

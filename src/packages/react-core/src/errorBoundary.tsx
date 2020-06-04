@@ -71,7 +71,7 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
             <br/>
             <br/>
             {this.state.error ? String(this.state.error) : ''}
-            {this.state.info ? this.state.info['componentStack'].split('\n').map((message: string, index: number): React.ReactElement => <span key={index}>{message}<br/></span>) : ''}
+            {this.state.info ? this.state.info['componentStack'].split('\n').slice(0, 10).map((message: string, index: number): React.ReactElement => <span key={index}>{message}<br/></span>) : ''}
             <br/>
             <ResetButton onClick={this.reset}>Reset</ResetButton>
           </ErrorMessage>

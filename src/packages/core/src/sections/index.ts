@@ -5,6 +5,7 @@ export * from './featureBoxes1';
 export * from './featureMediaHalf1';
 export * from './faq1';
 export * from './footer1';
+export * from './head';
 export * from './heroSignup1';
 export * from './heroSimple1';
 export * from './heroSignupMediaHalf1';

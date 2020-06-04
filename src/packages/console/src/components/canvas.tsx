@@ -11,6 +11,7 @@ import { Button, ButtonBar } from '../components/button';
 
 interface ICanvasProps {
   isEditable: boolean;
+  isHeadShown: boolean;
   siteContent: Record<string, any>;
   onSiteContentUpdated: (siteContent: Record<string, any>) => void;
   siteTheme: Record<string, any>;
@@ -95,7 +96,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         <VerticalLine />
         <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
           <KibaFrame>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHead={false}/>
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
           </KibaFrame>
         </CanvasStack.Item>
         {props.isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}
@@ -106,4 +107,5 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
 Canvas.defaultProps = {
   isEditable: true,
+  isHeadShown: true,
 }
