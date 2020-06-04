@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Paper from '@material-ui/core/Paper';
 
 import { Account, Site } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
@@ -22,13 +23,23 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     overflow: 'auto',
+    marginTop: theme.spacing(8),
+  },
+  accountBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    padding: theme.spacing(2, 4),
+    marginBottom: theme.spacing(4),
   },
   accountName: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
+    display: 'inline',
+  },
+  accountType: {
+    marginRight: theme.spacing(4),
     display: 'inline',
   },
   siteCardGrid: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(0),
   },
   siteCardButtonBase: {
     width: '100%',
@@ -38,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   siteNameText: {
     fontWeight: 'bold',
-  },
-  siteSlugText: {
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -87,12 +96,16 @@ export const HomePage = (): React.ReactElement => {
       return everypageClient.retrieve_sites_for_account(account.accountId);
     });
     Promise.all(promises).then((responses: Site[][]): void => {
-      setAccountSites(responses.reduce((currentMap: Record<number, Site[]>, sites: Site[]): Record<number, Site[]> => {
-        sites.forEach((site: Site): void => {
-          currentMap[site.accountId] = site.accountId in currentMap ? currentMap[site.accountId].concat(site) : [site];
-        });
+      const accountSites = accounts.reduce((currentMap: Record<number, Site[]>,  account: Account): Record<number, Site[]> => {
+        currentMap[account.accountId] = [];
         return currentMap;
-      }, {}));
+      }, {});
+      responses.forEach((sites: Site[]): void => {
+        sites.forEach((site: Site): void => {
+          accountSites[site.accountId].push(site);
+        });
+      });
+      setAccountSites(accountSites);
     });
   }
 
@@ -104,6 +117,7 @@ export const HomePage = (): React.ReactElement => {
     history.navigate(`/sites/create?accountId=${account.accountId}`);
   }
 
+  console.log('accounts', accounts);
   return (
     <div className={classes.root}>
       <NavigationBar />
@@ -119,14 +133,17 @@ export const HomePage = (): React.ReactElement => {
             </Typography>
           ) : (
             accounts.map((account: Account, index: number): React.ReactElement => (
-              <Box key={index} width={1} mt={8}>
-                <Box width={1} display='flex' justifyContent='start' alignItems='center'>
+              <Paper key={index} elevation={0} className={classes.accountBox}>
+                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                   <Typography variant='h5' className={classes.accountName}>
                     {account.name}
                   </Typography>
-                  <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create new site</Button>
+                  <Typography color='textSecondary' className={classes.accountType}>
+                    ({account.accountType})
+                  </Typography>
+                  <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create site</Button>
                 </Box>
-                <Grid container spacing={4} className={classes.siteCardGrid}>
+                <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites[account.accountId].map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
                       <Card>
@@ -135,7 +152,7 @@ export const HomePage = (): React.ReactElement => {
                             <Typography variant='h6' className={classes.siteNameText}>
                               {site.name}
                             </Typography>
-                            <Typography variant='subtitle2' className={classes.siteSlugText}>
+                            <Typography color='textSecondary'>
                               {site.slug}
                             </Typography>
                           </CardContent>
@@ -144,12 +161,14 @@ export const HomePage = (): React.ReactElement => {
                     </Grid>
                   ))}
                   {accountSites[account.accountId].length === 0 && (
-                    <Typography variant='subtitle2' className={classes.siteSlugText}>
-                      {'No sites yet. Create one now!'}
-                    </Typography>
+                    <Grid item xs={12}>
+                      <Typography color='textSecondary'>
+                        {'No sites yet. Create one now!'}
+                      </Typography>
+                    </Grid>
                   )}
                 </Grid>
-              </Box>
+              </Paper>
             ))
           )}
         </Container>
