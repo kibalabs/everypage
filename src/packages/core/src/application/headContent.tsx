@@ -1,22 +1,20 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
-import { ITheme, useTheme, IFont } from '../components';
+import { ITheme, useTheme } from '../components';
 
 
-export interface IGlobalHeadProps {
+export interface IHeadContentProps {
   website?: IWebsite;
   theme?: ITheme;
 }
 
-// TODO(krish): this should use HeadContent but can't yet becasue helmet doesnt work with fragments (https://github.com/nfl/react-helmet/issues/342)
-export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
+export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
   const website = props.website || useWebsite();
   const theme = props.theme || useTheme();
   return (
-    <Helmet>
+    <React.Fragment>
       <meta charSet='utf-8' />
       <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
       <meta name='build-hash' content={website.buildHash || null} />
@@ -39,6 +37,6 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
       <meta name='author' content={website.company} />
       <meta name='copyright' content={website.company} />
-    </Helmet>
+    </React.Fragment>
   );
 };

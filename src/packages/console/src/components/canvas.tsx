@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths } from '@kibalabs/everypage-core';
+import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
 
 import { KibaFrame } from '../components/kibaFrame';
 import { JsonEditor } from '../components/jsonEditor';
@@ -96,7 +96,10 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         <VerticalLine />
         <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
           <KibaFrame>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
+            <React.Fragment>
+              <HeadContent theme={props.siteTheme} website={props.siteContent} />
+              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
+            </React.Fragment>
           </KibaFrame>
         </CanvasStack.Item>
         {props.isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}

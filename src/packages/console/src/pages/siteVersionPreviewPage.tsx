@@ -198,7 +198,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         <ThemeProvider theme={buildTheme()}>
           <CanvasStack isFullHeight={true} isFullWidth={true}>
             <CanvasStack.Item>
-              <Box padding={2} className={classes.metaBox}>
+              <Box paddingX={2} paddingY={1} className={classes.metaBox}>
                 <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
                 {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
                 {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
