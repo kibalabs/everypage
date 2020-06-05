@@ -36,14 +36,10 @@ export const NavigationBar = (): React.ReactElement => {
     });
   }
 
-  const onHomeClicked = (): void => {
-    history.navigate('/');
-  }
-
   return (
     <AppBar position="absolute" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <ButtonBase onClick={onHomeClicked}>
+        <ButtonBase href={'/'}>
           <Typography component="h1" variant="h6" color="inherit">
             everypage
           </Typography>

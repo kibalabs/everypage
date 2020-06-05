@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ISingleAnyChildProps } from '../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 export interface IBackgroundLayer {
   color?: string;

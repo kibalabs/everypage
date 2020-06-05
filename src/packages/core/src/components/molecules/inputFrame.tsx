@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
 import { InputWrapper, IInputWrapperTheme } from '..';
-import { ISingleAnyChildProps } from '../../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 
 export interface IInputFrameTheme {

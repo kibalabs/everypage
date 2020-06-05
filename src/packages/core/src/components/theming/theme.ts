@@ -1,4 +1,4 @@
-import { ThemeType, IButtonTheme, IBoxTheme, ITextTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
+import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, ITextTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
 
 export interface IColorGuide extends ThemeType {
   brandPrimary: string;
@@ -62,6 +62,7 @@ export interface ITheme extends ThemeType {
 
   // Atoms
   buttons: ThemeMap<IButtonTheme>,
+  linkBases: ThemeMap<ILinkBaseTheme>,
   inputWrappers: ThemeMap<IInputWrapperTheme>,
   links: ThemeMap<ILinkTheme>,
 }

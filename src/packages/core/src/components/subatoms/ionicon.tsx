@@ -63,7 +63,7 @@ export const Ionicon = (props: IIoniconProps): React.ReactElement => {
   React.useEffect(() => {
     fetch(getIconUrl(props.iconId))
       .then(result => result.text())
-      .then(resultText => setSvgContent(resultText.replaceAll('stroke:#000', 'stroke:currentColor').replaceAll('fill:#000', 'stroke:currentColor')))
+      .then(resultText => setSvgContent(resultText.replace(/<title>.*<\/title>/gi, '').replaceAll('stroke:#000', 'stroke:currentColor').replaceAll('fill:#000', 'stroke:currentColor')))
       .catch(() => setSvgContent(null));
   }, [props.iconId]);
 
@@ -72,7 +72,6 @@ export const Ionicon = (props: IIoniconProps): React.ReactElement => {
       size={props.size}
       color={props._color}
       dangerouslySetInnerHTML={{__html: svgContent}}
-      alt={props.iconId}
     />
   );
 };

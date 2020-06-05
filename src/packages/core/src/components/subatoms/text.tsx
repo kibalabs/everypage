@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, CssTheme, themeToCss, useTheme } from '..';
-import { ISingleAnyChildProps } from '../../util';
 
 export interface ITextTheme extends CssTheme {
   'font-size': string;

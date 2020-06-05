@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Box, IBoxTheme, LoadingSpinner, ILoadingSpinnerTheme, ThemeType, IMoleculeProps, defaultMoleculeProps } from '..';
-import { ISingleAnyChildProps } from '../../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 
 export interface IFormTheme extends ThemeType {

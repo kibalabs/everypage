@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useTheme, RecursivePartial } from '..';
-import { ISingleAnyChildProps } from '../../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 
 export interface IInputWrapperThemeBase extends ThemeType {

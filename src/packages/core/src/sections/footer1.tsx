@@ -1,11 +1,18 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, Direction, Ionicon, LinkBase } from '../components';
 import { useWebsite } from '../util';
 
+interface IFooter1IconLink {
+  iconId?: string;
+  target: string;
+}
+
 interface IFooter1Props extends ISectionProps {
-  text?: string;
+  copyrightText?: string;
+  subtitleText?: string;
+  iconLinks?: IFooter1IconLink[];
 }
 
 export const Footer1 = (props: IFooter1Props): React.ReactElement => {
@@ -14,13 +21,25 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   if (website.companyUrl) {
     companyText = `[${companyText}](${website.companyUrl})`;
   }
-  const text = props.text || `© ${new Date().getFullYear()} ${companyText}`;
+  const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps}>
       <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
-        <Spacing mode='extra-narrow'/>
-        <MarkdownText text={text}/>
-        <Spacing mode='extra-narrow'/>
+        <Spacing direction={Direction.Vertical} mode='default'/>
+        {props.iconLinks && (
+          <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isFullHeight={true}>
+            {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
+              <LinkBase key={index} target={iconLink.target}>
+                <Ionicon size='large' iconId={iconLink.iconId || 'ion-globe'} />
+              </LinkBase>
+            ))}
+          </Stack>
+        )}
+        {props.subtitleText && (
+          <MarkdownText text={props.subtitleText} />
+        )}
+        <MarkdownText text={copyrightText}/>
+        <Spacing direction={Direction.Vertical} mode='default'/>
       </Stack>
     </Section>
   );

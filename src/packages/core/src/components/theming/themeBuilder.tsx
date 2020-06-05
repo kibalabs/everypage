@@ -1,6 +1,6 @@
 import * as Polished from 'polished';
 
-import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
+import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, ILinkBaseThemeBase, ILinkBaseTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
 import { RecursivePartial } from './util';
 
 const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
@@ -189,7 +189,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   };
 
   const focusBorderBox: Partial<IBoxTheme> = {
-    'border-color': Polished.lighten(0.3, 'black'),
+    'border-color': Polished.lighten(0.5, 'black'),
     'border-width': '2px',
     'border-style': 'solid',
   };
@@ -242,6 +242,47 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const secondaryButtonTheme: IButtonTheme = mergeTheme(primaryButtonTheme, baseTheme.buttons?.secondary);
   const tertiaryButtonTheme: IButtonTheme = mergeTheme(primaryButtonTheme, baseTheme.buttons?.tertiary);
+
+  const defaultNormalPrimaryLinkBaseTheme = mergeTheme<ILinkBaseThemeBase>({
+    background: mergeTheme(transparentBoxTheme, focusableBorderBox, {
+      'border-radius': '0.5em',
+      'padding': `${dimensions.padding}`,
+    }),
+  }, baseTheme.linkBases?.primary?.normal?.default);
+
+  const primaryLinkBaseTheme = mergeTheme<ILinkBaseTheme>({
+    normal: {
+      default: defaultNormalPrimaryLinkBaseTheme,
+      hover: {
+        background: {
+          'background-color': Polished.transparentize(0.8, colors.brandPrimary),
+        },
+      },
+      press: {
+        background: {
+          'background-color': Polished.transparentize(0.6, colors.brandPrimary),
+        },
+      },
+      focus: {
+        background: focusBorderBox,
+      },
+    },
+    disabled: {
+      default: mergeTheme(defaultNormalPrimaryLinkBaseTheme, {
+        background: {
+          'background-color': '#999999',
+        },
+      }),
+      hover: {},
+      press: {},
+      focus: {
+        background: focusBorderBox,
+      },
+    },
+  }, baseTheme.linkBases?.primary);
+
+  const secondaryLinkBaseTheme: ILinkBaseTheme = mergeTheme(primaryLinkBaseTheme, baseTheme.linkBases?.secondary);
+  const tertiaryLinkBaseTheme: ILinkBaseTheme = mergeTheme(primaryLinkBaseTheme, baseTheme.linkBases?.tertiary);
 
   const defaultNormalDefaultInputWrapperThemeBase: IInputWrapperThemeBase = mergeTheme({
     text: textTheme,
@@ -405,6 +446,12 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       primary: primaryButtonTheme,
       secondary: secondaryButtonTheme,
       tertiary: tertiaryButtonTheme,
+    },
+    linkBases: {
+      default: secondaryLinkBaseTheme,
+      primary: primaryLinkBaseTheme,
+      secondary: secondaryLinkBaseTheme,
+      tertiary: tertiaryLinkBaseTheme,
     },
     inputWrappers: {
       default: defaultInputWrapperTheme,

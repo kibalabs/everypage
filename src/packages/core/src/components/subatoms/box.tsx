@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import * as Polished from 'polished';
 
 import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useTheme } from '..';
-import { ISingleAnyChildProps } from '../../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 
 export interface IBoxTheme extends CssTheme {

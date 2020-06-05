@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Container, Background, IBackgroundConfig } from '../components';
-import { ISingleAnyChildProps } from '../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 export interface ISectionProps {
   id?: string;

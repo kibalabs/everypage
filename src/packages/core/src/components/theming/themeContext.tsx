@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { ITheme, ThemeType } from '..';
-import { ISingleAnyChildProps } from '../../util';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
+;
 
 export const ThemeContext = React.createContext<ITheme | null>(null);
 
