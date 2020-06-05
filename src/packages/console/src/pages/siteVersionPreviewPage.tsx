@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { KibaException, dateToString, Requester } from '@kibalabs/core';
+import { KibaException, Requester, Response } from '@kibalabs/core';
 import { buildTheme, ThemeProvider } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
@@ -167,7 +167,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         setAssetFileMap((assetFileMap: Record<string, string>): Record<string, string> => {
           const newAssetFileMap = {...assetFileMap};
           files.forEach((file: File): void => {
-            newAssetFileMap[file.path] = `${getSiteUrl()}/${siteVersion.buildHash}/assets/${file.path}`;
+            newAssetFileMap[`/assets/${file.path}`] = `${getSiteUrl()}/${siteVersion.buildHash}/assets/${file.path}`;
           });
           return newAssetFileMap
         });

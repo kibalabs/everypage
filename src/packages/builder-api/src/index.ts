@@ -29,6 +29,10 @@ app.post('/v1/sites/generate', async (request, response) => {
   if (!buildHash) {
     return response.status(400).json({message: 'buildHash must be provided in request'});
   }
+  const siteHost = request.body.siteHost;
+  if (!siteHost) {
+    return response.status(400).json({message: 'siteHost must be provided in request'});
+  }
   const siteContent = request.body.siteContent;
   if (!siteContent) {
     return response.status(400).json({message: 'siteContent must be provided in request'});
@@ -37,7 +41,7 @@ app.post('/v1/sites/generate', async (request, response) => {
   if (!siteTheme) {
     return response.status(400).json({message: 'siteTheme must be provided in request'});
   }
-  console.log(`Creating site: ${siteName} ${buildHash}`)
+  console.log(`Creating site: ${siteName} ${buildHash} ${siteHost}`)
   console.log(`Site content keys: ${Object.keys(siteContent)}`)
   console.log(`Site theme keys: ${Object.keys(siteTheme)}`)
   const buildDirectory = path.join(__dirname, siteName, `${buildHash}-build`);
@@ -46,7 +50,7 @@ app.post('/v1/sites/generate', async (request, response) => {
   fs.mkdirSync(outputDirectory, { recursive: true });
 
   try {
-    everypage.writeSiteFiles(buildDirectory, siteContent, siteTheme, buildHash);
+    everypage.writeSiteFiles(buildDirectory, siteContent, siteTheme, buildHash, siteHost);
     everypage.copyPackage(buildDirectory);
     everypage.build(buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);

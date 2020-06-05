@@ -27,8 +27,8 @@ interface IStyledBoxProps {
   height: string;
   width: string;
   blockType: string;
-  shouldAllowScrollingVertically: boolean;
-  shouldAllowScrollingHorizontally: boolean;
+  isScrollableVertically: boolean;
+  isScrollableHorizontally: boolean;
 }
 
 const StyledBox = styled.div<IStyledBoxProps>`
@@ -36,8 +36,8 @@ const StyledBox = styled.div<IStyledBoxProps>`
   height: ${(props: IStyledBoxProps): string => props.height};
   width: ${(props: IStyledBoxProps): string => props.width};
   display: ${(props: IStyledBoxProps): string => props.blockType};
-  overflow-y: ${(props: IStyledBoxProps): string => (props.shouldAllowScrollingVertically ? 'auto' : 'hidden')};
-  overflow-x: ${(props: IStyledBoxProps): string => (props.shouldAllowScrollingHorizontally ? 'auto' : 'hidden')};
+  overflow-y: ${(props: IStyledBoxProps): string => (props.isScrollableVertically ? 'auto' : 'hidden')};
+  overflow-x: ${(props: IStyledBoxProps): string => (props.isScrollableHorizontally ? 'auto' : 'hidden')};
   outline: none;
 `;
 
@@ -46,8 +46,8 @@ interface IBoxProps extends IComponentProps<IBoxTheme>, ISingleAnyChildProps {
   width?: string;
   isFullHeight: boolean;
   isFullWidth: boolean;
-  shouldAllowScrollingVertically: boolean;
-  shouldAllowScrollingHorizontally: boolean;
+  isScrollableVertically: boolean;
+  isScrollableHorizontally: boolean;
 }
 
 export const Box = (props: IBoxProps): React.ReactElement => {
@@ -72,8 +72,8 @@ export const Box = (props: IBoxProps): React.ReactElement => {
       height={height}
       width={width}
       blockType={blockType}
-      shouldAllowScrollingVertically={props.shouldAllowScrollingVertically}
-      shouldAllowScrollingHorizontally={props.shouldAllowScrollingHorizontally}
+      isScrollableVertically={props.isScrollableVertically}
+      isScrollableHorizontally={props.isScrollableHorizontally}
     >
       {props.children}
     </StyledBox>
@@ -84,6 +84,6 @@ Box.defaultProps = {
   ...defaultComponentProps,
   isFullHeight: false,
   isFullWidth: true,
-  shouldAllowScrollingVertically: false,
-  shouldAllowScrollingHorizontally: false,
+  isScrollableVertically: false,
+  isScrollableHorizontally: false,
 };

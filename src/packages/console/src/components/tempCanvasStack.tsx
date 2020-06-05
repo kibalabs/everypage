@@ -12,7 +12,7 @@ export interface ICanvasStackItemProps extends ISingleAnyChildProps {
   growthFactor: number;
   shrinkFactor: number;
   baseSize: string;
-  shouldAllowScrolling: boolean;
+  isScrollable: boolean;
   isHidden: boolean;
   alignment?: Alignment;
 }
@@ -25,7 +25,7 @@ class CanvasStackItem extends React.Component<ICanvasStackItemProps> {
     shrinkFactor: 0,
     // NOTE(krish): see note above
     baseSize: 'auto',
-    shouldAllowScrolling: false,
+    isScrollable: false,
     isHidden: false,
   };
 }
@@ -36,7 +36,7 @@ interface IStyledCanvasStackProps {
   contentAlignment: Alignment;
   isFullWidth: boolean;
   isFullHeight: boolean;
-  shouldAllowScrolling: boolean;
+  isScrollable: boolean;
 }
 
 const StyledCanvasStack = styled.div<IStyledCanvasStackProps>`
@@ -44,8 +44,8 @@ const StyledCanvasStack = styled.div<IStyledCanvasStackProps>`
   flex-direction: ${(props: IStyledCanvasStackProps): string => (props.direction === Direction.Vertical ? 'column' : 'row')};
   width: ${(props: IStyledCanvasStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledCanvasStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  overflow-y: ${(props: IStyledCanvasStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : (props.isFullHeight ? 'hidden' : 'visible'))};
-  overflow-x: ${(props: IStyledCanvasStackProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : (props.isFullWidth ? 'hidden' : 'visible'))};
+  overflow-y: ${(props: IStyledCanvasStackProps): string => (props.isScrollable && props.direction === Direction.Vertical ? 'auto' : (props.isFullHeight ? 'hidden' : 'visible'))};
+  overflow-x: ${(props: IStyledCanvasStackProps): string => (props.isScrollable && props.direction === Direction.Horizontal ? 'auto' : (props.isFullWidth ? 'hidden' : 'visible'))};
   justify-content: ${(props: IStyledCanvasStackProps): string => getFlexContentAlignment(props.contentAlignment)};
   align-items: ${(props: IStyledCanvasStackProps): string => getFlexItemAlignment(props.childAlignment)};
 `;
@@ -58,7 +58,7 @@ interface ICanvasStackProps extends IMultiAnyChildProps {
   childAlignment: Alignment;
   contentAlignment: Alignment;
   shouldAddGutters: boolean;
-  shouldAllowScrolling: boolean;
+  isScrollable: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
 }
@@ -78,7 +78,7 @@ export const CanvasStack = (props: ICanvasStackProps): React.ReactElement => {
       contentAlignment={props.contentAlignment}
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
-      shouldAllowScrolling={props.shouldAllowScrolling}
+      isScrollable={props.isScrollable}
     >
       { children.map((child: React.ReactElement, index: number): React.ReactElement<ICanvasStackItemProps> => (
         <StyledCanvasStackItem
@@ -88,7 +88,7 @@ export const CanvasStack = (props: ICanvasStackProps): React.ReactElement => {
           growthFactor={child.props.growthFactor}
           shrinkFactor={child.props.shrinkFactor}
           baseSize={child.props.baseSize}
-          shouldAllowScrolling={child.props.shouldAllowScrolling}
+          isScrollable={child.props.isScrollable}
           gutterSize={props.shouldAddGutters ? theme.gutterSize : '0'}
           direction={props.direction}
           alignment={child.props.alignment}
@@ -112,7 +112,7 @@ CanvasStack.defaultProps = {
   direction: Direction.Vertical,
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Fill,
-  shouldAllowScrolling: true,
+  isScrollable: true,
   shouldAddGutters: false,
   isFullWidth: false,
   isFullHeight: false,
@@ -130,8 +130,8 @@ const StyledCanvasStackItem = styled.div<IStyledCanvasStackItemProps>`
   flex-grow: ${(props: IStyledCanvasStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledCanvasStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledCanvasStackItemProps): string => props.baseSize};
-  overflow-y: ${(props: IStyledCanvasStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Vertical ? 'auto' : 'hidden')};
-  overflow-x: ${(props: IStyledCanvasStackItemProps): string => (props.shouldAllowScrolling && props.direction === Direction.Horizontal ? 'auto' : 'hidden')};
+  overflow-y: ${(props: IStyledCanvasStackItemProps): string => (props.isScrollable && props.direction === Direction.Vertical ? 'auto' : 'hidden')};
+  overflow-x: ${(props: IStyledCanvasStackItemProps): string => (props.isScrollable && props.direction === Direction.Horizontal ? 'auto' : 'hidden')};
   margin-top: ${(props: IStyledCanvasStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-bottom: ${(props: IStyledCanvasStackItemProps): string => (props.direction === Direction.Vertical ? props.gutterSize : '0')};
   margin-left: ${(props: IStyledCanvasStackItemProps): string => (props.direction === Direction.Horizontal ? props.gutterSize : '0')};

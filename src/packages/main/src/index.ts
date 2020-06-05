@@ -31,8 +31,9 @@ export const copyPackage = (buildDirectory) => {
   copyDirectorySync(path.join(__dirname, '../bin/package'), buildDirectory);
 };
 
-export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash) => {
+export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash, siteHost) => {
   siteContent.buildHash = buildHash;
+  siteContent.siteHost = siteHost;
   siteContent = everypageCore.updateAssetPaths(siteContent, `/${buildHash}`);
   fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
@@ -59,7 +60,7 @@ export const serve = async (buildDirectory, outputDirectory, port) => {
   return server;
 };
 
-export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash) => {
+export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash, siteHost) => {
   const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
   server.on('error', (error) => {
     console.error(`Error starting everypage project: ${error}`);
@@ -71,7 +72,7 @@ export const start = async (buildDirectory, assetsDirectory, siteFilePath, theme
     });
   }
   chokidar.watch(siteFilePath).add(themeFilePath).on('all', () => {
-    writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash);
+    writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost);
   });
   process.on('SIGTERM', () => {
     console.log('Shutting down server');
@@ -93,6 +94,7 @@ export const runFromProgram = async (command, params) => {
   const themeFilePath = path.join(directory, 'theme.json');
   const assetsDirectory = path.join(directory, 'assets');
   const buildHash = params.buildHash || null;
+  const siteHost = params.siteHost || null;
 
   if (params.clean) {
     console.log('Clearing build and output directories');
@@ -114,13 +116,13 @@ export const runFromProgram = async (command, params) => {
   if (assetsDirectory) {
     copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
-  writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash);
+  writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost);
   if (command === 'build') {
     build(buildDirectory, outputDirectory);
   } else if (command === 'serve') {
     await serve(buildDirectory, outputDirectory, port)
   } else if (command === 'start') {
-    await start(buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash);
+    await start(buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash, siteHost);
   }
   rimraf.sync(buildDirectory);
 };
@@ -135,6 +137,7 @@ export const createProgram = (version) => {
     .option('-c, --clean', 'delete existing build and output directories before starting')
     .option('-b, --build-directory <path>')
     .option('-x, --build-hash <str>')
+    .option('-u, --site-host <str>')
     .option('-o, --output-directory <path>')
     .option('-p, --port <number>')
     .action((params) => runFromProgram('start', params));
@@ -146,6 +149,7 @@ export const createProgram = (version) => {
     .option('-c, --clean', 'delete existing build and output directories before starting')
     .option('-b, --build-directory <path>')
     .option('-x, --build-hash <str>')
+    .option('-u, --site-host <str>')
     .option('-o, --output-directory <path>')
     .action((params) => runFromProgram('build', params));
 
@@ -156,6 +160,7 @@ export const createProgram = (version) => {
     .option('-c, --clean', 'delete existing build and output directories before starting')
     .option('-b, --build-directory <path>')
     .option('-x, --build-hash <str>')
+    .option('-u, --site-host <str>')
     .option('-o, --output-directory <path>')
     .option('-p, --port <number>')
     .action((params) => runFromProgram('serve', params));

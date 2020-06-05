@@ -81,13 +81,13 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
                 <Button onClick={onHideEditorClicked}>Hide</Button>
               </CanvasStack>
             </ButtonBar>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'site'}>
+            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'site'}>
               <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
             </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'theme'}>
+            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'theme'}>
               <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
             </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} shouldAllowScrolling={false} isHidden={selectedType !== 'assets'}>
+            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'assets'}>
               <Dropzone onFilesChosen={onAssetFilesChosen} />
               <FilePreviewGrid fileMap={props.assetFileMap}/>
             </CanvasStack.Item>

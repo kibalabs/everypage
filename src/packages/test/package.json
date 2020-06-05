@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build": "everypage build --clean --output-directory dist --build-hash testing123 && cp -R ./dist ./disttemp && mv ./disttemp ./dist/testing123"
+    "build": "everypage build --clean --output-directory dist --build-hash testing123 --site-host test.evrpg.com && cp -R ./dist ./disttemp && mv ./disttemp ./dist/testing123"
   },
   "dependencies": {
     "@kibalabs/everypage": "0.2.2",
