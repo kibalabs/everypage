@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useInitialization, useHistory } from '@kibalabs/core-react';
+import { useInitialization, useHistory } from '@kibalabs/core-react';
 import { KibaException, dateToString } from '@kibalabs/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
 
 import { Site, SiteVersion, Account } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
@@ -156,7 +157,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${account.accountId}`);
+    history.navigate(`/accounts/${account.accountId}#billing`);
     setIsAccountUpgradePopupShowing(false);
   }
 
@@ -187,6 +188,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   </Typography>
                   {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
                 </Box>
+                {(account.accountType === 'core' || account.accountType === 'starter') && (
+                  <Typography color='textSecondary'>
+                    <Link href={`/accounts/${account.accountId}#billing`}>Upgrade</Link> to remove everypage branding.
+                  </Typography>
+                )}
               </Paper>
               <Paper className={classes.paper}>
                 <Typography variant='h6' className={classes.siteNameText}>Site Versions</Typography>

@@ -125,7 +125,7 @@ export const CreateSitePage = (): React.ReactElement => {
 
   const onAccountUpgradePopupUpgradeClicked = (account: Account): void => {
     setIsAccountUpgradePopupShowing(false);
-    history.navigate(`/accounts/${account.accountId}`);
+    history.navigate(`/accounts/${account.accountId}#billing`);
   }
 
   return (
