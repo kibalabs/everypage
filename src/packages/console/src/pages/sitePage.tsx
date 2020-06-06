@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link, useInitialization } from '@kibalabs/core-react';
+import { Link, useInitialization, useHistory } from '@kibalabs/core-react';
 import { KibaException, dateToString } from '@kibalabs/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -9,9 +8,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-import { Site, SiteVersion } from '../everypageClient/resources';
+import { Site, SiteVersion, Account } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
+import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   siteNameText: {
     fontWeight: 'bold',
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -57,10 +58,13 @@ export interface ISitePageProps {
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient } = useGlobals();
+  const history = useHistory();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
+  const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [versions, setVersions] = React.useState<SiteVersion[] | undefined>(undefined);
   const [primaryVersionId, setPrimaryVersionId] = React.useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
 
   useInitialization((): void => {
     loadSite();
@@ -68,22 +72,18 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   React.useEffect((): void => {
     if (site) {
-      loadVersions(site.siteId);
-      loadPrimaryVersion(site.siteId);
+      loadAccount();
+      loadVersions();
+      loadPrimaryVersion();
     }
   }, [site]);
 
-  const onSetPrimaryClicked = (version: SiteVersion): void => {
-    setIsLoading(true);
-    everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
-      setVersions(undefined);
-      setPrimaryVersionId(undefined);
-      loadVersions(site.siteId);
-      loadPrimaryVersion(site.siteId);
-      setIsLoading(false);
+  const loadAccount = (): void => {
+    everypageClient.get_account(Number(site.accountId)).then((account: Account) => {
+      setAccount(account);
     }).catch((error: KibaException): void => {
       console.log('error', error);
-      setIsLoading(false);
+      setAccount(null);
     });
   }
 
@@ -96,8 +96,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
-  const loadVersions = (siteId: number): void => {
-    everypageClient.list_site_versions(siteId).then((siteVersions: SiteVersion[]) => {
+  const loadVersions = (): void => {
+    everypageClient.list_site_versions(site.siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions);
     }).catch((error: KibaException): void => {
       console.log('error', error);
@@ -105,8 +105,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
-  const loadPrimaryVersion = (siteId: number): void => {
-    everypageClient.get_site_primary_version(siteId).then((siteVersion: SiteVersion) => {
+  const loadPrimaryVersion = (): void => {
+    everypageClient.get_site_primary_version(site.siteId).then((siteVersion: SiteVersion) => {
       setPrimaryVersionId(siteVersion.siteVersionId);
     }).catch((error: KibaException): void => {
       console.log('error', error);
@@ -118,10 +118,13 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
 
-  const onCreateNewVersionClicked = (): void => {
+  const onSetPrimaryClicked = (version: SiteVersion): void => {
     setIsLoading(true);
-    everypageClient.clone_site_version(site.siteId, primaryVersionId).then((): void => {
-      loadVersions(site.siteId);
+    everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
+      setVersions(undefined);
+      setPrimaryVersionId(undefined);
+      loadVersions();
+      loadPrimaryVersion();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
       console.log('error', error);
@@ -129,27 +132,61 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
+  const onCreateNewVersionClicked = (): void => {
+    setIsLoading(true);
+    everypageClient.clone_site_version(site.siteId, primaryVersionId).then((): void => {
+      loadVersions();
+      setIsLoading(false);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      setIsLoading(false);
+    });
+  }
+
+  const onSetCustomDomainClicked = (): void => {
+    if (account.accountType == 'core') {
+      setIsAccountUpgradePopupShowing(true);
+    } else {
+      // TODO(krish): implement the flow
+    }
+  }
+
+  const onAccountUpgradePopupCloseClicked = (): void => {
+    setIsAccountUpgradePopupShowing(false);
+  }
+
+  const onAccountUpgradePopupUpgradeClicked = (): void => {
+    history.navigate(`/accounts/${account.accountId}`);
+    setIsAccountUpgradePopupShowing(false);
+  }
+
   return (
     <div className={classes.root}>
       <NavigationBar />
       <main className={classes.content}>
         <Container maxWidth='lg'>
-          {isLoading || site === undefined || versions === undefined || primaryVersionId === undefined ? (
+          {isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
             <div>Loading...</div>
           ) : site === null ? (
             <div>Site not found</div>
           ) : (
             <React.Fragment>
               <Paper className={classes.paper}>
-                <Typography variant='h6' className={classes.siteNameText}>
-                  {site.name}
-                </Typography>
+                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
+                  <Typography variant='h6' className={classes.siteNameText}>
+                    {site.name}
+                  </Typography>
+                  <Button href={getSiteUrl()} color='primary'>Open</Button>
+                </Box>
                 <Typography color='textSecondary'>
-                  {site.slug}
+                  Site slug: {site.slug}
                 </Typography>
-                <Typography color='textSecondary'>
-                  <a href={getSiteUrl()}>{getSiteUrl()}</a>
-                </Typography>
+                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
+                  <Typography color='textSecondary'>
+                    Custom domain: {site.customDomain || 'not set'}
+                  </Typography>
+                  {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
+                </Box>
               </Paper>
               <Paper className={classes.paper}>
                 <Typography variant='h6' className={classes.siteNameText}>Site Versions</Typography>
@@ -181,6 +218,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           )}
         </Container>
       </main>
+      <AccountUpgradeDomainDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
     </div>
   );
 }
