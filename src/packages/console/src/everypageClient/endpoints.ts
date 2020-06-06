@@ -97,6 +97,28 @@ export class RetrieveAccountsResponse extends ResponseData {
   }
 }
 
+export class GetAccountRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetAccountResponse extends ResponseData {
+  readonly account: Resources.Account;
+
+  public constructor(account: Resources.Account) {
+    super();
+    this.account = account;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetAccountResponse => {
+    return new GetAccountResponse(
+      Resources.Account.fromObject(obj.account),
+    );
+  }
+}
+
 export class RetrieveSitesForAccountRequest extends RequestData {
   public toObject = (): Record<string, any> => {
     return {

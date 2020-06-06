@@ -19,6 +19,7 @@ const StyledImage = styled.img<IStyledImageProps>`
   height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'auto')};
   max-width: 100%;
   max-height: 100%;
+  pointer-events: none;
   object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
 `;
 

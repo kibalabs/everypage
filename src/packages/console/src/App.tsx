@@ -14,6 +14,7 @@ import { RegisterPage } from './pages/registerPage';
 import { NotFoundPage } from './pages/notFoundPage';
 import { CreateSitePage } from './pages/createSitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
+import { AccountPage } from './pages/accountPage';
 import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';
@@ -41,6 +42,7 @@ export const App = (): React.ReactElement => {
         <Router authManager={authManager}>
           <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
           <Route path='/canvas' page={CanvasPage} redirectIfNoAuth={'/login'} />
+          <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
