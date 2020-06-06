@@ -1,6 +1,6 @@
 import React from 'react';
 import { KibaException } from '@kibalabs/core';
-import { useHistory, useInitialization, useUrlQueryState } from '@kibalabs/core-react';
+import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Account } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
+import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,17 +47,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CreateSitePage = (): React.ReactElement => {
+  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [selectedAccountId, setSelectedAccountId] = useUrlQueryState<number | undefined>('accountId');
+  const [selectedAccountId, setSelectedAccountId] = useIntegerUrlQueryState('accountId');
   const [selectedAccountIdError, setSelectedAccountIdError] = React.useState<string | undefined>(undefined);
   const [slug, setSlug] = React.useState<string>('');
   const [slugError, setSlugError] = React.useState<string | undefined>(undefined);
   const [name, setName] = React.useState<string>('');
   const [nameError, setNameError] = React.useState<string | undefined>(undefined);
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
-  const classes = useStyles();
+  const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
 
   useInitialization((): void => {
     loadAccounts();
@@ -78,6 +80,7 @@ export const CreateSitePage = (): React.ReactElement => {
     event.preventDefault();
     setSlugError(undefined);
     setNameError(undefined);
+    setSelectedAccountIdError(undefined);
     if (!selectedAccountId) {
       setSelectedAccountIdError('Please select an account to create this site in.');
       return;
@@ -90,7 +93,10 @@ export const CreateSitePage = (): React.ReactElement => {
     everypageClient.create_site(selectedAccountId, slug, name || undefined).then((): void => {
       history.navigate(`/sites/${slug}`);
     }).catch((error: KibaException): void => {
-      if (error.statusCode && error.statusCode === 400) {
+      if (error.message === 'SITE_LIMIT_REACHED_CORE') {
+        setIsAccountUpgradePopupShowing(true);
+        setSlugError('You have reached the site limit for free accounts. Please upgrade to add more.');
+      } else if (error.statusCode && error.statusCode === 400) {
         setSlugError(error.message);
       } else {
         setSlugError('Something went wrong on our side. Please try again later.')
@@ -111,6 +117,15 @@ export const CreateSitePage = (): React.ReactElement => {
 
   const onAccountSelected = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setSelectedAccountId(event.target.value);
+  }
+
+  const onAccountUpgradePopupCloseClicked = (): void => {
+    setIsAccountUpgradePopupShowing(false);
+  }
+
+  const onAccountUpgradePopupUpgradeClicked = (account: Account): void => {
+    setIsAccountUpgradePopupShowing(false);
+    history.navigate(`/accounts/${account.accountId}`);
   }
 
   return (
@@ -189,6 +204,7 @@ export const CreateSitePage = (): React.ReactElement => {
           )}
         </Paper>
       </Container>
+      <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
     </div>
   );
 }

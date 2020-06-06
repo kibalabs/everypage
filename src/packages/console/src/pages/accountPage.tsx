@@ -6,16 +6,14 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
-import CardContent from '@material-ui/core/CardContent';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Paper from '@material-ui/core/Paper';
 
 import { Account, Site } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
 import { SiteCard } from '../components/siteCard';
+import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +56,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Site[] | null | undefined>(undefined);
+  const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
 
   useInitialization((): void => {
     loadAccount();
@@ -87,7 +86,20 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   }
 
   const onCreateSiteClicked = (): void => {
-    history.navigate(`/sites/create?accountId=${account.accountId}`);
+    if (account.accountType === 'core' && accountSites.length >= 3) {
+      setIsAccountUpgradePopupShowing(true);
+    } else {
+      history.navigate(`/sites/create?accountId=${account.accountId}`);
+    }
+  }
+
+  const onAccountUpgradePopupCloseClicked = (): void => {
+    setIsAccountUpgradePopupShowing(false);
+  }
+
+  const onAccountUpgradePopupUpgradeClicked = (): void => {
+    setIsAccountUpgradePopupShowing(false);
+    // TODO(krish): go to the upgrade section!
   }
 
   return (
@@ -118,6 +130,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   <Typography variant='h6' className={classes.paperTitle}>Sites</Typography>
                   <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>
                 </Box>
+                <Typography>{`${accountSites.length} sites`}</Typography>
                 <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites.map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
@@ -137,6 +150,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           )}
         </Container>
       </main>
+      <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
     </div>
   );
 }

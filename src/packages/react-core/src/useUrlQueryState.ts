@@ -34,7 +34,7 @@ export const useUrlQueryState = (name: string, overrideInitialValue?: string | n
   return [value, setter];
 };
 
-export const useIntegerLocalStorageState = (name: string, overrideInitialValue?: number): [number | null, (newValue: number | null) => void] => {
+export const useIntegerUrlQueryState = (name: string, overrideInitialValue?: number): [number | null, (newValue: number | null) => void] => {
   const [value, setValue] = useUrlQueryState(name, integerToString(overrideInitialValue));
   return [integerFromString(value) as number | null, ((newValue: number | null): void => setValue(integerToString(newValue) as string | null))];
 };

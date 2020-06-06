@@ -34,10 +34,10 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       {/* Font loading ideas from https://csswizardry.com/2020/05/the-fastest-google-fonts/ */}
       {/* NOTE(krish): helmet doesnt work with fragments (https://github.com/nfl/react-helmet/issues/342) */}
       <link rel='preconnect' href='https://assets.evrpg.com' crossOrigin='anonymous' />
-      { Object.keys(theme.fonts).map((fontKey: string, index: number): React.ReactElement => (
+      { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
       ))}
-      { Object.keys(theme.fonts).map((fontKey: string, index: number): React.ReactElement => (
+      { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={(event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'}} />
       ))}
 

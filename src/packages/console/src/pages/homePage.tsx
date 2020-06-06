@@ -16,6 +16,7 @@ import { Account, Site } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
 import { SiteCard } from '../components/siteCard';
+import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +54,7 @@ export const HomePage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
+  const [accountUpgradePopupAccount, setAccountUpgradePopupAccount] = React.useState<Account | null>(null);
 
   useInitialization((): void => {
     loadAccounts();
@@ -96,11 +98,24 @@ export const HomePage = (): React.ReactElement => {
   }
 
   const onCreateSiteClicked = (account: Account): void => {
-    history.navigate(`/sites/create?accountId=${account.accountId}`);
+    if (account.accountType === 'core' && accountSites[account.accountId].length >= 3) {
+      setAccountUpgradePopupAccount(account);
+    } else {
+      history.navigate(`/sites/create?accountId=${account.accountId}`);
+    }
   }
 
   const onManageAccountClicked = (account: Account): void => {
     history.navigate(`/accounts/${account.accountId}`);
+  }
+
+  const onAccountUpgradePopupCloseClicked = (): void => {
+    setAccountUpgradePopupAccount(null);
+  }
+
+  const onAccountUpgradePopupUpgradeClicked = (): void => {
+    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}`);
+    setAccountUpgradePopupAccount(null);
   }
 
   return (
@@ -149,6 +164,7 @@ export const HomePage = (): React.ReactElement => {
           )}
         </Container>
       </main>
+      <AccountUpgradeDialog isOpen={accountUpgradePopupAccount !== null} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
     </div>
   );
 }
