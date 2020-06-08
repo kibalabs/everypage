@@ -203,8 +203,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
                         {!version.archiveDate && !version.publishDate && <Button color='primary'  className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
-                        {!version.archiveDate && !version.publishDate && <Button color='primary' className={classes.versionButton}><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='EDIT' /></Button>}
-                        {version.publishDate && <Button color='primary' className={classes.versionButton}><Link target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='VIEW' /></Button>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
+                        {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
                       {version.archiveDate ? (
                         <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'YYYY-MM-DD HH:mm')}</Typography>
