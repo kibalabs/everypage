@@ -26,13 +26,15 @@ export class Site {
   readonly slug: string;
   readonly name: string;
   readonly customDomain: string | null;
+  readonly customDomainStatus: string | null;
 
-  public constructor(siteId: number, accountId: number, slug: string, name: string, customDomain: string | null) {
+  public constructor(siteId: number, accountId: number, slug: string, name: string, customDomain: string | null, customDomainStatus: string | null) {
     this.siteId = siteId;
     this.accountId = accountId;
     this.slug = slug;
     this.name = name;
     this.customDomain = customDomain;
+    this.customDomainStatus = customDomainStatus;
   }
 
   public static fromObject = (obj: Record<string, any>): Site => {
@@ -42,6 +44,7 @@ export class Site {
       String(obj.slug),
       String(obj.name),
       obj.customDomain ? String(obj.customDomain) : null,
+      obj.customDomainStatus ? String(obj.customDomainStatus) : null,
     );
   }
 }

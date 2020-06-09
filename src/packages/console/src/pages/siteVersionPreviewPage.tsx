@@ -181,56 +181,52 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     setIsHeadShown(!isHeadShown);
   }
 
-  if (site === null || siteVersion === null || siteVersionEntry === null) {
-    return (
-      <div>Error loading site version. Please go back and try again.</div>
-    );
-  }
-  if (!siteContent || !siteTheme) {
-    return (
-      <div>Loading...</div>
-    );
-  }
   return (
     <div className={classes.root}>
       <NavigationBar />
       <main className={classes.content}>
-        <ThemeProvider theme={buildTheme()}>
-          <CanvasStack isFullHeight={true} isFullWidth={true}>
-            <CanvasStack.Item>
-              <Box paddingX={2} paddingY={1} className={classes.metaBox}>
-                <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
-                {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
-                {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
-                <Box className={classes.metaBoxSpacer}/>
-                <FormControlLabel
-                  label='Show metadata'
-                  control={
-                    <Switch
-                      checked={isHeadShown}
-                      onChange={onIsHeadShownToggled}
-                      name='Show metadata'
-                    />
-                  }
+        {site === null || siteVersion === null || siteVersionEntry === null ? (
+          <div>Error loading site version. Please go back and try again...</div>
+        ) : !siteContent || !siteTheme ? (
+          <div>Loading...</div>
+        ) : (
+          <ThemeProvider theme={buildTheme()}>
+            <CanvasStack isFullHeight={true} isFullWidth={true}>
+              <CanvasStack.Item>
+                <Box paddingX={2} paddingY={1} className={classes.metaBox}>
+                  <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
+                  {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
+                  {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
+                  <Box className={classes.metaBoxSpacer}/>
+                  <FormControlLabel
+                    label='Show metadata'
+                    control={
+                      <Switch
+                        checked={isHeadShown}
+                        onChange={onIsHeadShownToggled}
+                        name='Show metadata'
+                      />
+                    }
+                  />
+                </Box>
+              </CanvasStack.Item>
+              <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
+                <Canvas
+                  isEditable={isEditable}
+                  isHeadShown={isHeadShown}
+                  siteContent={siteContent}
+                  onSiteContentUpdated={onSiteContentUpdated}
+                  siteTheme={siteTheme}
+                  onSiteThemeUpdated={onSiteThemeUpdated}
+                  assetFileMap={assetFileMap}
+                  addAssetFiles={addAssetFiles}
+                  isEditorHidden={isEditorHidden}
+                  onIsEditorHiddenUpdated={setIsEditorHidden}
                 />
-              </Box>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
-              <Canvas
-                isEditable={isEditable}
-                isHeadShown={isHeadShown}
-                siteContent={siteContent}
-                onSiteContentUpdated={onSiteContentUpdated}
-                siteTheme={siteTheme}
-                onSiteThemeUpdated={onSiteThemeUpdated}
-                assetFileMap={assetFileMap}
-                addAssetFiles={addAssetFiles}
-                isEditorHidden={isEditorHidden}
-                onIsEditorHiddenUpdated={setIsEditorHidden}
-              />
-            </CanvasStack.Item>
-          </CanvasStack>
-        </ThemeProvider>
+              </CanvasStack.Item>
+            </CanvasStack>
+          </ThemeProvider>
+        )}
       </main>
     </div>
   );

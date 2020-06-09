@@ -152,6 +152,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     }
   }
 
+  const onSiteStatusClicked = (): void => {
+    // TODO(krish): implement the flow
+  }
+
   const onAccountUpgradePopupCloseClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
   }
@@ -187,6 +191,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     Custom domain: {site.customDomain || 'not set'}
                   </Typography>
                   {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
+                  {site.customDomain && site.customDomainStatus != 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
                 </Box>
                 {(account.accountType === 'core' || account.accountType === 'starter') && (
                   <Typography color='textSecondary'>
