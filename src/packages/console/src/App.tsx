@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Router, Route } from '@kibalabs/core-react';
+import { Router, Route, useInitialization } from '@kibalabs/core-react';
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 
 import { EverypageClient } from './everypageClient/everypageClient';
@@ -31,6 +31,12 @@ const globals = {
 }
 
 export const App = (): React.ReactElement => {
+  useInitialization((): void => {
+    if (authManager.getIsUserLoggedIn()) {
+      everypageClient.refresh_token();
+    }
+  });
+
   return (
     <GlobalsProvider globals={globals}>
       <React.Fragment>

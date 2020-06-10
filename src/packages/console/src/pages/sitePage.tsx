@@ -217,6 +217,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsAccountUpgradePopupShowing(false);
   }
 
+  const onRemoveBrandingClicked = (): void => {
+    history.navigate(`/accounts/${account.accountId}#billing`);
+  }
+
   return (
     <div className={classes.root}>
       <NavigationBar />
@@ -318,9 +322,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 {(account.accountType === 'core' || account.accountType === 'starter') && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography color='textSecondary'>
-                      Branding: Made with everypage.
+                      Branding: Made with everypage
                     </Typography>
-                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customise</Button> }
+                    {!site.customDomain && <Button onClick={onRemoveBrandingClicked} color='primary'>Upgrade to remove</Button> }
                   </Box>
                 )}
               </Paper>

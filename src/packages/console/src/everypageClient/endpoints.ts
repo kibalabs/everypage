@@ -75,6 +75,20 @@ export class CreateUserResponse extends ResponseData {
   }
 }
 
+export class RefreshTokenRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class RefreshTokenResponse extends ResponseData {
+  public static fromObject = (obj: Record<string, any>): RefreshTokenResponse => {
+    return new RefreshTokenResponse(
+    );
+  }
+}
+
 export class RetrieveAccountsRequest extends RequestData {
   public toObject = (): Record<string, any> => {
     return {

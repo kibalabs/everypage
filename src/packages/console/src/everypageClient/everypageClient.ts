@@ -31,6 +31,13 @@ export class EverypageClient extends ServiceClient {
     await this.makeRequest(method, path, request, Endpoints.CreateUserResponse);
   }
 
+  public refresh_token = async (): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = `v1/users/refresh-token`;
+    const request = new Endpoints.RefreshTokenRequest();
+    await this.makeRequest(method, path, request, Endpoints.RefreshTokenResponse);
+  }
+
   public retrieve_accounts = async (): Promise<Resources.Account[]> => {
     const method = RestMethod.POST;
     const path = `v1/retrieve-accounts`;

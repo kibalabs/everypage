@@ -19,7 +19,6 @@ export const Head = (props: IHeadProps): React.ReactElement => {
   } else if (socialCardImageUrl.startsWith('/')) {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
-  console.log('website.keywords', website.keywords);
   return (
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false}>
