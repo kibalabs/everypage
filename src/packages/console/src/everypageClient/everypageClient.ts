@@ -71,6 +71,14 @@ export class EverypageClient extends ServiceClient {
     return response.site;
   }
 
+  public update_domain_for_site = async (siteId: number, customDomain: string): Promise<Resources.Site> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/update-domain`;
+    const request = new Endpoints.UpdateDomainForSiteRequest(customDomain);
+    const response = await this.makeRequest(method, path, request, Endpoints.UpdateDomainForSiteResponse);
+    return response.site;
+  }
+
   public get_site_by_slug = async (slug: string): Promise<Resources.Site> => {
     const method = RestMethod.GET;
     const path = `v1/sites/slug/${slug}`;

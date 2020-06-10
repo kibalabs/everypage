@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
 
 import { Site, SiteVersion, Account } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
@@ -50,6 +51,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginRight: theme.spacing(2),
   },
+  customDomainBox: {
+    border: '1px solid #ccc',
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+  }
 }));
 
 export interface ISitePageProps {
@@ -66,6 +72,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [primaryVersionId, setPrimaryVersionId] = React.useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
+  const [isCustomDomainPanelShowing, setIsCustomDomainPanelShowing] = React.useState<boolean>(false);
+  const [newCustomDomain, setNewCustomDomain] = React.useState<string | undefined>(undefined);
+  const [newCustomDomainValue, setNewCustomDomainValue] = React.useState<string>('');
+  const [newCustomDomainError, setNewCustomDomainError] = React.useState<string | undefined>(undefined);
+  const [newCustomDomainApiError, setNewCustomDomainApiError] = React.useState<string | undefined>(undefined);
 
   useInitialization((): void => {
     loadSite();
@@ -148,12 +159,49 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     if (account.accountType == 'core') {
       setIsAccountUpgradePopupShowing(true);
     } else {
-      // TODO(krish): implement the flow
+      setIsCustomDomainPanelShowing(true);
     }
   }
 
+  const onNewCustomDomainValueChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setNewCustomDomainValue(event.target.value);
+    setNewCustomDomainError(undefined);
+  }
+
+  const onCustomDomainNextClicked = (): void => {
+    console.log('newCustomDomainValue', newCustomDomainValue);
+    if (!/^[A-Za-z0-9-\.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
+      setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
+      return;
+    }
+    setNewCustomDomain(newCustomDomainValue);
+  }
+
+  const onCustomDomainSetClicked = (): void => {
+    everypageClient.update_domain_for_site(site.siteId, newCustomDomainValue).then((site: Site) => {
+      setSite(site);
+      setIsCustomDomainPanelShowing(false);
+      setNewCustomDomain(undefined);
+      setNewCustomDomainValue('');
+      setNewCustomDomainError(undefined);
+      setNewCustomDomainApiError(undefined);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      setNewCustomDomainApiError(error.message);
+    });
+  }
+
   const onSiteStatusClicked = (): void => {
-    // TODO(krish): implement the flow
+    everypageClient.update_domain_for_site(site.siteId, site.customDomain).then((site: Site) => {
+      setSite(site);
+      setIsCustomDomainPanelShowing(false);
+      setNewCustomDomain(undefined);
+      setNewCustomDomainValue('');
+      setNewCustomDomainError(undefined);
+      setNewCustomDomainApiError(undefined);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+    });
   }
 
   const onAccountUpgradePopupCloseClicked = (): void => {
@@ -186,13 +234,83 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 <Typography color='textSecondary'>
                   Site slug: {site.slug}
                 </Typography>
-                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
-                  <Typography color='textSecondary'>
-                    Custom domain: {site.customDomain || 'not set'}
-                  </Typography>
-                  {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
-                  {site.customDomain && site.customDomainStatus != 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
-                </Box>
+                {!isCustomDomainPanelShowing && (
+                  <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
+                    <Typography color='textSecondary'>
+                      Custom domain: {site.customDomain || 'not set'}
+                    </Typography>
+                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
+                    {site.customDomain && site.customDomainStatus != 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
+                  </Box>
+                )}
+                {isCustomDomainPanelShowing && (
+                  <Box width={1} display='flex' justifyContent='start' alignItems='start' flexDirection='column' className={classes.customDomainBox}>
+                    <Typography color='textPrimary'>
+                      <strong>Custom domain set up</strong>
+                    </Typography>
+                    <Box mt={2}/>
+                    {!newCustomDomain && (
+                      <React.Fragment>
+                        <Typography color='textPrimary'>
+                          What would you like to be the domain that points to this site?
+                        </Typography>
+                        <TextField
+                          autoFocus
+                          variant='outlined'
+                          margin='normal'
+                          required
+                          fullWidth
+                          name='domain'
+                          type='domain'
+                          id='domain'
+                          value={newCustomDomainValue}
+                          onChange={onNewCustomDomainValueChanged}
+                          error={newCustomDomainError !== undefined}
+                          helperText={newCustomDomainError}
+                        />
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          onClick={onCustomDomainNextClicked}
+                        >Next</Button>
+                      </React.Fragment>
+                    )}
+                    {newCustomDomain && (
+                      <React.Fragment>
+                        <Typography color='textPrimary'>
+                          Great! Now please create the following DNS CNAME record with your hosting provider:
+                        </Typography>
+                        <Typography color='textSecondary' variant='caption'>
+                        (just message us if you need help with this)
+                        </Typography>
+                        <Box width={1} display='flex' justifyContent='start' alignItems='baseline' mt={2} mb={2}>
+                          <Typography color='textPrimary'>
+                            {newCustomDomain}
+                          </Typography>
+                          <Typography color='textSecondary'>
+                            {' ➡️ '}
+                          </Typography>
+                          <Typography color='textPrimary'>
+                            {site.slug}.int.evrpg.com
+                          </Typography>
+                        </Box>
+                        {newCustomDomainApiError && (
+                          <Typography color='error'>
+                            Something went wrong on our side. Please try again later or contact support.
+                          </Typography>
+                        )}
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          onClick={onCustomDomainSetClicked}
+                        >Done</Button>
+                        <Typography color='textSecondary' variant='caption'>
+                          It can take up to 1 hour for this to work. If it's taken longer, please get in touch with us, something might have failed :(
+                        </Typography>
+                      </React.Fragment>
+                    )}
+                  </Box>
+                )}
                 {(account.accountType === 'core' || account.accountType === 'starter') && (
                   <Typography color='textSecondary'>
                     <Link href={`/accounts/${account.accountId}#billing`}>Upgrade</Link> to remove everypage branding.

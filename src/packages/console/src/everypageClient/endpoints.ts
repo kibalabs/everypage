@@ -338,6 +338,36 @@ export class GetSiteResponse extends ResponseData {
   }
 }
 
+export class UpdateDomainForSiteRequest extends RequestData {
+  readonly customDomain: string;
+
+  public constructor(customDomain: string) {
+    super();
+    this.customDomain = customDomain;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      customDomain: this.customDomain,
+    };
+  }
+}
+
+export class UpdateDomainForSiteResponse extends ResponseData {
+  readonly site: Resources.Site;
+
+  public constructor(site: Resources.Site) {
+    super();
+    this.site = site;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetSiteResponse => {
+    return new GetSiteResponse(
+      Resources.Site.fromObject(obj.site),
+    );
+  }
+}
+
 export class GetSiteBySlugRequest extends RequestData {
   public constructor() {
     super();
