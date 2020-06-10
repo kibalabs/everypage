@@ -34,7 +34,7 @@ export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacem
     } else if (typeof value === 'string') {
       value = value.startsWith('/assets/') ? replaceAssetPath(value, assetReplacements) : value;
     } else if (Array.isArray(value)) {
-      value = value.map(entry => replaceAssetPaths(entry, assetReplacements));
+      value = value.map(entry => typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry);
     } else if (typeof value === 'object') {
       value = replaceAssetPaths(value, assetReplacements);
     }

@@ -6,7 +6,7 @@ export interface IWebsite {
   buildHash: string;
   siteHost: string;
   version?: string;
-  keywords?: [string];
+  keywords?: string[];
   companyUrl?: string;
   title?: string;
   description?: string;

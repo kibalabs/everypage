@@ -27,7 +27,6 @@ interface ISiteCardProps {
 
 export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
   const classes = useStyles();
-  const history = useHistory();
 
   const onSiteClicked = (): void => {
     props.onSiteClicked(props.site);

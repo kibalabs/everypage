@@ -174,6 +174,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
       return;
     }
+    if (newCustomDomainValue.endsWith('.evrpg.com')) {
+      setNewCustomDomainError(`Your site is already hosted at ${site.slug}.evrpg.com. Please enter a domain you own to point it to this site.`);
+      return;
+    }
     setNewCustomDomain(newCustomDomainValue);
   }
 
@@ -237,9 +241,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 {!isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography color='textSecondary'>
-                      Custom domain: {site.customDomain || 'not set'}
+                      Url: {getSiteUrl()}
                     </Typography>
-                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Set custom domain</Button> }
+                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customise</Button> }
                     {site.customDomain && site.customDomainStatus != 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
                   </Box>
                 )}
@@ -305,16 +309,19 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           onClick={onCustomDomainSetClicked}
                         >Done</Button>
                         <Typography color='textSecondary' variant='caption'>
-                          It can take up to 1 hour for this to work. If it's taken longer, please get in touch with us, something might have failed :(
+                          {'It can take up to 1 hour for this to work. If it\'s taken longer, please get in touch with us, something might have failed :('}
                         </Typography>
                       </React.Fragment>
                     )}
                   </Box>
                 )}
                 {(account.accountType === 'core' || account.accountType === 'starter') && (
-                  <Typography color='textSecondary'>
-                    <Link href={`/accounts/${account.accountId}#billing`}>Upgrade</Link> to remove everypage branding.
-                  </Typography>
+                  <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
+                    <Typography color='textSecondary'>
+                      Branding: Made with everypage.
+                    </Typography>
+                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customise</Button> }
+                  </Box>
                 )}
               </Paper>
               <Paper className={classes.paper}>
