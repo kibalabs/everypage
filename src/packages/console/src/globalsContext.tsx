@@ -2,10 +2,12 @@ import React from 'react';
 import { LocalStorageClient } from '@kibalabs/core';
 
 import { EverypageClient } from './everypageClient';
+import { AuthManager } from './authManager';
 
 
 export interface IGlobals {
   everypageClient: EverypageClient;
+  authManager: AuthManager;
   localStorageClient: LocalStorageClient;
 }
 

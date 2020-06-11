@@ -38,6 +38,13 @@ export class EverypageClient extends ServiceClient {
     await this.makeRequest(method, path, request, Endpoints.RefreshTokenResponse);
   }
 
+  public send_email_verification_for_user = async (): Promise<void> => {
+    const method = RestMethod.POST;
+    const path = `v1/users/send-email-verification`;
+    const request = new Endpoints.SendEmailVerificationForUserRequest();
+    await this.makeRequest(method, path, request, Endpoints.SendEmailVerificationForUserResponse);
+  }
+
   public retrieve_accounts = async (): Promise<Resources.Account[]> => {
     const method = RestMethod.POST;
     const path = `v1/retrieve-accounts`;

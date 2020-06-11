@@ -22,12 +22,13 @@ import { AuthManager } from './authManager';
 import { JwtRequestModifier } from './jwtRequestModifier';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
-const authManager = new AuthManager(localStorageClient, 'ep-console-jwt');
 const requester = new Requester();
-requester.addModifier(new JwtRequestModifier(authManager));
 const everypageClient = new EverypageClient(requester);
+const authManager = new AuthManager(localStorageClient, 'ep-console-jwt', everypageClient);
+requester.addModifier(new JwtRequestModifier(authManager));
 const globals = {
   everypageClient,
+  authManager,
   localStorageClient,
 }
 

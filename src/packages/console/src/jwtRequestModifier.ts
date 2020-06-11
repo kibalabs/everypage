@@ -11,7 +11,7 @@ export class JwtRequestModifier extends RequesterModifier {
   }
 
   public modifyRequest(request: Request): Request {
-    const jwt = this.authManager.getJwt();
+    const jwt = this.authManager.getJwtString();
     if (jwt) {
       request.headers['Authorization'] = `Bearer ${jwt}`;
     }
@@ -20,7 +20,7 @@ export class JwtRequestModifier extends RequesterModifier {
 
   public modifyResponse(response: Response): Response {
     if ('x-kiba-token' in response.headers && response.headers['x-kiba-token']) {
-      this.authManager.setJwt(response.headers['x-kiba-token']);
+      this.authManager.setJwtString(response.headers['x-kiba-token']);
     }
     return response;
   }

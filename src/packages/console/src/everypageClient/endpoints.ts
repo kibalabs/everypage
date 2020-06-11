@@ -89,6 +89,20 @@ export class RefreshTokenResponse extends ResponseData {
   }
 }
 
+export class SendEmailVerificationForUserRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class SendEmailVerificationForUserResponse extends ResponseData {
+  public static fromObject = (obj: Record<string, any>): SendEmailVerificationForUserResponse => {
+    return new SendEmailVerificationForUserResponse(
+    );
+  }
+}
+
 export class RetrieveAccountsRequest extends RequestData {
   public toObject = (): Record<string, any> => {
     return {

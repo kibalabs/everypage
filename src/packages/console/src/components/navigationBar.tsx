@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  alertBar: {
+    backgroundColor: '#ffdd7e',
+  },
   spacer: {
     flexGrow: 1,
   },
@@ -26,13 +29,19 @@ const useStyles = makeStyles((theme) => ({
 
 export const NavigationBar = (): React.ReactElement => {
   const classes = useStyles();
-  const { everypageClient, localStorageClient } = useGlobals();
+  const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
+  const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
 
   const onLogoutClicked = (): void => {
-    everypageClient.logout_user().then((): void => {
-      localStorageClient.clear();
+    authManager.logout().then((): void => {
       history.navigate('/');
+    });
+  }
+
+  const onResendVerificationClicked = (): void => {
+    everypageClient.send_email_verification_for_user().then((): void => {
+      setVerificationSent(true);
     });
   }
 
@@ -50,6 +59,25 @@ export const NavigationBar = (): React.ReactElement => {
           onClick={onLogoutClicked}
         >Log out</Button>
       </Toolbar>
+      {!authManager.getJwt().hasVerifiedEmail && (
+        <Toolbar className={classes.alertBar}>
+          <Typography color="textPrimary">
+            You need to verify your account before you cant create and edit sites. Please check your email.
+          </Typography>
+          <div className={classes.spacer} />
+          {!verificationSent && (
+            <Button
+              variant='outlined'
+              onClick={onResendVerificationClicked}
+            >Resend Verification</Button>
+          )}
+          {verificationSent && (
+            <Typography color="textPrimary">
+              Email sent.
+            </Typography>
+          )}
+        </Toolbar>
+      )}
     </AppBar>
   );
 }
