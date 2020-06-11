@@ -260,7 +260,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     {!newCustomDomain && (
                       <React.Fragment>
                         <Typography color='textPrimary'>
-                          What would you like to be the domain that points to this site?
+                          What domain would you like to point to this site?
                         </Typography>
                         <TextField
                           autoFocus

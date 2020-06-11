@@ -13,6 +13,6 @@
     "dist/*"
   ],
   "devDependencies": {
-    "@kibalabs/build": "0.2.7"
+    "@kibalabs/build": "0.2.8"
   }
 }

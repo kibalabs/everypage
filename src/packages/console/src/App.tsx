@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Router, Route, useInitialization } from '@kibalabs/core-react';
@@ -30,7 +31,7 @@ const globals = {
   localStorageClient,
 }
 
-export const App = (): React.ReactElement => {
+export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refresh_token();
@@ -59,4 +60,4 @@ export const App = (): React.ReactElement => {
       </React.Fragment>
     </GlobalsProvider>
   );
-}
+})

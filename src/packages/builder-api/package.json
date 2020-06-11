@@ -17,7 +17,7 @@
     "rimraf": "3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.2.7",
+    "@kibalabs/build": "0.2.8",
     "@types/node": "13.13.4"
   }
 }
