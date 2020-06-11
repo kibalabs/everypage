@@ -2,11 +2,9 @@ import React from 'react';
 
 import { Section, ISectionProps } from '.';
 import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '../components';
-import { IFormProps, defaultFormProps } from '../model';
 
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
-interface IHeroSimple1Props extends ISectionProps, IFormProps {
+interface IHeroSimple1Props extends ISectionProps {
   logoImageUrl?: string;
   titleText?: string;
   subtitleText?: string;
@@ -43,5 +41,4 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
 };
 HeroSimple1.displayName = 'hero-simple-1';
 HeroSimple1.defaultProps = {
-  ...defaultFormProps,
 };

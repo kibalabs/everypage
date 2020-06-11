@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from '@kibalabs/core-react';
+import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -32,6 +32,7 @@ export const NavigationBar = (): React.ReactElement => {
   const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
+  const [hasVerifiedEmail, setHasVerifiedEmail] = React.useState<boolean>(true);
 
   const onLogoutClicked = (): void => {
     authManager.logout().then((): void => {
@@ -44,6 +45,19 @@ export const NavigationBar = (): React.ReactElement => {
       setVerificationSent(true);
     });
   }
+
+  useInitialization((): (() => void) => {
+    setHasVerifiedEmail(authManager.getJwt().hasVerifiedEmail);
+    if (!authManager.getJwt().hasVerifiedEmail) {
+      const intervalId = setInterval((): void => {
+        if (authManager.getJwt().hasVerifiedEmail) {
+          setHasVerifiedEmail(true);
+          clearInterval(intervalId);
+        }
+      }, 1000);
+      return (): void => clearInterval(intervalId);
+    }
+  });
 
   return (
     <AppBar position="absolute" className={classes.appBar}>
@@ -59,10 +73,10 @@ export const NavigationBar = (): React.ReactElement => {
           onClick={onLogoutClicked}
         >Log out</Button>
       </Toolbar>
-      {!authManager.getJwt().hasVerifiedEmail && (
+      {!hasVerifiedEmail && (
         <Toolbar className={classes.alertBar}>
           <Typography color="textPrimary">
-            You need to verify your account before you cant create and edit sites. Please check your email.
+            You need to verify your account before you can create and edit sites. Please check your email.
           </Typography>
           <div className={classes.spacer} />
           {!verificationSent && (

@@ -34,6 +34,7 @@ const globals = {
 
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
+    console.log(`\n\n\nRunning everypage console version: ${window.KRT_VERSION}\n\n\n`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refresh_token();
     }
