@@ -11,7 +11,7 @@ export interface IGlobalHeadProps {
   theme?: ITheme;
 }
 
-// TODO(krish): this should use HeadContent but can't yet becasue helmet doesnt work with fragments (https://github.com/nfl/react-helmet/issues/342)
+// TODO(krish): this should use HeadContent but can't yet because helmet doesn't work with fragments (https://github.com/nfl/react-helmet/issues/342)
 export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   const website = props.website || useWebsite();
   const theme = props.theme || useTheme();
@@ -25,14 +25,17 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
   return (
     <Helmet>
       <meta charSet='utf-8' />
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+      {/* Everypage meta */}
       <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
       <meta name='build-hash' content={website.buildHash || null} />
       <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
-      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       { website.version && <meta name='version' content={website.version} /> }
 
+      {/* Fonts */}
       {/* Font loading ideas from https://csswizardry.com/2020/05/the-fastest-google-fonts/ */}
-      {/* NOTE(krish): helmet doesnt work with fragments (https://github.com/nfl/react-helmet/issues/342) */}
+      {/* NOTE(krish): helmet doesn't work with fragments (https://github.com/nfl/react-helmet/issues/342) */}
       <link rel='preconnect' href='https://assets.evrpg.com' crossOrigin='anonymous' />
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
@@ -41,18 +44,22 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
         <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={(event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'}} />
       ))}
 
+      {/* Page meta */}
       <title>{title}</title>
       { website.description && <meta name='description' content={website.description} /> }
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
       <meta name='author' content={website.company} />
       <meta name='copyright' content={website.company} />
+      <meta name='application-name' content={name} />
 
+      {/* Facebook */}
       <meta property='og:title' content={title} />
       <meta property='og:site_name' content={website.name} />
       { website.description && <meta property='og:description' content={website.description} /> }
       <meta property='og:image' content={socialCardImageUrl} />
       <meta property='og:url' content={`https://${website.siteHost}`} />
 
+      {/* Twitter */}
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:title' content={title} />
       { website.description && <meta name='twitter:description' content={website.description} /> }
@@ -60,6 +67,61 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='twitter:image:alt' content='Alt text for image' />
       { website.twitterUsername && <meta name='twitter:site' content={`@${website.twitterUsername}`} /> }
       { website.twitterCompanyUsername && <meta name='twitter:creator' content={`@${website.twitterCompanyUsername}`} /> }
+
+      {/* Android */}
+      <meta name='theme-color' content={String(theme.brandColorPrimary)} />
+      <meta name='mobile-web-app-capable' content='yes' />
+
+      {/* iOS */}
+      <meta name='apple-mobile-web-app-title' content={name} />
+      <meta name='apple-mobile-web-app-capable' content='yes' />
+      <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+
+      {/* Windows */}
+      <meta name='msapplication-navbutton-color' content={String(theme.brandColorPrimary)} />
+      <meta name='msapplication-TileColor' content={String(theme.brandColorPrimary)} />
+      <meta name='msapplication-TileImage' content='ms-icon-144x144.png' />
+      <meta name='msapplication-config' content='browserconfig.xml' />
+      <meta name='msapplication-tooltip' content={website.tagline || website.description} />
+      <meta name='msapplication-starturl' content='/' />
+      <meta name='msapplication-tap-highlight' content='no' />
+
+      {/* UC Mobile Browser */}
+      <meta name='full-screen' content='yes' />
+      <meta name='browsermode' content='application' />
+
+      {/* Favicons */}
+      <link href='favicon-16.png' rel='icon' type='image/png' sizes='16x16' />
+      <link href='favicon-32.png' rel='icon' type='image/png' sizes='32x32' />
+      <link href='favicon-48.png' rel='icon' type='image/png' sizes='48x48' />
+      <link href='favicon.icon' rel='shortcut icon' type='image/x-icon' />
+
+      {/* Favicons - iOS */}
+      <link href='/assets/_generated/favicon-57.png' rel='apple-touch-icon' sizes='57x57' />
+      <link href='/assets/_generated/favicon-60.png' rel='apple-touch-icon' sizes='60x60' />
+      <link href='/assets/_generated/favicon-72.png' rel='apple-touch-icon' sizes='72x72' />
+      <link href='/assets/_generated/favicon-76.png' rel='apple-touch-icon' sizes='76x76' />
+      <link href='/assets/_generated/favicon-114.png' rel='apple-touch-icon' sizes='114x114' />
+      <link href='/assets/_generated/favicon-120.png' rel='apple-touch-icon' sizes='120x120' />
+      <link href='/assets/_generated/favicon-144.png' rel='apple-touch-icon' sizes='144x144' />
+      <link href='/assets/_generated/favicon-152.png' rel='apple-touch-icon' sizes='152x152' />
+      <link href='/assets/_generated/favicon-167.png' rel='apple-touch-icon' sizes='167x167' />
+      <link href='/assets/_generated/favicon-180.png' rel='apple-touch-icon' sizes='180x180' />
+      <link href='/assets/_generated/favicon-1024.png' rel='apple-touch-icon' sizes='1024x1024' />
+
+      {/* Favicons - Safari pinned */}
+      <link href='icon.svg' rel='mask-icon' color={String(theme.brandColorPrimary)} />
+
+      {/* Favicons - Android */}
+      <link href='icon-192.png' rel='icon' sizes='192x192' />
+      <link href='icon-128.png' rel='icon' sizes='128x128' />
+
+      {/* Favicons - UC browser */}
+      <link href='icon-72.png' rel='apple-touch-icon' sizes='72x72' />
+      <link href='icon-52.png' rel='apple-touch-icon-precomposed' sizes='57x57' />
+
+      {/* PWA Manifest */}
+      <link href='/manifest.json' rel='manifest' />
     </Helmet>
   );
 };

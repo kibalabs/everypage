@@ -180,6 +180,9 @@ export const CreateSitePage = (): React.ReactElement => {
                 error={slugError !== undefined}
                 helperText={slugError}
               />
+              <Typography variant='subtitle'>
+                {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
+              </Typography>
               <TextField
                 variant='outlined'
                 margin='normal'

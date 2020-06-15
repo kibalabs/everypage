@@ -9,6 +9,14 @@ class CreateRobotsWebpackPlugin {
   }
 }
 
+class CreateManifestWebpackPlugin {
+  apply(compiler) {
+    compiler.hooks.afterEmit.tap('WriteRobotsTxt', async () => {
+      fs.writeFileSync(path.join(compiler.options.output.path, 'manifest.json'), 'User-agent: *\nDisallow:\n');
+    });
+  }
+}
+
 export default () => ({
   webpack: (config) => {
     // https://github.com/react-static/react-static/pull/1329
