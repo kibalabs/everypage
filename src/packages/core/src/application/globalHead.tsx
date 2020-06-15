@@ -80,7 +80,7 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       {/* Windows */}
       <meta name='msapplication-navbutton-color' content={String(theme.brandColorPrimary)} />
       <meta name='msapplication-TileColor' content={String(theme.brandColorPrimary)} />
-      <meta name='msapplication-TileImage' content='ms-icon-144x144.png' />
+      <meta name='msapplication-TileImage' content='/assets/_generated/favicon-144x144.png' />
       <meta name='msapplication-config' content='browserconfig.xml' />
       <meta name='msapplication-tooltip' content={website.tagline || website.description} />
       <meta name='msapplication-starturl' content='/' />
@@ -91,10 +91,11 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='browsermode' content='application' />
 
       {/* Favicons */}
-      <link href='favicon-16.png' rel='icon' type='image/png' sizes='16x16' />
-      <link href='favicon-32.png' rel='icon' type='image/png' sizes='32x32' />
-      <link href='favicon-48.png' rel='icon' type='image/png' sizes='48x48' />
-      <link href='favicon.icon' rel='shortcut icon' type='image/x-icon' />
+      <link href='/assets/_generated/favicon-16.png' rel='icon' type='image/png' sizes='16x16' />
+      <link href='/assets/_generated/favicon-32.png' rel='icon' type='image/png' sizes='32x32' />
+      <link href='/assets/_generated/favicon-48.png' rel='icon' type='image/png' sizes='48x48' />
+      <link href='/assets/_generated/favicon-228.png' rel='icon' type='image/png' sizes='228x228' />
+      <link href='/assets/_generated/favicon.icon' rel='shortcut icon' type='image/x-icon' />
 
       {/* Favicons - iOS */}
       <link href='/assets/_generated/favicon-57.png' rel='apple-touch-icon' sizes='57x57' />
@@ -110,18 +111,14 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <link href='/assets/_generated/favicon-1024.png' rel='apple-touch-icon' sizes='1024x1024' />
 
       {/* Favicons - Safari pinned */}
-      <link href='icon.svg' rel='mask-icon' color={String(theme.brandColorPrimary)} />
+      <link href='/assets/_generated/favicon.svg' rel='mask-icon' color={String(theme.brandColorPrimary)} />
 
       {/* Favicons - Android */}
-      <link href='icon-192.png' rel='icon' sizes='192x192' />
-      <link href='icon-128.png' rel='icon' sizes='128x128' />
-
-      {/* Favicons - UC browser */}
-      <link href='icon-72.png' rel='apple-touch-icon' sizes='72x72' />
-      <link href='icon-52.png' rel='apple-touch-icon-precomposed' sizes='57x57' />
+      <link href='/assets/_generated/favicon-192.png' rel='icon' sizes='192x192' />
+      <link href='/assets/_generated/favicon-128.png' rel='icon' sizes='128x128' />
 
       {/* PWA Manifest */}
-      <link href='/manifest.json' rel='manifest' />
+      <link href='/assets/_generated/manifest.json' rel='manifest' />
     </Helmet>
   );
 };

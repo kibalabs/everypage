@@ -116,10 +116,6 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <link href='/assets/_generated/favicon-192.png' rel='icon' sizes='192x192' />
       <link href='/assets/_generated/favicon-128.png' rel='icon' sizes='128x128' />
 
-      {/* Favicons - UC browser */}
-      <link href='/assets/_generated/favicon-72.png' rel='apple-touch-icon' sizes='72x72' />
-      <link href='/assets/_generated/favicon-52.png' rel='apple-touch-icon-precomposed' sizes='57x57' />
-
       {/* PWA Manifest */}
       <link href='/assets/_generated/manifest.json' rel='manifest' />
     </React.Fragment>

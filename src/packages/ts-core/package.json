@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/core",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "scripts": {
     "build": "build-module",
     "start": "build-module --start",
