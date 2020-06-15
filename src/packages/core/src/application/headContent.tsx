@@ -49,7 +49,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { website.keywords && <meta name='keywords' content={website.keywords.join(', ')} /> }
       <meta name='author' content={website.company} />
       <meta name='copyright' content={website.company} />
-      <meta name='application-name' content={name} />
+      <meta name='application-name' content={website.name} />
 
       {/* Facebook */}
       <meta property='og:title' content={title} />
@@ -72,7 +72,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <meta name='mobile-web-app-capable' content='yes' />
 
       {/* iOS */}
-      <meta name='apple-mobile-web-app-title' content={name} />
+      <meta name='apple-mobile-web-app-title' content={website.name} />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
 
