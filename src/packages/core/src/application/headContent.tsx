@@ -22,27 +22,27 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
 
-  const createManifest = (): Record<string, any> => {
-    const sizes = [48, 72, 96, 144, 168, 192, 256, 512];
-    return {
-      name: website.name,
-      short_name: website.name,
-      gcm_sender_id: '',
-      gcm_user_visible_only: true,
-      start_url: '/?utm_source=homescreen',
-      permissions: ['gcm'],
-      scope: '',
-      orientation: 'portrait',
-      display: 'standalone',
-      theme_color: theme.colors.brandPrimary,
-      background_color: theme.colors.background,
-      icons: sizes.map((size) => ({
-        'src': `/assets/_generated/favicon-${size}.png`,
-        'sizes': `${size}x${size}`,
-        'type': 'image/png'
-      })),
-    };
-  }
+  // const createManifest = (): Record<string, any> => {
+  //   const sizes = [48, 72, 96, 144, 168, 192, 256, 512];
+  //   return {
+  //     name: website.name,
+  //     short_name: website.name,
+  //     gcm_sender_id: '',
+  //     gcm_user_visible_only: true,
+  //     start_url: '/?utm_source=homescreen',
+  //     permissions: ['gcm'],
+  //     scope: '',
+  //     orientation: 'portrait',
+  //     display: 'standalone',
+  //     theme_color: theme.colors.brandPrimary,
+  //     background_color: theme.colors.background,
+  //     icons: sizes.map((size) => ({
+  //       'src': `/assets/_generated/favicon-${size}.png`,
+  //       'sizes': `${size}x${size}`,
+  //       'type': 'image/png'
+  //     })),
+  //   };
+  // }
 
   return (
     <React.Fragment>
@@ -139,8 +139,8 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <link rel='icon' sizes='192x192' href={`/${website.buildHash}/assets/_generated/favicon-192.png`} />
       <link rel='icon' sizes='128x128' href={`/${website.buildHash}/assets/_generated/favicon-128.png`} />
 
-      {/* PWA Manifest */}
-      <link rel='manifest' href={`data:application/manifest+json,${JSON.stringify(createManifest())}`} />
+      {/* PWA Manifest
+      <link rel='manifest' href={`data:application/manifest+json,${JSON.stringify(createManifest())}`} /> */}
     </React.Fragment>
   );
 };
