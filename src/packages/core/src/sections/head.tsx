@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Text, Stack, Alignment, Spacing, Direction } from '../components';
+import { Text, Stack, Alignment, Spacing, Direction, Image, Box } from '../components';
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 import { TwitterCard } from '../application/twitterCard';
@@ -42,6 +42,11 @@ export const Head = (props: IHeadProps): React.ReactElement => {
               <Spacing mode='default' />
               <Text mode='strong'>Copyright</Text>
               <Text>{website.company || '(not set)'}</Text>
+              <Spacing mode='default' />
+              <Text mode='strong'>Favicon</Text>
+              <Box width='100px' mode='transparent'>
+                <Image source={website.faviconImageUrl} />
+              </Box>
               <Spacing mode='wide' />
             </Stack>
           </Stack.Item>
