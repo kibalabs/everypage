@@ -284,6 +284,41 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const secondaryLinkBaseTheme: ILinkBaseTheme = mergeTheme(primaryLinkBaseTheme, baseTheme.linkBases?.secondary);
   const tertiaryLinkBaseTheme: ILinkBaseTheme = mergeTheme(primaryLinkBaseTheme, baseTheme.linkBases?.tertiary);
 
+  const defaultNormalTransparentLinkBaseTheme = mergeTheme<ILinkBaseThemeBase>({
+    background: mergeTheme(transparentBoxTheme, focusableBorderBox),
+  }, baseTheme.linkBases?.transparent?.normal?.default);
+
+  const transparentLinkBaseTheme = mergeTheme<ILinkBaseTheme>({
+    normal: {
+      default: defaultNormalTransparentLinkBaseTheme,
+      hover: {
+        // background: {
+        //   'background-color': Polished.transparentize(0.8, colors.brandPrimary),
+        // },
+      },
+      press: {
+        // background: {
+        //   'background-color': Polished.transparentize(0.6, colors.brandPrimary),
+        // },
+      },
+      focus: {
+        background: focusBorderBox,
+      },
+    },
+    disabled: {
+      default: mergeTheme(defaultNormalTransparentLinkBaseTheme, {
+        background: {
+          'background-color': '#999999',
+        },
+      }),
+      hover: {},
+      press: {},
+      focus: {
+        background: focusBorderBox,
+      },
+    },
+  }, baseTheme.linkBases?.transparent);
+
   const defaultNormalDefaultInputWrapperThemeBase: IInputWrapperThemeBase = mergeTheme({
     text: textTheme,
     errorText: mergeTheme(textTheme, {
@@ -452,6 +487,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
       primary: primaryLinkBaseTheme,
       secondary: secondaryLinkBaseTheme,
       tertiary: tertiaryLinkBaseTheme,
+      transparent: transparentLinkBaseTheme,
     },
     inputWrappers: {
       default: defaultInputWrapperTheme,

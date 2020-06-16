@@ -135,8 +135,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
       setVersions(undefined);
       setPrimaryVersionId(undefined);
-      loadVersions();
-      loadPrimaryVersion();
+      loadSite();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
       console.log('error', error);
