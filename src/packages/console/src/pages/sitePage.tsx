@@ -242,6 +242,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 <Typography color='textSecondary'>
                   Site slug: {site.slug}
                 </Typography>
+                <Typography color='textSecondary'>
+                  Status: {site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}
+                </Typography>
                 {!isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography color='textSecondary'>
@@ -336,7 +339,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                       <Box display='flex' justifyContent='start' alignItems='baseline'>
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
-                        {!version.archiveDate && !version.publishDate && <Button color='primary'  className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {version.isPublishing && <Typography color='secondary' component='span'>Promoting</Typography>}
+                        {!version.archiveDate && !version.publishDate && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
                         {!version.archiveDate && !version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>

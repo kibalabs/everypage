@@ -135,7 +135,7 @@ export class EverypageClient extends ServiceClient {
 
   public promote_site_version = async (siteId: number, siteVersionId: number): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/sites/${siteId}/versions/${siteVersionId}/promote`;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/promote-deferred`;
     const request = new Endpoints.PromoteSiteVersionRequest();
     await this.makeRequest(method, path, request, Endpoints.PromoteSiteVersionResponse);
   }

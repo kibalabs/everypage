@@ -25,14 +25,16 @@ export class Site {
   readonly accountId: number;
   readonly slug: string;
   readonly name: string;
+  readonly isPublishing: boolean;
   readonly customDomain: string | null;
   readonly customDomainStatus: string | null;
 
-  public constructor(siteId: number, accountId: number, slug: string, name: string, customDomain: string | null, customDomainStatus: string | null) {
+  public constructor(siteId: number, accountId: number, slug: string, name: string, isPublishing: boolean, customDomain: string | null, customDomainStatus: string | null) {
     this.siteId = siteId;
     this.accountId = accountId;
     this.slug = slug;
     this.name = name;
+    this.isPublishing = isPublishing;
     this.customDomain = customDomain;
     this.customDomainStatus = customDomainStatus;
   }
@@ -43,6 +45,7 @@ export class Site {
       Number(obj.accountId),
       String(obj.slug),
       String(obj.name),
+      Boolean(obj.isPublishing),
       obj.customDomain ? String(obj.customDomain) : null,
       obj.customDomainStatus ? String(obj.customDomainStatus) : null,
     );
@@ -54,15 +57,17 @@ export class SiteVersion {
   readonly buildHash: string;
   readonly siteId: number;
   readonly name: string | null;
+  readonly isPublishing: boolean;
   readonly publishDate: Date | null;
   readonly archiveDate: Date | null;
   readonly lastUpdateDate: Date;
 
-  public constructor(siteVersionId: number, buildHash: string, siteId: number, name: string | null, publishDate: Date | null, archiveDate: Date | null, lastUpdateDate: Date) {
+  public constructor(siteVersionId: number, buildHash: string, siteId: number, name: string | null, isPublishing: boolean, publishDate: Date | null, archiveDate: Date | null, lastUpdateDate: Date) {
     this.siteVersionId = siteVersionId;
     this.buildHash = buildHash;
     this.siteId = siteId;
     this.name = name;
+    this.isPublishing = isPublishing;
     this.publishDate = publishDate;
     this.archiveDate = archiveDate;
     this.lastUpdateDate = lastUpdateDate;
@@ -74,6 +79,7 @@ export class SiteVersion {
       String(obj.buildHash),
       Number(obj.siteId),
       obj.name ? String(obj.name) : null,
+      Boolean(obj.isPublishing),
       obj.publishDate ? dateFromString(obj.publishDate) : null,
       obj.archiveDate ? dateFromString(obj.creationDate) : null,
       dateFromString(obj.lastUpdateDate),
