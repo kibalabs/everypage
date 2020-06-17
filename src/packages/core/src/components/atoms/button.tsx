@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, LoadingSpinner, themeToCss, ThemeType, useTheme, RecursivePartial } from '..';
+import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, LoadingSpinner, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
 
 
 export interface IButtonThemeBase extends ThemeType {
@@ -96,7 +96,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
     throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
   }
 
-  const theme = props.theme || useTheme('buttons', props.mode);
+  const theme = props.theme || useBuiltTheme('buttons', props.mode);
   return (
     <StyledButton
       id={props.id}

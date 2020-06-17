@@ -25,3 +25,8 @@ export function mergeTheme<ThemeType>(baseTheme: ThemeType, themeValues?: Recurs
   // @ts-ignore
   return merge(merge(baseTheme, themeValues || {}), overrideTheme || {});
 }
+
+export function mergeThemePartial<ThemeType>(themeValues?: RecursivePartial<ThemeType>, overrideTheme?: RecursivePartial<ThemeType>): RecursivePartial<ThemeType> {
+  // @ts-ignore
+  return merge(themeValues || {}, overrideTheme || {});
+}

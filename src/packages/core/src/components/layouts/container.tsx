@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useTheme, IDimensionGuide } from '..';
+import { useDimensions } from '..';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
@@ -32,7 +32,7 @@ export interface IContainerProps extends ISingleAnyChildProps {
 }
 
 export const Container = (props: IContainerProps): React.ReactElement => {
-  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const theme = props.theme || useDimensions();
   return (
     <BaseContainer
       id={props.id}

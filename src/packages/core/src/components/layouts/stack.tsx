@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useTheme, IDimensionGuide } from '..';
+import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions, IDimensionGuide } from '..';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
   // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
@@ -64,7 +64,7 @@ interface IStackProps extends IMultiAnyChildProps {
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
-  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const theme = props.theme || useDimensions();
   const realChildren = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null && child !== undefined);
   const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
     child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child

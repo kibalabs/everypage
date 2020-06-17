@@ -24,7 +24,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
-        <Grid>
+        <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
@@ -46,7 +46,6 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
                 </React.Fragment>
               )}
               <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-              <Spacing mode={SpacingSize.ExtraWide} />
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Fill}>

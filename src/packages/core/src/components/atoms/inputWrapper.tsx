@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useTheme, RecursivePartial } from '..';
+import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useBuiltTheme, RecursivePartial } from '..';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
@@ -135,7 +135,7 @@ interface IInputWrapperProps extends IComponentProps<IInputWrapperTheme>, ISingl
 }
 
 export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
-  const theme = props.theme || useTheme('inputWrappers', props.mode);
+  const theme = props.theme || useBuiltTheme('inputWrappers', props.mode);
   // TODO(krish): check that the first child is an input, textarea or .wrapped-input
   return (
     <StyledInputWrapper

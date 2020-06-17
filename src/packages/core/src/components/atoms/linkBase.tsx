@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, themeToCss, ThemeType, useTheme, RecursivePartial } from '..';
+import { IComponentProps, defaultComponentProps, IBoxTheme, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
 ;
 
 
@@ -82,7 +82,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
     throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
   }
 
-  const theme = props.theme || useTheme('linkBases', props.mode);
+  const theme = props.theme || useBuiltTheme('linkBases', props.mode);
   return (
     <StyledLinkBase
       id={props.id}

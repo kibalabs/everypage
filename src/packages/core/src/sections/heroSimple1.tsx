@@ -30,7 +30,6 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
               </React.Fragment>
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            <Spacing mode={SpacingSize.ExtraWide} />
             {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           </Stack>

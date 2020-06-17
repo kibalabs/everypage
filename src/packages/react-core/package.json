@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/core-react",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "build": "build-react-component",
     "start": "build-react-component --start",
@@ -13,7 +13,7 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/core": "0.3.3"
+    "@kibalabs/core": "0.3.4"
   },
   "devDependencies": {
     "@kibalabs/build": "0.2.11"

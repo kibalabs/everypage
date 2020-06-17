@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, ThemeType, useTheme } from '..';
+import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
 
 
 export interface IVideoTheme extends ThemeType {
@@ -31,7 +31,7 @@ export interface IVideoProps extends IComponentProps<IVideoTheme> {
 }
 
 export const Video = (props: IVideoProps): React.ReactElement => {
-  const theme = props.theme || useTheme('videos', props.mode);
+  const theme = props.theme || useBuiltTheme('videos', props.mode);
   return (
     <StyledVideo
       id={props.id}

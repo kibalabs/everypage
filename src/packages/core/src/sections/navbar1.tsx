@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Text, Button, useTheme, IColorGuide, IDimensionGuide } from '../components';
+import { Stack, Direction, Image, Text, useDimensions, IDimensionGuide } from '../components';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
@@ -19,8 +19,7 @@ interface INavBar1Props extends ISectionProps {
 }
 
 export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
-  const colors = useTheme<IColorGuide>('colors');
-  const theme = useTheme<IDimensionGuide>('dimensions');
+  const theme = useDimensions();
   return (
     <Section {...props as ISectionProps}>
       <StyledNavigationBar theme={theme}>

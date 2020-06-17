@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, ThemeType, useTheme } from '..';
+import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
 
 
 export interface IImageTheme extends ThemeType {
@@ -33,7 +33,7 @@ export interface IImageProps extends IComponentProps<IImageTheme> {
 }
 
 export const Image = (props: IImageProps): React.ReactElement => {
-  const theme = props.theme || useTheme('images', props.mode);
+  const theme = props.theme || useBuiltTheme('images', props.mode);
   return (
     <StyledImage
       id={props.id}

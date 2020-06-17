@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Alignment, getFlexItemAlignment, useTheme, IDimensionGuide } from '..';
+import { Alignment, getFlexItemAlignment, useDimensions } from '..';
 import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 
@@ -51,7 +51,7 @@ export interface IGridProps extends IMultiChildProps<IGridItemProps> {
 }
 
 export const Grid = (props: IGridProps): React.ReactElement => {
-  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const theme = props.theme || useDimensions();
   return (
     <StyledGrid
       id={props.id}
@@ -102,7 +102,7 @@ const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: n
 const columnCountToCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string): string => (
   `@media (min-width: ${screenWidth}) {
     width: ${getCssSize(totalColumnCount, gutterSize, columnCount)};
-    ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px; display: none;' : null};
+    ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px; display: none;' : ''};
   }`
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, useTheme, ThemeType } from '..';
+import { IComponentProps, defaultComponentProps, useBuiltTheme, ThemeType } from '..';
 
 
 export interface ILoadingSpinnerTheme extends ThemeType {
@@ -70,7 +70,7 @@ interface ILoadingSpinnerProps extends IComponentProps<ILoadingSpinnerTheme> {
 }
 
 export const LoadingSpinner = (props: ILoadingSpinnerProps): React.ReactElement => {
-  const theme = props.theme || useTheme('loadingSpinners', props.mode);
+  const theme = props.theme || useBuiltTheme('loadingSpinners', props.mode);
   return (
     <StyledLoadingSpinner
       id={props.id}

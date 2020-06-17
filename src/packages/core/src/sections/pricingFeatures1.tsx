@@ -38,7 +38,6 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               {props.titleText && <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>}
-              <Spacing mode='narrow' />
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             </Stack>
             <Box mode='bordered' isFullHeight={true}>

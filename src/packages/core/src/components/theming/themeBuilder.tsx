@@ -1,6 +1,6 @@
 import * as Polished from 'polished';
 
-import { mergeTheme, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, ILinkBaseThemeBase, ILinkBaseTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
+import { mergeTheme, mergeThemePartial, IButtonTheme, IBoxTheme, ITextTheme, IButtonThemeBase, ILinkBaseThemeBase, ILinkBaseTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IColorGuide, IDimensionGuide, IFont } from '..';
 import { RecursivePartial } from './util';
 
 const buildColors = (base: Partial<IColorGuide>): IColorGuide => {
@@ -94,46 +94,133 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const textTheme: ITextTheme = mergeTheme({
     'font-size': '16px',
-    'font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+    'font-family': '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Asans-serif',
     'font-weight': 'normal',
     'color': colors.text,
-    'line-height': '1.6em',
+    'line-height': '1.5em',
     'text-decoration': 'none',
+    'margin': '0',
   }, baseTheme.texts?.default);
 
-  const strongTextTheme = mergeTheme(textTheme, {
-    'font-weight': 'bold',
-  }, baseTheme.texts?.strong);
-
-  const inverseTextTheme = mergeTheme(textTheme, {
+  const inverseTextTheme = mergeThemePartial<ITextTheme>({
     'color': colors.textInverse,
   }, baseTheme.texts?.inverse);
 
-  const headerTextTheme = mergeTheme(textTheme, {
+  const inlineTextTheme = mergeThemePartial<ITextTheme>({
+  }, baseTheme.texts?.inline);
+
+  const paragraphTextTheme = mergeThemePartial<ITextTheme>({
+    'margin': '0.5em 0',
+  }, baseTheme.texts?.paragraph);
+
+  const boldTextTheme = mergeThemePartial<ITextTheme>({
+    'font-weight': 'bold',
+  }, baseTheme.texts?.bold);
+
+  const strongTextTheme = mergeThemePartial<ITextTheme>({
+    'font-weight': 'bold',
+  }, baseTheme.texts?.strong);
+
+  const italicTextTheme = mergeThemePartial<ITextTheme>({
+    'font-style': 'italic',
+  }, baseTheme.texts?.italic);
+
+  const emphasisTextTheme = mergeThemePartial<ITextTheme>({
+    'font-style': 'italic',
+  }, baseTheme.texts?.emphasis);
+
+  const underlineTextTheme = mergeThemePartial<ITextTheme>({
+    'text-decoration': 'underline',
+  }, baseTheme.texts?.underline);
+
+  const markTextTheme = mergeThemePartial<ITextTheme>({
+  }, baseTheme.texts?.mark);
+
+  const smallTextTheme = mergeThemePartial<ITextTheme>({
+    'font-size': 'smaller',
+  }, baseTheme.texts?.small);
+
+  const deletedTextTheme = mergeThemePartial<ITextTheme>({
+    'text-decoration': 'line-through',
+  }, baseTheme.texts?.deleted);
+
+  const insertedTextTheme = mergeThemePartial<ITextTheme>({
+    'text-decoration': 'underline',
+  }, baseTheme.texts?.inserted);
+
+  const subscriptTextTheme = mergeThemePartial<ITextTheme>({
+    'vertical-align': 'sub',
+    'font-size': 'smaller',
+  }, baseTheme.texts?.subscript);
+
+  const superscriptTextTheme = mergeThemePartial<ITextTheme>({
+    'vertical-align': 'super',
+    'font-size': 'smaller',
+  }, baseTheme.texts?.superscript);
+
+  // /////////////
+
+  const headerTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '2.4em',
-    'font-weight': '700',
+    'font-weight': 'bold',
     'color': '#171717',
-    'line-height': '1.3em',
+    'margin': '0.67em 0',
+    'line-height': '1.2em',
   }, baseTheme.texts?.header);
 
-  const titleTextTheme = mergeTheme(textTheme, {
+  const header1TextTheme = headerTextTheme;
+
+  const titleTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '2.0em',
     'font-weight': 'bold',
     'color': '#171717',
+    'margin': '0.67em 0',
+    'line-height': '1.2em',
   }, baseTheme.texts?.title);
 
-  const subtitleTextTheme = mergeTheme(textTheme, {
+  const header2TextTheme = titleTextTheme;
+
+  const subtitleTextTheme = mergeThemePartial<ITextTheme>({
+    'font-size': '1.6em',
+    'font-weight': 'bold',
+    'color': '#171717',
+    'margin': '0.5em 0',
+    'line-height': '1.2em',
+  }, baseTheme.texts?.subtitle);
+
+  const header3TextTheme = subtitleTextTheme;
+
+  const header4TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.4em',
     'font-weight': 'bold',
     'color': '#171717',
-  }, baseTheme.texts?.subtitle);
+    'text-decoration': 'underline',
+    'line-height': '1.2em',
+    'margin': '0.4em 0',
+  });
 
-  const noteTextTheme = mergeTheme(textTheme, {
+  const header5TextTheme = mergeThemePartial<ITextTheme>({
+    'font-size': '1.2em',
+    'font-weight': 'bold',
+    'color': '#171717',
+    'line-height': '1.2em',
+    'margin': '0.3em 0',
+  });
+
+  const header6TextTheme = mergeThemePartial<ITextTheme>({
+    'font-size': '1.1em',
+    'font-weight': 'bold',
+    'color': '#171717',
+    'line-height': '1.2em',
+    'margin': '0.2em 0',
+  });
+
+  const noteTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '0.8em',
     'color': '#777777',
   }, baseTheme.texts?.note);
 
-  const supersizeTextTheme = mergeTheme(textTheme, {
+  const supersizeTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '3em',
   }, baseTheme.texts?.supersize);
 
@@ -456,12 +543,29 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     },
     texts: {
       default: textTheme,
-      text: textTheme,
+      paragraph: paragraphTextTheme,
+      inline: inlineTextTheme,
+      bold: boldTextTheme,
       strong: strongTextTheme,
+      italic: italicTextTheme,
+      emphasis: emphasisTextTheme,
+      underline: underlineTextTheme,
+      mark: markTextTheme,
+      small: smallTextTheme,
+      deleted: deletedTextTheme,
+      inserted: insertedTextTheme,
+      subscript: subscriptTextTheme,
+      superscript: superscriptTextTheme,
       inverse: inverseTextTheme,
       header: headerTextTheme,
       title: titleTextTheme,
       subtitle: subtitleTextTheme,
+      header1: header1TextTheme,
+      header2: header2TextTheme,
+      header3: header3TextTheme,
+      header4: header4TextTheme,
+      header5: header5TextTheme,
+      header6: header6TextTheme,
       note: noteTextTheme,
       supersize: supersizeTextTheme,
     },

@@ -59,7 +59,6 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
               </React.Fragment>
             )}
             <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            <Spacing mode={SpacingSize.ExtraWide} />
             {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>

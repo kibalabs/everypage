@@ -38,7 +38,6 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-              <Spacing mode='narrow' />
               {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>

@@ -32,7 +32,6 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
           <Grid.Item size={10} sizeMedium={5}>
             <Stack direction={Direction.Vertical}>
               <MarkdownText mode='title' alignment={TextAlignment.Left} text={props.titleText}/>
-              <Spacing mode={SpacingSize.Wide} />
               <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
               <Spacing mode={SpacingSize.Wide}/>
             </Stack>

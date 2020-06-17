@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useTheme, IDimensionGuide } from '@kibalabs/everypage-core';
+import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '@kibalabs/everypage-core';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
   // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
@@ -64,7 +64,7 @@ interface ICanvasStackProps extends IMultiAnyChildProps {
 }
 
 export const CanvasStack = (props: ICanvasStackProps): React.ReactElement => {
-  const theme = props.theme || useTheme<IDimensionGuide>('dimensions');
+  const theme = props.theme || useDimensions();
   const realChildren = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null && child !== undefined);
   const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<ICanvasStackItemProps> => (
     child.type !== CanvasStackItem ? <CanvasStackItem key={index}>{ child }</CanvasStackItem> : child

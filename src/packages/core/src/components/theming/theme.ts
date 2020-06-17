@@ -1,4 +1,5 @@
 import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, ITextTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
+import { RecursivePartial } from './util';
 
 export interface IColorGuide extends ThemeType {
   brandPrimary: string;
@@ -43,7 +44,7 @@ export interface IFont extends ThemeType {
   url: string;
 }
 
-interface ThemeMap<Theme extends ThemeType> extends Record<string, Theme>, ThemeType {
+interface ThemeMap<Theme extends ThemeType> extends Record<string, RecursivePartial<Theme>>, ThemeType {
   default: Theme;
 };
 

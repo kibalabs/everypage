@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IComponentProps, defaultComponentProps, ITextTheme, useTheme, themeToCss, ThemeType, RecursivePartial } from '..';
+import { IComponentProps, defaultComponentProps, ITextTheme, useBuiltTheme, themeToCss, ThemeType, RecursivePartial } from '..';
 
 
 export interface ILinkThemeBase extends ThemeType {
@@ -52,7 +52,7 @@ export interface ILinkProps extends IComponentProps<ILinkTheme> {
 }
 
 export const Link = (props: ILinkProps): React.ReactElement => {
-  const theme = props.theme || useTheme('links', props.mode);
+  const theme = props.theme || useBuiltTheme('links', props.mode);
   return (
     <StyledLink
       id={props.id}

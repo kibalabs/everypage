@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Section } from '.';
-import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useTheme, IColorGuide } from '../components';
+import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useColors } from '../components';
 
 
 export const Attribution = (): React.ReactElement => {
-  const theme = useTheme<IColorGuide>('colors');
+  const theme = useColors();
   return (
     <Section background={{color: String(theme.backgroundInverse)}}>
       <Stack childAlignment={Alignment.Center} shouldAddGutters={false} isFullWidth={true}>

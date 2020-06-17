@@ -1,5 +1,5 @@
 import React from 'react';
-import Markdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 
 import { IComponentProps, Text, ITextTheme, TextAlignment, defaultComponentProps } from '..';
 
@@ -10,13 +10,39 @@ interface IMarkdownTextProps extends IComponentProps<ITextTheme> {
 }
 
 export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
+  const shouldAllowNode = (node: ReactMarkdown.MarkdownAbstractSyntaxTree, index: number, parent: ReactMarkdown.NodeType): boolean => {
+    if (node.type === 'paragraph' && parent.children.length === 1) {
+      return false;
+    }
+    return true;
+  }
+
+  const renderers: ReactMarkdown.Renderers = {
+    root: (rendererProps: object): React.ReactElement => {
+      return (
+        <Text
+          { ...props }
+          className={rendererProps.className}
+        >
+          {rendererProps.children}
+        </Text>
+      );
+    },
+    // paragraph: (rendererProps: object): React.ReactElement => {
+    //   console.log('paragraph rendererProps', rendererProps);
+    //   return (<Text>{rendererProps.children}</Text>);
+    // },
+  };
+
   return (
-    <Text
-      { ...props }
+    <ReactMarkdown
       className={`markdown-text ${props.className}`}
-    >
-      <Markdown source={props.text} />
-    </Text>
+      allowNode={shouldAllowNode}
+      unwrapDisallowed={true}
+      renderers={renderers}
+      includeNodeIndex={true}
+      source={props.text}
+    />
   )
 };
 
