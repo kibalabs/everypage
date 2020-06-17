@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
 
@@ -35,7 +36,7 @@ export const Video = (props: IVideoProps): React.ReactElement => {
   return (
     <StyledVideo
       id={props.id}
-      className={`video ${props.className}`}
+      className={getClassName('video', props.className)}
       theme={theme}
       autoPlay={true}
       muted={true}

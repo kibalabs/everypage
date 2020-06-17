@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, Direction, useDimensions } from '..';
+import { IDimensionGuide } from '../theming';
 
 
 export enum SpacingSize {
@@ -68,7 +70,7 @@ export const Spacing = (props: ISpacingProps): React.ReactElement => {
   return (
     <StyledDiv
       id={props.id}
-      className={`spacing ${props.className}`}
+      className={getClassName('spacing', props.className)}
       theme={theme}
       size={props.mode as SpacingSize}
       direction={props.direction}

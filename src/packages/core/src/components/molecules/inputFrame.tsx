@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
 import { InputWrapper, IInputWrapperTheme } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 
@@ -36,7 +37,7 @@ export const InputFrame = (props: IInputFrameProps): React.ReactElement => {
   return (
     <StyledInputFrame
       id={props.id}
-      className={`input-frame ${props.className}`}
+      className={getClassName('input-frame', props.className)}
       onFocus={(): void => setIsFocussed(true)}
       onBlur={(): void => setIsFocussed(false)}
     >

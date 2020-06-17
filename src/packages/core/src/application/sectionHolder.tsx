@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { ISectionProps } from '../sections';
 import { IMultiChildProps } from '../util';
@@ -34,7 +35,7 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
   return (
     <StyledSectionHolder
       id={props.id}
-      className={`section-holder ${props.className}`}
+      className={getClassName('section-holder', props.className)}
       // ref={sectionHolderRef}
     >
       {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {

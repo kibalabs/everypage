@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IMoleculeProps, defaultMoleculeProps, InputFrame, IInputFrameTheme } from '.';
 import { InputType } from '..';
@@ -80,14 +81,14 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
   return (
     <InputFrame
       id={props.id}
-      className={`singleline-input ${props.className}`}
+      className={getClassName('singleline-input', props.className)}
       theme={props.theme?.inputFrameTheme}
       errorText={props.errorText}
       isEnabled={props.isEnabled}
     >
       <StyledSingleLineInput
         id={props.id && `${props.id}-textarea`}
-        className={`singleline-input-textarea ${props.errorText ? 'error' : ''} ${props.isEnabled === false ? 'disabled' : ''}`}
+        className={getClassName('singleline-input-textarea', props.errorText && 'error', !props.isEnabled && 'disabled')}
         type={props.inputType}
         name={props.name}
         autoComplete={getAutocompleteType(props.inputType)}

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions, IDimensionGuide } from '..';
-import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
   // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 
@@ -72,7 +73,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
   return (
     <StyledStack
       id={props.id}
-      className={`stack ${props.className}`}
+      className={getClassName('stack', props.className)}
       direction={props.direction}
       childAlignment={props.childAlignment}
       contentAlignment={props.contentAlignment}
@@ -84,7 +85,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
         <StyledStackItem
           key={index}
           id={child.props.id}
-          className={`stack-item ${child.props.className}`}
+          className={getClassName('stack-item', child.props.className)}
           growthFactor={child.props.growthFactor}
           shrinkFactor={child.props.shrinkFactor}
           baseSize={child.props.baseSize}
@@ -95,7 +96,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           isHidden={child.props.isHidden}
         >
           <StyledStackItemInner
-            className={`stack-item-inner`}
+            className={'stack-item-inner'}
             direction={props.direction}
             alignment={child.props.alignment}
           >

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, CssTheme, themeToCss, useBuiltTheme } from '..';
@@ -81,7 +82,7 @@ export const Text = (props: ITextProps): React.ReactElement => {
   return (
     <StyledText
       id={props.id}
-      className={`text ${props.className}`}
+      className={getClassName('text', props.className)}
       theme={theme}
       alignment={props.alignment}
       as={getTag(props.mode)}

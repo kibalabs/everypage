@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, LoadingSpinner, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
 
@@ -100,7 +101,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
   return (
     <StyledButton
       id={props.id}
-      className={`button ${!props.isEnabled ? 'disabled' : ''} ${props.className}`}
+      className={getClassName('button', !props.isEnabled && 'disabled', props.className)}
       theme={theme}
       onClick={onClicked}
       isLoading={props.isLoading}

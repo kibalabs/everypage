@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Alignment, getFlexItemAlignment, useDimensions } from '..';
-import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {
@@ -55,7 +56,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
   return (
     <StyledGrid
       id={props.id}
-      className={`grid ${props.className}`}
+      className={getClassName('grid', props.className)}
       isFullHeight={props.isFullHeight}
       childAlignment={props.childAlignment}
     >
@@ -64,7 +65,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
           <StyledGridItem
             key={index}
             id={child.props.id}
-            className={`grid-item ${child.props.className}`}
+            className={getClassName('grid-item', child.props.className)}
             size={child.props.size}
             sizeSmall={child.props.sizeSmall}
             sizeMedium={child.props.sizeMedium}

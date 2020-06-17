@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, IBoxTheme, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
@@ -86,7 +87,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
   return (
     <StyledLinkBase
       id={props.id}
-      className={`button-base ${!props.isEnabled ? 'disabled' : ''} ${props.className}`}
+      className={getClassName('link-base', props.className, !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
       disabled={!props.isEnabled}

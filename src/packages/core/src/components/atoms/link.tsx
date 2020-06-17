@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, ITextTheme, useBuiltTheme, themeToCss, ThemeType, RecursivePartial } from '..';
 
@@ -56,7 +57,7 @@ export const Link = (props: ILinkProps): React.ReactElement => {
   return (
     <StyledLink
       id={props.id}
-      className={`link ${props.className} ${props.isEnabled ? 'enabled' : 'disabled'}`}
+      className={getClassName('link', props.className, !props.isEnabled && 'disabled')}
       theme={theme}
       href={props.isEnabled ? props.destination : undefined}
       target={props.shouldOpenNewTab ? '_blank' : '_self'}

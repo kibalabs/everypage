@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IMultiAnyChildProps } from '../../util';
 
@@ -27,12 +28,12 @@ export const LayerContainer = (props: ILayerContainerProps): React.ReactElement 
   return (
     <StyledLayerContainer
       id={props.id}
-      className={`layer-container ${props.className}`}
+      className={getClassName('layer-container', props.className)}
     >
       { children.map((child: React.ReactNode, index: number): React.ReactElement => (
         <StyledLayer
           id={props.id && `${props.id}-layer-${index}`}
-          className={`layer ${props.className}`}
+          className={getClassName('layer', props.className)}
           key={index}
         >
           {child}

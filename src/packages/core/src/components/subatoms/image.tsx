@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
 
@@ -37,7 +38,7 @@ export const Image = (props: IImageProps): React.ReactElement => {
   return (
     <StyledImage
       id={props.id}
-      className={`image ${props.className} ${props.isLazyLoadable ? 'lazyload' : ''}`}
+      className={getClassName('image', props.className, props.isLazyLoadable && 'lazyload')}
       theme={theme}
       src={props.isLazyLoadable ? undefined : props.source}
       data-src={props.source}

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, Text, ITextTheme, TextAlignment, defaultComponentProps } from '..';
+import { IComponentProps, Box, Text, ITextTheme, TextAlignment, defaultComponentProps } from '..';
 
 
 interface IMarkdownTextProps extends IComponentProps<ITextTheme> {
@@ -19,13 +20,21 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
 
   const renderers: ReactMarkdown.Renderers = {
     root: (rendererProps: object): React.ReactElement => {
-      return (
+      return React.Children.count(rendererProps.children) === 1 ? (
         <Text
           { ...props }
           className={rendererProps.className}
         >
           {rendererProps.children}
         </Text>
+      ) : (
+        <Box
+          { ...props }
+          className={rendererProps.className}
+          mode='transparent'
+        >
+          {rendererProps.children}
+        </Box>
       );
     },
     // paragraph: (rendererProps: object): React.ReactElement => {
@@ -36,7 +45,7 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
 
   return (
     <ReactMarkdown
-      className={`markdown-text ${props.className}`}
+      className={getClassName('markdown-text', props.className)}
       allowNode={shouldAllowNode}
       unwrapDisallowed={true}
       renderers={renderers}

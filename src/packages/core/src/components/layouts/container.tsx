@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { useDimensions } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 
@@ -36,7 +37,7 @@ export const Container = (props: IContainerProps): React.ReactElement => {
   return (
     <BaseContainer
       id={props.id}
-      className={`container ${props.className}`}
+      className={getClassName('container', props.className)}
       theme={theme}
       isFullHeight={props.isFullHeight}
     >

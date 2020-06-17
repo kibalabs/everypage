@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, useBuiltTheme, ThemeType } from '..';
 
@@ -74,7 +75,7 @@ export const LoadingSpinner = (props: ILoadingSpinnerProps): React.ReactElement 
   return (
     <StyledLoadingSpinner
       id={props.id}
-      className={`loading-spinner ${props.className}`}
+      className={getClassName('loading-spinner', props.className)}
       theme={theme}
       size={props.size}
     />

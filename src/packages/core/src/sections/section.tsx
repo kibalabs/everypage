@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Container, Background, IBackgroundConfig } from '../components';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 export interface ISectionProps {
@@ -33,7 +34,7 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
   return (
     <StyledSection
       id={props.id}
-      className={`section ${props.className} ${props.shouldStickToTop ? 'sticky' : ''}`}
+      className={getClassName('section', props.className, props.shouldStickToTop && 'sticky')}
     >
       <Background
         id={props.id && `${props.id}-background`}

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as Polished from 'polished';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useBuiltTheme } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 
@@ -67,7 +68,7 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   return (
     <StyledBox
       id={props.id}
-      className={`box ${props.className}`}
+      className={getClassName('box', props.className)}
       theme={theme}
       height={height}
       width={width}

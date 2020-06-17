@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useBuiltTheme, RecursivePartial } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 
@@ -140,11 +141,11 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
   return (
     <StyledInputWrapper
       id={props.id}
-      className={`input-wrapper ${props.className}`}
+      className={getClassName('input-wrapper', props.className)}
     >
       <InputWrapperInner
         id={props.id && `${props.id}-inner`}
-        className={`input-wrapper-inner ${props.errorText ? 'error' : ''} ${props.isFocussed ? 'focus' : ''} ${props.isEnabled === false ? 'disabled' : ''}`}
+        className={getClassName('input-wrapper-inner', props.errorText && 'error', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
         theme={theme}
       >
         {props.children}

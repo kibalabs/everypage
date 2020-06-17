@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Box, IBoxTheme, LoadingSpinner, ILoadingSpinnerTheme, ThemeType, IMoleculeProps, defaultMoleculeProps } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 ;
 
 
@@ -45,7 +46,7 @@ export const Form = (props: IFormProps): React.ReactElement => {
   return (
     <Box
       id={props.id}
-      className={`form ${props.className}`}
+      className={getClassName('form', props.className)}
       theme={props.theme?.background}
       mode={'transparent'}
       isFullWidth={true}
