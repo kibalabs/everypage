@@ -24,6 +24,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "theme.js", "src/pages/404.js"
+    "**/*.tsx",
+    "src/pages/index.tsx",
+    "src/pages/404.tsx"
   ]
 }

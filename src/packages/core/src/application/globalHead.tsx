@@ -64,8 +64,13 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
         <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
       ))}
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
-        <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={(event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'}} />
+        <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' />
       ))}
+      {/* TODO(krish): use onLoad once supported by react-helmet: https://github.com/nfl/react-helmet/pull/299 */}
+      {/* <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} /> */}
+      {/* { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
+        <noscript key={index}><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript>
+      ))} */}
 
       {/* Page meta */}
       <title>{title}</title>
