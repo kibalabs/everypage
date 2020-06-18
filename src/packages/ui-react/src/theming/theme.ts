@@ -1,12 +1,9 @@
-import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
 import { IColorGuide } from '../subatoms/colors/theme';
 import { IDimensionGuide } from '../subatoms/dimensions/theme';
+import { IFont } from '../subatoms/fonts/theme';
 import { ITextTheme } from '../subatoms/text/theme';
 import { ThemeMap } from '../util';
-
-export interface IFont extends ThemeType {
-  url: string;
-}
+import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
 
 export interface ITheme extends ThemeType {
   // Base

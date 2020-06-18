@@ -4,23 +4,8 @@ import { margin as calculateMargin } from 'polished';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useBuiltTheme } from '..';
-
-
-export interface IBoxTheme extends CssTheme {
-  'background-color': string;
-  'border-radius': string;
-  'border-color': string;
-  'border-width': string;
-  'border-style': string;
-  'padding': string;
-  'box-shadow': string;
-  'margin': string;
-  'outline-style': string;
-  'outline-color': string;
-  'outline-width': string;
-  'outline-offset': string;
-}
+import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } from '../..';
+import { IBoxTheme } from './theme';
 
 interface IStyledBoxProps {
   theme: IBoxTheme;

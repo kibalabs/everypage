@@ -3,64 +3,19 @@ import { lighten, darken, transparentize } from 'polished';
 import { RecursivePartial } from '../util';
 import { buildColors } from '../subatoms/colors';
 import { buildDimensions } from '../subatoms/dimensions';
+import { buildFonts } from '../subatoms/fonts';
 import { ITextTheme, buildTextThemes } from '../subatoms/text';
-import { mergeTheme, IButtonTheme, IBoxTheme, IButtonThemeBase, ILinkBaseThemeBase, ILinkBaseTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IFont } from '..';
-
-export const buildFonts = (base: RecursivePartial<Record<string, IFont>>): Record<string, IFont> => {
-  return Object.keys(base).reduce((current: Record<string, IFont>, name: string): Record<string, IFont> => {
-    if (base[name] && base[name].url) {
-      current[name] = {url: base[name].url.replace('//fonts.googleapis.com/', '//assets.evrpg.com/gfonts/')};
-    }
-    return current;
-  }, {} as Record<string, IFont>);
-}
+import { IBoxTheme, buildBoxThemes } from '../subatoms/box';
+import { mergeTheme, IButtonTheme, IButtonThemeBase, ILinkBaseThemeBase, ILinkBaseTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, IInputWrapperThemeBase, ILoadingSpinnerTheme, ILinkTheme, ILinkThemeBase, ITheme, IFont } from '..';
 
 export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const baseTheme = inputTheme || {};
   const colors = buildColors(baseTheme.colors);
   const dimensions = buildDimensions(baseTheme.dimensions);
-  const fonts = buildFonts(baseTheme.fonts || {});
+  const fonts = buildFonts(baseTheme.fonts);
 
   const textThemes = buildTextThemes(colors, dimensions, baseTheme.texts);
-
-  const transparentBoxTheme: IBoxTheme = mergeTheme({
-    'background-color': 'transparent',
-    'border-radius': '0',
-    'border-color': 'transparent',
-    'border-style': 'solid',
-    'border-width': '0',
-    'box-shadow': 'none',
-    'padding': '0',
-    'margin': '0',
-    'outline-style': 'solid',
-    'outline-color': 'transparent',
-    'outline-width': '0',
-    'outline-offset': '0',
-  }, baseTheme.boxes?.transparent);
-
-  const defaultBoxTheme = mergeTheme(transparentBoxTheme, {
-    'background-color': colors.background,
-    'border-radius': dimensions.borderRadius,
-    'padding': dimensions.padding,
-  }, baseTheme.boxes?.default);
-
-  const cardBoxTheme = mergeTheme(defaultBoxTheme, {
-    'background-color': lighten(0.1, colors.background),
-    'border-radius': dimensions.borderRadius,
-    'border-color': darken(0.05, colors.background),
-    'border-width': '1px',
-    'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
-    'margin': '0px 4px 12px 4px',
-    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
-  }, baseTheme.boxes?.default);
-
-  const borderedBoxTheme = mergeTheme(defaultBoxTheme, {
-    'background-color': lighten(0.1, colors.background),
-    'border-radius': dimensions.borderRadius,
-    'border-color': darken(0.05, colors.background),
-    'border-width': '1px',
-    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
-  }, baseTheme.boxes?.default);
+  const boxThemes = buildBoxThemes(colors, dimensions, baseTheme.boxes);
 
   const defaultImageTheme: IImageTheme = mergeTheme({
   }, baseTheme.images?.default);
@@ -81,7 +36,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   };
 
   const defaultNormalPrimaryButtonTheme = mergeTheme<IButtonThemeBase>({
-    background: mergeTheme(defaultBoxTheme, focusableBorderBox, {
+    background: mergeTheme(boxThemes.default, focusableBorderBox, {
       'background-color': colors.brandPrimary,
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
       'border-radius': '0.5em',
@@ -130,7 +85,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const tertiaryButtonTheme: IButtonTheme = mergeTheme(primaryButtonTheme, baseTheme.buttons?.tertiary);
 
   const defaultNormalPrimaryLinkBaseTheme = mergeTheme<ILinkBaseThemeBase>({
-    background: mergeTheme(transparentBoxTheme, focusableBorderBox, {
+    background: mergeTheme(boxThemes.transparent, focusableBorderBox, {
       'border-radius': '0.5em',
       'padding': `${dimensions.padding}`,
     }),
@@ -171,7 +126,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const tertiaryLinkBaseTheme: ILinkBaseTheme = mergeTheme(primaryLinkBaseTheme, baseTheme.linkBases?.tertiary);
 
   const defaultNormalTransparentLinkBaseTheme = mergeTheme<ILinkBaseThemeBase>({
-    background: mergeTheme(transparentBoxTheme, focusableBorderBox),
+    background: mergeTheme(boxThemes.transparent, focusableBorderBox),
   }, baseTheme.linkBases?.transparent?.normal?.default);
 
   const transparentLinkBaseTheme = mergeTheme<ILinkBaseTheme>({
@@ -213,7 +168,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     placeholderText: mergeTheme(textThemes.default, {
       'color': '#AAAAAA',
     }),
-    background: mergeTheme(transparentBoxTheme, {
+    background: mergeTheme(boxThemes.default, {
       'background-color': 'white',
       'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
       'border-radius': '0.5em',
@@ -334,12 +289,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     colors: colors,
     dimensions: dimensions,
     fonts: fonts,
-    boxes: {
-      default: defaultBoxTheme,
-      transparent: transparentBoxTheme,
-      card: cardBoxTheme,
-      bordered: borderedBoxTheme,
-    },
+    boxes: boxThemes,
     texts: textThemes,
     images: {
       default: defaultImageTheme,
