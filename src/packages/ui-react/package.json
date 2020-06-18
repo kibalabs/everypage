@@ -16,7 +16,7 @@
     "@kibalabs/core-react": "^0.3.6"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/ts-build/src/kibalabs-build-0.2.13.tgz",
+    "@kibalabs/build": "0.2.13",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "styled-components": "5.1.0"
