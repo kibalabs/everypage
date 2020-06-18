@@ -1,52 +1,12 @@
-import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, ITextTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
-import { RecursivePartial } from './util';
-
-export interface IColorGuide extends ThemeType {
-  brandPrimary: string;
-  brandSecondary: string;
-  background: string;
-  text: string;
-  textOnBrand: string;
-  disabled: string;
-
-  brandPrimaryInverse: string;
-  brandSecondaryInverse: string;
-  backgroundInverse: string;
-  textInverse: string;
-}
-
-export interface IDimensionGuide extends ThemeType {
-  borderRadius: string;
-  borderWidth: string;
-  borderWidthNarrow: string;
-  borderWidthWide: string;
-
-  padding: string;
-  paddingNarrow: string;
-  paddingExtraNarrow: string;
-  paddingExtraExtraNarrow: string;
-  paddingWide: string;
-  paddingExtraWide: string;
-  paddingExtraExtraWide: string;
-  paddingExtraExtraExtraWide: string;
-
-  columnCount: number;
-  gutterSize: string;
-
-  screenWidthSmall: string;
-  screenWidthMedium: string;
-  screenWidthLarge: string;
-  screenWidthExtraLarge: string;
-  screenWidthMax: string;
-}
+import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
+import { IColorGuide } from '../subatoms/colors/theme';
+import { IDimensionGuide } from '../subatoms/dimensions/theme';
+import { ITextTheme } from '../subatoms/text/theme';
+import { ThemeMap } from '../util';
 
 export interface IFont extends ThemeType {
   url: string;
 }
-
-interface ThemeMap<Theme extends ThemeType> extends Record<string, RecursivePartial<Theme>>, ThemeType {
-  default: Theme;
-};
 
 export interface ITheme extends ThemeType {
   // Base

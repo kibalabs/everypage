@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "scripts": {
     "build": "build-module",
     "start": "build-module --start",
@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.9.2",
-    "@kibalabs/everypage-core": "0.3.6",
+    "@kibalabs/everypage-core": "0.3.7",
     "chalk": "4.0.0",
     "chokidar": "3.4.0",
     "commander": "5.0.0",
@@ -34,7 +34,7 @@
     "typescript": "3.8.3"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.2.11",
+    "@kibalabs/build": "file:/Users/krishan/Projects/ts-build/src/kibalabs-build-0.2.13.tgz",
     "@types/node": "13.13.4"
   }
 }

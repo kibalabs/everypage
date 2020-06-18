@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-
-import { IMultiAnyChildProps } from '../../util';
+import { IMultiAnyChildProps } from '@kibalabs/core-react';
 
 const StyledLayer = styled.div`
   position: absolute;

@@ -1,9 +1,10 @@
 import React from 'react';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { ITheme, ThemeType } from '..';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
-import { mergeTheme } from './util';
-import { IDimensionGuide, IColorGuide } from './theme';
+import { mergeTheme } from '../util';
+import { IColorGuide } from '../subatoms/colors';
+import { IDimensionGuide } from '../subatoms/dimensions';
 
 export const ThemeContext = React.createContext<ITheme | null>(null);
 
@@ -40,7 +41,6 @@ export function useColors(): IColorGuide {
   }
   return theme.colors;
 }
-
 
 export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: string): Theme => {
   const theme = useTheme();

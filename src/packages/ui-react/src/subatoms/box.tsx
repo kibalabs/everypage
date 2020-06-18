@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as Polished from 'polished';
+import { margin as calculateMargin } from 'polished';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IComponentProps, defaultComponentProps, themeToCss, CssTheme, useBuiltTheme } from '..';
-;
 
 
 export interface IBoxTheme extends CssTheme {
@@ -57,7 +56,7 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   let height = props.height || (props.isFullHeight ? `100%` : 'auto');
   const blockType = width === '100%' ? 'block' : 'inline-block';
   if (theme.margin) {
-    const margin = Polished.margin(...theme.margin.split(' '));
+    const margin = calculateMargin(...theme.margin.split(' '));
     if (width === '100%') {
       width = `calc(100% - ${margin.marginLeft} - ${margin.marginRight})`;
     }

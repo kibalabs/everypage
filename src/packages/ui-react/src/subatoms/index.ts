@@ -1,4 +1,6 @@
 export * from './box';
+export * from './colors';
+export * from './dimensions';
 export * from './icon';
 export * from './ionicon';
 export * from './image';
