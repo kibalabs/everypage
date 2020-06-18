@@ -6,10 +6,8 @@ WORKDIR /app
 COPY .npmrc .npmrc
 COPY package.json package.json
 COPY package-lock.json package-lock.json
-COPY packages/react-core/package.json packges/react-core/package.json
-# COPY packages/react-core/package-lock.json packges/react-core/package-lock.json
-COPY packages/ts-core/package.json packges/ts-core/package.json
-# COPY packages/ts-core/package-lock.json packges/ts-core/package-lock.json
+COPY packages/ui-react/package.json packges/ui-react/package.json
+# COPY packages/ui-react/package-lock.json packges/ui-react/package-lock.json
 COPY packages/core/package.json packges/core/package.json
 # COPY packages/core/package-lock.json packges/core/package-lock.json
 COPY packages/main/package.json packges/main/package.json
