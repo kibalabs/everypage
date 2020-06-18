@@ -1,6 +1,12 @@
 {
   "name": "@kibalabs/ui-react",
   "version": "0.3.7",
+  "description": "React ui components for building frontend projects at Kiba Labs",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+  },
   "scripts": {
     "build": "build-react-component",
     "start": "build-react-component --start",

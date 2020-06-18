@@ -1,6 +1,12 @@
 {
   "name": "@kibalabs/everypage",
   "version": "0.3.7",
+  "description": "Build everypage sites",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+  },
   "scripts": {
     "build": "build-module",
     "start": "build-module --start",

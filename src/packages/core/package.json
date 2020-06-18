@@ -1,6 +1,12 @@
 {
   "name": "@kibalabs/everypage-core",
   "version": "0.3.7",
+  "description": "The core sections and constructs for everypage",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+  },
   "scripts": {
     "build": "build-react-component",
     "start": "build-react-component --start",
