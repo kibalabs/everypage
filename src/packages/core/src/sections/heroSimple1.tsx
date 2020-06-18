@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '../components';
+import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
 
 
 interface IHeroSimple1Props extends ISectionProps {

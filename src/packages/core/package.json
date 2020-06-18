@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "scripts": {
     "build": "build-react-component",
     "start": "build-react-component --start",
@@ -13,8 +13,9 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/core": "0.3.5",
-    "@kibalabs/core-react": "0.3.5",
+    "@kibalabs/core": "^0.3.6",
+    "@kibalabs/core-react": "^0.3.6",
+    "@kibalabs/ui-react": "0.3.6",
     "axios": "^0.19.2",
     "deepmerge": "^4.2.2",
     "lazysizes": "^5.2.1",

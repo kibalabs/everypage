@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid } from '@kibalabs/ui-react';
 
 interface IFaq1Question {
   questionText: string;

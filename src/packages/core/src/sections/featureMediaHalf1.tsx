@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Media, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '../components';
+import { Grid, Media, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?

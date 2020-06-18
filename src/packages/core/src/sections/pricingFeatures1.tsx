@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, Button } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, Button } from '@kibalabs/ui-react';
 
 interface IPricingFeatures1Feature {
   text: string;

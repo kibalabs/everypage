@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Text, useDimensions, IDimensionGuide } from '../components';
+import { Stack, Direction, Image, Text, useDimensions, IDimensionGuide } from '@kibalabs/ui-react';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;

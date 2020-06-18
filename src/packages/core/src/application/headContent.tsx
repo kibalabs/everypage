@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
-import { ITheme, useTheme } from '../components';
+import { ITheme, useTheme } from '@kibalabs/ui-react';
 
 
 export interface IHeadContentProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section } from '.';
-import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useColors } from '../components';
+import { Text, Stack, TextAlignment, Spacing, Link, Alignment, useColors } from '@kibalabs/ui-react';
 
 
 export const Attribution = (): React.ReactElement => {

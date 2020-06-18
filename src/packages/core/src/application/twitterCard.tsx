@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Stack, Alignment, Spacing, Image, Box } from '../components';
+import { Text, Stack, Alignment, Spacing, Image, Box } from '@kibalabs/ui-react';
 
 interface ITwitterCardProps {
   imageUrl: string;

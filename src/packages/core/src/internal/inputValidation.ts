@@ -1,4 +1,4 @@
-import {InputType } from '../components';
+import {InputType } from '@kibalabs/ui-react';
 import { isValidEmail } from '@kibalabs/core';
 
 export interface IInputValidationResult {

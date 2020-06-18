@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, Direction, Ionicon, LinkBase } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, Direction, Ionicon, LinkBase } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 interface IFooter1IconLink {

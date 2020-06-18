@@ -4,7 +4,7 @@ import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection } from '.';
 import { WebsiteProvider } from '../util';
-import { ThemeProvider, ITheme, buildTheme } from '../components';
+import { ThemeProvider, ITheme, buildTheme } from '@kibalabs/ui-react';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
 

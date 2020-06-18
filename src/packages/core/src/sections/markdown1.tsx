@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Alignment, MarkdownText, Spacing, TextAlignment, Stack, SpacingSize } from '../components';
+import { Grid, Alignment, MarkdownText, Spacing, TextAlignment, Stack, SpacingSize } from '@kibalabs/ui-react';
 
 interface IMarkdown1Props extends ISectionProps {
   titleText?: string;

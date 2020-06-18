@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, useTheme, ITheme } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, useTheme, ITheme } from '@kibalabs/ui-react';
 
 interface IStatisticBoxes1Box {
   value: string;

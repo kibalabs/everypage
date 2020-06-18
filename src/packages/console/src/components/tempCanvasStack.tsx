@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
-import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '@kibalabs/everypage-core';
+import { IDimensionGuide, Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '@kibalabs/ui-react';
 
   // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 

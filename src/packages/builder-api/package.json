@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-builder-api",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "private": true,
   "scripts": {
     "build": "build-server --webpack-config-modifier ./config.webpack.js"
@@ -10,7 +10,7 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/everypage": "0.3.5",
+    "@kibalabs/everypage": "0.3.6",
     "archiver": "4.0.1",
     "express": "4.17.1",
     "morgan": "1.10.0",

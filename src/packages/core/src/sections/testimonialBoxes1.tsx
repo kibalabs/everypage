@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, TwitterIcon, ChatIcon, ProductHuntIcon, Direction, useTheme, ITheme, Link } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, TwitterIcon, ChatIcon, ProductHuntIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
 
 interface ITestimonialBoxes1Box {
   text: string;

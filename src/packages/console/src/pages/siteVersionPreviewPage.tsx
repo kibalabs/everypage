@@ -1,7 +1,7 @@
 import React from 'react';
-import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
 import { KibaException, Requester, Response } from '@kibalabs/core';
-import { buildTheme, ThemeProvider } from '@kibalabs/everypage-core';
+import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { buildTheme, ThemeProvider } from '@kibalabs/ui-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';

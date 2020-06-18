@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
-import { ITheme, useTheme, IFont } from '../components';
+import { ITheme, useTheme } from '@kibalabs/ui-react';
 
 
 export interface IGlobalHeadProps {

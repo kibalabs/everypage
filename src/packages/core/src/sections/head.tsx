@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Text, Stack, Alignment, Spacing, Direction, Image, Box } from '../components';
+import { Text, Stack, Alignment, Spacing, Direction, Image, Box } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 import { TwitterCard } from '../application/twitterCard';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Media, Direction, Ionicon, useTheme, ITheme } from '../components';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Media, Direction, Ionicon, useTheme, ITheme } from '@kibalabs/ui-react';
 
 interface IFeatureBoxes1Feature {
   title?: string;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { buildTheme, IndexPage, Direction, ThemeProvider, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
+import { buildTheme, Direction, ThemeProvider } from '@kibalabs/ui-react';
+import { IndexPage, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
 
 import { KibaFrame } from '../components/kibaFrame';
 import { JsonEditor } from '../components/jsonEditor';
