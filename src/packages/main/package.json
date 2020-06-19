@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.10.2",
+    "@kibalabs/ui-react": "0.3.8",
     "@kibalabs/everypage-core": "0.3.8",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
