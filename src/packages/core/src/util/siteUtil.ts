@@ -1,5 +1,5 @@
 
-const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9\@\:\%\_\+\.\~\#\?\&\/\=]*)\)/;
+const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9\@\:\%\_\+\.\~\#\?\&\/\=]*)\)/g;
 
 export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: string): Record<string, any> => {
   if (!assetsPrefix) {
