@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/ui-react",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "React ui components for building frontend projects at Kiba Labs",
   "license": "UNLICENSED",
   "repository": {
@@ -19,7 +19,10 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/core-react": "^0.3.6"
+    "@kibalabs/core-react": "^0.3.6",
+    "deepmerge": "^4.2.2",
+    "polished": "^3.5.1",
+    "react-markdown": "^4.3.1"
   },
   "devDependencies": {
     "@kibalabs/build": "0.2.13",

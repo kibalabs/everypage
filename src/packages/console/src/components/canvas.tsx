@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { buildTheme, Direction, ThemeProvider } from '@kibalabs/ui-react';
+import { Direction } from '@kibalabs/ui-react';
 import { IndexPage, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
 
 import { KibaFrame } from '../components/kibaFrame';
@@ -69,43 +69,41 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   // https://github.com/styled-components/styled-components/issues/2973
   // https://github.com/nfl/react-helmet/issues/277
   return (
-    <ThemeProvider theme={buildTheme()}>
-      <CanvasStack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
-        <CanvasStack.Item isFullHeight={true} baseSize={props.isEditorHidden ? '0' : '500px'}>
-          <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
-            <ButtonBar>
-              <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
-                <Button className={selectedType === 'site' ? 'selected' : ''} onClick={onSiteClicked}>Site</Button>
-                <Button className={selectedType === 'theme' ? 'selected' : ''} onClick={onThemeClicked}>Theme</Button>
-                {props.isEditable && <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>}
-                <div />
-                <Button onClick={onHideEditorClicked}>Hide</Button>
-              </CanvasStack>
-            </ButtonBar>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'site'}>
-              <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'theme'}>
-              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'assets'}>
-              <Dropzone onFilesChosen={onAssetFilesChosen} />
-              <FilePreviewGrid fileMap={props.assetFileMap}/>
-            </CanvasStack.Item>
-          </CanvasStack>
-        </CanvasStack.Item>
-        <VerticalLine />
-        <CanvasStack.Item isFullHeight={true} growthFactor={1} shrinkFactor={1}>
-          <KibaFrame>
-            <React.Fragment>
-              <HeadContent theme={props.siteTheme} website={props.siteContent} />
-              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
-            </React.Fragment>
-          </KibaFrame>
-        </CanvasStack.Item>
-        {props.isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}
-      </CanvasStack>
-    </ThemeProvider>
+    <CanvasStack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
+      <CanvasStack.Item baseSize={props.isEditorHidden ? '0' : '500px'}>
+        <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+          <ButtonBar>
+            <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
+              <Button className={selectedType === 'site' ? 'selected' : ''} onClick={onSiteClicked}>Site</Button>
+              <Button className={selectedType === 'theme' ? 'selected' : ''} onClick={onThemeClicked}>Theme</Button>
+              {props.isEditable && <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>}
+              <div />
+              <Button onClick={onHideEditorClicked}>Hide</Button>
+            </CanvasStack>
+          </ButtonBar>
+          <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'site'}>
+            <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
+          </CanvasStack.Item>
+          <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'theme'}>
+            <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
+          </CanvasStack.Item>
+          <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'assets'}>
+            <Dropzone onFilesChosen={onAssetFilesChosen} />
+            <FilePreviewGrid fileMap={props.assetFileMap}/>
+          </CanvasStack.Item>
+        </CanvasStack>
+      </CanvasStack.Item>
+      <VerticalLine />
+      <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
+        <KibaFrame>
+          <React.Fragment>
+            <HeadContent theme={props.siteTheme} website={props.siteContent} />
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
+          </React.Fragment>
+        </KibaFrame>
+      </CanvasStack.Item>
+      {props.isEditorHidden && <FloatingActionButton onClicked={onShowEditorClicked}/>}
+    </CanvasStack>
   )
 }
 

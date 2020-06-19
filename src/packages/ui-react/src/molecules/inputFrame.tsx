@@ -4,14 +4,11 @@ import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
-import { InputWrapper, IInputWrapperTheme } from '..';
-;
-
+import { InputWrapper, IInputWrapperTheme } from '../atoms';
 
 export interface IInputFrameTheme {
   inputWrapperTheme?: IInputWrapperTheme;
 }
-
 
 const StyledInputFrame = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, Direction, Ionicon, LinkBase } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, Direction, KibaIcon, LinkBase } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 interface IFooter1IconLink {
@@ -30,15 +30,15 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isFullHeight={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
               <LinkBase key={index} target={iconLink.target}>
-                <Ionicon size='large' iconId={iconLink.iconId || 'ion-globe'} />
+                <KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />
               </LinkBase>
             ))}
           </Stack>
         )}
         {props.subtitleText && (
-          <MarkdownText text={props.subtitleText} />
+          <Markdown text={props.subtitleText} />
         )}
-        <MarkdownText text={copyrightText}/>
+        <Markdown text={copyrightText}/>
         <Spacing direction={Direction.Vertical} mode='default'/>
       </Stack>
     </Section>

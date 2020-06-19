@@ -1,9 +1,18 @@
+import { ThemeMap, ThemeType } from '../util';
 import { IColorGuide } from '../subatoms/colors/theme';
 import { IDimensionGuide } from '../subatoms/dimensions/theme';
 import { IFont } from '../subatoms/fonts/theme';
 import { ITextTheme } from '../subatoms/text/theme';
-import { ThemeMap } from '../util';
-import { ThemeType, IButtonTheme, ILinkBaseTheme, IBoxTheme, IImageTheme, IVideoTheme, IInputWrapperTheme, ILoadingSpinnerTheme, ILinkTheme } from '..';
+import { IBoxTheme } from '../subatoms/box/theme';
+import { IImageTheme } from '../subatoms/image/theme';
+import { IVideoTheme } from '../subatoms/video/theme';
+import { ILoadingSpinnerTheme } from '../subatoms/loadingSpinner/theme';
+import { IBulletListTheme } from '../atoms/bulletList/theme';
+import { IBulletTextTheme } from '../atoms/bulletText/theme';
+import { IButtonTheme } from '../atoms/button/theme';
+import { ILinkBaseTheme } from '../atoms/linkBase/theme';
+import { IInputWrapperTheme } from '../atoms/inputWrapper/theme';
+import { ILinkTheme } from '../atoms/link/theme';
 
 export interface ITheme extends ThemeType {
   // Base
@@ -19,36 +28,10 @@ export interface ITheme extends ThemeType {
   loadingSpinners: ThemeMap<ILoadingSpinnerTheme>,
 
   // Atoms
+  bulletLists: ThemeMap<IBulletListTheme>,
+  bulletTexts: ThemeMap<IBulletTextTheme>,
   buttons: ThemeMap<IButtonTheme>,
   linkBases: ThemeMap<ILinkBaseTheme>,
   inputWrappers: ThemeMap<IInputWrapperTheme>,
   links: ThemeMap<ILinkTheme>,
 }
-
-
-/*
-Every theme is composed of:
-
-Mode (i.e. variant) - dark mode, customer specific etc (controlled from outside the component)
-State - normal, disabled, collapsed etc (global to the element but contained within)
-Action - hover, press, focus etc (something temporal)
-Base - the actual things to be styled.
-
-currently every branch has the entire stack printed into it
-i.e. default.normal.hover has all the same properties as default.normal
-
-an alternate strategy would be to have a base i.e. normal
-onto which the others are drawn over when needed
-
-
-
-normal Base + Action + State provides a "base" layer
-where the other stylings can be applied on top
-
-Normal
-
--> press + hover
-
--> collapsed + hover + focus
-
-*/

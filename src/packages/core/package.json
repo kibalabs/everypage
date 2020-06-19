@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "The core sections and constructs for everypage",
   "license": "UNLICENSED",
   "repository": {
@@ -21,16 +21,13 @@
   "dependencies": {
     "@kibalabs/core": "^0.3.6",
     "@kibalabs/core-react": "^0.3.6",
-    "@kibalabs/ui-react": "0.3.7",
     "axios": "^0.19.2",
-    "deepmerge": "^4.2.2",
     "lazysizes": "^5.2.1",
-    "polished": "^3.5.1",
-    "react-helmet": "^5.2.1",
-    "react-markdown": "^4.3.1"
+    "react-helmet": "^5.2.1"
   },
   "devDependencies": {
     "@kibalabs/build": "0.2.13",
+    "@kibalabs/ui-react": "0.3.8",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.0.1",
@@ -40,6 +37,7 @@
     "styled-components": "5.1.0"
   },
   "peerDependencies": {
+    "@kibalabs/ui-react": "^0.3.7",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.1.0"

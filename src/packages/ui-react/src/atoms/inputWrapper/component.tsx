@@ -3,28 +3,8 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, ThemeType, themeToCss, useBuiltTheme, RecursivePartial } from '..';
-;
-
-
-export interface IInputWrapperThemeBase extends ThemeType {
-  text: ITextTheme;
-  errorText: ITextTheme;
-  placeholderText: ITextTheme;
-  background: IBoxTheme;
-}
-
-export interface IInputWrapperThemeState extends ThemeType {
-  default: IInputWrapperThemeBase;
-  hover: RecursivePartial<IInputWrapperThemeBase>;
-  focus: RecursivePartial<IInputWrapperThemeBase>;
-}
-
-export interface IInputWrapperTheme extends ThemeType {
-  normal: IInputWrapperThemeState;
-  error: IInputWrapperThemeState;
-  disabled: IInputWrapperThemeState;
-}
+import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } from '../..';
+import { IInputWrapperTheme } from './theme';
 
 const StyledInputWrapper = styled.div`
   width: 100%;

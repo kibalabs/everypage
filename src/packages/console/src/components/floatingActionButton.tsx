@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { darken } from 'polished';
-import { AddIcon } from './icons';
 
 interface IFloatingActionButtonProps {
   onClicked: () => void;
@@ -26,11 +24,11 @@ const StyledButton = styled.button<IStyledButtonProps>`
   cursor: pointer;
 
   :hover {
-    background-color: ${darken(0.1, '#333333')};
+    background-color: '#303030';
   }
 
   :active {
-    background-color: ${darken(0.2, '#333333')};
+    background-color: '#2e2e2e';
   }
 `;
 

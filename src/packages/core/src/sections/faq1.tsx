@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid } from '@kibalabs/ui-react';
 
 interface IFaq1Question {
   questionText: string;
@@ -22,13 +22,13 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
         <Grid.Item size={10} sizeLarge={8}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
-            <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-            {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Stack childAlignment={Alignment.Start} isFullWidth={true} shouldAddGutters={true}>
               {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
                 <React.Fragment key={index}>
-                  <MarkdownText mode='header5' alignment={TextAlignment.Left} text={question.questionText} />
-                  <MarkdownText alignment={TextAlignment.Left} text={question.answerText} />
+                  <Markdown rootTextMode='header5' rootTextAlignment={TextAlignment.Left} source={question.questionText} />
+                  <Markdown rootTextAlignment={TextAlignment.Left} source={question.answerText} />
                 </React.Fragment>
               ))}
               <Spacing />

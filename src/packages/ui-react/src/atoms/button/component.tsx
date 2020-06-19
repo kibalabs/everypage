@@ -2,25 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, ITextTheme, LoadingSpinner, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
-
-
-export interface IButtonThemeBase extends ThemeType {
-  text: ITextTheme;
-  background: IBoxTheme;
-}
-
-export interface IButtonThemeState extends ThemeType {
-  default: IButtonThemeBase;
-  hover: RecursivePartial<IButtonThemeBase>;
-  press: RecursivePartial<IButtonThemeBase>;
-  focus: RecursivePartial<IButtonThemeBase>;
-}
-
-export interface IButtonTheme extends ThemeType {
-  normal: IButtonThemeState;
-  disabled: IButtonThemeState;
-}
+import { IComponentProps, defaultComponentProps, LoadingSpinner, themeToCss, useBuiltTheme } from '../..';
+import { IButtonTheme } from './theme';
 
 interface IStyledButtonProps {
   theme: IButtonTheme;

@@ -1,14 +1,14 @@
 import { lighten, darken } from 'polished';
 
 import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
-import { IColorGuide } from '../colors';
-import { IDimensionGuide } from '../dimensions';
+import { IColorGuide } from '../../subatoms/colors';
+import { IDimensionGuide } from '../../subatoms/dimensions';
 import { IBoxTheme } from './theme';
 
 export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide, base: RecursivePartial<Record<string, IBoxTheme>>): ThemeMap<IBoxTheme> => {
-  const transparentBoxTheme: IBoxTheme = mergeTheme({
+  const defaultBoxTheme: IBoxTheme = mergeTheme({
     'background-color': 'transparent',
-    'border-radius': '0',
+    'border-radius': dimensions.borderRadius,
     'border-color': 'transparent',
     'border-style': 'solid',
     'border-width': '0',
@@ -19,36 +19,46 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
     'outline-color': 'transparent',
     'outline-width': '0',
     'outline-offset': '0',
-  }, base?.transparent);
-
-  const defaultBoxTheme = mergeTheme(transparentBoxTheme, {
-    'background-color': colors.background,
-    'border-radius': dimensions.borderRadius,
-    'padding': dimensions.padding,
   }, base?.default);
 
-  const cardBoxTheme = mergeTheme(defaultBoxTheme, {
+  const transparentBoxTheme = mergeThemePartial<IBoxTheme>({
+    'padding': dimensions.padding,
+  }, base?.transparent);
+
+  const cardBoxTheme = mergeThemePartial<IBoxTheme>({
     'background-color': lighten(0.1, colors.background),
-    'border-radius': dimensions.borderRadius,
     'border-color': darken(0.05, colors.background),
-    'border-width': '1px',
+    'border-width': dimensions.borderWidth,
     'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
     'margin': '0px 4px 12px 4px',
     'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
-  }, base?.default);
+  }, base?.card);
 
-  const borderedBoxTheme = mergeTheme(defaultBoxTheme, {
+  const borderedBoxTheme = mergeThemePartial<IBoxTheme>({
     'background-color': lighten(0.1, colors.background),
-    'border-radius': dimensions.borderRadius,
     'border-color': darken(0.05, colors.background),
-    'border-width': '1px',
+    'border-width': dimensions.borderWidth,
     'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
-  }, base?.default);
+  }, base?.bordered);
+
+  const focusableBorderBox = mergeThemePartial<IBoxTheme>({
+    'border-color': 'transparent',
+    'border-width': '2px',
+    'border-style': 'solid',
+  }, base?.focusable);
+
+  const focussedBorderBox = mergeThemePartial<IBoxTheme>({
+    'border-color': lighten(0.5, 'black'),
+    'border-width': '2px',
+    'border-style': 'solid',
+  }, base?.focussed);
 
   return {
     default: defaultBoxTheme,
     transparent: transparentBoxTheme,
     card: cardBoxTheme,
     bordered: borderedBoxTheme,
+    focusable: focusableBorderBox,
+    focussed: focussedBorderBox,
   };
 }

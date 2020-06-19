@@ -1,8 +1,7 @@
 
 module.exports = (config) => {
-  const externals = config.externals || {};
-  externals['fsevents'] = 'commonjs fsevents';
-  externals['@kibalabs/everypage'] = 'commonjs @kibalabs/everypage';
-  config.externals = externals;
+  config.externals = config.externals || {};
+  config.externals['fsevents'] = 'commonjs fsevents';
+  config.externals['@kibalabs/everypage'] = 'commonjs @kibalabs/everypage';
   return config;
 };

@@ -2,41 +2,58 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, Box, Text, ITextTheme, TextAlignment, defaultComponentProps } from '..';
+import { Box, Text, TextAlignment, Media } from '..';
 
-
-interface IMarkdownTextProps extends IComponentProps<ITextTheme> {
-  text: string;
-  alignment?: TextAlignment;
+interface IMarkdownProps {
+  id?: string;
+  className?: string;
+  source: string;
+  rootTextAlignment?: TextAlignment;
+  rootTextMode?: string;
+  rootBoxMode?: string;
 }
 
-export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
+export const Markdown = (props: IMarkdownProps): React.ReactElement => {
   const shouldAllowNode = (node: ReactMarkdown.MarkdownAbstractSyntaxTree, index: number, parent: ReactMarkdown.NodeType): boolean => {
-    if (node.type === 'paragraph' && parent.children.length === 1) {
-      return false;
+    if (node.type === 'paragraph') {
+      if (parent.children.length === 1) {
+        return false;
+      }
+      if (node.children.length === 0) {
+        return false;
+      }
+      if (node.children.length === 1 && node.children[0].type !== 'text') {
+        return false;
+      }
     }
     return true;
   }
 
   const renderers: ReactMarkdown.Renderers = {
     root: (rendererProps: object): React.ReactElement => {
+      // TODO(krish): log error if root*Mode is provided but root is a different type
       return React.Children.count(rendererProps.children) === 1 ? (
         <Text
-          { ...props }
+          id={props.id}
+          mode={props.rootTextMode}
+          alignment={props.rootTextAlignment}
           className={rendererProps.className}
         >
           {rendererProps.children}
         </Text>
       ) : (
         <Box
-          { ...props }
+          id={props.id}
+          mode={props.rootBoxMode}
           className={rendererProps.className}
-          mode='transparent'
         >
           {rendererProps.children}
         </Box>
       );
     },
+    image: (rendererProps: object): React.ReactElement => {
+      return <Media source={rendererProps.src} alternativeText={rendererProps.alt}/>;
+    }
     // paragraph: (rendererProps: object): React.ReactElement => {
     //   console.log('paragraph rendererProps', rendererProps);
     //   return (<Text>{rendererProps.children}</Text>);
@@ -50,11 +67,11 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
       unwrapDisallowed={true}
       renderers={renderers}
       includeNodeIndex={true}
-      source={props.text}
+      source={props.source}
     />
   )
 };
 
-MarkdownText.defaultProps = {
-  ...defaultComponentProps,
+Markdown.defaultProps = {
+  className: '',
 }

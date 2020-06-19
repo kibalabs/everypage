@@ -91,7 +91,13 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   }
 
   ul {
-    list-style-type: circle;
-    padding-left: 40px;
+    ${(props: IGlobalCssProps): string => themeToCss(props.theme.bulletLists.default.normal.default.bulletList)};
+  }
+
+  li {
+    ${(props: IGlobalCssProps): string => themeToCss(props.theme.bulletTexts.default.normal.default.text)};
+    :before {
+      ${(props: IGlobalCssProps): string => themeToCss(props.theme.bulletTexts.default.normal.default.bullet)};
+    }
   }
 `;

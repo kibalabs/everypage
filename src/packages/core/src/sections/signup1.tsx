@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
+import { Form, Grid, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -46,8 +46,8 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>
-            <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-            {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
+            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Justify} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.Wide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Grid>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, TwitterIcon, ChatIcon, ProductHuntIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, KibaIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -17,14 +17,14 @@ interface ITestimonialBoxes1Props extends ISectionProps {
   boxes?: ITestimonialBoxes1Box[];
 }
 
-const getBoxIcon = (boxType: string, brandColor: string): React.ReactElement => {
+const getIcon = (boxType: string, brandColor: string): React.ReactElement => {
   if (boxType === 'producthunt') {
-    return <ProductHuntIcon _color='#DA552F'/>;
+    return <KibaIcon _color='#DA552F' iconId={'remix-product-hunt-fill'} />;
   }
   if (boxType === 'twitter') {
-    return <TwitterIcon _color='#1DA1F2'/>;
+    return <KibaIcon _color='#1DA1F2' iconId='ion-logo-twitter' />;
   }
-  return <ChatIcon _color={brandColor}/>;
+  return <KibaIcon _color={brandColor} iconId={'ion-chatbox'} />;
 }
 
 export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactElement => {
@@ -37,8 +37,8 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-              <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
@@ -46,13 +46,13 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
                   <Box mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                       <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
-                        { getBoxIcon(box.type, theme.colors.brandPrimary) }
-                        <Spacing direction={Direction.Horizontal} mode='narrow' />
+                        { getIcon(box.type, theme.colors.brandPrimary) }
+                        <Spacing direction={Direction.Horizontal} mode='default' />
                         <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
                       </Stack>
                       <Spacing direction={Direction.Vertical} mode='narrow' />
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <MarkdownText alignment={TextAlignment.Left} text={box.text} />
+                        <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
                       </Stack.Item>
                     </Stack>
                   </Box>

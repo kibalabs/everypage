@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Media, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
+import { Grid, Media, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -31,8 +31,8 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
           <Grid.Item size={1}><div /></Grid.Item>
           <Grid.Item size={10} sizeMedium={5}>
             <Stack direction={Direction.Vertical}>
-              <MarkdownText mode='title' alignment={TextAlignment.Left} text={props.titleText}/>
-              <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
+              <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>
               <Spacing mode={SpacingSize.Wide}/>
             </Stack>
           </Grid.Item>

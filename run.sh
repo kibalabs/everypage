@@ -40,7 +40,7 @@ docker run \
     --detach \
     --publish-all \
     --restart on-failure \
-    --memory=512m \
+    --memory=768m \
     --cpus=$(echo "scale=2 ; $(grep -c ^processor /proc/cpuinfo) / 1.5" | bc) \
     --env NAME=$name \
     --env VERSION=$version \

@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, Button } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, Button, BulletText, BulletList } from '@kibalabs/ui-react';
 
 interface IPricingTiers1Feature {
   text: string;
@@ -24,18 +23,6 @@ interface IPricingTiers1Props extends ISectionProps {
   subtitleText?: string;
   categories?: IPricingTiers1Category[];
 }
-
-const FeatureList = styled.ul`
-  list-style: none;
-`;
-
-const FeatureListItem = styled.li`
-  &:before {
-    content: "• ";
-    display: inline-block;
-    width: 1em;
-  }
-`;
 
 export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement => {
   if (props.categories.length > 4) {
@@ -60,8 +47,8 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-              <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
@@ -77,11 +64,11 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                       </Stack.Item>
                       <Spacing mode='narrow'/>
                       <Stack.Item alignment={Alignment.Start} growthFactor={1}>
-                        <FeatureList>
+                        <BulletList>
                           {category.features.map((feature: IPricingTiers1Feature, index: number): React.ReactElement => (
-                            <FeatureListItem key={index}><Text alignment={TextAlignment.Left}>{feature.text}</Text></FeatureListItem>
+                            <BulletText key={index} text={feature.text} />
                           ))}
-                        </FeatureList>
+                        </BulletList>
                       </Stack.Item>
                       <Spacing mode='wide'/>
                       <Button mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} onClicked={() => onCategoryStartButtonClicked(index)}/>

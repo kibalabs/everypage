@@ -7,16 +7,19 @@ import { IColorGuide } from '../subatoms/colors';
 import { IDimensionGuide } from '../subatoms/dimensions';
 
 export const ThemeContext = React.createContext<ITheme | null>(null);
+ThemeContext.xyz = Math.random();
 
 interface IThemeProviderProps extends ISingleAnyChildProps {
   theme: ITheme;
 }
 
-export const ThemeProvider = (props: IThemeProviderProps): React.ReactElement => (
-  <ThemeContext.Provider value={props.theme}>
-    {props.children}
-  </ThemeContext.Provider>
-);
+export const ThemeProvider = (props: IThemeProviderProps): React.ReactElement => {
+  return (
+    <ThemeContext.Provider value={props.theme}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
+}
 
 export function useTheme(): ITheme {
   const theme = React.useContext(ThemeContext);
@@ -27,18 +30,12 @@ export function useTheme(): ITheme {
 }
 
 export function useDimensions(): IDimensionGuide {
-  const theme = React.useContext(ThemeContext);
-  if (!theme) {
-    throw Error('No theme has been set!');
-  }
+  const theme = useTheme();
   return theme.dimensions;
 }
 
 export function useColors(): IColorGuide {
-  const theme = React.useContext(ThemeContext);
-  if (!theme) {
-    throw Error('No theme has been set!');
-  }
+  const theme = useTheme();
   return theme.colors;
 }
 
@@ -52,6 +49,14 @@ export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: 
   let modes = mode.split('-');
   modes = modes.splice(modes.lastIndexOf('default') + 1);
   modes.forEach((mode: string): void => {
+    if (!mode) {
+      return;
+    }
+    const modeTheme = componentThemes[mode];
+    if (!modeTheme) {
+      console.error(`Failed for find mode ${mode} in ${component} themes`);
+      return;
+    }
     builtTheme = mergeTheme(builtTheme, componentThemes[mode]);
   });
   return builtTheme;

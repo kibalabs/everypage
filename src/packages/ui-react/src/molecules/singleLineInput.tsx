@@ -5,11 +5,9 @@ import { getClassName } from '@kibalabs/core';
 import { IMoleculeProps, defaultMoleculeProps, InputFrame, IInputFrameTheme } from '.';
 import { InputType } from '..';
 
-
 export interface ISingleLineInputTheme {
   inputFrameTheme: IInputFrameTheme;
 }
-
 
 const StyledSingleLineInput = styled.input`
   width: 100%;

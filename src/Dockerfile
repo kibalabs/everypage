@@ -7,19 +7,11 @@ COPY .npmrc .npmrc
 COPY package.json package.json
 COPY package-lock.json package-lock.json
 COPY packages/ui-react/package.json packges/ui-react/package.json
-# COPY packages/ui-react/package-lock.json packges/ui-react/package-lock.json
 COPY packages/core/package.json packges/core/package.json
-# COPY packages/core/package-lock.json packges/core/package-lock.json
-COPY packages/main/package.json packges/main/package.json
-# COPY packages/main/package-lock.json packges/main/package-lock.json
-COPY packages/test/package.json packges/test/package.json
-# COPY packages/test/package-lock.json packges/test/package-lock.json
-COPY packages/builder-api/package.json packges/builder-api/package.json
-# COPY packages/builder-api/package-lock.json packges/builder-api/package-lock.json
 COPY packages/console/package.json packges/console/package.json
-# COPY packages/console/package-lock.json packges/console/package-lock.json
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+COPY packages/main/package.json packges/main/package.json
+COPY packages/test/package.json packges/test/package.json
+COPY packages/builder-api/package.json packges/builder-api/package.json
 RUN npm ci
 
 COPY . .

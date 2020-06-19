@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, useTheme, ITheme } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, useTheme, ITheme } from '@kibalabs/ui-react';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -24,8 +24,8 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-              <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
@@ -34,7 +34,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
                       <Text alignment={TextAlignment.Center} mode='supersize'>{box.value}</Text>
                       <Spacing direction={Direction.Vertical} mode='narrow' />
-                      <MarkdownText alignment={TextAlignment.Center} text={box.name} />
+                      <Markdown rootTextAlignment={TextAlignment.Center} source={box.name} />
                     </Stack>
                   </Box>
                 </Grid.Item>

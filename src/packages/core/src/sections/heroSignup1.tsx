@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
+import { BulletText } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -58,8 +59,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 <Spacing mode={SpacingSize.ExtraWide} />
               </React.Fragment>
             )}
-            <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            {props.subtitleText && <MarkdownText alignment={TextAlignment.Justify} text={props.subtitleText}/>}
+            <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Justify} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Grid>
@@ -102,6 +103,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                       buttonType='submit'
                       isFullWidth={true}
                       text={props.inputButtonText}
+                      isLoading={isLoading}
                     />
                   </Stack>
                 </Grid.Item>

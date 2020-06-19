@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
+import { Grid, Image, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
 
 
 interface IHeroSimple1Props extends ISectionProps {
@@ -29,8 +29,8 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
                 <Spacing mode={SpacingSize.ExtraWide} />
               </React.Fragment>
             )}
-            <MarkdownText mode='header' alignment={TextAlignment.Center} text={props.titleText}/>
-            {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+            <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>

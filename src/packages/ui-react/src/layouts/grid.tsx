@@ -4,6 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Alignment, getFlexItemAlignment, useDimensions } from '..';
+import { IDimensionGuide } from '../subatoms';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Media, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Media, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -71,8 +71,8 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                   <Spacing mode={SpacingSize.ExtraExtraWide} />
                 </React.Fragment>
               )}
-              <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>}
+              <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
                 <Grid>

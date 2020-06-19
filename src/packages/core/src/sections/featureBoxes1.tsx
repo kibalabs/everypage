@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Media, Direction, Ionicon, useTheme, ITheme } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Media, Direction, KibaIcon, useTheme, ITheme } from '@kibalabs/ui-react';
 
 interface IFeatureBoxes1Feature {
   title?: string;
@@ -27,9 +27,9 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-              <MarkdownText mode='title' alignment={TextAlignment.Center} text={props.titleText}/>
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               <Spacing mode='narrow' />
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Center} text={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
@@ -38,11 +38,11 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
                     <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                       <Spacing direction={Direction.Vertical} mode='wide' />
                       {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
-                      {!feature.mediaUrl && feature.iconId && <Ionicon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                      {!feature.mediaUrl && feature.iconId && <KibaIcon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                       <Spacing direction={Direction.Vertical} mode='wide' />
-                      {feature.title && <MarkdownText alignment={TextAlignment.Center} mode='subtitle' text={feature.title} />}
+                      {feature.title && <Markdown rootTextAlignment={TextAlignment.Center} rootTextMode='subtitle' source={feature.title} />}
                       <Spacing direction={Direction.Vertical} mode='narrow' />
-                      {feature.description && <MarkdownText alignment={TextAlignment.Center} text={feature.description} />}
+                      {feature.description && <Markdown rootTextAlignment={TextAlignment.Center} source={feature.description} />}
                       <Spacing direction={Direction.Vertical} mode='wide' />
                       <Stack.Item growthFactor={1}><div /></Stack.Item>
                     </Stack>

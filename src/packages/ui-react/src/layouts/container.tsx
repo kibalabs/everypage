@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { useDimensions } from '..';
-;
+import { IDimensionGuide } from '../subatoms';
 
 
 interface IBaseContainerProps {

@@ -2,11 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
-
-
-export interface IVideoTheme extends ThemeType {
-}
+import { IComponentProps, defaultComponentProps, useBuiltTheme } from '../..';
+import { IVideoTheme } from './theme';
 
 export interface IStyledVideoProps {
   theme: IVideoTheme;

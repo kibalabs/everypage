@@ -2,11 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, ThemeType, useBuiltTheme } from '..';
-
-
-export interface IImageTheme extends ThemeType {
-}
+import { IComponentProps, defaultComponentProps, useBuiltTheme } from '../..';
+import { IImageTheme } from './theme';
 
 export interface IStyledImageProps {
   theme: IImageTheme;

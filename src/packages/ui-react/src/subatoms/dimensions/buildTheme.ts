@@ -5,7 +5,7 @@ import { IDimensionGuide } from './theme';
 export const buildDimensions = (base?: Partial<IDimensionGuide>): IDimensionGuide => {
   const fontSize = base?.fontSize || '16px';
 
-  const borderRadius = base?.borderRadius || '0.25em';
+  const borderRadius = base?.borderRadius || '0.5em';
   const borderWidth = base?.borderWidth || '1px';
   const borderWidthNarrow = base?.borderWidthNarrow || math(`${borderWidth} / 2`);
   const borderWidthWide = base?.borderWidthWide || math(`${borderWidth} * 2`);

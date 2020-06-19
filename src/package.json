@@ -14,6 +14,6 @@
     "clean-deep": "lerna clean --yes; rm -rf node_modules; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;"
   },
   "devDependencies": {
-    "lerna": "3.20.2"
+    "lerna": "3.22.1"
   }
 }

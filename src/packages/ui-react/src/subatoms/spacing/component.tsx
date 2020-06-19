@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, Direction, useDimensions } from '..';
-import { IDimensionGuide } from '../theming';
-
+import { IComponentProps, defaultComponentProps, Direction, useDimensions } from '../..';
+import { IDimensionGuide } from '../dimensions';
 
 export enum SpacingSize {
   ExtraNarrow = 'extra-narrow',
@@ -15,7 +14,6 @@ export enum SpacingSize {
   ExtraExtraWide = 'extra-extra-wide',
   ExtraExtraExtraWide = 'extra-extra-extra-wide',
 }
-
 
 const getSize = (size: SpacingSize, theme: IDimensionGuide): string => {
   switch (size) {
@@ -46,24 +44,20 @@ const getSize = (size: SpacingSize, theme: IDimensionGuide): string => {
   }
 };
 
-
 interface IStyledSpacingProps {
   size: SpacingSize;
   direction: Direction;
   theme: IDimensionGuide;
 }
 
-
 const StyledDiv = styled.div<IStyledSpacingProps>`
   margin-left: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size, props.theme))};
   margin-top: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size, props.theme))};
 `;
 
-
 interface ISpacingProps extends IComponentProps<IDimensionGuide> {
   direction: Direction;
 }
-
 
 export const Spacing = (props: ISpacingProps): React.ReactElement => {
   const theme = props.theme || useDimensions();

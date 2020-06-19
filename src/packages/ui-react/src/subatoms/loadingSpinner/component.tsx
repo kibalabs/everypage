@@ -2,12 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, useBuiltTheme, ThemeType } from '..';
-
-
-export interface ILoadingSpinnerTheme extends ThemeType {
-  color: string;
-}
+import { IComponentProps, defaultComponentProps, useBuiltTheme } from '../..';
+import { ILoadingSpinnerTheme } from './theme';
 
 interface IStyledLoadingSpinnerProps {
   theme: ILoadingSpinnerTheme;

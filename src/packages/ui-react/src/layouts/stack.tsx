@@ -5,7 +5,7 @@ import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react'
 
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions, IDimensionGuide } from '..';
 
-  // NOTE(krish): if the child of the stackitem declares 100% height (on vertical stack) it doesnt work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
+  // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 
 export interface IStackItemProps extends ISingleAnyChildProps {
   id?: string;
@@ -127,7 +127,7 @@ interface IStyledStackItemProps extends IStackItemProps {
 }
 
 const StyledStackItem = styled.div<IStyledStackItemProps>`
-  display: ${(props: IStyledCanvasStackItemProps): string => props.isHidden ? 'none' : 'flex'};
+  display: ${(props: IStyledStackItemProps): string => props.isHidden ? 'none' : 'flex'};
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};

@@ -3,25 +3,8 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { IComponentProps, defaultComponentProps, IBoxTheme, themeToCss, ThemeType, useBuiltTheme, RecursivePartial } from '..';
-;
-
-
-export interface ILinkBaseThemeBase extends ThemeType {
-  background: IBoxTheme;
-}
-
-export interface ILinkBaseThemeState extends ThemeType {
-  default: ILinkBaseThemeBase;
-  hover: RecursivePartial<ILinkBaseThemeBase>;
-  press: RecursivePartial<ILinkBaseThemeBase>;
-  focus: RecursivePartial<ILinkBaseThemeBase>;
-}
-
-export interface ILinkBaseTheme extends ThemeType {
-  normal: ILinkBaseThemeState;
-  disabled: ILinkBaseThemeState;
-}
+import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } from '../..';
+import { ILinkBaseTheme } from './theme';
 
 interface IStyledLinkBaseProps {
   theme: ILinkBaseTheme;
@@ -90,7 +73,6 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
       className={getClassName('link-base', props.className, !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
-      disabled={!props.isEnabled}
       isFullWidth={props.isFullWidth}
       href={props.target}
     >

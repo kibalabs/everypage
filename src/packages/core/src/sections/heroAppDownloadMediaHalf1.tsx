@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Media, Button, MarkdownText, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, LinkBase } from '@kibalabs/ui-react';
+import { Grid, Image, Media, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, LinkBase } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -45,8 +45,8 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
                   <Spacing mode={SpacingSize.ExtraExtraWide} />
                 </React.Fragment>
               )}
-              <MarkdownText mode='header' alignment={TextAlignment.Left} text={props.titleText}/>
-              {props.subtitleText && <MarkdownText alignment={TextAlignment.Left} text={props.subtitleText}/>}
+              <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
+              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Fill}>
                 {props.iosAppId && (
