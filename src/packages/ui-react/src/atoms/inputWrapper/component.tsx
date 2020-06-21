@@ -50,30 +50,6 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
     }
   }
 
-  &.error {
-    ${(props) => themeToCss(props.theme.error.default.text)};
-    ${(props) => themeToCss(props.theme.error.default.background)};
-    & ::placeholder, .wrapped-input:empty::before {
-      ${(props) => themeToCss(props.theme.error.default.placeholderText)};
-    }
-
-    &:hover {
-      ${(props) => themeToCss(props.theme.error.hover.text)};
-      ${(props) => themeToCss(props.theme.error.hover.background)};
-      & ::placeholder, .wrapped-input:empty::before {
-        ${(props) => themeToCss(props.theme.error.hover.placeholderText)};
-      }
-    }
-
-    &.focus, &:focus {
-      ${(props) => themeToCss(props.theme.error.focus.text)};
-      ${(props) => themeToCss(props.theme.error.focus.background)};
-      & ::placeholder, .wrapped-input:empty::before {
-        ${(props) => themeToCss(props.theme.error.focus.placeholderText)};
-      }
-    }
-  }
-
   &.disabled {
     cursor: not-allowed;
     pointer-events: none;
@@ -101,8 +77,8 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
   }
 `;
 
-const StyledError = styled.p`
-  ${(props) => themeToCss(props.theme.normal.default.errorText)};
+const StyledMessage = styled.p`
+  ${(props) => themeToCss(props.theme.normal.default.messageText)};
   margin-top: 0.5em;
   overflow: auto;
   width: 100%;
@@ -110,7 +86,7 @@ const StyledError = styled.p`
 `;
 
 interface IInputWrapperProps extends IComponentProps<IInputWrapperTheme>, ISingleAnyChildProps {
-  errorText?: string;
+  messageText?: string;
   isEnabled?: boolean;
   isFocussed?: boolean;
 }
@@ -125,19 +101,19 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
     >
       <InputWrapperInner
         id={props.id && `${props.id}-inner`}
-        className={getClassName('input-wrapper-inner', props.errorText && 'error', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
+        className={getClassName('input-wrapper-inner', props.messageText && 'message-showing', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
         theme={theme}
       >
         {props.children}
       </InputWrapperInner>
-      { props.errorText && (
-        <StyledError
-          id={props.id && `${props.id}-error`}
-          className={'input-wrapper-error'}
+      { props.messageText && (
+        <StyledMessage
+          id={props.id && `${props.id}-message`}
+          className={'input-wrapper-message'}
           theme={theme}
         >
-          {props.errorText}
-        </StyledError>
+          {props.messageText}
+        </StyledMessage>
       )}
     </StyledInputWrapper>
   );

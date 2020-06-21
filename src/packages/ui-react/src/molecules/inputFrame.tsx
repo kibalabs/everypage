@@ -16,8 +16,9 @@ const StyledInputFrame = styled.div`
 `;
 
 export interface IInputFrameProps extends IMoleculeProps<IInputFrameTheme>, ISingleAnyChildProps {
-  errorText?: string;
+  messageText?: string;
   isEnabled: boolean;
+  inputWrapperMode?: string;
 }
 
 const StyledInputWrapperInner = styled.div`
@@ -42,7 +43,8 @@ export const InputFrame = (props: IInputFrameProps): React.ReactElement => {
         id={props.id && `${props.id}-input-wrapper`}
         className={'input-frame-input-wrapper'}
         theme={props.theme?.inputWrapperTheme}
-        errorText={props.errorText}
+        mode={props.inputWrapperMode}
+        messageText={props.messageText}
         isEnabled={props.isEnabled}
         isFocussed={isFocussed}
       >

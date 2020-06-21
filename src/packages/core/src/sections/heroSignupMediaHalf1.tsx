@@ -24,9 +24,12 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
   const [input, setInput] = React.useState<string | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
 
-  if (props.leftMediaUrl && props.rightMediaUrl) {
-    throw new Error('Only one of {leftMediaUrl, rightMediaUrl} should be provided to hero-signup-media-half-1')
+  const onInputValueChanged = (value: string): void => {
+    setInput(value);
+    setErrorMessage(null);
+    setSuccessMessage(null);
   }
 
   const onFormSubmitted = async (): Promise<void> => {
@@ -40,7 +43,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget);
     setIsLoading(false);
     if (result.isSuccessful) {
-      // setSuccessMessage(props.inputSuccessMessageText)
+      setSuccessMessage(props.inputSuccessMessageText)
     } else {
       setErrorMessage(result.responseMessage);
     }
@@ -80,12 +83,13 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                     <Stack direction={Direction.Horizontal}>
                       <Stack.Item growthFactor={1}>
                         <SingleLineInput
+                          inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
                           inputType={props.inputType}
                           name={props.inputName}
                           placeholderText={props.inputPlaceholderText}
                           value={input}
-                          onValueChanged={setInput}
-                          errorText={errorMessage}
+                          onValueChanged={onInputValueChanged}
+                          messageText={errorMessage || successMessage}
                         />
                       </Stack.Item>
                       <Spacing direction={Direction.Horizontal} mode={SpacingSize.Default}/>
@@ -100,12 +104,13 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                   <Grid.Item size={12} sizeSmall={0}>
                     <Stack direction={Direction.Vertical}>
                       <SingleLineInput
+                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
                         inputType={props.inputType}
                         name={props.inputName}
                         placeholderText={props.inputPlaceholderText}
                         value={input}
-                        onValueChanged={setInput}
-                        errorText={errorMessage}
+                        onValueChanged={onInputValueChanged}
+                        messageText={errorMessage || successMessage}
                       />
                       <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
                       <Button

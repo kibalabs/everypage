@@ -42,9 +42,10 @@ export interface ISingleLineInputProps extends IMoleculeProps<ISingleLineInputTh
   value: string;
   isEnabled: boolean;
   placeholderText?: string;
-  errorText?: string;
+  messageText?: string;
   inputType: InputType;
   name?: string;
+  inputWrapperMode?: string;
   onKeyUp?(key: string): void;
   onKeyDown?(key: string): void;
   onClick?(): void;
@@ -81,12 +82,13 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
       id={props.id}
       className={getClassName('singleline-input', props.className)}
       theme={props.theme?.inputFrameTheme}
-      errorText={props.errorText}
+      inputWrapperMode={props.inputWrapperMode}
+      messageText={props.messageText}
       isEnabled={props.isEnabled}
     >
       <StyledSingleLineInput
         id={props.id && `${props.id}-textarea`}
-        className={getClassName('singleline-input-textarea', props.errorText && 'error', !props.isEnabled && 'disabled')}
+        className={getClassName('singleline-input-textarea', !props.isEnabled && 'disabled')}
         type={props.inputType}
         name={props.name}
         autoComplete={getAutocompleteType(props.inputType)}

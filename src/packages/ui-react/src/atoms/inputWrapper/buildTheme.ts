@@ -9,8 +9,8 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
     normal: {
       default: {
         text: textThemes.default,
-        errorText: mergeTheme(textThemes.default, {
-          'color': 'red',
+        messageText: mergeTheme(textThemes.default, {
+          'color': lighten(0.2, textThemes.default.color),
         }),
         placeholderText: mergeTheme(textThemes.default, {
           'color': '#AAAAAA',
@@ -35,26 +35,6 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
         },
       },
     },
-    error: {
-      default: {
-        background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
-        }
-      },
-      hover: {
-        background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
-        }
-      },
-      focus: {
-        background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
-        }
-      },
-    },
     disabled: {
       default: {
         background: {
@@ -77,7 +57,61 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
     },
   }, base?.default);
 
+  const errorInputWrapperTheme = mergeThemePartial<IInputWrapperTheme>({
+    normal: {
+      default: {
+        messageText: {
+          color: 'red',
+        },
+        background: {
+          'background-color': lighten(0.9, 'red'),
+          'border-color': 'red',
+        }
+      },
+      hover: {
+        background: {
+          'background-color': lighten(0.9, 'red'),
+          'border-color': 'red',
+        }
+      },
+      focus: {
+        background: {
+          'background-color': lighten(0.9, 'red'),
+          'border-color': 'red',
+        }
+      },
+    },
+  });
+
+  const successInputWrapperTheme = mergeThemePartial<IInputWrapperTheme>({
+    normal: {
+      default: {
+        messageText: {
+          color: 'green',
+        },
+        background: {
+          'background-color': lighten(0.9, 'green'),
+          'border-color': 'green',
+        }
+      },
+      hover: {
+        background: {
+          'background-color': lighten(0.9, 'green'),
+          'border-color': 'green',
+        }
+      },
+      focus: {
+        background: {
+          'background-color': lighten(0.9, 'green'),
+          'border-color': 'green',
+        }
+      },
+    },
+  });
+
   return {
     default: defaultInputWrapperTheme,
+    error: errorInputWrapperTheme,
+    success: successInputWrapperTheme,
   };
 }
