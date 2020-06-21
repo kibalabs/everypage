@@ -1,7 +1,7 @@
 import React from 'react';
+import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { IWebsite } from '../model';
-import { ISingleAnyChildProps } from '.';
 
 export const WebsiteContext = React.createContext<IWebsite | null>(null);
 

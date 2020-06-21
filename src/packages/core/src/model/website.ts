@@ -14,4 +14,14 @@ export interface IWebsite {
   twitterCompanyUsername?: string;
   socialCardImageUrl?: string;
   faviconImageUrl?: string;
+  plugins?: IWebsitePlugin[];
+  sections?: IWebsiteSection[];
+}
+
+export interface IWebsitePlugin {
+  type: string;
+}
+
+export interface IWebsiteSection {
+  type: string;
 }

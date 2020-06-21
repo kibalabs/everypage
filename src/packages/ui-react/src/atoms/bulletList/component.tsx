@@ -11,7 +11,7 @@ interface IStyledBulletListProps {
   theme: IBulletListTheme;
 }
 
-const StyledBulletList = styled.li<IStyledBulletListProps>`
+const StyledBulletList = styled.ul<IStyledBulletListProps>`
   ${(props: IStyledBulletListProps): string => themeToCss(props.theme.normal.default.bulletList)};
 `;
 

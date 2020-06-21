@@ -7,6 +7,7 @@ import { WebsiteProvider } from '../util';
 import { ThemeProvider, ITheme, buildTheme } from '@kibalabs/ui-react';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
+import { PluginRenderer } from './pluginRenderer';
 
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
@@ -28,8 +29,10 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
     sections.unshift(renderSection({ key: sections.length, type: 'head'}));
   }
 
+  // TODO(krish): add validation for the website information
+
   return (
-    <WebsiteProvider website={props.pageContent as IWebsite}>
+    <WebsiteProvider website={props.pageContent}>
       <ThemeProvider theme={resolvedPageTheme}>
         <React.Fragment>
           <GlobalCss
@@ -37,6 +40,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             resetCss={resetCss}
           />
           {props.shouldIncludeHead && <GlobalHead />}
+          {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
           <SectionHolder>{ sections }</SectionHolder>
         </React.Fragment>
       </ThemeProvider>
