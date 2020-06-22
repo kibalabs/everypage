@@ -173,7 +173,7 @@ export class EverypageClient extends ServiceClient {
   }
 
   public update_site_version_entry = async (siteId: number, siteVersionId: number, siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null): Promise<Resources.SiteVersionEntry> => {
-    const method = RestMethod.PATCH;
+    const method = RestMethod.PATCH.toUpperCase();
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
     const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
     const response = await this.makeRequest(method, path, request, Endpoints.UpdateSiteVersionEntryResponse);
