@@ -91,7 +91,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <meta name='twitter:title' content={title} />
       { website.description && <meta name='twitter:description' content={website.description} /> }
       <meta name='twitter:image' content={socialCardImageUrl} />
-      <meta name='twitter:image:alt' content='Alt text for image' />
+      {/* <meta name='twitter:image:alt' content='Alt text for image' /> */}
       { website.twitterUsername && <meta name='twitter:site' content={`@${website.twitterUsername}`} /> }
       { website.twitterCompanyUsername && <meta name='twitter:creator' content={`@${website.twitterCompanyUsername}`} /> }
       { website.iosAppId && <meta name='twitter:app:id:iphone' content={website.iosAppId} /> }
