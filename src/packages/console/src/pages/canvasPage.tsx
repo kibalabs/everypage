@@ -1,5 +1,6 @@
 import React from 'react';
 import { useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
+import { buildTheme, ThemeProvider } from '@kibalabs/ui-react';
 
 import { Canvas } from '../components/canvas';
 import { defaultSite } from '../defaultSite';
@@ -23,15 +24,17 @@ export const CanvasPage = (): React.ReactElement => {
   };
 
   return (
-    <Canvas
-      siteContent={resolvedSiteContent}
-      onSiteContentUpdated={setSiteContent}
-      siteTheme={siteTheme}
-      onSiteThemeUpdated={setSiteTheme}
-      isEditorHidden={isEditorHidden}
-      onIsEditorHiddenUpdated={setIsEditorHidden}
-      assetFileMap={assetFileMap}
-      addAssetFiles={addAssetFiles}
-    />
+    <ThemeProvider theme={buildTheme()}>
+      <Canvas
+        siteContent={resolvedSiteContent}
+        onSiteContentUpdated={setSiteContent}
+        siteTheme={siteTheme}
+        onSiteThemeUpdated={setSiteTheme}
+        isEditorHidden={isEditorHidden}
+        onIsEditorHiddenUpdated={setIsEditorHidden}
+        assetFileMap={assetFileMap}
+        addAssetFiles={addAssetFiles}
+      />
+    </ThemeProvider>
   )
 }

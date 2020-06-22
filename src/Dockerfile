@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Install dependecies
 COPY .npmrc .npmrc
+COPY lerna.json lerna.json
 COPY package.json package.json
 COPY package-lock.json package-lock.json
 COPY packages/ui-react/package.json packges/ui-react/package.json
