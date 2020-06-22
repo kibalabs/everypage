@@ -57,7 +57,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
   useInitialization((): void => {
     const requester = new Requester();
     if (props.iosAppId) {
-      requester.makeRequest(RestMethod.GET, `http://localhost:5000/v1/ios-apps/${props.iosAppId}`).then((response: KibaResponse): void => {
+      requester.makeRequest(RestMethod.GET, `https://api.everypagehq.com/v1/ios-apps/${props.iosAppId}`).then((response: KibaResponse): void => {
         setIosAppData(JSON.parse(response.content).iosApp);
       }).catch((error: Error): void => {
         console.log('error', error);
@@ -65,7 +65,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
       });
     }
     if (props.androidAppId) {
-      requester.makeRequest(RestMethod.GET, `http://localhost:5000/v1/android-apps/${props.androidAppId}`).then((response: KibaResponse): void => {
+      requester.makeRequest(RestMethod.GET, `https://api.everypagehq.com/v1/android-apps/${props.androidAppId}`).then((response: KibaResponse): void => {
         setAndroidAppData(JSON.parse(response.content).androidApp);
       }).catch((error: Error): void => {
         console.log('error', error);
