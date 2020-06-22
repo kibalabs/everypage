@@ -2,7 +2,7 @@ export interface IComponentProps<Theme> {
   id?: string;
   className: string;
   theme?: Theme;
-  mode: string;
+  mode?: string;
 }
 
 export const defaultComponentProps = {

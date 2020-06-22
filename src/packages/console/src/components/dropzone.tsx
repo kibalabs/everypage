@@ -51,6 +51,7 @@ const ThumbsContainer = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   height: 100%;
+  align-content: flex-start;
 `;
 
 const Thumb = styled.div`

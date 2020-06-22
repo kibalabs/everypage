@@ -76,7 +76,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
               <Button className={selectedType === 'site' ? 'selected' : ''} onClick={onSiteClicked}>Site</Button>
               <Button className={selectedType === 'theme' ? 'selected' : ''} onClick={onThemeClicked}>Theme</Button>
-              {props.isEditable && <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>}
+              <Button className={selectedType === 'assets' ? 'selected' : ''} onClick={onAssetsClicked}>Assets</Button>
               <div />
               <Button onClick={onHideEditorClicked}>Hide</Button>
             </CanvasStack>
@@ -88,7 +88,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
           </CanvasStack.Item>
           <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'assets'}>
-            <Dropzone onFilesChosen={onAssetFilesChosen} />
+            {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
             <FilePreviewGrid fileMap={props.assetFileMap}/>
           </CanvasStack.Item>
         </CanvasStack>

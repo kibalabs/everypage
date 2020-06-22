@@ -152,6 +152,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generate_asset_upload_for_site_version(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
+      const requester = new Requester();
       const promises = files.map((file: File): Promise<Response> => {
         const fileName = file.path.replace(/^\//g, '');
         const formData = new FormData();
@@ -161,7 +162,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         formData.set('key', presignedUpload.params['key'].replace('${filename}', fileName));
         formData.set('content-type', file.type);
         formData.append('file', file, file.name);
-        return new Requester().makeFormRequest(presignedUpload.url, formData);
+        return requester.makeFormRequest(presignedUpload.url, formData);
       });
       Promise.all(promises).then((): void => {
         setAssetFileMap((assetFileMap: Record<string, string>): Record<string, string> => {

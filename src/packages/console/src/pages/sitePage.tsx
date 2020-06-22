@@ -225,10 +225,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       <NavigationBar />
       <main className={classes.content}>
         <Container maxWidth='lg'>
-          {isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
-            <div>Loading...</div>
-          ) : site === null ? (
+          {site === null ? (
             <div>Site not found</div>
+          ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
+            <div>Loading...</div>
           ) : (
             <React.Fragment>
               <Paper className={classes.paper}>
