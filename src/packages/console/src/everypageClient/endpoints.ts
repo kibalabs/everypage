@@ -560,3 +560,47 @@ export class UpdateSiteVersionEntryResponse extends ResponseData {
     );
   }
 }
+
+export class GetIosAppRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetIosAppResponse extends ResponseData {
+  readonly iosApp: Resources.IosApp;
+
+  public constructor(iosApp: Resources.IosApp) {
+    super();
+    this.iosApp = iosApp;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetIosAppResponse => {
+    return new GetIosAppResponse(
+      Resources.IosApp.fromObject(obj.iosApp),
+    );
+  }
+}
+
+export class GetAndroidAppRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetAndroidAppResponse extends ResponseData {
+  readonly iosApp: Resources.AndroidApp;
+
+  public constructor(iosApp: Resources.AndroidApp) {
+    super();
+    this.iosApp = iosApp;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetAndroidAppResponse => {
+    return new GetAndroidAppResponse(
+      Resources.AndroidApp.fromObject(obj.iosApp),
+    );
+  }
+}

@@ -173,10 +173,26 @@ export class EverypageClient extends ServiceClient {
   }
 
   public update_site_version_entry = async (siteId: number, siteVersionId: number, siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null): Promise<Resources.SiteVersionEntry> => {
-    const method = RestMethod.PATCH.toUpperCase();
+    const method = RestMethod.PATCH;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
     const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
     const response = await this.makeRequest(method, path, request, Endpoints.UpdateSiteVersionEntryResponse);
     return response.siteVersionEntry;
+  }
+
+  public get_ios_app = async (iosAppId: string): Promise<Resources.IosApp> => {
+    const method = RestMethod.GET;
+    const path = `v1/ios-apps/${iosAppId}`;
+    const request = new Endpoints.GetIosAppRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetIosAppResponse);
+    return response.iosApp;
+  }
+
+  public get_android_app = async (androidAppId: string): Promise<Resources.AndroidApp> => {
+    const method = RestMethod.GET;
+    const path = `v1/android-apps/${androidAppId}`;
+    const request = new Endpoints.GetAndroidAppRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetAndroidAppResponse);
+    return response.androidApp;
   }
 }

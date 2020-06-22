@@ -14,6 +14,8 @@ export interface IWebsite {
   twitterCompanyUsername?: string;
   socialCardImageUrl?: string;
   faviconImageUrl?: string;
+  iosAppId?: string;
+  androidAppId?: string;
   plugins?: IWebsitePlugin[];
   sections?: IWebsiteSection[];
 }

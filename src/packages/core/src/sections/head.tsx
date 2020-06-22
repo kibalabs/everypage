@@ -4,7 +4,7 @@ import { Section, ISectionProps } from '.';
 import { Text, Stack, Alignment, Spacing, Direction, Image, Box } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
-import { TwitterCard } from '../application/twitterCard';
+import { TwitterCard, TwitterAppCard } from '../application/twitterCard';
 
 interface IHeadProps extends ISectionProps {
   website?: IWebsite;
@@ -54,11 +54,18 @@ export const Head = (props: IHeadProps): React.ReactElement => {
           <Stack.Item>
             <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} shouldAddGutters={false}>
               <Text mode='strong'>Twitter Card</Text>
-              <TwitterCard
-                imageUrl={socialCardImageUrl}
-                title={title}
-                description={website.description || '(not set)'}
-              />
+              { (website.iosAppId || website.androidAppId) ? (
+                <TwitterAppCard
+                  iosAppId={website.iosAppId}
+                  androidAppId={website.androidAppId}
+                />
+              ) : (
+                <TwitterCard
+                  imageUrl={socialCardImageUrl}
+                  title={title}
+                  description={website.description || '(not set)'}
+                />
+              )}
             </Stack>
           </Stack.Item>
         </Stack>

@@ -140,3 +140,64 @@ export class AssetFile {
     );
   }
 }
+
+export class IosApp {
+    readonly iosAppId: string;
+    readonly name: string;
+    readonly description: string;
+    readonly publisherName: string;
+    readonly iconImageUrl: string;
+    readonly storeUrl: string;
+
+    public constructor(iosAppId: string, name: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
+      this.iosAppId = iosAppId;
+      this.name = name;
+      this.description = description;
+      this.publisherName = publisherName;
+      this.iconImageUrl = iconImageUrl;
+      this.storeUrl = storeUrl;
+    }
+
+    public static fromObject = (obj: Record<string, any>): IosApp => {
+      return new IosApp(
+        String(obj.iosAppId),
+        String(obj.name),
+        String(obj.description),
+        String(obj.publisherName),
+        String(obj.iconImageUrl),
+        String(obj.storeUrl),
+      );
+    }
+}
+
+export class AndroidApp {
+    readonly androidAppId: string;
+    readonly name: string;
+    readonly tagline: string;
+    readonly description: string;
+    readonly publisherName: string;
+    readonly iconImageUrl: string;
+    readonly storeUrl: string;
+
+    public constructor(androidAppId: string, name: string, tagline: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
+      this.androidAppId = androidAppId;
+      this.name = name;
+      this.tagline = tagline;
+      this.description = description;
+      this.publisherName = publisherName;
+      this.iconImageUrl = iconImageUrl;
+      this.storeUrl = storeUrl;
+    }
+
+    public static fromObject = (obj: Record<string, any>): AndroidApp => {
+      return new AndroidApp(
+        String(obj.androidAppId),
+        String(obj.name),
+        String(obj.tagline),
+        String(obj.description),
+        String(obj.publisherName),
+        String(obj.iconImageUrl),
+        String(obj.storeUrl),
+      );
+    }
+}

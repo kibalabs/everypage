@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "description": "Build everypage sites",
   "license": "UNLICENSED",
   "repository": {
@@ -24,8 +24,8 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.10.2",
-    "@kibalabs/everypage-core": "0.3.13",
-    "@kibalabs/ui-react": "0.3.13",
+    "@kibalabs/everypage-core": "0.3.14",
+    "@kibalabs/ui-react": "0.3.14",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
     "commander": "5.1.0",

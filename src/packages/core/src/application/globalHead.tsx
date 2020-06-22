@@ -88,13 +88,16 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta property='og:url' content={`https://${website.siteHost}`} />
 
       {/* Twitter */}
-      <meta name='twitter:card' content='summary_large_image' />
+      <meta name='twitter:card' content={(website.iosAppId || website.androidAppId) ? 'app' : 'summary_large_image'} />
       <meta name='twitter:title' content={title} />
       { website.description && <meta name='twitter:description' content={website.description} /> }
       <meta name='twitter:image' content={socialCardImageUrl} />
       <meta name='twitter:image:alt' content='Alt text for image' />
       { website.twitterUsername && <meta name='twitter:site' content={`@${website.twitterUsername}`} /> }
       { website.twitterCompanyUsername && <meta name='twitter:creator' content={`@${website.twitterCompanyUsername}`} /> }
+      { website.iosAppId && <meta name='twitter:app:id:iphone' content={website.iosAppId} /> }
+      { website.iosAppId && <meta name='twitter:app:id:ipad' content={website.iosAppId} /> }
+      { website.androidAppId && <meta name='twitter:app:id:googleplay' content={website.androidAppId} /> }
 
       {/* Android */}
       <meta name='theme-color' content={String(theme.colors.brandPrimary)} />
@@ -104,6 +107,8 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <meta name='apple-mobile-web-app-title' content={website.name} />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+      {/* iOS Banner */}
+      { website.iosAppId && <meta name='apple-itunes-app' content={website.iosAppId} /> }
 
       {/* Windows */}
       <meta name='msapplication-navbutton-color' content={String(theme.colors.brandPrimary)} />
