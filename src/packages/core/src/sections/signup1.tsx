@@ -54,7 +54,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Justify} source={props.subtitleText}/>}
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.Wide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Grid>

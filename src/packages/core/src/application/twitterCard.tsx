@@ -3,7 +3,6 @@ import React from 'react';
 import { Text, Stack, Alignment, Spacing, Image, Box, LoadingSpinner } from '@kibalabs/ui-react';
 import { useInitialization, Link } from '@kibalabs/core-react';
 import { Requester, RestMethod, KibaResponse } from '@kibalabs/core';
-import { Direction } from '@kibalabs/ui-react/src';
 
 interface ITwitterCardProps {
   title: string;

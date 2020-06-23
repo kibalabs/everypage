@@ -55,12 +55,12 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
               <Spacing mode={SpacingSize.ExtraWide} />
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Fill}>
                 {iosAppId && (
-                  <LinkBase mode='transparent' target={`https://apps.apple.com/app/id${iosAppId}`}>
+                  <LinkBase target={`https://apps.apple.com/app/id${iosAppId}`}>
                     <Image source='https://assets.evrpg.com/ios/download-button/v2/dark.svg' alternativeText='Download from the App Store' />
                   </LinkBase>
                 )}
                 {androidAppId && (
-                  <LinkBase mode='transparent' target={`https://play.google.com/store/apps/details?id=${androidAppId}`}>
+                  <LinkBase target={`https://play.google.com/store/apps/details?id=${androidAppId}`}>
                     <Image source='https://assets.evrpg.com/android/download-button/v2/dark.svg' alternativeText='Download from the Play Store' />
                   </LinkBase>
                 )}
