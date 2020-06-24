@@ -6,11 +6,13 @@ import { buildFonts } from '../subatoms/fonts';
 import { buildTextThemes } from '../subatoms/text';
 import { buildBoxThemes } from '../subatoms/box';
 import { buildImageThemes } from '../subatoms/image';
-import { buildVideoThemes } from '../subatoms/video';
 import { buildLoadingSpinnerThemes } from '../subatoms/loadingSpinner';
+import { buildPortalThemes } from '../subatoms/portal';
+import { buildVideoThemes } from '../subatoms/video';
 import { buildBulletListThemes } from '../atoms/bulletList';
 import { buildBulletTextThemes } from '../atoms/bulletText';
 import { buildButtonThemes } from '../atoms/button';
+import { buildIconButtonThemes } from '../atoms/iconButton';
 import { buildInputWrapperThemes } from '../atoms/inputWrapper';
 import { buildLinkThemes } from '../atoms/link';
 import { buildLinkBaseThemes } from '../atoms/linkBase';
@@ -22,16 +24,18 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const textThemes = buildTextThemes(colors, dimensions, inputTheme?.texts);
   const boxThemes = buildBoxThemes(colors, dimensions, inputTheme?.boxes);
-  const loadingSpinnerThemes = buildLoadingSpinnerThemes(colors, dimensions, inputTheme?.loadingSpinners);
   const imageThemes = buildImageThemes(colors, dimensions, inputTheme?.images);
+  const loadingSpinnerThemes = buildLoadingSpinnerThemes(colors, dimensions, inputTheme?.loadingSpinners);
+  const portalThemes = buildPortalThemes(colors, dimensions, boxThemes, inputTheme?.portals);
   const videoThemes = buildVideoThemes(colors, dimensions, inputTheme?.videos);
 
   const buttonThemes = buildButtonThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.buttons);
   const bulletListThemes = buildBulletListThemes(colors, dimensions, inputTheme?.bulletLists);
   const bulletTextThemes = buildBulletTextThemes(colors, dimensions, textThemes, inputTheme?.bulletTexts);
+  const iconButtonThemes = buildIconButtonThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.iconButtons);
+  const inputWrapperThemes = buildInputWrapperThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.inputWrappers);
   const linkBaseThemes = buildLinkBaseThemes(colors, dimensions, boxThemes, inputTheme?.linkBases);
   const linkThemes = buildLinkThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.links);
-  const inputWrapperThemes = buildInputWrapperThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.inputWrappers);
 
   return {
     // Base
@@ -43,15 +47,17 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     boxes: boxThemes,
     texts: textThemes,
     images: imageThemes,
-    videos: videoThemes,
     loadingSpinners: loadingSpinnerThemes,
+    portals: portalThemes,
+    videos: videoThemes,
 
     // Atoms
     bulletLists: bulletListThemes,
     bulletTexts: bulletTextThemes,
     buttons: buttonThemes,
-    linkBases: linkBaseThemes,
+    iconButtons: iconButtonThemes,
     inputWrappers: inputWrapperThemes,
+    linkBases: linkBaseThemes,
     links: linkThemes,
   };
 };

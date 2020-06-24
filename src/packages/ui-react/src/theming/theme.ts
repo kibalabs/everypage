@@ -7,10 +7,12 @@ import { IBoxTheme } from '../subatoms/box/theme';
 import { IImageTheme } from '../subatoms/image/theme';
 import { IVideoTheme } from '../subatoms/video/theme';
 import { ILoadingSpinnerTheme } from '../subatoms/loadingSpinner/theme';
+import { IIPortalTheme } from '../subatoms/portal/theme';
 import { IBulletListTheme } from '../atoms/bulletList/theme';
 import { IBulletTextTheme } from '../atoms/bulletText/theme';
 import { IButtonTheme } from '../atoms/button/theme';
 import { ILinkBaseTheme } from '../atoms/linkBase/theme';
+import { IIconButtonTheme } from '../atoms/iconButton/theme';
 import { IInputWrapperTheme } from '../atoms/inputWrapper/theme';
 import { ILinkTheme } from '../atoms/link/theme';
 
@@ -24,14 +26,16 @@ export interface ITheme extends ThemeType {
   boxes: ThemeMap<IBoxTheme>,
   texts: ThemeMap<ITextTheme>,
   images: ThemeMap<IImageTheme>,
-  videos: ThemeMap<IVideoTheme>,
   loadingSpinners: ThemeMap<ILoadingSpinnerTheme>,
+  portals: ThemeMap<IPortalTheme>,
+  videos: ThemeMap<IVideoTheme>,
 
   // Atoms
   bulletLists: ThemeMap<IBulletListTheme>,
   bulletTexts: ThemeMap<IBulletTextTheme>,
   buttons: ThemeMap<IButtonTheme>,
   linkBases: ThemeMap<ILinkBaseTheme>,
+  iconButtons: ThemeMap<IIconButtonTheme>,
   inputWrappers: ThemeMap<IInputWrapperTheme>,
   links: ThemeMap<ILinkTheme>,
 }

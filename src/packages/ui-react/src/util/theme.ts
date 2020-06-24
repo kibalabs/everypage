@@ -23,12 +23,17 @@ export interface ThemeMap<Theme extends ThemeType> extends Record<string, Recurs
   default: Theme;
 };
 
-export function mergeTheme<Theme extends ThemeType>(baseTheme: Theme, themeValues?: RecursivePartial<Theme>, overrideTheme?: RecursivePartial<Theme>): Theme {
-  // @ts-ignore
-  return merge(baseTheme, themeValues || {}, overrideTheme || {});
+export function mergeTheme<Theme extends ThemeType>(baseTheme: Theme, ...partialThemes: (RecursivePartial<Theme> | undefined)[]): Theme {
+  return merge(baseTheme, mergeThemePartial(...partialThemes));
 }
 
-export function mergeThemePartial<Theme extends ThemeType>(themeValues?: RecursivePartial<Theme>, overrideTheme?: RecursivePartial<Theme>): RecursivePartial<Theme> {
-  // @ts-ignore
-  return merge(themeValues || {}, overrideTheme || {});
+export function mergeThemePartial<Theme extends ThemeType>(...partialThemes: (RecursivePartial<Theme> | undefined)[]): RecursivePartial<Theme> {
+  var baseTheme = {} as RecursivePartial<Theme>;
+  partialThemes.forEach((partialTheme?: RecursivePartial<Theme>): void => {
+    if (!partialTheme) {
+      return;
+    }
+    baseTheme = merge(baseTheme, partialTheme);
+  });
+  return baseTheme;
 }

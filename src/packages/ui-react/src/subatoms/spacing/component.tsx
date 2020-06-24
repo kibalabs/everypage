@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, Direction, useDimensions } from '../..';
+import { IComponentProps, defaultComponentProps, MultiDirection, useDimensions } from '../..';
 import { IDimensionGuide } from '../dimensions';
 
 export enum SpacingSize {
@@ -46,17 +46,17 @@ const getSize = (size: SpacingSize, theme: IDimensionGuide): string => {
 
 interface IStyledSpacingProps {
   size: SpacingSize;
-  direction: Direction;
+  direction: MultiDirection;
   theme: IDimensionGuide;
 }
 
 const StyledDiv = styled.div<IStyledSpacingProps>`
-  margin-left: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Vertical ? '0' : getSize(props.size, props.theme))};
-  margin-top: ${(props: IStyledSpacingProps): string => (props.direction === Direction.Horizontal ? '0' : getSize(props.size, props.theme))};
+  margin-left: ${(props: IStyledSpacingProps): string => (props.direction === MultiDirection.Both || props.direction === MultiDirection.Horizontal ? getSize(props.size, props.theme): '0')};
+  margin-top: ${(props: IStyledSpacingProps): string => (props.direction === MultiDirection.Both || props.direction === MultiDirection.Vertical ? getSize(props.size, props.theme): '0')};
 `;
 
 interface ISpacingProps extends IComponentProps<IDimensionGuide> {
-  direction: Direction;
+  direction: MultiDirection;
 }
 
 export const Spacing = (props: ISpacingProps): React.ReactElement => {
@@ -74,5 +74,5 @@ export const Spacing = (props: ISpacingProps): React.ReactElement => {
 
 Spacing.defaultProps = {
   ...defaultComponentProps,
-  direction: Direction.Vertical,
+  direction: MultiDirection.Both,
 };

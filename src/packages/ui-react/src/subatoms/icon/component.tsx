@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-interface IIconProps {
+export interface IIconProps {
   size?: 'default' | 'small' | 'large' | 'extra-large' | 'full';
   _color?: string;
   shouldAddFill?: boolean;

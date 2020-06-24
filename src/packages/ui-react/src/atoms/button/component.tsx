@@ -21,7 +21,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-clip: padding-box;
+  background-clip: border-box;
   transition: 0.3s;
   &:hover {
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.text)};

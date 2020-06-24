@@ -5,6 +5,7 @@ export * from './icon';
 export * from './image';
 export * from './loadingSpinner';
 export * from './media';
+export * from './portal';
 export * from './spacing';
 export * from './text';
 export * from './video';

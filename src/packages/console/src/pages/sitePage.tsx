@@ -168,7 +168,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onCustomDomainNextClicked = (): void => {
-    console.log('newCustomDomainValue', newCustomDomainValue);
     if (!/^[A-Za-z0-9-\.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
       setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
       return;

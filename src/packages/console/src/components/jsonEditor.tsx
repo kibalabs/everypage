@@ -67,7 +67,6 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
         modes: ['code', 'tree'],
       });
       newEditor.set(props.json);
-      newEditor.expandAll();
       setEditor(newEditor);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

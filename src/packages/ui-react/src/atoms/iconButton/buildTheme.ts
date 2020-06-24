@@ -2,10 +2,10 @@ import { darken, transparentize } from 'polished';
 
 import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme, ITextTheme } from '../../subatoms';
-import { IButtonTheme } from './theme';
+import { IIconButtonTheme } from './theme';
 
-export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGuide, textThemes: ThemeMap<ITextTheme>, boxThemes: ThemeMap<IBoxTheme>, base: RecursivePartial<Record<string, IButtonTheme>>): ThemeMap<IButtonTheme> => {
-  const defaultButtonTheme = mergeTheme<IButtonTheme>({
+export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensionGuide, textThemes: ThemeMap<ITextTheme>, boxThemes: ThemeMap<IBoxTheme>, base: RecursivePartial<Record<string, IIconButtonTheme>>): ThemeMap<IIconButtonTheme> => {
+  const defaultIconButtonTheme = mergeTheme<IIconButtonTheme>({
     normal: {
       default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
@@ -43,7 +43,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     },
   }, base?.default);
 
-  const primaryButtonTheme = mergeThemePartial<IButtonTheme>({
+  const primaryIconButtonTheme = mergeThemePartial<IIconButtonTheme>({
     normal: {
       default: {
         background: {
@@ -67,7 +67,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     },
   }, base?.primary);
 
-  const secondaryButtonTheme = mergeThemePartial<IButtonTheme>({
+  const secondaryIconButtonTheme = mergeThemePartial<IIconButtonTheme>({
     normal: {
       default: {
         background: {
@@ -78,9 +78,9 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
   }, base?.secondary);
 
   return {
-    default: defaultButtonTheme,
-    primary: primaryButtonTheme,
-    secondary: secondaryButtonTheme,
-    tertiary: defaultButtonTheme,
+    default: defaultIconButtonTheme,
+    primary: primaryIconButtonTheme,
+    secondary: secondaryIconButtonTheme,
+    tertiary: defaultIconButtonTheme,
   };
 }

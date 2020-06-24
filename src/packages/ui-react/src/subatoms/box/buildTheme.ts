@@ -25,6 +25,11 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
     'padding': dimensions.padding,
   }, base?.transparent);
 
+  const paddedBoxTheme = mergeThemePartial<IBoxTheme>({
+    'background-color': colors.background,
+    'padding': dimensions.padding,
+  }, base?.padded);
+
   const cardBoxTheme = mergeThemePartial<IBoxTheme>({
     'background-color': lighten(0.1, colors.background),
     'border-color': darken(0.05, colors.background),
@@ -56,6 +61,7 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   return {
     default: defaultBoxTheme,
     transparent: transparentBoxTheme,
+    padded: paddedBoxTheme,
     card: cardBoxTheme,
     bordered: borderedBoxTheme,
     focusable: focusableBoxTheme,

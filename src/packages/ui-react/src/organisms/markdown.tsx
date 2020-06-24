@@ -55,7 +55,6 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
       return <Media source={rendererProps.src} alternativeText={rendererProps.alt}/>;
     }
     // paragraph: (rendererProps: object): React.ReactElement => {
-    //   console.log('paragraph rendererProps', rendererProps);
     //   return (<Text>{rendererProps.children}</Text>);
     // },
   };
