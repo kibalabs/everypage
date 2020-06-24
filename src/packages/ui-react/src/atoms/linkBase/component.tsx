@@ -13,6 +13,7 @@ interface IStyledLinkBaseProps {
 
 const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
   ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.background)};
+  ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.linkBase)};
   width: ${(props: IStyledLinkBaseProps): string => (props.isFullWidth ? '100%' : 'inherit')};
   color: currentColor;
   cursor: pointer;
@@ -25,30 +26,36 @@ const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
   transition: 0.3s;
   &:hover {
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.hover?.background)};
+    ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.hover?.linkBase)};
   }
   &:active {
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.press?.background)};
+    ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.press?.linkBase)};
   }
   &:focus {
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.focus?.background)};
+    ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.focus?.linkBase)};
   }
   &.disabled {
     cursor: not-allowed;
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.default.background)};
+    ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.default.linkBase)};
     &:hover {
       ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.hover?.background)};
+      ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.hover?.linkBase)};
     }
     &:active {
       ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.press?.background)};
+      ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.press?.linkBase)};
     }
     &:focus {
       ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.focus?.background)};
+      ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.disabled.focus?.linkBase)};
     }
   }
 `;
 
 interface ILinkBaseProps extends IComponentProps<ILinkBaseTheme>, ISingleAnyChildProps {
-  buttonType: 'button' | 'reset' | 'submit';
   isEnabled: boolean;
   isFullWidth: boolean;
   target?: string;
@@ -61,10 +68,6 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
       props.onClicked();
     }
   };
-
-  if (props.onClicked && props.buttonType == 'submit') {
-    throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
-  }
 
   const theme = props.theme || useBuiltTheme('linkBases', props.mode);
   return (
@@ -83,7 +86,6 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
 
 LinkBase.defaultProps = {
   ...defaultComponentProps,
-  buttonType: 'button',
   isEnabled: true,
   isFullWidth: false,
 };

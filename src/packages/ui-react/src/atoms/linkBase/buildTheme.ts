@@ -8,8 +8,11 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
   const defaultLinkBaseTheme = mergeTheme<ILinkBaseTheme>({
     normal: {
       default: mergeTheme({
-        background: mergeTheme(boxThemes.default, {
+        background: mergeTheme(boxThemes.default, boxThemes.focusable, {
         }),
+        linkBase: {
+          opacity: '1',
+        },
       }),
       hover: {
         background: {
@@ -31,22 +34,24 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
           'background-color': '#999999',
         },
       },
-      focus: {
-        background: boxThemes.focussed,
-      },
     },
   }, base?.default);
 
   const translucentLinkBaseTheme = mergeThemePartial<ILinkBaseTheme>({
     normal: {
+    },
+  }, base?.translucent);
+
+  const imageLinkBaseTheme = mergeThemePartial<ILinkBaseTheme>({
+    normal: {
       hover: {
-        background: {
-          'background-color': transparentize(0.8, colors.brandPrimary),
+        linkBase: {
+          opacity: '0.8',
         },
       },
       press: {
-        background: {
-          'background-color': transparentize(0.6, colors.brandPrimary),
+        linkBase: {
+          opacity: '0.6',
         },
       },
     },
@@ -55,5 +60,6 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
   return {
     default: defaultLinkBaseTheme,
     translucent: translucentLinkBaseTheme,
+    image: imageLinkBaseTheme,
   };
 }

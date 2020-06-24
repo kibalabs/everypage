@@ -1,8 +1,13 @@
-import { ThemeType, RecursivePartial } from '../../util';
+import { ThemeType, RecursivePartial, CssTheme } from '../../util';
 import { IBoxTheme } from '../../subatoms';
+
+export interface ILinkBaseThemeInner extends CssTheme {
+  opacity: string;
+}
 
 export interface ILinkBaseThemeBase extends ThemeType {
   background: IBoxTheme;
+  linkBase: ILinkBaseThemeInner;
 }
 
 export interface ILinkBaseThemeState extends ThemeType {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Media, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, LinkBase } from '@kibalabs/ui-react';
+import { Grid, Image, Media, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 
@@ -54,16 +54,8 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Fill}>
-                {iosAppId && (
-                  <LinkBase target={`https://apps.apple.com/app/id${iosAppId}`}>
-                    <Image source='https://assets.evrpg.com/ios/download-button/v2/dark.svg' alternativeText='Download from the App Store' />
-                  </LinkBase>
-                )}
-                {androidAppId && (
-                  <LinkBase target={`https://play.google.com/store/apps/details?id=${androidAppId}`}>
-                    <Image source='https://assets.evrpg.com/android/download-button/v2/dark.svg' alternativeText='Download from the Play Store' />
-                  </LinkBase>
-                )}
+                {iosAppId && <IosDownloadButton appId={iosAppId} />}
+                {androidAppId && <AndroidDownloadButton appId={androidAppId} />}
               </Stack>
               <Spacing mode={SpacingSize.ExtraExtraWide}/>
             </Stack>

@@ -25,7 +25,7 @@ export interface ThemeMap<Theme extends ThemeType> extends Record<string, Recurs
 
 export function mergeTheme<Theme extends ThemeType>(baseTheme: Theme, themeValues?: RecursivePartial<Theme>, overrideTheme?: RecursivePartial<Theme>): Theme {
   // @ts-ignore
-  return merge(merge(baseTheme, themeValues || {}), overrideTheme || {});
+  return merge(baseTheme, themeValues || {}, overrideTheme || {});
 }
 
 export function mergeThemePartial<Theme extends ThemeType>(themeValues?: RecursivePartial<Theme>, overrideTheme?: RecursivePartial<Theme>): RecursivePartial<Theme> {

@@ -41,13 +41,13 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
     'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
   }, base?.bordered);
 
-  const focusableBorderBox = mergeThemePartial<IBoxTheme>({
+  const focusableBoxTheme = mergeThemePartial<IBoxTheme>({
     'border-color': 'transparent',
     'border-width': '2px',
     'border-style': 'solid',
   }, base?.focusable);
 
-  const focussedBorderBox = mergeThemePartial<IBoxTheme>({
+  const focussedBoxTheme = mergeThemePartial<IBoxTheme>({
     'border-color': lighten(0.5, 'black'),
     'border-width': '2px',
     'border-style': 'solid',
@@ -58,7 +58,7 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
     transparent: transparentBoxTheme,
     card: cardBoxTheme,
     bordered: borderedBoxTheme,
-    focusable: focusableBorderBox,
-    focussed: focussedBorderBox,
+    focusable: focusableBoxTheme,
+    focussed: focussedBoxTheme,
   };
 }

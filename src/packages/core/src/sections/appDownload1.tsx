@@ -1,0 +1,45 @@
+import React from 'react';
+
+import { Section, ISectionProps } from '.';
+import { Grid, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
+import { useWebsite } from '../util';
+
+// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+interface IAppDownload1Props extends ISectionProps {
+  titleText?: string;
+  subtitleText?: string;
+  iosAppId?: string;
+  androidAppId?: string;
+}
+
+export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
+  const website = useWebsite();
+  const iosAppId = props.iosAppId || website.iosAppId;
+  const androidAppId = props.androidAppId || website.androidAppId;
+
+  return (
+    <Section {...props as ISectionProps}>
+      <Grid>
+        <Grid.Item size={1} sizeSmall={2} sizeLarge={3}><div /></Grid.Item>
+        <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
+          <Stack direction={Direction.Vertical}>
+            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+            <Spacing mode={SpacingSize.ExtraWide} />
+            <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
+              <Stack.Item growthFactor={1} shrinkFactor={1} />
+                {iosAppId && <IosDownloadButton appId={iosAppId} />}
+                {androidAppId && <AndroidDownloadButton appId={androidAppId} />}
+              <Stack.Item growthFactor={1} shrinkFactor={1} />
+            </Stack>
+            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+          </Stack>
+        </Grid.Item>
+      </Grid>
+    </Section>
+  );
+};
+AppDownload1.displayName = 'app-download-1';
+AppDownload1.defaultProps = {
+};

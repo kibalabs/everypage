@@ -1,5 +1,6 @@
 export * from './section';
 
+export * from './appDownload1';
 export * from './attribution';
 export * from './buttons1';
 export * from './featureBoxes1';
