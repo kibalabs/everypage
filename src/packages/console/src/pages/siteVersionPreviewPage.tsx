@@ -55,11 +55,11 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
   const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
-  const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isHeadShown, setIsHeadShown] = React.useState<boolean>(true);
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
@@ -188,7 +188,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <div>Error loading site version. Please go back and try again...</div>
-        ) : !siteContent || !siteTheme ? (
+        ) : siteContent === undefined || siteTheme === undefined || assetFileMap == undefined ? (
           <div>Loading...</div>
         ) : (
           <ThemeProvider theme={buildTheme()}>
