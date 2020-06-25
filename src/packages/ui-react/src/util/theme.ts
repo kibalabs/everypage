@@ -1,8 +1,8 @@
-import * as merge from 'deepmerge';
+import { merge, mergePartial, RecursivePartial} from '@kibalabs/core';
 
-import { RecursivePartial } from './typing';
-
-export type CssTheme = Record<string, Readonly<string>>;
+export type CssTheme = {
+  [key: string]: Readonly<string>
+};
 
 export const themeToCss = (theme?: CssTheme): string => {
   if (!theme) {
@@ -17,23 +17,16 @@ export const themeToCss = (theme?: CssTheme): string => {
 
 export type ThemeType = {
   [key: string]: Readonly<string | number | ThemeType | RecursivePartial<ThemeType>>;
-}
+};
 
 export interface ThemeMap<Theme extends ThemeType> extends Record<string, RecursivePartial<Theme> | Theme> {
   default: Theme;
 };
 
 export function mergeTheme<Theme extends ThemeType>(baseTheme: Theme, ...partialThemes: (RecursivePartial<Theme> | undefined)[]): Theme {
-  return merge(baseTheme, mergeThemePartial(...partialThemes));
+  return merge(baseTheme, ...partialThemes);
 }
 
 export function mergeThemePartial<Theme extends ThemeType>(...partialThemes: (RecursivePartial<Theme> | undefined)[]): RecursivePartial<Theme> {
-  var baseTheme = {} as RecursivePartial<Theme>;
-  partialThemes.forEach((partialTheme?: RecursivePartial<Theme>): void => {
-    if (!partialTheme) {
-      return;
-    }
-    baseTheme = merge(baseTheme, partialTheme);
-  });
-  return baseTheme;
+  return mergePartial(...partialThemes);
 }

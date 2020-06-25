@@ -1,6 +1,7 @@
+import { RecursivePartial } from '@kibalabs/core';
 import { darken, lighten } from 'polished';
 
-import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
+import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme, ITextTheme } from '../../subatoms';
 import { ILinkTheme } from './theme';
 

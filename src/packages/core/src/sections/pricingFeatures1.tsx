@@ -22,7 +22,7 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               {props.titleText && <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
-              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Box mode='bordered' isFullHeight={true}>
               <EqualGrid childAlignment={Alignment.Fill} contentAlignment={Alignment.Start} shouldAddGutters={true} childSizeMedium={6} childSize={12}>

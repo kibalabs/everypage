@@ -75,7 +75,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                 </React.Fragment>
               )}
               <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
-              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
                 <Grid>

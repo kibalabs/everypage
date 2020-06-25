@@ -23,7 +23,7 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraWide} />
             <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
               <Stack.Item growthFactor={1} shrinkFactor={1} />

@@ -24,7 +24,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={4} childSizeSmall={6}>
               {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (

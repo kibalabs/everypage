@@ -28,7 +28,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               <Spacing mode='narrow' />
-              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (

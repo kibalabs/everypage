@@ -28,7 +28,7 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
               </React.Fragment>
             )}
             <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>

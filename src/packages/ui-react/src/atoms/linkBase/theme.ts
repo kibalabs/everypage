@@ -1,4 +1,6 @@
-import { ThemeType, RecursivePartial, CssTheme } from '../../util';
+import { RecursivePartial } from '@kibalabs/core';
+
+import { ThemeType, CssTheme } from '../../util';
 import { IBoxTheme } from '../../subatoms';
 
 export interface ILinkBaseThemeInner extends CssTheme {

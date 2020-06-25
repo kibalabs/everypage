@@ -17,7 +17,7 @@ export const Markdown1 = (props: IMarkdown1Props): React.ReactElement => {
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode={SpacingSize.Wide} />
             {props.titleText && <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
-            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             {(props.titleText || props.subtitleText) && <Spacing mode={SpacingSize.Default} />}
             {props.markdownContent && <Markdown rootTextAlignment={TextAlignment.Left} source={props.markdownContent}/>}
             <Spacing mode={SpacingSize.Wide} />

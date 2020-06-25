@@ -1,4 +1,6 @@
-import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
+import { RecursivePartial } from '@kibalabs/core';
+
+import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide } from '../../subatoms';
 import { IBulletListTheme } from './theme';
 

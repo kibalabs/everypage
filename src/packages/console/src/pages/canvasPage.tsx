@@ -1,6 +1,7 @@
 import React from 'react';
 import { useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { buildTheme, ThemeProvider } from '@kibalabs/ui-react';
+import { ThemeProvider } from '@kibalabs/ui-react';
+import { buildEverypageTheme } from '@kibalabs/everypage-core';
 
 import { Canvas } from '../components/canvas';
 import { defaultSite } from '../defaultSite';
@@ -24,7 +25,7 @@ export const CanvasPage = (): React.ReactElement => {
   };
 
   return (
-    <ThemeProvider theme={buildTheme()}>
+    <ThemeProvider theme={buildEverypageTheme()}>
       <Canvas
         siteContent={resolvedSiteContent}
         onSiteContentUpdated={setSiteContent}

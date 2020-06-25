@@ -44,7 +44,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
             <Spacing mode='wide' />
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-              {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={6} childSizeSmall={6} childSize={12}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (

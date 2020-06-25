@@ -1,6 +1,6 @@
-import { CssTheme } from '../../util';
+import { CssTheme, ThemeType } from '../../util';
 
-export interface IBoxTheme extends CssTheme {
+export interface IBoxTheme extends CssTheme, ThemeType {
   'background-color': string;
   'border-radius': string;
   'border-color': string;

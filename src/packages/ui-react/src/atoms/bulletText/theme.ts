@@ -1,4 +1,4 @@
-import { ThemeType, RecursivePartial, CssTheme } from '../../util';
+import { ThemeType, CssTheme } from '../../util';
 import { ITextTheme } from '../../subatoms';
 
 interface IBulletTheme extends CssTheme {

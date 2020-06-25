@@ -1,7 +1,8 @@
 import React from 'react';
-import { KibaException, Requester, Response } from '@kibalabs/core';
+import { KibaException, Requester, KibaResponse } from '@kibalabs/core';
 import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { buildTheme, ThemeProvider } from '@kibalabs/ui-react';
+import { ThemeProvider } from '@kibalabs/ui-react';
+import { buildEverypageTheme } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -153,7 +154,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generate_asset_upload_for_site_version(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
       const requester = new Requester();
-      const promises = files.map((file: File): Promise<Response> => {
+      const promises = files.map((file: File): Promise<KibaResponse> => {
         const fileName = file.path.replace(/^\//g, '');
         const formData = new FormData();
         Object.keys(presignedUpload.params).forEach((key: string): void => {
@@ -191,7 +192,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap == undefined ? (
           <div>Loading...</div>
         ) : (
-          <ThemeProvider theme={buildTheme()}>
+          <ThemeProvider theme={buildEverypageTheme()}>
             <CanvasStack isFullHeight={true} isFullWidth={true}>
               <CanvasStack.Item>
                 <Box paddingX={2} paddingY={1} className={classes.metaBox}>

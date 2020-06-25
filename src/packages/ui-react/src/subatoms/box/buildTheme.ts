@@ -1,12 +1,13 @@
+import { RecursivePartial } from '@kibalabs/core';
 import { lighten, darken } from 'polished';
 
-import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
+import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide } from '../../subatoms/colors';
 import { IDimensionGuide } from '../../subatoms/dimensions';
 import { IBoxTheme } from './theme';
 
 export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide, base: RecursivePartial<Record<string, IBoxTheme>>): ThemeMap<IBoxTheme> => {
-  const defaultBoxTheme: IBoxTheme = mergeTheme({
+  const defaultBoxTheme = mergeTheme<IBoxTheme>({
     'background-color': 'transparent',
     'border-radius': dimensions.borderRadius,
     'border-color': 'transparent',

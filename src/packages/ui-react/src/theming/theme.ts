@@ -7,7 +7,7 @@ import { IBoxTheme } from '../subatoms/box/theme';
 import { IImageTheme } from '../subatoms/image/theme';
 import { IVideoTheme } from '../subatoms/video/theme';
 import { ILoadingSpinnerTheme } from '../subatoms/loadingSpinner/theme';
-import { IIPortalTheme } from '../subatoms/portal/theme';
+import { IPortalTheme } from '../subatoms/portal/theme';
 import { IBulletListTheme } from '../atoms/bulletList/theme';
 import { IBulletTextTheme } from '../atoms/bulletText/theme';
 import { IButtonTheme } from '../atoms/button/theme';

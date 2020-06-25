@@ -1,4 +1,5 @@
-import { RecursivePartial } from '../../util';
+import { RecursivePartial } from '@kibalabs/core';
+
 import { IFont } from './theme';
 
 export const buildFonts = (base?: RecursivePartial<Record<string, IFont>>): Record<string, IFont> => {

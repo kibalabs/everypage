@@ -22,7 +22,7 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Stack childAlignment={Alignment.Start} isFullWidth={true} shouldAddGutters={true}>
               {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
                 <React.Fragment key={index}>

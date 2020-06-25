@@ -1,19 +1,20 @@
+import { RecursivePartial } from '@kibalabs/core';
 import { transparentize } from 'polished';
 
-import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
+import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme } from '../../subatoms';
 import { ILinkBaseTheme } from './theme';
 
 export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionGuide, boxThemes: ThemeMap<IBoxTheme>, base: RecursivePartial<Record<string, ILinkBaseTheme>>): ThemeMap<ILinkBaseTheme> => {
   const defaultLinkBaseTheme = mergeTheme<ILinkBaseTheme>({
     normal: {
-      default: mergeTheme({
+      default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
         }),
         linkBase: {
           opacity: '1',
         },
-      }),
+      },
       hover: {
         background: {
           'background-color': transparentize(0.8, colors.brandPrimary),

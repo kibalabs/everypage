@@ -1,10 +1,12 @@
-import { mergeTheme, mergeThemePartial, RecursivePartial, ThemeMap } from '../../util';
+import { RecursivePartial } from '@kibalabs/core';
+
+import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide } from '../colors';
 import { IDimensionGuide } from '../dimensions';
 import { ILoadingSpinnerTheme } from './theme';
 
 export const buildLoadingSpinnerThemes = (colors: IColorGuide, dimensions: IDimensionGuide, base: RecursivePartial<Record<string, ILoadingSpinnerTheme>>): ThemeMap<ILoadingSpinnerTheme> => {
-  const defaultLoadingSpinnerTheme: ILoadingSpinnerTheme = mergeTheme({
+  const defaultLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>({
     'color': colors.brandPrimary,
   }, base?.default);
 

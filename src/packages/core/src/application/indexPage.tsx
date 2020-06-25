@@ -1,10 +1,10 @@
 import React from 'react';
+import { ThemeProvider, ITheme } from '@kibalabs/ui-react';
 import 'lazysizes';
 import 'lazysizes/plugins/attrchange/ls.attrchange';
 
-import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection } from '.';
+import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection, buildEverypageTheme } from '.';
 import { WebsiteProvider } from '../util';
-import { ThemeProvider, ITheme, buildTheme } from '@kibalabs/ui-react';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
 import { PluginRenderer } from './pluginRenderer';
@@ -18,7 +18,7 @@ export interface IIndexPageProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
-  const resolvedPageTheme = buildTheme(props.pageTheme);
+  const resolvedPageTheme = buildEverypageTheme(props.pageTheme);
   const sections = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
     renderSection({...sectionObject, key: index})
   ));

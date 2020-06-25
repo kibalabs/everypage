@@ -1,5 +1,6 @@
+import { merge, RecursivePartial } from '@kibalabs/core';
+
 import { ITheme } from '.';
-import { RecursivePartial } from '../util';
 import { buildColors } from '../subatoms/colors';
 import { buildDimensions } from '../subatoms/dimensions';
 import { buildFonts } from '../subatoms/fonts';
@@ -37,7 +38,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const linkBaseThemes = buildLinkBaseThemes(colors, dimensions, boxThemes, inputTheme?.linkBases);
   const linkThemes = buildLinkThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.links);
 
-  return {
+  return merge<ITheme>({
     // Base
     colors: colors,
     dimensions: dimensions,
@@ -59,5 +60,5 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     inputWrappers: inputWrapperThemes,
     linkBases: linkBaseThemes,
     links: linkThemes,
-  };
+  }, inputTheme);
 };
