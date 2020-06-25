@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, Button, BulletText, BulletList } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList } from '@kibalabs/ui-react';
 
 interface IPricingTiers1Feature {
   text: string;
@@ -31,9 +31,6 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
   if (props.categories.length == 0) {
     throw new Error('You need at least 1 pricing category');
   }
-  const categorySizeLarge = Math.max(3, Math.min(12, Math.floor(12 / props.categories.length)));
-  const categorySizeMedium = Math.max(6, Math.min(12, Math.floor(12 / props.categories.length)));
-  const categorySizeSmall = Math.max(6, Math.min(6, Math.floor(12 / props.categories.length)));
 
   const onCategoryStartButtonClicked = (categoryIndex: number): void => {
     window.open(props.categories[categoryIndex].buttonTarget, '_blank')
@@ -49,33 +46,31 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
-            <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={6} childSizeSmall={6} childSize={12}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
-                <Grid.Item key={index} sizeLarge={categorySizeLarge} sizeMedium={categorySizeMedium} sizeSmall={categorySizeSmall} size={12}>
-                  <Box mode='bordered' isFullHeight={true}>
-                    <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
-                      <Text alignment={TextAlignment.Center} mode='strong'>{category.name}</Text>
-                      <Text alignment={TextAlignment.Center} mode='supersize'>{category.cost}</Text>
-                      <Text alignment={TextAlignment.Center} mode='note'>{category.costFrequency}</Text>
-                      <Spacing mode='wide'/>
-                      <Stack.Item alignment={Alignment.Start}>
-                        <Text alignment={TextAlignment.Left}>{category.explanationText}</Text>
-                      </Stack.Item>
-                      <Spacing mode='narrow'/>
-                      <Stack.Item alignment={Alignment.Start} growthFactor={1}>
-                        <BulletList>
-                          {category.features.map((feature: IPricingTiers1Feature, index: number): React.ReactElement => (
-                            <BulletText key={index} text={feature.text} />
-                          ))}
-                        </BulletList>
-                      </Stack.Item>
-                      <Spacing mode='wide'/>
-                      <Button mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} onClicked={() => onCategoryStartButtonClicked(index)}/>
-                    </Stack>
-                  </Box>
-                </Grid.Item>
+                <Box mode='bordered' isFullHeight={true} key={index}>
+                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
+                    <Text alignment={TextAlignment.Center} mode='strong'>{category.name}</Text>
+                    <Text alignment={TextAlignment.Center} mode='supersize'>{category.cost}</Text>
+                    <Text alignment={TextAlignment.Center} mode='note'>{category.costFrequency}</Text>
+                    <Spacing mode='wide'/>
+                    <Stack.Item alignment={Alignment.Start}>
+                      <Text alignment={TextAlignment.Left}>{category.explanationText}</Text>
+                    </Stack.Item>
+                    <Spacing mode='narrow'/>
+                    <Stack.Item alignment={Alignment.Start} growthFactor={1}>
+                      <BulletList>
+                        {category.features.map((feature: IPricingTiers1Feature, index: number): React.ReactElement => (
+                          <BulletText key={index} text={feature.text} />
+                        ))}
+                      </BulletList>
+                    </Stack.Item>
+                    <Spacing mode='wide'/>
+                    <Button mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} onClicked={() => onCategoryStartButtonClicked(index)}/>
+                  </Stack>
+                </Box>
               ))}
-            </Grid>
+            </EqualGrid>
             <Spacing mode='wide' />
           </Stack>
         </Grid.Item>

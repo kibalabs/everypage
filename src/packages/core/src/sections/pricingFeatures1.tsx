@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, BulletText, BulletList } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, BulletText, BulletList } from '@kibalabs/ui-react';
 
 interface IPricingFeatures1Feature {
   text: string;
@@ -25,19 +25,13 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Box mode='bordered' isFullHeight={true}>
-              <Grid childAlignment={Alignment.Fill} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+              <EqualGrid childAlignment={Alignment.Fill} contentAlignment={Alignment.Start} shouldAddGutters={true} childSizeMedium={6} childSize={12}>
                 {props.features.map((feature: IPricingFeatures1Feature, index: number): React.ReactElement => (
-                  <Grid.Item key={index} alignment={Alignment.Start} sizeMedium={6} size={12}>
-                    <BulletList>
-                      <BulletText text={feature.text}>
-                        <BulletList>
-                          <BulletText text={feature.text} />
-                        </BulletList>
-                      </BulletText>
-                    </BulletList>
-                  </Grid.Item>
+                  <BulletList key={index}>
+                    <BulletText text={feature.text} />
+                  </BulletList>
                 ))}
-              </Grid>
+              </EqualGrid>
             </Box>
             <Spacing mode='wide' />
           </Stack>

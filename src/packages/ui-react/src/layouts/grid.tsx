@@ -42,7 +42,7 @@ const StyledGrid = styled.div<IStyledGridProps>`
   flex-wrap: wrap;
   overflow-x: auto;
   align-items: ${(props: IStyledGridProps): string => getFlexItemAlignment(props.childAlignment)};
-  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
+  justify-content: ${(props: IStyledGridProps): string => getFlexContentAlignment(props.contentAlignment)};
 `;
 
 export interface IGridProps extends IMultiChildProps<IGridItemProps> {

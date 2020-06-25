@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, KibaIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -39,25 +39,23 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
-            <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
-                <Grid.Item key={index} sizeLarge={4} sizeMedium={6} sizeSmall={12}>
-                  <Box mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
-                    <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
-                        { getIcon(box.type, theme.colors.brandPrimary) }
-                        <Spacing direction={Direction.Horizontal} mode='default' />
-                        <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
-                      </Stack>
-                      <Spacing direction={Direction.Vertical} mode='narrow' />
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
-                      </Stack.Item>
+                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
+                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
+                      { getIcon(box.type, theme.colors.brandPrimary) }
+                      <Spacing direction={Direction.Horizontal} mode='default' />
+                      <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
                     </Stack>
-                  </Box>
-                </Grid.Item>
+                    <Spacing direction={Direction.Vertical} mode='narrow' />
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
+                    </Stack.Item>
+                  </Stack>
+                </Box>
               ))}
-            </Grid>
+            </EqualGrid>
             <Spacing mode='wide' />
           </Stack>
         </Grid.Item>

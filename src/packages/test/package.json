@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "0.3.19",
+  "version": "0.3.20",
   "private": true,
   "description": "",
   "scripts": {
@@ -10,8 +10,8 @@
   "//": "TODO(krish): all dependencies should be removed here except everypage. silly lerna problem i think!",
   "dependencies": {
     "@babel/runtime": "7.10.2",
-    "@kibalabs/everypage": "0.3.19",
-    "@kibalabs/everypage-core": "0.3.19",
+    "@kibalabs/everypage": "0.3.20",
+    "@kibalabs/everypage-core": "0.3.20",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
     "commander": "5.1.0",

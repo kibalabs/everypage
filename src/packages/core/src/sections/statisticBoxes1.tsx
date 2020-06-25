@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, Box, Text, Direction, useTheme, ITheme } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction } from '@kibalabs/ui-react';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -26,19 +26,17 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
-            <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={4} childSizeSmall={6}>
               {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
-                <Grid.Item key={index} sizeLarge={3} sizeMedium={4} sizeSmall={6}>
-                  <Box mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
-                    <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
-                      <Text alignment={TextAlignment.Center} mode='supersize'>{box.value}</Text>
-                      <Spacing direction={Direction.Vertical} mode='narrow' />
-                      <Markdown rootTextAlignment={TextAlignment.Center} source={box.name} />
-                    </Stack>
-                  </Box>
-                </Grid.Item>
+                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
+                    <Text alignment={TextAlignment.Center} mode='supersize'>{box.value}</Text>
+                    <Spacing direction={Direction.Vertical} mode='narrow' />
+                    <Markdown rootTextAlignment={TextAlignment.Center} source={box.name} />
+                  </Stack>
+                </Box>
               ))}
-            </Grid>
+            </EqualGrid>
             <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
