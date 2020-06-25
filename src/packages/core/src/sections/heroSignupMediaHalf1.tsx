@@ -54,19 +54,19 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>
-          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
               <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          <Grid.Item size={1}><div /></Grid.Item>
+          <Grid.Item size={1} />
           <Grid.Item size={10} sizeMedium={5}>
             <Stack direction={Direction.Vertical}>
               { props.logoImageUrl && (
                 <React.Fragment>
                   <Grid>
-                    <Grid.Item size={1}><div /></Grid.Item>
+                    <Grid.Item size={1} />
                     <Grid.Item size={10}>
                       <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                     </Grid.Item>
@@ -126,14 +126,14 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
               <Spacing mode={SpacingSize.ExtraExtraWide}/>
             </Stack>
           </Grid.Item>
-          <Grid.Item size={1}><div /></Grid.Item>
+          <Grid.Item size={1} />
           { props.rightMediaUrl && (
             <Grid.Item size={0} sizeMedium={4} alignment={Alignment.Center}>
               <Media source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-          <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
+          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+          <Grid.Item size={2} sizeMedium={0} />
           { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0} alignment={Alignment.Center}>
               <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />

@@ -22,13 +22,13 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>
-          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
+          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          <Grid.Item size={1}><div /></Grid.Item>
+          <Grid.Item size={1} />
           <Grid.Item size={10} sizeMedium={5}>
             <Stack direction={Direction.Vertical}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
@@ -36,22 +36,22 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
               <Spacing mode={SpacingSize.Wide}/>
             </Stack>
           </Grid.Item>
-          <Grid.Item size={1}><div /></Grid.Item>
+          <Grid.Item size={1} />
           { props.rightMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1}><div /></Grid.Item>) }
-          <Grid.Item size={2} sizeMedium={0}><div /></Grid.Item>
+          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+          <Grid.Item size={2} sizeMedium={0} />
           { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Media source={props.leftMediaUrl} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
-              <Media source={props.rightMediaUrl} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>

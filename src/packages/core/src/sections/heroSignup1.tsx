@@ -50,14 +50,12 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps}>
       <Grid>
-        <Grid.Item size={1} sizeSmall={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
             { props.logoImageUrl && (
               <React.Fragment>
                 <Grid>
-                  <Grid.Item size={1}><div /></Grid.Item>
                   <Grid.Item size={10}>
                     <Image source={props.logoImageUrl} isLazyLoadable={false} isFullWidth={true} alternativeText='logo' />
                   </Grid.Item>

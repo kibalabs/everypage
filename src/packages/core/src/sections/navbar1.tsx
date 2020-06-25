@@ -39,7 +39,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <StyledNavigationBar theme={theme}>
-          <ResponsiveView showExtraSmall={false} showLarge={true} isFullHeight={true} isFullWidth={true}>
+          <ResponsiveView show={false} showLarge={true} isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
               <Stack.Item growthFactor={1} />
@@ -50,7 +50,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
               })}
             </Stack>
           </ResponsiveView>
-          <ResponsiveView showExtraSmall={true} showLarge={false} isFullHeight={true} isFullWidth={true}>
+          <ResponsiveView show={true} showLarge={false} isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
               <Stack.Item growthFactor={1} />
@@ -63,7 +63,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             </Stack>
           </ResponsiveView>
         </StyledNavigationBar>
-        <ResponsiveView showExtraSmall={isMenuOpen} showLarge={false} isFullHeight={true} isFullWidth={true}>
+        <ResponsiveView show={isMenuOpen} showLarge={false} isFullHeight={true} isFullWidth={true}>
           <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
             <Spacing mode={SpacingSize.ExtraWide}/>
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {

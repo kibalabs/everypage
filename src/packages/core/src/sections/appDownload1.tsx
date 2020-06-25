@@ -20,7 +20,6 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps}>
       <Grid>
-        <Grid.Item size={1} sizeSmall={2} sizeLarge={3}><div /></Grid.Item>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>

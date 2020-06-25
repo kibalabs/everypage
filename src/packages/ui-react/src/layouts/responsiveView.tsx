@@ -10,7 +10,7 @@ import { IDimensionGuide } from '../subatoms/dimensions';
 interface IStyledResponsiveViewProps {
   isFullHeight?: boolean;
   isFullWidth?: boolean;
-  showExtraSmall?: boolean;
+  show?: boolean;
   showSmall?: boolean;
   showMedium?: boolean;
   showLarge?: boolean;
@@ -24,7 +24,7 @@ interface IStyledResponsiveViewProps {
 const StyledResponsiveView = styled.div<IStyledResponsiveViewProps>`
   height: ${(props: IStyledResponsiveViewProps): string => (props.isFullHeight ? '100%' : 'auto')};
   width: ${(props: IStyledResponsiveViewProps): string => (props.isFullWidth ? '100%' : 'auto')};
-  ${(props: IStyledResponsiveViewProps): string => (props.showExtraSmall === undefined ? '' : props.showExtraSmall ? 'display: initial' : 'display: none')};
+  ${(props: IStyledResponsiveViewProps): string => (props.show === undefined ? '' : props.show ? 'display: initial' : 'display: none')};
 
   @media (min-width: ${(props: IStyledResponsiveViewProps): string => (props.screenWidthSmall)}) {
     ${(props: IStyledResponsiveViewProps): string => (props.showSmall === undefined ? '' : props.showSmall ? 'display: initial' : 'display: none')};
@@ -49,7 +49,7 @@ export interface IResponsiveViewProps extends ISingleAnyChildProps {
   theme?: IDimensionGuide;
   isFullHeight?: boolean;
   isFullWidth?: boolean;
-  showExtraSmall?: boolean;
+  show?: boolean;
   showSmall?: boolean;
   showMedium?: boolean;
   showLarge?: boolean;
@@ -68,7 +68,7 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
       screenWidthMedium={theme.screenWidthMedium}
       screenWidthLarge={theme.screenWidthLarge}
       screenWidthExtraLarge={theme.screenWidthExtraLarge}
-      showExtraSmall={props.showExtraSmall}
+      show={props.show}
       showSmall={props.showSmall}
       showMedium={props.showMedium}
       showLarge={props.showLarge}

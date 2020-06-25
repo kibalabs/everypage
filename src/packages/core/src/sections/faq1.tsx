@@ -18,7 +18,6 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
-        <Grid.Item size={1} sizeLarge={2}><div /></Grid.Item>
         <Grid.Item size={10} sizeLarge={8}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />

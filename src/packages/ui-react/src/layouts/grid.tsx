@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { Alignment, getFlexItemAlignment, useDimensions } from '..';
+import { Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '..';
 import { IDimensionGuide } from '../subatoms';
 
 
@@ -31,6 +31,7 @@ class GridItem extends React.Component<IGridItemProps> {
 interface IStyledGridProps {
   isFullHeight?: boolean;
   childAlignment: Alignment;
+  contentAlignment: Alignment;
 }
 
 const StyledGrid = styled.div<IStyledGridProps>`
@@ -41,6 +42,7 @@ const StyledGrid = styled.div<IStyledGridProps>`
   flex-wrap: wrap;
   overflow-x: auto;
   align-items: ${(props: IStyledGridProps): string => getFlexItemAlignment(props.childAlignment)};
+  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
 `;
 
 export interface IGridProps extends IMultiChildProps<IGridItemProps> {
@@ -50,6 +52,7 @@ export interface IGridProps extends IMultiChildProps<IGridItemProps> {
   isFullHeight?: boolean;
   shouldAddGutters?: boolean;
   childAlignment: Alignment;
+  contentAlignment: Alignment;
 }
 
 export const Grid = (props: IGridProps): React.ReactElement => {
@@ -60,6 +63,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
       className={getClassName('grid', props.className)}
       isFullHeight={props.isFullHeight}
       childAlignment={props.childAlignment}
+      contentAlignment={props.contentAlignment}
     >
       { React.Children.map(props.children, (child: React.ReactElement<IGridItemProps>, index: number): React.ReactElement => (
         (!child) ? <React.Fragment /> : (
@@ -94,6 +98,7 @@ Grid.defaultProps = {
   isFullHeight: true,
   shouldAddGutters: false,
   childAlignment: Alignment.Fill,
+  contentAlignment: Alignment.Center,
 };
 Grid.Item = GridItem;
 

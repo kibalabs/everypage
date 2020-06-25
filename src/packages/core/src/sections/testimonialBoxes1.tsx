@@ -32,7 +32,6 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
   return (
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
-        <Grid.Item size={1} sizeLarge={0}><div /></Grid.Item>
         <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />

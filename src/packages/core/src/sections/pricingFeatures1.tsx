@@ -17,7 +17,6 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
   return (
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
-        <Grid.Item sizeMedium={2} size={1}><div /></Grid.Item>
         <Grid.Item sizeMedium={8} size={10}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
             <Spacing mode='wide' />
@@ -26,7 +25,7 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
               {props.subtitleText && <Markdown rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
             <Box mode='bordered' isFullHeight={true}>
-              <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
+              <Grid childAlignment={Alignment.Fill} contentAlignment={Alignment.Start} shouldAddGutters={true}>
                 {props.features.map((feature: IPricingFeatures1Feature, index: number): React.ReactElement => (
                   <Grid.Item key={index} alignment={Alignment.Start} sizeMedium={6} size={12}>
                     <BulletList>
