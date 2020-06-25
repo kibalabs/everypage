@@ -78,10 +78,50 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     },
   }, base?.secondary);
 
+  const largeButtonTheme = mergeThemePartial<IButtonTheme>({
+    normal: {
+      default: {
+        background: {
+          'padding': `${dimensions.paddingWide} ${dimensions.paddingExtraWide}`,
+        },
+        text: {
+          'font-size': '1.2em',
+        },
+      },
+    },
+  }, base?.large);
+
+  const smallButtonTheme = mergeThemePartial<IButtonTheme>({
+    normal: {
+      default: {
+        background: {
+          'padding': `${dimensions.paddingNarrow} ${dimensions.padding}`,
+        },
+        text: {
+          'font-size': '0.8em',
+        },
+      },
+    },
+  }, base?.small);
+
+  const cardButtonTheme = mergeThemePartial<IButtonTheme>({
+    normal: {
+      default: {
+        background: {
+          'box-shadow': boxThemes.card['box-shadow'],
+          'margin': boxThemes.card['margin'],
+        },
+      },
+    },
+  }, base?.card);
+
   return {
     default: defaultButtonTheme,
     primary: primaryButtonTheme,
     secondary: secondaryButtonTheme,
     tertiary: defaultButtonTheme,
+    large: largeButtonTheme,
+    small: smallButtonTheme,
+    card: cardButtonTheme,
   };
 }
