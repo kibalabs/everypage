@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 
 
 export interface IIconProps {
@@ -53,6 +54,7 @@ const StyledIcon = styled.div<IStyledIconProps>`
 export const Icon = (props: IIconProps): React.ReactElement => {
   return (
     <StyledIcon
+      className={getClassName('icon')}
       size={props.size}
       color={props._color}
       shouldAddFill={props.shouldAddFill}

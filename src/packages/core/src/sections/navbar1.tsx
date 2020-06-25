@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Grid, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, SpacingSize, ResponsiveView } from '@kibalabs/ui-react';
+import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, SpacingSize, ResponsiveView } from '@kibalabs/ui-react';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
@@ -24,6 +24,7 @@ interface INavBar1Button {
 }
 interface INavBar1Props extends ISectionProps {
   logoImageUrl?: string;
+  titleText?: string;
   buttons?: INavBar1Button[];
 }
 
@@ -42,6 +43,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
           <ResponsiveView show={false} showLarge={true} isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
+              {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
               <Stack.Item growthFactor={1} />
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return !button.display || button.display === 'default' || button.display === 'always' ? (
@@ -53,6 +55,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
           <ResponsiveView show={true} showLarge={false} isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
+              {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
               <Stack.Item growthFactor={1} />
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return button.display === 'always' ? (

@@ -46,7 +46,7 @@ export const App = hot((): React.ReactElement => {
         <Helmet>
           <title>Everypage Console</title>
         </Helmet>
-        <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />
+        {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
         <GlobalCss resetCss={resetCss} />
         <Router authManager={authManager}>
           <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />

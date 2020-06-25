@@ -138,6 +138,10 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'font-size': '3em',
   }, base?.supersize);
 
+  const nomarginTextTheme = mergeThemePartial<ITextTheme>({
+    'margin': '0',
+  }, base?.nomargin);
+
   return {
     default: textTheme,
     paragraph: paragraphTextTheme,
@@ -165,5 +169,6 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     header6: header6TextTheme,
     note: noteTextTheme,
     supersize: supersizeTextTheme,
+    nomargin: nomarginTextTheme,
   };
 }

@@ -15,7 +15,9 @@ export enum TextAlignment {
   Justify = 'justify',
 }
 
-const styleModeTagMapping = {
+type TextTag = 'p' | 'span' | 'h1' | 'h1' | 'h2' | 'h2' | 'h3' | 'h3' | 'h4' | 'h5' | 'h6' | 'b' | 'strong' | 'i' | 'em' | 'mark' | 'small' | 'del' | 'ins' | 'sub' | 'sup';
+
+const styleModeTagMapping: Record<string, TextTag> = {
   bold: 'b',
   strong: 'strong',
   italic: 'i',
@@ -28,7 +30,7 @@ const styleModeTagMapping = {
   superscript: 'sup',
 }
 
-const textModeTagMapping = {
+const textModeTagMapping: Record<string, TextTag> = {
   paragraph: 'p',
   inline: 'span',
   header1: 'h1',
@@ -42,7 +44,7 @@ const textModeTagMapping = {
   header6: 'h6',
 }
 
-const getTag = (mode: string): string => {
+const getTag = (mode: string): TextTag => {
   const modes = mode.split('-');
   // Find the last mode that is in textModeTagMapping, and if none the last one in style
   const textModes = modes.filter((mode: string): boolean => mode in textModeTagMapping);
@@ -68,6 +70,7 @@ const StyledText = styled.span<IStyledTextProps>`
 
 export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChildProps {
   alignment?: TextAlignment;
+  tag?: TextTag;
 }
 
 export const Text = (props: ITextProps): React.ReactElement => {
@@ -78,7 +81,7 @@ export const Text = (props: ITextProps): React.ReactElement => {
       className={getClassName('text', props.className)}
       theme={theme}
       alignment={props.alignment}
-      as={getTag(props.mode)}
+      as={props.tag || getTag(props.mode)}
     >
       { props.children }
     </StyledText>
