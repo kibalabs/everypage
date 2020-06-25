@@ -36,9 +36,9 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
           </Stack>
         )}
         {props.subtitleText && (
-          <Markdown text={props.subtitleText} />
+          <Markdown source={props.subtitleText} />
         )}
-        <Markdown text={copyrightText}/>
+        <Markdown source={copyrightText}/>
         <Spacing direction={Direction.Vertical} mode='default'/>
       </Stack>
     </Section>

@@ -52,11 +52,12 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
       );
     },
     image: (rendererProps: object): React.ReactElement => {
-      return <Media source={rendererProps.src} alternativeText={rendererProps.alt}/>;
-    }
-    // paragraph: (rendererProps: object): React.ReactElement => {
-    //   return (<Text>{rendererProps.children}</Text>);
-    // },
+      return <Media isCenteredHorizontally={true} source={rendererProps.src} alternativeText={rendererProps.alt}/>;
+    },
+    paragraph: (rendererProps: object): React.ReactElement => {
+      const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
+      return (<Text alignment={childrenKeys.indexOf('image') > -1 ? TextAlignment.Center : TextAlignment.Left}>{rendererProps.children}</Text>);
+    },
   };
 
   return (

@@ -7,18 +7,12 @@ import { Video, Image } from '.';
 export interface IMediaTheme extends ThemeType {
 }
 
-export interface IStyledMediaProps {
-  theme: IMediaTheme;
-  isFullWidth: boolean;
-  isFullHeight: boolean;
-  fitType: 'crop' | 'scale';
-}
-
 export interface IMediaProps extends IComponentProps<IMediaTheme> {
   source: string;
   alternativeText: string;
   isFullWidth: boolean;
   isFullHeight: boolean;
+  isCenteredHorizontally: boolean;
   fitType: 'crop' | 'scale';
   isLazyLoadable: boolean;
 }
@@ -41,5 +35,6 @@ Media.defaultProps = {
   fitType: 'scale',
   isFullWidth: false,
   isFullHeight: false,
+  isCenteredHorizontally: false,
   isLazyLoadable: true,
 };

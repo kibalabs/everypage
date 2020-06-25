@@ -30,7 +30,11 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
                 {props.features.map((feature: IPricingFeatures1Feature, index: number): React.ReactElement => (
                   <Grid.Item key={index} alignment={Alignment.Start} sizeMedium={6} size={12}>
                     <BulletList>
-                      <BulletText text={feature.text} />
+                      <BulletText text={feature.text}>
+                        <BulletList>
+                          <BulletText text={feature.text} />
+                        </BulletList>
+                      </BulletText>
                     </BulletList>
                   </Grid.Item>
                 ))}

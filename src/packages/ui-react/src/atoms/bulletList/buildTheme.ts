@@ -8,7 +8,7 @@ export const buildBulletListThemes = (colors: IColorGuide, dimensions: IDimensio
       default: {
         bulletList: {
           'list-style-type': 'none',
-          margin: `0 0 0 ${dimensions.padding}`,
+          margin: `0 0 0 ${dimensions.paddingWide}`,
         }
       },
     },

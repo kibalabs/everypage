@@ -4,6 +4,8 @@ import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, useBuiltTheme, themeToCss } from '../..';
 import { IBulletTextTheme } from './theme';
+import { ISingleChildProps } from '@kibalabs/core-react';
+import { IBulletListProps } from '../bulletList';
 
 interface IStyledBulletTextProps {
   theme: IBulletTextTheme;
@@ -17,7 +19,7 @@ const StyledBulletText = styled.li<IStyledBulletTextProps>`
   }
 `;
 
-export interface IBulletTextProps extends IComponentProps<IBulletTextTheme> {
+export interface IBulletTextProps extends IComponentProps<IBulletTextTheme>, ISingleChildProps<IBulletListProps> {
   text: string;
   textMode: string;
 }
@@ -31,6 +33,7 @@ export const BulletText = (props: IBulletTextProps): React.ReactElement => {
       theme={theme}
     >
       {props.text}
+      {props.children}
     </StyledBulletText>
   );
 };
