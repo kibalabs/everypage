@@ -13,7 +13,7 @@ const HAS_VERIFIED_EMAIL = 'hve'
 
 export class Jwt {
   private header: Record<string, string>;
-  private payload: Record<string, string>;
+  private payload: Record<string, string | string[]>;
 
   public constructor(header: Record<string, string>, payload: Record<string, string>) {
     this.header = header;
@@ -77,11 +77,11 @@ export class Jwt {
   }
 
   public get scopes(): string[] {
-    return this.payload[SCOPES].split(',');
+    return this.payload[SCOPES] as string[];
   }
 
   public set scopes(value: string[]) {
-    this.payload[SCOPES] = value.join(',');
+    this.payload[SCOPES] = value;
   }
 
   public static fromString = (jwtString: string): Jwt => {
@@ -109,6 +109,11 @@ export class AuthManager implements IRouterAuthManager {
   public getJwt = (): Jwt| null => {
     return Jwt.fromString(this.getJwtString());
   }
+
+  public getHasJwtPermission = (name: string): boolean => {
+    return Jwt.fromString(this.getJwtString()).scopes.indexOf(name) !== -1;
+  }
+
 
   public getJwtString = (): string | null => {
     return this.localStorageClient.getValue(this.jwtStorageKey);

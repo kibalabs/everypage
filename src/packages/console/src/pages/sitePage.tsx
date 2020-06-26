@@ -64,7 +64,7 @@ export interface ISitePageProps {
 
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const classes = useStyles();
-  const { everypageClient } = useGlobals();
+  const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
@@ -338,8 +338,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
                         {version.isPublishing && <Typography color='secondary' component='span'>Promoting</Typography>}
-                        {!version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
-                        {!version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
                       {version.archiveDate ? (
@@ -354,7 +354,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 })}
                 <br />
                 <br />
-                <Button variant='contained' color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>
+                {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button variant='contained' color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>}
               </Paper>
             </React.Fragment>
           )}

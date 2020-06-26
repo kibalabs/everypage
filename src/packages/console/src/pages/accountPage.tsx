@@ -53,7 +53,7 @@ export interface IAccountPageProps {
 export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const classes = useStyles();
   const history = useHistory();
-  const { everypageClient } = useGlobals();
+  const { everypageClient, authManager } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Site[] | null | undefined>(undefined);
   const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
@@ -128,13 +128,13 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
               <Paper elevation={0} className={classes.paper}>
                 <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                   <Typography variant='h6' className={classes.paperTitle}>Sites</Typography>
-                  <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>}
                 </Box>
                 <Typography>{`${accountSites.length} sites`}</Typography>
                 <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites.map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
-                      <SiteCard site={site} onSiteClicked={onSiteClicked} />
+                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)}/>
                     </Grid>
                   ))}
                   {accountSites.length === 0 && (

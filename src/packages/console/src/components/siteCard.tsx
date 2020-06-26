@@ -17,10 +17,17 @@ const useStyles = makeStyles((theme) => ({
   siteNameText: {
     fontWeight: 'bold',
   },
+  card: {
+
+  },
+  disabledCard: {
+    backgroundColor: '#eee',
+  }
 }));
 
 interface ISiteCardProps {
   site: Site;
+  isEnabled: boolean;
   onSiteClicked: (site: Site) => void;
 }
 
@@ -32,8 +39,8 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
   }
 
   return (
-    <Card>
-      <ButtonBase className={classes.siteCardButtonBase} onClick={onSiteClicked}>
+    <Card className={props.isEnabled ? classes.card : classes.disabledCard}>
+      <ButtonBase className={classes.siteCardButtonBase} onClick={onSiteClicked} disabled={!props.isEnabled}>
         <CardContent className={classes.siteCardContent}>
           <Typography variant='h6' className={classes.siteNameText}>
             {props.site.name}
@@ -45,4 +52,7 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
       </ButtonBase>
     </Card>
   );
+}
+SiteCard.defaultProps = {
+  isEnabled: true,
 }

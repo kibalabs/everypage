@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 export const HomePage = (): React.ReactElement => {
   const classes = useStyles();
   const history = useHistory();
-  const { everypageClient } = useGlobals();
+  const { everypageClient, authManager } = useGlobals();
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
   const [accountUpgradePopupAccount, setAccountUpgradePopupAccount] = React.useState<Account | null>(null);
@@ -138,14 +138,14 @@ export const HomePage = (): React.ReactElement => {
                   <Typography color='textSecondary' className={classes.accountType}>
                     ({account.accountType})
                   </Typography>
-                  <Button color='primary' onClick={(): void => onManageAccountClicked(account)}>Manage</Button>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button color='primary' onClick={(): void => onManageAccountClicked(account)}>Manage</Button>}
                   <Box flexGrow={1} />
-                  <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create site</Button>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create site</Button>}
                 </Box>
                 <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites[account.accountId].map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
-                      <SiteCard site={site} onSiteClicked={onSiteClicked} />
+                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)}/>
                     </Grid>
                   ))}
                   {accountSites[account.accountId].length === 0 && (
