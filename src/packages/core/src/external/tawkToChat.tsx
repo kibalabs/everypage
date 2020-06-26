@@ -13,7 +13,7 @@ export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
     return null;
   }
 
-   useInitialization((): void => {
+  useInitialization((): void => {
     if (document) {
       const script = document.createElement('script');
       script.async = true;

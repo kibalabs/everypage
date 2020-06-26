@@ -13,7 +13,7 @@ export const CrispChat = (props: ICrispChatProps): React.ReactElement => {
     return null;
   }
 
-   useInitialization((): void => {
+  useInitialization((): void => {
     if (window && document) {
       window.$crisp = [];
       window.CRISP_WEBSITE_ID = props.websiteId;

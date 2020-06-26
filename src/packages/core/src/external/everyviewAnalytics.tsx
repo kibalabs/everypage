@@ -14,7 +14,7 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): React.ReactE
     return null;
   }
 
-   useInitialization((): void => {
+  useInitialization((): void => {
     const tracker = new EveryviewTracker(props.applicationId);
     tracker.trackApplicationOpen();
   });
