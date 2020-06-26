@@ -2,13 +2,14 @@ import React from 'react';
 import { useInitialization } from '@kibalabs/core-react';
 import { IWebsitePlugin } from '../model';
 
-export interface ITawkToChathProp extends IWebsitePlugin {
+export interface ITawkToChatProps extends IWebsitePlugin {
   accountId?: string;
   widgetId?: string;
 }
 
-export const TawkToChat = (props: ITawkToChathProp): React.ReactElement => {
+export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
   if (!props.accountId || !props.widgetId) {
+    console.error('accountId and widgetId should be provided to EveryviewAnalytics')
     return null;
   }
 

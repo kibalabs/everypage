@@ -69,7 +69,6 @@ export const Head = (props: IHeadProps): React.ReactElement => {
             </Stack>
           </Stack.Item>
         </Stack>
-        <hr />
       </Stack>
     </Section>
   );

@@ -138,6 +138,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   // TODO(krish): im sure this can be done better than just every 3 seconds
   useInterval(3, (): void => {
+    if (!site || !siteVersion || !siteVersionEntry) {
+      return;
+    }
     if (!siteVersion.publishDate && (isSiteContentChanged || isSiteThemeChanged)) {
       everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
         console.log('saving...');

@@ -9,6 +9,7 @@ export interface ICrispChatProps extends IWebsitePlugin {
 
 export const CrispChat = (props: ICrispChatProps): React.ReactElement => {
   if (!props.websiteId) {
+    console.error('websiteId should be provided to EveryviewAnalytics')
     return null;
   }
 
