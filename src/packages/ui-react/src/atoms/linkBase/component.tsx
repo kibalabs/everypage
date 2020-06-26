@@ -58,7 +58,8 @@ const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
 interface ILinkBaseProps extends IComponentProps<ILinkBaseTheme>, ISingleAnyChildProps {
   isEnabled: boolean;
   isFullWidth: boolean;
-  target?: string;
+  target: string;
+  label?: string;
   onClicked?(): void;
 }
 
@@ -78,6 +79,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
       onClick={onClicked}
       isFullWidth={props.isFullWidth}
       href={props.target}
+      aria-label={props.label}
     >
       {props.children}
     </StyledLinkBase>

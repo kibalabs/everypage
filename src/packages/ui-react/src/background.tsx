@@ -6,8 +6,8 @@ export interface IBackgroundLayer {
   color?: string;
   linearGradient?: string;
   radialGradient?: string;
-  image?: string;
-  pattern?: string;
+  imageUrl?: string;
+  patternImageUrl?: string;
 }
 
 // Allow someone to use a single background instead of specifying layers
@@ -32,11 +32,11 @@ const getBackgroundCss = (backgroundLayer: IBackgroundLayer): string => {
   if (backgroundLayer.radialGradient) {
     output += `background-image: radial-gradient(${backgroundLayer.radialGradient});`;
   }
-  if (backgroundLayer.image) {
-    output += `background-image: url(${backgroundLayer.image}); background-size: cover;`;
+  if (backgroundLayer.imageUrl) {
+    output += `background-image: url(${backgroundLayer.imageUrl}); background-size: cover;`;
   }
-  if (backgroundLayer.pattern) {
-    output += `background-image: url(${backgroundLayer.pattern}); background-position: top left, center center; background-repeat: repeat, no-repeat; background-size: auto, cover;`;
+  if (backgroundLayer.patternImageUrl) {
+    output += `background-image: url(${backgroundLayer.patternImageUrl}); background-position: top left, center center; background-repeat: repeat, no-repeat; background-size: auto, cover;`;
   }
   return output;
 }
@@ -50,13 +50,13 @@ const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
 // TOD0(krish): this doesn't use the id and classname passed in
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
-  if (props.color || props.linearGradient || props.radialGradient || props.image || props.pattern || layers.length == 0) {
+  if (props.color || props.linearGradient || props.radialGradient || props.imageUrl || props.patternImageUrl || layers.length == 0) {
     layers.splice(0, 0, {
       color: props.color,
       linearGradient: props.linearGradient,
       radialGradient: props.radialGradient,
-      image: props.image,
-      pattern: props.pattern,
+      imageUrl: props.imageUrl,
+      patternImageUrl: props.patternImageUrl,
     });
   }
   let child: React.ReactElement = <React.Fragment>{props.children}</React.Fragment>;

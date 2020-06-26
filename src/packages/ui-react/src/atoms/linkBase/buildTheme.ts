@@ -39,9 +39,17 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
   }, base?.default);
 
   const translucentLinkBaseTheme = mergeThemePartial<ILinkBaseTheme>({
-    normal: {
-    },
   }, base?.translucent);
+
+  const iconLinkBaseTheme = mergeThemePartial<ILinkBaseTheme>({
+    normal: {
+      default: {
+        background: {
+          padding: dimensions.paddingNarrow,
+        },
+      },
+    },
+  }, base?.icon);
 
   const imageLinkBaseTheme = mergeThemePartial<ILinkBaseTheme>({
     normal: {
@@ -62,5 +70,6 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
     default: defaultLinkBaseTheme,
     translucent: translucentLinkBaseTheme,
     image: imageLinkBaseTheme,
+    icon: iconLinkBaseTheme,
   };
 }

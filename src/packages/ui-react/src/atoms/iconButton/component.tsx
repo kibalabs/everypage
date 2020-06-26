@@ -53,9 +53,9 @@ const StyledIconButton = styled.button<IStyledIconButtonProps>`
 `;
 
 interface IIconButtonProps extends IComponentProps<IIconButtonTheme> {
-  text: string;
   isEnabled: boolean;
   icon: React.ReactElement<IIconProps>;
+  label?: string;
   onClicked?(): void;
 }
 
@@ -74,6 +74,7 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
       theme={theme}
       onClick={onClicked}
       disabled={!props.isEnabled}
+      aria-label={props.label}
     >
       {props.icon}
     </StyledIconButton>
