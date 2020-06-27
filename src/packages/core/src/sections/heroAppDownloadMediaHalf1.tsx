@@ -53,9 +53,10 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
               <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={SpacingSize.ExtraWide} />
-              <Stack direction={Direction.Horizontal} childAlignment={Alignment.Start} contentAlignment={Alignment.Fill}>
-                {iosAppId && <IosDownloadButton appId={iosAppId} />}
-                {androidAppId && <AndroidDownloadButton appId={androidAppId} />}
+              <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
+                {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
+                {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
+                <Stack.Item growthFactor={1} shrinkFactor={1} />
               </Stack>
               <Spacing mode={SpacingSize.ExtraExtraWide}/>
             </Stack>

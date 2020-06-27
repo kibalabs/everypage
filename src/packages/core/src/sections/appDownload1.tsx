@@ -28,8 +28,8 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
             <Spacing mode={SpacingSize.ExtraWide} />
             <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
               <Stack.Item growthFactor={1} shrinkFactor={1} />
-                {iosAppId && <IosDownloadButton appId={iosAppId} />}
-                {androidAppId && <AndroidDownloadButton appId={androidAppId} />}
+              {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
+              {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
               <Stack.Item growthFactor={1} shrinkFactor={1} />
             </Stack>
             <Spacing mode={SpacingSize.ExtraExtraWide}/>

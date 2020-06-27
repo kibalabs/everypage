@@ -62,7 +62,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
                   <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
                 ) : null;
               })}
-              <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} onClicked={onMenuClicked} />
+              {props.buttons && props.buttons.filter((button: INavBar1Button): boolean => (!button.display || button.display === 'default' || button.display === 'overflow')).length > 0 && <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} onClicked={onMenuClicked} />}
             </Stack>
           </ResponsiveView>
         </StyledNavigationBar>
