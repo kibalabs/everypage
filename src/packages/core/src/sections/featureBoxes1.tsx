@@ -30,7 +30,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
               <Spacing mode='narrow' />
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             </Stack>
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={6} size={12}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>

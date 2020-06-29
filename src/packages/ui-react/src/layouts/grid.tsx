@@ -109,7 +109,7 @@ const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: n
 const columnCountToCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string): string => (
   `@media (min-width: ${screenWidth}) {
     width: ${getCssSize(totalColumnCount, gutterSize, columnCount)};
-    ${columnCount === 0 ? 'height: 0px; margin-left: 0px; margin-right: 0px; display: none;' : ''};
+    ${columnCount === 0 ? 'display: none;' : 'display: initial;'};
   }`
 );
 
@@ -117,6 +117,7 @@ const columnCountsToCss = (totalColumnCount: number, gutterSize: string, screenW
   const output = [];
   if (columnCountNormal !== undefined) {
     output.push(`width: ${getCssSize(totalColumnCount, gutterSize, columnCountNormal).toString()};`);
+    output.push(columnCountNormal === 0 ? 'display: none;' : 'display: initial;');
   }
   if (columnCountSmall !== undefined) {
     output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountSmall, screenWidthSmall));

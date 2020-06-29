@@ -12,6 +12,7 @@ import { SitePage } from './pages/sitePage';
 import { CanvasPage } from './pages/canvasPage';
 import { LoginPage } from './pages/loginPage';
 import { RegisterPage } from './pages/registerPage';
+import { VerifyEmailPage } from './pages/verifyEmailPage';
 import { NotFoundPage } from './pages/notFoundPage';
 import { CreateSitePage } from './pages/createSitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
@@ -57,6 +58,7 @@ export const App = hot((): React.ReactElement => {
           <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
           <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
           <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
+          <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
           <Route default={true} page={NotFoundPage} />
         </Router>
       </React.Fragment>

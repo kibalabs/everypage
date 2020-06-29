@@ -68,7 +68,6 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
             </Grid.Item>
           )}
           { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
-          <Grid.Item size={2} sizeMedium={0} />
           { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />

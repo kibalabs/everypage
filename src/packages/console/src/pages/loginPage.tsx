@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const LoginPage = (): React.ReactElement => {
-  const { everypageClient } = useGlobals();
+  const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>('');
@@ -54,7 +54,7 @@ export const LoginPage = (): React.ReactElement => {
     }
     setIsLoading(true);
     everypageClient.login_user(email, password).then((): void => {
-      history.navigate('/', { replace: true });
+      history.navigate(authManager.getJwt().hasVerifiedEmail ? '/' : '/verify-email', { replace: true });
     }).catch((error: Error): void => {
       if (error.message.includes('NotFoundException')) {
         setEmailError('No user found with this email');

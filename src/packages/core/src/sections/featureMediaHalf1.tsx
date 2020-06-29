@@ -21,7 +21,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
         <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
-        <Grid childAlignment={Alignment.Center}>
+        <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
@@ -43,7 +43,6 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
             </Grid.Item>
           )}
           { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
-          <Grid.Item size={2} sizeMedium={0} />
           { props.leftMediaUrl && (
             <Grid.Item size={8} sizeMedium={0}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />

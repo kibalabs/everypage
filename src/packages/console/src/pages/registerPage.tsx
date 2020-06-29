@@ -71,7 +71,7 @@ export const RegisterPage = (): React.ReactElement => {
     }
     setIsLoading(true);
     everypageClient.create_user(firstName, lastName, email, password, shouldJoinNewsletter).then((): void => {
-      history.navigate('/', { replace: true });
+      history.navigate('/verify-email', { replace: true });
     }).catch((error: Error): void => {
       if (error.message.includes('USER_EMAIL_EXISTS')) {
         setEmailError('A user with this email exists. Please log in instead.');
