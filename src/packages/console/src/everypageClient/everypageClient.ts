@@ -7,7 +7,7 @@ import * as Endpoints from './endpoints';
 export class EverypageClient extends ServiceClient {
 
   public constructor(requester: Requester, baseUrl?: string) {
-    super(requester, baseUrl || 'https://api.everypagehq.com')
+    super(requester, baseUrl || 'http://localhost:5000'); //'https://api.everypagehq.com')
   }
 
   public login_user = async (email: string, password: string): Promise<void> => {
@@ -69,10 +69,10 @@ export class EverypageClient extends ServiceClient {
     return response.sites;
   }
 
-  public create_site = async (accountId: number, slug: string, name?: string): Promise<Resources.Site> => {
+  public create_site = async (accountId: number, slug: string, name?: string, templateId?: number): Promise<Resources.Site> => {
     const method = RestMethod.POST;
     const path = `v1/accounts/${accountId}/sites`;
-    const request = new Endpoints.CreateSiteRequest(accountId, slug, name);
+    const request = new Endpoints.CreateSiteRequest(accountId, slug, name, templateId);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateSiteResponse);
     return response.site;
   }
@@ -117,12 +117,12 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersion;
   }
 
-  public create_site_version = async (siteId: number, siteContent: Record<string, any>, siteTheme: Record<string, any>): Promise<Resources.CreatedSiteVersion> => {
+  public create_site_version = async (siteId: number, siteContent?: Record<string, any>, siteTheme?: Record<string, any>, name?: string, templateId?: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions`;
-    const request = new Endpoints.CreateSiteVersionRequest(siteContent, siteTheme);
+    const request = new Endpoints.CreateSiteVersionRequest(siteContent, siteTheme, name, templateId);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateSiteVersionResponse);
-    return response.createdSiteVersion;
+    return response.siteVersion;
   }
 
   public list_site_version_assets = async (siteId: number, siteVersionId: number): Promise<Resources.AssetFile[]> => {
@@ -177,6 +177,62 @@ export class EverypageClient extends ServiceClient {
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
     const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
     const response = await this.makeRequest(method, path, request, Endpoints.UpdateSiteVersionEntryResponse);
+    return response.siteVersionEntry;
+  }
+
+  public list_template_categories = async (): Promise<Resources.TemplateCategory[]> => {
+    const method = RestMethod.GET;
+    const path = `v1/template-categories`;
+    const request = new Endpoints.ListTemplateCategoriesRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.ListTemplateCategoriesResponse);
+    return response.templateCategories;
+  }
+
+  public create_template_category = async (name: string): Promise<Resources.TemplateCategory> => {
+    const method = RestMethod.POST;
+    const path = `v1/template-categories`;
+    const request = new Endpoints.CreateTemplateCategoryRequest(name);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateTemplateCategoryResponse);
+    return response.templateCategory;
+  }
+
+  public get_template_category = async (templateCategoryId: number): Promise<Resources.TemplateCategory> => {
+    const method = RestMethod.GET;
+    const path = `v1/template-categories/${templateCategoryId}`;
+    const request = new Endpoints.GetTemplateCategoryRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetTemplateCategoryResponse);
+    return response.templateCategory;
+  }
+
+  public list_templates = async (templateCategoryId?: number): Promise<Resources.Template[]> => {
+    const method = RestMethod.GET;
+    const path = `v1/templates`;
+    const request = new Endpoints.ListTemplatesRequest(templateCategoryId);
+    const response = await this.makeRequest(method, path, request, Endpoints.ListTemplatesResponse);
+    return response.templates;
+  }
+
+  public create_template = async (name: string, description: string, siteId: number, templateCategoryId: number): Promise<Resources.Template> => {
+    const method = RestMethod.POST;
+    const path = `v1/templates`;
+    const request = new Endpoints.CreateTemplateRequest(name, description, siteId, templateCategoryId);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateTemplateResponse);
+    return response.template;
+  }
+
+  public get_template = async (templateId: number): Promise<Resources.Template> => {
+    const method = RestMethod.GET;
+    const path = `v1/templates/${templateId}`;
+    const request = new Endpoints.GetTemplateRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetTemplateResponse);
+    return response.template;
+  }
+
+  public get_site_version_entry_for_template = async (templateId: number): Promise<Resources.SiteVersionEntry> => {
+    const method = RestMethod.GET;
+    const path = `v1/templates/${templateId}/site-version-entry`;
+    const request = new Endpoints.GetSiteVersionEntryForTemplateRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSiteVersionEntryForTemplateResponse);
     return response.siteVersionEntry;
   }
 

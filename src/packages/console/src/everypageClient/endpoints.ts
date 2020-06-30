@@ -174,12 +174,14 @@ export class CreateSiteRequest extends RequestData {
   readonly accountId: number;
   readonly slug: string;
   readonly name?: string;
+  readonly templateId?: number;
 
-  public constructor(accountId: number, slug: string, name?: string) {
+  public constructor(accountId: number, slug: string, name?: string, templateId?: number) {
     super();
     this.accountId = accountId;
     this.slug = slug;
     this.name = name;
+    this.templateId = templateId;
   }
 
   public toObject = (): Record<string, any> => {
@@ -187,6 +189,7 @@ export class CreateSiteRequest extends RequestData {
       accountId: this.accountId,
       slug: this.slug,
       name: this.name,
+      templateId: this.templateId,
     };
   }
 }
@@ -207,19 +210,25 @@ export class CreateSiteResponse extends ResponseData {
 }
 
 export class CreateSiteVersionRequest extends RequestData {
-  readonly siteContent: Record<string, any>;
-  readonly siteTheme: Record<string, any>;
+  readonly siteContent?: Record<string, any>;
+  readonly siteTheme?: Record<string, any>;
+  readonly name?: string;
+  readonly templateId?: number;
 
-  public constructor(siteContent: Record<string, any>, siteTheme: Record<string, any>) {
+  public constructor(siteContent?: Record<string, any>, siteTheme?: Record<string, any>, name?: string, templateId?: number) {
     super();
     this.siteContent = siteContent;
     this.siteTheme = siteTheme;
+    this.name = name;
+    this.templateId = templateId;
   }
 
   public toObject = (): Record<string, any> => {
     return {
       siteContent: this.siteContent,
       siteTheme: this.siteTheme,
+      name: this.name,
+      templateId: this.templateId,
     };
   }
 }
@@ -556,6 +565,193 @@ export class UpdateSiteVersionEntryResponse extends ResponseData {
 
   public static fromObject = (obj: Record<string, any>): UpdateSiteVersionEntryResponse => {
     return new UpdateSiteVersionEntryResponse(
+      Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
+    );
+  }
+}
+
+export class ListTemplateCategoriesRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class ListTemplateCategoriesResponse extends ResponseData {
+  readonly templateCategories: Resources.TemplateCategory[];
+
+  public constructor(templateCategories: Resources.TemplateCategory[]) {
+    super();
+    this.templateCategories = templateCategories;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ListTemplateCategoriesResponse => {
+    return new ListTemplateCategoriesResponse(
+      obj.templateCategories.map((templateCategory: Record<string, any>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
+    );
+  }
+}
+
+export class CreateTemplateCategoryRequest extends RequestData {
+  readonly name: string;
+
+  public constructor(name: string) {
+    super();
+    this.name = name;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      name: this.name,
+    };
+  }
+}
+
+export class CreateTemplateCategoryResponse extends ResponseData {
+  readonly templateCategory: Resources.TemplateCategory;
+
+  public constructor(templateCategory: Resources.TemplateCategory) {
+    super();
+    this.templateCategory = templateCategory;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreateTemplateCategoryResponse => {
+    return new CreateTemplateCategoryResponse(
+      Resources.TemplateCategory.fromObject(obj.templateCategory),
+    );
+  }
+}
+
+export class GetTemplateCategoryRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetTemplateCategoryResponse extends ResponseData {
+  readonly templateCategory: Resources.TemplateCategory;
+
+  public constructor(templateCategory: Resources.TemplateCategory) {
+    super();
+    this.templateCategory = templateCategory;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetTemplateCategoryResponse => {
+    return new GetTemplateCategoryResponse(
+      Resources.TemplateCategory.fromObject(obj.templateCategory),
+    );
+  }
+}
+
+export class ListTemplatesRequest extends RequestData {
+  readonly templateCategoryId: number;
+
+  public constructor(templateCategoryId: number) {
+    super();
+    this.templateCategoryId = templateCategoryId;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      templateCategoryId: this.templateCategoryId,
+    };
+  }
+}
+
+export class ListTemplatesResponse extends ResponseData {
+  readonly templates: Resources.Template[];
+
+  public constructor(templates: Resources.Template[]) {
+    super();
+    this.templates = templates;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ListTemplatesResponse => {
+    return new ListTemplatesResponse(
+      obj.templates.map((template: Record<string, any>): Resources.Template => Resources.Template.fromObject(template)),
+    );
+  }
+}
+
+export class CreateTemplateRequest extends RequestData {
+  readonly name: string;
+  readonly description: string;
+  readonly siteId: number;
+  readonly templateCategoryId: number;
+
+  public constructor(name: string, description: string, siteId: number, templateCategoryId: number) {
+    super();
+    this.name = name;
+    this.description = description;
+    this.siteId = siteId;
+    this.templateCategoryId = templateCategoryId;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      name: this.name,
+      description: this.description,
+      siteId: this.siteId,
+      templateCategoryId: this.templateCategoryId,
+    };
+  }
+}
+
+export class CreateTemplateResponse extends ResponseData {
+  readonly template: Resources.Template;
+
+  public constructor(template: Resources.Template) {
+    super();
+    this.template = template;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreateTemplateResponse => {
+    return new CreateTemplateResponse(
+      Resources.Template.fromObject(obj.template),
+    );
+  }
+}
+
+export class GetTemplateRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetTemplateResponse extends ResponseData {
+  readonly template: Resources.Template;
+
+  public constructor(template: Resources.Template) {
+    super();
+    this.template = template;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetTemplateResponse => {
+    return new GetTemplateResponse(
+      Resources.Template.fromObject(obj.template),
+    );
+  }
+}
+
+export class GetSiteVersionEntryForTemplateRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
+  readonly siteVersionEntry: Resources.SiteVersionEntry;
+
+  public constructor(siteVersionEntry: Resources.SiteVersionEntry) {
+    super();
+    this.siteVersionEntry = siteVersionEntry;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetSiteVersionEntryForTemplateResponse => {
+    return new GetSiteVersionEntryForTemplateResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
     );
   }

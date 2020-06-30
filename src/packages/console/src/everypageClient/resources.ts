@@ -141,63 +141,113 @@ export class AssetFile {
   }
 }
 
+export class TemplateCategory {
+  readonly templateCategoryId: number;
+  readonly name: string;
+
+  public constructor(templateCategoryId: number, name: string) {
+    this.templateCategoryId = templateCategoryId;
+    this.name = name;
+  }
+
+  public static fromObject = (obj: Record<string, any>): TemplateCategory => {
+    return new TemplateCategory(
+      Number(obj.templateCategoryId),
+      String(obj.name),
+    );
+  }
+}
+
+export class Template {
+  readonly templateId: number;
+  readonly name: string;
+  readonly description: string;
+  readonly siteId: number;
+  readonly templateCategoryId: number;
+  readonly imageUrl: string;
+  readonly previewUrl: string;
+
+  public constructor(templateId: number, name: string, description: string, siteId: number, templateCategoryId: number, imageUrl: string, previewUrl: string) {
+    this.templateId = templateId;
+    this.name = name;
+    this.description = description;
+    this.siteId = siteId;
+    this.templateCategoryId = templateCategoryId;
+    this.imageUrl = imageUrl;
+    this.previewUrl = previewUrl;
+  }
+
+  public static fromObject = (obj: Record<string, any>): Template => {
+    return new Template(
+      Number(obj.templateId),
+      String(obj.name),
+      String(obj.description),
+      Number(obj.siteId),
+      Number(obj.templateCategoryId),
+      String(obj.imageUrl),
+      String(obj.previewUrl),
+    );
+  }
+}
+
+
 export class IosApp {
-    readonly iosAppId: string;
-    readonly name: string;
-    readonly description: string;
-    readonly publisherName: string;
-    readonly iconImageUrl: string;
-    readonly storeUrl: string;
+  readonly iosAppId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly publisherName: string;
+  readonly iconImageUrl: string;
+  readonly storeUrl: string;
 
-    public constructor(iosAppId: string, name: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
-      this.iosAppId = iosAppId;
-      this.name = name;
-      this.description = description;
-      this.publisherName = publisherName;
-      this.iconImageUrl = iconImageUrl;
-      this.storeUrl = storeUrl;
-    }
+  public constructor(iosAppId: string, name: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
+    this.iosAppId = iosAppId;
+    this.name = name;
+    this.description = description;
+    this.publisherName = publisherName;
+    this.iconImageUrl = iconImageUrl;
+    this.storeUrl = storeUrl;
+  }
 
-    public static fromObject = (obj: Record<string, any>): IosApp => {
-      return new IosApp(
-        String(obj.iosAppId),
-        String(obj.name),
-        String(obj.description),
-        String(obj.publisherName),
-        String(obj.iconImageUrl),
-        String(obj.storeUrl),
-      );
-    }
+  public static fromObject = (obj: Record<string, any>): IosApp => {
+    return new IosApp(
+      String(obj.iosAppId),
+      String(obj.name),
+      String(obj.description),
+      String(obj.publisherName),
+      String(obj.iconImageUrl),
+      String(obj.storeUrl),
+    );
+  }
 }
 
 export class AndroidApp {
-    readonly androidAppId: string;
-    readonly name: string;
-    readonly tagline: string;
-    readonly description: string;
-    readonly publisherName: string;
-    readonly iconImageUrl: string;
-    readonly storeUrl: string;
+  readonly androidAppId: string;
+  readonly name: string;
+  readonly tagline: string;
+  readonly description: string;
+  readonly publisherName: string;
+  readonly iconImageUrl: string;
+  readonly storeUrl: string;
 
-    public constructor(androidAppId: string, name: string, tagline: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
-      this.androidAppId = androidAppId;
-      this.name = name;
-      this.tagline = tagline;
-      this.description = description;
-      this.publisherName = publisherName;
-      this.iconImageUrl = iconImageUrl;
-      this.storeUrl = storeUrl;
-    }
+  public constructor(androidAppId: string, name: string, tagline: string, description: string, publisherName: string, iconImageUrl: string, storeUrl: string) {
+    this.androidAppId = androidAppId;
+    this.name = name;
+    this.tagline = tagline;
+    this.description = description;
+    this.publisherName = publisherName;
+    this.iconImageUrl = iconImageUrl;
+    this.storeUrl = storeUrl;
+  }
 
-    public static fromObject = (obj: Record<string, any>): AndroidApp => {
-      return new AndroidApp(
-        String(obj.androidAppId),
-        String(obj.name),
-        String(obj.tagline),
-        String(obj.description),
-        String(obj.publisherName),
-        String(obj.iconImageUrl),
-        String(obj.storeUrl),
-      );
-    }
+  public static fromObject = (obj: Record<string, any>): AndroidApp => {
+    return new AndroidApp(
+      String(obj.androidAppId),
+      String(obj.name),
+      String(obj.tagline),
+      String(obj.description),
+      String(obj.publisherName),
+      String(obj.iconImageUrl),
+      String(obj.storeUrl),
+    );
+  }
 }

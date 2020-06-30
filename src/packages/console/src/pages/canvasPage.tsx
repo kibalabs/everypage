@@ -4,14 +4,16 @@ import { ThemeProvider } from '@kibalabs/ui-react';
 import { buildEverypageTheme } from '@kibalabs/everypage-core';
 
 import { Canvas } from '../components/canvas';
-import { defaultSite } from '../defaultSite';
+import { TemplateChooserModal } from '../components/templateChooserModal';
+import { Template, SiteVersionEntry } from '../everypageClient';
+import { useGlobals } from '../globalsContext';
 
 export const CanvasPage = (): React.ReactElement => {
+  const { everypageClient } = useGlobals();
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
-  const resolvedSiteContent = (siteContent || defaultSite);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = {...assetFileMap};
@@ -24,10 +26,19 @@ export const CanvasPage = (): React.ReactElement => {
     });
   };
 
+  const onChooseTemplateClicked = (template: Template) => {
+    everypageClient.get_site_version_entry_for_template(template.templateId).then((siteVersionEntry: SiteVersionEntry) => {
+      setSiteContent(siteVersionEntry.siteContent);
+      setSiteTheme(siteVersionEntry.siteTheme);
+    }).catch((error: Error): void => {
+      console.log('error', error);
+    });
+  };
+
   return (
     <ThemeProvider theme={buildEverypageTheme()}>
-      <Canvas
-        siteContent={resolvedSiteContent}
+      {siteContent && <Canvas
+        siteContent={siteContent}
         onSiteContentUpdated={setSiteContent}
         siteTheme={siteTheme}
         onSiteThemeUpdated={setSiteTheme}
@@ -35,6 +46,10 @@ export const CanvasPage = (): React.ReactElement => {
         onIsEditorHiddenUpdated={setIsEditorHidden}
         assetFileMap={assetFileMap}
         addAssetFiles={addAssetFiles}
+      />}
+      <TemplateChooserModal
+        isOpen={!siteContent}
+        onChooseTemplateClicked={onChooseTemplateClicked}
       />
     </ThemeProvider>
   )

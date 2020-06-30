@@ -6,8 +6,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { Account } from '../everypageClient/resources';
-
 const useStyles = makeStyles({
 });
 
