@@ -14,10 +14,11 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { Account } from '../everypageClient/resources';
+import { Account, Template } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { TemplateChooserModal } from '../components/templateChooserModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +60,8 @@ export const CreateSitePage = (): React.ReactElement => {
   const [nameError, setNameError] = React.useState<string | undefined>(undefined);
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
   const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
+  const [isTemplateChooserOpen, setIsTemplateChooserOpen] = React.useState<boolean>(false);
+  const [template, setTemplate] = React.useState<Template | null>(null);
 
   useInitialization((): void => {
     loadAccounts();
@@ -90,7 +93,7 @@ export const CreateSitePage = (): React.ReactElement => {
       return;
     }
     setIsLoading(true);
-    everypageClient.create_site(selectedAccountId, slug, name || undefined).then((): void => {
+    everypageClient.create_site(selectedAccountId, slug, name || undefined, template ? template.templateId : null).then((): void => {
       history.navigate(`/sites/${slug}`);
     }).catch((error: KibaException): void => {
       if (error.message === 'SITE_LIMIT_REACHED_CORE') {
@@ -123,10 +126,20 @@ export const CreateSitePage = (): React.ReactElement => {
     setIsAccountUpgradePopupShowing(false);
   }
 
-  const onAccountUpgradePopupUpgradeClicked = (account: Account): void => {
+  const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-    history.navigate(`/accounts/${account.accountId}#billing`);
+    history.navigate(`/accounts/${selectedAccountId}#billing`);
   }
+
+  const onTemplateChoiceClicked = (event: React.SyntheticEvent<HTMLDivElement>): void => {
+    event.preventDefault();
+    setIsTemplateChooserOpen(true);
+  }
+
+  const onChooseTemplateClicked = (template: Template) => {
+    setTemplate(template);
+    setIsTemplateChooserOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -180,7 +193,7 @@ export const CreateSitePage = (): React.ReactElement => {
                 error={slugError !== undefined}
                 helperText={slugError}
               />
-              <Typography variant='subtitle'>
+              <Typography variant='subtitle2'>
                 {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
               </Typography>
               <TextField
@@ -196,6 +209,17 @@ export const CreateSitePage = (): React.ReactElement => {
                 error={nameError !== undefined}
                 helperText={nameError}
               />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                name='template'
+                label='Site template'
+                type='template'
+                id='template'
+                value={template ? template.name : 'Blank'}
+                onClick={onTemplateChoiceClicked}
+              />
               <Button
                 type='submit'
                 fullWidth
@@ -208,6 +232,7 @@ export const CreateSitePage = (): React.ReactElement => {
         </Paper>
       </Container>
       <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
+      <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
     </div>
   );
 }

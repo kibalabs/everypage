@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3),
   },
   categoryList: {
-    width: '200px',
+    width: '300px',
     overflow: 'auto',
   },
   templateList: {
