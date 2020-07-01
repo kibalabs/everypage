@@ -297,12 +297,16 @@ export class PromoteSiteVersionResponse extends ResponseData {
 }
 
 export class CloneSiteVersionRequest extends RequestData {
-  public constructor() {
+  readonly name?: string;
+
+  public constructor(name?: string) {
     super();
+    this.name = name;
   }
 
   public toObject = (): Record<string, any> => {
     return {
+      name: this.name,
     };
   }
 }

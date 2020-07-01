@@ -140,10 +140,10 @@ export class EverypageClient extends ServiceClient {
     await this.makeRequest(method, path, request, Endpoints.PromoteSiteVersionResponse);
   }
 
-  public clone_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
+  public clone_site_version = async (siteId: number, siteVersionId: number, name?: string): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/clone`;
-    const request = new Endpoints.CloneSiteVersionRequest();
+    const request = new Endpoints.CloneSiteVersionRequest(name);
     const response = await this.makeRequest(method, path, request, Endpoints.CloneSiteVersionResponse);
     return response.siteVersion;
   }

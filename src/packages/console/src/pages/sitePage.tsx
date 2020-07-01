@@ -9,11 +9,17 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { Template } from '../everypageClient/resources';
 import { Site, SiteVersion, Account } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
+import { TemplateChooserModal } from '../components/templateChooserModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,6 +83,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [newCustomDomainValue, setNewCustomDomainValue] = React.useState<string>('');
   const [newCustomDomainError, setNewCustomDomainError] = React.useState<string | undefined>(undefined);
   const [newCustomDomainApiError, setNewCustomDomainApiError] = React.useState<string | undefined>(undefined);
+  const [isNewVersionPopupShowing, setIsNewVersionPopupShowing] = React.useState<boolean>(false);
+  const [isTemplateChooserPopupShowing, setIsTemplateChooserPopupShowing] = React.useState<boolean>(false);
+  const [newVersionName, setNewVersionName] = React.useState<string | null>(null);
 
   useInitialization((): void => {
     loadSite();
@@ -144,8 +153,26 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onCreateNewVersionClicked = (): void => {
+    setIsNewVersionPopupShowing(true);
+  }
+
+  const onCreateFromTemplateClicked = (): void => {
+    setIsNewVersionPopupShowing(false);
+    setIsTemplateChooserPopupShowing(true);
+  }
+
+  const onNewVersionPopupCloseClicked = (): void => {
+    setIsNewVersionPopupShowing(false);
+  }
+
+  const onNewVersionNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setNewVersionName(event.target.value);
+  }
+
+  const onClonePrimaryClicked = (): void => {
+    setIsNewVersionPopupShowing(false);
     setIsLoading(true);
-    everypageClient.clone_site_version(site.siteId, primaryVersionId).then((): void => {
+    everypageClient.clone_site_version(site.siteId, primaryVersionId, newVersionName).then((): void => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
@@ -153,6 +180,18 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       setIsLoading(false);
     });
   }
+
+  const onChooseTemplateClicked = (template: Template) => {
+    setIsTemplateChooserPopupShowing(false);
+    setIsLoading(true);
+    everypageClient.create_site_version(site.siteId, undefined, undefined, newVersionName, template.templateId).then((): void => {
+      loadVersions();
+      setIsLoading(false);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      setIsLoading(false);
+    });
+  };
 
   const onSetCustomDomainClicked = (): void => {
     if (account.accountType == 'core') {
@@ -361,6 +400,40 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         </Container>
       </main>
       <AccountUpgradeDomainDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
+      <Dialog
+        open={isNewVersionPopupShowing}
+        onClose={onNewVersionPopupCloseClicked}
+      >
+        <DialogTitle>Create new version</DialogTitle>
+        <DialogContent>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            name='name'
+            label='Version name'
+            value={newVersionName}
+            onChange={onNewVersionNameChanged}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button color='primary' variant='contained' onClick={onCreateFromTemplateClicked}>
+            Choose Template
+          </Button>
+          <Button color='primary' variant='contained' onClick={onClonePrimaryClicked}>
+            Clone primary
+          </Button>
+        </DialogActions>
+        <DialogActions>
+          <Button onClick={onNewVersionPopupCloseClicked}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <TemplateChooserModal
+        isOpen={isTemplateChooserPopupShowing}
+        onChooseTemplateClicked={onChooseTemplateClicked}
+      />
     </div>
   );
 }
