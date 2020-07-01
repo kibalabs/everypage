@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
-import { CanvasStack } from '../components/tempCanvasStack';
 import { Canvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
@@ -35,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     flexShrink: 1,
     marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
   },
   saveStatusText: {
     marginLeft: theme.spacing(2),
@@ -61,7 +62,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
-  const [isHeadShown, setIsHeadShown] = React.useState<boolean>(true);
+  const [isHeadShown, setIsMetaShown] = React.useState<boolean>(true);
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   useInitialization((): void => {
@@ -182,8 +183,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     });
   };
 
-  const onIsHeadShownToggled = (): void => {
-    setIsHeadShown(!isHeadShown);
+  const onIsMetaShownToggled = (): void => {
+    setIsMetaShown(!isHeadShown);
   }
 
   return (
@@ -196,40 +197,34 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
           <div>Loading...</div>
         ) : (
           <ThemeProvider theme={buildEverypageTheme()}>
-            <CanvasStack isFullHeight={true} isFullWidth={true}>
-              <CanvasStack.Item>
-                <Box paddingX={2} paddingY={1} className={classes.metaBox}>
-                  <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
-                  {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
-                  {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
-                  <Box className={classes.metaBoxSpacer}/>
-                  <FormControlLabel
-                    label='Show metadata'
-                    control={
-                      <Switch
-                        checked={isHeadShown}
-                        onChange={onIsHeadShownToggled}
-                        name='Show metadata'
-                      />
-                    }
+            <Box paddingX={2} paddingY={1} className={classes.metaBox}>
+              <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
+              {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
+              {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
+              <Box className={classes.metaBoxSpacer}/>
+              <FormControlLabel
+                label='Show metadata'
+                control={
+                  <Switch
+                    checked={isHeadShown}
+                    onChange={onIsMetaShownToggled}
+                    name='Show metadata'
                   />
-                </Box>
-              </CanvasStack.Item>
-              <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
-                <Canvas
-                  isEditable={isEditable}
-                  isHeadShown={isHeadShown}
-                  siteContent={siteContent}
-                  onSiteContentUpdated={onSiteContentUpdated}
-                  siteTheme={siteTheme}
-                  onSiteThemeUpdated={onSiteThemeUpdated}
-                  assetFileMap={assetFileMap}
-                  addAssetFiles={addAssetFiles}
-                  isEditorHidden={isEditorHidden}
-                  onIsEditorHiddenUpdated={setIsEditorHidden}
-                />
-              </CanvasStack.Item>
-            </CanvasStack>
+                }
+              />
+            </Box>
+            <Canvas
+              isEditable={isEditable}
+              isHeadShown={isHeadShown}
+              siteContent={siteContent}
+              onSiteContentUpdated={onSiteContentUpdated}
+              siteTheme={siteTheme}
+              onSiteThemeUpdated={onSiteThemeUpdated}
+              assetFileMap={assetFileMap}
+              addAssetFiles={addAssetFiles}
+              isEditorHidden={isEditorHidden}
+              onIsEditorHiddenUpdated={setIsEditorHidden}
+            />
           </ThemeProvider>
         )}
       </main>

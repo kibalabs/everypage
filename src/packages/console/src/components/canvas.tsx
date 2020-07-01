@@ -1,19 +1,40 @@
 
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Direction } from '@kibalabs/ui-react';
 import { IndexPage, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
-
-import { KibaFrame } from '../components/kibaFrame';
-import { JsonEditor } from '../components/jsonEditor';
-import { CanvasStack } from '../components/tempCanvasStack';
-import { Dropzone, FilePreviewGrid } from '../components/dropzone';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+
+import { KibaFrame } from '../components/kibaFrame';
+import { JsonEditor } from '../components/jsonEditor';
+import { Dropzone, FilePreviewGrid } from '../components/dropzone';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: '100%',
+    width: '100%',
+  },
+  frameWrapper: {
+    flexGrow: 1,
+    flexShrink: 1,
+  },
+  editorWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    width: '500px',
+  },
+  editor: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexDirection: 'column',
+    overflow: 'hidden',
+  },
   fab: {
     position: 'absolute',
     bottom: theme.spacing(2),
@@ -22,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   buttonBar: {
     backgroundColor: '#333333',
     width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
     backgroundColor: 'transparent',
@@ -34,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#333333',
     width: '2px',
     height: '100%',
-  }
+  },
 }));
 
 interface ICanvasProps {
@@ -92,45 +116,43 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   // https://github.com/nfl/react-helmet/issues/277
   return (
     <React.Fragment>
-      <CanvasStack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true}>
-        <CanvasStack.Item baseSize={props.isEditorHidden ? '0' : '500px'}>
-          <CanvasStack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+      <div className={classes.root}>
+        {!props.isEditorHidden && (
+          <div className={classes.editorWrapper}>
             <div className={classes.buttonBar}>
-              <CanvasStack direction={Direction.Horizontal} isFullWidth={true}>
-                <Button className={getClassName(classes.button, selectedType === 'site' && classes.buttonSelected)} onClick={onSiteClicked}>Site</Button>
-                <Button className={getClassName(classes.button, selectedType === 'theme' && classes.buttonSelected)} onClick={onThemeClicked}>Theme</Button>
-                <Button className={getClassName(classes.button, selectedType === 'assets' && classes.buttonSelected)} onClick={onAssetsClicked}>Assets</Button>
-                <div />
-                <Button className={classes.button} onClick={onHideEditorClicked}>Hide</Button>
-              </CanvasStack>
+              <Button className={getClassName(classes.button, selectedType === 'site' && classes.buttonSelected)} onClick={onSiteClicked}>Site</Button>
+              <Button className={getClassName(classes.button, selectedType === 'theme' && classes.buttonSelected)} onClick={onThemeClicked}>Theme</Button>
+              <Button className={getClassName(classes.button, selectedType === 'assets' && classes.buttonSelected)} onClick={onAssetsClicked}>Assets</Button>
+              <div />
+              <Button className={classes.button} onClick={onHideEditorClicked}>Hide</Button>
             </div>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'site'}>
+            <Box className={classes.editor} display={selectedType === 'site' ? 'flex' : 'none'}>
               <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'theme'}>
+            </Box>
+            <Box className={classes.editor} display={selectedType === 'theme' ? 'flex' : 'none'}>
               <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
-            </CanvasStack.Item>
-            <CanvasStack.Item growthFactor={1} shrinkFactor={1} isScrollable={false} isHidden={selectedType !== 'assets'}>
+            </Box>
+            <Box className={classes.editor} display={selectedType === 'assets' ? 'flex' : 'none'}>
               {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
               <FilePreviewGrid fileMap={props.assetFileMap}/>
-            </CanvasStack.Item>
-          </CanvasStack>
-        </CanvasStack.Item>
-        <div className={classes.verticalLine} />
-        <CanvasStack.Item growthFactor={1} shrinkFactor={1}>
+            </Box>
+          </div>
+        )}
+        {!props.isEditorHidden && <div className={classes.verticalLine} />}
+        <div className={classes.frameWrapper}>
           <KibaFrame>
             <React.Fragment>
               <HeadContent theme={props.siteTheme} website={props.siteContent} />
               <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
             </React.Fragment>
           </KibaFrame>
-        </CanvasStack.Item>
-      </CanvasStack>
-    {props.isEditorHidden && (
-      <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
-        <EditIcon />
-      </Fab>
-    )}
+        </div>
+      </div>
+      {props.isEditorHidden && (
+        <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
+          <EditIcon />
+        </Fab>
+      )}
     </React.Fragment>
   )
 }
