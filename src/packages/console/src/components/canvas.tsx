@@ -1,6 +1,5 @@
 
 import React from 'react';
-import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { Direction } from '@kibalabs/ui-react';
 import { IndexPage, replaceAssetPaths, HeadContent } from '@kibalabs/everypage-core';
@@ -9,7 +8,6 @@ import { KibaFrame } from '../components/kibaFrame';
 import { JsonEditor } from '../components/jsonEditor';
 import { CanvasStack } from '../components/tempCanvasStack';
 import { Dropzone, FilePreviewGrid } from '../components/dropzone';
-import { ButtonBar } from '../components/button';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
