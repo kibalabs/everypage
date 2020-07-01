@@ -50,8 +50,8 @@ export const App = hot((): React.ReactElement => {
         {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
         <GlobalCss resetCss={resetCss} />
         <Router authManager={authManager}>
+          <Route path='/canvas' page={CanvasPage}/>
           <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
-          <Route path='/canvas' page={CanvasPage} redirectIfNoAuth={'/login'} />
           <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
