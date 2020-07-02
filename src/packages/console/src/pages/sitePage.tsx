@@ -70,7 +70,7 @@ export interface ISitePageProps {
 
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const classes = useStyles();
-  const { everypageClient, authManager } = useGlobals();
+  const { everypageClient, authManager, consoleConfig } = useGlobals();
   const history = useHistory();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
@@ -194,7 +194,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onSetCustomDomainClicked = (): void => {
-    if (account.accountType == 'core') {
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
+    if (!accountPlan.hasCustomDomain) {
       setIsAccountUpgradePopupShowing(true);
     } else {
       setIsCustomDomainPanelShowing(true);
@@ -250,12 +251,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${account.accountId}#billing`);
+    history.navigate(`/accounts/${account.accountId}#plan`);
     setIsAccountUpgradePopupShowing(false);
   }
 
   const onRemoveBrandingClicked = (): void => {
-    history.navigate(`/accounts/${account.accountId}#billing`);
+    history.navigate(`/accounts/${account.accountId}#plan`);
   }
 
   return (

@@ -3,12 +3,14 @@ import { LocalStorageClient } from '@kibalabs/core';
 
 import { EverypageClient } from './everypageClient';
 import { AuthManager } from './authManager';
+import { IConsoleConfig } from './consoleConfig';
 
 
 export interface IGlobals {
   everypageClient: EverypageClient;
   authManager: AuthManager;
   localStorageClient: LocalStorageClient;
+  consoleConfig: IConsoleConfig;
 }
 
 export const GlobalsContext = React.createContext<IGlobals | null>(null);

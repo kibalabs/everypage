@@ -21,16 +21,63 @@ import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';
 import { JwtRequestModifier } from './jwtRequestModifier';
+import { IConsoleConfig } from './consoleConfig';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester();
 const everypageClient = new EverypageClient(requester);
 const authManager = new AuthManager(localStorageClient, 'ep-console-jwt', everypageClient);
 requester.addModifier(new JwtRequestModifier(authManager));
+
+const consoleConfig: IConsoleConfig = {
+  plans: [{
+    name: 'Core',
+    code: 'core',
+    monthlyPrice: '0',
+    yearlyPrice: '0',
+    highlightFeature: 'Get your pages published',
+    siteLimit: 3,
+    hasCustomDomain: false,
+    hasNoBranding: false,
+    isPurchasable: true,
+  }, {
+    name: 'Starter',
+    code: 'starter',
+    monthlyPrice: '5',
+    yearlyPrice: '50',
+    highlightFeature: 'Host pages on your own domain',
+    siteLimit: 20,
+    hasCustomDomain: true,
+    hasNoBranding: false,
+    isPurchasable: true,
+  }, {
+    name: 'Premium',
+    code: 'premium',
+    monthlyPrice: '20',
+    yearlyPrice: '200',
+    highlightFeature: 'remove everypage branding',
+    siteLimit: 50,
+    hasCustomDomain: true,
+    hasNoBranding: true,
+    isPurchasable: true,
+  }, {
+    name: 'Ultimate',
+    code: 'ultimate',
+    monthlyPrice: '50',
+    yearlyPrice: '500',
+    highlightFeature: 'run a/b tests on your sites',
+    siteLimit: 2,
+    hasCustomDomain: true,
+    hasNoBranding: true,
+    isPurchasable: false,
+  }]
+}
+
 const globals = {
   everypageClient,
   authManager,
   localStorageClient,
+  consoleConfig,
 }
 
 export const App = hot((): React.ReactElement => {

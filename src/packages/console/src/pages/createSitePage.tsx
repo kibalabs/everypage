@@ -98,7 +98,7 @@ export const CreateSitePage = (): React.ReactElement => {
     }).catch((error: KibaException): void => {
       if (error.message === 'SITE_LIMIT_REACHED_CORE') {
         setIsAccountUpgradePopupShowing(true);
-        setSlugError('You have reached the site limit for free accounts. Please upgrade to add more.');
+        setSlugError('You have reached the site limit for your account. Please upgrade to add more.');
       } else if (error.statusCode && error.statusCode === 400) {
         setSlugError(error.message);
       } else {
@@ -128,7 +128,7 @@ export const CreateSitePage = (): React.ReactElement => {
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-    history.navigate(`/accounts/${selectedAccountId}#billing`);
+    history.navigate(`/accounts/${selectedAccountId}#plan`);
   }
 
   const onTemplateChoiceClicked = (event: React.SyntheticEvent<HTMLDivElement>): void => {
@@ -231,7 +231,7 @@ export const CreateSitePage = (): React.ReactElement => {
           )}
         </Paper>
       </Container>
-      <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
+      {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
       <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
     </div>
   );

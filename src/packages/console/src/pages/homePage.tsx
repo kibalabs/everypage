@@ -14,6 +14,7 @@ import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
 import { SiteCard } from '../components/siteCard';
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { IPlan } from '../consoleConfig';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export const HomePage = (): React.ReactElement => {
   const classes = useStyles();
   const history = useHistory();
-  const { everypageClient, authManager } = useGlobals();
+  const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
   const [accountUpgradePopupAccount, setAccountUpgradePopupAccount] = React.useState<Account | null>(null);
@@ -95,7 +96,8 @@ export const HomePage = (): React.ReactElement => {
   }
 
   const onCreateSiteClicked = (account: Account): void => {
-    if (account.accountType === 'core' && accountSites[account.accountId].length >= 3) {
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
+    if (accountPlan && accountSites[account.accountId].length >= accountPlan.siteLimit) {
       setAccountUpgradePopupAccount(account);
     } else {
       history.navigate(`/sites/create?accountId=${account.accountId}`);
@@ -111,7 +113,7 @@ export const HomePage = (): React.ReactElement => {
   }
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}`);
+    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
     setAccountUpgradePopupAccount(null);
   }
 
@@ -161,7 +163,7 @@ export const HomePage = (): React.ReactElement => {
           )}
         </Container>
       </main>
-      <AccountUpgradeDialog isOpen={accountUpgradePopupAccount !== null} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
+      {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
     </div>
   );
 }
