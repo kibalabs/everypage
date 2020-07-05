@@ -147,6 +147,103 @@ export class GetAccountResponse extends ResponseData {
   }
 }
 
+export class CreateSubscriptionForAccountRequest extends RequestData {
+  readonly planCode: string;
+  readonly priceCode: string;
+  readonly stripePaymentMethodId: string;
+  readonly couponCode?: string;
+
+  public constructor(planCode: string, priceCode: string, stripePaymentMethodId: string, couponCode?: string) {
+    super();
+    this.planCode = planCode;
+    this.priceCode = priceCode;
+    this.stripePaymentMethodId = stripePaymentMethodId;
+    this.couponCode = couponCode;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      planCode: this.planCode,
+      priceCode: this.priceCode,
+      stripePaymentMethodId: this.stripePaymentMethodId,
+      couponCode: this.couponCode,
+    };
+  }
+}
+
+export class CreateSubscriptionForAccountResponse extends ResponseData {
+  readonly stripeSubscription: Resources.StripeSubscription;
+
+  public constructor(stripeSubscription: Resources.StripeSubscription) {
+    super();
+    this.stripeSubscription = stripeSubscription;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreateSubscriptionForAccountResponse => {
+    return new CreateSubscriptionForAccountResponse(
+      Resources.StripeSubscription.fromObject(obj.stripeSubscription),
+    );
+  }
+}
+
+export class ChangeSubscriptionForAccountRequest extends RequestData {
+  readonly planCode: string;
+  readonly priceCode: string;
+  readonly couponCode?: string;
+
+  public constructor(planCode: string, priceCode: string, couponCode?: string) {
+    super();
+    this.planCode = planCode;
+    this.priceCode = priceCode;
+    this.couponCode = couponCode;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      planCode: this.planCode,
+      priceCode: this.priceCode,
+      couponCode: this.couponCode,
+    };
+  }
+}
+
+export class ChangeSubscriptionForAccountResponse extends ResponseData {
+  readonly stripeSubscription: Resources.StripeSubscription;
+
+  public constructor(stripeSubscription: Resources.StripeSubscription) {
+    super();
+    this.stripeSubscription = stripeSubscription;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ChangeSubscriptionForAccountResponse => {
+    return new ChangeSubscriptionForAccountResponse(
+      Resources.StripeSubscription.fromObject(obj.stripeSubscription),
+    );
+  }
+}
+export class CreatePortalSessionForAccountRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class CreatePortalSessionForAccountResponse extends ResponseData {
+  readonly stripePortalSession: Resources.StripePortalSession;
+
+  public constructor(stripePortalSession: Resources.StripePortalSession) {
+    super();
+    this.stripePortalSession = stripePortalSession;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreatePortalSessionForAccountResponse => {
+    return new CreatePortalSessionForAccountResponse(
+      Resources.StripePortalSession.fromObject(obj.stripePortalSession),
+    );
+  }
+}
+
+
 export class RetrieveSitesForAccountRequest extends RequestData {
   public toObject = (): Record<string, any> => {
     return {

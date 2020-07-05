@@ -14,6 +14,8 @@
     "@kibalabs/ui-react": "0.3.25",
     "@material-ui/core": "4.10.1",
     "@material-ui/icons": "4.9.1",
+    "@stripe/react-stripe-js": "1.1.2",
+    "@stripe/stripe-js": "1.7.0",
     "@reach/router": "1.3.3",
     "axios": "^0.19.2",
     "deep-equal": "2.0.3",
@@ -24,6 +26,7 @@
     "react-dropzone": "11.0.1",
     "react-frame-component": "4.1.2",
     "react-helmet": "^5.2.1",
+    "react-toastify": "6.0.8",
     "styled-components": "5.1.0"
   },
   "devDependencies": {

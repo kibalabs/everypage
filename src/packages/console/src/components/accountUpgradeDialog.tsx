@@ -44,7 +44,7 @@ export const AccountUpgradeDialog = (props: IAccountUpgradeDialogProps) => {
         {plan.code === 'core' ? (
           <Typography component='p'>
             To create more sites, and gain access to an ever-growing list of more features,
-            upgrade to a paid account which suits you - they start from just ${nextPlan.monthlyPrice}/month!
+            upgrade to a paid account which suits you - they start from just ${nextPlan.priceMonthly}/month!
           </Typography>
         ) : nextPlan ? (
           <Typography component='p'>

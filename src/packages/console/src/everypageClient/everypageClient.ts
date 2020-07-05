@@ -7,7 +7,7 @@ import * as Endpoints from './endpoints';
 export class EverypageClient extends ServiceClient {
 
   public constructor(requester: Requester, baseUrl?: string) {
-    super(requester, baseUrl || 'https://api.everypagehq.com')
+    super(requester, baseUrl || 'https://api.everypagehq.com');
   }
 
   public login_user = async (email: string, password: string): Promise<void> => {
@@ -59,6 +59,30 @@ export class EverypageClient extends ServiceClient {
     const request = new Endpoints.GetAccountRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.GetAccountResponse);
     return response.account;
+  }
+
+  public create_subscription_for_account = async (accountId: number, planCode: string, priceCode: string, stripePaymentMethodId: string, couponCode?: string): Promise<Resources.StripeSubscription> => {
+    const method = RestMethod.POST;
+    const path = `v1/accounts/${accountId}/create-subscription`;
+    const request = new Endpoints.CreateSubscriptionForAccountRequest(planCode, priceCode, stripePaymentMethodId, couponCode);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateSubscriptionForAccountResponse);
+    return response.stripeSubscription;
+  }
+
+  public change_subscription_for_account = async (accountId: number, planCode: string, priceCode: string, couponCode?: string): Promise<Resources.StripeSubscription> => {
+    const method = RestMethod.POST;
+    const path = `v1/accounts/${accountId}/change-subscription`;
+    const request = new Endpoints.ChangeSubscriptionForAccountRequest(planCode, priceCode, couponCode);
+    const response = await this.makeRequest(method, path, request, Endpoints.ChangeSubscriptionForAccountResponse);
+    return response.stripeSubscription;
+  }
+
+  public create_portal_session_for_account = async (accountId: number): Promise<Resources.StripePortalSession> => {
+    const method = RestMethod.POST;
+    const path = `v1/accounts/${accountId}/create-portal-session`;
+    const request = new Endpoints.CreatePortalSessionForAccountRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.CreatePortalSessionForAccountResponse);
+    return response.stripePortalSession;
   }
 
   public retrieve_sites_for_account = async (accountId: number): Promise<Resources.Site[]> => {

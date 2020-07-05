@@ -20,6 +20,46 @@ export class Account {
   }
 }
 
+export class StripeSubscription {
+  readonly subscriptionId: string;
+  readonly status: string;
+  readonly latestInvoicePaymentStatus: string;
+  readonly latestInvoicePaymentActionSecret: string;
+
+  public constructor(subscriptionId: string, status: string, latestInvoicePaymentStatus: string, latestInvoicePaymentActionSecret: string) {
+    this.subscriptionId = subscriptionId;
+    this.status = status;
+    this.latestInvoicePaymentStatus = latestInvoicePaymentStatus;
+    this.latestInvoicePaymentActionSecret = latestInvoicePaymentActionSecret;
+  }
+
+  public static fromObject = (obj: Record<string, any>): StripeSubscription => {
+    return new StripeSubscription(
+      String(obj.subscriptionId),
+      String(obj.status),
+      String(obj.latestInvoicePaymentStatus),
+      String(obj.latestInvoicePaymentActionSecret),
+    );
+  }
+}
+
+export class StripePortalSession {
+  readonly portalSessionId: string;
+  readonly url: string;
+
+  public constructor(portalSessionId: string, url: string) {
+    this.portalSessionId = portalSessionId;
+    this.url = url;
+  }
+
+  public static fromObject = (obj: Record<string, any>): StripePortalSession => {
+    return new StripePortalSession(
+      String(obj.portalSessionId),
+      String(obj.url),
+    );
+  }
+}
+
 export class Site {
   readonly siteId: number;
   readonly accountId: number;

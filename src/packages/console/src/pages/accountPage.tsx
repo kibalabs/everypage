@@ -8,8 +8,19 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { PaymentMethod, stripe, StripeError } from '@stripe/stripe-js';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { Account, Site } from '../everypageClient/resources';
+import { Account, Site, StripeSubscription, StripePortalSession } from '../everypageClient/resources';
 import { NavigationBar } from '../components/navigationBar';
 import { useGlobals } from '../globalsContext';
 import { SiteCard } from '../components/siteCard';
@@ -45,6 +56,39 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline',
     marginRight: theme.spacing(4),
   },
+  planBoxHolder: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  planBox: {
+    padding: theme.spacing(2, 4),
+    margin: theme.spacing(0, 2),
+    flexGrow: 1,
+  },
+  planBoxTitle: {
+    fontWeight: 'bold',
+  },
+  planPrice: {
+    fontWeight: 'bold',
+    fontSize: '3em',
+    marginTop: theme.spacing(2),
+  },
+  planButton: {
+    marginTop: theme.spacing(2),
+  },
+  planCurrentText: {
+    textAlign: 'center',
+    marginTop: theme.spacing(2),
+  },
+  upgradeDialogLoadingBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    margin: theme.spacing(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
 export interface IAccountPageProps {
@@ -54,10 +98,20 @@ export interface IAccountPageProps {
 export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const classes = useStyles();
   const history = useHistory();
+  const stripe = useStripe();
+  const elements = useElements();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Site[] | null | undefined>(undefined);
   const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
+  const [newPlan, setNewPlan] = React.useState<IPlan | undefined>(undefined);
+  const [upgradeCardError, setUpgradeCardError] = React.useState<string | undefined>(undefined);
+  const [upgradeError, setUpgradeError] = React.useState<string | undefined>(undefined);
+  const [isUpgradeDialogLoading, setIsUpgradeDialogLoading] = React.useState<boolean>(false);
+  const [upgradeDiscountCode, setUpgradeDiscountCode] = React.useState<string | undefined>(undefined);
+  const [upgradeDiscountCodeError, setUpgradeDiscountCodeError] = React.useState<string | undefined>(undefined);
+  const currentPlan = account ? consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift() : undefined;
+  const nextPlan = currentPlan ? consoleConfig.plans[consoleConfig.plans.indexOf(currentPlan) + 1] : undefined;
 
   useInitialization((): void => {
     loadAccount();
@@ -104,35 +158,111 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     history.navigate(`/accounts/${account.accountId}#plan`);
   }
 
+  const onChangePlanClicked = (plan: IPlan): void => {
+    if (plan.planIndex !== currentPlan.planIndex) {
+      setNewPlan(plan);
+    }
+  }
+
+  const onUpgradeDialogClosed = (): void => {
+    setNewPlan(undefined);
+  }
+
+  const onUpgradeDiscountCodeChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setUpgradeDiscountCode(event.target.value);
+    setUpgradeDiscountCodeError(undefined);
+  }
+
+  const onUpgradeDialogUpgradeClicked = async (): Promise<void> => {
+    setUpgradeError(undefined);
+    setUpgradeCardError(undefined);
+    setUpgradeDiscountCodeError(undefined);
+    const stripeCardElement = elements.getElement(CardElement);
+    if (newPlan.planIndex > currentPlan.planIndex && currentPlan.code === 'core' && !stripeCardElement) {
+      setUpgradeCardError('Please enter your card details');
+      return;
+    }
+    setIsUpgradeDialogLoading(true);
+    var callPromise: Promise<StripeSubscription>;
+    var stripePaymentMethod = null;
+    if (stripeCardElement) {
+      stripePaymentMethod = await stripe.createPaymentMethod({
+        type: 'card',
+        card: stripeCardElement,
+      });
+      if (stripePaymentMethod.error) {
+        setUpgradeCardError(stripePaymentMethod.error.message);
+        setIsUpgradeDialogLoading(false);
+        return;
+      }
+      callPromise = everypageClient.create_subscription_for_account(account.accountId, newPlan.code, newPlan.priceCodeMonthly, stripePaymentMethod.paymentMethod.id, upgradeDiscountCode || undefined);
+    } else {
+      callPromise = everypageClient.change_subscription_for_account(account.accountId, newPlan.code, newPlan.priceCodeMonthly, upgradeDiscountCode || undefined)
+    }
+    callPromise.then((stripeSubscription: StripeSubscription): void => {
+      if (stripeSubscription.status === 'active' || stripeSubscription.status === 'canceled') {
+          toast.success("Moved to new plan");
+          loadAccount();
+          setNewPlan(undefined);
+      } else if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_action' && stripePaymentMethod) {
+        stripe.confirmCardPayment(stripeSubscription.latestInvoicePaymentActionSecret, {payment_method: stripePaymentMethod.paymentMethod.id}).then((result: {paymentIntent?: PaymentIntent; error?: StripeError}): void => {
+          if (result.error) {
+            setUpgradeError(result.error.message);
+          } else {
+            toast.success(newPlan.planIndex > currentPlan.planIndex ? "Woo! you're upgraded 🚀" : "Moved to new plan");
+            loadAccount();
+            setNewPlan(undefined);
+          }
+        });
+      } else if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_payment_method' && stripePaymentMethod) {
+        // TODO(krish): this is https://stripe.com/docs/billing/subscriptions/fixed-price?lang=python#manage-subscription-payment-failure, but not sure what to do with it!
+        setUpgradeError('Something went wrong on our side. Please try use the "Manage with stripe" feature below.');
+      } else {
+        setUpgradeError('Something went wrong on our side. Please try use the "Manage with stripe" feature below.');
+      }
+      setIsUpgradeDialogLoading(false);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+      if (error.message.includes('Coupon not found')) {
+        setUpgradeDiscountCodeError('This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘')
+      } else {
+        setUpgradeError(error.message);
+      }
+      setIsUpgradeDialogLoading(false);
+    });
+  }
+
+  const onManageWithStripeClicked = (): void => {
+    everypageClient.create_portal_session_for_account(account.accountId).then((stripePortalSession: StripePortalSession): void => {
+      window.open(stripePortalSession.url, '_blank');
+    }).catch((error: KibaException): void => {
+      toast.error('Something went wrong. Please try again later');
+    });
+  }
+
   return (
     <div className={classes.root}>
       <NavigationBar />
       <main className={classes.content}>
         <Container maxWidth='lg'>
           {account === undefined || accountSites === undefined ? (
-            <Typography component='p'>
-              {'loading...'}
-            </Typography>
+            <Typography component='p'>loading...</Typography>
           ) : account === null || accountSites === null ? (
-            <Typography component='p'>
-              {'An error occurred. Please try again later.'}
-            </Typography>
+            <Typography component='p'>An error occurred. Please try again later.</Typography>
           ) : (
             <React.Fragment>
               <Paper elevation={0} className={classes.paper}>
-                <Typography variant='h5' className={classes.accountName}>
-                  {account.name}
-                </Typography>
-                <Typography className={classes.accountType}>
-                  Account type: {account.accountType}
-                </Typography>
+                <Typography variant='h5' className={classes.accountName}>{account.name}</Typography>
+                <br />
+                <Typography>Your are currently on the <b>{currentPlan.name}</b> plan</Typography>
+                {nextPlan && <Typography variant='caption'><Button color='primary' size='small' onClick={(): void => onChangePlanClicked(nextPlan)}>Upgrade</Button> to <b>{nextPlan.name}</b> to {nextPlan.highlightFeature} and more 🚀</Typography>}
               </Paper>
               <Paper elevation={0} className={classes.paper}>
                 <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                   <Typography variant='h6' className={classes.paperTitle}>Sites</Typography>
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>}
                 </Box>
-                <Typography>{`${accountSites.length} sites`}</Typography>
+                <Typography>{accountSites.length} sites</Typography>
                 <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites.map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
@@ -148,11 +278,140 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   )}
                 </Grid>
               </Paper>
+              <Paper id='plan' elevation={0} className={classes.paper}>
+                <Box width={1} display='flex' mb={1} justifyContent='start' alignItems='baseline'>
+                  <Typography variant='h6' className={classes.paperTitle}>Subscription</Typography>
+                  <Button color='primary' onClick={onManageWithStripeClicked}>Manage with Stripe</Button>
+                </Box>
+                <Box className={classes.planBoxHolder}>
+                  {consoleConfig.plans.map((plan: IPlan, index: number): React.ReactElement => {
+                    if (!plan.isPurchasable) {
+                      return null;
+                    }
+                    return (
+                      <Paper key={index} className={classes.planBox}>
+                        <Typography variant='h6' className={classes.planBoxTitle}>{plan.name}</Typography>
+                        <Typography variant='caption'>{plan.highlightFeature.toUpperCase()}</Typography>
+                        <Typography color='primary' className={classes.planPrice}>${plan.priceMonthly / 100}</Typography>
+                        <Typography variant='caption'>per month</Typography>
+                        {plan.planIndex < currentPlan.planIndex && <Button variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Downgrade</Button>}
+                        {plan.planIndex === currentPlan.planIndex && <Button disabled={true} variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Your plan</Button>}
+                        {plan.planIndex > currentPlan.planIndex && <Button color='primary' variant='contained' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Upgrade</Button>}
+                      </Paper>
+                    );
+                  })}
+                </Box>
+              </Paper>
             </React.Fragment>
           )}
         </Container>
       </main>
       {account && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={account} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
+      {newPlan && (
+        <Dialog
+          open={true}
+          onClose={onUpgradeDialogClosed}
+        >
+          <DialogTitle>{newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to {newPlan.name}</DialogTitle>
+          <DialogContent>
+            {newPlan.planIndex < currentPlan.planIndex && (
+              <Typography>
+                If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
+                <br/><br/>
+                If we can help you get more value out of your current plan instead, just reach out to us, we're always open to feedback 👀
+                <br/><br/>
+                If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
+              </Typography>
+            )}
+            {newPlan.planIndex > currentPlan.planIndex && (
+              <React.Fragment>
+                <Typography>We're so glad you're enjoying everypage. 🙌</Typography>
+                {currentPlan.code === 'core' ? (
+                  <React.Fragment>
+                    <br/>
+                    <Typography>Since you haven't got a current subscription for this account, we'll need your credit card details to continue.</Typography>
+                    <TextField
+                      variant='outlined'
+                      margin='normal'
+                      fullWidth
+                      label='Card Details'
+                      disabled={isUpgradeDialogLoading}
+                      InputLabelProps={{ shrink: true }}
+                      InputProps={{
+                        inputComponent: StripeInput,
+                        inputProps: {
+                          component: CardElement,
+                        },
+                      }}
+                      error={upgradeCardError !== undefined}
+                      helperText={upgradeCardError}
+                    />
+                    <Typography variant='caption'>Secured by Stripe</Typography>
+                  </React.Fragment>
+                ) : (
+                  <Typography>When upgrading, you won't be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
+                  )}
+                <br/>
+                <TextField
+                  variant='outlined'
+                  margin='normal'
+                  fullWidth
+                  label='Discount Code (if you have one)'
+                  disabled={isUpgradeDialogLoading}
+                  InputLabelProps={{ shrink: true }}
+                  value={upgradeDiscountCode}
+                  onChange={onUpgradeDiscountCodeChanged}
+                  error={upgradeDiscountCodeError !== undefined}
+                  helperText={upgradeDiscountCodeError}
+                />
+                {upgradeError && <Typography color='error'>{upgradeError}</Typography>}
+              </React.Fragment>
+            )}
+          </DialogContent>
+          {isUpgradeDialogLoading ? (
+            <Box className={classes.upgradeDialogLoadingBox}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <DialogActions>
+              {newPlan.planIndex < currentPlan.planIndex && (
+                <Button onClick={onUpgradeDialogUpgradeClicked} color='secondary'>
+                  Downgrade
+                </Button>
+              )}
+              <Button onClick={onUpgradeDialogClosed} autoFocus>
+                Cancel
+              </Button>
+              {newPlan.planIndex > currentPlan.planIndex && (
+                <Button onClick={onUpgradeDialogUpgradeClicked} variant='contained' color='primary'>
+                  Upgrade
+                </Button>
+              )}
+            </DialogActions>
+          )}
+        </Dialog>
+      )}
+      <ToastContainer />
     </div>
   );
 }
+
+
+interface StripeInputProps {
+  component: React.Component;
+  inputRef: React.Ref<HTMLInputElement>;
+}
+
+const StripeInput = (props: StripeInputProps) => {
+  const elementRef = React.useRef();
+  React.useImperativeHandle(props.inputRef, () => ({
+    focus: () => elementRef.current.focus
+  }));
+  return (
+    <props.component
+      onReady={element => (elementRef.current = element)}
+      {...props}
+    />
+  )
+}
+export default StripeInput

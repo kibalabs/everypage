@@ -3,6 +3,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Router, Route, useInitialization } from '@kibalabs/core-react';
 import { LocalStorageClient, Requester } from '@kibalabs/core';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalCss } from './components/globalCss';
@@ -31,45 +33,65 @@ requester.addModifier(new JwtRequestModifier(authManager));
 
 const consoleConfig: IConsoleConfig = {
   plans: [{
+    planIndex: 1,
     name: 'Core',
     code: 'core',
-    monthlyPrice: '0',
-    yearlyPrice: '0',
-    highlightFeature: 'Get your pages published',
+    priceMonthly: 0,
+    priceYearly: 0,
+    priceCodeMonthly: 'monthly',
+    priceCodeYearly: 'yearly',
     siteLimit: 3,
     hasCustomDomain: false,
     hasNoBranding: false,
     isPurchasable: true,
+    highlightFeature: 'get your pages published',
+    features: [
+    ],
   }, {
+    planIndex: 2,
     name: 'Starter',
     code: 'starter',
-    monthlyPrice: '5',
-    yearlyPrice: '50',
-    highlightFeature: 'Host pages on your own domain',
+    priceMonthly: 500,
+    priceYearly: 5000,
+    priceCodeMonthly: 'monthly',
+    priceCodeYearly: 'yearly',
     siteLimit: 20,
     hasCustomDomain: true,
     hasNoBranding: false,
     isPurchasable: true,
+    highlightFeature: 'host pages on your own domain',
+    features: [
+    ],
   }, {
+    planIndex: 3,
     name: 'Premium',
     code: 'premium',
-    monthlyPrice: '20',
-    yearlyPrice: '200',
-    highlightFeature: 'remove everypage branding',
+    priceMonthly: 2000,
+    priceYearly: 20000,
+    priceCodeMonthly: 'monthly',
+    priceCodeYearly: 'yearly',
     siteLimit: 50,
     hasCustomDomain: true,
     hasNoBranding: true,
     isPurchasable: true,
+    highlightFeature: 'remove everypage branding',
+    features: [
+    ],
   }, {
+    planIndex: 4,
     name: 'Ultimate',
     code: 'ultimate',
-    monthlyPrice: '50',
-    yearlyPrice: '500',
-    highlightFeature: 'run a/b tests on your sites',
-    siteLimit: 2,
+    priceMonthly: 5000,
+    priceYearly: 50000,
+    priceCodeMonthly: 'monthly',
+    priceCodeYearly: 'yearly',
+    siteLimit: 100,
     hasCustomDomain: true,
     hasNoBranding: true,
     isPurchasable: false,
+    highlightFeature: 'run a/b tests on your sites',
+    features: [
+    ],
   }]
 }
 
@@ -79,6 +101,9 @@ const globals = {
   localStorageClient,
   consoleConfig,
 }
+
+const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
+// const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
 
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
@@ -90,7 +115,7 @@ export const App = hot((): React.ReactElement => {
 
   return (
     <GlobalsProvider globals={globals}>
-      <React.Fragment>
+      <Elements stripe={stripePromise}>
         <Helmet>
           <title>Everypage Console</title>
         </Helmet>
@@ -108,7 +133,7 @@ export const App = hot((): React.ReactElement => {
           <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
           <Route default={true} page={NotFoundPage} />
         </Router>
-      </React.Fragment>
+      </Elements>
     </GlobalsProvider>
   );
-})
+});
