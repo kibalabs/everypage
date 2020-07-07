@@ -32,7 +32,8 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
   const renderers: ReactMarkdown.Renderers = {
     root: (rendererProps: object): React.ReactElement => {
       // TODO(krish): log error if root*Mode is provided but root is a different type
-      return React.Children.count(rendererProps.children) === 1 ? (
+      const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
+      return React.Children.count(rendererProps.children).length === 1 || childrenKeys[0] === 'text' ? (
         <Text
           id={props.id}
           mode={props.rootTextMode}

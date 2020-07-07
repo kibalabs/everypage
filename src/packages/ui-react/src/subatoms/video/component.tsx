@@ -17,8 +17,8 @@ const StyledVideo = styled.video<IStyledVideoProps>`
   display: block;
   width: ${(props: IStyledVideoProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledVideoProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  margin-left: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'inherit')};
-  margin-right: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'inherit')};
+  margin-left: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
+  margin-right: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
   max-width: 100%;
   max-height: 100%;
   object-fit: ${(props: IStyledVideoProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};

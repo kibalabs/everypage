@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -52,7 +52,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
-            <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
             { props.logoImageUrl && (
               <React.Fragment>
                 <Grid>
@@ -60,12 +60,12 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Image source={props.logoImageUrl} isLazyLoadable={false} isFullWidth={true} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing mode={SpacingSize.ExtraWide} />
+                <Spacing mode={PaddingSize.ExtraWide} />
               </React.Fragment>
             )}
             <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={SpacingSize.ExtraWide} />
+            <Spacing mode={PaddingSize.ExtraWide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Grid>
                 <Grid.Item size={0} sizeSmall={12}>
@@ -81,7 +81,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                         messageText={errorMessage || successMessage}
                       />
                     </Stack.Item>
-                    <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
+                    <Spacing direction={Direction.Horizontal} mode={PaddingSize.Narrow}/>
                     <Button
                       mode='primary'
                       buttonType='submit'
@@ -103,7 +103,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                         messageText={errorMessage || successMessage}
                       />
                     </Stack.Item>
-                    <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
+                    <Spacing direction={Direction.Vertical} mode={PaddingSize.Default}/>
                     <Button
                       mode='primary'
                       buttonType='submit'
@@ -115,7 +115,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 </Grid.Item>
               </Grid>
             </Form>
-            <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

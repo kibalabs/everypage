@@ -14,7 +14,7 @@ interface IStyledLinkBaseProps {
 const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
   ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.background)};
   ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.linkBase)};
-  width: ${(props: IStyledLinkBaseProps): string => (props.isFullWidth ? '100%' : 'inherit')};
+  width: ${(props: IStyledLinkBaseProps): string => (props.isFullWidth ? '100%' : 'initial')};
   color: currentColor;
   cursor: pointer;
   outline: none;

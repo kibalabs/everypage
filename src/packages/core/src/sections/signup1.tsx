@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
+import { Form, Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Image } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -51,15 +51,15 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraWide}/>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={SpacingSize.Wide} />
+            <Spacing mode={PaddingSize.Wide} />
             <Form onFormSubmitted={onFormSubmitted}>
               <Grid>
                 <Grid.Item size={0} sizeSmall={12}>
                   <Stack direction={Direction.Horizontal}>
-                    <Stack.Item growthFactor={1}>
+                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
                       <SingleLineInput
                         inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
                         inputType={props.inputType}
@@ -70,7 +70,6 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                         messageText={errorMessage || successMessage}
                       />
                     </Stack.Item>
-                    <Spacing direction={Direction.Horizontal} mode={SpacingSize.Narrow}/>
                     <Button
                       mode='primary'
                       buttonType='submit'
@@ -92,7 +91,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                         messageText={errorMessage || successMessage}
                       />
                     </Stack.Item>
-                    <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
+                    <Spacing direction={Direction.Vertical} mode={PaddingSize.Default}/>
                     <Button
                       mode='primary'
                       buttonType='submit'
@@ -103,7 +102,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                 </Grid.Item>
               </Grid>
             </Form>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

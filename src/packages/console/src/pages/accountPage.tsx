@@ -143,6 +143,10 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const onCreateSiteClicked = (): void => {
     const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
     if (accountPlan && accountSites.length >= accountPlan.siteLimit) {
+      setUpgradeError(undefined);
+      setUpgradeCardError(undefined);
+      setUpgradeDiscountCode('');
+      setUpgradeDiscountCodeError(undefined);
       setIsAccountUpgradePopupShowing(true);
     } else {
       history.navigate(`/sites/create?accountId=${account.accountId}`);

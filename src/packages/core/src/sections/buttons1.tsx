@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
+import { Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 interface IButtons1Button {
   text: string;
@@ -21,20 +21,18 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical}>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraWide}/>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={SpacingSize.ExtraWide} />
-            <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
-              <Stack.Item growthFactor={1} shrinkFactor={1} />
+            <Spacing mode={PaddingSize.ExtraWide} />
+            <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
               {props.buttons.map((button: IButtons1Button, index: number): React.ReactElement => {
                 return (
                   <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
                 );
               })}
-              <Stack.Item growthFactor={1} shrinkFactor={1} />
             </Stack>
-            <Spacing mode={SpacingSize.ExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

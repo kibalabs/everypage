@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Media, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
+import { Grid, Image, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 
@@ -28,7 +28,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
   return (
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
-        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
@@ -47,18 +47,18 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
                       <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                     </Grid.Item>
                   </Grid>
-                  <Spacing mode={SpacingSize.ExtraExtraWide} />
+                  <Spacing mode={PaddingSize.ExtraExtraWide} />
                 </React.Fragment>
               )}
               <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
-              <Spacing mode={SpacingSize.ExtraWide} />
+              <Spacing mode={PaddingSize.ExtraWide} />
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
                 {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
                 {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
                 <Stack.Item growthFactor={1} shrinkFactor={1} />
               </Stack>
-              <Spacing mode={SpacingSize.ExtraExtraWide}/>
+              <Spacing mode={PaddingSize.ExtraExtraWide}/>
             </Stack>
           </Grid.Item>
           <Grid.Item size={1} />
@@ -79,7 +79,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={SpacingSize.ExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraWide}/>
       </Stack>
     </Section>
   );

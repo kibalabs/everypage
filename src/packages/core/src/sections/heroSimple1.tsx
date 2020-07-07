@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
+import { Grid, Image, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
 
 
 interface IHeroSimple1Props extends ISectionProps {
@@ -15,7 +15,7 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Grid isFullHeight={true}>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6} isFullHeight={true}>
-          <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+          <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
           <Stack direction={Direction.Vertical}>
             { props.logoImageUrl && (
               <React.Fragment>
@@ -24,12 +24,12 @@ export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
                     <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                   </Grid.Item>
                 </Grid>
-                <Spacing mode={SpacingSize.ExtraWide} />
+                <Spacing mode={PaddingSize.ExtraWide} />
               </React.Fragment>
             )}
             <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

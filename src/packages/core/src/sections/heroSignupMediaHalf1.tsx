@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Media, Button, Markdown, Spacing, SpacingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -52,7 +52,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
   return (
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
-        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
@@ -71,12 +71,12 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                       <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
                     </Grid.Item>
                   </Grid>
-                  <Spacing mode={SpacingSize.ExtraExtraWide} />
+                  <Spacing mode={PaddingSize.ExtraExtraWide} />
                 </React.Fragment>
               )}
               <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
-              <Spacing mode={SpacingSize.ExtraWide} />
+              <Spacing mode={PaddingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
                 <Grid>
                   <Grid.Item size={0} sizeSmall={12}>
@@ -92,7 +92,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           messageText={errorMessage || successMessage}
                         />
                       </Stack.Item>
-                      <Spacing direction={Direction.Horizontal} mode={SpacingSize.Default}/>
+                      <Spacing direction={Direction.Horizontal} mode={PaddingSize.Default}/>
                       <Button
                         mode='primary'
                         buttonType='submit'
@@ -112,7 +112,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                         onValueChanged={onInputValueChanged}
                         messageText={errorMessage || successMessage}
                       />
-                      <Spacing direction={Direction.Vertical} mode={SpacingSize.Default}/>
+                      <Spacing direction={Direction.Vertical} mode={PaddingSize.Default}/>
                       <Button
                         mode='primary'
                         buttonType='submit'
@@ -123,7 +123,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                   </Grid.Item>
                 </Grid>
               </Form>
-              <Spacing mode={SpacingSize.ExtraExtraWide}/>
+              <Spacing mode={PaddingSize.ExtraExtraWide}/>
             </Stack>
           </Grid.Item>
           <Grid.Item size={1} />
@@ -144,7 +144,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={SpacingSize.ExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraWide}/>
       </Stack>
     </Section>
   );

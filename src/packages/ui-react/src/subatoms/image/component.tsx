@@ -9,20 +9,26 @@ export interface IStyledImageProps {
   theme: IImageTheme;
   isFullWidth: boolean;
   isFullHeight: boolean;
-  isCenteredHorizontally: boolean;
   fitType: 'crop' | 'scale';
 }
 
 const StyledImage = styled.img<IStyledImageProps>`
   display: block;
-  width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'auto')};
-  height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  margin-left: ${(props: IStyledImageProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
-  margin-right: ${(props: IStyledImageProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
-  max-width: 100%;
-  max-height: 100%;
   pointer-events: none;
+  width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'initial')};
+  height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'initial')};
   object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
+
+  &.lazyloaded, &.unlazy {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  /* TODO(krish): should all things be like this? */
+  &.centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export interface IImageProps extends IComponentProps<IImageTheme> {
@@ -40,7 +46,7 @@ export const Image = (props: IImageProps): React.ReactElement => {
   return (
     <StyledImage
       id={props.id}
-      className={getClassName('image', props.className, props.isLazyLoadable && 'lazyload')}
+      className={getClassName('image', props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
       theme={theme}
       src={props.isLazyLoadable ? undefined : props.source}
       data-src={props.source}
@@ -48,7 +54,6 @@ export const Image = (props: IImageProps): React.ReactElement => {
       fitType={props.fitType}
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
-      isCenteredHorizontally={props.isCenteredHorizontally}
     />
   );
 };

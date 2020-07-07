@@ -48,7 +48,6 @@ export const Form = (props: IFormProps): React.ReactElement => {
       id={props.id}
       className={getClassName('form', props.className)}
       theme={props.theme?.background}
-      mode={'transparent'}
       isFullWidth={true}
     >
       <StyledForm

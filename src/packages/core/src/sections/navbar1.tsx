@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, SpacingSize, ResponsiveView } from '@kibalabs/ui-react';
+import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView } from '@kibalabs/ui-react';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
@@ -41,7 +41,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <StyledNavigationBar theme={theme}>
           <ResponsiveView show={false} showLarge={true} isFullHeight={true} isFullWidth={true}>
-            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
+            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
               {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
               <Stack.Item growthFactor={1} />
@@ -53,7 +53,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             </Stack>
           </ResponsiveView>
           <ResponsiveView show={true} showLarge={false} isFullHeight={true} isFullWidth={true}>
-            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true}>
+            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
               {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
               {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
               <Stack.Item growthFactor={1} />
@@ -68,13 +68,13 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
         </StyledNavigationBar>
         <ResponsiveView show={isMenuOpen} showLarge={false} isFullHeight={true} isFullWidth={true}>
           <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
-            <Spacing mode={SpacingSize.ExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraWide}/>
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
               return !button.display || button.display === 'default' || button.display === 'overflow' ? (
                 <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
               ) : null;
             })}
-            <Spacing mode={SpacingSize.ExtraWide}/>
+            <Spacing mode={PaddingSize.ExtraWide}/>
           </Stack>
         </ResponsiveView>
       </Stack>

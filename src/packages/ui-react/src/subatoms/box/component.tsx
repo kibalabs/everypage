@@ -43,10 +43,10 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   if (theme.margin) {
     const margin = calculateMargin(...theme.margin.split(' '));
     if (width === '100%') {
-      width = `calc(100% - ${margin.marginLeft} - ${margin.marginRight})`;
+      width = `calc(100% - ${margin.marginLeft}px - ${margin.marginRight}px)`;
     }
     if (height === '100%') {
-      width = `calc(100% - ${margin.marginTop} - ${margin.marginBottom})`;
+      width = `calc(100% - ${margin.marginTop}px - ${margin.marginBottom}px)`;
     }
   }
   return (

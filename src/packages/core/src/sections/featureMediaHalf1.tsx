@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Media, Markdown, Spacing, SpacingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
+import { Grid, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -20,7 +20,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
   return (
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical}>
-        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
         <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
@@ -33,7 +33,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
             <Stack direction={Direction.Vertical}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
               <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>
-              <Spacing mode={SpacingSize.Wide}/>
+              <Spacing mode={PaddingSize.Wide}/>
             </Stack>
           </Grid.Item>
           <Grid.Item size={1} />
@@ -54,7 +54,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={SpacingSize.ExtraExtraExtraWide}/>
+        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
       </Stack>
     </Section>
   );

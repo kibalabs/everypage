@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 1,
     flexDirection: 'column',
     overflow: 'hidden',
+    // for safari flex fix (https://github.com/philipwalton/flexbugs/issues/197)
+    height: 0,
   },
   fab: {
     position: 'absolute',

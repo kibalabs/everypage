@@ -5,7 +5,7 @@ export enum Direction {
 }
 
 
-export enum MultiDirection{
+export enum MultiDirection {
   Horizontal = 'horizontal',
   Vertical = 'vertical',
   Both = 'both',

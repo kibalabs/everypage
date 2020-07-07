@@ -15,7 +15,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.text)};
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.background)};
   cursor: ${(props: IStyledButtonProps): string => (props.isLoading ? 'default' : 'pointer')};
-  width: ${(props: IStyledButtonProps): string => (props.isFullWidth ? '100%' : 'inherit')};
+  width: ${(props: IStyledButtonProps): string => (props.isFullWidth ? '100%' : 'initial')};
   outline: none;
   display: flex;
   flex-direction: row;
