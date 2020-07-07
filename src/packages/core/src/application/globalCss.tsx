@@ -11,14 +11,8 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   ${(props: IGlobalCssProps): string => props.resetCss}
 
   html, body, #root {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  html {
-    overflow: hidden;
+    // height: 100%;
+    // width: 100%;
   }
 
   body {

@@ -11,10 +11,6 @@ interface IStyledSectionHolderProps {
 const StyledSectionHolder = styled.main<IStyledSectionHolderProps>`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: visible;
   justify-content: space-between;
   align-items: stretch;
 `;

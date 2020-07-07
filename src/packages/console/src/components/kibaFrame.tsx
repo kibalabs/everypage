@@ -12,11 +12,6 @@ interface IKibaFrameInnerProps extends ISingleAnyChildProps {
 
 const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   React.useEffect(() => {
-    const css = '.frame-root, .frame-content { height:100%; width: 100%; }';
-    const style = props.target.createElement('style');
-    style.type = 'text/css';
-    style.appendChild(props.target.createTextNode(css));
-    props.target.head.appendChild(style);
     // NOTE(krish): the lazysizes plugin is added here manually due to iframe problems
     const script = props.target.createElement('script');
     script.async = true;

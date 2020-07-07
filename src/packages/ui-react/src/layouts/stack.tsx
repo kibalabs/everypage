@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
@@ -77,7 +77,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
     >
-      {(props.gutterSizeStart) && <Spacing className='stack-gutter' mode={props.gutterSizeStart}/>}
+      {props.gutterSizeStart && <Spacing className='stack-gutter' mode={props.gutterSizeStart} />}
       { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
         <React.Fragment key={index}>
           {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
@@ -94,7 +94,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           {(child.props.gutterSizeAfter || (props.shouldAddGutters && index < children.length - 1)) && <Spacing className='stack-gutter' mode={child.props.gutterSizeAfter || PaddingSize.Default}/>}
         </React.Fragment>
       ))}
-      {(props.gutterSizeEnd) && <Spacing className='stack-gutter' mode={props.gutterSizeEnd}/>}
+      {props.gutterSizeEnd && <Spacing className='stack-gutter' mode={props.gutterSizeEnd} />}
     </StyledStack>
   );
 };
@@ -120,9 +120,10 @@ interface IStyledStackItemProps extends ISingleAnyChildProps {
 }
 
 const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): React.ComponentType => styled(Component)<IStyledStackItemProps>`
+  flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
-  flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
+  min-width: ${(props: IStyledStackItemProps): number => props.shrinkFactor ? '0' : 'initial'};
   align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
   &.isHidden {
     display: none;

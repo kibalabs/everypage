@@ -1,205 +1,378 @@
 {
-    "name": "test page",
-    "tagline": "This page contains one of each type of component",
-    "company": "Kiba Labs",
-    "companyUrl": "https://www.kibalabs.com",
-    "description": "🙃",
-    "crispChatWebsiteId": "8895738d-27d1-4864-9cf9-2a0770323d5c",
-    "sections": [
-      {
-        "id": "navbar",
-        "type": "navbar-1",
-        "background": {
-          "color": "#4db273"
+  "name": "test page",
+  "company": "Kiba Labs",
+  "tagline": "This page contains one of each type of component",
+  "keywords": [
+    "developer tools",
+    "docs"
+  ],
+  "sections": [
+    {
+      "id": "navbar",
+      "type": "navbar-1",
+      "buttons": [
+        {
+          "text": "Something else",
+          "target": "https://console.everypagehq.com/register"
         },
-        "logoImageUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/everysize-wordmark.svg",
-        "shouldStickToTop": true
-      },
-      {
-        "type": "hero-simple-1",
-        "logoImageUrl": null,
-        "titleText": "Check your awesome responsive webpage looks great in every size 🖥 💻 📱 👀",
-        "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀"
-      },
-      {
-        "type": "hero-signup-media-half-1",
-        "logoImageUrl": null,
-        "titleText": "Check your awesome responsive webpage looks great in every size 🖥 💻 📱 👀",
-        "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀",
-        "background": {
-          "color": "white"
+        {
+          "text": "Another something else",
+          "target": "https://console.everypagehq.com/register"
         },
-        "inputType": "url",
-        "inputPlaceholderText": "Enter a url to see the magic",
-        "inputButtonText": "GO",
-        "inputSuccessMessageText": null,
-        "leftMediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/hero.mp4",
-        "rightMediaUrl": null,
-        "inputName": "url",
-        "formTarget": "https://everysize-app.kibalabs.com",
-        "formAction": "OPEN"
-      },
-      {
-        "type": "hero-signup-1",
-        "logoImageUrl": null,
-        "titleText": "Check your awesome responsive webpage looks great in every size 🖥 💻 📱 👀",
-        "subtitleText": "Simple and easy-to-use browser solution for developers and designers. No more having to resize your window 🚀",
-        "inputType": "url",
-        "inputPlaceholderText": "Enter a url to see the magic",
-        "inputButtonText": "GO",
-        "inputSuccessMessageText": null,
-        "inputName": "url",
-        "formTarget": "https://everysize-app.kibalabs.com",
-        "formAction": "OPEN"
-      },
-      {
-        "type": "feature-media-half-1",
-        "background": {
-          "color": "white"
+        {
+          "mode": "secondary",
+          "text": "Yet one more",
+          "target": "https://console.everypagehq.com/register"
         },
-        "titleText": "🔒Browser-based = built in security",
-        "subtitleText": "No installation required. We use iframes on your browser so you don't have to enter your credentials on a downloaded application to test your secure pages",
-        "leftMediaUrl": null,
-        "rightMediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png"
+        {
+          "mode": "primary",
+          "text": "Sign in here",
+          "target": "https://console.everypagehq.com",
+          "display": "always"
+        }
+      ],
+      "titleText": "All",
+      "background": {
+        "color": "#ffffff"
       },
-      {
-        "type": "feature-boxes-1",
-        "titleText": "Product Features",
-        "subtitleText": "This is what we think is important. If you need something else from your wiki we'd love to build it into Kiwi - just get in touch 📢",
-        "features": [
-          {
-            "iconId": "ion-git-branch-outline",
-            "title": "As smooth as git",
-            "description": "Kiwi uses git as its base, so you get all the benefits of the git workflow; branches, permissioning, pull requests and more"
-          },
-          {
-            "iconId": "ion-logo-markdown",
-            "title": "Built on MDX",
-            "description": "By using MDX, Kiwi allows you to express yourself fully, not limited by the features of your wiki provider"
-          },
-          {
-            "iconId": "ion-document-text-outline",
-            "title": "Inspired documentation",
-            "description": "We encourage readers to contribute at every turn; gone are the days of forcing developers to document!"
-          },
-          {
-            "iconId": "ion-apps-outline",
-            "title": "Integrated workflow",
-            "description": "Kiwi hooks into slack, email and others to make sure you get updates to pages you care about where you want"
-          },
-          {
-            "iconId": "ion-missing",
-            "title": "Beautiful, your way",
-            "description": "Kiwi has a gorgeous base style, but you can make it look however you like with our easy-to-use theming system"
-          },
-          {
-            "mediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
-            "title": "Your wiki, your data",
-            "description": "We don't want you locked in; we promise to allow you to export data in actually readable formats to import wherever you want"
-          }
-        ]
+      "logoImageUrl": "https://www.everypagehq.com/20200505212614/assets/everypage-wordmark.svg",
+      "shouldStickToTop": true
+    },
+    {
+      "type": "hero-app-download-media-half-1",
+      "iosAppId": "1244075045",
+      "titleText": "Insert catchy header",
+      "androidAppId": "com.wordmagicapp.android.play",
+      "leftMediaUrl": null,
+      "logoImageUrl": null,
+      "subtitleText": "Share why your product is great",
+      "rightMediaUrl": "https://via.placeholder.com/250x500"
+    },
+    {
+      "type": "hero-signup-1",
+      "inputName": "email",
+      "inputType": "email",
+      "titleText": "Create your beautiful landing page in minutes with a declarative API",
+      "background": {
+        "color": "white"
       },
-      {
-        "type": "testimonial-boxes-1",
-        "titleText": "What people say about us 🤩",
-        "subtitleText": "Our customers love us and we love them ",
-        "boxMode": "card",
-        "background": {
-          "color": "white"
+      "formAction": "POST",
+      "formTarget": "https://api.kiba.dev/v1/newsletter-subscriptions",
+      "logoImageUrl": "/assets/everypage-wordmark.svg",
+      "subtitleText": "Our easy to use landing page generator builds your landing pages with exceptional performance, SEO and accessibility built in.",
+      "inputButtonText": "Subscribe",
+      "formAdditionalInputs": [
+        {
+          "name": "topic",
+          "type": "text",
+          "value": "everypage"
+        }
+      ],
+      "inputPlaceholderText": "Go on, you really will love it 👀",
+      "inputSuccessMessageText": "You're signed up :tada:"
+    },
+    {
+      "type": "hero-simple-1",
+      "titleText": "Insert catchy header",
+      "background": {
+        "patternImageUrl": "https://www.toptal.com/designers/subtlepatterns/patterns/watercolor.png"
+      },
+      "logoImageUrl": null,
+      "subtitleText": "Share why your product is great"
+    },
+    {
+      "type": "hero-signup-media-half-1",
+      "inputName": "url",
+      "inputType": "url",
+      "titleText": "Insert catchy header",
+      "formAction": "OPEN",
+      "formTarget": "https://everysize-app.kibalabs.com",
+      "leftMediaUrl": "/assets/hero.mp4",
+      "logoImageUrl": null,
+      "subtitleText": "Share why your product is great",
+      "rightMediaUrl": null,
+      "inputButtonText": "GO",
+      "inputPlaceholderText": "Enter a url to see the magic",
+      "inputSuccessMessageText": null
+    },
+    {
+      "type": "feature-media-half-1",
+      "titleText": "Look at this cool feature",
+      "background": {
+        "color": "white"
+      },
+      "leftMediaUrl": null,
+      "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
+      "rightMediaUrl": "/assets/feature1.png"
+    },
+    {
+      "type": "feature-media-half-1",
+      "titleText": "This is another cool feature",
+      "leftMediaUrl": "/assets/feature2.png",
+      "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
+      "rightMediaUrl": null
+    },
+    {
+      "type": "feature-boxes-1",
+      "features": [
+        {
+          "title": "Insert cool feature",
+          "iconId": "feather-airplay",
+          "description": "Share why this feature is cool"
         },
-        "boxes": [
-          {
-            "author": "Guillaume",
-            "text": "So handy to work in parallel on multiple screen sizes",
-            "url": "https://www.producthunt.com/posts/everysize-2#comment-1021668",
-            "type": "producthunt"
-          },
-          {
-            "author": "Elston Baretto",
-            "text": "This is so simple and easy to use. Like how it itself is responsive too!",
-            "type": "producthunt",
-            "url": "https://www.producthunt.com/posts/everysize-2#comment-1021709"
-          },
-          {
-            "author": "Dave Stewart",
-            "text": "This is a great little product! It's particularly cool to run a localhost site and see all windows update at the same time when you save your work. Will definitely add this to the list of \"must use\" web development resources.",
-            "type": "producthunt",
-            "url": "https://www.producthunt.com/posts/everysize-2#comment-1021830"
-          },
-          {
-            "author": "Ry Mawby",
-            "text": "This is great - adding this to my testing workflow for side projects.",
-            "type": "producthunt",
-            "url": "https://www.producthunt.com/posts/everysize-2#comment-1022502"
-          },
-          {
-            "author": "Ronil Mutha",
-            "text": "I have made so many mistaked while making a site responisve. Specially on tablet sizes and screens bigger than my laptop's. This is going to be a great asset.",
-            "type": "producthunt",
-            "url": "https://www.producthunt.com/posts/everysize-2#comment-1022698"
-          },
-          {
-            "author": "Viktor Rozgonyi",
-            "text": "This is awesome!! #100DaysOfCode #responsivedesign",
-            "type": "twitter",
-            "url": "https://twitter.com/pikktorr/status/1257944421540265985"
-          },
-          {
-            "author": "Anar Kazimov",
-            "text": "everysize.kibalabs.com is an easy way to check the responsiveness of your website. #smallbusiness #startup #victoriabc #webdeveloper",
-            "type": "twitter",
-            "url": "https://twitter.com/Anarkaz98/status/1254641896757923842"
-          },
-          {
-            "author": "Erin Lynch",
-            "text": "For those moments when you just need to check the responsiveness of your website project. Works quite well: https://everysize.kibalabs.com #webdev #webdevelopment #webdesign",
-            "type": "twitter",
-            "url": "https://twitter.com/erinlynch/status/1253451970431483905"
-          },
-          {
-            "author": "GreenEyeWeb",
-            "text": "Check how your web page appears on all devices. Everysize is a simple and easy browser solution for developers and designers.",
-            "type": "twitter",
-            "url": "https://twitter.com/GreenEyeWeb1/status/1253327953053667336"
-          },
-          {
-            "author": "Krishan Patel",
-            "text": "OMFG this is the best thing ever!!!"
-          }
-        ]
-      },
-      {
-        "type": "faq-1",
-        "titleText": "Got questions? We got answers...",
-        "subtitleText": null,
-        "questions": [
-          {
-            "questionText": "so what's up?",
-            "answerText": "not much,  what's up with you?"
-          },
-          {
-            "questionText": "hey, i asked you first",
-            "answerText": "don't think so dude"
-          }
-        ]
-      },
-      {
-        "type": "signup-1",
-        "titleText": "Enter a url to see the magic",
-        "subtitleText": null,
-        "background": {
-          "color": "white"
+        {
+          "title": "Insert cool feature",
+          "iconId": "ion-airplane-outline",
+          "description": "Share why this feature is cool"
         },
-        "inputType": "url",
-        "inputPlaceholderText": "https://yourawesomesite.com",
-        "inputButtonText": "GO",
-        "inputSuccessMessageText": null,
-        "inputName": "url",
-        "formTarget": "https://everysize-app.kibalabs.com",
-        "formAction": "OPEN"
+        {
+          "title": "Insert cool feature",
+          "iconId": "remix-battery-line",
+          "description": "Share why this feature is cool"
+        },
+        {
+          "title": "Insert cool feature",
+          "mediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
+          "description": "Share why this feature is cool"
+        },
+        {
+          "title": "Insert cool feature",
+          "description": "Share why this feature is cool"
+        }
+      ],
+      "titleText": "Product Features",
+      "subtitleText": "This is what we think is important."
+    },
+    {
+      "type": "pricing-tiers-1",
+      "titleText": "Pricing & stuff",
+      "background": {
+        "color": "white"
       },
-      {
-        "type": "footer-1"
-      }
-    ]
-  }
+      "categories": [
+        {
+          "cost": "Free",
+          "name": "Core",
+          "features": [
+            {
+              "text": "Cool feature"
+            },
+            {
+              "text": "Cool feature"
+            },
+            {
+              "text": "Cool feature"
+            }
+          ],
+          "buttonText": "Sign up",
+          "buttonTarget": "https://console.everypagehq.com",
+          "costFrequency": "forever!",
+          "explanationText": ""
+        },
+        {
+          "cost": "$5",
+          "name": "Starter",
+          "features": [
+            {
+              "text": "Cooler feature"
+            },
+            {
+              "text": "Cooler feature"
+            },
+            {
+              "text": "Cooler feature"
+            }
+          ],
+          "costFrequency": "a month",
+          "explanationText": "everything in core +"
+        },
+        {
+          "cost": "$20",
+          "name": "Premium",
+          "features": [
+            {
+              "text": "Super cool feature"
+            },
+            {
+              "text": "Super cool feature"
+            },
+            {
+              "text": "Super cool feature"
+            },
+            {
+              "text": "Super cool feature"
+            }
+          ],
+          "isPrimary": true,
+          "costFrequency": "a month",
+          "explanationText": "everything in starter +"
+        }
+      ],
+      "subtitleText": "💰💰💰💰💰💰"
+    },
+    {
+      "type": "pricing-features-1",
+      "features": [
+        {
+          "text": "Cool feature 1"
+        },
+        {
+          "text": "Cool feature 2"
+        },
+        {
+          "text": "Cool feature 3"
+        }
+      ],
+      "background": {
+        "color": "white"
+      },
+      "subtitleText": "All plans come with these awesome features:"
+    },
+    {
+      "type": "statistic-boxes-1",
+      "boxes": [
+        {
+          "name": "subscribers to date",
+          "value": "30"
+        },
+        {
+          "name": "users to date",
+          "value": "50"
+        },
+        {
+          "name": "leavers to date",
+          "value": "0"
+        }
+      ],
+      "titleText": "See what our numbers are saying 💯",
+      "subtitleText": null
+    },
+    {
+      "type": "testimonial-boxes-1",
+      "boxes": [
+        {
+          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021668",
+          "text": "So handy to work in parallel on multiple screen sizes",
+          "type": "producthunt",
+          "author": "Guillaume"
+        },
+        {
+          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021709",
+          "text": "This is so simple and easy to use. Like how it itself is responsive too!",
+          "type": "producthunt",
+          "author": "Elston Baretto"
+        },
+        {
+          "url": "https://twitter.com/GreenEyeWeb1/status/1253327953053667336",
+          "text": "Check how your web page appears on all devices. Everysize is a simple and easy browser solution for developers and designers.",
+          "type": "twitter",
+          "author": "GreenEyeWeb"
+        },
+        {
+          "text": "OMFG this is the best thing ever!!!",
+          "author": "Krishan Patel"
+        }
+      ],
+      "boxMode": "card",
+      "titleText": "What people say about us 🤩",
+      "subtitleText": "Our customers love us and we love them"
+    },
+    {
+      "type": "faq-1",
+      "questions": [
+        {
+          "answerText": "Not much,  what's up with you?",
+          "questionText": "So what's up?"
+        },
+        {
+          "answerText": "Don't think so dude",
+          "questionText": "Hey, i asked you first"
+        }
+      ],
+      "titleText": "FAQs",
+      "background": {
+        "color": "white"
+      },
+      "subtitleText": null
+    },
+    {
+      "type": "signup-1",
+      "inputName": "url",
+      "inputType": "url",
+      "titleText": "Enter a url to see the magic",
+      "formAction": "OPEN",
+      "formTarget": "https://everysize-app.kibalabs.com",
+      "subtitleText": null,
+      "inputButtonText": "GO",
+      "inputPlaceholderText": "https://yourawesomesite.com",
+      "inputSuccessMessageText": null
+    },
+    {
+      "type": "footer-1",
+      "iconLinks": [
+        {
+          "iconId": "ion-logo-twitter",
+          "target": "https://twitter.com/"
+        },
+        {
+          "iconId": "ion-logo-instagram",
+          "target": "https://instagram.com/"
+        },
+        {
+          "iconId": "ion-logo-facebook",
+          "target": "https://facebook.com/"
+        },
+        {
+          "iconId": "ion-logo-linkedin",
+          "target": "https://linkedin.com/"
+        },
+        {
+          "iconId": "ion-logo-github",
+          "target": "https://github.com/"
+        },
+        {
+          "target": "https://www.kibalabs.com"
+        }
+      ],
+      "background": {
+        "color": "white"
+      },
+      "subtitleText": "Say hello to us [@twitter](https://twitter.com/)"
+    },
+    {
+      "type": "markdown-1",
+      "titleText": "Blog",
+      "subtitleText": "Check out our latest blogs from our co-founders.",
+      "markdownContent": "# h1 Heading\n\n## h2 Heading\n\n### h3 Heading\n\n#### h4 Heading\n\n##### h5 Heading\n\n###### h6 Heading\n\nnormal text\n\n[an awesome link](https://via.placeholder.com/150)\n\n![an awesome image](https://via.placeholder.com/150)\nthis image is great...\n\ntext and image in same line![an awesome image](https://via.placeholder.com/150)\nanother caption\n\n- Item 1\n- Item 2\n  - Sub Item 1\n  - Sub Item 2"
+    },
+    {
+      "type": "buttons-1",
+      "buttons": [
+        {
+          "mode": "primary",
+          "text": "Log in",
+          "target": "https://console.everypagehq.com/login"
+        },
+        {
+          "mode": "primary",
+          "text": "Sign up",
+          "target": "https://console.everypagehq.com/register"
+        }
+      ],
+      "titleText": "Get started with us",
+      "background": {
+        "color": "#ffffff"
+      },
+      "subtitleText": "It's totally awesome!"
+    },
+    {
+      "type": "app-download-1",
+      "iosAppId": "1039710965",
+      "titleText": "Download now!",
+      "androidAppId": "com.wordmagicapp.android.play"
+    }
+  ],
+  "companyUrl": "https://www.kibalabs.com",
+  "description": ":upside_down_face:",
+  "socialCardImageUrl": "/assets/banner.png"
+}
