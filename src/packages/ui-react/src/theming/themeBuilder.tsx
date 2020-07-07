@@ -60,5 +60,8 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     inputWrappers: inputWrapperThemes,
     linkBases: linkBaseThemes,
     links: linkThemes,
-  }, inputTheme);
+  }, inputTheme, {
+    // NOTE(krish): this is here so the font replacement doesn't get overridden
+    fonts: fonts,
+  });
 };

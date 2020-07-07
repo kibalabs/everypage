@@ -49,8 +49,8 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
                 return <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />;
               }
               return (!button.display || button.display === 'default') && (
-                <ResponsiveView hiddenBelow={ScreenSize.Large}>
-                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
+                <ResponsiveView key={index} hiddenBelow={ScreenSize.Large}>
+                  <Button text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
                 </ResponsiveView>
               );
             })}
