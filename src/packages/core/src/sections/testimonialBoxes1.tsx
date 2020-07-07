@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -33,8 +33,7 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
-            <Spacing mode='wide' />
+          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
@@ -56,7 +55,6 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
                 </Box>
               ))}
             </EqualGrid>
-            <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
       </Grid>

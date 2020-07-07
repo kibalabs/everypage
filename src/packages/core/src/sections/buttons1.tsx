@@ -20,8 +20,7 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
-          <Stack direction={Direction.Vertical}>
-            <Spacing mode={PaddingSize.ExtraExtraWide}/>
+          <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={PaddingSize.ExtraWide} />
@@ -32,7 +31,6 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
                 );
               })}
             </Stack>
-            <Spacing mode={PaddingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

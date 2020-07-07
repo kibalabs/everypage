@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, PaddingSize } from '@kibalabs/ui-react';
 
 interface IFaq1Question {
   questionText: string;
@@ -19,8 +19,7 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={8}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
-            <Spacing mode='wide' />
+          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Stack childAlignment={Alignment.Start} isFullWidth={true} shouldAddGutters={true}>
@@ -32,7 +31,6 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
               ))}
               <Spacing />
             </Stack>
-            <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
       </Grid>

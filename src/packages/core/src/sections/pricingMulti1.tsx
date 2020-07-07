@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList, PaddingSize } from '@kibalabs/ui-react';
 
 interface IPricingTiers1Feature {
   text: string;
@@ -40,8 +40,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
-            <Spacing mode='wide' />
+          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
@@ -71,7 +70,6 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                 </Box>
               ))}
             </EqualGrid>
-            <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
       </Grid>

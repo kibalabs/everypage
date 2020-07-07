@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Text, Stack, Alignment, Spacing, Direction, Image, Box } from '@kibalabs/ui-react';
+import { Text, Stack, Alignment, Spacing, Direction, Image, Box, PaddingSize } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 import { TwitterCard, TwitterAppCard } from '../application/twitterCard';
@@ -21,8 +21,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
   }
   return (
     <Section {...props as ISectionProps}>
-      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false}>
-        <Spacing mode='wide' />
+      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
         <Text mode='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing mode='default' />
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={false}>

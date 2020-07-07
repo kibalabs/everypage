@@ -19,8 +19,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
 
   return (
     <Section {...props as ISectionProps}>
-      <Stack direction={Direction.Vertical}>
-        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
+      <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
@@ -54,7 +53,6 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
       </Stack>
     </Section>
   );

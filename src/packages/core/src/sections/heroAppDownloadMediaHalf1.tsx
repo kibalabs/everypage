@@ -27,8 +27,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
 
   return (
     <Section {...props as ISectionProps}>
-      <Stack direction={Direction.Vertical}>
-        <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
+      <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
@@ -79,7 +78,6 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
             </Grid.Item>
           )}
         </Grid>
-        <Spacing mode={PaddingSize.ExtraExtraWide}/>
       </Stack>
     </Section>
   );

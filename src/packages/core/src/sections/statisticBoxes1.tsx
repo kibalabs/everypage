@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, PaddingSize } from '@kibalabs/ui-react';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -20,8 +20,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
     <Section {...props as ISectionProps}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true}>
-            <Spacing mode='wide' />
+          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
             <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
               <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
@@ -37,7 +36,6 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
                 </Box>
               ))}
             </EqualGrid>
-            <Spacing mode='wide' />
           </Stack>
         </Grid.Item>
       </Grid>

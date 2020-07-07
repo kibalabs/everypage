@@ -21,8 +21,7 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
-          <Stack direction={Direction.Vertical}>
-            <Spacing mode={PaddingSize.ExtraExtraWide}/>
+          <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
             {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
             <Spacing mode={PaddingSize.ExtraWide} />
@@ -30,7 +29,6 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
               {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
               {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
             </Stack>
-            <Spacing mode={PaddingSize.ExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>

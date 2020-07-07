@@ -51,8 +51,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
-          <Stack direction={Direction.Vertical}>
-            <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
+          <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
             { props.logoImageUrl && (
               <React.Fragment>
                 <Grid>
@@ -115,7 +114,6 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                 </Grid.Item>
               </Grid>
             </Form>
-            <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>
           </Stack>
         </Grid.Item>
       </Grid>
