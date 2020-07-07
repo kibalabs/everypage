@@ -17,11 +17,18 @@ const StyledVideo = styled.video<IStyledVideoProps>`
   display: block;
   width: ${(props: IStyledVideoProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledVideoProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  margin-left: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
-  margin-right: ${(props: IStyledVideoProps): string => (props.isCenteredHorizontally ? 'auto' : 'initial')};
-  max-width: 100%;
-  max-height: 100%;
   object-fit: ${(props: IStyledVideoProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
+
+  &.lazyloaded, &.unlazy {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  /* TODO(krish): should all things be like this? */
+  &.centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export interface IVideoProps extends IComponentProps<IVideoTheme> {
@@ -38,7 +45,7 @@ export const Video = (props: IVideoProps): React.ReactElement => {
   return (
     <StyledVideo
       id={props.id}
-      className={getClassName('video', props.className)}
+      className={getClassName('video', props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
       theme={theme}
       autoPlay={true}
       muted={true}

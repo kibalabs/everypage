@@ -4,56 +4,14 @@ import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { useDimensions } from '..';
-import { IDimensionGuide } from '../subatoms/dimensions';
-
-
-interface IStyledResponsiveViewProps {
-  isFullHeight?: boolean;
-  isFullWidth?: boolean;
-  show?: boolean;
-  showSmall?: boolean;
-  showMedium?: boolean;
-  showLarge?: boolean;
-  showExtraLarge?: boolean;
-  screenWidthSmall: string;
-  screenWidthMedium: string;
-  screenWidthLarge: string;
-  screenWidthExtraLarge: string;
-}
-
-const StyledResponsiveView = styled.div<IStyledResponsiveViewProps>`
-  height: ${(props: IStyledResponsiveViewProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  width: ${(props: IStyledResponsiveViewProps): string => (props.isFullWidth ? '100%' : 'auto')};
-  ${(props: IStyledResponsiveViewProps): string => (props.show === undefined ? '' : props.show ? 'display: initial' : 'display: none')};
-
-  @media (min-width: ${(props: IStyledResponsiveViewProps): string => (props.screenWidthSmall)}) {
-    ${(props: IStyledResponsiveViewProps): string => (props.showSmall === undefined ? '' : props.showSmall ? 'display: initial' : 'display: none')};
-  }
-
-  @media (min-width: ${(props: IStyledResponsiveViewProps): string => (props.screenWidthMedium)}) {
-    ${(props: IStyledResponsiveViewProps): string => (props.showMedium === undefined ? '' : props.showMedium ? 'display: initial' : 'display: none')};
-  }
-
-  @media (min-width: ${(props: IStyledResponsiveViewProps): string => (props.screenWidthLarge)}) {
-    ${(props: IStyledResponsiveViewProps): string => (props.showLarge === undefined ? '' : props.showLarge ? 'display: initial' : 'display: none')};
-  }
-
-  @media (min-width: ${(props: IStyledResponsiveViewProps): string => (props.screenWidthExtraLarge)}) {
-    ${(props: IStyledResponsiveViewProps): string => (props.showExtraLarge === undefined ? '' : props.showExtraLarge ? 'display: initial' : 'display: none')};
-  }
-`;
+import { IDimensionGuide, ScreenSize, getScreenSize } from '../subatoms/dimensions';
 
 export interface IResponsiveViewProps extends ISingleAnyChildProps {
   id?: string;
   className?: string;
   theme?: IDimensionGuide;
-  isFullHeight?: boolean;
-  isFullWidth?: boolean;
-  show?: boolean;
-  showSmall?: boolean;
-  showMedium?: boolean;
-  showLarge?: boolean;
-  showExtraLarge?: boolean;
+  hiddenAbove?: ScreenSize;
+  hiddenBelow?: ScreenSize;
 }
 
 export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement => {
@@ -62,17 +20,8 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
     <StyledResponsiveView
       id={props.id}
       className={getClassName('responsive-view', props.className)}
-      isFullHeight={props.isFullHeight}
-      isFullWidth={props.isFullWidth}
-      screenWidthSmall={theme.screenWidthSmall}
-      screenWidthMedium={theme.screenWidthMedium}
-      screenWidthLarge={theme.screenWidthLarge}
-      screenWidthExtraLarge={theme.screenWidthExtraLarge}
-      show={props.show}
-      showSmall={props.showSmall}
-      showMedium={props.showMedium}
-      showLarge={props.showLarge}
-      showExtraLarge={props.showExtraLarge}
+      hiddenAboveSize={props.hiddenAbove && getScreenSize(props.hiddenAbove, theme)}
+      hiddenBelowSize={props.hiddenBelow && getScreenSize(props.hiddenBelow, theme)}
     >
       {props.children}
     </StyledResponsiveView>
@@ -82,3 +31,19 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
 ResponsiveView.defaultProps = {
   className: '',
 };
+
+interface IStyledResponsiveViewProps extends ISingleAnyChildProps {
+  id?: string;
+  className?: string;
+  hiddenAboveSize?: string;
+  hiddenBelowSize?: string;
+}
+
+const withResponsiveView = (Component: React.ComponentType<IStyledResponsiveViewProps>): React.ComponentType => styled(Component)<IStyledResponsiveViewProps>`
+  ${(props: IStyledResponsiveViewProps): string => props.hiddenBelowSize ? `@media (max-width: ${props.hiddenBelowSize}) {display: none !important;}` : ''};
+  ${(props: IStyledResponsiveViewProps): string => props.hiddenAboveSize ? `@media (min-width: ${props.hiddenAboveSize}) {display: none !important;}` : ''};
+`;
+
+const StyledResponsiveView = withResponsiveView((props: IStyledResponsiveViewProps): React.ReactElement => {
+  return React.cloneElement(props.children || <div />, { className: props.className });
+});

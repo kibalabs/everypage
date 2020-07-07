@@ -1,16 +1,5 @@
 import { ThemeType } from '../../util';
 
-export enum PaddingSize {
-  Default = 'default',
-  Narrow = 'narrow',
-  ExtraNarrow = 'extra-narrow',
-  ExtraExtraNarrow = 'extra-extra-narrow',
-  Wide = 'wide',
-  ExtraWide = 'extra-wide',
-  ExtraExtraWide = 'extra-extra-wide',
-  ExtraExtraExtraWide = 'extra-extra-extra-wide',
-}
-
 export interface IDimensionGuide extends ThemeType {
   fontSize: string;
 
@@ -36,6 +25,44 @@ export interface IDimensionGuide extends ThemeType {
   screenWidthLarge: string;
   screenWidthExtraLarge: string;
   screenWidthMax: string;
+}
+
+export enum ScreenSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+  ExtraLarge = 'extra-large',
+}
+
+export const getScreenSize = (size: ScreenSize, theme: IDimensionGuide): string => {
+  switch (size) {
+    case ScreenSize.Small: {
+      return theme.screenWidthSmall;
+    }
+    case ScreenSize.Medium: {
+      return theme.screenWidthMedium;
+    }
+    case ScreenSize.Large: {
+      return theme.screenWidthLarge;
+    }
+    case ScreenSize.ExtraLarge: {
+      return theme.screenWidthExtraLarge;
+    }
+    default: {
+      return '0';
+    }
+  }
+};
+
+export enum PaddingSize {
+  Default = 'default',
+  Narrow = 'narrow',
+  ExtraNarrow = 'extra-narrow',
+  ExtraExtraNarrow = 'extra-extra-narrow',
+  Wide = 'wide',
+  ExtraWide = 'extra-wide',
+  ExtraExtraWide = 'extra-extra-wide',
+  ExtraExtraExtraWide = 'extra-extra-extra-wide',
 }
 
 export const getPaddingSize = (size: PaddingSize, theme: IDimensionGuide): string => {

@@ -15,8 +15,8 @@ export interface IStyledImageProps {
 const StyledImage = styled.img<IStyledImageProps>`
   display: block;
   pointer-events: none;
-  width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'initial')};
-  height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'initial')};
+  width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'auto')};
   object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
 
   &.lazyloaded, &.unlazy {

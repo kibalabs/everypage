@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView } from '@kibalabs/ui-react';
+import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView, ScreenSize, HidingView } from '@kibalabs/ui-react';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
@@ -40,43 +40,38 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
     <Section {...props as ISectionProps}>
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <StyledNavigationBar theme={theme}>
-          <ResponsiveView show={false} showLarge={true} isFullHeight={true} isFullWidth={true}>
-            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
-              {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
-              {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
-              <Stack.Item growthFactor={1} />
-              {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
-                return !button.display || button.display === 'default' || button.display === 'always' ? (
-                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
-                ) : null;
-              })}
-            </Stack>
-          </ResponsiveView>
-          <ResponsiveView show={true} showLarge={false} isFullHeight={true} isFullWidth={true}>
-            <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
-              {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
-              {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
-              <Stack.Item growthFactor={1} />
-              {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
-                return button.display === 'always' ? (
-                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
-                ) : null;
-              })}
-              {props.buttons && props.buttons.filter((button: INavBar1Button): boolean => (!button.display || button.display === 'default' || button.display === 'overflow')).length > 0 && <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} onClicked={onMenuClicked} />}
-            </Stack>
-          </ResponsiveView>
-        </StyledNavigationBar>
-        <ResponsiveView show={isMenuOpen} showLarge={false} isFullHeight={true} isFullWidth={true}>
-          <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
-            <Spacing mode={PaddingSize.ExtraWide}/>
+          <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
+            {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
+            {props.titleText && <Markdown rootTextMode='title-nomargin' rootTextAlignment={TextAlignment.Center} source={props.titleText}/> }
+            <Stack.Item growthFactor={1} />
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
-              return !button.display || button.display === 'default' || button.display === 'overflow' ? (
-                <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
-              ) : null;
+              if (button.display === 'always') {
+                return <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />;
+              }
+              return (!button.display || button.display === 'default') && (
+                <ResponsiveView hiddenBelow={ScreenSize.Large}>
+                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
+                </ResponsiveView>
+              );
             })}
-            <Spacing mode={PaddingSize.ExtraWide}/>
+            {props.buttons && props.buttons.filter((button: INavBar1Button): boolean => (!button.display || button.display === 'default' || button.display === 'overflow')).length > 0 && (
+              <ResponsiveView hiddenAbove={ScreenSize.Large}>
+                <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} onClicked={onMenuClicked} />
+              </ResponsiveView>
+            )}
           </Stack>
-        </ResponsiveView>
+        </StyledNavigationBar>
+        <HidingView isHidden={!isMenuOpen}>
+          <ResponsiveView hiddenAbove={ScreenSize.Large}>
+            <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} gutterSizeStart={PaddingSize.ExtraWide} gutterSizeEnd={PaddingSize.ExtraWide}>
+              {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
+                return (!button.display || button.display === 'default' || button.display === 'overflow') && (
+                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
+                );
+              })}
+            </Stack>
+          </ResponsiveView>
+        </HidingView>
       </Stack>
     </Section>
   );
