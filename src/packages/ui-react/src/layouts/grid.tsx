@@ -150,8 +150,8 @@ const StyledGridItem = styled.div<IStyledGridItemProps>`
   flex-basis: auto;
   height: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? '100%' : 'auto')};
   ${(props: IStyledGridItemProps): string => columnCountsToCss(props.totalColumnCount, props.gutterSize, props.screenWidthSmall, props.screenWidthMedium, props.screenWidthLarge, props.screenWidthExtraLarge, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge)};
-  overflow-x: auto;
-  overflow-y: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? 'auto' : 'hidden')};
+  /* overflow-x: auto; */
+  overflow-y: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? 'auto' : 'visible')};
   margin-left: ${(props: IStyledGridItemProps): string => props.gutterSize};
   margin-right: ${(props: IStyledGridItemProps): string => props.gutterSize};
   margin-top: ${(props: IStyledGridItemProps): string => props.gutterSize};

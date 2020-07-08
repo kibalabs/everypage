@@ -17,13 +17,13 @@ interface IStyledBoxProps {
 }
 
 const StyledBox = styled.div<IStyledBoxProps>`
+  box-sizing: border-box;
   ${(props: IStyledBoxProps): string => themeToCss(props.theme)};
   height: ${(props: IStyledBoxProps): string => props.height};
   width: ${(props: IStyledBoxProps): string => props.width};
   display: ${(props: IStyledBoxProps): string => props.blockType};
-  overflow-y: ${(props: IStyledBoxProps): string => (props.isScrollableVertically ? 'auto' : 'hidden')};
-  overflow-x: ${(props: IStyledBoxProps): string => (props.isScrollableHorizontally ? 'auto' : 'hidden')};
-  outline: none;
+  overflow-y: ${(props: IStyledBoxProps): string => (props.isScrollableVertically ? 'auto' : 'initial')};
+  overflow-x: ${(props: IStyledBoxProps): string => (props.isScrollableHorizontally ? 'auto' : 'initial')};
 `;
 
 interface IBoxProps extends IComponentProps<IBoxTheme>, ISingleAnyChildProps {
@@ -40,15 +40,17 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   let width = props.width || (props.isFullWidth ? `100%` : 'auto');
   let height = props.height || (props.isFullHeight ? `100%` : 'auto');
   const blockType = width === '100%' ? 'block' : 'inline-block';
-  if (theme.margin) {
-    const margin = calculateMargin(...theme.margin.split(' '));
-    if (width === '100%') {
-      width = `calc(100% - ${margin.marginLeft}px - ${margin.marginRight}px)`;
-    }
-    if (height === '100%') {
-      width = `calc(100% - ${margin.marginTop}px - ${margin.marginBottom}px)`;
-    }
-  }
+  // NOTE(krish): this is because width=100% (which is default) won't take margin into account.
+  // It shouldn't be needed but kept here just in case
+  // if (theme.margin) {
+  //   const margin = calculateMargin(...theme.margin.split(' '));
+  //   if (width === '100%') {
+  //     width = `calc(100% - ${margin.marginLeft}px - ${margin.marginRight}px)`;
+  //   }
+  //   if (height === '100%') {
+  //     width = `calc(100% - ${margin.marginTop}px - ${margin.marginBottom}px)`;
+  //   }
+  // }
   return (
     <StyledBox
       id={props.id}

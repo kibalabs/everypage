@@ -25,7 +25,7 @@ const StyledSection = styled.section<StyledSectionProps>`
     position: sticky;
     top: 0;
     z-index: 10;
-    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
     margin-bottom: 8px;
   }
 `;

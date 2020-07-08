@@ -42,7 +42,7 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
                 <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                       { getIcon(box.type, theme.colors.brandPrimary) }
                       <Spacing direction={Direction.Horizontal} mode='default' />
                       <Link destination={box.url} text={box.author} isEnabled={!!box.url} />

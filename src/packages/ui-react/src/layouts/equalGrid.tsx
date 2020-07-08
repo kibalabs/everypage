@@ -14,8 +14,8 @@ export interface IEqualGridProps extends IMultiAnyChildProps {
   theme?: IDimensionGuide;
   isFullHeight?: boolean;
   shouldAddGutters?: boolean;
-  childAlignment: Alignment;
-  contentAlignment: Alignment;
+  childAlignment?: Alignment;
+  contentAlignment?: Alignment;
   childSize?: number;
   childSizeSmall?: number;
   childSizeMedium?: number;
