@@ -7,7 +7,6 @@ import { useDimensions } from '..';
 import { IDimensionGuide, ScreenSize, getScreenSize } from '../subatoms/dimensions';
 
 export interface IResponsiveViewProps extends ISingleAnyChildProps {
-  id?: string;
   className?: string;
   theme?: IDimensionGuide;
   hiddenAbove?: ScreenSize;
@@ -18,7 +17,6 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
   const theme = props.theme || useDimensions();
   return (
     <StyledResponsiveView
-      id={props.id}
       className={getClassName(ResponsiveView.displayName, props.className)}
       hiddenAboveSize={props.hiddenAbove && getScreenSize(props.hiddenAbove, theme)}
       hiddenBelowSize={props.hiddenBelow && getScreenSize(props.hiddenBelow, theme)}
@@ -34,7 +32,6 @@ ResponsiveView.defaultProps = {
 ResponsiveView.displayName = 'responsive-view';
 
 interface IStyledResponsiveViewProps extends ISingleAnyChildProps {
-  id?: string;
   className?: string;
   hiddenAboveSize?: string;
   hiddenBelowSize?: string;
@@ -46,5 +43,7 @@ const withResponsiveView = (Component: React.ComponentType<IStyledResponsiveView
 `;
 
 const StyledResponsiveView = withResponsiveView((props: IStyledResponsiveViewProps): React.ReactElement => {
-  return React.cloneElement(props.children || <div />, { className: props.className });
+  const children = React.Children.toArray(props.children);
+  const child = children.length > 0 ? children[0] : <div />;
+  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });

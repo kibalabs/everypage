@@ -82,8 +82,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
         <React.Fragment key={index}>
           {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
           <StyledStackItem
-            id={child.props.id}
-            className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden', child.props.className)}
+            className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden')}
             growthFactor={child.props.growthFactor}
             shrinkFactor={child.props.shrinkFactor}
             baseSize={child.props.baseSize}
@@ -132,6 +131,8 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
 `;
 
 const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.ReactElement => {
-  return React.cloneElement(props.children || <div />, { className: props.className });
+  const children = React.Children.toArray(props.children);
+  const child = children.length > 0 ? children[0] : <div />;
+  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });
 StyledStackItem.displayName = 'stack-item';

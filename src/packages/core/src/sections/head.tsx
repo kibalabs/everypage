@@ -52,7 +52,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
           </Stack.Item>
           <Spacing mode='wide' direction={Direction.Horizontal} />
           <Stack.Item>
-            <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} shouldAddGutters={false}>
+            <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={false}>
               <Text mode='strong'>Twitter Card</Text>
               { (website.iosAppId || website.androidAppId) ? (
                 <TwitterAppCard

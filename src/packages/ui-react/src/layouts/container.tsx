@@ -7,22 +7,22 @@ import { useDimensions } from '..';
 import { IDimensionGuide } from '../subatoms';
 
 
-interface IBaseContainerProps {
+interface IStyledContainerProps {
   theme: IDimensionGuide;
   isFullHeight: boolean;
   isMainContainer?: boolean;
 }
 
-const BaseContainer = styled.div<IBaseContainerProps>`
+const StyledContainer = styled.div<IStyledContainerProps>`
   width: 100%;
-  max-width: ${(props: IBaseContainerProps): string => props.theme.screenWidthMax};
-  height: ${(props: IBaseContainerProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  max-height: ${(props: IBaseContainerProps): string => (props.isMainContainer ? '100%' : 'auto')};
+  max-width: ${(props: IStyledContainerProps): string => props.theme.screenWidthMax};
+  height: ${(props: IStyledContainerProps): string => (props.isFullHeight ? '100%' : 'auto')};
+  max-height: ${(props: IStyledContainerProps): string => (props.isMainContainer ? '100%' : 'auto')};
   margin-right: auto;
   margin-left: auto;
-  overflow-y: ${(props: IBaseContainerProps): string => (props.isMainContainer ? 'auto' : 'visible')};
-  padding-left: ${(props: IBaseContainerProps): string => props.theme.padding};
-  padding-right: ${(props: IBaseContainerProps): string => props.theme.padding};
+  overflow-y: ${(props: IStyledContainerProps): string => (props.isMainContainer ? 'auto' : 'visible')};
+  padding-left: ${(props: IStyledContainerProps): string => props.theme.padding};
+  padding-right: ${(props: IStyledContainerProps): string => props.theme.padding};
 `;
 
 export interface IContainerProps extends ISingleAnyChildProps {
@@ -35,14 +35,14 @@ export interface IContainerProps extends ISingleAnyChildProps {
 export const Container = (props: IContainerProps): React.ReactElement => {
   const theme = props.theme || useDimensions();
   return (
-    <BaseContainer
+    <StyledContainer
       id={props.id}
       className={getClassName(Container.displayName, props.className)}
       theme={theme}
       isFullHeight={props.isFullHeight}
     >
       {props.children}
-    </BaseContainer>
+    </StyledContainer>
   );
 };
 

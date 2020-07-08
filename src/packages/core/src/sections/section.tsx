@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
+import { ContainingView } from '@kibalabs/ui-react';
 
-import { Container, Background, IBackgroundConfig } from '@kibalabs/ui-react';
-;
+import { Background, IBackgroundConfig } from '../components/background';
 
 export interface ISectionProps {
   id?: string;
@@ -29,27 +29,23 @@ const StyledSection = styled.section<StyledSectionProps>`
     margin-bottom: 8px;
   }
 `;
+StyledSection.displayName = 'section-inner';
 
 export const Section = (props: IInternalSectionProps): React.ReactElement => {
   return (
-    <StyledSection
-      id={props.id}
-      className={getClassName(Section.displayName, props.className, props.shouldStickToTop && 'sticky')}
+    <Background
+      className={getClassName(Section.displayName, props.className)}
+      { ...props.background }
     >
-      <Background
-        id={props.id && `${props.id}-background`}
-        className={'section-background'}
-        { ...props.background }
+      <StyledSection
+        id={props.id}
+        className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky')}
       >
-        <Container
-          id={props.id && `${props.id}-container`}
-          className={'section-container'}
-          isMainContainer={false}
-        >
+        <ContainingView>
           { props.children }
-        </Container>
-      </Background>
-    </StyledSection>
+        </ContainingView>
+      </StyledSection>
+    </Background>
   );
 };
 

@@ -4,7 +4,6 @@ import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 export interface IHidingViewProps extends ISingleAnyChildProps {
-  id?: string;
   className?: string;
   isHidden?: boolean;
 }
@@ -12,7 +11,6 @@ export interface IHidingViewProps extends ISingleAnyChildProps {
 export const HidingView = (props: IHidingViewProps): React.ReactElement => {
   return (
     <StyledHidingView
-      id={props.id}
       className={getClassName(HidingView.displayName, props.className)}
       isHidden={props.isHidden}
     >
@@ -27,7 +25,6 @@ HidingView.defaultProps = {
 HidingView.displayName = 'hiding-view';
 
 interface IStyledHidingViewProps extends ISingleAnyChildProps {
-  id?: string;
   className?: string;
   isHidden?: boolean;
 }
@@ -37,5 +34,7 @@ const withHidingView = (Component: React.ComponentType<IStyledHidingViewProps>):
 `;
 
 const StyledHidingView = withHidingView((props: IStyledHidingViewProps): React.ReactElement => {
-  return React.cloneElement(props.children || <div />, { className: props.className });
+  const children = React.Children.toArray(props.children);
+  const child = children.length > 0 ? children[0] : <div />;
+  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });

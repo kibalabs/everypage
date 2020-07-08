@@ -23,8 +23,7 @@ export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProp
 }
 
 const getLayersCss = (backgroundLayers: IBackgroundLayer[]): string => {
-  const backgroundCssList = backgroundLayers.reverse().map((backgroundLayer: IBackgroundLayer): string => getLayerCss(backgroundLayer));
-  return backgroundCssList.join(', ');
+  return backgroundLayers.reverse().map((backgroundLayer: IBackgroundLayer): string => getLayerCss(backgroundLayer)).join(', ');
 }
 
 const getLayerCss = (backgroundLayer: IBackgroundLayer): string => {
@@ -47,15 +46,20 @@ const getLayerCss = (backgroundLayer: IBackgroundLayer): string => {
   return layers.join(', ');
 }
 
-interface IStyledBackgroundProps {
+interface IStyledBackgroundProps extends ISingleAnyChildProps {
+  className: string;
   backgroundLayers: IBackgroundLayer[];
 }
 
-const StyledBackground = styled.div<IStyledBackgroundProps>`
-  width: 100%;
-  height: 100%;
+const withBackground = (Component: React.ComponentType<IStyledBackgroundProps>): React.ComponentType => styled(Component)<IStyledBackgroundProps>`
   background: ${(props: IStyledBackgroundProps): string => getLayersCss(props.backgroundLayers)};
 `;
+
+const StyledBackground = withBackground((props: IStyledBackgroundProps): React.ReactElement => {
+  const children = React.Children.toArray(props.children);
+  const child = children.length > 0 ? children[0] : <div />;
+  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+});
 
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
@@ -70,7 +74,6 @@ export const Background = (props: IBackgroundProps): React.ReactElement => {
   }
   return (
     <StyledBackground
-      id={props.id}
       className={getClassName(Background.displayName, props.className)}
       backgroundLayers={layers}
     >
