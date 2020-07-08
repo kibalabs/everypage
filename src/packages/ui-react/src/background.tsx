@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 export interface IBackgroundLayer {
@@ -21,33 +22,41 @@ export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProp
   isFullHeight: boolean;
 }
 
-const getBackgroundCss = (backgroundLayer: IBackgroundLayer): string => {
-  let output = '';
-  if (backgroundLayer.color) {
-    output += `background-color: ${backgroundLayer.color};`;
-  }
-  if (backgroundLayer.linearGradient) {
-    output += `background-image: linear-gradient(${backgroundLayer.linearGradient});`;
-  }
-  if (backgroundLayer.radialGradient) {
-    output += `background-image: radial-gradient(${backgroundLayer.radialGradient});`;
-  }
-  if (backgroundLayer.imageUrl) {
-    output += `background-image: url(${backgroundLayer.imageUrl}); background-size: cover;`;
-  }
-  if (backgroundLayer.patternImageUrl) {
-    output += `background-image: url(${backgroundLayer.patternImageUrl}); background-position: top left, center center; background-repeat: repeat, no-repeat; background-size: auto, cover;`;
-  }
-  return output;
+const getLayersCss = (backgroundLayers: IBackgroundLayer[]): string => {
+  const backgroundCssList = backgroundLayers.reverse().map((backgroundLayer: IBackgroundLayer): string => getLayerCss(backgroundLayer));
+  return backgroundCssList.join(', ');
 }
 
-const StyledBackground = styled.div<{backgroundLayer: IBackgroundLayer}>`
+const getLayerCss = (backgroundLayer: IBackgroundLayer): string => {
+  let layers = [];
+  if (backgroundLayer.color) {
+    layers.push(`linear-gradient(${backgroundLayer.color}, ${backgroundLayer.color})`);
+  }
+  if (backgroundLayer.linearGradient) {
+    layers.push(`linear-gradient(${backgroundLayer.linearGradient})`);
+  }
+  if (backgroundLayer.radialGradient) {
+    layers.push(`radial-gradient(${backgroundLayer.radialGradient})`);
+  }
+  if (backgroundLayer.imageUrl) {
+    layers.push(`url(${backgroundLayer.imageUrl}) no-repeat center / cover`);
+  }
+  if (backgroundLayer.patternImageUrl) {
+    layers.push(`url(${backgroundLayer.patternImageUrl}) repeat top left`);
+  }
+  return layers.join(', ');
+}
+
+interface IStyledBackgroundProps {
+  backgroundLayers: IBackgroundLayer[];
+}
+
+const StyledBackground = styled.div<IStyledBackgroundProps>`
   width: 100%;
   height: 100%;
-  ${(props) => getBackgroundCss(props.backgroundLayer)};
+  background: ${(props: IStyledBackgroundProps): string => getLayersCss(props.backgroundLayers)};
 `;
 
-// TOD0(krish): this doesn't use the id and classname passed in
 export const Background = (props: IBackgroundProps): React.ReactElement => {
   let layers = props.layers || [];
   if (props.color || props.linearGradient || props.radialGradient || props.imageUrl || props.patternImageUrl || layers.length == 0) {
@@ -59,21 +68,19 @@ export const Background = (props: IBackgroundProps): React.ReactElement => {
       patternImageUrl: props.patternImageUrl,
     });
   }
-  let child: React.ReactElement = <React.Fragment>{props.children}</React.Fragment>;
-  layers.reverse().forEach((backgroundLayer: IBackgroundLayer) => {
-    child = (
-      <StyledBackground
-        className={'background-layer'}
-        backgroundLayer={backgroundLayer}
-      >
-        { child }
-      </StyledBackground>
-    )
-  });
-  return child;
+  return (
+    <StyledBackground
+      id={props.id}
+      className={getClassName(Background.displayName, props.className)}
+      backgroundLayers={layers}
+    >
+      { props.children }
+    </StyledBackground>
+  );
 }
 
 Background.defaultProps = {
   className: '',
   isFullHeight: true,
 };
+Background.displayName = 'background';
