@@ -63,7 +63,8 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
 
   return (
     <ReactMarkdown
-      className={getClassName('markdown-text', props.className)}
+      id={props.id}
+      className={getClassName(Markdown.displayName, props.className)}
       allowNode={shouldAllowNode}
       unwrapDisallowed={true}
       renderers={renderers}
@@ -75,4 +76,5 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
 
 Markdown.defaultProps = {
   className: '',
-}
+};
+Markdown.displayName = 'markdown-text';

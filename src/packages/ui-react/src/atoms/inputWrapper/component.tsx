@@ -76,6 +76,7 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
     }
   }
 `;
+InputWrapperInner.displayName = 'input-wrapper-inner';
 
 const StyledMessage = styled.p`
   ${(props) => themeToCss(props.theme.normal.default.messageText)};
@@ -84,6 +85,7 @@ const StyledMessage = styled.p`
   width: 100%;
   text-align: right;
 `;
+StyledMessage.displayName = 'input-wrapper-message';
 
 interface IInputWrapperProps extends IComponentProps<IInputWrapperTheme>, ISingleAnyChildProps {
   messageText?: string;
@@ -97,11 +99,11 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
   return (
     <StyledInputWrapper
       id={props.id}
-      className={getClassName('input-wrapper', props.className)}
+      className={getClassName(InputWrapper.displayName, props.className)}
     >
       <InputWrapperInner
         id={props.id && `${props.id}-inner`}
-        className={getClassName('input-wrapper-inner', props.messageText && 'message-showing', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
+        className={getClassName(InputWrapperInner.displayName, props.messageText && 'message-showing', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
         theme={theme}
       >
         {props.children}
@@ -109,7 +111,7 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
       { props.messageText && (
         <StyledMessage
           id={props.id && `${props.id}-message`}
-          className={'input-wrapper-message'}
+          className={getClassName(StyledMessage.displayName)}
           theme={theme}
         >
           {props.messageText}
@@ -122,3 +124,4 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
 InputWrapper.defaultProps = {
   ...defaultComponentProps,
 };
+InputWrapper.displayName = 'input-wrapper';

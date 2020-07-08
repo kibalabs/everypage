@@ -46,7 +46,7 @@ export const Image = (props: IImageProps): React.ReactElement => {
   return (
     <StyledImage
       id={props.id}
-      className={getClassName('image', props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
+      className={getClassName(Image.displayName, props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
       theme={theme}
       src={props.isLazyLoadable ? undefined : props.source}
       data-src={props.source}
@@ -66,3 +66,4 @@ Image.defaultProps = {
   isCenteredHorizontally: false,
   isLazyLoadable: true,
 };
+Image.displayName = 'image';

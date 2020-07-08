@@ -19,7 +19,7 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
   return (
     <StyledResponsiveView
       id={props.id}
-      className={getClassName('responsive-view', props.className)}
+      className={getClassName(ResponsiveView.displayName, props.className)}
       hiddenAboveSize={props.hiddenAbove && getScreenSize(props.hiddenAbove, theme)}
       hiddenBelowSize={props.hiddenBelow && getScreenSize(props.hiddenBelow, theme)}
     >
@@ -31,6 +31,7 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
 ResponsiveView.defaultProps = {
   className: '',
 };
+ResponsiveView.displayName = 'responsive-view';
 
 interface IStyledResponsiveViewProps extends ISingleAnyChildProps {
   id?: string;

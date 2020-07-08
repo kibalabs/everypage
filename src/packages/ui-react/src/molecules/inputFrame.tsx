@@ -35,7 +35,7 @@ export const InputFrame = (props: IInputFrameProps): React.ReactElement => {
   return (
     <StyledInputFrame
       id={props.id}
-      className={getClassName('input-frame', props.className)}
+      className={getClassName(InputFrame.displayName, props.className)}
       onFocus={(): void => setIsFocussed(true)}
       onBlur={(): void => setIsFocussed(false)}
     >
@@ -61,3 +61,4 @@ InputFrame.defaultProps = {
   iEnabled: true,
   isLoading: false,
 };
+InputFrame.displayName = 'input-frame';

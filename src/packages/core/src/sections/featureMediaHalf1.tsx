@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -18,7 +19,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
   }
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(FeatureMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }

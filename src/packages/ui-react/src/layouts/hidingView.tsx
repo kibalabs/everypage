@@ -13,7 +13,7 @@ export const HidingView = (props: IHidingViewProps): React.ReactElement => {
   return (
     <StyledHidingView
       id={props.id}
-      className={getClassName('hiding-view', props.className)}
+      className={getClassName(HidingView.displayName, props.className)}
       isHidden={props.isHidden}
     >
       {props.children}
@@ -24,6 +24,7 @@ export const HidingView = (props: IHidingViewProps): React.ReactElement => {
 HidingView.defaultProps = {
   className: '',
 };
+HidingView.displayName = 'hiding-view';
 
 interface IStyledHidingViewProps extends ISingleAnyChildProps {
   id?: string;

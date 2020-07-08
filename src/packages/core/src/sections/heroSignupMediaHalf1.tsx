@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -50,7 +51,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
   };
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(HeroSignupMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }

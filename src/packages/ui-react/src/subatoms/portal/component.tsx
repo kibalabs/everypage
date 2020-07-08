@@ -56,7 +56,7 @@ export const Portal = React.forwardRef((props: IPortalProps, ref: React.Ref<HTML
   return ReactDOM.createPortal((
     <StyledPortal
       id={props.id}
-      className={getClassName('portal', props.className)}
+      className={getClassName(Portal.displayName, props.className)}
       theme={theme}
       positionTop={positionTop}
       positionLeft={positionLeft}
@@ -71,3 +71,4 @@ export const Portal = React.forwardRef((props: IPortalProps, ref: React.Ref<HTML
 Portal.defaultProps = {
   ...defaultComponentProps,
 };
+Portal.displayName = 'portal';

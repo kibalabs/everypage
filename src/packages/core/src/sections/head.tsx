@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Text, Stack, Alignment, Spacing, Direction, Image, Box, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Text, Stack, Alignment, Spacing, Direction, Image, Box, PaddingSize } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 import { TwitterCard, TwitterAppCard } from '../application/twitterCard';
@@ -20,7 +21,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(Head.displayName, props.className)}>
       <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
         <Text mode='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing mode='default' />

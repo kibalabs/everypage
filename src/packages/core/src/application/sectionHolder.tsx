@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
+import { IMultiChildProps } from '@kibalabs/core-react';
 
 import { ISectionProps } from '../sections';
-import { IMultiChildProps } from '../util';
 
 interface IStyledSectionHolderProps {
 }
@@ -31,7 +31,7 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
   return (
     <StyledSectionHolder
       id={props.id}
-      className={getClassName('section-holder', props.className)}
+      className={getClassName(SectionHolder.displayName, props.className)}
       // ref={sectionHolderRef}
     >
       {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
@@ -45,3 +45,4 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
 SectionHolder.defaultProps = {
   className: '',
 };
+SectionHolder.displayName = 'section-holder';

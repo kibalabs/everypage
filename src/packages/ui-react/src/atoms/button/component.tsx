@@ -84,7 +84,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
   return (
     <StyledButton
       id={props.id}
-      className={getClassName('button', !props.isEnabled && 'disabled', props.className)}
+      className={getClassName(Button.displayName, !props.isEnabled && 'disabled', props.className)}
       theme={theme}
       onClick={onClicked}
       isLoading={props.isLoading}
@@ -104,3 +104,4 @@ Button.defaultProps = {
   isEnabled: true,
   isFullWidth: false,
 };
+Button.displayName = 'button';

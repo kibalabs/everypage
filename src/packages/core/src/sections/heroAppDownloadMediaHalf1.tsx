@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Image, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 
@@ -26,7 +27,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
   const androidAppId = props.androidAppId || website.androidAppId;
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(HeroAppDownloadMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }

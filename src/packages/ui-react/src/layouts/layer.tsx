@@ -10,6 +10,7 @@ const StyledLayer = styled.div`
   top: 0;
   left: 0;
 `;
+StyledLayer.displayName = 'layer';
 
 const StyledLayerContainer = styled.div`
   position: relative;
@@ -27,12 +28,12 @@ export const LayerContainer = (props: ILayerContainerProps): React.ReactElement 
   return (
     <StyledLayerContainer
       id={props.id}
-      className={getClassName('layer-container', props.className)}
+      className={getClassName(LayerContainer.displayName, props.className)}
     >
       { children.map((child: React.ReactNode, index: number): React.ReactElement => (
         <StyledLayer
           id={props.id && `${props.id}-layer-${index}`}
-          className={getClassName('layer', props.className)}
+          className={getClassName(StyledLayer.displayName, props.className)}
           key={index}
         >
           {child}
@@ -45,3 +46,4 @@ export const LayerContainer = (props: ILayerContainerProps): React.ReactElement 
 LayerContainer.defaultProps = {
   className: '',
 };
+LayerContainer.displayName = 'layer-container';

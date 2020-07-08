@@ -25,7 +25,7 @@ export interface IEqualGridProps extends IMultiAnyChildProps {
 
 export const EqualGrid = (props: IEqualGridProps): React.ReactElement => {
   return (
-    <Grid {...props} className={getClassName('equal-grid', props.className)}>
+    <Grid {...props} className={getClassName(EqualGrid.displayName, props.className)}>
       {React.Children.map(props.children, (child: React.ReactElement, index: number): React.ReactElement => {
         return (
           <Grid.Item key={index} sizeLarge={props.childSizeLarge} sizeMedium={props.childSizeMedium} sizeSmall={props.childSizeSmall} size={props.childSize}>{child}</Grid.Item>
@@ -33,4 +33,8 @@ export const EqualGrid = (props: IEqualGridProps): React.ReactElement => {
       })}
     </Grid>
   );
-}
+};
+
+EqualGrid.defaultProps = {
+};
+EqualGrid.displayName = 'equal-grid';

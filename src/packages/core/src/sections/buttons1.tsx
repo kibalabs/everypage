@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
 
 interface IButtons1Button {
   text: string;
@@ -17,7 +18,7 @@ interface IButtons1Props extends ISectionProps {
 
 export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(Buttons1.displayName, props.className)}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>

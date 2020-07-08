@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -18,7 +19,7 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
   const androidAppId = props.androidAppId || website.androidAppId;
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(AppDownload1.displayName, props.className)}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>

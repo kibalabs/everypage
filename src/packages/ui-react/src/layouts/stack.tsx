@@ -70,7 +70,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
   return (
     <StyledStack
       id={props.id}
-      className={getClassName('stack', props.className)}
+      className={getClassName(Stack.displayName, props.className)}
       $direction={props.direction}
       childAlignment={props.childAlignment}
       contentAlignment={props.contentAlignment}
@@ -83,7 +83,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
           {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
           <StyledStackItem
             id={child.props.id}
-            className={getClassName('stack-item', child.props.isHidden && 'isHidden', child.props.className)}
+            className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden', child.props.className)}
             growthFactor={child.props.growthFactor}
             shrinkFactor={child.props.shrinkFactor}
             baseSize={child.props.baseSize}
@@ -108,6 +108,7 @@ Stack.defaultProps = {
   isFullWidth: false,
   isFullHeight: false,
 };
+Stack.displayName = 'stack';
 Stack.Item = StackItem;
 
 interface IStyledStackItemProps extends ISingleAnyChildProps {
@@ -133,3 +134,4 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
 const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.ReactElement => {
   return React.cloneElement(props.children || <div />, { className: props.className });
 });
+StyledStackItem.displayName = 'stack-item';

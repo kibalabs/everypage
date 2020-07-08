@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList, PaddingSize } from '@kibalabs/ui-react';
 
 interface IPricingTiers1Feature {
   text: string;
@@ -37,7 +38,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
   }
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(PricingTiers1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

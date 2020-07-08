@@ -25,7 +25,7 @@ export const Spacing = (props: ISpacingProps): React.ReactElement => {
   return (
     <StyledDiv
       id={props.id}
-      className={getClassName('spacing', props.className)}
+      className={getClassName(Spacing.displayName, props.className)}
       theme={theme}
       size={props.mode as PaddingSize}
       direction={props.direction}
@@ -37,3 +37,4 @@ Spacing.defaultProps = {
   ...defaultComponentProps,
   direction: MultiDirection.Both,
 };
+Spacing.displayName = 'spacing';

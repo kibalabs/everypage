@@ -45,7 +45,7 @@ export const Video = (props: IVideoProps): React.ReactElement => {
   return (
     <StyledVideo
       id={props.id}
-      className={getClassName('video', props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
+      className={getClassName(Video.displayName, props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
       theme={theme}
       autoPlay={true}
       muted={true}
@@ -70,3 +70,4 @@ Video.defaultProps = {
   isFullHeight: false,
   isCenteredHorizontally: false,
 };
+Video.displayName = 'video';

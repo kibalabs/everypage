@@ -17,7 +17,7 @@ export const IosDownloadButton = (props: IIosDownloadButtonProps): React.ReactEl
   return (
     <LinkBase
       id={props.id}
-      className={getClassName('ios-download-button', props.className)}
+      className={getClassName(IosDownloadButton.displayName, props.className)}
       mode='image'
       target={`https://apps.apple.com/app/id${props.appId}`}
     >
@@ -32,3 +32,4 @@ export const IosDownloadButton = (props: IIosDownloadButtonProps): React.ReactEl
 IosDownloadButton.defaultProps = {
   ...defaultMoleculeProps,
 };
+IosDownloadButton.displayName = 'ios-download-button';

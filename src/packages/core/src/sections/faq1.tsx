@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, PaddingSize } from '@kibalabs/ui-react';
 
 interface IFaq1Question {
   questionText: string;
@@ -16,7 +17,7 @@ interface IFaq1Props extends ISectionProps {
 
 export const Faq1 = (props: IFaq1Props): React.ReactElement => {
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(Faq1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={8}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

@@ -16,6 +16,7 @@ export interface IFormTheme extends ThemeType {
 const StyledForm = styled.form`
   position: relative;
 `;
+StyledForm.displayName = 'form-inner';
 
 const LoadingOverlay = styled.div`
   width: 100%;
@@ -46,13 +47,13 @@ export const Form = (props: IFormProps): React.ReactElement => {
   return (
     <Box
       id={props.id}
-      className={getClassName('form', props.className)}
+      className={getClassName(Form.displayName, props.className)}
       theme={props.theme?.background}
       isFullWidth={true}
     >
       <StyledForm
         id={props.id && `${props.id}-form`}
-        className={'form-form'}
+        className={getClassName(StyledForm.displayName)}
         onSubmit={onSubmitted}
       >
         {props.children}
@@ -70,3 +71,4 @@ Form.defaultProps = {
   ...defaultMoleculeProps,
   isLoading: false,
 };
+Form.displayName = 'form';

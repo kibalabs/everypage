@@ -54,7 +54,7 @@ export const Box = (props: IBoxProps): React.ReactElement => {
   return (
     <StyledBox
       id={props.id}
-      className={getClassName('box', props.className)}
+      className={getClassName(Box.displayName, props.className)}
       theme={theme}
       height={height}
       width={width}
@@ -74,3 +74,4 @@ Box.defaultProps = {
   isScrollableVertically: false,
   isScrollableHorizontally: false,
 };
+Box.displayName = 'box';

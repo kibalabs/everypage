@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Alignment, Markdown, Spacing, TextAlignment, Stack, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Alignment, Markdown, Spacing, TextAlignment, Stack, PaddingSize } from '@kibalabs/ui-react';
 
 interface IMarkdown1Props extends ISectionProps {
   titleText?: string;
@@ -11,7 +12,7 @@ interface IMarkdown1Props extends ISectionProps {
 
 export const Markdown1 = (props: IMarkdown1Props): React.ReactElement => {
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(Markdown1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={8}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

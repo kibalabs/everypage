@@ -34,7 +34,7 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
   return (
     <StyledSection
       id={props.id}
-      className={getClassName('section', props.className, props.shouldStickToTop && 'sticky')}
+      className={getClassName(Section.displayName, props.className, props.shouldStickToTop && 'sticky')}
     >
       <Background
         id={props.id && `${props.id}-background`}

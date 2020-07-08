@@ -47,7 +47,7 @@ export const Link = (props: ILinkProps): React.ReactElement => {
   return (
     <StyledLink
       id={props.id}
-      className={getClassName('link', props.className, !props.isEnabled && 'disabled')}
+      className={getClassName(Link.displayName, props.className, !props.isEnabled && 'disabled')}
       theme={theme}
       href={props.isEnabled ? props.destination : undefined}
       target={props.shouldOpenNewTab ? '_blank' : '_self'}
@@ -63,3 +63,4 @@ Link.defaultProps = {
   isEnabled: true,
   shouldOpenNewTab: false,
 };
+Link.displayName = 'link';

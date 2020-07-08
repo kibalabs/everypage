@@ -17,7 +17,7 @@ export const AndroidDownloadButton = (props: IAndroidDownloadButtonProps): React
   return (
     <LinkBase
       id={props.id}
-      className={getClassName('android-download-button', props.className)}
+      className={getClassName(AndroidDownloadButton.displayName, props.className)}
       mode='image'
       target={`https://play.google.com/store/apps/details?id=${props.appId}`}
     >
@@ -32,3 +32,4 @@ export const AndroidDownloadButton = (props: IAndroidDownloadButtonProps): React
 AndroidDownloadButton.defaultProps = {
   ...defaultMoleculeProps,
 };
+AndroidDownloadButton.displayName = 'android-download-button';

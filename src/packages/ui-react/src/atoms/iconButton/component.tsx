@@ -70,7 +70,7 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
   return (
     <StyledIconButton
       id={props.id}
-      className={getClassName('icon-button', !props.isEnabled && 'disabled', props.className)}
+      className={getClassName(IconButton.displayName, !props.isEnabled && 'disabled', props.className)}
       theme={theme}
       onClick={onClicked}
       disabled={!props.isEnabled}
@@ -85,3 +85,4 @@ IconButton.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,
 };
+IconButton.displayName = 'icon-button';

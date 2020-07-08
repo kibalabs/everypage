@@ -71,7 +71,7 @@ export const LoadingSpinner = (props: ILoadingSpinnerProps): React.ReactElement 
   return (
     <StyledLoadingSpinner
       id={props.id}
-      className={getClassName('loading-spinner', props.className)}
+      className={getClassName(LoadingSpinner.displayName, props.className)}
       theme={theme}
       size={props.size}
     />
@@ -82,3 +82,4 @@ LoadingSpinner.defaultProps = {
   ...defaultComponentProps,
   size: 'fill',
 };
+LoadingSpinner.displayName = 'loading-spinner';

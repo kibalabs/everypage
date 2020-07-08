@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Text, Direction, PaddingSize } from '@kibalabs/ui-react';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -17,7 +18,7 @@ interface IStatisticBoxes1Props extends ISectionProps {
 
 export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElement => {
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

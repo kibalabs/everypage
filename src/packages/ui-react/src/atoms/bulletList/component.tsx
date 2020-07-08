@@ -23,7 +23,7 @@ export const BulletList = (props: IBulletListProps): React.ReactElement => {
   return (
     <StyledBulletList
       id={props.id}
-      className={getClassName('bullet-list', props.className)}
+      className={getClassName(BulletList.displayName, props.className)}
       theme={theme}
     >
       {props.children}
@@ -36,3 +36,4 @@ BulletList.defaultProps = {
   isEnabled: true,
   shouldOpenNewTab: false,
 };
+BulletList.displayName = 'bullet-list';

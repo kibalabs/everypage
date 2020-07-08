@@ -74,7 +74,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
   return (
     <StyledLinkBase
       id={props.id}
-      className={getClassName('link-base', props.className, !props.isEnabled && 'disabled')}
+      className={getClassName(LinkBase.displayName, props.className, !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
       isFullWidth={props.isFullWidth}
@@ -91,3 +91,4 @@ LinkBase.defaultProps = {
   isEnabled: true,
   isFullWidth: false,
 };
+LinkBase.displayName = 'link-base';

@@ -78,7 +78,7 @@ export const Text = (props: ITextProps): React.ReactElement => {
   return (
     <StyledText
       id={props.id}
-      className={getClassName('text', props.className)}
+      className={getClassName(Text.displayName, props.className)}
       theme={theme}
       alignment={props.alignment}
       as={props.tag || getTag(props.mode)}
@@ -92,3 +92,4 @@ Text.defaultProps = {
   ...defaultComponentProps,
   alignment: TextAlignment.Left,
 }
+Text.displayName = 'text';

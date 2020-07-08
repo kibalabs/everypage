@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Grid, Image, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Grid, Image, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction } from '@kibalabs/ui-react';
 
 
 interface IHeroSimple1Props extends ISectionProps {
@@ -12,7 +13,7 @@ interface IHeroSimple1Props extends ISectionProps {
 
 export const HeroSimple1 = (props: IHeroSimple1Props): React.ReactElement => {
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(HeroSimple1.displayName, props.className)}>
       <Grid isFullHeight={true}>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6} isFullHeight={true}>
           <Spacing mode={PaddingSize.ExtraExtraExtraWide}/>

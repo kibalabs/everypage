@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Form, Grid, Image, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Form, Grid, Image, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType } from '@kibalabs/ui-react';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 
@@ -48,7 +49,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   };
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(HeroSignup1.displayName, props.className)}>
       <Grid>
         <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
           <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>

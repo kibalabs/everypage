@@ -29,7 +29,7 @@ export const BulletText = (props: IBulletTextProps): React.ReactElement => {
   return (
     <StyledBulletText
       id={props.id}
-      className={getClassName('bullet-text', props.className)}
+      className={getClassName(BulletText.displayName, props.className)}
       theme={theme}
     >
       {props.text}
@@ -43,3 +43,4 @@ BulletText.defaultProps = {
   isEnabled: true,
   shouldOpenNewTab: false,
 };
+BulletText.displayName = 'bullet-text';

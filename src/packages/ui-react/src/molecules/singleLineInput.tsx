@@ -28,6 +28,7 @@ const StyledSingleLineInput = styled.input`
     pointer-events: none;
   }
 `;
+StyledSingleLineInput.displayName = 'singleline-input-textarea';
 
 const getAutocompleteType = (inputType: InputType): string | null => {
   if (inputType === InputType.Email) {
@@ -80,7 +81,7 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
   return (
     <InputFrame
       id={props.id}
-      className={getClassName('singleline-input', props.className)}
+      className={getClassName(SingleLineInput.displayName, props.className)}
       theme={props.theme?.inputFrameTheme}
       inputWrapperMode={props.inputWrapperMode}
       messageText={props.messageText}
@@ -88,7 +89,7 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
     >
       <StyledSingleLineInput
         id={props.id && `${props.id}-textarea`}
-        className={getClassName('singleline-input-textarea', !props.isEnabled && 'disabled')}
+        className={getClassName(StyledSingleLineInput.displayName, !props.isEnabled && 'disabled')}
         type={props.inputType}
         name={props.name}
         autoComplete={getAutocompleteType(props.inputType)}
@@ -108,3 +109,4 @@ SingleLineInput.defaultProps = {
   isEnabled: true,
   inputType: InputType.Text,
 };
+SingleLineInput.displayName = 'single-line-input';

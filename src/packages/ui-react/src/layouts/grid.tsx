@@ -60,7 +60,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
   return (
     <StyledGrid
       id={props.id}
-      className={getClassName('grid', props.className)}
+      className={getClassName(Grid.displayName, props.className)}
       isFullHeight={props.isFullHeight}
       childAlignment={props.childAlignment}
       contentAlignment={props.contentAlignment}
@@ -70,7 +70,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
           <StyledGridItem
             key={index}
             id={child.props.id}
-            className={getClassName('grid-item', child.props.className)}
+            className={getClassName(StyledGridItem.displayName, child.props.className)}
             size={child.props.size}
             sizeSmall={child.props.sizeSmall}
             sizeMedium={child.props.sizeMedium}
@@ -100,6 +100,7 @@ Grid.defaultProps = {
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Center,
 };
+Grid.displayName = 'grid';
 Grid.Item = GridItem;
 
 const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: number): string => (
@@ -158,3 +159,4 @@ const StyledGridItem = styled.div<IStyledGridItemProps>`
   margin-bottom: ${(props: IStyledGridItemProps): string => props.gutterSize};
   align-self: ${(props: IStyledGridItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;
+StyledGridItem.displayName = 'grid-item';

@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -30,7 +31,7 @@ const getIcon = (boxType: string, brandColor: string): React.ReactElement => {
 export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getClassName } from '@kibalabs/core';
+import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView, ScreenSize, HidingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Stack, Direction, Image, Markdown, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView, ScreenSize, HidingView } from '@kibalabs/ui-react';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
@@ -37,7 +38,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
   };
 
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(NavBar1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <StyledNavigationBar theme={theme}>
           <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>

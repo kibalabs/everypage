@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize } from '@kibalabs/ui-react';
 
 interface IFeatureBoxes1Feature {
   title?: string;
@@ -20,7 +21,7 @@ interface IFeatureBoxes1Props extends ISectionProps {
 export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
       <Grid childAlignment={Alignment.Fill}>
         <Grid.Item size={10} sizeLarge={12}>
           <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>

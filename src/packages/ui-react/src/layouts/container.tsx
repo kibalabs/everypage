@@ -10,7 +10,7 @@ import { IDimensionGuide } from '../subatoms';
 interface IBaseContainerProps {
   theme: IDimensionGuide;
   isFullHeight: boolean;
-  isMainContainer: boolean;
+  isMainContainer?: boolean;
 }
 
 const BaseContainer = styled.div<IBaseContainerProps>`
@@ -37,7 +37,7 @@ export const Container = (props: IContainerProps): React.ReactElement => {
   return (
     <BaseContainer
       id={props.id}
-      className={getClassName('container', props.className)}
+      className={getClassName(Container.displayName, props.className)}
       theme={theme}
       isFullHeight={props.isFullHeight}
     >
@@ -51,3 +51,4 @@ Container.defaultProps = {
   isFullHeight: true,
   isMainContainer: true,
 };
+Container.displayName = 'container';

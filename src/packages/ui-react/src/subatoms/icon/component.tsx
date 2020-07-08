@@ -4,6 +4,8 @@ import { getClassName } from '@kibalabs/core';
 
 
 export interface IIconProps {
+  id?: string;
+  className: string;
   size?: 'default' | 'small' | 'large' | 'extra-large' | 'full';
   _color?: string;
   shouldAddFill?: boolean;
@@ -54,7 +56,8 @@ const StyledIcon = styled.div<IStyledIconProps>`
 export const Icon = (props: IIconProps): React.ReactElement => {
   return (
     <StyledIcon
-      className={getClassName('icon')}
+      id={props.id}
+      className={getClassName(Icon.displayName, props.className)}
       size={props.size}
       color={props._color}
       shouldAddFill={props.shouldAddFill}
@@ -65,6 +68,8 @@ export const Icon = (props: IIconProps): React.ReactElement => {
 };
 
 Icon.defaultProps = {
+  className: '',
   shouldAddFill: true,
   shouldAddStroke: true,
 };
+Icon.displayName = 'icon';

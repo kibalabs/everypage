@@ -1,7 +1,8 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { Markdown, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { Markdown, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingSize } from '@kibalabs/ui-react';
 import { useWebsite } from '../util';
 
 interface IFooter1IconLink {
@@ -24,7 +25,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   }
   const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
   return (
-    <Section {...props as ISectionProps}>
+    <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
       <Stack childAlignment={Alignment.Center} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isFullHeight={true}>
