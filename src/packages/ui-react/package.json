@@ -19,7 +19,7 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/core-react": "^0.3.9",
+    "@kibalabs/core-react": "^0.3.10",
     "deepmerge": "^4.2.2",
     "polished": "^3.5.1",
     "react-markdown": "^4.3.1"

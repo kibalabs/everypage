@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@kibalabs/core": "^0.3.10",
-    "@kibalabs/core-react": "^0.3.9",
+    "@kibalabs/core-react": "^0.3.10",
     "axios": "^0.19.2",
     "lazysizes": "^5.2.1",
     "react-helmet": "^5.2.1"

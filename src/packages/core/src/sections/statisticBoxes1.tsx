@@ -21,10 +21,12 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
     <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeLarge={12}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          </Stack>
+          {props.titleText && (
+            <Stack.Item gutterSizeAfter={PaddingSize.None}>
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
+            </Stack.Item>
+          )}
+          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
           <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={4} childSizeSmall={6}>
             {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
               <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>

@@ -24,11 +24,10 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeLarge={12}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
+          <Stack.Item gutterSizeAfter={PaddingSize.None}>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            <Spacing mode='narrow' />
-            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          </Stack>
+          </Stack.Item>
+          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
           <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={6} size={12}>
             {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
               <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>

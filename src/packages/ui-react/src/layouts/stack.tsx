@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
+import { IMultiAnyChildProps, ISingleAnyChildProps, flattenChildren } from '@kibalabs/core-react';
 
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, IDimensionGuide, PaddingSize, Spacing } from '..';
 import { PaddingView, IPaddingViewPaddingProps } from './paddingView';
@@ -64,8 +64,7 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
-  const realChildren = React.Children.toArray(props.children).filter((child: React.ReactNode): boolean => child !== null && child !== undefined);
-  const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
+  const children = flattenChildren(props.children).map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
     child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child
   ));
   const paddingTop = (props.paddingStart && props.direction == Direction.Vertical) ? props.paddingStart : undefined;

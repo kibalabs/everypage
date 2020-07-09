@@ -22,15 +22,16 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
           <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
           {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          <Stack childAlignment={Alignment.Start} isFullWidth={true} shouldAddGutters={true}>
-            {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
-              <React.Fragment key={index}>
+          {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
+            <React.Fragment key={index}>
+              <Stack.Item alignment={Alignment.Start} gutterSizeAfter={PaddingSize.None}>
                 <Markdown rootTextMode='header5' rootTextAlignment={TextAlignment.Left} source={question.questionText} />
+              </Stack.Item>
+              <Stack.Item alignment={Alignment.Start}>
                 <Markdown rootTextAlignment={TextAlignment.Left} source={question.answerText} />
-              </React.Fragment>
-            ))}
-            <Spacing />
-          </Stack>
+              </Stack.Item>
+            </React.Fragment>
+          ))}
         </Stack>
       </ResponsiveContainingView>
     </Section>

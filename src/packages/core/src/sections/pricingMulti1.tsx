@@ -41,10 +41,12 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
     <Section {...props as ISectionProps} className={getClassName(PricingTiers1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeLarge={12}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          </Stack>
+          {props.titleText && (
+            <Stack.Item gutterSizeAfter={PaddingSize.None}>
+              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
+            </Stack.Item>
+          )}
+          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
           <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={6} childSizeSmall={6} childSize={12}>
             {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
               <Box mode='bordered' isFullHeight={true} key={index}>
@@ -52,19 +54,16 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                   <Text alignment={TextAlignment.Center} mode='strong'>{category.name}</Text>
                   <Text alignment={TextAlignment.Center} mode='supersize'>{category.cost}</Text>
                   <Text alignment={TextAlignment.Center} mode='note'>{category.costFrequency}</Text>
-                  <Spacing mode='wide'/>
-                  <Stack.Item alignment={Alignment.Start}>
+                  <Stack.Item alignment={Alignment.Start} gutterSizeBefore={PaddingSize.Wide} gutterSizeAfter={PaddingSize.Narrow}>
                     <Text alignment={TextAlignment.Left}>{category.explanationText}</Text>
                   </Stack.Item>
-                  <Spacing mode='narrow'/>
-                  <Stack.Item alignment={Alignment.Start} growthFactor={1}>
+                  <Stack.Item alignment={Alignment.Start} growthFactor={1} gutterSizeAfter={PaddingSize.Wide}>
                     <BulletList>
                       {category.features.map((feature: IPricingTiers1Feature, index: number): React.ReactElement => (
                         <BulletText key={index} text={feature.text} />
                       ))}
                     </BulletList>
                   </Stack.Item>
-                  <Spacing mode='wide'/>
                   <Button mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} onClicked={() => onCategoryStartButtonClicked(index)}/>
                 </Stack>
               </Box>
