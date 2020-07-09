@@ -26,7 +26,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isFullHeight={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (

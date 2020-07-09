@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, Grid, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
+import { Markdown, Stack, Alignment, ResponsiveContainingView, TextAlignment, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 
@@ -32,33 +32,29 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
   const theme: ITheme = useTheme();
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
-      <Grid childAlignment={Alignment.Fill}>
-        <Grid.Item size={10} sizeLarge={12}>
-          <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
-            <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
-              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            </Stack>
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
-              {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
-                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
-                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
-                      { getIcon(box.type, theme.colors.brandPrimary) }
-                      <Spacing direction={Direction.Horizontal} mode='default' />
-                      <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
-                    </Stack>
-                    <Spacing direction={Direction.Vertical} mode='narrow' />
-                    <Stack.Item growthFactor={1} shrinkFactor={1}>
-                      <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
-                    </Stack.Item>
-                  </Stack>
-                </Box>
-              ))}
-            </EqualGrid>
+      <ResponsiveContainingView size={10} sizeLarge={12}>
+        <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
+          <Stack childAlignment={Alignment.Fill} isFullWidth={true}>
+            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
           </Stack>
-        </Grid.Item>
-      </Grid>
+          <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
+            {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
+              <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
+                    { getIcon(box.type, theme.colors.brandPrimary) }
+                    <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
+                  </Stack>
+                  <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Narrow}>
+                    <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
+                  </Stack.Item>
+                </Stack>
+              </Box>
+            ))}
+          </EqualGrid>
+        </Stack>
+      </ResponsiveContainingView>
     </Section>
   );
 };

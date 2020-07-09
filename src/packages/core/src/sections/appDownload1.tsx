@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Grid, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Markdown, PaddingSize, TextAlignment, Stack, Direction, Alignment, IosDownloadButton, AndroidDownloadButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
@@ -20,19 +20,16 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
 
   return (
     <Section {...props as ISectionProps} className={getClassName(AppDownload1.displayName, props.className)}>
-      <Grid>
-        <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
-          <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
-            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={PaddingSize.ExtraWide} />
-            <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} shouldAddGutters={true}>
-              {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
-              {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
-            </Stack>
+      <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
+        <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+          <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={PaddingSize.ExtraWide}>
+            {iosAppId && <Stack.Item shrinkFactor={1}><IosDownloadButton appId={iosAppId} /></Stack.Item>}
+            {androidAppId && <Stack.Item shrinkFactor={1}><AndroidDownloadButton appId={androidAppId} /></Stack.Item>}
           </Stack>
-        </Grid.Item>
-      </Grid>
+        </Stack>
+      </ResponsiveContainingView>
     </Section>
   );
 };

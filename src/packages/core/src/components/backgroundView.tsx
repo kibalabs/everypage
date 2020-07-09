@@ -16,7 +16,7 @@ export interface IBackgroundConfig extends IBackgroundLayer {
   layers?: IBackgroundLayer[];
 }
 
-export interface IBackgroundProps extends IBackgroundConfig, ISingleAnyChildProps {
+export interface IBackgroundViewProps extends IBackgroundConfig, ISingleAnyChildProps {
   id?: string;
   className: string;
   isFullHeight: boolean;
@@ -46,22 +46,22 @@ const getLayerCss = (backgroundLayer: IBackgroundLayer): string => {
   return layers.join(', ');
 }
 
-interface IStyledBackgroundProps extends ISingleAnyChildProps {
+interface IStyledBackgroundViewProps extends ISingleAnyChildProps {
   className: string;
   backgroundLayers: IBackgroundLayer[];
 }
 
-const withBackground = (Component: React.ComponentType<IStyledBackgroundProps>): React.ComponentType => styled(Component)<IStyledBackgroundProps>`
-  background: ${(props: IStyledBackgroundProps): string => getLayersCss(props.backgroundLayers)};
+const withBackground = (Component: React.ComponentType<IStyledBackgroundViewProps>): React.ComponentType => styled(Component)<IStyledBackgroundViewProps>`
+  background: ${(props: IStyledBackgroundViewProps): string => getLayersCss(props.backgroundLayers)};
 `;
 
-const StyledBackground = withBackground((props: IStyledBackgroundProps): React.ReactElement => {
+const StyledBackgroundView = withBackground((props: IStyledBackgroundViewProps): React.ReactElement => {
   const children = React.Children.toArray(props.children);
   const child = children.length > 0 ? children[0] : <div />;
   return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });
 
-export const Background = (props: IBackgroundProps): React.ReactElement => {
+export const BackgroundView = (props: IBackgroundViewProps): React.ReactElement => {
   let layers = props.layers || [];
   if (props.color || props.linearGradient || props.radialGradient || props.imageUrl || props.patternImageUrl || layers.length == 0) {
     layers.splice(0, 0, {
@@ -73,17 +73,17 @@ export const Background = (props: IBackgroundProps): React.ReactElement => {
     });
   }
   return (
-    <StyledBackground
-      className={getClassName(Background.displayName, props.className)}
+    <StyledBackgroundView
+      className={getClassName(BackgroundView.displayName, props.className)}
       backgroundLayers={layers}
     >
       { props.children }
-    </StyledBackground>
+    </StyledBackgroundView>
   );
 }
 
-Background.defaultProps = {
+BackgroundView.defaultProps = {
   className: '',
   isFullHeight: true,
 };
-Background.displayName = 'background';
+BackgroundView.displayName = 'background-view';

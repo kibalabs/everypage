@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions, IDimensionGuide, PaddingSize, getPaddingSize, Spacing } from '..';
+import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, IDimensionGuide, PaddingSize, Spacing } from '..';
+import { PaddingView, IPaddingViewPaddingProps } from './paddingView';
 
   // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 
@@ -48,7 +49,7 @@ const StyledStack = styled.div<IStyledStackProps>`
   align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
 `;
 
-interface IStackProps extends IMultiAnyChildProps {
+interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   id?: string;
   className: string;
   theme?: IDimensionGuide;
@@ -58,8 +59,8 @@ interface IStackProps extends IMultiAnyChildProps {
   shouldAddGutters: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
-  gutterSizeStart?: PaddingSize,
-  gutterSizeEnd?: PaddingSize,
+  paddingStart?: PaddingSize,
+  paddingEnd?: PaddingSize,
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
@@ -67,34 +68,38 @@ export const Stack = (props: IStackProps): React.ReactElement => {
   const children = realChildren.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
     child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child
   ));
+  const paddingTop = (props.paddingStart && props.direction == Direction.Vertical) ? props.paddingStart : undefined;
+  const paddingBottom = (props.paddingEnd && props.direction == Direction.Vertical) ? props.paddingEnd : undefined;
+  const paddingRight = (props.paddingStart && props.direction == Direction.Horizontal) ? props.paddingStart : undefined;
+  const paddingLeft = (props.paddingEnd && props.direction == Direction.Horizontal) ? props.paddingEnd : undefined;
   return (
-    <StyledStack
-      id={props.id}
-      className={getClassName(Stack.displayName, props.className)}
-      $direction={props.direction}
-      childAlignment={props.childAlignment}
-      contentAlignment={props.contentAlignment}
-      isFullWidth={props.isFullWidth}
-      isFullHeight={props.isFullHeight}
-    >
-      {props.gutterSizeStart && <Spacing className='stack-gutter' mode={props.gutterSizeStart} />}
-      { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
-        <React.Fragment key={index}>
-          {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
-          <StyledStackItem
-            className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden')}
-            growthFactor={child.props.growthFactor}
-            shrinkFactor={child.props.shrinkFactor}
-            baseSize={child.props.baseSize}
-            alignment={child.props.alignment}
-          >
-            {child.props.children}
-          </StyledStackItem>
-          {(child.props.gutterSizeAfter || (props.shouldAddGutters && index < children.length - 1)) && <Spacing className='stack-gutter' mode={child.props.gutterSizeAfter || PaddingSize.Default}/>}
-        </React.Fragment>
-      ))}
-      {props.gutterSizeEnd && <Spacing className='stack-gutter' mode={props.gutterSizeEnd} />}
-    </StyledStack>
+    <PaddingView paddingTop={paddingTop} paddingBottom={paddingBottom} paddingRight={paddingRight} paddingLeft={paddingLeft} {...props as IPaddingViewPaddingProps}>
+      <StyledStack
+        id={props.id}
+        className={getClassName(Stack.displayName, props.className)}
+        $direction={props.direction}
+        childAlignment={props.childAlignment}
+        contentAlignment={props.contentAlignment}
+        isFullWidth={props.isFullWidth}
+        isFullHeight={props.isFullHeight}
+      >
+        { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
+          <React.Fragment key={index}>
+            {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
+            <StyledStackItem
+              className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden')}
+              growthFactor={child.props.growthFactor}
+              shrinkFactor={child.props.shrinkFactor}
+              baseSize={child.props.baseSize}
+              alignment={child.props.alignment}
+            >
+              {child.props.children}
+            </StyledStackItem>
+            {(child.props.gutterSizeAfter || (props.shouldAddGutters && index < children.length - 1)) && <Spacing className='stack-gutter' mode={child.props.gutterSizeAfter || PaddingSize.Default}/>}
+          </React.Fragment>
+        ))}
+      </StyledStack>
+    </PaddingView>
   );
 };
 

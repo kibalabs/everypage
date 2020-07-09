@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 import { ContainingView } from '@kibalabs/ui-react';
 
-import { Background, IBackgroundConfig } from '../components/background';
+import { BackgroundView, IBackgroundConfig } from '../components/backgroundView';
 
 export interface ISectionProps {
   id?: string;
@@ -33,7 +33,7 @@ StyledSection.displayName = 'section-inner';
 
 export const Section = (props: IInternalSectionProps): React.ReactElement => {
   return (
-    <Background
+    <BackgroundView
       className={getClassName(Section.displayName, props.className)}
       { ...props.background }
     >
@@ -45,7 +45,7 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
           { props.children }
         </ContainingView>
       </StyledSection>
-    </Background>
+    </BackgroundView>
   );
 };
 

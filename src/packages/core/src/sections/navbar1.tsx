@@ -64,7 +64,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
         </StyledNavigationBar>
         <HidingView isHidden={!isMenuOpen}>
           <ResponsiveView hiddenAbove={ScreenSize.Large}>
-            <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} gutterSizeStart={PaddingSize.ExtraWide} gutterSizeEnd={PaddingSize.ExtraWide}>
+            <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraWide} paddingEnd={PaddingSize.ExtraWide}>
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return (!button.display || button.display === 'default' || button.display === 'overflow') && (
                   <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />

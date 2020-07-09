@@ -22,7 +22,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(Head.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} gutterSizeStart={PaddingSize.Wide} gutterSizeEnd={PaddingSize.Wide}>
+      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
         <Text mode='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing mode='default' />
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={false}>

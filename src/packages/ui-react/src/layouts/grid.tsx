@@ -5,6 +5,7 @@ import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '..';
 import { IDimensionGuide } from '../subatoms';
+import { PaddingView, IPaddingViewPaddingProps } from './paddingView';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {
@@ -45,7 +46,7 @@ const StyledGrid = styled.div<IStyledGridProps>`
   justify-content: ${(props: IStyledGridProps): string => getFlexContentAlignment(props.contentAlignment)};
 `;
 
-export interface IGridProps extends IMultiChildProps<IGridItemProps> {
+export interface IGridProps extends IMultiChildProps<IGridItemProps>, IPaddingViewPaddingProps {
   id?: string;
   className?: string;
   theme?: IDimensionGuide;
@@ -58,38 +59,40 @@ export interface IGridProps extends IMultiChildProps<IGridItemProps> {
 export const Grid = (props: IGridProps): React.ReactElement => {
   const theme = props.theme || useDimensions();
   return (
-    <StyledGrid
-      id={props.id}
-      className={getClassName(Grid.displayName, props.className)}
-      isFullHeight={props.isFullHeight}
-      childAlignment={props.childAlignment}
-      contentAlignment={props.contentAlignment}
-    >
-      { React.Children.map(props.children, (child: React.ReactElement<IGridItemProps>, index: number): React.ReactElement => (
-        (!child) ? <React.Fragment /> : (
-          <StyledGridItem
-            key={index}
-            id={child.props.id}
-            className={getClassName(StyledGridItem.displayName, child.props.className)}
-            size={child.props.size}
-            sizeSmall={child.props.sizeSmall}
-            sizeMedium={child.props.sizeMedium}
-            sizeLarge={child.props.sizeLarge}
-            sizeExtraLarge={child.props.sizeExtraLarge}
-            screenWidthSmall={theme.screenWidthSmall}
-            screenWidthMedium={theme.screenWidthMedium}
-            screenWidthLarge={theme.screenWidthLarge}
-            screenWidthExtraLarge={theme.screenWidthExtraLarge}
-            isFullHeight={child.props.isFullHeight}
-            totalColumnCount={theme.columnCount}
-            gutterSize={props.shouldAddGutters ? theme.gutterSize : '0px'}
-            alignment={child.props.alignment}
-          >
-            {child.props.children}
-          </StyledGridItem>
-        )
-      ))}
-    </StyledGrid>
+    <PaddingView {...props as IPaddingViewPaddingProps}>
+      <StyledGrid
+        id={props.id}
+        className={getClassName(Grid.displayName, props.className)}
+        isFullHeight={props.isFullHeight}
+        childAlignment={props.childAlignment}
+        contentAlignment={props.contentAlignment}
+      >
+        { React.Children.map(props.children, (child: React.ReactElement<IGridItemProps>, index: number): React.ReactElement => (
+          !child ? <React.Fragment key={index} /> : (
+            <StyledGridItem
+              key={index}
+              id={child.props.id}
+              className={getClassName(StyledGridItem.displayName, child.props.className)}
+              size={child.props.size}
+              sizeSmall={child.props.sizeSmall}
+              sizeMedium={child.props.sizeMedium}
+              sizeLarge={child.props.sizeLarge}
+              sizeExtraLarge={child.props.sizeExtraLarge}
+              screenWidthSmall={theme.screenWidthSmall}
+              screenWidthMedium={theme.screenWidthMedium}
+              screenWidthLarge={theme.screenWidthLarge}
+              screenWidthExtraLarge={theme.screenWidthExtraLarge}
+              isFullHeight={child.props.isFullHeight}
+              totalColumnCount={theme.columnCount}
+              gutterSize={props.shouldAddGutters ? theme.gutterSize : '0px'}
+              alignment={child.props.alignment}
+            >
+              {child.props.children}
+            </StyledGridItem>
+          )
+        ))}
+      </StyledGrid>
+      </PaddingView>
   );
 };
 

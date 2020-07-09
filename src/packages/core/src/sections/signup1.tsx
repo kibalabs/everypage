@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView } from '@kibalabs/ui-react';
+import { Form, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView, ResponsiveContainingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput } from '../internal';
@@ -50,7 +50,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Signup1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
-        <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
+        <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
           <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
           {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
           <Spacing mode={PaddingSize.Wide} />

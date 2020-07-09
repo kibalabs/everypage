@@ -51,7 +51,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroSignup1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
-        <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraExtraWide}>
+        <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
           { props.logoImageUrl && (
             <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}>
               <ResponsiveContainingView size={10}>
