@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Image } from '@kibalabs/ui-react';
+import { Form, Grid, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput } from '../internal';
@@ -49,62 +49,60 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
 
   return (
     <Section {...props as ISectionProps} className={getClassName(Signup1.displayName, props.className)}>
-      <Grid>
-        <Grid.Item size={10} sizeSmall={8} sizeLarge={6}>
-          <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
-            <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-            {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-            <Spacing mode={PaddingSize.Wide} />
-            <Form onFormSubmitted={onFormSubmitted}>
-              <Grid>
-                <Grid.Item size={0} sizeSmall={12}>
-                  <Stack direction={Direction.Horizontal}>
-                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
-                      <SingleLineInput
-                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                        inputType={props.inputType}
-                        name={props.inputName}
-                        placeholderText={props.inputPlaceholderText}
-                        value={input}
-                        onValueChanged={onInputValueChanged}
-                        messageText={errorMessage || successMessage}
-                      />
-                    </Stack.Item>
-                    <Button
-                      mode='primary'
-                      buttonType='submit'
-                      text={props.inputButtonText}
-                      isLoading={isLoading}
+      <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
+        <Stack direction={Direction.Vertical} gutterSizeStart={PaddingSize.ExtraExtraWide} gutterSizeEnd={PaddingSize.ExtraExtraWide}>
+          <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
+          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
+          <Spacing mode={PaddingSize.Wide} />
+          <Form onFormSubmitted={onFormSubmitted}>
+            <React.Fragment>
+              <ResponsiveView hiddenBelow={ScreenSize.Small}>
+                <Stack direction={Direction.Horizontal}>
+                  <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                    <SingleLineInput
+                      inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                      inputType={props.inputType}
+                      name={props.inputName}
+                      placeholderText={props.inputPlaceholderText}
+                      value={input}
+                      onValueChanged={onInputValueChanged}
+                      messageText={errorMessage || successMessage}
                     />
-                  </Stack>
-                </Grid.Item>
-                <Grid.Item size={12} sizeSmall={0}>
-                  <Stack direction={Direction.Vertical}>
-                    <Stack.Item growthFactor={1}>
-                      <SingleLineInput
-                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                        inputType={props.inputType}
-                        name={props.inputName}
-                        placeholderText={props.inputPlaceholderText}
-                        value={input}
-                        onValueChanged={onInputValueChanged}
-                        messageText={errorMessage || successMessage}
-                      />
-                    </Stack.Item>
-                    <Spacing direction={Direction.Vertical} mode={PaddingSize.Default}/>
-                    <Button
-                      mode='primary'
-                      buttonType='submit'
-                      isFullWidth={true}
-                      text={props.inputButtonText}
+                  </Stack.Item>
+                  <Button
+                    mode='primary'
+                    buttonType='submit'
+                    text={props.inputButtonText}
+                    isLoading={isLoading}
+                  />
+                </Stack>
+              </ResponsiveView>
+              <ResponsiveView hiddenAbove={ScreenSize.Small}>
+                <Stack direction={Direction.Vertical}>
+                  <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                    <SingleLineInput
+                      inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                      inputType={props.inputType}
+                      name={props.inputName}
+                      placeholderText={props.inputPlaceholderText}
+                      value={input}
+                      onValueChanged={onInputValueChanged}
+                      messageText={errorMessage || successMessage}
                     />
-                  </Stack>
-                </Grid.Item>
-              </Grid>
-            </Form>
-          </Stack>
-        </Grid.Item>
-      </Grid>
+                  </Stack.Item>
+                  <Button
+                    mode='primary'
+                    buttonType='submit'
+                    text={props.inputButtonText}
+                    isLoading={isLoading}
+                    isFullWidth={true}
+                  />
+                </Stack>
+              </ResponsiveView>
+            </React.Fragment>
+          </Form>
+        </Stack>
+      </ResponsiveContainingView>
     </Section>
   );
 };

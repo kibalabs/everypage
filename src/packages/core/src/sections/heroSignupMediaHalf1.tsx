@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput } from '../internal';
@@ -78,10 +78,10 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
               {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
               <Spacing mode={PaddingSize.ExtraWide} />
               <Form onFormSubmitted={onFormSubmitted}>
-                <Grid>
-                  <Grid.Item size={0} sizeSmall={12}>
+                <React.Fragment>
+                  <ResponsiveView hiddenBelow={ScreenSize.Small}>
                     <Stack direction={Direction.Horizontal}>
-                      <Stack.Item growthFactor={1}>
+                      <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
                         <SingleLineInput
                           inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
                           inputType={props.inputType}
@@ -92,7 +92,6 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           messageText={errorMessage || successMessage}
                         />
                       </Stack.Item>
-                      <Spacing direction={Direction.Horizontal} mode={PaddingSize.Default}/>
                       <Button
                         mode='primary'
                         buttonType='submit'
@@ -100,28 +99,30 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                         isLoading={isLoading}
                       />
                     </Stack>
-                  </Grid.Item>
-                  <Grid.Item size={12} sizeSmall={0}>
+                  </ResponsiveView>
+                  <ResponsiveView hiddenAbove={ScreenSize.Small}>
                     <Stack direction={Direction.Vertical}>
-                      <SingleLineInput
-                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                        inputType={props.inputType}
-                        name={props.inputName}
-                        placeholderText={props.inputPlaceholderText}
-                        value={input}
-                        onValueChanged={onInputValueChanged}
-                        messageText={errorMessage || successMessage}
-                      />
-                      <Spacing direction={Direction.Vertical} mode={PaddingSize.Default}/>
+                      <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                        <SingleLineInput
+                          inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                          inputType={props.inputType}
+                          name={props.inputName}
+                          placeholderText={props.inputPlaceholderText}
+                          value={input}
+                          onValueChanged={onInputValueChanged}
+                          messageText={errorMessage || successMessage}
+                        />
+                      </Stack.Item>
                       <Button
                         mode='primary'
                         buttonType='submit'
-                        isFullWidth={true}
                         text={props.inputButtonText}
+                        isLoading={isLoading}
+                        isFullWidth={true}
                       />
                     </Stack>
-                  </Grid.Item>
-                </Grid>
+                  </ResponsiveView>
+                </React.Fragment>
               </Form>
               <Spacing mode={PaddingSize.ExtraExtraWide}/>
             </Stack>

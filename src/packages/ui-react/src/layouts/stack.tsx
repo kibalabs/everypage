@@ -123,7 +123,7 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
-  min-width: ${(props: IStyledStackItemProps): number => props.shrinkFactor ? '0' : 'initial'};
+  min-width: ${(props: IStyledStackItemProps): string => props.shrinkFactor ? '0' : 'initial'};
   align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
   &.isHidden {
     display: none;

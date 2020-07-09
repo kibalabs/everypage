@@ -42,5 +42,6 @@ export const ContainingView = (props: IContainingViewProps): React.ReactElement 
 };
 
 ContainingView.defaultProps = {
+  className: '',
 };
 ContainingView.displayName = 'containing-view';

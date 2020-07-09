@@ -55,6 +55,7 @@ export const getScreenSize = (size: ScreenSize, theme: IDimensionGuide): string 
 };
 
 export enum PaddingSize {
+  None = 'none',
   Default = 'default',
   Narrow = 'narrow',
   ExtraNarrow = 'extra-narrow',
@@ -92,7 +93,7 @@ export const getPaddingSize = (size: PaddingSize, theme: IDimensionGuide): strin
       return theme.paddingExtraExtraExtraWide;
     }
     default: {
-      return '0';
+      return '0px';
     }
   }
 };
