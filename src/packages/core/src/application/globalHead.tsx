@@ -131,20 +131,8 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <link rel='shortcut icon' type='image/x-icon' href={`/${website.buildHash}/assets/_generated/favicon.ico`} />
 
       {/* Favicons - iOS */}
-      <link rel='apple-touch-icon' sizes='57x57' href={`/${website.buildHash}/assets/_generated/favicon-57.png`} />
-      <link rel='apple-touch-icon' sizes='60x60' href={`/${website.buildHash}/assets/_generated/favicon-60.png`} />
-      <link rel='apple-touch-icon' sizes='72x72' href={`/${website.buildHash}/assets/_generated/favicon-72.png`} />
-      <link rel='apple-touch-icon' sizes='76x76' href={`/${website.buildHash}/assets/_generated/favicon-76.png`} />
-      <link rel='apple-touch-icon' sizes='114x114' href={`/${website.buildHash}/assets/_generated/favicon-114.png`} />
-      <link rel='apple-touch-icon' sizes='120x120' href={`/${website.buildHash}/assets/_generated/favicon-120.png`} />
-      <link rel='apple-touch-icon' sizes='144x144' href={`/${website.buildHash}/assets/_generated/favicon-144.png`} />
-      <link rel='apple-touch-icon' sizes='152x152' href={`/${website.buildHash}/assets/_generated/favicon-152.png`} />
-      <link rel='apple-touch-icon' sizes='167x167' href={`/${website.buildHash}/assets/_generated/favicon-167.png`} />
       <link rel='apple-touch-icon' sizes='180x180' href={`/${website.buildHash}/assets/_generated/favicon-180.png`} />
       <link rel='apple-touch-icon' sizes='1024x1024' href={`/${website.buildHash}/assets/_generated/favicon-1024.png`} />
-
-      {/* Favicons - Safari pinned */}
-      <link rel='mask-icon' color={String(theme.colors.brandPrimary)} href={`/${website.buildHash}/assets/_generated/favicon.svg`} />
 
       {/* Favicons - Android */}
       <link rel='icon' sizes='192x192' href={`/${website.buildHash}/assets/_generated/favicon-192.png`} />
