@@ -120,8 +120,8 @@ export const GlobalHead = (props: IGlobalHeadProps): React.ReactElement => {
       <link rel='manifest' href={`/${website.buildHash}/assets/_generated/manifest.json`} />
 
       {/* Temporary fixes */}
-      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js' />
-      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js' />
+      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js' async={true} />
+      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js' async={true} />
       <script src='https://cdn.jsdelivr.net/npm/whatwg-fetch@3.2.0/dist/fetch.umd.min.js' />
     </Helmet>
   );
