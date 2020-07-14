@@ -8,7 +8,6 @@ import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } fro
 import { IInputWrapperTheme } from './theme';
 
 const StyledInputWrapper = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
 `;
