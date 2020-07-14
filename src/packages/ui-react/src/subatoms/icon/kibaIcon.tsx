@@ -1,14 +1,14 @@
 import React from 'react';
+import { getClassName } from '@kibalabs/core';
 
 import { Icon } from './component';
 
-interface IIconProps {
+interface IKibaIconProps {
+  id?: string;
+  className: string;
+  iconId: string;
   size?: 'default' | 'small' | 'large' | 'extra-large' | 'full';
   _color?: string;
-  iconId: string;
-}
-
-interface IKibaIconProps extends IIconProps {
 }
 
 interface IconData {
@@ -48,6 +48,7 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
   }
 
   React.useEffect(() => {
+    console.log('downloading icon');
     setSvgContent(undefined);
     const iconData = getIconData(props.iconId);
     if (!iconData) {
@@ -57,13 +58,22 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
     setShouldAddFill(iconData.shouldAddFill);
     setShouldAddStroke(iconData.shouldAddStroke);
     fetch(iconData.url)
-      .then(result => result.text())
-      .then(resultText => setSvgContent(resultText.replace(/<title>.*<\/title>/gi, '').replace(/stroke:#000/gi, 'stroke:currentColor').replace(/fill:#000/gi, 'fill:currentColor')))
+      .then(result => {
+        if (result.status >= 300) {
+          throw new Error(`Failed to fetch icon: ${result}`);
+        }
+        return result.text();
+      })
+      .then(resultText => {
+        setSvgContent(resultText.replace(/<title>.*<\/title>/gi, '').replace(/stroke:#000/gi, 'stroke:currentColor').replace(/fill:#000/gi, 'fill:currentColor'))
+      })
       .catch(() => setSvgContent(null));
   }, [props.iconId]);
 
   return (
     <Icon
+      id={props.id}
+      className={getClassName(KibaIcon.displayName, props.className)}
       size={props.size}
       _color={props._color}
       shouldAddFill={shouldAddFill}
@@ -74,4 +84,6 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
 };
 
 KibaIcon.defaultProps = {
+  className: '',
 };
+KibaIcon.displayName = 'kiba-icon';

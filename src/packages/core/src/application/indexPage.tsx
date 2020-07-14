@@ -1,7 +1,5 @@
 import React from 'react';
 import { ThemeProvider, ITheme } from '@kibalabs/ui-react';
-import 'lazysizes';
-import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection, buildEverypageTheme } from '.';
 import { WebsiteProvider } from '../util';

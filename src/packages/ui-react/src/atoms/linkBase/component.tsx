@@ -8,13 +8,9 @@ import { ILinkBaseTheme } from './theme';
 
 interface IStyledLinkBaseProps {
   theme: ILinkBaseTheme;
-  isFullWidth: boolean;
 }
 
 const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
-  ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.background)};
-  ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.linkBase)};
-  width: ${(props: IStyledLinkBaseProps): string => (props.isFullWidth ? '100%' : 'initial')};
   color: currentColor;
   cursor: pointer;
   outline: none;
@@ -24,6 +20,12 @@ const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
   justify-content: center;
   background-clip: padding-box;
   transition: 0.3s;
+  .fullWidth {
+    width: 100%;
+  }
+
+  ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.background)};
+  ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.default.linkBase)};
   &:hover {
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.hover?.background)};
     ${(props: IStyledLinkBaseProps): string => themeToCss(props.theme.normal.hover?.linkBase)};
@@ -74,10 +76,9 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
   return (
     <StyledLinkBase
       id={props.id}
-      className={getClassName(LinkBase.displayName, props.className, !props.isEnabled && 'disabled')}
+      className={getClassName(LinkBase.displayName, props.className, props.isFullWidth && 'fullWidth', !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
-      isFullWidth={props.isFullWidth}
       href={props.target}
       aria-label={props.label}
     >

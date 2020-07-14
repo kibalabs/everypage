@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
+import { IWrapperProps, defaultWrapperProps } from './wrapperProps';
 import { useDimensions } from '../theming';
 import { IDimensionGuide } from '../subatoms';
 
-interface IStyledContainingViewProps extends ISingleAnyChildProps {
-  className: string;
+interface IStyledContainingViewProps extends IWrapperProps {
   theme: IDimensionGuide;
 }
 
@@ -24,8 +23,7 @@ const StyledContainingView = withContainingView((props: IStyledContainingViewPro
   return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });
 
-export interface IContainingViewProps extends ISingleAnyChildProps {
-  className: string;
+export interface IContainingViewProps extends IWrapperProps {
   theme?: IDimensionGuide;
 }
 
@@ -42,6 +40,6 @@ export const ContainingView = (props: IContainingViewProps): React.ReactElement 
 };
 
 ContainingView.defaultProps = {
-  className: '',
+  defaultWrapperProps,
 };
 ContainingView.displayName = 'containing-view';

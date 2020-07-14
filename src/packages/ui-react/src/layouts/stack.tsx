@@ -4,12 +4,12 @@ import { getClassName } from '@kibalabs/core';
 import { IMultiAnyChildProps, ISingleAnyChildProps, flattenChildren } from '@kibalabs/core-react';
 
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, IDimensionGuide, PaddingSize, Spacing } from '..';
-import { PaddingView, IPaddingViewPaddingProps } from './paddingView';
+import { PaddingView, IPaddingViewPaddingProps } from '../wrappers/paddingView';
 
-  // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
+// NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
+// NOTE(krish): behavior of the above is also different on IE11, be careful!
 
 export interface IStackItemProps extends ISingleAnyChildProps {
-  id?: string;
   className: string;
   growthFactor: number;
   shrinkFactor: number;
@@ -115,7 +115,6 @@ Stack.displayName = 'stack';
 Stack.Item = StackItem;
 
 interface IStyledStackItemProps extends ISingleAnyChildProps {
-  id?: string;
   className: string;
   growthFactor: number;
   shrinkFactor: number;
@@ -127,8 +126,10 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
   flex-basis: ${(props: IStyledStackItemProps): string => props.baseSize};
   flex-grow: ${(props: IStyledStackItemProps): number => props.growthFactor};
   flex-shrink: ${(props: IStyledStackItemProps): number => props.shrinkFactor};
-  min-width: ${(props: IStyledStackItemProps): string => props.shrinkFactor ? '0' : 'initial'};
+  min-width: ${(props: IStyledStackItemProps): string => props.shrinkFactor ? '0' : 'none'};
   align-self: ${(props: IStyledStackItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
+  /* Fix for https://github.com/philipwalton/flexbugs#flexbug-2 */
+  max-width: 100%;
   &.isHidden {
     display: none;
   }

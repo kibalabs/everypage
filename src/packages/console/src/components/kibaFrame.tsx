@@ -13,13 +13,14 @@ interface IKibaFrameInnerProps extends ISingleAnyChildProps {
 const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   React.useEffect(() => {
     // NOTE(krish): the lazysizes plugin is added here manually due to iframe problems
+    // Would be better (even as a temp solution) to have the HeadContent component render into the frame head
     const script = props.target.createElement('script');
     script.async = true;
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js';
     props.target.head.appendChild(script);
     const script2 = props.target.createElement('script');
     script2.async = true;
-    script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/plugins/attrchange/ls.attrchange.min.js';
+    script2.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js';
     props.target.head.appendChild(script2);
   }, [props.target]);
 

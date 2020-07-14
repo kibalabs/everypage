@@ -151,6 +151,11 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
 
       {/* PWA Manifest
       <link rel='manifest' href={`data:application/manifest+json,${JSON.stringify(createManifest())}`} /> */}
+
+      {/* Temporary fixes */}
+      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js' />
+      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js' />
+      <script src='https://cdn.jsdelivr.net/npm/whatwg-fetch@3.2.0/dist/fetch.umd.min.js' />
     </React.Fragment>
   );
 };

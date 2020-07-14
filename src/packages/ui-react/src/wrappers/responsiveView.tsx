@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
+import { IWrapperProps, defaultWrapperProps } from './wrapperProps';
 import { useDimensions } from '..';
 import { IDimensionGuide, ScreenSize, getScreenSize } from '../subatoms/dimensions';
 
-export interface IResponsiveViewProps extends ISingleAnyChildProps {
-  className?: string;
+export interface IResponsiveViewProps extends IWrapperProps {
   theme?: IDimensionGuide;
   hiddenAbove?: ScreenSize;
   hiddenBelow?: ScreenSize;
@@ -27,12 +26,11 @@ export const ResponsiveView = (props: IResponsiveViewProps): React.ReactElement 
 };
 
 ResponsiveView.defaultProps = {
-  className: '',
+  ...defaultWrapperProps,
 };
 ResponsiveView.displayName = 'responsive-view';
 
-interface IStyledResponsiveViewProps extends ISingleAnyChildProps {
-  className?: string;
+interface IStyledResponsiveViewProps extends IWrapperProps {
   hiddenAboveSize?: string;
   hiddenBelowSize?: string;
 }

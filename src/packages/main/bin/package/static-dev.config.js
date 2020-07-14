@@ -4,7 +4,7 @@ import { reloadClientData } from 'react-static/node'
 import chokidar from 'chokidar';
 
 let rootPath = __dirname;
-console.log(`Running with root: ${rootPath}`)
+console.log(`Running dev build with root: ${rootPath} env: ${process.env.NODE_ENV}`)
 
 const siteFilePath = path.join(rootPath, 'site.json');
 const themeFilePath = path.join(rootPath, 'theme.json');
@@ -18,7 +18,6 @@ export default {
   plugins: [
     'react-static-plugin-everypage',
     'react-static-plugin-styled-components',
-    ['react-static-plugin-typescript', { typeCheck: false }],
     ['react-static-plugin-source-filesystem', { location: path.resolve(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {

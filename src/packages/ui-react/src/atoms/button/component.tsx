@@ -8,14 +8,12 @@ import { IButtonTheme } from './theme';
 interface IStyledButtonProps {
   theme: IButtonTheme;
   isLoading: boolean;
-  isFullWidth: boolean;
 }
 
 const StyledButton = styled.button<IStyledButtonProps>`
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.text)};
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.background)};
   cursor: ${(props: IStyledButtonProps): string => (props.isLoading ? 'default' : 'pointer')};
-  width: ${(props: IStyledButtonProps): string => (props.isFullWidth ? '100%' : 'initial')};
   outline: none;
   display: flex;
   flex-direction: row;
@@ -23,6 +21,10 @@ const StyledButton = styled.button<IStyledButtonProps>`
   justify-content: center;
   background-clip: border-box;
   transition: 0.3s;
+  .fullWidth {
+    width: 100%;
+  }
+
   &:hover {
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.text)};
     ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.hover?.background)};
@@ -84,12 +86,11 @@ export const Button = (props: IButtonProps): React.ReactElement => {
   return (
     <StyledButton
       id={props.id}
-      className={getClassName(Button.displayName, !props.isEnabled && 'disabled', props.className)}
+      className={getClassName(Button.displayName, props.className, props.isFullWidth && 'fullWidth', !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
       isLoading={props.isLoading}
       disabled={!props.isEnabled}
-      isFullWidth={props.isFullWidth}
     >
       { !props.isLoading && props.text }
       { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} mode='light' size='small'/> }

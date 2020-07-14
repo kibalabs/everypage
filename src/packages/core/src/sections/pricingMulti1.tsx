@@ -39,7 +39,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
 
   return (
     <Section {...props as ISectionProps} className={getClassName(PricingTiers1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeLarge={12}>
+      <ResponsiveContainingView size={10}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
           {props.titleText && (
             <Stack.Item gutterSizeAfter={PaddingSize.None}>

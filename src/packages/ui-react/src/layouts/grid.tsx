@@ -5,7 +5,7 @@ import { IMultiChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { Alignment, getFlexItemAlignment, getFlexContentAlignment, useDimensions } from '..';
 import { IDimensionGuide } from '../subatoms';
-import { PaddingView, IPaddingViewPaddingProps } from './paddingView';
+import { PaddingView, IPaddingViewPaddingProps } from '../wrappers/paddingView';
 
 
 export interface IGridItemProps extends ISingleAnyChildProps {
@@ -111,9 +111,10 @@ const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: n
 );
 
 const columnCountToCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string): string => (
+  // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
   `@media (min-width: ${screenWidth}) {
     width: ${getCssSize(totalColumnCount, gutterSize, columnCount)};
-    ${columnCount === 0 ? 'display: none;' : 'display: initial;'};
+    ${columnCount === 0 ? 'display: none' : 'display: block'};
   }`
 );
 
@@ -121,7 +122,8 @@ const columnCountsToCss = (totalColumnCount: number, gutterSize: string, screenW
   const output = [];
   if (columnCountNormal !== undefined) {
     output.push(`width: ${getCssSize(totalColumnCount, gutterSize, columnCountNormal).toString()};`);
-    output.push(columnCountNormal === 0 ? 'display: none;' : 'display: initial;');
+    // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
+    output.push(columnCountNormal === 0 ? 'display: none;' : 'display: block;');
   }
   if (columnCountSmall !== undefined) {
     output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountSmall, screenWidthSmall));

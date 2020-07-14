@@ -32,7 +32,7 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
   const theme: ITheme = useTheme();
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeLarge={12}>
+      <ResponsiveContainingView size={10}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
           {props.titleText && (
             <Stack.Item gutterSizeAfter={PaddingSize.None}>

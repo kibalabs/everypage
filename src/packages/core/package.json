@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.3.25",
+  "version": "0.4.0",
   "description": "The core sections and constructs for everypage",
   "license": "UNLICENSED",
   "repository": {
@@ -26,9 +26,9 @@
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.2.13",
+    "@kibalabs/build": "0.2.14",
     "@kibalabs/everyview-tracker-react": "0.1.1",
-    "@kibalabs/ui-react": "0.3.25",
+    "@kibalabs/ui-react": "0.4.0",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.0.1",

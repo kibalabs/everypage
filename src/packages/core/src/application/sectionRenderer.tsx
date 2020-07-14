@@ -12,18 +12,6 @@ const sectionMap = (Object.values(sections) as React.ComponentType[]).reduce((pr
   return previousValue;
 }, {});
 
-interface SectionRendererProps {
-  sectionObject: Record<string, any>;
-}
-
-export const SectionRenderer = (props: SectionRendererProps): React.ReactElement => {
-  if (Object.keys(sectionMap).includes(props.sectionObject.type)) {
-    const Component = sectionMap[props.sectionObject.type];
-    return <Component {...props.sectionObject} />;
-  }
-  throw new Error(`Failed to find section with type "${props.sectionObject.type}"`);
-};
-
 export const renderSection = (params: Record<string, any>): React.ReactElement => {
   if (Object.keys(sectionMap).includes(params.type)) {
     const Component = sectionMap[params.type];

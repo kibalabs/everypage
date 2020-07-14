@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
+import { IWrapperProps, defaultWrapperProps } from './wrapperProps';
 import { PaddingSize, getPaddingSize, IDimensionGuide } from '../subatoms/dimensions';
 import { useDimensions } from '../theming';
 
@@ -16,8 +16,7 @@ export interface IPaddingViewPaddingProps {
   padding?: PaddingSize;
 }
 
-export interface IPaddingViewProps extends ISingleAnyChildProps, IPaddingViewPaddingProps {
-  className?: string;
+export interface IPaddingViewProps extends IWrapperProps, IPaddingViewPaddingProps {
   theme?: IDimensionGuide;
 }
 
@@ -42,12 +41,11 @@ export const PaddingView = (props: IPaddingViewProps): React.ReactElement => {
 };
 
 PaddingView.defaultProps = {
-  className: '',
+  ...defaultWrapperProps,
 };
 PaddingView.displayName = 'padding-view';
 
-interface IStyledPaddingViewProps extends ISingleAnyChildProps {
-  className?: string;
+interface IStyledPaddingViewProps extends IWrapperProps {
   theme: IDimensionGuide;
   paddingTop?: PaddingSize;
   paddingBottom?: PaddingSize;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
+import { HidingView } from '../../wrappers';
 import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } from '../..';
 import { IInputWrapperTheme } from './theme';
 
@@ -19,11 +20,11 @@ interface IInputWrapperInnerProps {
 const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
   & input, & textarea, & .wrapped-input {
     /* NOTE(krish): these are all the fields of the ITextTheme, can it be done in one line? */
-    font-size: unset;
-    font-family: unset;
-    font-weight: unset;
-    color: unset;
-    line-height: unset;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    line-height: inherit;
   }
   width: 100%;
   overflow: hidden;
@@ -90,10 +91,12 @@ StyledMessage.displayName = 'input-wrapper-message';
 interface IInputWrapperProps extends IComponentProps<IInputWrapperTheme>, ISingleAnyChildProps {
   messageText?: string;
   isEnabled?: boolean;
-  isFocussed?: boolean;
+  // isFocussed?: boolean;
 }
 
 export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
+  // :focus-within is not supported on all browsers so we manually maintain if this element has a isFocussed child
+  const [isFocussed, setIsFocussed] = React.useState(false);
   const theme = props.theme || useBuiltTheme('inputWrappers', props.mode);
   // TODO(krish): check that the first child is an input, textarea or .wrapped-input
   return (
@@ -103,12 +106,14 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
     >
       <InputWrapperInner
         id={props.id && `${props.id}-inner`}
-        className={getClassName(InputWrapperInner.displayName, props.messageText && 'message-showing', props.isFocussed && 'focus', !props.isEnabled && 'disabled')}
+        className={getClassName(InputWrapperInner.displayName, props.messageText && 'message-showing', isFocussed && 'focus', !props.isEnabled && 'disabled')}
         theme={theme}
+        onFocus={(): void => setIsFocussed(true)}
+        onBlur={(): void => setIsFocussed(false)}
       >
         {props.children}
       </InputWrapperInner>
-      { props.messageText && (
+      <HidingView isHidden={!props.messageText}>
         <StyledMessage
           id={props.id && `${props.id}-message`}
           className={getClassName(StyledMessage.displayName)}
@@ -116,7 +121,7 @@ export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
         >
           {props.messageText}
         </StyledMessage>
-      )}
+      </HidingView>
     </StyledInputWrapper>
   );
 };

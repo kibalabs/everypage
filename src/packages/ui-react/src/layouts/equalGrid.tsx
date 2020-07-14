@@ -6,8 +6,6 @@ import { Grid } from './grid';
 import { IDimensionGuide } from '../subatoms';
 import { Alignment } from '../model';
 
-
-
 export interface IEqualGridProps extends IMultiAnyChildProps {
   id?: string;
   className?: string;

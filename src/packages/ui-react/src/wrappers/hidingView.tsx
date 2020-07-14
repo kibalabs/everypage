@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-export interface IHidingViewProps extends ISingleAnyChildProps {
-  className?: string;
+import { IWrapperProps, defaultWrapperProps } from './wrapperProps';
+
+export interface IHidingViewProps extends IWrapperProps {
   isHidden?: boolean;
 }
 
@@ -20,12 +20,11 @@ export const HidingView = (props: IHidingViewProps): React.ReactElement => {
 };
 
 HidingView.defaultProps = {
-  className: '',
+  ...defaultWrapperProps,
 };
 HidingView.displayName = 'hiding-view';
 
-interface IStyledHidingViewProps extends ISingleAnyChildProps {
-  className?: string;
+interface IStyledHidingViewProps extends IWrapperProps {
   isHidden?: boolean;
 }
 

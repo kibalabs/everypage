@@ -22,7 +22,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
   const theme: ITheme = useTheme();
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeLarge={12}>
+      <ResponsiveContainingView size={10}>
         <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
           <Stack.Item gutterSizeAfter={PaddingSize.None}>
             <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>

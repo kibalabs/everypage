@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
+import { IWrapperProps, defaultWrapperProps } from './wrapperProps';
 import { useDimensions } from '..';
 import { IDimensionGuide } from '../subatoms';
-import { getGridItemSizeCss, columnCountToCss } from '../util';
+import { getGridItemSizeCss } from '../util';
 
-interface IStyledResponsiveContainingViewProps extends ISingleAnyChildProps {
-  className: string;
+interface IStyledResponsiveContainingViewProps extends IWrapperProps {
   theme: IDimensionGuide;
   size?: number;
   sizeSmall?: number;
@@ -18,9 +17,10 @@ interface IStyledResponsiveContainingViewProps extends ISingleAnyChildProps {
 }
 
 export const getGridItemMediaCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string, shouldHideIfNone?: boolean): string => {
+  // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
   return `@media (min-width: ${screenWidth}) {
     max-width: ${getGridItemSizeCss(totalColumnCount, gutterSize, columnCount)};
-    ${shouldHideIfNone ? (columnCount === 0 ? 'display: none' : 'display: initial') : ''};
+    ${shouldHideIfNone ? (columnCount === 0 ? 'display: none' : 'display: block') : ''};
   }`
 }
 
@@ -57,8 +57,7 @@ const StyledResponsiveContainingView = withResponsiveContainingView((props: ISty
   return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
 });
 
-export interface IResponsiveContainingViewProps extends ISingleAnyChildProps {
-  className: string;
+export interface IResponsiveContainingViewProps extends IWrapperProps {
   theme?: IDimensionGuide;
   size?: number;
   sizeSmall?: number;
@@ -85,6 +84,6 @@ export const ResponsiveContainingView = (props: IResponsiveContainingViewProps):
 };
 
 ResponsiveContainingView.defaultProps = {
-  className: '',
+  ...defaultWrapperProps,
 };
 ResponsiveContainingView.displayName = 'responsive-containing-view';
