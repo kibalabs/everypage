@@ -345,6 +345,28 @@ export class CreateSiteVersionResponse extends ResponseData {
   }
 }
 
+export class RetrieveNextVersionNameRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class RetrieveNextVersionNameResponse extends ResponseData {
+  readonly nextVersionName: string;
+
+  public constructor(nextVersionName: string) {
+    super();
+    this.nextVersionName = nextVersionName;
+  }
+
+  public static fromObject = (obj: Record<string, any>): RetrieveNextVersionNameResponse => {
+    return new RetrieveNextVersionNameResponse(
+      String(obj.nextVersionName),
+    );
+  }
+}
+
 export class ListSiteVersionAssetsRequest extends RequestData {
   public constructor() {
     super();

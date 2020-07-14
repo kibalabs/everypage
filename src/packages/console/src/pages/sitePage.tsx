@@ -85,6 +85,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [newCustomDomainApiError, setNewCustomDomainApiError] = React.useState<string | undefined>(undefined);
   const [isNewVersionPopupShowing, setIsNewVersionPopupShowing] = React.useState<boolean>(false);
   const [isTemplateChooserPopupShowing, setIsTemplateChooserPopupShowing] = React.useState<boolean>(false);
+  const [newVersionDefaultName, setNewVersionDefaultName] = React.useState<string | null>(null);
   const [newVersionName, setNewVersionName] = React.useState<string | null>(null);
 
   useInitialization((): void => {
@@ -96,6 +97,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       loadAccount();
       loadVersions();
       loadPrimaryVersion();
+      loadNewVersionDefaultName();
     }
   }, [site]);
 
@@ -135,6 +137,14 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   }
 
+  const loadNewVersionDefaultName = (): void => {
+    everypageClient.retrieve_next_version_name(site.siteId).then((nextVersionName: string) => {
+      setNewVersionDefaultName(nextVersionName);
+    }).catch((error: KibaException): void => {
+      console.log('error', error);
+    });
+  }
+
   const getSiteUrl = (): string => {
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
   }
@@ -153,6 +163,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onCreateNewVersionClicked = (): void => {
+    loadNewVersionDefaultName();
     setIsNewVersionPopupShowing(true);
   }
 
@@ -412,7 +423,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
             margin='normal'
             fullWidth
             name='name'
-            label='Version name'
+            label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
+            placeholder={newVersionDefaultName}
             value={newVersionName}
             onChange={onNewVersionNameChanged}
           />

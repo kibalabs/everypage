@@ -149,6 +149,14 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersion;
   }
 
+  public retrieve_next_version_name = async (siteId: number): Promise<string> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/retrieve-next-version-name`;
+    const request = new Endpoints.RetrieveNextVersionNameRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.RetrieveNextVersionNameResponse);
+    return response.nextVersionName;
+  }
+
   public list_site_version_assets = async (siteId: number, siteVersionId: number): Promise<Resources.AssetFile[]> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets`;
