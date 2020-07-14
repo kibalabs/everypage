@@ -48,7 +48,6 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
   }
 
   React.useEffect(() => {
-    console.log('downloading icon');
     setSvgContent(undefined);
     const iconData = getIconData(props.iconId);
     if (!iconData) {
