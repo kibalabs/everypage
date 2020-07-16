@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+// const webpackBundleAnalyzer = require('webpack-bundle-analyzer');
 
 class CreateRobotsWebpackPlugin {
   apply(compiler) {
@@ -14,9 +15,17 @@ export default () => ({
     // https://github.com/react-static/react-static/pull/1329
     config.output.publicPath = process.env.REACT_STATIC_ASSETS_PATH || '/';
 
-    const plugins = config.plugins;
-    plugins.push(new CreateRobotsWebpackPlugin());
-    config.plugins = plugins;
+    // config.plugins = (config.plugins || []).concat([
+    //   new CreateRobotsWebpackPlugin(),
+    //   new webpackBundleAnalyzer.BundleAnalyzerPlugin({
+    //     analyzerMode: 'json',
+    //     reportFilename: './bundle-size.json',
+    //   }),
+    //   new webpackBundleAnalyzer.BundleAnalyzerPlugin({
+    //     analyzerMode: 'static',
+    //     reportFilename: './bundle-size.html',
+    //   }),
+    // ]);
 
     config.entry = [
       'core-js/stable',

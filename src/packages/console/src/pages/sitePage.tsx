@@ -394,11 +394,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
                       {version.archiveDate ? (
-                        <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'yyyy-MM-dd HH:mm')}</Typography>
                       ) : version.publishDate ? (
-                        <Typography color='textSecondary' className={classes.versionDate}>Published: {dateToString(version.publishDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>Published: {dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}</Typography>
                       ) : (
-                        <Typography color='textSecondary' className={classes.versionDate}>Last updated: {dateToString(version.lastUpdateDate, 'YYYY-MM-DD HH:mm')}</Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>Last updated: {dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}</Typography>
                       )}
                     </Box>
                   );

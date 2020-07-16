@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import { Requester, RestMethod, KibaResponse } from '@kibalabs/core';
 
 import { FormAction, IFormInput } from '../model';
 
@@ -30,15 +30,15 @@ export const submitForm = async (inputs: IFormInput[], action: FormAction, targe
   if (action === FormAction.Open) {
     window.open(`${target}?${paramsToQueryString(params)}`, '_blank')
   } else if (action === FormAction.Get) {
-    return axios.get(target, params).then((response: AxiosResponse): IFormSubmissionResult => {
-      return {isSuccessful: true, responseMessage: response.data};
-    }).catch((error: AxiosError): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.GET, target, params).then((response: KibaResponse): IFormSubmissionResult => {
+      return {isSuccessful: true, responseMessage: response.content};
+    }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
     });
   } else if (action === FormAction.Post) {
-    return axios.post(target, params).then((response: AxiosResponse): IFormSubmissionResult => {
-      return {isSuccessful: true, responseMessage: response.data};
-    }).catch((error: AxiosError): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.POST, target, params).then((response: KibaResponse): IFormSubmissionResult => {
+      return {isSuccessful: true, responseMessage: response.content};
+    }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
     });
   } else {
