@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { IndexPage, replaceAssetPaths, HeadContent, buildEverypageTheme } from '@kibalabs/everypage-core';
+import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
@@ -143,10 +143,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         {!props.isEditorHidden && <div className={classes.verticalLine} />}
         <div className={classes.frameWrapper}>
           <KibaFrame>
-            <React.Fragment>
-              <HeadContent theme={buildEverypageTheme(props.siteTheme)} website={props.siteContent} />
-              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
-            </React.Fragment>
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
           </KibaFrame>
         </div>
       </div>

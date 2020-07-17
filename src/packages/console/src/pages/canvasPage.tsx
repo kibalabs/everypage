@@ -1,7 +1,5 @@
 import React from 'react';
 import { useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { ThemeProvider } from '@kibalabs/ui-react';
-import { buildEverypageTheme } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -87,57 +85,55 @@ export const CanvasPage = (): React.ReactElement => {
   }
 
   return (
-    <ThemeProvider theme={buildEverypageTheme()}>
-      <div className={classes.root}>
-        <div className={classes.topBar}>
+    <div className={classes.root}>
+      <div className={classes.topBar}>
+        <Button
+          variant='outlined'
+          onClick={onStartOverClicked}
+        >Start again</Button>
+        <div className={classes.spacer}/>
+        <div className={classes.topBarSignInBox}>
           <Button
-            variant='outlined'
-            onClick={onStartOverClicked}
-          >Start again</Button>
-          <div className={classes.spacer}/>
-          <div className={classes.topBarSignInBox}>
-            <Button
-              variant='contained'
-              color='primary'
-              href='/register'
-            >Sign in to publish</Button>
-            <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
-          </div>
+            variant='contained'
+            color='primary'
+            href='/register'
+          >Sign in to publish</Button>
+          <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
         </div>
-        {siteContent && <Canvas
-          siteContent={siteContent}
-          onSiteContentUpdated={setSiteContent}
-          siteTheme={siteTheme}
-          onSiteThemeUpdated={setSiteTheme}
-          isEditorHidden={isEditorHidden}
-          onIsEditorHiddenUpdated={setIsEditorHidden}
-          assetFileMap={assetFileMap}
-          addAssetFiles={addAssetFiles}
-        />}
-        <TemplateChooserModal
-          isOpen={!siteContent}
-          onChooseTemplateClicked={onChooseTemplateClicked}
-        />
-        <Dialog
-          open={isShowingStartOverAlert}
-          onClose={onStartOverAlertCloseClicked}
-        >
-          <DialogTitle>Are you sure?</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={onStartOverAlertConfirmClicked} color='secondary' autoFocus>
-              Start over anyway
-            </Button>
-            <Button onClick={onStartOverAlertCloseClicked} color='primary'>
-              Cancel
-            </Button>
-          </DialogActions>
-        </Dialog>
       </div>
-    </ThemeProvider>
+      {siteContent && <Canvas
+        siteContent={siteContent}
+        onSiteContentUpdated={setSiteContent}
+        siteTheme={siteTheme}
+        onSiteThemeUpdated={setSiteTheme}
+        isEditorHidden={isEditorHidden}
+        onIsEditorHiddenUpdated={setIsEditorHidden}
+        assetFileMap={assetFileMap}
+        addAssetFiles={addAssetFiles}
+      />}
+      <TemplateChooserModal
+        isOpen={!siteContent}
+        onChooseTemplateClicked={onChooseTemplateClicked}
+      />
+      <Dialog
+        open={isShowingStartOverAlert}
+        onClose={onStartOverAlertCloseClicked}
+      >
+        <DialogTitle>Are you sure?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onStartOverAlertConfirmClicked} color='secondary' autoFocus>
+            Start over anyway
+          </Button>
+          <Button onClick={onStartOverAlertCloseClicked} color='primary'>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   )
 }

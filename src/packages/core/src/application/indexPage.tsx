@@ -6,6 +6,7 @@ import { WebsiteProvider } from '../util';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
 import { PluginRenderer } from './pluginRenderer';
+import { HeadContent } from './headContent';
 
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
@@ -38,6 +39,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             resetCss={resetCss}
           />
           {props.shouldIncludeHead && <GlobalHead />}
+          {props.shouldIncludeHeadSection && <HeadContent />}
           {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
           <SectionHolder>{ sections }</SectionHolder>
         </React.Fragment>
