@@ -12,6 +12,7 @@ import { resetCss } from './components/resetCss';
 import { HomePage } from './pages/homePage';
 import { SitePage } from './pages/sitePage';
 import { CanvasPage } from './pages/canvasPage';
+import { CanvasSectionPage } from './pages/canvasSectionPage';
 import { LoginPage } from './pages/loginPage';
 import { RegisterPage } from './pages/registerPage';
 import { VerifyEmailPage } from './pages/verifyEmailPage';
@@ -123,6 +124,7 @@ export const App = hot((): React.ReactElement => {
         <GlobalCss resetCss={resetCss} />
         <Router authManager={authManager}>
           <Route path='/canvas' page={CanvasPage}/>
+          <Route path='/canvas-section' page={CanvasSectionPage}/>
           <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
           <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
           <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
