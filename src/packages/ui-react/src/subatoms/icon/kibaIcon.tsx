@@ -30,6 +30,13 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
         shouldAddStroke: false,
       }
     }
+    if (iconId.startsWith('mui-')) {
+      return {
+        url: `https://assets.evrpg.com/material-icons/v1/${iconId.replace('mui-', '')}.svg`,
+        shouldAddFill: true,
+        shouldAddStroke: false,
+      }
+    }
     if (iconId.startsWith('feather-')) {
       return {
         url: `https://assets.evrpg.com/feather/v4/${iconId.replace('feather-', '')}.svg`,

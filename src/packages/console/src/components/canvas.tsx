@@ -47,7 +47,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+  },
+  buttonBarButton: {
+    flexGrow: 1,
   },
   button: {
     backgroundColor: 'transparent',
@@ -122,9 +124,9 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         {!props.isEditorHidden && (
           <div className={classes.editorWrapper}>
             <div className={classes.buttonBar}>
-              <Button className={getClassName(classes.button, selectedType === 'site' && classes.buttonSelected)} onClick={onSiteClicked}>Site</Button>
-              <Button className={getClassName(classes.button, selectedType === 'theme' && classes.buttonSelected)} onClick={onThemeClicked}>Theme</Button>
-              <Button className={getClassName(classes.button, selectedType === 'assets' && classes.buttonSelected)} onClick={onAssetsClicked}>Assets</Button>
+              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'site' && classes.buttonSelected)} onClick={onSiteClicked}>Site</Button>
+              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'theme' && classes.buttonSelected)} onClick={onThemeClicked}>Theme</Button>
+              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'assets' && classes.buttonSelected)} onClick={onAssetsClicked}>Media</Button>
               <div />
               <Button className={classes.button} onClick={onHideEditorClicked}>Hide</Button>
             </div>
