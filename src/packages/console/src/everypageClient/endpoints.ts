@@ -880,6 +880,177 @@ export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
   }
 }
 
+export class ListSectionCategoriesRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class ListSectionCategoriesResponse extends ResponseData {
+  readonly sectionCategories: Resources.SectionCategory[];
+
+  public constructor(sectionCategories: Resources.SectionCategory[]) {
+    super();
+    this.sectionCategories = sectionCategories;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ListSectionCategoriesResponse => {
+    return new ListSectionCategoriesResponse(
+      obj.sectionCategories.map((sectionCategory: Record<string, any>): Resources.SectionCategory => Resources.SectionCategory.fromObject(sectionCategory)),
+    );
+  }
+}
+
+export class CreateSectionCategoryRequest extends RequestData {
+  readonly name: string;
+
+  public constructor(name: string) {
+    super();
+    this.name = name;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      name: this.name,
+    };
+  }
+}
+
+export class CreateSectionCategoryResponse extends ResponseData {
+  readonly sectionCategory: Resources.SectionCategory;
+
+  public constructor(sectionCategory: Resources.SectionCategory) {
+    super();
+    this.sectionCategory = sectionCategory;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreateSectionCategoryResponse => {
+    return new CreateSectionCategoryResponse(
+      Resources.SectionCategory.fromObject(obj.sectionCategory),
+    );
+  }
+}
+
+export class GetSectionCategoryRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetSectionCategoryResponse extends ResponseData {
+  readonly sectionCategory: Resources.SectionCategory;
+
+  public constructor(sectionCategory: Resources.SectionCategory) {
+    super();
+    this.sectionCategory = sectionCategory;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetSectionCategoryResponse => {
+    return new GetSectionCategoryResponse(
+      Resources.SectionCategory.fromObject(obj.sectionCategory),
+    );
+  }
+}
+
+export class ListSectionsRequest extends RequestData {
+  readonly sectionCategoryId: number;
+
+  public constructor(sectionCategoryId: number) {
+    super();
+    this.sectionCategoryId = sectionCategoryId;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      sectionCategoryId: this.sectionCategoryId,
+    };
+  }
+}
+
+export class ListSectionsResponse extends ResponseData {
+  readonly sections: Resources.Section[];
+
+  public constructor(sections: Resources.Section[]) {
+    super();
+    this.sections = sections;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ListSectionsResponse => {
+    return new ListSectionsResponse(
+      obj.sections.map((section: Record<string, any>): Resources.Section => Resources.Section.fromObject(section)),
+    );
+  }
+}
+
+export class CreateSectionRequest extends RequestData {
+  readonly name: string;
+  readonly description: string;
+  readonly sectionType: string;
+  readonly sectionCategoryId: number;
+  readonly previewImageUrl: string;
+  readonly content: Record<string, any>;
+
+  public constructor(name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, any>) {
+    super();
+    this.name = name;
+    this.description = description;
+    this.sectionType = sectionType;
+    this.sectionCategoryId = sectionCategoryId;
+    this.previewImageUrl = previewImageUrl;
+    this.content = content;
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+      name: this.name,
+      description: this.description,
+      sectionType: this.sectionType,
+      sectionCategoryId: this.sectionCategoryId,
+      previewImageUrl: this.previewImageUrl,
+      content: this.content,
+    };
+  }
+}
+
+export class CreateSectionResponse extends ResponseData {
+  readonly section: Resources.Section;
+
+  public constructor(section: Resources.Section) {
+    super();
+    this.section = section;
+  }
+
+  public static fromObject = (obj: Record<string, any>): CreateSectionResponse => {
+    return new CreateSectionResponse(
+      Resources.Section.fromObject(obj.section),
+    );
+  }
+}
+
+export class GetSectionRequest extends RequestData {
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class GetSectionResponse extends ResponseData {
+  readonly section: Resources.Section;
+
+  public constructor(section: Resources.Section) {
+    super();
+    this.section = section;
+  }
+
+  public static fromObject = (obj: Record<string, any>): GetSectionResponse => {
+    return new GetSectionResponse(
+      Resources.Section.fromObject(obj.section),
+    );
+  }
+}
+
 export class GetIosAppRequest extends RequestData {
   public toObject = (): Record<string, any> => {
     return {

@@ -268,6 +268,54 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersionEntry;
   }
 
+  public list_section_categories = async (): Promise<Resources.SectionCategory[]> => {
+    const method = RestMethod.GET;
+    const path = `v1/section-categories`;
+    const request = new Endpoints.ListSectionCategoriesRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.ListSectionCategoriesResponse);
+    return response.sectionCategories;
+  }
+
+  public create_section_category = async (name: string): Promise<Resources.SectionCategory> => {
+    const method = RestMethod.POST;
+    const path = `v1/section-categories`;
+    const request = new Endpoints.CreateSectionCategoryRequest(name);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateSectionCategoryResponse);
+    return response.sectionCategory;
+  }
+
+  public get_section_category = async (sectionCategoryId: number): Promise<Resources.SectionCategory> => {
+    const method = RestMethod.GET;
+    const path = `v1/section-categories/${sectionCategoryId}`;
+    const request = new Endpoints.GetSectionCategoryRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSectionCategoryResponse);
+    return response.sectionCategory;
+  }
+
+  public list_sections = async (sectionCategoryId?: number): Promise<Resources.Section[]> => {
+    const method = RestMethod.GET;
+    const path = `v1/sections`;
+    const request = new Endpoints.ListSectionsRequest(sectionCategoryId);
+    const response = await this.makeRequest(method, path, request, Endpoints.ListSectionsResponse);
+    return response.sections;
+  }
+
+  public create_section = async (name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, any>): Promise<Resources.Section> => {
+    const method = RestMethod.POST;
+    const path = `v1/sections`;
+    const request = new Endpoints.CreateSectionRequest(name, description, sectionType, sectionCategoryId, previewImageUrl, content);
+    const response = await this.makeRequest(method, path, request, Endpoints.CreateSectionResponse);
+    return response.section;
+  }
+
+  public get_section = async (sectionId: number): Promise<Resources.Section> => {
+    const method = RestMethod.GET;
+    const path = `v1/sections/${sectionId}`;
+    const request = new Endpoints.GetSectionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GetSectionResponse);
+    return response.section;
+  }
+
   public get_ios_app = async (iosAppId: string): Promise<Resources.IosApp> => {
     const method = RestMethod.GET;
     const path = `v1/ios-apps/${iosAppId}`;

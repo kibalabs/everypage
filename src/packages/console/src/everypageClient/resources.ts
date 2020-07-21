@@ -230,6 +230,54 @@ export class Template {
   }
 }
 
+export class SectionCategory {
+  readonly sectionCategoryId: number;
+  readonly name: string;
+
+  public constructor(sectionCategoryId: number, name: string) {
+    this.sectionCategoryId = sectionCategoryId;
+    this.name = name;
+  }
+
+  public static fromObject = (obj: Record<string, any>): SectionCategory => {
+    return new SectionCategory(
+      Number(obj.sectionCategoryId),
+      String(obj.name),
+    );
+  }
+}
+
+export class Section {
+  readonly sectionId: number;
+  readonly name: string;
+  readonly description: string;
+  readonly sectionType: string;
+  readonly sectionCategoryId: number;
+  readonly content: Record<string, any>;
+  readonly previewImageUrl: string;
+
+  public constructor(sectionId: number, name: string, description: string, sectionType: string, sectionCategoryId: number, content: Record<string, any>, previewImageUrl: string) {
+    this.sectionId = sectionId;
+    this.name = name;
+    this.description = description;
+    this.sectionType = sectionType;
+    this.sectionCategoryId = sectionCategoryId;
+    this.content = content;
+    this.previewImageUrl = previewImageUrl;
+  }
+
+  public static fromObject = (obj: Record<string, any>): Section => {
+    return new Section(
+      Number(obj.sectionId),
+      String(obj.name),
+      String(obj.description),
+      String(obj.sectionType),
+      Number(obj.sectionCategoryId),
+      obj.content,
+      String(obj.previewImageUrl),
+    );
+  }
+}
 
 export class IosApp {
   readonly iosAppId: string;

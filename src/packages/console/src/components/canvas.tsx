@@ -12,6 +12,8 @@ import Tab from '@material-ui/core/Tab';
 import { KibaFrame } from '../components/kibaFrame';
 import { JsonEditor } from '../components/jsonEditor';
 import { Dropzone, FilePreviewGrid } from '../components/dropzone';
+import { SectionChooserModal } from '../components/sectionChooserModal';
+import { Section } from '../everypageClient';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,6 +96,7 @@ interface ICanvasProps {
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = React.useState(0);
+  const [isSectionChooserShowing, setIsSectionChooserShowing] = React.useState(false);
 
   const onSiteJsonUpdated = (parsedJson: object): void => {
     props.onSiteContentUpdated(parsedJson);
@@ -119,8 +122,16 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setSelectedTab(newValue);
   };
 
-  const onAddSectionClicked = () => {
-    console.log('Not implemented yet');
+  const onAddSectionClicked = (): void => {
+    setIsSectionChooserShowing(true);
+  }
+
+  const onChooseSectionClicked = (section: Section): void => {
+    const newContent = props.siteContent;
+    newContent.sections = newContent.sections || [];
+    newContent.sections.push(section.content);
+    props.onSiteContentUpdated(newContent);
+    setIsSectionChooserShowing(false);
   }
 
   // TODO(krish): use core components here again when the bug below is resolved
@@ -148,10 +159,12 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               <Button variant='outlined' onClick={onHideEditorClicked}>Hide</Button>
             </div>
             <Box className={classes.editor} display={selectedTab === 0 ? 'flex' : 'none'}>
-              <div className={classes.buttonBar2}>
-              <Button variant='outlined' color='primary' onClick={onAddSectionClicked}>Add section</Button>
-              {/* <Button variant='outlined' color='primary' onClick={onAddPluginClicked}>Add plugin</Button> */}
-              </div>
+              {props.isEditable && (
+                <div className={classes.buttonBar2}>
+                  <Button variant='outlined' color='primary' onClick={onAddSectionClicked}>Add section</Button>
+                  {/* <Button variant='outlined' color='primary' onClick={onAddPluginClicked}>Add plugin</Button> */}
+                </div>
+              )}
               <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
             </Box>
             <Box className={classes.editor} display={selectedTab === 1 ? 'flex' : 'none'}>
@@ -175,6 +188,10 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
           <EditIcon />
         </Fab>
       )}
+      <SectionChooserModal
+        isOpen={isSectionChooserShowing}
+        onChooseSectionClicked={onChooseSectionClicked}
+      />
     </React.Fragment>
   )
 }

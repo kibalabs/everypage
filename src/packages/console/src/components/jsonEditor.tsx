@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import deepEqual from 'fast-deep-equal';
 import JSONEditor, { NodeName } from 'jsoneditor';
 import 'jsoneditor/dist/jsoneditor.css';
 
@@ -68,11 +69,20 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
         mainMenuBar: false,
         statusBar: false,
       });
-      newEditor.set(props.json);
       setEditor(newEditor);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect((): void => {
+    if (!editor) {
+      return;
+    }
+    const currentJson = editor.get();
+    if (!deepEqual(props.json, currentJson)) {
+      editor.update(props.json);
+    }
+  }, [props.json, editor]);
 
   return (
     <StyledJsonEditor
