@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { KibaFrame } from '../components/kibaFrame';
 import { JsonEditor } from '../components/jsonEditor';
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     height: '100%',
     width: '500px',
+    backgroundColor: 'white',
   },
   editor: {
     flexGrow: 1,
@@ -43,17 +45,28 @@ const useStyles = makeStyles((theme) => ({
     left: theme.spacing(2),
   },
   buttonBar: {
-    backgroundColor: '#333333',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
   },
-  buttonBarButton: {
+  buttonBar2: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    padding: theme.spacing(1),
+  },
+  tabBar: {
     flexGrow: 1,
+    flexShrink: 1,
+    margin: theme.spacing(0, 1, 0, 0),
   },
-  button: {
-    backgroundColor: 'transparent',
-    color: 'white',
+  tab: {
+    minWidth: '120px',
   },
   buttonSelected: {
     backgroundColor: '#111111',
@@ -80,7 +93,7 @@ interface ICanvasProps {
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const classes = useStyles();
-  const [selectedType, setSelectedType] = React.useState<'site' | 'theme' | 'assets'>('site');
+  const [selectedTab, setSelectedTab] = React.useState(0);
 
   const onSiteJsonUpdated = (parsedJson: object): void => {
     props.onSiteContentUpdated(parsedJson);
@@ -102,16 +115,12 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     props.onIsEditorHiddenUpdated(false);
   }
 
-  const onSiteClicked = (): void => {
-    setSelectedType('site');
-  }
+  const onSelectedTabChanged = (event: React.ChangeEvent, newValue: number) => {
+    setSelectedTab(newValue);
+  };
 
-  const onThemeClicked = (): void => {
-    setSelectedType('theme');
-  }
-
-  const onAssetsClicked = (): void => {
-    setSelectedType('assets');
+  const onAddSectionClicked = () => {
+    console.log('Not implemented yet');
   }
 
   // TODO(krish): use core components here again when the bug below is resolved
@@ -124,19 +133,31 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         {!props.isEditorHidden && (
           <div className={classes.editorWrapper}>
             <div className={classes.buttonBar}>
-              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'site' && classes.buttonSelected)} onClick={onSiteClicked}>Site</Button>
-              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'theme' && classes.buttonSelected)} onClick={onThemeClicked}>Theme</Button>
-              <Button className={getClassName(classes.buttonBarButton, classes.button, selectedType === 'assets' && classes.buttonSelected)} onClick={onAssetsClicked}>Media</Button>
-              <div />
-              <Button className={classes.button} onClick={onHideEditorClicked}>Hide</Button>
+              <Tabs
+                className={classes.tabBar}
+                value={selectedTab}
+                onChange={onSelectedTabChanged}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+              >
+                <Tab label="Site" className={classes.tab} />
+                <Tab label="Theme" className={classes.tab} />
+                <Tab label="Media" className={classes.tab} />
+              </Tabs>
+              <Button variant='outlined' onClick={onHideEditorClicked}>Hide</Button>
             </div>
-            <Box className={classes.editor} display={selectedType === 'site' ? 'flex' : 'none'}>
+            <Box className={classes.editor} display={selectedTab === 0 ? 'flex' : 'none'}>
+              <div className={classes.buttonBar2}>
+              <Button variant='outlined' color='primary' onClick={onAddSectionClicked}>Add section</Button>
+              {/* <Button variant='outlined' color='primary' onClick={onAddPluginClicked}>Add plugin</Button> */}
+              </div>
               <JsonEditor isEditable={props.isEditable} name='site' json={props.siteContent} onJsonUpdated={onSiteJsonUpdated}/>
             </Box>
-            <Box className={classes.editor} display={selectedType === 'theme' ? 'flex' : 'none'}>
+            <Box className={classes.editor} display={selectedTab === 1 ? 'flex' : 'none'}>
               <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onThemeJsonUpdated}/>
             </Box>
-            <Box className={classes.editor} display={selectedType === 'assets' ? 'flex' : 'none'}>
+            <Box className={classes.editor} display={selectedTab === 2 ? 'flex' : 'none'}>
               {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
               <FilePreviewGrid fileMap={props.assetFileMap}/>
             </Box>

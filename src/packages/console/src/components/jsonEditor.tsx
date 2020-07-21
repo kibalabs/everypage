@@ -65,6 +65,8 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
         onEditable: ((): boolean => props.isEditable),
         mode: 'code',
         modes: ['code', 'tree'],
+        mainMenuBar: false,
+        statusBar: false,
       });
       newEditor.set(props.json);
       setEditor(newEditor);
