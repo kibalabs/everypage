@@ -100,7 +100,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
       setSectionCategories(sectionCategories);
       setSelectedSectionCategoryId(sectionCategories[0].sectionCategoryId);
     }).catch((error: Error): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSectionCategories(null);
     });
   });
@@ -109,7 +109,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
     everypageClient.list_sections(selectedSectionCategoryId).then((sections: Section[]) => {
       setSections(sections);
     }).catch((error: Error): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSections(null);
     });
   }, [selectedSectionCategoryId]);

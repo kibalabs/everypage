@@ -59,7 +59,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
       requester.makeRequest(RestMethod.GET, `https://api.everypagehq.com/v1/ios-apps/${props.iosAppId}`).then((response: KibaResponse): void => {
         setIosAppData(JSON.parse(response.content).iosApp);
       }).catch((error: Error): void => {
-        console.log('error', error);
+        console.error('error', error);
         setIosAppData(null);
       });
     }
@@ -67,7 +67,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
       requester.makeRequest(RestMethod.GET, `https://api.everypagehq.com/v1/android-apps/${props.androidAppId}`).then((response: KibaResponse): void => {
         setAndroidAppData(JSON.parse(response.content).androidApp);
       }).catch((error: Error): void => {
-        console.log('error', error);
+        console.error('error', error);
         setAndroidAppData(null);
       });
     }

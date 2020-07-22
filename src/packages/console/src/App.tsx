@@ -108,7 +108,7 @@ const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
-    console.log(`\n\n\nRunning everypage console version: ${window.KRT_VERSION}\n\n\n`);
+    console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refresh_token();
     }

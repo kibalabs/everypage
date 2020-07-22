@@ -105,7 +105,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.get_account(Number(site.accountId)).then((account: Account) => {
       setAccount(account);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setAccount(null);
     });
   }
@@ -114,7 +114,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
       setSite(site);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSite(null);
     });
   }
@@ -123,7 +123,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.list_site_versions(site.siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setVersions([]);
     });
   }
@@ -132,7 +132,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.get_site_primary_version(site.siteId).then((siteVersion: SiteVersion) => {
       setPrimaryVersionId(siteVersion.siteVersionId);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setPrimaryVersionId(undefined);
     });
   }
@@ -141,7 +141,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     everypageClient.retrieve_next_version_name(site.siteId).then((nextVersionName: string) => {
       setNewVersionDefaultName(nextVersionName);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
     });
   }
 
@@ -157,7 +157,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       loadSite();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setIsLoading(false);
     });
   }
@@ -187,7 +187,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setIsLoading(false);
     });
   }
@@ -199,7 +199,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setIsLoading(false);
     });
   };
@@ -239,7 +239,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       setNewCustomDomainError(undefined);
       setNewCustomDomainApiError(undefined);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setNewCustomDomainApiError(error.message);
     });
   }
@@ -253,7 +253,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       setNewCustomDomainError(undefined);
       setNewCustomDomainApiError(undefined);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
     });
   }
 

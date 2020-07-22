@@ -100,7 +100,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
       setTemplateCategories(templateCategories);
       setSelectedTemplateCategoryId(templateCategories[0].templateCategoryId);
     }).catch((error: Error): void => {
-      console.log('error', error);
+      console.error('error', error);
       setTemplateCategories(null);
     });
   });
@@ -109,7 +109,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
     everypageClient.list_templates(selectedTemplateCategoryId).then((templates: Template[]) => {
       setTemplates(templates);
     }).catch((error: Error): void => {
-      console.log('error', error);
+      console.error('error', error);
       setTemplates(null);
     });
   }, [selectedTemplateCategoryId]);

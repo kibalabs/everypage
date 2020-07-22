@@ -22,7 +22,7 @@ export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
       script.setAttribute('crossorigin', '*');
       document.head.appendChild(script);
     } else {
-      console.log('Could not set up CrispChat since document is not set.')
+      console.warn('Could not set up TawkToChat since document is not set.')
     }
   });
 

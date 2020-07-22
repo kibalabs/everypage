@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
-import { Canvas } from '../components/canvas';
+import { MemoCanvas } from '../components/canvas';
 import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
 
@@ -86,7 +86,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
       setSite(site);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSite(null);
     });
   }
@@ -95,7 +95,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     everypageClient.get_site_version(site.siteId, Number(props.siteVersionId)).then((siteVersion: SiteVersion) => {
       setSiteVersion(siteVersion);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSiteVersion(null);
     });
   }
@@ -106,7 +106,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       setSiteContent(siteVersionEntry.siteContent);
       setSiteTheme(siteVersionEntry.siteTheme);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSiteVersionEntry(null);
     });
   }
@@ -118,7 +118,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         return currentMap;
       }, {}));
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setSiteVersionEntry(null);
     });
   }
@@ -144,12 +144,11 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
     if (!siteVersion.publishDate && (isSiteContentChanged || isSiteThemeChanged)) {
       everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
-        console.log('saving...');
         setIsSiteContentChanged(false);
         setIsSiteThemeChanged(false);
         setSavingError(null);
       }).catch((exception: KibaException): void => {
-        console.log(`Error saving: ${exception}`)
+        console.error(`Error saving: ${exception}`)
         setSavingError(exception);
       });
     }
@@ -179,7 +178,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         });
       });
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
     });
   };
 
@@ -213,7 +212,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 }
               />
             </Box>
-            <Canvas
+            <MemoCanvas
               isEditable={isEditable}
               isHeadShown={isHeadShown}
               siteContent={siteContent}

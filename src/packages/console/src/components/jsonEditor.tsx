@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import deepEqual from 'fast-deep-equal';
+import { deepCompare } from '@kibalabs/core'
+import { useDeepCompareEffect } from '@kibalabs/core-react'
 import JSONEditor, { NodeName } from 'jsoneditor';
 import 'jsoneditor/dist/jsoneditor.css';
 
@@ -33,7 +34,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     try {
       props.onJsonUpdated(JSON.parse(jsonText));
     } catch (error) {
-      console.log('Caught error when parsing json')
+      console.warn('Caught error when parsing json')
     }
   };
 
@@ -74,15 +75,17 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect((): void => {
-    if (!editor) {
-      return;
-    }
-    const currentJson = editor.get();
-    if (!deepEqual(props.json, currentJson)) {
+  useDeepCompareEffect((): void => {
+    if (editor && !deepCompare(props.json, editor.get())) {
       editor.update(props.json);
     }
-  }, [props.json, editor]);
+  }, [props.json]);
+
+  React.useEffect((): void => {
+    if (editor) {
+      editor.update(props.json);
+    }
+  }, [editor]);
 
   return (
     <StyledJsonEditor

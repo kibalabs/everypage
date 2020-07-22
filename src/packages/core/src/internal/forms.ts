@@ -42,7 +42,7 @@ export const submitForm = async (inputs: IFormInput[], action: FormAction, targe
       return {isSuccessful: false, responseMessage: error.message};
     });
   } else {
-    console.log(`Unknown form action ${action}`);
+    console.warn(`Unknown form action ${action}`);
     return {isSuccessful: false, responseMessage: 'Something went wrong please try again later.'};
   }
 };

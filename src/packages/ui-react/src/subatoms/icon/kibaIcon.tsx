@@ -58,7 +58,7 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
     setSvgContent(undefined);
     const iconData = getIconData(props.iconId);
     if (!iconData) {
-      console.log(`Failed to identify icon type from iconId: ${props.iconId}`);
+      console.warn(`Failed to identify icon type from iconId: ${props.iconId}`);
       return;
     }
     setShouldAddFill(iconData.shouldAddFill);

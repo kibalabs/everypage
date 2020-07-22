@@ -66,7 +66,7 @@ export const CanvasPage = (): React.ReactElement => {
       setSiteContent(siteVersionEntry.siteContent);
       setSiteTheme(siteVersionEntry.siteTheme);
     }).catch((error: Error): void => {
-      console.log('error', error);
+      console.error('error', error);
     });
   };
 

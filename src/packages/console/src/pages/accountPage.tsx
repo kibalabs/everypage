@@ -122,7 +122,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     everypageClient.get_account(Number(props.accountId)).then((account: Account) => {
       setAccount(account);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setAccount(null);
     });
   }
@@ -131,7 +131,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     everypageClient.retrieve_sites_for_account(Number(props.accountId)).then((sites: Site[]): void => {
       setAccountSites(sites);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setAccountSites(null);
     });
   }
@@ -226,7 +226,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       }
       setIsUpgradeDialogLoading(false);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       if (error.message.includes('Coupon not found')) {
         setUpgradeDiscountCodeError('This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘')
       } else {

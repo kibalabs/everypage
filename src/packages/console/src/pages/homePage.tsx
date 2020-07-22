@@ -68,7 +68,7 @@ export const HomePage = (): React.ReactElement => {
     everypageClient.retrieve_accounts().then((accounts: Account[]) => {
       setAccounts(accounts);
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setAccounts(null);
     });
   }

@@ -74,7 +74,7 @@ export const CreateSitePage = (): React.ReactElement => {
         setSelectedAccountId(accounts[0].accountId);
       }
     }).catch((error: KibaException): void => {
-      console.log('error', error);
+      console.error('error', error);
       setAccounts(null);
     });
   }

@@ -7,7 +7,6 @@ import * as chokidar from 'chokidar';
 import * as everypageCore from '@kibalabs/everypage-core';
 
 export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
-  console.log(`Copying directory from ${sourceDirectory} to ${targetDirectory}`);
   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
     throw new Error(`copyDirectorySync must be called with a directory. source ${sourceDirectory} is not a directory`);
   }
