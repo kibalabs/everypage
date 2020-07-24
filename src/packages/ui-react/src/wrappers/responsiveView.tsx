@@ -37,7 +37,7 @@ interface IStyledResponsiveViewProps extends IWrapperProps {
 
 const withResponsiveView = (Component: React.ComponentType<IStyledResponsiveViewProps>): React.ComponentType => styled(Component)<IStyledResponsiveViewProps>`
   ${(props: IStyledResponsiveViewProps): string => props.hiddenBelowSize ? `@media (max-width: ${props.hiddenBelowSize}) {display: none !important;}` : ''};
-  ${(props: IStyledResponsiveViewProps): string => props.hiddenAboveSize ? `@media (min-width: ${props.hiddenAboveSize}) {display: none !important;}` : ''};
+  ${(props: IStyledResponsiveViewProps): string => props.hiddenAboveSize ? `@media not all and (max-width: ${props.hiddenAboveSize}) {display: none !important;}` : ''};
 `;
 
 const StyledResponsiveView = withResponsiveView((props: IStyledResponsiveViewProps): React.ReactElement => {
