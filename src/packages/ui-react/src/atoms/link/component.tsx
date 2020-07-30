@@ -43,7 +43,7 @@ export interface ILinkProps extends IComponentProps<ILinkTheme> {
 }
 
 export const Link = (props: ILinkProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('links', props.mode);
+  const theme = useBuiltTheme('links', props.mode, props.theme);
   return (
     <StyledLink
       id={props.id}

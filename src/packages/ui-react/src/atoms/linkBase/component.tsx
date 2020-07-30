@@ -72,7 +72,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
     }
   };
 
-  const theme = props.theme || useBuiltTheme('linkBases', props.mode);
+  const theme = useBuiltTheme('linkBases', props.mode, props.theme);
   return (
     <StyledLinkBase
       id={props.id}

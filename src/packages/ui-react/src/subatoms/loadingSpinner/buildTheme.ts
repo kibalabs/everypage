@@ -19,6 +19,7 @@ export const buildLoadingSpinnerThemes = (colors: IColorGuide, dimensions: IDime
   }, base?.dark);
 
   return {
+    ...base,
     default: defaultLoadingSpinnerTheme,
     light: lightLoadingSpinnerTheme,
     dark: darkLoadingSpinnerTheme,

@@ -1,8 +1,9 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Markdown, Stack, Alignment, ResponsiveContainingView, TextAlignment, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
+import { SectionTitleText, SectionSubtitleText } from '../components';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -33,29 +34,27 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
-        <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          {props.titleText && (
-            <Stack.Item gutterSizeAfter={PaddingSize.None}>
-              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
-            </Stack.Item>
-          )}
-          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
-            {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
-              <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
-                <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
-                    { getIcon(box.type, theme.colors.brandPrimary) }
-                    <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
+        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
+          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
+              {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
+                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
+                      { getIcon(box.type, theme.colors.brandPrimary) }
+                      <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
+                    </Stack>
+                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Narrow}>
+                      <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
+                    </Stack.Item>
                   </Stack>
-                  <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Narrow}>
-                    <Markdown rootTextAlignment={TextAlignment.Left} source={box.text} />
-                  </Stack.Item>
-                </Stack>
-              </Box>
-            ))}
-          </EqualGrid>
-        </Stack>
+                </Box>
+              ))}
+            </EqualGrid>
+          </Stack>
+        </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
     </Section>
   );

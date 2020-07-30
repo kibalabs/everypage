@@ -17,7 +17,7 @@ export interface IIndexPageProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
-  const resolvedPageTheme = buildEverypageTheme(props.pageTheme);
+  const resolvedPageTheme = React.useMemo((): ITheme => buildEverypageTheme(props.pageTheme), [props.pageTheme]);
   const sections = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
     renderSection({...sectionObject, key: index})
   ));
@@ -31,8 +31,8 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   // TODO(krish): add validation for the website information
 
   return (
-    <WebsiteProvider website={props.pageContent}>
-      <ThemeProvider theme={resolvedPageTheme}>
+    <ThemeProvider theme={resolvedPageTheme}>
+      <WebsiteProvider website={props.pageContent}>
         <React.Fragment>
           <GlobalCss
             theme={resolvedPageTheme}
@@ -43,8 +43,8 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
           {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
           <SectionHolder>{ sections }</SectionHolder>
         </React.Fragment>
-      </ThemeProvider>
-    </WebsiteProvider>
+      </WebsiteProvider>
+    </ThemeProvider>
   )
 }
 IndexPage.defaultProps = {

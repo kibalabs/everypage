@@ -17,6 +17,7 @@ import { buildIconButtonThemes } from '../atoms/iconButton';
 import { buildInputWrapperThemes } from '../atoms/inputWrapper';
 import { buildLinkThemes } from '../atoms/link';
 import { buildLinkBaseThemes } from '../atoms/linkBase';
+import { buildPrettyTextThemes } from '../atoms/prettyText';
 
 export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const colors = buildColors(inputTheme?.colors);
@@ -37,6 +38,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const inputWrapperThemes = buildInputWrapperThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.inputWrappers);
   const linkBaseThemes = buildLinkBaseThemes(colors, dimensions, boxThemes, inputTheme?.linkBases);
   const linkThemes = buildLinkThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.links);
+  const prettyTextThemes = buildPrettyTextThemes(colors, dimensions, textThemes, inputTheme?.prettyTexts);
 
   return merge<ITheme>({
     // Base
@@ -60,6 +62,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     inputWrappers: inputWrapperThemes,
     linkBases: linkBaseThemes,
     links: linkThemes,
+    prettyTexts: prettyTextThemes,
   }, inputTheme, {
     // NOTE(krish): this is here so the font replacement doesn't get overridden
     fonts: fonts,

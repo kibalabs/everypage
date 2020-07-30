@@ -1,4 +1,5 @@
 import React from 'react';
+import { RecursivePartial} from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
 import { ITheme, ThemeType } from '..';
@@ -39,25 +40,27 @@ export function useColors(): IColorGuide {
   return theme.colors;
 }
 
-export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: string): Theme => {
+export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: string, override?: RecursivePartial<Theme>): Theme => {
   const theme = useTheme();
-  const componentThemes = theme[component];
-  if (!componentThemes) {
-    throw Error(`Could not find component ${component} in current theme. Valid keys are: ${Object.keys(theme)}`);
-  }
-  let builtTheme: Theme = componentThemes.default;
-  let modes = mode.split('-');
-  modes = modes.splice(modes.lastIndexOf('default') + 1);
-  modes.forEach((mode: string): void => {
-    if (!mode) {
-      return;
+  return React.useMemo((): Theme => {
+    const componentThemes = theme[component];
+    if (!componentThemes) {
+      throw Error(`Could not find component ${component} in current theme. Valid keys are: ${Object.keys(theme)}`);
     }
-    const modeTheme = componentThemes[mode];
-    if (!modeTheme) {
-      console.error(`Failed for find mode ${mode} in ${component} themes`);
-      return;
+    let modes = mode.split('-').filter((modePart: string): boolean => modePart.length > 0);
+    const themeParts = modes.splice(modes.lastIndexOf('default') + 1).reduce((value: RecursivePartial<Theme>[], mode: string): RecursivePartial<Theme>[] => {
+      const modeTheme = componentThemes[mode];
+      if (modeTheme) {
+        value.push(modeTheme);
+      } else {
+        console.error(`Failed to find mode ${mode} in ${component} themes`);
+      }
+      return value;
+    }, []);
+    if (override) {
+      themeParts.push(override);
     }
-    builtTheme = mergeTheme(builtTheme, componentThemes[mode]);
-  });
-  return builtTheme;
+    const builtTheme = mergeTheme(componentThemes.default, ...themeParts);
+    return builtTheme;
+  }, [theme, mode, override]);
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Markdown, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Text, Direction, PaddingSize } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Text, Direction, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
+import { SectionTitleText, SectionSubtitleText } from '../components';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -20,25 +21,23 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
   return (
     <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
-        <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          {props.titleText && (
-            <Stack.Item gutterSizeAfter={PaddingSize.None}>
-              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
-            </Stack.Item>
-          )}
-          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={4} childSizeSmall={6}>
-            {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
-              <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
-                <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
-                  <Text alignment={TextAlignment.Center} mode='supersize'>{box.value}</Text>
-                  <Spacing direction={Direction.Vertical} mode='narrow' />
-                  <Markdown rootTextAlignment={TextAlignment.Center} source={box.name} />
-                </Stack>
-              </Box>
-            ))}
-          </EqualGrid>
-        </Stack>
+        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
+          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={3} childSizeMedium={4} childSizeSmall={6}>
+              {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
+                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                  <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
+                    <Text alignment={TextAlignment.Center} mode='supersize'>{box.value}</Text>
+                    <Spacing direction={Direction.Vertical} mode='narrow' />
+                    <MarkdownText textAlignment={TextAlignment.Center} source={box.name} />
+                  </Stack>
+                </Box>
+              ))}
+            </EqualGrid>
+          </Stack>
+        </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
     </Section>
   );

@@ -2,14 +2,12 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getClassName } from '@kibalabs/core';
 
-import { Box, Text, TextAlignment, Media } from '..';
+import { Box, PrettyText, TextAlignment, Media } from '..';
 
 interface IMarkdownProps {
   id?: string;
   className?: string;
   source: string;
-  rootTextAlignment?: TextAlignment;
-  rootTextMode?: string;
   rootBoxMode?: string;
 }
 
@@ -30,19 +28,10 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
   }
 
   const renderers: ReactMarkdown.Renderers = {
+    // TODO(krish): this should use pretty text eventually
+    // NOTE(krish): full list here: https://github.com/rexxars/react-markdown/blob/master/src/renderers.js
     root: (rendererProps: object): React.ReactElement => {
-      // TODO(krish): log error if root*Mode is provided but root is a different type
-      const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
-      return React.Children.count(rendererProps.children).length === 1 || childrenKeys[0] === 'text' ? (
-        <Text
-          id={props.id}
-          mode={props.rootTextMode}
-          alignment={props.rootTextAlignment}
-          className={rendererProps.className}
-        >
-          {rendererProps.children}
-        </Text>
-      ) : (
+      return (
         <Box
           id={props.id}
           mode={props.rootBoxMode}
@@ -57,7 +46,17 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
     },
     paragraph: (rendererProps: object): React.ReactElement => {
       const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
-      return (<Text alignment={childrenKeys.indexOf('image') > -1 ? TextAlignment.Center : TextAlignment.Left}>{rendererProps.children}</Text>);
+      const isCaption = childrenKeys.indexOf('image') > -1;
+      return (<PrettyText mode='paragraph' alignment={isCaption ? TextAlignment.Center : TextAlignment.Left}>{rendererProps.children}</PrettyText>);
+    },
+    heading: (rendererProps: object): React.ReactElement => {
+      return <PrettyText mode={`header${rendererProps.level}`} alignment={TextAlignment.Left}>{rendererProps.children}</PrettyText>;
+    },
+    emphasis: (rendererProps: object): React.ReactElement => {
+      return <PrettyText mode='emphasis'>{rendererProps.children}</PrettyText>;
+    },
+    strong: (rendererProps: object): React.ReactElement => {
+      return <PrettyText mode='strong'>{rendererProps.children}</PrettyText>;
     },
   };
 
@@ -77,4 +76,4 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
 Markdown.defaultProps = {
   className: '',
 };
-Markdown.displayName = 'markdown-text';
+Markdown.displayName = 'markdown';

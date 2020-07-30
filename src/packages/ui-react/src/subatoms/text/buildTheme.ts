@@ -14,6 +14,7 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'line-height': '1.5em',
     'text-decoration': 'none',
     'margin': '0',
+    'text-align': 'inherit',
   }, base?.default);
 
   const inverseTextTheme = mergeThemePartial<ITextTheme>({
@@ -24,7 +25,6 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
   }, base?.inline);
 
   const paragraphTextTheme = mergeThemePartial<ITextTheme>({
-    'margin': '0.5em 0',
   }, base?.paragraph);
 
   const boldTextTheme = mergeThemePartial<ITextTheme>({
@@ -75,74 +75,73 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
   // /////////////
 
   const headerTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '2.4em',
+    'font-size': '2.4rem',
     'font-weight': 'bold',
     'color': '#171717',
-    'margin': '0.67em 0',
     'line-height': '1.2em',
   }, base?.header);
 
-  const header1TextTheme = headerTextTheme;
+  const header1TextTheme = mergeThemePartial(headerTextTheme, base?.header1);
 
   const titleTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '2.0em',
+    'font-size': '2.0rem',
     'font-weight': 'bold',
     'color': '#171717',
-    'margin': '0.67em 0',
     'line-height': '1.2em',
   }, base?.title);
 
-  const header2TextTheme = titleTextTheme;
+  const header2TextTheme = mergeThemePartial(titleTextTheme, base?.header2);
 
   const subtitleTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.6em',
+    'font-size': '1.6rem',
     'font-weight': 'bold',
     'color': '#171717',
-    'margin': '0.5em 0',
     'line-height': '1.2em',
   }, base?.subtitle);
 
-  const header3TextTheme = subtitleTextTheme;
+  const header3TextTheme = mergeThemePartial(subtitleTextTheme, base?.header3);
 
   const header4TextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.4em',
+    'font-size': '1.4rem',
     'font-weight': 'bold',
     'color': '#171717',
     'text-decoration': 'underline',
     'line-height': '1.2em',
-    'margin': '0.4em 0',
-  });
+  }, base.header4);
 
   const header5TextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.2em',
+    'font-size': '1.2rem',
     'font-weight': 'bold',
     'color': '#171717',
     'line-height': '1.2em',
-    'margin': '0.3em 0',
-  });
+  }, base.header5);
 
   const header6TextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.1em',
+    'font-size': '1.1rem',
     'font-weight': 'bold',
     'color': '#171717',
     'line-height': '1.2em',
-    'margin': '0.2em 0',
-  });
+  }, base.header6);
 
   const noteTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '0.8em',
+    'font-size': '0.8rem',
     'color': '#777777',
   }, base?.note);
 
   const supersizeTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '3em',
+    'font-size': '3rem',
   }, base?.supersize);
 
-  const nomarginTextTheme = mergeThemePartial<ITextTheme>({
+  const unmarginedTextTheme = mergeThemePartial<ITextTheme>({
     'margin': '0',
-  }, base?.nomargin);
+  }, base?.unmargined);
+
+  const marginedTextTheme = mergeThemePartial<ITextTheme>({
+    'margin': '1em 0 0.5em 0',
+  }, base?.margined);
 
   return {
+    ...base,
     default: textTheme,
     paragraph: paragraphTextTheme,
     inline: inlineTextTheme,
@@ -169,6 +168,7 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     header6: header6TextTheme,
     note: noteTextTheme,
     supersize: supersizeTextTheme,
-    nomargin: nomarginTextTheme,
+    unmargined: unmarginedTextTheme,
+    margined: marginedTextTheme,
   };
 }

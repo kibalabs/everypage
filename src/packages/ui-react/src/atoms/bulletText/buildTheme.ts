@@ -21,6 +21,7 @@ export const buildBulletTextThemes = (colors: IColorGuide, dimensions: IDimensio
   }, base?.default);
 
   return {
+    ...base,
     default: defaultBulletTextTheme,
   };
 }

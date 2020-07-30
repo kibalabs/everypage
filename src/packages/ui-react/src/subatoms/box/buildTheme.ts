@@ -60,6 +60,7 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   }, base?.focussed);
 
   return {
+    ...base,
     default: defaultBoxTheme,
     transparent: transparentBoxTheme,
     padded: paddedBoxTheme,

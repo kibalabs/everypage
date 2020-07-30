@@ -13,8 +13,11 @@ interface IStyledContainingViewProps extends IWrapperProps {
 const withContainingView = (Component: React.ComponentType<IStyledContainingViewProps>): React.ComponentType => styled(Component)<IStyledContainingViewProps>`
   width: 100%;
   max-width: ${(props: IStyledContainingViewProps): string => props.theme.screenWidthMax};
-  margin-right: auto;
-  margin-left: auto;
+
+  &.centered {
+    margin-right: auto;
+    margin-left: auto;
+  }
 `;
 
 const StyledContainingView = withContainingView((props: IStyledContainingViewProps): React.ReactElement => {
@@ -25,13 +28,14 @@ const StyledContainingView = withContainingView((props: IStyledContainingViewPro
 
 export interface IContainingViewProps extends IWrapperProps {
   theme?: IDimensionGuide;
+  isCenteredHorizontally: boolean;
 }
 
 export const ContainingView = (props: IContainingViewProps): React.ReactElement => {
   const theme = props.theme || useDimensions();
   return (
     <StyledContainingView
-      className={getClassName(ContainingView.displayName, props.className)}
+      className={getClassName(ContainingView.displayName, props.className, props.isCenteredHorizontally && 'centered')}
       theme={theme}
     >
       {props.children}
@@ -40,6 +44,7 @@ export const ContainingView = (props: IContainingViewProps): React.ReactElement 
 };
 
 ContainingView.defaultProps = {
-  defaultWrapperProps,
+  ...defaultWrapperProps,
+  isCenteredHorizontally: true,
 };
 ContainingView.displayName = 'containing-view';

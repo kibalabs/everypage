@@ -39,7 +39,7 @@ interface IBoxProps extends IComponentProps<IBoxTheme>, ISingleAnyChildProps {
 }
 
 export const Box = (props: IBoxProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('boxes', props.mode);
+  const theme = useBuiltTheme('boxes', props.mode, props.theme);
   let width = props.width || (props.isFullWidth ? '100%' : 'auto');
   let height = props.height || (props.isFullHeight ? '100%' : 'auto');
   const blockType = width === '100%' ? 'block' : 'inline-block';

@@ -1,10 +1,11 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Image, Media, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveView } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveView, ResponsiveContainingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
+import { HeroSectionTitleText, SectionSubtitleText } from '../components';
 
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -54,94 +55,84 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     <Section {...props as ISectionProps} className={getClassName(HeroSignupMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
         <Grid childAlignment={Alignment.Center}>
-          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+        { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
             <Grid.Item size={0} sizeMedium={4}>
-              <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          <Grid.Item size={1} />
-          <Grid.Item size={10} sizeMedium={5}>
-            <Stack direction={Direction.Vertical}>
-              { props.logoImageUrl && (
-                <React.Fragment>
-                  <Grid>
-                    <Grid.Item size={1} />
-                    <Grid.Item size={10}>
-                      <Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' />
-                    </Grid.Item>
-                  </Grid>
-                  <Spacing mode={PaddingSize.ExtraExtraWide} />
-                </React.Fragment>
-              )}
-              <Markdown rootTextMode='header' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
-              {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>}
-              <Spacing mode={PaddingSize.ExtraWide} />
-              <Form onFormSubmitted={onFormSubmitted}>
-                <React.Fragment>
-                  <ResponsiveView hiddenBelow={ScreenSize.Small}>
-                    <Stack direction={Direction.Horizontal}>
-                      <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
-                        <SingleLineInput
-                          inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                          inputType={props.inputType}
-                          name={props.inputName}
-                          placeholderText={props.inputPlaceholderText}
-                          value={input}
-                          onValueChanged={onInputValueChanged}
-                          messageText={errorMessage || successMessage}
+          <Grid.Item size={2} sizeMedium={1} />
+          <Grid.Item size={8} sizeMedium={5}>
+            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
+                <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.ExtraExtraWide} contentAlignment={Alignment.Center} contentAlignmentMedium={Alignment.Start}>
+                {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+                {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+                {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+                <Form onFormSubmitted={onFormSubmitted}>
+                  <React.Fragment>
+                    <ResponsiveView hiddenBelow={ScreenSize.Small}>
+                      <Stack direction={Direction.Horizontal}>
+                        <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                          <SingleLineInput
+                            inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                            inputType={props.inputType}
+                            name={props.inputName}
+                            placeholderText={props.inputPlaceholderText}
+                            value={input}
+                            onValueChanged={onInputValueChanged}
+                            messageText={errorMessage || successMessage}
+                          />
+                        </Stack.Item>
+                        <Button
+                          mode='primary'
+                          buttonType='submit'
+                          text={props.inputButtonText}
+                          isLoading={isLoading}
                         />
-                      </Stack.Item>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        text={props.inputButtonText}
-                        isLoading={isLoading}
-                      />
-                    </Stack>
-                  </ResponsiveView>
-                  <ResponsiveView hiddenAbove={ScreenSize.Small}>
-                    <Stack direction={Direction.Vertical}>
-                      <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
-                        <SingleLineInput
-                          inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                          inputType={props.inputType}
-                          name={props.inputName}
-                          placeholderText={props.inputPlaceholderText}
-                          value={input}
-                          onValueChanged={onInputValueChanged}
-                          messageText={errorMessage || successMessage}
+                      </Stack>
+                    </ResponsiveView>
+                    <ResponsiveView hiddenAbove={ScreenSize.Small}>
+                      <Stack direction={Direction.Vertical}>
+                        <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                          <SingleLineInput
+                            inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                            inputType={props.inputType}
+                            name={props.inputName}
+                            placeholderText={props.inputPlaceholderText}
+                            value={input}
+                            onValueChanged={onInputValueChanged}
+                            messageText={errorMessage || successMessage}
+                          />
+                        </Stack.Item>
+                        <Button
+                          mode='primary'
+                          buttonType='submit'
+                          text={props.inputButtonText}
+                          isLoading={isLoading}
+                          isFullWidth={true}
                         />
-                      </Stack.Item>
-                      <Button
-                        mode='primary'
-                        buttonType='submit'
-                        text={props.inputButtonText}
-                        isLoading={isLoading}
-                        isFullWidth={true}
-                      />
-                    </Stack>
-                  </ResponsiveView>
-                </React.Fragment>
-              </Form>
-              <Spacing mode={PaddingSize.ExtraExtraWide}/>
-            </Stack>
+                      </Stack>
+                    </ResponsiveView>
+                  </React.Fragment>
+                </Form>
+              </Stack>
+            </ResponsiveTextAlignmentView>
           </Grid.Item>
-          <Grid.Item size={1} />
+          <Grid.Item size={2} sizeMedium={1} />
           { props.rightMediaUrl && (
-            <Grid.Item size={0} sizeMedium={4} alignment={Alignment.Center}>
-              <Media source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+            <Grid.Item size={0} sizeMedium={4}>
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0} alignment={Alignment.Center}>
-              <Media source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+            <Grid.Item size={8} sizeMedium={0}>
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0} alignment={Alignment.Center}>
-              <Media source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+            <Grid.Item size={8} sizeMedium={0}>
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>

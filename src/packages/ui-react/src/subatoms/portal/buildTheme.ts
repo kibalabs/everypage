@@ -14,6 +14,7 @@ export const buildPortalThemes = (colors: IColorGuide, dimensions: IDimensionGui
   }, base?.default);
 
   return {
+    ...base,
     default: defaultPortalTheme,
   };
 }

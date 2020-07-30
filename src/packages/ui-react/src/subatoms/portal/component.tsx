@@ -28,7 +28,7 @@ interface IPortalProps extends IComponentProps<IPortalTheme>, ISingleAnyChildPro
 }
 
 export const Portal = React.forwardRef((props: IPortalProps, ref: React.Ref<HTMLDivElement>): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('portals', props.mode);
+  const theme = useBuiltTheme('portals', props.mode, props.theme);
   const [positionTop, setPositionTop] = React.useState<number>(0);
   const [positionLeft, setPositionLeft] = React.useState<number>(0);
   const [width, setWidth] = React.useState<number>(0);

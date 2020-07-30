@@ -111,6 +111,7 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
   });
 
   return {
+    ...base,
     default: defaultInputWrapperTheme,
     error: errorInputWrapperTheme,
     success: successInputWrapperTheme,

@@ -1,11 +1,11 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Button, Markdown, Spacing, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView, ResponsiveContainingView } from '@kibalabs/ui-react';
+import { Form, Button, PaddingSize, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView, ResponsiveContainingView, ResponsiveTextAlignmentView, TextAlignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
-
+import { SectionTitleText, SectionSubtitleText } from '../components';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface ISignup1Props extends ISectionProps, IFormProps {
@@ -50,58 +50,59 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Signup1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
-        <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
-          <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>
-          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          <Spacing mode={PaddingSize.Wide} />
-          <Form onFormSubmitted={onFormSubmitted}>
-            <React.Fragment>
-              <ResponsiveView hiddenBelow={ScreenSize.Small}>
-                <Stack direction={Direction.Horizontal}>
-                  <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
-                    <SingleLineInput
-                      inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                      inputType={props.inputType}
-                      name={props.inputName}
-                      placeholderText={props.inputPlaceholderText}
-                      value={input}
-                      onValueChanged={onInputValueChanged}
-                      messageText={errorMessage || successMessage}
+        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
+          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            <Form onFormSubmitted={onFormSubmitted}>
+              <React.Fragment>
+                <ResponsiveView hiddenBelow={ScreenSize.Small}>
+                  <Stack direction={Direction.Horizontal}>
+                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                      <SingleLineInput
+                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                        inputType={props.inputType}
+                        name={props.inputName}
+                        placeholderText={props.inputPlaceholderText}
+                        value={input}
+                        onValueChanged={onInputValueChanged}
+                        messageText={errorMessage || successMessage}
+                      />
+                    </Stack.Item>
+                    <Button
+                      mode='primary'
+                      buttonType='submit'
+                      text={props.inputButtonText}
+                      isLoading={isLoading}
                     />
-                  </Stack.Item>
-                  <Button
-                    mode='primary'
-                    buttonType='submit'
-                    text={props.inputButtonText}
-                    isLoading={isLoading}
-                  />
-                </Stack>
-              </ResponsiveView>
-              <ResponsiveView hiddenAbove={ScreenSize.Small}>
-                <Stack direction={Direction.Vertical}>
-                  <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
-                    <SingleLineInput
-                      inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                      inputType={props.inputType}
-                      name={props.inputName}
-                      placeholderText={props.inputPlaceholderText}
-                      value={input}
-                      onValueChanged={onInputValueChanged}
-                      messageText={errorMessage || successMessage}
+                  </Stack>
+                </ResponsiveView>
+                <ResponsiveView hiddenAbove={ScreenSize.Small}>
+                  <Stack direction={Direction.Vertical}>
+                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                      <SingleLineInput
+                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                        inputType={props.inputType}
+                        name={props.inputName}
+                        placeholderText={props.inputPlaceholderText}
+                        value={input}
+                        onValueChanged={onInputValueChanged}
+                        messageText={errorMessage || successMessage}
+                      />
+                    </Stack.Item>
+                    <Button
+                      mode='primary'
+                      buttonType='submit'
+                      text={props.inputButtonText}
+                      isLoading={isLoading}
+                      isFullWidth={true}
                     />
-                  </Stack.Item>
-                  <Button
-                    mode='primary'
-                    buttonType='submit'
-                    text={props.inputButtonText}
-                    isLoading={isLoading}
-                    isFullWidth={true}
-                  />
-                </Stack>
-              </ResponsiveView>
-            </React.Fragment>
-          </Form>
-        </Stack>
+                  </Stack>
+                </ResponsiveView>
+              </React.Fragment>
+            </Form>
+          </Stack>
+        </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
     </Section>
   );

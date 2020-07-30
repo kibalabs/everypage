@@ -1,9 +1,10 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Markdown, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingSize } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
+import { SectionSubtitleText } from '../components';
 
 interface IFooter1IconLink {
   iconId?: string;
@@ -26,9 +27,9 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
         {props.iconLinks && (
-          <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isFullHeight={true}>
+          <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
               <LinkBase key={index} mode='icon' target={iconLink.target} label={iconLink.label}>
                 <KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />
@@ -36,10 +37,8 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
             ))}
           </Stack>
         )}
-        {props.subtitleText && (
-          <Markdown source={props.subtitleText} />
-        )}
-        <Markdown source={copyrightText}/>
+        {props.subtitleText && <SectionSubtitleText text={props.subtitleText}/>}
+        <MarkdownText source={copyrightText}/>
       </Stack>
     </Section>
   );

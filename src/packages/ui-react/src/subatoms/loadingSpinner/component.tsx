@@ -67,7 +67,7 @@ interface ILoadingSpinnerProps extends IComponentProps<ILoadingSpinnerTheme> {
 }
 
 export const LoadingSpinner = (props: ILoadingSpinnerProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('loadingSpinners', props.mode);
+  const theme = useBuiltTheme('loadingSpinners', props.mode, props.theme);
   return (
     <StyledLoadingSpinner
       id={props.id}

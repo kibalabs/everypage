@@ -96,7 +96,7 @@ interface IInputWrapperProps extends IComponentProps<IInputWrapperTheme>, ISingl
 export const InputWrapper = (props: IInputWrapperProps): React.ReactElement => {
   // :focus-within is not supported on all browsers so we manually maintain if this element has a isFocussed child
   const [isFocussed, setIsFocussed] = React.useState(false);
-  const theme = props.theme || useBuiltTheme('inputWrappers', props.mode);
+  const theme = useBuiltTheme('inputWrappers', props.mode, props.theme);
   // TODO(krish): check that the first child is an input, textarea or .wrapped-input
   return (
     <StyledInputWrapper

@@ -116,6 +116,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
   }, base?.card);
 
   return {
+    ...base,
     default: defaultButtonTheme,
     primary: primaryButtonTheme,
     secondary: secondaryButtonTheme,

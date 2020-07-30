@@ -16,6 +16,8 @@ export const buildColors = (base?: Partial<IColorGuide>): IColorGuide => {
   const textInverse = base?.textInverse || getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#e5e5e5';
 
   return {
+    ...base,
+    
     brandPrimary: brandPrimary,
     brandSecondary: brandSecondary,
     background: background,

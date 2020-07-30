@@ -79,6 +79,7 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
   }, base?.secondary);
 
   return {
+    ...base,
     default: defaultIconButtonTheme,
     primary: primaryIconButtonTheme,
     secondary: secondaryIconButtonTheme,

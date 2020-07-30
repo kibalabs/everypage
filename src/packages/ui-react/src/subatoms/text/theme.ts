@@ -8,4 +8,5 @@ export interface ITextTheme extends CssTheme {
   'line-height': string;
   'text-decoration': string;
   'margin': string;
+  'text-align': string;
 }

@@ -25,7 +25,7 @@ export interface IBulletTextProps extends IComponentProps<IBulletTextTheme>, ISi
 }
 
 export const BulletText = (props: IBulletTextProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('bulletTexts', props.mode);
+  const theme = useBuiltTheme('bulletTexts', props.mode, props.theme);
   return (
     <StyledBulletText
       id={props.id}

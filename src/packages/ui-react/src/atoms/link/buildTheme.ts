@@ -66,6 +66,7 @@ export const buildLinkThemes = (colors: IColorGuide, dimensions: IDimensionGuide
   }, base?.inverse);
 
   return {
+    ...base,
     default: defaultLinkTheme,
     inverse: inverseLinkTheme,
   };

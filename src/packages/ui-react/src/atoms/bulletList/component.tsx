@@ -19,7 +19,7 @@ export interface IBulletListProps extends IComponentProps<IBulletListTheme>, IMu
 }
 
 export const BulletList = (props: IBulletListProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('bulletLists', props.mode);
+  const theme = useBuiltTheme('bulletLists', props.mode, props.theme);
   return (
     <StyledBulletList
       id={props.id}

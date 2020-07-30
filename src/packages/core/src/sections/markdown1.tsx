@@ -1,8 +1,9 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Alignment, Markdown, Spacing, TextAlignment, Stack, PaddingSize } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Direction, Markdown, Stack, PaddingSize, ResponsiveTextAlignmentView, TextAlignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
+import { SectionTitleText, SectionSubtitleText } from '../components';
 
 interface IMarkdown1Props extends ISectionProps {
   titleText?: string;
@@ -14,12 +15,13 @@ export const Markdown1 = (props: IMarkdown1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Markdown1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeLarge={8}>
-        <Stack childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-          {props.titleText && <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Center} source={props.titleText}/>}
-          {props.subtitleText && <Markdown rootTextMode='sectionSubtitle' rootTextAlignment={TextAlignment.Center} source={props.subtitleText}/>}
-          {(props.titleText || props.subtitleText) && <Spacing mode={PaddingSize.Default} />}
-          {props.markdownContent && <Markdown rootTextAlignment={TextAlignment.Left} source={props.markdownContent}/>}
-        </Stack>
+        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
+          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.markdownContent && <Markdown source={props.markdownContent}/>}
+          </Stack>
+        </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
     </Section>
   );

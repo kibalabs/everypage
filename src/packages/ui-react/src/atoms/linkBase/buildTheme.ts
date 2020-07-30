@@ -67,6 +67,7 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
   }, base?.translucent);
 
   return {
+    ...base,
     default: defaultLinkBaseTheme,
     translucent: translucentLinkBaseTheme,
     image: imageLinkBaseTheme,

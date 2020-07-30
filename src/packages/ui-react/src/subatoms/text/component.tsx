@@ -44,18 +44,18 @@ const textModeTagMapping: Record<string, TextTag> = {
   header6: 'h6',
 }
 
-const getTag = (mode: string): TextTag => {
+export const getTextTag = (mode: string): TextTag => {
   const modes = mode.split('-');
-  // Find the last mode that is in textModeTagMapping, and if none the last one in style
-  const textModes = modes.filter((mode: string): boolean => mode in textModeTagMapping);
-  if (textModes.length > 0) {
-    return textModeTagMapping[textModes[textModes.length -1]];
-  }
-  const styleModes = modes.filter((mode: string): boolean => mode in styleModeTagMapping);
-  if (styleModes.length > 0) {
-    return styleModeTagMapping[styleModes[-1]];
-  }
-  return 'p';
+  const textModes = modes.map((mode: string): TextTag | null => {
+    if (mode in textModeTagMapping) {
+      return textModeTagMapping[mode];
+    }
+    if (mode in styleModeTagMapping) {
+      return styleModeTagMapping[mode];
+    }
+    return null;
+  }).filter((textMode: TextTag | null): boolean => textMode !== null);
+  return textModes.length > 0 ? textModes[textModes.length - 1] : 'p';
 }
 
 interface IStyledTextProps {
@@ -65,7 +65,7 @@ interface IStyledTextProps {
 
 const StyledText = styled.span<IStyledTextProps>`
   ${(props: IStyledTextProps): string => themeToCss(props.theme)};
-  text-align: ${(props: IStyledTextProps): string => props.alignment};
+  ${(props: IStyledTextProps): string => props.alignment ? `text-align: ${props.alignment}`: ''};
 `;
 
 export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChildProps {
@@ -74,14 +74,14 @@ export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChild
 }
 
 export const Text = (props: ITextProps): React.ReactElement => {
-  const theme = props.theme || useBuiltTheme('texts', props.mode);
+  const theme = useBuiltTheme('texts', props.mode, props.theme);
   return (
     <StyledText
       id={props.id}
       className={getClassName(Text.displayName, props.className)}
       theme={theme}
       alignment={props.alignment}
-      as={props.tag || getTag(props.mode)}
+      as={props.tag || getTextTag(props.mode)}
     >
       { props.children }
     </StyledText>

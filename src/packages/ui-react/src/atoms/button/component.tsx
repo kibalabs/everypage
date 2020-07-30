@@ -21,7 +21,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   justify-content: center;
   background-clip: border-box;
   transition: 0.3s;
-  .fullWidth {
+  &.fullWidth {
     width: 100%;
   }
 
@@ -82,7 +82,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
     throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
   }
 
-  const theme = props.theme || useBuiltTheme('buttons', props.mode);
+  const theme = useBuiltTheme('buttons', props.mode, props.theme);
   return (
     <StyledButton
       id={props.id}

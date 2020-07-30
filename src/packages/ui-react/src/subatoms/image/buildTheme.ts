@@ -10,6 +10,7 @@ export const buildImageThemes = (colors: IColorGuide, dimensions: IDimensionGuid
   }, base?.default);
 
   return {
+    ...base,
     default: defaultImageTheme,
   };
 }

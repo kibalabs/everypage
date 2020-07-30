@@ -1,9 +1,9 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Grid, Media, Markdown, Spacing, PaddingSize, TextAlignment, Stack, Direction, Alignment } from '@kibalabs/ui-react';
+import { MarkdownText, Grid, Media, PaddingSize, TextAlignment, Stack, Direction, Alignment, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-
+import { SectionTitleText, SectionSubtitleText } from '../components';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IFeatureMediaHalf1Props extends ISectionProps {
@@ -30,11 +30,13 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
           )}
           <Grid.Item size={1} />
           <Grid.Item size={10} sizeMedium={5}>
-            <Stack direction={Direction.Vertical}>
-              <Markdown rootTextMode='title' rootTextAlignment={TextAlignment.Left} source={props.titleText}/>
-              <Markdown rootTextAlignment={TextAlignment.Left} source={props.subtitleText}/>
-              <Spacing mode={PaddingSize.Wide}/>
-            </Stack>
+            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
+              <Stack direction={Direction.Vertical}>
+                {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+                {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+                {props.bodyText && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText}/></Stack.Item>}
+              </Stack>
+            </ResponsiveTextAlignmentView>
           </Grid.Item>
           <Grid.Item size={1} />
           { props.rightMediaUrl && (

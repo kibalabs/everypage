@@ -14,41 +14,46 @@ interface IStyledResponsiveContainingViewProps extends IWrapperProps {
   sizeMedium?: number;
   sizeLarge?: number;
   sizeExtraLarge?: number;
+  shouldIncludeMaxSize: boolean;
 }
 
-export const getGridItemMediaCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string, shouldHideIfNone?: boolean): string => {
-  // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
+export const getGridItemMediaCss = (totalColumnCount: number, columnCount: number, screenWidth: string, screenWidthMax?: string): string => {
   return `@media (min-width: ${screenWidth}) {
-    max-width: ${getGridItemSizeCss(totalColumnCount, gutterSize, columnCount)};
-    ${shouldHideIfNone ? (columnCount === 0 ? 'display: none' : 'display: block') : ''};
-  }`
+    max-width: ${getGridItemSizeCss(totalColumnCount, '0px', columnCount, screenWidthMax)} !important;
+  }`;
 }
 
-const columnCountsToCss = (totalColumnCount: number, gutterSize: string, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, columnCountNormal?: number, columnCountSmall?: number, columnCountMedium?: number, columnCountLarge?: number, columnCountExtraLarge?: number): string => {
+const columnCountsToCss = (totalColumnCount: number, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, screenWidthMax: string, columnCountNormal: number, columnCountSmall: number, columnCountMedium: number, columnCountLarge: number, columnCountExtraLarge: number, shouldIncludeMaxSize: boolean): string => {
   const output = [];
   if (columnCountNormal !== undefined) {
-    output.push(`max-width: ${getGridItemSizeCss(totalColumnCount, gutterSize, columnCountNormal)};`);
+    output.push(`max-width: ${getGridItemSizeCss(totalColumnCount, '0px', columnCountNormal)};`);
   }
   if (columnCountSmall !== undefined) {
-    output.push(getGridItemMediaCss(totalColumnCount, gutterSize, columnCountSmall, screenWidthSmall));
+    output.push(getGridItemMediaCss(totalColumnCount, columnCountSmall, screenWidthSmall));
   }
   if (columnCountMedium !== undefined) {
-    output.push(getGridItemMediaCss(totalColumnCount, gutterSize, columnCountMedium, screenWidthMedium));
+    output.push(getGridItemMediaCss(totalColumnCount, columnCountMedium, screenWidthMedium));
   }
   if (columnCountLarge !== undefined) {
-    output.push(getGridItemMediaCss(totalColumnCount, gutterSize, columnCountLarge, screenWidthLarge));
+    output.push(getGridItemMediaCss(totalColumnCount, columnCountLarge, screenWidthLarge));
   }
   if (columnCountExtraLarge !== undefined) {
-    output.push(getGridItemMediaCss(totalColumnCount, gutterSize, columnCountExtraLarge, screenWidthExtraLarge));
+    output.push(getGridItemMediaCss(totalColumnCount, columnCountExtraLarge, screenWidthExtraLarge));
+  }
+  if (shouldIncludeMaxSize) {
+    const largestColumnCount = columnCountExtraLarge || columnCountLarge || columnCountMedium || columnCountSmall || columnCountNormal;
+    output.push(getGridItemMediaCss(totalColumnCount, largestColumnCount, screenWidthMax, screenWidthMax));
   }
   return output.join('\n');
 };
 
 const withResponsiveContainingView = (Component: React.ComponentType<IStyledResponsiveContainingViewProps>): React.ComponentType => styled(Component)<IStyledResponsiveContainingViewProps>`
   width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  ${(props: IStyledResponsiveContainingViewProps): string => columnCountsToCss(props.theme.columnCount, props.theme.gutterSize, props.theme.screenWidthSmall, props.theme.screenWidthMedium, props.theme.screenWidthLarge, props.theme.screenWidthExtraLarge, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge)};
+  ${(props: IStyledResponsiveContainingViewProps): string => columnCountsToCss(props.theme.columnCount, props.theme.screenWidthSmall, props.theme.screenWidthMedium, props.theme.screenWidthLarge, props.theme.screenWidthExtraLarge, props.theme.screenWidthMax, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge, props.shouldIncludeMaxSize)};
+  /* &.centered {
+    margin-right: auto;
+    margin-left: auto;
+  } */
 `;
 
 const StyledResponsiveContainingView = withResponsiveContainingView((props: IStyledResponsiveContainingViewProps): React.ReactElement => {
@@ -64,6 +69,7 @@ export interface IResponsiveContainingViewProps extends IWrapperProps {
   sizeMedium?: number;
   sizeLarge?: number;
   sizeExtraLarge?: number;
+  shouldIncludeMaxSize: boolean;
 }
 
 export const ResponsiveContainingView = (props: IResponsiveContainingViewProps): React.ReactElement => {
@@ -77,6 +83,7 @@ export const ResponsiveContainingView = (props: IResponsiveContainingViewProps):
       sizeMedium={props.sizeMedium}
       sizeLarge={props.sizeLarge}
       sizeExtraLarge={props.sizeExtraLarge}
+      shouldIncludeMaxSize={props.shouldIncludeMaxSize}
     >
       {props.children}
     </StyledResponsiveContainingView>
@@ -85,5 +92,6 @@ export const ResponsiveContainingView = (props: IResponsiveContainingViewProps):
 
 ResponsiveContainingView.defaultProps = {
   ...defaultWrapperProps,
+  shouldIncludeMaxSize: true,
 };
 ResponsiveContainingView.displayName = 'responsive-containing-view';

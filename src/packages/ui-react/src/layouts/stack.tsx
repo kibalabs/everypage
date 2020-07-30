@@ -5,9 +5,22 @@ import { IMultiAnyChildProps, ISingleAnyChildProps, flattenChildren } from '@kib
 
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, IDimensionGuide, PaddingSize, Spacing } from '..';
 import { PaddingView, IPaddingViewPaddingProps } from '../wrappers/paddingView';
+import { useDimensions } from '../theming';
 
 // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 // NOTE(krish): behavior of the above is also different on IE11, be careful!
+
+const getContentAlignmentCss = (alignment: Alignment): string => {
+  return `justify-content: ${getFlexContentAlignment(alignment)};`;
+}
+
+const getResponsiveCss = (screenWidth: string, css: string): string => {
+  return `@media (min-width: ${screenWidth}) { ${css} }`;
+}
+
+const getResponsiveContentAlignmentCss = (screenWidth: string, alignment?: Alignment): string => {
+  return alignment ? getResponsiveCss(screenWidth, getContentAlignmentCss(alignment)) : '';
+}
 
 export interface IStackItemProps extends ISingleAnyChildProps {
   className: string;
@@ -33,9 +46,14 @@ class StackItem extends React.Component<IStackItemProps> {
 }
 
 interface IStyledStackProps {
+  theme: IDimensionGuide;
   $direction: string;
   childAlignment: Alignment;
   contentAlignment: Alignment;
+  contentAlignmentSmall?: Alignment;
+  contentAlignmentMedium?: Alignment;
+  contentAlignmentLarge?: Alignment;
+  contentAlignmentExtraLarge?: Alignment;
   isFullWidth: boolean;
   isFullHeight: boolean;
 }
@@ -45,8 +63,12 @@ const StyledStack = styled.div<IStyledStackProps>`
   flex-direction: ${(props: IStyledStackProps): string => (props.$direction === Direction.Vertical ? 'column' : 'row')};
   width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  justify-content: ${(props: IStyledStackProps): string => getFlexContentAlignment(props.contentAlignment)};
   align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
+  ${(props: IStyledStackProps): string => getContentAlignmentCss(props.contentAlignment)};
+  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthSmall, props.contentAlignmentSmall)};
+  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthMedium, props.contentAlignmentMedium)};
+  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthLarge, props.contentAlignmentLarge)};
+  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthExtraLarge, props.contentAlignmentExtraLarge)};
 `;
 
 interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
@@ -56,6 +78,10 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   direction: Direction;
   childAlignment: Alignment;
   contentAlignment: Alignment;
+  contentAlignmentSmall?: Alignment;
+  contentAlignmentMedium?: Alignment;
+  contentAlignmentLarge?: Alignment;
+  contentAlignmentExtraLarge?: Alignment;
   shouldAddGutters: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
@@ -64,6 +90,7 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
+  const theme = props.theme || useDimensions();
   const children = flattenChildren(props.children).map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
     child.type !== StackItem ? <StackItem key={index}>{ child }</StackItem> : child
   ));
@@ -76,9 +103,14 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       <StyledStack
         id={props.id}
         className={getClassName(Stack.displayName, props.className)}
+        theme={theme}
         $direction={props.direction}
         childAlignment={props.childAlignment}
         contentAlignment={props.contentAlignment}
+        contentAlignmentSmall={props.contentAlignmentSmall}
+        contentAlignmentMedium={props.contentAlignmentMedium}
+        contentAlignmentLarge={props.contentAlignmentLarge}
+        contentAlignmentExtraLarge={props.contentAlignmentExtraLarge}
         isFullWidth={props.isFullWidth}
         isFullHeight={props.isFullHeight}
       >

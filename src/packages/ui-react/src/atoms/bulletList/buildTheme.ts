@@ -17,6 +17,7 @@ export const buildBulletListThemes = (colors: IColorGuide, dimensions: IDimensio
   }, base?.default);
 
   return {
+    ...base,
     default: defaultBulletListTheme,
   };
 }

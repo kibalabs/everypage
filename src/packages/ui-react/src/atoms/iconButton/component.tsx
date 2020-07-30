@@ -66,7 +66,7 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
     }
   };
 
-  const theme = props.theme || useBuiltTheme('iconButtons', props.mode);
+  const theme = useBuiltTheme('iconButtons', props.mode, props.theme);
   return (
     <StyledIconButton
       id={props.id}
