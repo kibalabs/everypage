@@ -83,6 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const _OTHER_SECTION_CATEGORY_ID = 1
+
 export interface ISectionChooserModalProps {
   isOpen: boolean;
   onChooseSectionClicked: (section: Section) => void;
@@ -97,8 +99,10 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
 
   useInitialization((): void => {
     everypageClient.list_section_categories().then((sectionCategories: SectionCategory[]) => {
-      setSectionCategories(sectionCategories);
-      setSelectedSectionCategoryId(sectionCategories[0].sectionCategoryId);
+      const orderedSectionCategories = sectionCategories.filter((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId !== _OTHER_SECTION_CATEGORY_ID);
+      orderedSectionCategories.push(sectionCategories.find((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId === _OTHER_SECTION_CATEGORY_ID));
+      setSectionCategories(orderedSectionCategories);
+      setSelectedSectionCategoryId(orderedSectionCategories[0].sectionCategoryId);
     }).catch((error: Error): void => {
       console.error('error', error);
       setSectionCategories(null);
