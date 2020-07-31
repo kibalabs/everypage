@@ -102,7 +102,7 @@ export const Stack = (props: IStackProps): React.ReactElement => {
     <PaddingView paddingTop={paddingTop} paddingBottom={paddingBottom} paddingRight={paddingRight} paddingLeft={paddingLeft} {...props as IPaddingViewPaddingProps}>
       <StyledStack
         id={props.id}
-        className={getClassName(Stack.displayName, props.className)}
+        className={getClassName(Stack.displayName)}
         theme={theme}
         $direction={props.direction}
         childAlignment={props.childAlignment}
