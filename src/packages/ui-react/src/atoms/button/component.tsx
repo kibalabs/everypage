@@ -20,7 +20,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   align-items: center;
   justify-content: center;
   background-clip: border-box;
-  transition: 0.3s;
+  transition-duration: 0.3s;
   &.fullWidth {
     width: 100%;
   }

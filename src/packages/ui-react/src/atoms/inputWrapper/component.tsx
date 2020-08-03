@@ -25,10 +25,15 @@ const InputWrapperInner = styled.div<IInputWrapperInnerProps>`
     color: inherit;
     line-height: inherit;
   }
-  width: 100%;
-  overflow: hidden;
   ${(props) => themeToCss(props.theme.normal.default.text)};
   ${(props) => themeToCss(props.theme.normal.default.background)};
+  width: 100%;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  & * {
+    transition-duration: 0.3s;
+  }
+
   & ::placeholder, .wrapped-input:empty::before {
     ${(props) => themeToCss(props.theme.normal.default.placeholderText)};
   }
