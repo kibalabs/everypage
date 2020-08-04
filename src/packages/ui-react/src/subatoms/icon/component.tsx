@@ -6,7 +6,7 @@ import { getClassName } from '@kibalabs/core';
 export interface IIconProps {
   id?: string;
   className: string;
-  size?: 'default' | 'small' | 'large' | 'extra-large' | 'full';
+  size?: 'default' | 'small' | 'large' | 'extra-large' | 'extra-extra-large' | 'full';
   _color?: string;
   shouldAddFill?: boolean;
   shouldAddStroke?: boolean;
@@ -14,7 +14,7 @@ export interface IIconProps {
 }
 
 interface IStyledIconProps {
-  size: 'default' | 'small' | 'large' | 'extra-large' | 'full';
+  size: 'default' | 'small' | 'large' | 'extra-large' | 'extra-extra-large' | 'full';
   color?: string;
   shouldAddFill?: boolean;
   shouldAddStroke?: boolean;
@@ -23,19 +23,22 @@ interface IStyledIconProps {
 const getSize = (size: string): string => {
   switch (size) {
     case 'small': {
-      return '0.75em';
+      return '0.75rem';
     }
     case 'large': {
-      return '2em';
+      return '2rem';
     }
     case 'extra-large': {
-      return '4em';
+      return '4rem';
+    }
+    case 'extra-extra-large': {
+      return '8rem';
     }
     case 'full': {
       return '100%';
     }
     default: {
-      return '1.3em';
+      return '1.3rem';
     }
   }
 }

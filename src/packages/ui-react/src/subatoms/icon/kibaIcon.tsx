@@ -7,7 +7,7 @@ interface IKibaIconProps {
   id?: string;
   className: string;
   iconId: string;
-  size?: 'default' | 'small' | 'large' | 'extra-large' | 'full';
+  size?: 'default' | 'small' | 'large' | 'extra-large' | 'extra-extra-large' | 'full';
   _color?: string;
 }
 

@@ -154,7 +154,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
                 textColor="primary"
                 variant="fullWidth"
               >
-                <Tab label="Site" className={classes.tab} />
+                <Tab label="Content" className={classes.tab} />
                 <Tab label="Theme" className={classes.tab} />
                 <Tab label="Media" className={classes.tab} />
               </Tabs>

@@ -20,43 +20,41 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
 
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaHalf1.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
-        <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
-          { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
-          { props.leftMediaUrl && (
-            <Grid.Item size={0} sizeMedium={4}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-          <Grid.Item size={1} />
-          <Grid.Item size={10} sizeMedium={5}>
-            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
-              <Stack direction={Direction.Vertical}>
-                {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-                {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-                {props.bodyText && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText}/></Stack.Item>}
-              </Stack>
-            </ResponsiveTextAlignmentView>
+      <Grid childAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={PaddingSize.ExtraExtraExtraWide} paddingBottom={PaddingSize.ExtraExtraExtraWide}>
+        {props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+        {props.leftMediaUrl && (
+          <Grid.Item size={0} sizeMedium={4}>
+            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
           </Grid.Item>
-          <Grid.Item size={1} />
-          { props.rightMediaUrl && (
-            <Grid.Item size={0} sizeMedium={4}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
-          { props.leftMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-          { props.rightMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-        </Grid>
-      </Stack>
+        )}
+        <Grid.Item size={1} />
+        <Grid.Item size={10} sizeMedium={5}>
+          <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
+            <Stack direction={Direction.Vertical}>
+              {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
+              {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+              {props.bodyText && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText}/></Stack.Item>}
+            </Stack>
+          </ResponsiveTextAlignmentView>
+        </Grid.Item>
+        <Grid.Item size={1} />
+        {props.rightMediaUrl && (
+          <Grid.Item size={0} sizeMedium={4}>
+            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
+          </Grid.Item>
+        )}
+        {props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+        {props.leftMediaUrl && (
+          <Grid.Item size={8} sizeMedium={0}>
+            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
+          </Grid.Item>
+        )}
+        {props.rightMediaUrl && (
+          <Grid.Item size={8} sizeMedium={0}>
+            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
+          </Grid.Item>
+        )}
+      </Grid>
     </Section>
   );
 };
