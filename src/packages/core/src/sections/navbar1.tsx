@@ -47,11 +47,11 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             <Stack.Item growthFactor={1} />
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
               if (button.display === 'always') {
-                return <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />;
+                return <Button key={index} text={button.text} target={button.target} mode={button.mode} />;
               }
               return (!button.display || button.display === 'default') && (
                 <ResponsiveView key={index} hiddenBelow={ScreenSize.Large}>
-                  <Button text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
+                  <Button text={button.text} target={button.target} mode={button.mode} />
                 </ResponsiveView>
               );
             })}
@@ -67,7 +67,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraWide} paddingEnd={PaddingSize.ExtraWide}>
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return (!button.display || button.display === 'default' || button.display === 'overflow') && (
-                  <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />
+                  <Button key={index} text={button.text} target={button.target} mode={button.mode} />
                 );
               })}
             </Stack>

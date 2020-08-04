@@ -10,9 +10,8 @@ interface IGlobalCssProps {
 export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
   ${(props: IGlobalCssProps): string => props.resetCss}
 
-  html, body, #root {
-    // height: 100%;
-    // width: 100%;
+  html {
+    scroll-behavior: smooth;
   }
 
   body {

@@ -13,6 +13,11 @@ interface IStyledButtonProps {
 const StyledButton = styled.button<IStyledButtonProps>`
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.text)};
   ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.background)};
+  /* Since it can be rendered as an <a>, unset everything for visited */
+  &:visited {
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.normal.default.background)};
+  }
   cursor: ${(props: IStyledButtonProps): string => (props.isLoading ? 'default' : 'pointer')};
   outline: none;
   display: flex;
@@ -65,6 +70,8 @@ interface IButtonProps extends IComponentProps<IButtonTheme> {
   // rightIcon?: React.ComponentClass<IIconProps>;
   // leftIcon?: React.ComponentClass<IIconProps>;
   // iconSize: 'default' | 'small' | 'large' | 'full';
+  target?: string;
+  targetShouldOpenSameTab?: boolean;
   onClicked?(): void;
 }
 
@@ -83,6 +90,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
   }
 
   const theme = useBuiltTheme('buttons', props.mode, props.theme);
+  const targetShouldOpenSameTab = props.targetShouldOpenSameTab || (props.targetShouldOpenSameTab === undefined && props.target && props.target.startsWith('#'));
   return (
     <StyledButton
       id={props.id}
@@ -91,6 +99,10 @@ export const Button = (props: IButtonProps): React.ReactElement => {
       onClick={onClicked}
       isLoading={props.isLoading}
       disabled={!props.isEnabled}
+      as={props.target && 'a'}
+      href={props.target}
+      rel={props.target && targetShouldOpenSameTab && 'noopener'}
+      target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       { !props.isLoading && props.text }
       { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} mode='light' size='small'/> }

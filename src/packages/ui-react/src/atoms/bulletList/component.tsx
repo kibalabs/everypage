@@ -34,6 +34,5 @@ export const BulletList = (props: IBulletListProps): React.ReactElement => {
 BulletList.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,
-  shouldOpenNewTab: false,
 };
 BulletList.displayName = 'bullet-list';

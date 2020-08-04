@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-core",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "The core sections and constructs for everypage",
   "license": "UNLICENSED",
   "repository": {
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@kibalabs/build": "0.3.1",
-    "@kibalabs/ui-react": "0.5.3",
+    "@kibalabs/ui-react": "0.5.4",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.0.1",

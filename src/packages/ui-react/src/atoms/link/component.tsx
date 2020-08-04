@@ -37,8 +37,8 @@ const StyledLink = styled.a<IStyledLinkProps>`
 
 export interface ILinkProps extends IComponentProps<ILinkTheme> {
   isEnabled: boolean;
-  shouldOpenNewTab: boolean;
-  destination: string;
+  shouldOpenSameTab: boolean;
+  target: string;
   text: string;
 }
 
@@ -49,8 +49,8 @@ export const Link = (props: ILinkProps): React.ReactElement => {
       id={props.id}
       className={getClassName(Link.displayName, props.className, !props.isEnabled && 'disabled')}
       theme={theme}
-      href={props.isEnabled ? props.destination : undefined}
-      target={props.shouldOpenNewTab ? '_blank' : '_self'}
+      href={props.isEnabled ? props.target : undefined}
+      target={props.shouldOpenSameTab ? '_self' : '_blank'}
       rel={'noopener'}
     >
       {props.text}
@@ -61,6 +61,6 @@ export const Link = (props: ILinkProps): React.ReactElement => {
 Link.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,
-  shouldOpenNewTab: false,
+  shouldOpenSameTab: false,
 };
 Link.displayName = 'link';

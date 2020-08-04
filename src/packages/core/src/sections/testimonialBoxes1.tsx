@@ -44,7 +44,7 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                     <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
                       { getIcon(box.type, theme.colors.brandPrimary) }
-                      <Link destination={box.url} text={box.author} isEnabled={!!box.url} />
+                      <Link target={box.url} text={box.author} isEnabled={!!box.url} />
                     </Stack>
                     <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Narrow}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />

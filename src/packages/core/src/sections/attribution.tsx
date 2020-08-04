@@ -10,7 +10,7 @@ export const Attribution = (): React.ReactElement => {
     <Section background={{color: String(theme.backgroundInverse)}}>
       <Stack childAlignment={Alignment.Center} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} isFullWidth={true}>
         <Text alignment={TextAlignment.Center} mode='inverse'>
-          <span>Made with <Link mode='inverse' destination='https://www.everypagehq.com' shouldOpenNewTab={true} text='everypage' /></span>
+          <span>Made with <Link mode='inverse' target='https://www.everypagehq.com' text='everypage' /></span>
         </Text>
       </Stack>
     </Section>

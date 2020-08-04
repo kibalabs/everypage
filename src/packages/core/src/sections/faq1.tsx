@@ -27,9 +27,9 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
             {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
               <React.Fragment key={index}>
                 <Stack.Item gutterSizeAfter={PaddingSize.Narrow}>
-                  <MarkdownText textMode='header5' textAlignment={TextAlignment.Left} source={question.questionText} />
+                  <MarkdownText textMode='header6' textAlignment={TextAlignment.Left} source={question.questionText} />
                 </Stack.Item>
-                <Stack.Item gutterSizeAfter={PaddingSize.Wide}>
+                <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}>
                   <MarkdownText textAlignment={TextAlignment.Left} source={question.answerText} />
                 </Stack.Item>
               </React.Fragment>

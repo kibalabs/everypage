@@ -26,8 +26,8 @@
         },
         {
           "mode": "primary",
-          "text": "Sign in here",
-          "target": "https://console.everypagehq.com",
+          "text": "Sign up",
+          "target": "#hero-signup",
           "display": "always"
         }
       ],
@@ -81,6 +81,7 @@
       "subtitleText": "Share why your product is great"
     },
     {
+      "id": "hero-signup",
       "type": "hero-signup-media-half-1",
       "inputName": "url",
       "inputType": "url",

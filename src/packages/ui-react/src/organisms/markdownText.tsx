@@ -63,13 +63,13 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
       if (rendererProps.children.length > 1) {
         console.error(`Link in markdown has more than one child: ${rendererProps.children}`);
       }
-      return <Link shouldOpenNewTab={true} destination={rendererProps.href} text={String(rendererProps.children[0].props.children)}/>;
+      return <Link target={rendererProps.href} text={String(rendererProps.children[0].props.children)}/>;
     },
     linkReference: (rendererProps: object): React.ReactElement => {
       if (rendererProps.children.length > 1) {
         console.error(`Link in markdown has more than one child: ${rendererProps.children}`);
       }
-      return <Link shouldOpenNewTab={true} destination={rendererProps.href} text={String(rendererProps.children[0].props.children)}/>;
+      return <Link target={rendererProps.href} text={String(rendererProps.children[0].props.children)}/>;
     },
     emphasis: (rendererProps: object): React.ReactElement => {
       return <em>{rendererProps.children}</em>
