@@ -101,7 +101,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
       disabled={!props.isEnabled}
       as={props.target && 'a'}
       href={props.target}
-      rel={props.target && targetShouldOpenSameTab && 'noopener'}
+      rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
       target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       { !props.isLoading && props.text }

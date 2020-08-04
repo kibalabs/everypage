@@ -34,9 +34,8 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
                     {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                    <Spacing direction={Direction.Vertical} mode='wide' />
-                    {feature.title && <MarkdownText textAlignment={TextAlignment.Center} textMode='subtitle' source={feature.title} />}
-                    <Spacing direction={Direction.Vertical} mode='narrow' />
+                    <Spacing mode={PaddingSize.Wide} />
+                    {feature.title && <Stack.Item gutterSizeAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textMode='subtitle' source={feature.title} /></Stack.Item>}
                     {feature.description && <MarkdownText textAlignment={TextAlignment.Center} source={feature.description} />}
                   </Stack>
                 </Box>
