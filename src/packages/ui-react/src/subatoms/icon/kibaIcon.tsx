@@ -37,6 +37,13 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
         shouldAddStroke: false,
       }
     }
+    if (iconId.startsWith('bs-')) {
+      return {
+        url: `https://assets.evrpg.com/bootstrap-icons/v1/${iconId.replace('bs-', '')}.svg`,
+        shouldAddFill: true,
+        shouldAddStroke: false,
+      }
+    }
     if (iconId.startsWith('feather-')) {
       return {
         url: `https://assets.evrpg.com/feather/v4/${iconId.replace('feather-', '')}.svg`,

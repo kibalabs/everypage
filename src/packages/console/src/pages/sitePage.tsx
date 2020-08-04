@@ -121,7 +121,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   const loadVersions = (): void => {
     everypageClient.list_site_versions(site.siteId).then((siteVersions: SiteVersion[]) => {
-      setVersions(siteVersions);
+      setVersions(siteVersions.reverse());
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setVersions([]);
@@ -283,9 +283,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
             <React.Fragment>
               <Paper className={classes.paper}>
                 <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
-                  <Typography variant='h6' className={classes.siteNameText}>
-                    {site.name}
-                  </Typography>
+                  <Typography variant='h6' className={classes.siteNameText}>{site.name}</Typography>
                   <Button href={getSiteUrl()} color='primary'>Open</Button>
                 </Box>
                 <Typography color='textSecondary'>
@@ -381,7 +379,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 )}
               </Paper>
               <Paper className={classes.paper}>
-                <Typography variant='h6' className={classes.siteNameText}>Site Versions</Typography>
+                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
+                  <Typography variant='h6' className={classes.siteNameText}>Site Versions</Typography>
+                  {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>}
+                </Box>
                 { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
                   return (
                     <Box key={index} mt={2}>
@@ -403,9 +404,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     </Box>
                   );
                 })}
-                <br />
-                <br />
-                {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button variant='contained' color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>}
               </Paper>
             </React.Fragment>
           )}
