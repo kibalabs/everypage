@@ -5,6 +5,7 @@ export * from './attribution';
 export * from './buttons1';
 export * from './featureBoxes1';
 export * from './featureMediaHalf1';
+export * from './featureSteps1';
 export * from './faq1';
 export * from './footer1';
 export * from './head';
