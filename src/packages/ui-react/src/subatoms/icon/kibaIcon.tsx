@@ -53,7 +53,7 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
     }
     if (iconId.startsWith('remix-')) {
       return {
-        url: `https://assets.evrpg.com/remixicons/v2/${iconId.replace('remix-', '')}.svg`,
+        url: `https://assets.evrpg.com/remix-icons/v2/${iconId.replace('remix-', '')}.svg`,
         shouldAddFill: true,
         shouldAddStroke: false,
       }

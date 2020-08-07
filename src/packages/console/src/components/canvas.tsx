@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
   verticalLine: {
     backgroundColor: '#333333',
-    width: '2px',
+    width: '1px',
     height: '100%',
   },
 }));

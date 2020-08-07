@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Canvas } from '../components/canvas';
+import { MemoCanvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { Template, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -49,6 +49,7 @@ export const CanvasPage = (): React.ReactElement => {
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
+  const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = {...assetFileMap};
@@ -84,6 +85,18 @@ export const CanvasPage = (): React.ReactElement => {
     setSiteTheme(null);
   }
 
+  const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
+    setSiteContent(siteContent);
+    // NOTE(krish): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
+    setIsSiteContentChanged(true);
+  }
+
+  const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
+    setSiteTheme(siteTheme);
+    // NOTE(krish): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
+    setIsSiteContentChanged(true);
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.topBar}>
@@ -101,11 +114,11 @@ export const CanvasPage = (): React.ReactElement => {
           <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
         </div>
       </div>
-      {siteContent && <Canvas
+      {siteContent && <MemoCanvas
         siteContent={siteContent}
-        onSiteContentUpdated={setSiteContent}
+        onSiteContentUpdated={onSiteContentUpdated}
         siteTheme={siteTheme}
-        onSiteThemeUpdated={setSiteTheme}
+        onSiteThemeUpdated={onSiteThemeUpdated}
         isEditorHidden={isEditorHidden}
         onIsEditorHiddenUpdated={setIsEditorHidden}
         assetFileMap={assetFileMap}

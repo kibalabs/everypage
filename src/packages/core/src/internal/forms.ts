@@ -27,16 +27,17 @@ const paramsToQueryString = (params: Record<string, string>): string => {
 
 export const submitForm = async (inputs: IFormInput[], action: FormAction, target: string): Promise<IFormSubmissionResult> => {
   const params = inputsToParams(inputs);
+  const headers = {'Content-Type': 'application/json'};
   if (action === FormAction.Open) {
     window.open(`${target}?${paramsToQueryString(params)}`, '_blank')
   } else if (action === FormAction.Get) {
-    return new Requester().makeRequest(RestMethod.GET, target, params).then((response: KibaResponse): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.GET, target, params, headers).then((response: KibaResponse): IFormSubmissionResult => {
       return {isSuccessful: true, responseMessage: response.content};
     }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
     });
   } else if (action === FormAction.Post) {
-    return new Requester().makeRequest(RestMethod.POST, target, params).then((response: KibaResponse): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.POST, target, params, headers).then((response: KibaResponse): IFormSubmissionResult => {
       return {isSuccessful: true, responseMessage: response.content};
     }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
