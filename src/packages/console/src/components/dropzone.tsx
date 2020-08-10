@@ -65,7 +65,6 @@ const Thumb = styled.div`
 const ThumbImageHolder = styled.div`
   height: 100%;
   width: 100%;
-  object-fit: contain;
 `;
 
 const ThumbImage = styled.img`
@@ -84,8 +83,34 @@ const ThumbSubtitle = styled.span`
   padding: 10px 20px;
 `;
 
+const ThumbDeleteButton = styled.button`
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 100px;
+  padding: 2px 5px 4px;
+  line-height: 0.9em;
+  color: white;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  &:before {
+    content: '×';
+  }
+
+  &:hover {
+    background-color: rgba(0,0,0,0.6);
+  }
+  &:focus {
+    background-color: rgba(0,0,0,0.6);
+  }
+  &:active {
+    background-color: rgba(0,0,0,0.7);
+  }
+`;
+
 interface IFilePreviewGridProps {
   fileMap: Record<string, string>;
+  onDeleteClicked?(filePath: string);
 }
 
 export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElement => {
@@ -98,6 +123,7 @@ export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElemen
             <ThumbImage src={props.fileMap[filePath]} />
           </ThumbImageHolder>
           <ThumbSubtitle>{filePath}</ThumbSubtitle>
+          {props.onDeleteClicked && <ThumbDeleteButton onClick={(): void => props.onDeleteClicked(filePath)}/>}
         </Thumb>
       ))}
     </ThumbsContainer>

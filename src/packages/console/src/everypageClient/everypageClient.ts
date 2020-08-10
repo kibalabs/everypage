@@ -157,12 +157,27 @@ export class EverypageClient extends ServiceClient {
     return response.nextVersionName;
   }
 
+  public generate_asset_upload_for_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.PresignedUpload> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/generate-asset-upload`;
+    const request = new Endpoints.GenerateAssetUploadForSiteVersionRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.GenerateAssetUploadForSiteVersionResponse);
+    return response.presignedUpload;
+  }
+
   public list_site_version_assets = async (siteId: number, siteVersionId: number): Promise<Resources.AssetFile[]> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets`;
     const request = new Endpoints.ListSiteVersionAssetsRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.ListSiteVersionAssetsResponse);
     return response.assetFiles;
+  }
+
+  public delete_site_version_asset = async (siteId: number, siteVersionId: number, assetPath: string): Promise<Void> => {
+    const method = RestMethod.DELETE;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets/${encodeURIComponent(assetPath)}`;
+    const request = new Endpoints.DeleteSiteVersionAssetsRequest();
+    await this.makeRequest(method, path, request, Endpoints.DeleteSiteVersionAssetsResponse);
   }
 
   public promote_site_version = async (siteId: number, siteVersionId: number): Promise<void> => {
@@ -178,14 +193,6 @@ export class EverypageClient extends ServiceClient {
     const request = new Endpoints.CloneSiteVersionRequest(name);
     const response = await this.makeRequest(method, path, request, Endpoints.CloneSiteVersionResponse);
     return response.siteVersion;
-  }
-
-  public generate_asset_upload_for_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.PresignedUpload> => {
-    const method = RestMethod.POST;
-    const path = `v1/sites/${siteId}/versions/${siteVersionId}/generate-asset-upload`;
-    const request = new Endpoints.GenerateAssetUploadForSiteVersionRequest();
-    const response = await this.makeRequest(method, path, request, Endpoints.GenerateAssetUploadForSiteVersionResponse);
-    return response.presignedUpload;
   }
 
   public get_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {

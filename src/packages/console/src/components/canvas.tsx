@@ -90,6 +90,7 @@ interface ICanvasProps {
   onSiteThemeUpdated: (siteTheme: Record<string, any>) => void;
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
+  deleteAssetFile?: (fileKey: string) => Promise<void>;
   isEditorHidden: boolean;
   onIsEditorHiddenUpdated: (isEditorHidden: boolean) => void;
 }
@@ -174,7 +175,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             </Box>
             <Box className={classes.editor} display={selectedTab === 2 ? 'flex' : 'none'}>
               {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-              <FilePreviewGrid fileMap={props.assetFileMap}/>
+              <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile}/>
             </Box>
           </div>
         )}

@@ -393,6 +393,29 @@ export class ListSiteVersionAssetsResponse extends ResponseData {
   }
 }
 
+export class DeleteSiteVersionAssetsRequest extends RequestData {
+  public constructor() {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class DeleteSiteVersionAssetsResponse extends ResponseData {
+  public constructor() {
+    super();
+  }
+
+  public static fromObject = (obj: Record<string, any>): DeleteSiteVersionAssetsResponse => {
+    return new DeleteSiteVersionAssetsResponse(
+    );
+  }
+}
+
+
 export class PromoteSiteVersionRequest extends RequestData {
   public constructor() {
     super();

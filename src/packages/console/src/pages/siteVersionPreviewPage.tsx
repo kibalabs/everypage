@@ -182,6 +182,12 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     });
   };
 
+  const deleteAssetFile = (fileKey: string): Promise<void> => {
+    return everypageClient.delete_site_version_asset(siteVersion.siteId, siteVersion.siteVersionId, fileKey.replace('/assets/', '')).then((): void => {
+      loadSiteVersionAssets();
+    });
+  }
+
   const onIsMetaShownToggled = (): void => {
     setIsMetaShown(!isHeadShown);
   }
@@ -221,6 +227,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
               onSiteThemeUpdated={onSiteThemeUpdated}
               assetFileMap={assetFileMap}
               addAssetFiles={addAssetFiles}
+              deleteAssetFile={deleteAssetFile}
               isEditorHidden={isEditorHidden}
               onIsEditorHiddenUpdated={setIsEditorHidden}
             />
