@@ -10,6 +10,7 @@ export * from './footer1';
 export * from './head';
 export * from './heroAppDownloadMediaHalf1';
 export * from './heroButtons1';
+export * from './heroButtonsVideo1';
 export * from './heroSignup1';
 export * from './heroSimple1';
 export * from './heroSignupMediaHalf1';

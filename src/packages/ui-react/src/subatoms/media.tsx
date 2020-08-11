@@ -24,7 +24,7 @@ export const Media = (props: IMediaProps): React.ReactElement => {
   }
 
   return isVideo() ? (
-    <Video {...props} />
+    <Video shouldShowControls={false} {...props} />
   ) : (
     <Image {...props} />
   );

@@ -16,6 +16,7 @@ import { IIconButtonTheme } from '../atoms/iconButton/theme';
 import { IInputWrapperTheme } from '../atoms/inputWrapper/theme';
 import { ILinkTheme } from '../atoms/link/theme';
 import { IPrettyTextTheme } from '../atoms/prettyText/theme';
+import { IWebViewTheme } from '../atoms/webView/theme';
 
 export interface ITheme extends ThemeType {
   // Base
@@ -40,4 +41,5 @@ export interface ITheme extends ThemeType {
   inputWrappers: ThemeMap<IInputWrapperTheme>,
   links: ThemeMap<ILinkTheme>,
   prettyTexts: ThemeMap<IPrettyTextTheme>,
+  webViews: ThemeMap<IWebViewTheme>,
 }

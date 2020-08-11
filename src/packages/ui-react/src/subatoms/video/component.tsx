@@ -38,6 +38,11 @@ export interface IVideoProps extends IComponentProps<IVideoTheme> {
   isFullHeight: boolean;
   isCenteredHorizontally: boolean;
   fitType: 'crop' | 'scale';
+  shouldShowControls: boolean;
+  shouldAutoplay: boolean;
+  shouldMute: boolean;
+  shouldLoop: boolean;
+  isLazyLoadable: boolean;
 }
 
 export const Video = (props: IVideoProps): React.ReactElement => {
@@ -47,11 +52,11 @@ export const Video = (props: IVideoProps): React.ReactElement => {
       id={props.id}
       className={getClassName(Video.displayName, props.className, props.isLazyLoadable ? 'lazyload' : 'unlazy', props.isCenteredHorizontally && 'centered')}
       theme={theme}
-      autoPlay={true}
-      muted={true}
+      autoPlay={props.shouldAutoplay}
+      muted={props.shouldMute}
       playsInline={true}
-      controls={false}
-      loop={true}
+      controls={props.shouldShowControls}
+      loop={props.shouldLoop}
       fitType={props.fitType}
       isFullWidth={props.isFullWidth}
       isFullHeight={props.isFullHeight}
@@ -69,5 +74,10 @@ Video.defaultProps = {
   isFullWidth: false,
   isFullHeight: false,
   isCenteredHorizontally: false,
+  shouldShowControls: true,
+  shouldAutoplay: false,
+  shouldMute: false,
+  shouldLoop: false,
+  isLazyLoadable: true,
 };
 Video.displayName = 'video';

@@ -6,3 +6,4 @@ export * from './prettyText';
 export * from './iconButton';
 export * from './inputWrapper';
 export * from './link';
+export * from './webView';
