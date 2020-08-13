@@ -21,7 +21,7 @@ interface ITestimonialBoxes1Props extends ISectionProps {
 
 const getIcon = (boxType: string, brandColor: string): React.ReactElement => {
   if (boxType === 'producthunt') {
-    return <KibaIcon _color='#DA552F' iconId={'remix-product-hunt-fill'} />;
+    return <KibaIcon _color='#DA552F' iconId={'remix-product-hunt'} />;
   }
   if (boxType === 'twitter') {
     return <KibaIcon _color='#1DA1F2' iconId='ion-logo-twitter' />;
