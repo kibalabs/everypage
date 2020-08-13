@@ -4,6 +4,7 @@ import { getClassName } from '@kibalabs/core';
 
 import { IComponentProps, defaultComponentProps, LoadingSpinner, themeToCss, useBuiltTheme } from '../..';
 import { IButtonTheme } from './theme';
+import { IIconProps, Spacing } from '../../subatoms';
 
 interface IStyledButtonProps {
   theme: IButtonTheme;
@@ -67,9 +68,8 @@ interface IButtonProps extends IComponentProps<IButtonTheme> {
   isEnabled: boolean;
   isLoading: boolean;
   isFullWidth: boolean;
-  // rightIcon?: React.ComponentClass<IIconProps>;
-  // leftIcon?: React.ComponentClass<IIconProps>;
-  // iconSize: 'default' | 'small' | 'large' | 'full';
+  rightIcon?: React.ComponentClass<IIconProps>;
+  leftIcon?: React.ReactElement<IIconProps>;
   target?: string;
   targetShouldOpenSameTab?: boolean;
   onClicked?(): void;
@@ -104,7 +104,19 @@ export const Button = (props: IButtonProps): React.ReactElement => {
       rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
       target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
+      { !props.isLoading && props.leftIcon && (
+        <React.Fragment>
+          {props.leftIcon}
+          <Spacing />
+        </React.Fragment>
+      )}
       { !props.isLoading && props.text }
+      { !props.isLoading && props.rightIcon && (
+        <React.Fragment>
+          <Spacing />
+          {props.rightIcon}
+        </React.Fragment>
+      )}
       { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} mode='light' size='small'/> }
     </StyledButton>
   );

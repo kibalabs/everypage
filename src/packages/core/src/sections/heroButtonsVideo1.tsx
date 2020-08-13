@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, Video, WebView } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, Video, WebView, KibeIcon } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
@@ -9,6 +9,8 @@ interface IHeroButtonsVideo1Button {
   text: string;
   target: string;
   mode?: string;
+  iconIdRight?: string;
+  iconIdLeft?: string;
 }
 
 interface IHeroButtonsVideo1Props extends ISectionProps {
@@ -22,7 +24,7 @@ interface IHeroButtonsVideo1Props extends ISectionProps {
 
 export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactElement => {
   if (props.videoUrl && props.embeddedVideoUrl) {
-    throw new Error('Only one of {leftMediaUrl, rightMediaUrl} should be provided to hero-buttons-video-1')
+    throw new Error('Only one of {videoUrl, embeddedVideoUrl} should be provided to hero-buttons-video-1')
   }
 
   return (
@@ -37,7 +39,15 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
               <Stack.Item gutterSizeAfter={(props.videoUrl || props.embeddedVideoUrl) ? PaddingSize.ExtraExtraWide : PaddingSize.None}>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                   {props.buttons.map((button: IHeroButtonsVideo1Button, index: number): React.ReactElement => {
-                    return <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />;
+                    return (
+                      <Button
+                        key={index}
+                        text={button.text}
+                        onClicked={(): void => {window.open(button.target)}} mode={button.mode}
+                        leftIcon={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                        rightIcon={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                      />
+                    );
                   })}
                 </Stack>
               </Stack.Item>

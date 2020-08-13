@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Button, PaddingSize, Stack, Direction, Alignment, TextAlignment, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Button, PaddingSize, Stack, Direction, Alignment, TextAlignment, ResponsiveTextAlignmentView, KibaIcon } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -9,6 +9,8 @@ interface IButtons1Button {
   text: string;
   target: string;
   mode?: string;
+  iconIdRight?: string;
+  iconIdLeft?: string;
 }
 
 interface IButtons1Props extends ISectionProps {
@@ -27,7 +29,15 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
               {props.buttons.map((button: IButtons1Button, index: number): React.ReactElement => {
-                return <Button key={index} text={button.text} onClicked={(): void => {window.open(button.target)}} mode={button.mode} />;
+                return (
+                  <Button
+                    key={index}
+                    text={button.text}
+                    onClicked={(): void => {window.open(button.target)}} mode={button.mode}
+                    leftIcon={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                    rightIcon={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                  />
+                );
               })}
             </Stack>
           </Stack>
