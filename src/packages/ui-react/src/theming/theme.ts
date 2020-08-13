@@ -17,6 +17,7 @@ import { IInputWrapperTheme } from '../atoms/inputWrapper/theme';
 import { ILinkTheme } from '../atoms/link/theme';
 import { IPrettyTextTheme } from '../atoms/prettyText/theme';
 import { IWebViewTheme } from '../atoms/webView/theme';
+import { ILinePagerTheme } from '../atoms/linePager/theme';
 
 export interface ITheme extends ThemeType {
   // Base
@@ -42,4 +43,5 @@ export interface ITheme extends ThemeType {
   links: ThemeMap<ILinkTheme>,
   prettyTexts: ThemeMap<IPrettyTextTheme>,
   webViews: ThemeMap<IWebViewTheme>,
+  linePagers: ThemeMap<ILinePagerTheme>,
 }

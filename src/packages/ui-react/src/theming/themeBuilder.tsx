@@ -19,6 +19,7 @@ import { buildLinkThemes } from '../atoms/link';
 import { buildLinkBaseThemes } from '../atoms/linkBase';
 import { buildPrettyTextThemes } from '../atoms/prettyText';
 import { buildWebViewThemes } from '../atoms/webView';
+import { buildLinePagerThemes } from '../atoms/linePager';
 
 export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const colors = buildColors(inputTheme?.colors);
@@ -27,7 +28,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const textThemes = buildTextThemes(colors, dimensions, inputTheme?.texts);
   const boxThemes = buildBoxThemes(colors, dimensions, inputTheme?.boxes);
-  const imageThemes = buildImageThemes(colors, dimensions, inputTheme?.images);
+  const imageThemes = buildImageThemes(colors, dimensions, boxThemes, inputTheme?.images);
   const loadingSpinnerThemes = buildLoadingSpinnerThemes(colors, dimensions, inputTheme?.loadingSpinners);
   const portalThemes = buildPortalThemes(colors, dimensions, boxThemes, inputTheme?.portals);
   const videoThemes = buildVideoThemes(colors, dimensions, inputTheme?.videos);
@@ -41,6 +42,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const linkThemes = buildLinkThemes(colors, dimensions, textThemes, boxThemes, inputTheme?.links);
   const prettyTextThemes = buildPrettyTextThemes(colors, dimensions, textThemes, inputTheme?.prettyTexts);
   const webViewThemes = buildWebViewThemes(colors, dimensions, boxThemes, inputTheme?.webViews);
+  const linePagerThemes = buildLinePagerThemes(colors, dimensions, boxThemes, inputTheme?.linePagers);
 
   return merge<ITheme>({
     // Base
@@ -66,6 +68,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     links: linkThemes,
     prettyTexts: prettyTextThemes,
     webViews: webViewThemes,
+    linePagers: linePagerThemes,
   }, inputTheme, {
     // NOTE(krish): this is here so the font replacement doesn't get overridden
     fonts: fonts,

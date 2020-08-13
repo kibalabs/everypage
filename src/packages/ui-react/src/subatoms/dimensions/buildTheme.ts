@@ -14,6 +14,7 @@ export const buildDimensions = (base?: Partial<IDimensionGuide>): IDimensionGuid
   const paddingNarrow = base?.paddingNarrow || math(`${padding} / 2`);
   const paddingExtraNarrow = base?.paddingExtraNarrow || math(`${paddingNarrow} / 2`);
   const paddingExtraExtraNarrow = base?.paddingExtraExtraNarrow || math(`${paddingExtraNarrow} / 2`);
+  const paddingExtraExtraExtraNarrow = base?.paddingExtraExtraExtraNarrow || math(`${paddingExtraExtraNarrow} / 2`);
   const paddingWide = base?.paddingWide || math(`${padding} * 2`);
   const paddingExtraWide = base?.paddingExtraWide || math(`${paddingWide} * 2`);
   const paddingExtraExtraWide = base?.paddingExtraExtraWide || math(`${paddingExtraWide} * 2`);
@@ -38,6 +39,7 @@ export const buildDimensions = (base?: Partial<IDimensionGuide>): IDimensionGuid
     paddingNarrow: paddingNarrow,
     paddingExtraNarrow: paddingExtraNarrow,
     paddingExtraExtraNarrow: paddingExtraExtraNarrow,
+    paddingExtraExtraExtraNarrow: paddingExtraExtraExtraNarrow,
     paddingWide: paddingWide,
     paddingExtraWide: paddingExtraWide,
     paddingExtraExtraWide: paddingExtraExtraWide,

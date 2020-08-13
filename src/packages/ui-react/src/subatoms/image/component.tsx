@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 
-import { IComponentProps, defaultComponentProps, useBuiltTheme } from '../..';
+import { IComponentProps, defaultComponentProps, themeToCss, useBuiltTheme } from '../..';
 import { IImageTheme } from './theme';
 
 export interface IStyledImageProps {
@@ -13,6 +13,7 @@ export interface IStyledImageProps {
 }
 
 const StyledImage = styled.img<IStyledImageProps>`
+  ${(props: IStyledImageProps): string => themeToCss(props.theme.background)};
   display: block;
   pointer-events: none;
   width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'auto')};

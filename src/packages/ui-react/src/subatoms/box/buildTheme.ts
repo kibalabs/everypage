@@ -23,6 +23,7 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   }, base?.default);
 
   const transparentBoxTheme = mergeThemePartial<IBoxTheme>({
+    'background-color': 'transparent',
     'padding': dimensions.padding,
   }, base?.transparent);
 

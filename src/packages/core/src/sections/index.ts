@@ -21,3 +21,4 @@ export * from './pricingMulti1';
 export * from './signup1';
 export * from './statisticBoxes1';
 export * from './testimonialBoxes1';
+export * from './testimonialSlides1';
