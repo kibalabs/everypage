@@ -6,10 +6,11 @@ import { ISingleAnyChildProps, flattenChildren, useScrollListener, useInterval, 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
 import { Stack } from '../layouts';
 import { Direction, Alignment } from '../model';
-import { Button, IButtonTheme } from '../atoms';
+import { IconButton, IIconButtonTheme } from '../atoms';
+import { KibaIcon } from '../subatoms';
 
 export interface ICarouselTheme {
-  indexButtonTheme: IButtonTheme;
+  indexButtonTheme: IIconButtonTheme;
 }
 
 const StyledSlider = styled.div`
@@ -110,7 +111,7 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
       direction={Direction.Horizontal}
       childAlignment={Alignment.Center}
     >
-      {props.shouldShowButtons && <Button theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} text='<' onClicked={onPreviousClicked} />}
+      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} icon={<KibaIcon iconId='mui-chevron-left'/>} onClicked={onPreviousClicked} />}
       <Stack.Item growthFactor={1} shrinkFactor={1}>
         <StyledSlider ref={sliderRef}>
           {children.map((child: React.ReactElement, index: number): React.ReactElement => {
@@ -120,7 +121,7 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
           })}
         </StyledSlider>
       </Stack.Item>
-      {props.shouldShowButtons && <Button theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} text='>' onClicked={onNextClicked}/>}
+      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} icon={<KibaIcon iconId='mui-chevron-right'/>} onClicked={onNextClicked}/>}
     </Stack>
   );
 };

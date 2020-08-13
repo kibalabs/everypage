@@ -10,7 +10,7 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
     normal: {
       default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
-          'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
+          'padding': `${dimensions.padding} ${dimensions.padding}`,
           'background-color': 'transparent',
         }),
         text: mergeTheme(textThemes.default, {
