@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps, flattenChildren, useScrollListener, useInterval, useRerenderRef } from '@kibalabs/core-react';
+import { ISingleAnyChildProps, flattenChildren, useScrollListener, useInterval, useRenderedRef } from '@kibalabs/core-react';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
 import { Stack } from '../layouts';
@@ -54,7 +54,7 @@ export interface ICarouselProps extends IMoleculeProps<ICarouselTheme>, ISingleA
 
 // NOTE(krish): the slider could potentially be its own component here!
 export const Carousel = (props: ICarouselProps): React.ReactElement => {
-  const [sliderRef] = useRerenderRef<HTMLDivElement | null>(null);
+  const [sliderRef] = useRenderedRef<HTMLDivElement | null>(null);
   const scrollTimeoutRef = React.useRef<number | null>(null);
   const children = flattenChildren(props.children);
   const [slideIndex, setSlideIndex] = React.useState<number>(props.initialIndex);
