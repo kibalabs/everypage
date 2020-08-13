@@ -39,7 +39,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
   };
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialSlides1.displayName, props.className)}>
-      <ResponsiveContainingView size={10}>
+      <ResponsiveContainingView size={10} sizeMedium={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}

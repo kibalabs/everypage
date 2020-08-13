@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, Video, WebView, KibeIcon } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, Video, WebView, KibaIcon } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
@@ -44,8 +44,8 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
                         key={index}
                         text={button.text}
                         onClicked={(): void => {window.open(button.target)}} mode={button.mode}
-                        leftIcon={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
-                        rightIcon={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                        iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                        iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
                       />
                     );
                   })}

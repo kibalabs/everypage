@@ -15,6 +15,8 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'text-decoration': 'none',
     'margin': '0',
     'text-align': 'inherit',
+    'text-shadow': 'inherit',
+    'text-transform': 'inherit',
   }, base?.default);
 
   const inverseTextTheme = mergeThemePartial<ITextTheme>({
@@ -83,23 +85,23 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
 
   const header1TextTheme = mergeThemePartial(headerTextTheme, base?.header1);
 
-  const titleTextTheme = mergeThemePartial<ITextTheme>({
+  const header2TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '2.0rem',
     'font-weight': 'bold',
     'color': '#171717',
     'line-height': '1.2em',
-  }, base?.title);
+  }, base?.header2);
 
-  const header2TextTheme = mergeThemePartial(titleTextTheme, base?.header2);
+  const titleTextTheme = mergeThemePartial(header2TextTheme, base?.title);
 
-  const subtitleTextTheme = mergeThemePartial<ITextTheme>({
+  const header3TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.6rem',
     'font-weight': 'bold',
     'color': '#171717',
     'line-height': '1.2em',
-  }, base?.subtitle);
+  }, base?.header3);
 
-  const header3TextTheme = mergeThemePartial(subtitleTextTheme, base?.header3);
+  const subtitleTextTheme = mergeThemePartial(header3TextTheme, base?.subtitle);
 
   const header4TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.4rem',

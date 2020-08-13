@@ -1,6 +1,7 @@
 export * from './section';
 
 export * from './appDownload1';
+export * from './appButtons1';
 export * from './attribution';
 export * from './buttons1';
 export * from './featureBoxes1';
@@ -8,6 +9,7 @@ export * from './featureMediaHalf1';
 export * from './faq1';
 export * from './footer1';
 export * from './head';
+export * from './heroAppButtonsMediaHalf1';
 export * from './heroAppDownloadMediaHalf1';
 export * from './heroButtons1';
 export * from './heroButtonsVideo1';

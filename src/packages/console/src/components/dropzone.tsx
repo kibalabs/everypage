@@ -81,6 +81,7 @@ const ThumbSubtitle = styled.span`
   position: absolute;
   bottom: 0;
   padding: 10px 20px;
+  word-wrap: break-word;
 `;
 
 const ThumbDeleteButton = styled.button`

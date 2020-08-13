@@ -36,8 +36,8 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
                     key={index}
                     text={button.text}
                     onClicked={(): void => {window.open(button.target)}} mode={button.mode}
-                    leftIcon={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
-                    rightIcon={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                    iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                    iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
                   />
                 );
               })}

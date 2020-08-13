@@ -9,4 +9,6 @@ export interface ITextTheme extends CssTheme {
   'text-decoration': string;
   'margin': string;
   'text-align': string;
+  'text-shadow': string;
+  'text-transform': string;
 }
