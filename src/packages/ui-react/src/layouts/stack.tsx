@@ -10,16 +10,32 @@ import { useDimensions } from '../theming';
 // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 // NOTE(krish): behavior of the above is also different on IE11, be careful!
 
-const getContentAlignmentCss = (alignment: Alignment): string => {
-  return `justify-content: ${getFlexContentAlignment(alignment)};`;
-}
-
 const getResponsiveCss = (screenWidth: string, css: string): string => {
   return `@media (min-width: ${screenWidth}) { ${css} }`;
 }
 
+const getContentAlignmentCss = (alignment: Alignment): string => {
+  return `justify-content: ${getFlexContentAlignment(alignment)};`;
+}
+
 const getResponsiveContentAlignmentCss = (screenWidth: string, alignment?: Alignment): string => {
   return alignment ? getResponsiveCss(screenWidth, getContentAlignmentCss(alignment)) : '';
+}
+
+const getChildAlignmentCss = (alignment: Alignment): string => {
+  return `align-items: ${getFlexItemAlignment(alignment)};`;
+}
+
+const getResponsiveChildAlignmentCss = (screenWidth: string, alignment?: Alignment): string => {
+  return alignment ? getResponsiveCss(screenWidth, getChildAlignmentCss(alignment)) : '';
+}
+
+const getDirectionCss = (direction: Direction): string => {
+  return `flex-direction: ${direction === Direction.Vertical ? 'column' : 'row'};`;
+}
+
+const getResponsiveDirectionCss = (screenWidth: string, direction?: Direction): string => {
+  return direction ? getResponsiveCss(screenWidth, getDirectionCss(direction)) : '';
 }
 
 export interface IStackItemProps extends ISingleAnyChildProps {
@@ -47,8 +63,16 @@ class StackItem extends React.Component<IStackItemProps> {
 
 interface IStyledStackProps {
   theme: IDimensionGuide;
-  $direction: string;
+  $direction: Direction;
+  directionSmall?: Direction;
+  directionMedium?: Direction;
+  directionLarge?: Direction;
+  directionExtraLarge?: Direction;
   childAlignment: Alignment;
+  childAlignmentSmall?: Alignment;
+  childAlignmentMedium?: Alignment;
+  childAlignmentLarge?: Alignment;
+  childAlignmentExtraLarge?: Alignment;
   contentAlignment: Alignment;
   contentAlignmentSmall?: Alignment;
   contentAlignmentMedium?: Alignment;
@@ -60,15 +84,24 @@ interface IStyledStackProps {
 
 const StyledStack = styled.div<IStyledStackProps>`
   display: flex;
-  flex-direction: ${(props: IStyledStackProps): string => (props.$direction === Direction.Vertical ? 'column' : 'row')};
+  /* flex-direction: ${(props: IStyledStackProps): string => (props.$direction === Direction.Vertical ? 'column' : 'row')}; */
   width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  align-items: ${(props: IStyledStackProps): string => getFlexItemAlignment(props.childAlignment)};
+  ${(props: IStyledStackProps): string => getDirectionCss(props.$direction)};
+  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthSmall, props.directionSmall)};
+  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthMedium, props.directionMedium)};
+  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthLarge, props.directionLarge)};
+  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthExtraLarge, props.directionExtraLarge)};
   ${(props: IStyledStackProps): string => getContentAlignmentCss(props.contentAlignment)};
   ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthSmall, props.contentAlignmentSmall)};
   ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthMedium, props.contentAlignmentMedium)};
   ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthLarge, props.contentAlignmentLarge)};
   ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthExtraLarge, props.contentAlignmentExtraLarge)};
+  ${(props: IStyledStackProps): string => getChildAlignmentCss(props.childAlignment)};
+  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthSmall, props.childAlignmentSmall)};
+  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthMedium, props.childAlignmentMedium)};
+  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthLarge, props.childAlignmentLarge)};
+  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthExtraLarge, props.childAlignmentExtraLarge)};
 `;
 
 interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
@@ -76,7 +109,15 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   className: string;
   theme?: IDimensionGuide;
   direction: Direction;
+  directionSmall?: Direction;
+  directionMedium?: Direction;
+  directionLarge?: Direction;
+  directionExtraLarge?: Direction;
   childAlignment: Alignment;
+  childAlignmentSmall?: Alignment;
+  childAlignmentMedium?: Alignment;
+  childAlignmentLarge?: Alignment;
+  childAlignmentExtraLarge?: Alignment;
   contentAlignment: Alignment;
   contentAlignmentSmall?: Alignment;
   contentAlignmentMedium?: Alignment;
@@ -105,7 +146,15 @@ export const Stack = (props: IStackProps): React.ReactElement => {
         className={getClassName(Stack.displayName)}
         theme={theme}
         $direction={props.direction}
+        directionSmall={props.directionSmall}
+        directionMedium={props.directionMedium}
+        directionLarge={props.directionLarge}
+        directionExtraLarge={props.directionExtraLarge}
         childAlignment={props.childAlignment}
+        childAlignmentSmall={props.childAlignmentSmall}
+        childAlignmentMedium={props.childAlignmentMedium}
+        childAlignmentLarge={props.childAlignmentLarge}
+        childAlignmentExtraLarge={props.childAlignmentExtraLarge}
         contentAlignment={props.contentAlignment}
         contentAlignmentSmall={props.contentAlignmentSmall}
         contentAlignmentMedium={props.contentAlignmentMedium}
@@ -167,9 +216,10 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
   }
 `;
 
-const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.ReactElement => {
-  const children = React.Children.toArray(props.children);
-  const child = children.length > 0 ? children[0] : <div />;
-  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.ReactElement | React.ReactElement[] => {
+  // const children = React.Children.toArray(props.children);
+  // const child = children.length > 0 ? children[0] : <div />;
+  // return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+  return React.Children.map(props.children, ((child: React.ReactElement) => React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
 StyledStackItem.displayName = 'stack-item';
