@@ -1,66 +1,80 @@
 {
   "name": "test page",
-  "company": "Kiba Labs",
   "tagline": "This page contains one of each type of component",
+  "description": ":upside_down_face:",
   "keywords": [
     "developer tools",
     "docs"
   ],
+  "company": "Kiba Labs",
+  "companyUrl": "https://www.kibalabs.com",
+  "socialCardImageUrl": "/assets/banner.png",
   "sections": [
     {
-      "id": "navbar",
       "type": "navbar-1",
-      "buttons": [
-        {
-          "text": "Something else",
-          "target": "https://console.everypagehq.com/register"
-        },
-        {
-          "text": "Another something else",
-          "target": "https://console.everypagehq.com/register"
-        },
-        {
-          "mode": "secondary",
-          "text": "Yet one more",
-          "target": "https://console.everypagehq.com/register"
-        },
-        {
-          "mode": "primary",
-          "text": "Sign up",
-          "target": "#hero-signup",
-          "display": "always"
-        }
-      ],
-      "titleText": "All",
       "background": {
         "color": "#ffffff"
       },
+      "titleText": "All",
+      "buttons": [
+        {
+          "target": "https://console.everypagehq.com/canvas",
+          "text": "Canvas"
+        },
+        {
+          "target": "#feature-media-half-1-left",
+          "text": "Awesome feature"
+        },
+        {
+          "mode": "secondary",
+          "target": "#signup-1-open-link",
+          "text": "Cool form"
+        },
+        {
+          "display": "always",
+          "mode": "primary",
+          "target": "https://console.everypagehq.com",
+          "text": "Sign in here"
+        }
+      ],
       "logoImageUrl": "https://www.everypagehq.com/20200505212614/assets/everypage-wordmark.svg",
       "shouldStickToTop": true
     },
     {
+      "type": "hero-buttons-1",
+      "titleText": "Create your beautiful landing page in minutes",
+      "subtitleText": "Our easy to use landing page builder drives you to focus on your copy, and generates your page with exceptional performance, SEO and accessibility built in.",
+      "buttons": [
+        {
+          "iconIdRight": "ion-checkmark-circle-outline",
+          "mode": "primary",
+          "target": "https://console.everypagehq.com/register",
+          "text": "Subscribe"
+        }
+      ],
+      "logoImageUrl": null
+    },
+    {
       "type": "hero-app-download-media-half-1",
-      "iosAppId": "1244075045",
+      "background": {
+        "color": "#ffffff"
+      },
       "titleText": "Insert catchy header",
+      "subtitleText": "Share why your product is great",
       "androidAppId": "com.wordmagicapp.android.play",
+      "iosAppId": "1244075045",
       "leftMediaUrl": null,
       "logoImageUrl": null,
-      "subtitleText": "Share why your product is great",
       "rightMediaUrl": "https://via.placeholder.com/250x500"
     },
     {
       "type": "hero-signup-1",
-      "inputName": "email",
-      "inputType": "email",
-      "titleText": "Create your beautiful landing page in minutes with a declarative API",
       "background": {
         "color": "white"
       },
-      "formAction": "POST",
-      "formTarget": "https://api.kiba.dev/v1/newsletter-subscriptions",
-      "logoImageUrl": "/assets/everypage-wordmark.svg",
+      "titleText": "Create your beautiful landing page in minutes with a declarative API",
       "subtitleText": "Our easy to use landing page generator builds your landing pages with exceptional performance, SEO and accessibility built in.",
-      "inputButtonText": "Subscribe",
+      "formAction": "POST",
       "formAdditionalInputs": [
         {
           "name": "topic",
@@ -68,92 +82,106 @@
           "value": "everypage"
         }
       ],
+      "formTarget": "https://api.kiba.dev/v1/newsletter-subscriptions",
+      "inputButtonText": "Subscribe",
+      "inputName": "email",
       "inputPlaceholderText": "Go on, you really will love it 👀",
-      "inputSuccessMessageText": "You're signed up :tada:"
+      "inputSuccessMessageText": "You're signed up :tada:",
+      "inputType": "email",
+      "logoImageUrl": "/assets/everypage-wordmark.svg"
     },
     {
       "type": "hero-simple-1",
-      "titleText": "Insert catchy header",
       "background": {
-        "patternImageUrl": "https://www.toptal.com/designers/subtlepatterns/patterns/watercolor.png"
+        "color": "#ffffff"
       },
-      "logoImageUrl": null,
-      "subtitleText": "Share why your product is great"
+      "titleText": "Insert catchy header",
+      "subtitleText": "Share why your product is great",
+      "logoImageUrl": null
     },
     {
-      "id": "hero-signup",
       "type": "hero-signup-media-half-1",
-      "inputName": "url",
-      "inputType": "url",
+      "background": {
+        "color": "#ffffff"
+      },
       "titleText": "Insert catchy header",
+      "subtitleText": "Share why your product is great",
       "formAction": "OPEN",
       "formTarget": "https://everysize-app.kibalabs.com",
+      "inputButtonText": "GO",
+      "inputName": "url",
+      "inputPlaceholderText": "Enter a url to see the magic",
+      "inputSuccessMessageText": null,
+      "inputType": "url",
       "leftMediaUrl": "/assets/hero.mp4",
       "logoImageUrl": null,
-      "subtitleText": "Share why your product is great",
-      "rightMediaUrl": null,
-      "inputButtonText": "GO",
-      "inputPlaceholderText": "Enter a url to see the magic",
-      "inputSuccessMessageText": null
+      "rightMediaUrl": null
     },
     {
       "type": "feature-media-half-1",
-      "titleText": "Look at this cool feature",
       "background": {
         "color": "white"
       },
-      "leftMediaUrl": null,
+      "titleText": "Look at this cool feature",
       "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
+      "leftMediaUrl": null,
       "rightMediaUrl": "/assets/feature1.png"
     },
     {
+      "id": "feature-media-half-1-left",
       "type": "feature-media-half-1",
+      "background": {
+        "color": "#ffffff"
+      },
       "titleText": "This is another cool feature",
-      "leftMediaUrl": "/assets/feature2.png",
       "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
+      "leftMediaUrl": "/assets/feature2.png",
       "rightMediaUrl": null
     },
     {
       "type": "feature-boxes-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "What we're solving for you...",
+      "subtitleText": "Highlight your value propositions here. Focus on what you do for the user, not what you are building! Try to keep titles to 3-5 words and descriptions to 2-3 short sentences. ",
       "features": [
         {
-          "title": "Insert cool feature",
+          "description": "How do you or your product/service relate to this group? Why are you addressing this problem?",
+          "iconId": "ion-list",
+          "title": "Built for {target user group}"
+        },
+        {
+          "description": "What big problem are you solving? Why is it relevant to your reader?",
+          "iconId": "mui-web-asset",
+          "title": "Get your {painpoint} resolved"
+        },
+        {
+          "description": "How is your solution unique? What do you provide that your competitors don't?",
           "iconId": "feather-airplay",
-          "description": "Share why this feature is cool"
+          "title": "Our {value proposition} differentiates us"
         },
         {
-          "title": "Insert cool feature",
-          "iconId": "ion-airplane-outline",
-          "description": "Share why this feature is cool"
-        },
-        {
-          "title": "Insert cool feature",
-          "iconId": "remix-battery-line",
-          "description": "Share why this feature is cool"
-        },
-        {
-          "title": "Insert cool feature",
+          "description": "It's best to stay between 3-6 features but don't be afraid to highlight more if it's important.",
           "mediaUrl": "https://everysize.evrpg.com/_bh20200525143827/assets/feature1.png",
-          "description": "Share why this feature is cool"
-        },
-        {
-          "title": "Insert cool feature",
-          "description": "Share why this feature is cool"
+          "title": "Any other advantages"
         }
-      ],
-      "titleText": "Product Features",
-      "subtitleText": "This is what we think is important."
+      ]
     },
     {
       "type": "pricing-tiers-1",
-      "titleText": "Pricing & stuff",
       "background": {
         "color": "white"
       },
+      "titleText": "Pricing & stuff",
+      "subtitleText": "💰💰💰💰💰💰",
       "categories": [
         {
+          "buttonTarget": "https://console.everypagehq.com",
+          "buttonText": "Sign up",
           "cost": "Free",
-          "name": "Core",
+          "costFrequency": "forever!",
+          "explanationText": "",
           "features": [
             {
               "text": "Cool feature"
@@ -165,14 +193,12 @@
               "text": "Cool feature"
             }
           ],
-          "buttonText": "Sign up",
-          "buttonTarget": "https://console.everypagehq.com",
-          "costFrequency": "forever!",
-          "explanationText": ""
+          "name": "Core"
         },
         {
           "cost": "$5",
-          "name": "Starter",
+          "costFrequency": "a month",
+          "explanationText": "everything in core +",
           "features": [
             {
               "text": "Cooler feature"
@@ -184,12 +210,12 @@
               "text": "Cooler feature"
             }
           ],
-          "costFrequency": "a month",
-          "explanationText": "everything in core +"
+          "name": "Starter"
         },
         {
           "cost": "$20",
-          "name": "Premium",
+          "costFrequency": "a month",
+          "explanationText": "everything in starter +",
           "features": [
             {
               "text": "Super cool feature"
@@ -205,14 +231,16 @@
             }
           ],
           "isPrimary": true,
-          "costFrequency": "a month",
-          "explanationText": "everything in starter +"
+          "name": "Premium"
         }
-      ],
-      "subtitleText": "💰💰💰💰💰💰"
+      ]
     },
     {
       "type": "pricing-features-1",
+      "background": {
+        "color": "white"
+      },
+      "subtitleText": "All plans come with these awesome features:",
       "features": [
         {
           "text": "Cool feature 1"
@@ -223,14 +251,15 @@
         {
           "text": "Cool feature 3"
         }
-      ],
-      "background": {
-        "color": "white"
-      },
-      "subtitleText": "All plans come with these awesome features:"
+      ]
     },
     {
       "type": "statistic-boxes-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "See what our numbers are saying 💯",
+      "subtitleText": null,
       "boxes": [
         {
           "name": "subscribers to date",
@@ -244,42 +273,48 @@
           "name": "leavers to date",
           "value": "0"
         }
-      ],
-      "titleText": "See what our numbers are saying 💯",
-      "subtitleText": null
+      ]
     },
     {
       "type": "testimonial-boxes-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "What people say about us 🤩",
+      "subtitleText": "Our customers love us and we love them",
+      "boxMode": "card",
       "boxes": [
         {
-          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021668",
+          "author": "Guillaume",
           "text": "So handy to work in parallel on multiple screen sizes",
           "type": "producthunt",
-          "author": "Guillaume"
+          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021668"
         },
         {
-          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021709",
+          "author": "Elston Baretto",
           "text": "This is so simple and easy to use. Like how it itself is responsive too!",
           "type": "producthunt",
-          "author": "Elston Baretto"
+          "url": "https://www.producthunt.com/posts/everysize-2#comment-1021709"
         },
         {
-          "url": "https://twitter.com/GreenEyeWeb1/status/1253327953053667336",
+          "author": "GreenEyeWeb",
           "text": "Check how your web page appears on all devices. Everysize is a simple and easy browser solution for developers and designers.",
           "type": "twitter",
-          "author": "GreenEyeWeb"
+          "url": "https://twitter.com/GreenEyeWeb1/status/1253327953053667336"
         },
         {
-          "text": "OMFG this is the best thing ever!!!",
-          "author": "Krishan Patel"
+          "author": "Krishan Patel",
+          "text": "OMFG this is the best thing ever!!!"
         }
-      ],
-      "boxMode": "card",
-      "titleText": "What people say about us 🤩",
-      "subtitleText": "Our customers love us and we love them"
+      ]
     },
     {
       "type": "faq-1",
+      "background": {
+        "color": "white"
+      },
+      "titleText": "FAQs",
+      "subtitleText": null,
       "questions": [
         {
           "answerText": "Not much,  what's up with you?",
@@ -289,27 +324,86 @@
           "answerText": "Don't think so dude",
           "questionText": "Hey, i asked you first"
         }
-      ],
-      "titleText": "FAQs",
-      "background": {
-        "color": "white"
-      },
-      "subtitleText": null
+      ]
     },
     {
+      "id": "signup-1-subscribe",
       "type": "signup-1",
-      "inputName": "url",
-      "inputType": "url",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "Stay in touch",
+      "subtitleText": "Join us to keep updated on our launch and upcoming features 🚀",
+      "formAction": "POST",
+      "formAdditionalInputs": [],
+      "formTarget": "<target url>",
+      "inputButtonText": "Subscribe",
+      "inputName": "email",
+      "inputPlaceholderText": "No spam, we promise!",
+      "inputSuccessMessageText": "You're signed up 🎉",
+      "inputType": "email",
+      "logoImageUrl": null
+    },
+    {
+      "id": "signup-1-open-link",
+      "type": "signup-1",
+      "background": {
+        "color": "#ffffff"
+      },
       "titleText": "Enter a url to see the magic",
+      "subtitleText": null,
       "formAction": "OPEN",
       "formTarget": "https://everysize-app.kibalabs.com",
-      "subtitleText": null,
       "inputButtonText": "GO",
+      "inputName": "url",
       "inputPlaceholderText": "https://yourawesomesite.com",
-      "inputSuccessMessageText": null
+      "inputSuccessMessageText": null,
+      "inputType": "url"
+    },
+    {
+      "type": "buttons-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "Get started with us",
+      "subtitleText": "It's totally awesome!",
+      "buttons": [
+        {
+          "mode": "primary",
+          "target": "https://console.everypagehq.com/login",
+          "text": "Log in"
+        },
+        {
+          "mode": "primary",
+          "target": "https://console.everypagehq.com/register",
+          "text": "Sign up"
+        }
+      ]
+    },
+    {
+      "type": "app-download-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "Download now!",
+      "androidAppId": "com.wordmagicapp.android.play",
+      "iosAppId": "1039710965"
+    },
+    {
+      "type": "markdown-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "titleText": "Blog",
+      "subtitleText": "Check out our latest blogs from our co-founders.",
+      "markdownContent": "# h1 Heading\n\n## h2 Heading\n\n### h3 Heading\n\n#### h4 Heading\n\n##### h5 Heading\n\n###### h6 Heading\n\nnormal text\n\n[an awesome link](https://via.placeholder.com/150)\n\n![an awesome image](https://via.placeholder.com/150)\nthis image is great...\n\ntext and image in same line![an awesome image](https://via.placeholder.com/150)\nanother caption\n\n- Item 1\n- Item 2\n  - Sub Item 1\n  - Sub Item 2"
     },
     {
       "type": "footer-1",
+      "background": {
+        "color": "white"
+      },
+      "subtitleText": "Say hello to us [@twitter](https://twitter.com/)",
       "iconLinks": [
         {
           "iconId": "ion-logo-twitter",
@@ -334,46 +428,86 @@
         {
           "target": "https://www.kibalabs.com"
         }
-      ],
-      "background": {
-        "color": "white"
-      },
-      "subtitleText": "Say hello to us [@twitter](https://twitter.com/)"
+      ]
     },
     {
-      "type": "markdown-1",
-      "titleText": "Blog",
-      "subtitleText": "Check out our latest blogs from our co-founders.",
-      "markdownContent": "# h1 Heading\n\n## h2 Heading\n\n### h3 Heading\n\n#### h4 Heading\n\n##### h5 Heading\n\n###### h6 Heading\n\nnormal text\n\n[an awesome link](https://via.placeholder.com/150)\n\n![an awesome image](https://via.placeholder.com/150)\nthis image is great...\n\ntext and image in same line![an awesome image](https://via.placeholder.com/150)\nanother caption\n\n- Item 1\n- Item 2\n  - Sub Item 1\n  - Sub Item 2"
-    },
-    {
-      "type": "buttons-1",
+      "type": "hero-buttons-video-1",
+      "titleText": "What's **awesome** about your product?",
+      "subtitleText": "Why should your visitors be interested? Make it clear to them what you are going to do for them so they subscribe for early access! Anything you can offer would be great to highlight e.g. beta access or a discount once launched",
       "buttons": [
         {
           "mode": "primary",
-          "text": "Log in",
-          "target": "https://console.everypagehq.com/login"
-        },
-        {
-          "mode": "primary",
-          "text": "Sign up",
-          "target": "https://console.everypagehq.com/register"
+          "target": "https://www.everypagehq.com",
+          "text": "Click me!"
         }
       ],
-      "titleText": "Get started with us",
+      "embeddedVideoUrl": "https://www.youtube.com/embed/_tUCouKc4Ek?modestbranding=1",
+      "logoImageUrl": "https://wml-images.s3-eu-west-1.amazonaws.com/awesomco-logo.svg",
+      "oldVideoUrl": "https://everysize.kibalabs.com/_bh20200627091434/assets/hero.mp4"
+    },
+    {
+      "type": "testimonial-slides-1",
       "background": {
         "color": "#ffffff"
       },
-      "subtitleText": "It's totally awesome!"
+      "titleText": "Why people love us 😍",
+      "subtitleText": null,
+      "slides": [
+        {
+          "authorImageUrl": "/assets/bob.jpg",
+          "authorName": "Bob Bass",
+          "authorTitle": "Founder @ Narro",
+          "text": "As a developer, I work with JSON daily and I actually had fun building my landing page. If you need a landing page but don't want to do it, this is a perfect solution."
+        },
+        {
+          "authorName": "Bob Bass",
+          "text": "Second message"
+        }
+      ]
     },
     {
-      "type": "app-download-1",
+      "type": "hero-app-buttons-media-half-1",
+      "titleText": "What's **special** about your app?",
+      "subtitleText": null,
+      "androidAppId": "com.wordmagicapp.android.play",
       "iosAppId": "1039710965",
+      "leftMediaUrl": null,
+      "logoImageUrl": "https://wml-images.s3-eu-west-1.amazonaws.com/awesomco-logo.svg",
+      "rightMediaUrl": "https://www.wordmagicapp.com/_static/images/intro_screen.png"
+    },
+    {
+      "type": "app-buttons-1",
       "titleText": "Download now!",
-      "androidAppId": "com.wordmagicapp.android.play"
+      "androidAppId": "com.wordmagicapp.android.play",
+      "iosAppId": "1039710965"
+    },
+    {
+      "type": "feature-media-center-1",
+      "titleText": "Brilliant Features",
+      "subtitleText": "Here's what makes Your App awesome:",
+      "features": [
+        {
+          "description": "How do you or your product/service relate to this group? Why are you addressing this problem?",
+          "iconId": "ion-list",
+          "title": "Built for {target user group}"
+        },
+        {
+          "description": "What big problem are you solving? Why is it relevant to your reader?",
+          "iconId": "mui-web-asset",
+          "title": "Get your {painpoint} resolved"
+        },
+        {
+          "description": "How is your solution unique? What do you provide that your competitors don't?",
+          "iconId": "feather-airplay",
+          "title": "Our {value proposition} differentiates us"
+        },
+        {
+          "description": "It's best to stay between 3-6 features but don't be afraid to highlight more if it's important",
+          "iconId": "ion-happy-outline",
+          "title": "Any other advantages"
+        }
+      ],
+      "mediaUrl": "/assets/feature1.png"
     }
-  ],
-  "companyUrl": "https://www.kibalabs.com",
-  "description": ":upside_down_face:",
-  "socialCardImageUrl": "/assets/banner.png"
+  ]
 }
