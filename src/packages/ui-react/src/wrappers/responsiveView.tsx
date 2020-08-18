@@ -36,12 +36,11 @@ interface IStyledResponsiveViewProps extends IWrapperProps {
 }
 
 const withResponsiveView = (Component: React.ComponentType<IStyledResponsiveViewProps>): React.ComponentType => styled(Component)<IStyledResponsiveViewProps>`
-  ${(props: IStyledResponsiveViewProps): string => props.hiddenBelowSize ? `@media (max-width: ${props.hiddenBelowSize}) {display: none !important;}` : ''};
-  ${(props: IStyledResponsiveViewProps): string => props.hiddenAboveSize ? `@media not all and (max-width: ${props.hiddenAboveSize}) {display: none !important;}` : ''};
+  ${(props: IStyledResponsiveViewProps): string => props.hiddenAboveSize ? `@media (min-width: ${props.hiddenAboveSize}) {display: none !important;}` : ''};
+  ${(props: IStyledResponsiveViewProps): string => props.hiddenBelowSize ? `@media not all and (min-width: ${props.hiddenBelowSize}) {display: none !important;}` : ''};
 `;
 
 const StyledResponsiveView = withResponsiveView((props: IStyledResponsiveViewProps): React.ReactElement => {
-  const children = React.Children.toArray(props.children);
-  const child = children.length > 0 ? children[0] : <div />;
-  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+  const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
+  return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });

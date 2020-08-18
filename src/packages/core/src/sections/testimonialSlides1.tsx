@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, LinePager, Box, KibaIcon, Direction, Image, ITheme, Link, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, Image, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -17,16 +17,6 @@ interface ITestimonialSlides1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   slides?: ITestimonialSlides1Slide[];
-}
-
-const getIcon = (boxType: string, brandColor: string): React.ReactElement => {
-  if (boxType === 'producthunt') {
-    return <KibaIcon _color='#DA552F' iconId={'remix-product-hunt-fill'} />;
-  }
-  if (boxType === 'twitter') {
-    return <KibaIcon _color='#1DA1F2' iconId='ion-logo-twitter' />;
-  }
-  return <KibaIcon _color={brandColor} iconId={'ion-chatbox'} />;
 }
 
 export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.ReactElement => {
