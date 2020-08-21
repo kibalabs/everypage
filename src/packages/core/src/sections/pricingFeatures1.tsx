@@ -4,6 +4,7 @@ import { Stack, Alignment, ResponsiveContainingView, Direction, EqualGrid, Box, 
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface IPricingFeatures1Feature {
   text: string;
@@ -20,7 +21,7 @@ export const PricingFeatures1 = (props: IPricingFeatures1Props): React.ReactElem
     <Section {...props as ISectionProps} className={getClassName(PricingFeatures1.displayName, props.className)}>
       <ResponsiveContainingView sizeMedium={8} size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Box mode='bordered' isFullHeight={true}>

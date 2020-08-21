@@ -6,7 +6,7 @@ import { IComponentProps, defaultComponentProps, MultiDirection, useDimensions }
 import { getPaddingSize, PaddingSize, IDimensionGuide } from '../dimensions';
 
 interface IStyledSpacingProps {
-  size: PaddingSize;
+  size: string;
   direction: MultiDirection;
   theme: IDimensionGuide;
 }

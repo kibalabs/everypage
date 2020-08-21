@@ -4,6 +4,7 @@ import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -35,7 +36,7 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>

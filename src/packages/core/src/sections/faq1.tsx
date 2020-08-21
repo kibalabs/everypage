@@ -4,6 +4,7 @@ import { MarkdownText, Stack, Alignment, Direction, TextAlignment, ResponsiveCon
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface IFaq1Question {
   questionText: string;
@@ -21,7 +22,7 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(Faq1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeLarge={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} shouldAddGutters={true} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+          <Stack direction={Direction.Vertical} shouldAddGutters={true} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (

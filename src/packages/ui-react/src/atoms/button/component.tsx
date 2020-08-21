@@ -70,7 +70,7 @@ interface IButtonProps extends IComponentProps<IButtonTheme> {
   isFullWidth: boolean;
   iconRight?: React.ComponentClass<IIconProps>;
   iconLeft?: React.ReactElement<IIconProps>;
-  iconGutterSize?: PaddingSize;
+  iconGutterSize?: string;
   target?: string;
   targetShouldOpenSameTab?: boolean;
   onClicked?(): void;

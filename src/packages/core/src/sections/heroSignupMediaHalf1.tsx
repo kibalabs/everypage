@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveView, ResponsiveContainingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { submitForm, validateInput } from '../internal';
+import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
 
@@ -53,7 +53,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
 
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroSignupMediaHalf1.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+      <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
         <Grid childAlignment={Alignment.Center}>
         { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (

@@ -4,6 +4,7 @@ import { MarkdownText, Grid, Media, PaddingSize, TextAlignment, Stack, Direction
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IFeatureMediaHalf1Props extends ISectionProps {
@@ -20,7 +21,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
 
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaHalf1.displayName, props.className)}>
-      <Grid childAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={PaddingSize.ExtraExtraExtraWide} paddingBottom={PaddingSize.ExtraExtraExtraWide}>
+      <Grid childAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionTop}>
         {props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
         {props.leftMediaUrl && (
           <Grid.Item size={0} sizeMedium={4}>

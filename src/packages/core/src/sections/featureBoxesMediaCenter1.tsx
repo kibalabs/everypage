@@ -4,6 +4,7 @@ import { MarkdownText, Grid, Media, PaddingSize, TextAlignment, Stack, Direction
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface FeatureMediaCenter1Feature {
   title?: string;
@@ -24,7 +25,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaCenter1.displayName, props.className)}>
       <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-        <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+        <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
           {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
           {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>

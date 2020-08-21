@@ -5,6 +5,7 @@ import { MarkdownText, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingS
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
 import { SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface IFooter1IconLink {
   iconId?: string;
@@ -27,7 +28,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraWide}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (

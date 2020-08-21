@@ -4,6 +4,7 @@ import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAli
 
 import { Section, ISectionProps } from '.';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 interface IHeroButtonsVideo1Button {
   text: string;
@@ -31,7 +32,7 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
     <Section {...props as ISectionProps} className={getClassName(HeroButtonsVideo1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
             {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' isCenteredHorizontally={true} /></ResponsiveContainingView></Stack.Item>}
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}

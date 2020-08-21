@@ -5,6 +5,7 @@ import { ResponsiveContainingView, PaddingSize, Stack, Direction, Alignment, But
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
 import { SectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IAppButtons1Props extends ISectionProps {
@@ -23,7 +24,7 @@ export const AppButtons1 = (props: IAppButtons1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(AppButtons1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} contentAlignmentMedium={Alignment.Start} shouldAddGutters={true}>

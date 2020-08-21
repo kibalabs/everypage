@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Stack, Alignment, Spacing, Image, Box, LoadingSpinner } from '@kibalabs/ui-react';
+import { Text, Stack, Alignment, Spacing, Image, Box, LoadingSpinner, PaddingSize } from '@kibalabs/ui-react';
 import { useInitialization, Link } from '@kibalabs/core-react';
 import { Requester, RestMethod, KibaResponse } from '@kibalabs/core';
 
@@ -15,11 +15,11 @@ export const TwitterCard = (props: ITwitterCardProps): React.ReactElement => {
     <Box width={'300px'} mode='card'>
       <Stack childAlignment={Alignment.Fill}>
         <Image source={props.imageUrl} alternativeText='' isFullWidth={true} />
-        <Spacing mode='narrow' />
+        <Spacing mode={PaddingSize.Narrow} />
         <Text mode='strong'>{props.title}</Text>
-        <Spacing mode='narrow' />
+        <Spacing mode={PaddingSize.Narrow} />
         <Text>{props.description}</Text>
-        <Spacing mode='default' />
+        <Spacing mode={PaddingSize.Default} />
       </Stack>
     </Box>
   );

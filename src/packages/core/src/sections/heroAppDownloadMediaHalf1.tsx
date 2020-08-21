@@ -5,6 +5,7 @@ import { Grid, Image, Media, ResponsiveContainingView, PaddingSize, TextAlignmen
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IHeroAppDownloadMediaHalf1Props extends ISectionProps {
@@ -28,7 +29,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
 
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroAppDownloadMediaHalf1.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+      <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
           { props.leftMediaUrl && (

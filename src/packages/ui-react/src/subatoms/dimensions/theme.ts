@@ -57,43 +57,27 @@ export const getScreenSize = (size: ScreenSize, theme: IDimensionGuide): string 
 export enum PaddingSize {
   None = 'none',
   Default = 'default',
-  Narrow = 'narrow',
-  ExtraNarrow = 'extra-narrow',
-  ExtraExtraNarrow = 'extra-extra-narrow',
-  Wide = 'wide',
-  ExtraWide = 'extra-wide',
-  ExtraExtraWide = 'extra-extra-wide',
-  ExtraExtraExtraWide = 'extra-extra-extra-wide',
+  Narrow = 'Narrow',
+  ExtraNarrow = 'ExtraNarrow',
+  ExtraExtraNarrow = 'ExtraExtraNarrow',
+  Wide = 'Wide',
+  ExtraWide = 'ExtraWide',
+  ExtraExtraWide = 'ExtraExtraWide',
+  ExtraExtraExtraWide = 'ExtraExtraExtraWide',
 }
 
 export const getPaddingSize = (size: PaddingSize, theme: IDimensionGuide): string => {
-  switch (size) {
-    case PaddingSize.Default: {
-      return theme.padding;
-    }
-    case PaddingSize.Narrow: {
-      return theme.paddingNarrow;
-    }
-    case PaddingSize.ExtraNarrow: {
-      return theme.paddingExtraNarrow;
-    }
-    case PaddingSize.ExtraExtraNarrow: {
-      return theme.paddingExtraExtraNarrow;
-    }
-    case PaddingSize.Wide: {
-      return theme.paddingWide;
-    }
-    case PaddingSize.ExtraWide: {
-      return theme.paddingExtraWide;
-    }
-    case PaddingSize.ExtraExtraWide: {
-      return theme.paddingExtraExtraWide;
-    }
-    case PaddingSize.ExtraExtraExtraWide: {
-      return theme.paddingExtraExtraExtraWide;
-    }
-    default: {
-      return '0px';
-    }
+  if (size === PaddingSize.None) {
+    return '0px';
   }
+  if (size === PaddingSize.Default) {
+    return theme.padding;
+  }
+  const capitalizedSize = size.charAt(0).toUpperCase() + size.slice(1);
+  const fieldName = size.startsWith('padding') ? size : `padding${capitalizedSize}`;
+  if (fieldName in theme) {
+    return theme[fieldName] as string;
+  }
+  console.error(`Failed to find padding size: ${size}`)
+  return '0px';
 };

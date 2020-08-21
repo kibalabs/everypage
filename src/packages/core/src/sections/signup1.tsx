@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { Form, Button, PaddingSize, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView, ResponsiveContainingView, ResponsiveTextAlignmentView, TextAlignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { submitForm, validateInput } from '../internal';
+import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 import { SectionTitleText, SectionSubtitleText } from '../components';
 
@@ -51,7 +51,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(Signup1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.ExtraExtraExtraWide} paddingEnd={PaddingSize.ExtraExtraExtraWide}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Form onFormSubmitted={onFormSubmitted}>
