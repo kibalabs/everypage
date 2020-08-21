@@ -34,7 +34,8 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
                   <Button
                     key={index}
                     text={button.text}
-                    onClicked={(): void => {window.open(button.target)}} mode={button.mode}
+                    mode={button.mode}
+                    target={button.target}
                     iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
                     iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
                   />

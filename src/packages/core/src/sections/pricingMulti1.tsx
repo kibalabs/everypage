@@ -35,10 +35,6 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
     throw new Error('You need at least 1 pricing category');
   }
 
-  const onCategoryStartButtonClicked = (categoryIndex: number): void => {
-    window.open(props.categories[categoryIndex].buttonTarget, '_blank')
-  }
-
   return (
     <Section {...props as ISectionProps} className={getClassName(PricingTiers1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
@@ -65,7 +61,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                         </BulletList>
                       </ResponsiveTextAlignmentView>
                     </Stack.Item>
-                    <Button isFullWidth={true} mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} onClicked={() => onCategoryStartButtonClicked(index)}/>
+                    <Button isFullWidth={true} mode={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} target={category.buttonTarget}/>
                   </Stack>
                 </Box>
               ))}
