@@ -131,6 +131,7 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
 
   useScrollListener(sliderRef.current, (): void => {
     const position = Math.ceil(sliderRef.current?.scrollLeft);
+    // TODO(krish): this doesnt work in console because it refers to the global document, not the local (inside iframe) one
     const screenWidth = Math.ceil(document.body.clientWidth);
     let slidesPerPage = props.slidesPerPage;
     if (screenWidth > getScreenSizeValue(ScreenSize.Small, dimensions)) {
@@ -203,4 +204,3 @@ Carousel.defaultProps = {
   slidesPerPage: 1,
 };
 Carousel.displayName = 'carousel';
-
