@@ -66,15 +66,17 @@ export class Site {
   readonly slug: string;
   readonly name: string;
   readonly isPublishing: boolean;
+  readonly archiveDate: Date | null;
   readonly customDomain: string | null;
   readonly customDomainStatus: string | null;
 
-  public constructor(siteId: number, accountId: number, slug: string, name: string, isPublishing: boolean, customDomain: string | null, customDomainStatus: string | null) {
+  public constructor(siteId: number, accountId: number, slug: string, name: string, isPublishing: boolean, archiveDate: Date | null, customDomain: string | null, customDomainStatus: string | null) {
     this.siteId = siteId;
     this.accountId = accountId;
     this.slug = slug;
     this.name = name;
     this.isPublishing = isPublishing;
+    this.archiveDate = archiveDate;
     this.customDomain = customDomain;
     this.customDomainStatus = customDomainStatus;
   }
@@ -86,6 +88,7 @@ export class Site {
       String(obj.slug),
       String(obj.name),
       Boolean(obj.isPublishing),
+      obj.archiveDate ? dateFromString(obj.archiveDate) : null,
       obj.customDomain ? String(obj.customDomain) : null,
       obj.customDomainStatus ? String(obj.customDomainStatus) : null,
     );
@@ -121,7 +124,7 @@ export class SiteVersion {
       obj.name ? String(obj.name) : null,
       Boolean(obj.isPublishing),
       obj.publishDate ? dateFromString(obj.publishDate) : null,
-      obj.archiveDate ? dateFromString(obj.creationDate) : null,
+      obj.archiveDate ? dateFromString(obj.archiveDate) : null,
       dateFromString(obj.lastUpdateDate),
     );
   }

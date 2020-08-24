@@ -318,6 +318,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
             <div>Site not found</div>
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
             <div>Loading...</div>
+          ) : site.archiveDate ? (
+            <div>This site has been archived 📦.<br/><br/>Please contact us if you want it to be restored.</div>
           ) : (
             <React.Fragment>
               <Paper className={classes.paper}>
