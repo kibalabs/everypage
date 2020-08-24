@@ -117,6 +117,14 @@ export class EverypageClient extends ServiceClient {
     return response.site;
   }
 
+  public archive_site = async (siteId: number): Promise<Resources.Site> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/archive`;
+    const request = new Endpoints.ArchiveSiteRequest();
+    const response = await this.makeRequest(method, path, request, Endpoints.ArchiveSiteResponse);
+    return response.site;
+  }
+
   public get_site_by_slug = async (slug: string): Promise<Resources.Site> => {
     const method = RestMethod.GET;
     const path = `v1/sites/slug/${slug}`;

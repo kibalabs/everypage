@@ -469,7 +469,7 @@ export class CloneSiteVersionResponse extends ResponseData {
 }
 
 export class ArchiveSiteVersionRequest extends RequestData {
-  public constructor(name?: string) {
+  public constructor() {
     super();
   }
 
@@ -570,7 +570,33 @@ export class UpdateDomainForSiteResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteResponse => {
+  public static fromObject = (obj: Record<string, any>): UpdateDomainForSiteResponse => {
+    return new UpdateDomainForSiteResponse(
+      Resources.Site.fromObject(obj.site),
+    );
+  }
+}
+
+export class ArchiveSiteRequest extends RequestData {
+  public constructor() {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class ArchiveSiteResponse extends ResponseData {
+  readonly site: Resources.Site;
+
+  public constructor(site: Resources.Site) {
+    super();
+    this.site = site;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ArchiveSiteResponse => {
     return new GetSiteResponse(
       Resources.Site.fromObject(obj.site),
     );

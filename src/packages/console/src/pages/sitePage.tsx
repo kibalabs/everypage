@@ -89,6 +89,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [newVersionDefaultName, setNewVersionDefaultName] = React.useState<string | null>(null);
   const [newVersionName, setNewVersionName] = React.useState<string | null>(null);
   const [archivingSiteVersionId, setArchivingSiteVersionId] = React.useState<number | null>(null);
+  const [isArchivingSite, setIsArchivingSite] = React.useState<boolean>(false);
 
   useInitialization((): void => {
     loadSite();
@@ -168,7 +169,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setArchivingSiteVersionId(version.siteVersionId);
   }
 
-  const onArchiveConfirmClicked = (): void => {
+  const onArchiveSiteVersionConfirmClicked = (): void => {
     everypageClient.archive_site_version(site.siteId, archivingSiteVersionId).then((): void => {
       setVersions(undefined);
       loadSite();
@@ -179,7 +180,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setArchivingSiteVersionId(null);
   }
 
-  const onArchiveCancelClicked = (): void => {
+  const onArchiveSiteVersionCancelClicked = (): void => {
     setArchivingSiteVersionId(null);
   }
 
@@ -291,6 +292,23 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     history.navigate(`/accounts/${account.accountId}#plan`);
   }
 
+  const onArchiveSiteClicked = (): void => {
+    setIsArchivingSite(true);
+  }
+
+  const onArchiveSiteConfirmClicked = (): void => {
+    everypageClient.archive_site(site.siteId).then((): void => {
+      history.navigate('/');
+    }).catch((error: KibaException): void => {
+      console.error('error', error);
+      setIsLoading(false);
+    });
+  }
+
+  const onArchiveSiteCancelClicked = (): void => {
+    setIsArchivingSite(false);
+  }
+
   return (
     <div className={classes.root}>
       <NavigationBar />
@@ -306,6 +324,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                 <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                   <Typography variant='h6' className={classes.siteNameText}>{site.name}</Typography>
                   <Button href={getSiteUrl()} color='primary'>Open</Button>
+                  <Box flexGrow={1} />
+                  <Button onClick={onArchiveSiteClicked} color='secondary'>Archive</Button>
                 </Box>
                 <Typography color='textSecondary'>
                   Site slug: {site.slug}
@@ -467,10 +487,17 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       />
       <MessageDialog
         isOpen={archivingSiteVersionId !== null}
-        onConfirmClicked={onArchiveConfirmClicked}
-        onCloseClicked={onArchiveCancelClicked}
+        onConfirmClicked={onArchiveSiteVersionConfirmClicked}
+        onCloseClicked={onArchiveSiteVersionCancelClicked}
         title={'Archive this version?'}
-        message={'Once you archive a version, it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
+        message={'Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
+      />
+      <MessageDialog
+        isOpen={isArchivingSite}
+        onConfirmClicked={onArchiveSiteConfirmClicked}
+        onCloseClicked={onArchiveSiteCancelClicked}
+        title={'Archive this site?'}
+        message={'Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'}
       />
     </div>
   );
