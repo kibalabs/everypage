@@ -468,6 +468,32 @@ export class CloneSiteVersionResponse extends ResponseData {
   }
 }
 
+export class ArchiveSiteVersionRequest extends RequestData {
+  public constructor(name?: string) {
+    super();
+  }
+
+  public toObject = (): Record<string, any> => {
+    return {
+    };
+  }
+}
+
+export class ArchiveSiteVersionResponse extends ResponseData {
+  readonly siteVersion: Resources.SiteVersion;
+
+  public constructor(siteVersion: Resources.SiteVersion) {
+    super();
+    this.siteVersion = siteVersion;
+  }
+
+  public static fromObject = (obj: Record<string, any>): ArchiveSiteVersionResponse => {
+    return new ArchiveSiteVersionResponse(
+      Resources.SiteVersion.fromObject(obj.siteVersion),
+    );
+  }
+}
+
 export class GenerateAssetUploadForSiteVersionRequest extends RequestData {
   public constructor() {
     super();

@@ -195,6 +195,14 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersion;
   }
 
+  public archive_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
+    const method = RestMethod.POST;
+    const path = `v1/sites/${siteId}/versions/${siteVersionId}/archive`;
+    const request = new Endpoints.ArchiveSiteVersionRequest(name);
+    const response = await this.makeRequest(method, path, request, Endpoints.ArchiveSiteVersionResponse);
+    return response.siteVersion;
+  }
+
   public get_site_version = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.GET;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}`;

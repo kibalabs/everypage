@@ -20,6 +20,7 @@ import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
+import { MessageDialog } from '../components/messageDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,6 +88,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [isTemplateChooserPopupShowing, setIsTemplateChooserPopupShowing] = React.useState<boolean>(false);
   const [newVersionDefaultName, setNewVersionDefaultName] = React.useState<string | null>(null);
   const [newVersionName, setNewVersionName] = React.useState<string | null>(null);
+  const [archivingSiteVersionId, setArchivingSiteVersionId] = React.useState<number | null>(null);
 
   useInitialization((): void => {
     loadSite();
@@ -160,6 +162,25 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setIsLoading(false);
     });
+  }
+
+  const onArchiveClicked = (version: SiteVersion): void => {
+    setArchivingSiteVersionId(version.siteVersionId);
+  }
+
+  const onArchiveConfirmClicked = (): void => {
+    everypageClient.archive_site_version(site.siteId, archivingSiteVersionId).then((): void => {
+      setVersions(undefined);
+      loadSite();
+    }).catch((error: KibaException): void => {
+      console.error('error', error);
+      setIsLoading(false);
+    });
+    setArchivingSiteVersionId(null);
+  }
+
+  const onArchiveCancelClicked = (): void => {
+    setArchivingSiteVersionId(null);
   }
 
   const onCreateNewVersionClicked = (): void => {
@@ -384,19 +405,18 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button color='primary' onClick={onCreateNewVersionClicked}>Create new version</Button>}
                 </Box>
                 { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
-                  return (
+                  return version.archiveDate ? null : (
                     <Box key={index} mt={2}>
                       <Box display='flex' justifyContent='start' alignItems='baseline'>
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
                         {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
                         {version.isPublishing && <Typography color='secondary' component='span'>Promoting</Typography>}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.archiveDate && !version.publishDate && !version.isPublishing && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onArchiveClicked(version)}>ARCHIVE</Button>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
-                      {version.archiveDate ? (
-                        <Typography color='textSecondary' className={classes.versionDate}>Archived: {dateToString(version.archiveDate, 'yyyy-MM-dd HH:mm')}</Typography>
-                      ) : version.publishDate ? (
+                      {version.publishDate ? (
                         <Typography color='textSecondary' className={classes.versionDate}>Published: {dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}</Typography>
                       ) : (
                         <Typography color='textSecondary' className={classes.versionDate}>Last updated: {dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}</Typography>
@@ -444,6 +464,13 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
+      />
+      <MessageDialog
+        isOpen={archivingSiteVersionId !== null}
+        onConfirmClicked={onArchiveConfirmClicked}
+        onCloseClicked={onArchiveCancelClicked}
+        title={'Archive this version?'}
+        message={'Once you archive a version, it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
       />
     </div>
   );
