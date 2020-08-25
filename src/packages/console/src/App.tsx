@@ -78,21 +78,21 @@ const consoleConfig: IConsoleConfig = {
     highlightFeature: 'remove everypage branding',
     features: [
     ],
-  }, {
-    planIndex: 4,
-    name: 'Ultimate',
-    code: 'ultimate',
-    priceMonthly: 5000,
-    priceYearly: 50000,
-    priceCodeMonthly: 'monthly',
-    priceCodeYearly: 'yearly',
-    siteLimit: 100,
-    hasCustomDomain: true,
-    hasNoBranding: true,
-    isPurchasable: false,
-    highlightFeature: 'run a/b tests on your sites',
-    features: [
-    ],
+  // }, {
+  //   planIndex: 4,
+  //   name: 'Ultimate',
+  //   code: 'ultimate',
+  //   priceMonthly: 5000,
+  //   priceYearly: 50000,
+  //   priceCodeMonthly: 'monthly',
+  //   priceCodeYearly: 'yearly',
+  //   siteLimit: 100,
+  //   hasCustomDomain: true,
+  //   hasNoBranding: true,
+  //   isPurchasable: false,
+  //   highlightFeature: 'run a/b tests on your sites',
+  //   features: [
+  //   ],
   }]
 }
 

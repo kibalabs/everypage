@@ -95,12 +95,25 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     loadSite();
   });
 
-  React.useEffect((): void => {
+  React.useEffect((): React.EffectCallback => {
     if (site) {
       loadAccount();
       loadVersions();
       loadPrimaryVersion();
       loadNewVersionDefaultName();
+
+      // If its publishing, keep reloading the site until its done
+      if (site.isPublishing) {
+        const intervalId = setInterval((): void => {
+          everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
+            if (!site.isPublishing) {
+              clearInterval(intervalId);
+              loadSite();
+            }
+          });
+        }, 5000);
+        return (): void => clearInterval(intervalId);
+      }
     }
   }, [site]);
 
