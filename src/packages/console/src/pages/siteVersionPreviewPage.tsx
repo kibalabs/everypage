@@ -83,7 +83,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [siteVersion]);
 
   const loadSite = (): void => {
-    everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
+    everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
       setSite(site);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -92,7 +92,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const loadSiteVersion = (): void => {
-    everypageClient.get_site_version(site.siteId, Number(props.siteVersionId)).then((siteVersion: SiteVersion) => {
+    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((siteVersion: SiteVersion) => {
       setSiteVersion(siteVersion);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -101,7 +101,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const loadSiteVersionEntry = (): void => {
-    everypageClient.get_site_version_entry(site.siteId, Number(props.siteVersionId)).then((siteVersionEntry: SiteVersionEntry) => {
+    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((siteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(siteVersionEntry);
       setSiteContent(siteVersionEntry.siteContent);
       setSiteTheme(siteVersionEntry.siteTheme);
@@ -112,7 +112,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const loadSiteVersionAssets = (): void => {
-    everypageClient.list_site_version_assets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
+    everypageClient.listSiteVersionAssets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
       setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
         currentMap[assetFile.path] = `${getSiteUrl()}/${siteVersion.buildHash}${assetFile.path}`;
         return currentMap;
@@ -143,7 +143,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       return;
     }
     if (!siteVersion.publishDate && (isSiteContentChanged || isSiteThemeChanged)) {
-      everypageClient.update_site_version_entry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
+      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
         setIsSiteContentChanged(false);
         setIsSiteThemeChanged(false);
         setSavingError(null);
@@ -155,7 +155,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   });
 
   const addAssetFiles = (files: File[]): Promise<void> => {
-    return everypageClient.generate_asset_upload_for_site_version(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
+    return everypageClient.generateAssetUploadForSiteVersion(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
       const requester = new Requester();
       const promises = files.map((file: File): Promise<KibaResponse> => {
         const fileName = file.path.replace(/^\//g, '');
@@ -183,7 +183,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   };
 
   const deleteAssetFile = (fileKey: string): Promise<void> => {
-    return everypageClient.delete_site_version_asset(siteVersion.siteId, siteVersion.siteVersionId, fileKey.replace('/assets/', '')).then((): void => {
+    return everypageClient.deleteSiteVersionAsset(siteVersion.siteId, siteVersion.siteVersionId, fileKey.replace('/assets/', '')).then((): void => {
       loadSiteVersionAssets();
     });
   }

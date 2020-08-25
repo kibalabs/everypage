@@ -65,7 +65,7 @@ export const HomePage = (): React.ReactElement => {
   }, [accounts]);
 
   const loadAccounts = (): void => {
-    everypageClient.retrieve_accounts().then((accounts: Account[]) => {
+    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
       setAccounts(accounts);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -75,7 +75,7 @@ export const HomePage = (): React.ReactElement => {
 
   const loadAccountSites = (): void => {
     const promises = accounts.map((account: Account): Promise<Site[]> => {
-      return everypageClient.retrieve_sites_for_account(account.accountId);
+      return everypageClient.retrieveSitesForAccount(account.accountId);
     });
     Promise.all(promises).then((responses: Site[][]): void => {
       const accountSites = accounts.reduce((currentMap: Record<number, Site[]>,  account: Account): Record<number, Site[]> => {

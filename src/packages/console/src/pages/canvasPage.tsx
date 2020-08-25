@@ -63,7 +63,7 @@ export const CanvasPage = (): React.ReactElement => {
   };
 
   const onChooseTemplateClicked = (template: Template) => {
-    everypageClient.get_site_version_entry_for_template(template.templateId).then((siteVersionEntry: SiteVersionEntry) => {
+    everypageClient.getSiteVersionEntryForTemplate(template.templateId).then((siteVersionEntry: SiteVersionEntry) => {
       setSiteContent(siteVersionEntry.siteContent);
       setSiteTheme(siteVersionEntry.siteTheme);
     }).catch((error: Error): void => {

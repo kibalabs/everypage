@@ -96,7 +96,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
   const [templates, setTemplates] = React.useState<Template[] | undefined>(undefined);
 
   useInitialization((): void => {
-    everypageClient.list_template_categories().then((templateCategories: TemplateCategory[]) => {
+    everypageClient.listTemplateCategories().then((templateCategories: TemplateCategory[]) => {
       setTemplateCategories(templateCategories);
       setSelectedTemplateCategoryId(templateCategories[0].templateCategoryId);
     }).catch((error: Error): void => {
@@ -106,7 +106,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
   });
 
   React.useEffect((): void => {
-    everypageClient.list_templates(selectedTemplateCategoryId).then((templates: Template[]) => {
+    everypageClient.listTemplates(selectedTemplateCategoryId).then((templates: Template[]) => {
       setTemplates(templates);
     }).catch((error: Error): void => {
       console.error('error', error);

@@ -98,7 +98,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
   const [sections, setSections] = React.useState<Section[] | undefined>(undefined);
 
   useInitialization((): void => {
-    everypageClient.list_section_categories().then((sectionCategories: SectionCategory[]) => {
+    everypageClient.listSectionCategories().then((sectionCategories: SectionCategory[]) => {
       const orderedSectionCategories = sectionCategories.filter((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId !== _OTHER_SECTION_CATEGORY_ID);
       orderedSectionCategories.push(sectionCategories.find((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId === _OTHER_SECTION_CATEGORY_ID));
       setSectionCategories(orderedSectionCategories);
@@ -110,7 +110,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
   });
 
   React.useEffect((): void => {
-    everypageClient.list_sections(selectedSectionCategoryId).then((sections: Section[]) => {
+    everypageClient.listSections(selectedSectionCategoryId).then((sections: Section[]) => {
       setSections(sections);
     }).catch((error: Error): void => {
       console.error('error', error);

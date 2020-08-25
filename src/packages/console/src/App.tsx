@@ -110,7 +110,7 @@ export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
-      everypageClient.refresh_token();
+      everypageClient.refreshToken();
     }
   });
 

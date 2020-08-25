@@ -26,7 +26,7 @@ export const VerifyEmailPage = (): React.ReactElement => {
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
 
   const onResendVerificationClicked = (): void => {
-    everypageClient.send_email_verification_for_user().then((): void => {
+    everypageClient.sendEmailVerificationForUser().then((): void => {
       setVerificationSent(true);
     });
   }

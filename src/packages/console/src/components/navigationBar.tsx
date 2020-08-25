@@ -41,7 +41,7 @@ export const NavigationBar = (): React.ReactElement => {
   }
 
   const onResendVerificationClicked = (): void => {
-    everypageClient.send_email_verification_for_user().then((): void => {
+    everypageClient.sendEmailVerificationForUser().then((): void => {
       setVerificationSent(true);
     });
   }

@@ -119,7 +119,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   });
 
   const loadAccount = (): void => {
-    everypageClient.get_account(Number(props.accountId)).then((account: Account) => {
+    everypageClient.getAccount(Number(props.accountId)).then((account: Account) => {
       setAccount(account);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -128,7 +128,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   }
 
   const loadAccountSites = (): void => {
-    everypageClient.retrieve_sites_for_account(Number(props.accountId)).then((sites: Site[]): void => {
+    everypageClient.retrieveSitesForAccount(Number(props.accountId)).then((sites: Site[]): void => {
       setAccountSites(sites);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -199,9 +199,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
         setIsUpgradeDialogLoading(false);
         return;
       }
-      callPromise = everypageClient.create_subscription_for_account(account.accountId, newPlan.code, newPlan.priceCodeMonthly, stripePaymentMethod.paymentMethod.id, upgradeDiscountCode || undefined);
+      callPromise = everypageClient.createSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, stripePaymentMethod.paymentMethod.id, upgradeDiscountCode || undefined);
     } else {
-      callPromise = everypageClient.change_subscription_for_account(account.accountId, newPlan.code, newPlan.priceCodeMonthly, upgradeDiscountCode || undefined)
+      callPromise = everypageClient.changeSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, upgradeDiscountCode || undefined)
     }
     callPromise.then((stripeSubscription: StripeSubscription): void => {
       if (stripeSubscription.status === 'active' || stripeSubscription.status === 'canceled') {
@@ -237,7 +237,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   }
 
   const onManageWithStripeClicked = (): void => {
-    everypageClient.create_portal_session_for_account(account.accountId).then((stripePortalSession: StripePortalSession): void => {
+    everypageClient.createPortalSessionForAccount(account.accountId).then((stripePortalSession: StripePortalSession): void => {
       window.open(stripePortalSession.url, '_blank');
     }).catch((error: KibaException): void => {
       toast.error('Something went wrong. Please try again later');

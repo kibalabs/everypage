@@ -105,7 +105,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }, [site]);
 
   const loadAccount = (): void => {
-    everypageClient.get_account(Number(site.accountId)).then((account: Account) => {
+    everypageClient.getAccount(Number(site.accountId)).then((account: Account) => {
       setAccount(account);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -114,7 +114,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const loadSite = (): void => {
-    everypageClient.get_site_by_slug(props.slug).then((site: Site) => {
+    everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
       setSite(site);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -123,7 +123,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const loadVersions = (): void => {
-    everypageClient.list_site_versions(site.siteId).then((siteVersions: SiteVersion[]) => {
+    everypageClient.listSiteVersions(site.siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions.reverse());
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -132,7 +132,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const loadPrimaryVersion = (): void => {
-    everypageClient.get_site_primary_version(site.siteId).then((siteVersion: SiteVersion) => {
+    everypageClient.getSitePrimaryVersion(site.siteId).then((siteVersion: SiteVersion) => {
       setPrimaryVersionId(siteVersion.siteVersionId);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -141,7 +141,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const loadNewVersionDefaultName = (): void => {
-    everypageClient.retrieve_next_version_name(site.siteId).then((nextVersionName: string) => {
+    everypageClient.retrieveNextVersionName(site.siteId).then((nextVersionName: string) => {
       setNewVersionDefaultName(nextVersionName);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -154,7 +154,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   const onSetPrimaryClicked = (version: SiteVersion): void => {
     setIsLoading(true);
-    everypageClient.promote_site_version(site.siteId, version.siteVersionId).then((): void => {
+    everypageClient.promoteSiteVersion(site.siteId, version.siteVersionId).then((): void => {
       setVersions(undefined);
       setPrimaryVersionId(undefined);
       loadSite();
@@ -170,7 +170,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onArchiveSiteVersionConfirmClicked = (): void => {
-    everypageClient.archive_site_version(site.siteId, archivingSiteVersionId).then((): void => {
+    everypageClient.archiveSiteVersion(site.siteId, archivingSiteVersionId).then((): void => {
       setVersions(undefined);
       loadSite();
     }).catch((error: KibaException): void => {
@@ -205,7 +205,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const onClonePrimaryClicked = (): void => {
     setIsNewVersionPopupShowing(false);
     setIsLoading(true);
-    everypageClient.clone_site_version(site.siteId, primaryVersionId, newVersionName).then((): void => {
+    everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, newVersionName).then((): void => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
@@ -217,7 +217,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const onChooseTemplateClicked = (template: Template) => {
     setIsTemplateChooserPopupShowing(false);
     setIsLoading(true);
-    everypageClient.create_site_version(site.siteId, undefined, undefined, newVersionName, template.templateId).then((): void => {
+    everypageClient.createSiteVersion(site.siteId, undefined, undefined, newVersionName, template.templateId).then((): void => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
@@ -253,7 +253,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onCustomDomainSetClicked = (): void => {
-    everypageClient.update_domain_for_site(site.siteId, newCustomDomainValue).then((site: Site) => {
+    everypageClient.updateDomainForSite(site.siteId, newCustomDomainValue).then((site: Site) => {
       setSite(site);
       setIsCustomDomainPanelShowing(false);
       setNewCustomDomain(undefined);
@@ -267,7 +267,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onSiteStatusClicked = (): void => {
-    everypageClient.update_domain_for_site(site.siteId, site.customDomain).then((site: Site) => {
+    everypageClient.updateDomainForSite(site.siteId, site.customDomain).then((site: Site) => {
       setSite(site);
       setIsCustomDomainPanelShowing(false);
       setNewCustomDomain(undefined);
@@ -297,7 +297,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }
 
   const onArchiveSiteConfirmClicked = (): void => {
-    everypageClient.archive_site(site.siteId).then((): void => {
+    everypageClient.archiveSite(site.siteId).then((): void => {
       history.navigate('/');
     }).catch((error: KibaException): void => {
       console.error('error', error);

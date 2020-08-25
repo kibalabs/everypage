@@ -68,7 +68,7 @@ export const CreateSitePage = (): React.ReactElement => {
   });
 
   const loadAccounts = (): void => {
-    everypageClient.retrieve_accounts().then((accounts: Account[]) => {
+    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
       setAccounts(accounts);
       if (!selectedAccountId) {
         setSelectedAccountId(accounts[0].accountId);
@@ -93,7 +93,7 @@ export const CreateSitePage = (): React.ReactElement => {
       return;
     }
     setIsLoading(true);
-    everypageClient.create_site(selectedAccountId, slug, name || undefined, template ? template.templateId : null).then((): void => {
+    everypageClient.createSite(selectedAccountId, slug, name || undefined, template ? template.templateId : null).then((): void => {
       history.navigate(`/sites/${slug}`);
     }).catch((error: KibaException): void => {
       if (error.message === 'SITE_LIMIT_REACHED_CORE') {

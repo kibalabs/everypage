@@ -53,7 +53,7 @@ export const LoginPage = (): React.ReactElement => {
       return;
     }
     setIsLoading(true);
-    everypageClient.login_user(email, password).then((): void => {
+    everypageClient.loginUser(email, password).then((): void => {
       history.navigate(authManager.getJwt().hasVerifiedEmail ? '/' : '/verify-email', { replace: true });
     }).catch((error: Error): void => {
       if (error.message.includes('NotFoundException')) {

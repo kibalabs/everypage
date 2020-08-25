@@ -70,7 +70,7 @@ export const RegisterPage = (): React.ReactElement => {
       return;
     }
     setIsLoading(true);
-    everypageClient.create_user(firstName, lastName, email, password, shouldJoinNewsletter).then((): void => {
+    everypageClient.createUser(firstName, lastName, email, password, shouldJoinNewsletter).then((): void => {
       history.navigate('/verify-email', { replace: true });
     }).catch((error: Error): void => {
       if (error.message.includes('USER_EMAIL_EXISTS')) {

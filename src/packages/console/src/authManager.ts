@@ -124,7 +124,7 @@ export class AuthManager implements IRouterAuthManager {
   }
 
   public logout = (): Promise<void> => {
-    return this.everypageClient.logout_user().then((): void => {
+    return this.everypageClient.logoutUser().then((): void => {
       this.localStorageClient.clear();
     }).catch((error: Error): void => {
       console.error(`error logging out: ${error}`)
