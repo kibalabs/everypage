@@ -3,12 +3,10 @@ import { RestMethod, Requester, ServiceClient } from '@kibalabs/core';
 import * as Resources from './resources';
 import * as Endpoints from './endpoints';
 
-
 export class EverypageClient extends ServiceClient {
 
   public constructor(requester: Requester, baseUrl?: string) {
     super(requester, baseUrl || 'https://api.everypagehq.com');
-    super(requester, baseUrl || 'http://localhost:5000');
   }
 
   public login_user = async (email: string, password: string): Promise<void> => {
