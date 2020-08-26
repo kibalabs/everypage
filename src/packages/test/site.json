@@ -455,13 +455,25 @@
       "slides": [
         {
           "authorImageUrl": "/assets/bob.jpg",
-          "authorName": "Bob Bass",
-          "authorTitle": "Founder @ Narro",
+          "authorName": "John Casey",
+          "authorTitle": "Colonel @ NSA",
           "text": "As a developer, I work with JSON daily and I actually had fun building my landing page. If you need a landing page but don't want to do it, this is a perfect solution."
         },
         {
-          "authorName": "Bob Bass",
-          "text": "Second message"
+          "authorName": "Sarah Fowler",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
+        },
+        {
+          "authorName": "Charles Bartowski",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
+        },
+        {
+          "authorName": "Daniel Shaw",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
+        },
+        {
+          "authorName": "General Beckman",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
         }
       ]
     },
@@ -473,7 +485,7 @@
       "iosAppId": "1039710965",
       "leftMediaUrl": null,
       "logoImageUrl": "https://wml-images.s3-eu-west-1.amazonaws.com/awesomco-logo.svg",
-      "rightMediaUrl": "https://www.wordmagicapp.com/_static/images/intro_screen.png"
+      "rightMediaUrl": "/assets/feature2.png"
     },
     {
       "type": "app-buttons-1",
@@ -508,6 +520,31 @@
         }
       ],
       "mediaUrl": "/assets/feature1.png"
+    },
+    {
+      "type": "image-slides-1",
+      "titleText": "Screenshots",
+      "subtitleText": null,
+      "slides": [
+        {
+          "mediaUrl": "/assets/feature1.png"
+        },
+        {
+          "mediaUrl": "/assets/feature2.png"
+        },
+        {
+          "mediaUrl": "/assets/freebird-ss.png"
+        },
+        {
+          "mediaUrl": "/assets/feature2.png"
+        },
+        {
+          "mediaUrl": "/assets/freebird-ss.png"
+        },
+        {
+          "mediaUrl": "/assets/feature1.png"
+        }
+      ]
     }
   ]
 }

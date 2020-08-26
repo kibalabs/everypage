@@ -34,7 +34,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} slidesPerPage={1} slidesPerPageSmall={2} slidesPerPageLarge={3}>
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
                 <Box key={index} mode='padded-transparent' isFullWidth={false}>
-                  <Image source={slide.mediaUrl} />
+                  <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true}/>
                 </Box>
               ))}
             </Carousel>

@@ -34,6 +34,7 @@ const StyledSlider = styled.div`
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;
 
+
   &::-webkit-scrollbar {
     width: 0px;
     height: 0px;
@@ -44,7 +45,11 @@ const StyledSlider = styled.div`
   &::-webkit-scrollbar-track {
     background: transparent;
   }
+  /* Hide scrollbar on ie 11 */
+  -ms-overflow-style: none;
+  overflow: auto;
 `;
+StyledSlider.displayName = 'carousel-slider';
 
 interface IStyledSlideProps {
   dimensions: IDimensionGuide;
@@ -72,6 +77,7 @@ const StyledSlide = styled.div<IStyledSlideProps>`
   ${(props: IStyledSlideProps): string => getResponsiveSlidesPerPageCss(props.dimensions.screenWidthLarge, props.slidesPerPageLarge)};
   ${(props: IStyledSlideProps): string => getResponsiveSlidesPerPageCss(props.dimensions.screenWidthExtraLarge, props.slidesPerPageExtraLarge)};
 `;
+StyledSlide.displayName = 'carousel-slide';
 
 export interface ICarouselProps extends IMoleculeProps<ICarouselTheme>, ISingleAnyChildProps {
   shouldShowButtons?: boolean;
@@ -96,7 +102,12 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
   const [slideIndex, setSlideIndex] = React.useState<number>(props.initialIndex);
 
   const onPreviousClicked = (): void => {
-    sliderRef.current?.scrollTo((slideIndex - 1) * sliderRef.current?.clientWidth, 0);
+    if (sliderRef.current && !sliderRef.current.scrollTo) {
+      // ie 11 doesn't support scrollTo (this doesn't animate nicely)
+      sliderRef.current.scrollLeft = (slideIndex - 1) * sliderRef.current?.clientWidth;
+    } else {
+      sliderRef.current?.scrollTo((slideIndex - 1) * sliderRef.current?.clientWidth, 0);
+    }
   }
 
   const onNextClicked = (): void => {
@@ -104,7 +115,12 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
   }
 
   const goToNext = (): void => {
-    sliderRef.current?.scrollTo((slideIndex + 1) * sliderRef.current?.clientWidth, 0);
+    if (sliderRef.current && !sliderRef.current.scrollTo) {
+      // ie 11 doesn't support scrollTo (this doesn't animate nicely)
+      sliderRef.current.scrollLeft = (slideIndex + 1) * sliderRef.current?.clientWidth;
+    } else {
+      sliderRef.current?.scrollTo((slideIndex + 1) * sliderRef.current?.clientWidth, 0);
+    }
   }
 
   useInterval(props.autoplaySeconds || 10000000, (): void => {
@@ -115,7 +131,12 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
 
   React.useEffect((): void => {
     setTimeout((): void => {
-      sliderRef.current?.scrollTo(sliderRef.current?.clientWidth * props.initialIndex, 0);
+      if (sliderRef.current && !sliderRef.current.scrollTo) {
+        // ie 11 doesn't support scrollTo (this doesn't animate nicely)
+        sliderRef.current.scrollLeft = sliderRef.current?.clientWidth * props.initialIndex;
+      } else {
+        sliderRef.current?.scrollTo(sliderRef.current?.clientWidth * props.initialIndex, 0);
+      }
     }, 50);
   }, [props.initialIndex, sliderRef.current]);
 
@@ -173,11 +194,15 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
     >
       {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} icon={<KibaIcon iconId='mui-chevron-left'/>} onClicked={onPreviousClicked} />}
       <Stack.Item growthFactor={1} shrinkFactor={1}>
-        <StyledSlider ref={sliderRef}>
+        <StyledSlider
+          ref={sliderRef}
+          className={getClassName(StyledSlider.displayName)}
+        >
           {children.map((child: React.ReactElement, index: number): React.ReactElement => {
             return (
               <StyledSlide
                 key={index}
+                className={getClassName(StyledSlide.displayName)}
                 dimensions={dimensions}
                 slidesPerPage={props.slidesPerPage}
                 slidesPerPageSmall={props.slidesPerPageSmall}
