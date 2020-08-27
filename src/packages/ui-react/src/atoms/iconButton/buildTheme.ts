@@ -14,8 +14,6 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
           'background-color': 'transparent',
         }),
         text: mergeTheme(textThemes.default, {
-          'color': colors.brandPrimary,
-          'font-weight': '600',
         }),
       },
       hover: {

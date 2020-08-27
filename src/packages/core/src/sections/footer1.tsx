@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Direction, KibaIcon, LinkBase, PaddingSize } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, Direction, KibaIcon, LinkBase, IconButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
@@ -32,9 +32,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
-              <LinkBase key={index} mode='icon' target={iconLink.target} label={iconLink.label}>
-                <KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />
-              </LinkBase>
+              <IconButton key={index} target={iconLink.target} icon={<KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />} />
             ))}
           </Stack>
         )}

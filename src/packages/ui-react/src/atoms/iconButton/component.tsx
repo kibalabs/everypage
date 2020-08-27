@@ -13,7 +13,7 @@ interface IStyledIconButtonProps {
 const StyledIconButton = styled.button<IStyledIconButtonProps>`
   ${(props: IStyledIconButtonProps): string => themeToCss(props.theme.normal.default.text)};
   ${(props: IStyledIconButtonProps): string => themeToCss(props.theme.normal.default.background)};
-  cursor: 'pointer';
+  cursor: pointer;
   outline: none;
   display: flex;
   flex-direction: row;
@@ -56,6 +56,8 @@ interface IIconButtonProps extends IComponentProps<IIconButtonTheme> {
   isEnabled: boolean;
   icon: React.ReactElement<IIconProps>;
   label?: string;
+  target?: string;
+  targetShouldOpenSameTab?: boolean;
   onClicked?(): void;
 }
 
@@ -67,6 +69,7 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
   };
 
   const theme = useBuiltTheme('iconButtons', props.mode, props.theme);
+  const targetShouldOpenSameTab = props.targetShouldOpenSameTab || (props.targetShouldOpenSameTab === undefined && props.target && props.target.startsWith('#'));
   return (
     <StyledIconButton
       id={props.id}
@@ -75,6 +78,10 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
       onClick={onClicked}
       disabled={!props.isEnabled}
       aria-label={props.label}
+      as={props.target && 'a'}
+      href={props.target}
+      rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
+      target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       {props.icon}
     </StyledIconButton>

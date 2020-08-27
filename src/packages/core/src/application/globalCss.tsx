@@ -23,7 +23,7 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
 
   /* NOTE(krish): the not button needs to be specified as buttons can act as links and these styles will be used on hover */
   /* since this overall ":hover" is more specific than the generic styles for the default button (with no modifier) */
-  a:not(.button) {
+  a:not(.button):not(.link-base):not(.icon-button) {
     ${(props: IGlobalCssProps): string => themeToCss(props.theme.links.default.normal.default.text)};
     :hover {
       ${(props: IGlobalCssProps): string => themeToCss(props.theme.links.default.normal.hover.text)};
