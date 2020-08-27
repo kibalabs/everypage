@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { ITheme, themeToCss } from '@kibalabs/ui-react';
+import { ITheme, themeToCss, colorsToCss } from '@kibalabs/ui-react';
 
 interface IGlobalCssProps {
   theme: ITheme;
@@ -12,6 +12,7 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
 
   html {
     scroll-behavior: smooth;
+    ${(props: IGlobalCssProps): string => colorsToCss(props.theme.colors)};
   }
 
   body {

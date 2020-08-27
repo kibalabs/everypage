@@ -10,24 +10,34 @@ export const buildColors = (base?: Partial<IColorGuide>): IColorGuide => {
   const textOnBrand = base?.textOnBrand || getLuminance(brandPrimary) > 0.5 ? '#222222' : '#eeeeee';
   const disabled = base?.disabled || '#555555';
 
-  const brandPrimaryInverse = base?.brandPrimaryInverse || brandPrimary;
-  const brandSecondaryInverse = base?.brandSecondaryInverse || brandSecondary;
-  const backgroundInverse = base?.backgroundInverse || invert(background);
-  const textInverse = base?.textInverse || getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#e5e5e5';
-
   return {
     ...base,
-    
+
     brandPrimary: brandPrimary,
     brandSecondary: brandSecondary,
     background: background,
     text: text,
     textOnBrand: textOnBrand,
     disabled: disabled,
-
-    brandPrimaryInverse: brandPrimaryInverse,
-    brandSecondaryInverse: brandSecondaryInverse,
-    backgroundInverse: backgroundInverse,
-    textInverse: textInverse,
   };
 };
+
+export const buildAlternateColors = (colors: IColorGuide, base?: Record<string, IColorGuide>): Record<string, IColorGuide> => {
+  const brandPrimaryInverse = base?.inverse?.brandPrimary || colors.brandPrimary;
+  const brandSecondaryInverse = base?.inverse?.brandSecondary || colors.brandSecondary;
+  const backgroundInverse = base?.inverse?.background || invert(colors.background);
+  const textInverse = base?.inverse?.text || getLuminance(backgroundInverse) > 0.5 ? '#222222' : '#e5e5e5';
+  const inverseColors: IColorGuide = {
+    ...colors,
+    ...base?.inverse,
+    brandPrimary: brandPrimaryInverse,
+    brandSecondary: brandSecondaryInverse,
+    background: backgroundInverse,
+    text: textInverse,
+  };
+
+  return {
+    ...base,
+    inverse: inverseColors,
+  }
+}

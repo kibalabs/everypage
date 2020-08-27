@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { Section } from '.';
-import { Text, Stack, TextAlignment, PaddingSize, Link, Alignment, useColors } from '@kibalabs/ui-react';
+import { Text, Stack, TextAlignment, PaddingSize, Link, Alignment, useTheme } from '@kibalabs/ui-react';
 
 
 export const Attribution = (): React.ReactElement => {
-  const theme = useColors();
+  const theme = useTheme();
   return (
-    <Section background={{color: String(theme.backgroundInverse)}}>
+    <Section background={{color: String(theme.alternateColors.inverse.background)}} isInverse={true}>
       <Stack childAlignment={Alignment.Center} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} isFullWidth={true}>
-        <Text alignment={TextAlignment.Center} mode='inverse'>
-          <span>Made with <Link mode='inverse' target='https://www.everypagehq.com' text='everypage' /></span>
+        <Text alignment={TextAlignment.Center}>
+          <span>Made with <Link target='https://www.everypagehq.com' text='everypage' /></span>
         </Text>
       </Stack>
     </Section>

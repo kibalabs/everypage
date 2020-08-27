@@ -10,7 +10,7 @@ export const buildLinkThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     normal: {
       default: {
         text: mergeTheme(textThemes.default, {
-          'color': colors.brandPrimary,
+          'color': '$colors.brandPrimary',
           'text-decoration': 'underline',
         }),
         background: mergeTheme(boxThemes.default, {
@@ -32,42 +32,14 @@ export const buildLinkThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     visited: {
       default: {
         text: {
-          'color': darken(0.2, colors.brandPrimary),
+          'color': '$colors.brandPrimary',
         },
       },
     },
   }, base?.default);
 
-  const inverseLinkTheme = mergeThemePartial<ILinkTheme>({
-    normal: {
-      default: {
-        text: {
-          'color': colors.brandPrimaryInverse,
-        }
-      },
-      hover: {
-        text: {
-          'color': colors.brandSecondaryInverse,
-        },
-      },
-    },
-    visited:  {
-      default: {
-        text: {
-          'color': lighten(0.2, colors.brandPrimaryInverse),
-        }
-      },
-      hover: {
-        text: {
-          'color': colors.brandSecondaryInverse,
-        },
-      },
-    },
-  }, base?.inverse);
-
   return {
     ...base,
     default: defaultLinkTheme,
-    inverse: inverseLinkTheme,
   };
 }

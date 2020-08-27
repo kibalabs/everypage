@@ -11,7 +11,7 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
       default: {
         text: textThemes.default,
         messageText: mergeTheme(textThemes.default, {
-          'color': lighten(0.2, textThemes.default.color),
+          'color': lighten(0.2, '#222222'),
         }),
         placeholderText: mergeTheme(textThemes.default, {
           'color': '#AAAAAA',

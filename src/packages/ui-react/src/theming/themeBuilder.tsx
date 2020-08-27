@@ -1,7 +1,7 @@
 import { merge, RecursivePartial } from '@kibalabs/core';
 
 import { ITheme } from '.';
-import { buildColors } from '../subatoms/colors';
+import { buildColors, buildAlternateColors } from '../subatoms/colors';
 import { buildDimensions } from '../subatoms/dimensions';
 import { buildFonts } from '../subatoms/fonts';
 import { buildTextThemes } from '../subatoms/text';
@@ -23,6 +23,7 @@ import { buildLinePagerThemes } from '../atoms/linePager';
 
 export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   const colors = buildColors(inputTheme?.colors);
+  const alternateColors = buildAlternateColors(colors, inputTheme?.alternateColors);
   const dimensions = buildDimensions(inputTheme?.dimensions);
   const fonts = buildFonts(inputTheme?.fonts);
 
@@ -47,6 +48,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
   return merge<ITheme>({
     // Base
     colors: colors,
+    alternateColors: alternateColors,
     dimensions: dimensions,
     fonts: fonts,
 

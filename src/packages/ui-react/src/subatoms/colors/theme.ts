@@ -1,15 +1,8 @@
-import { ThemeType } from '../../util';
-
-export interface IColorGuide extends ThemeType {
+export interface IColorGuide extends Record<string, string> {
   brandPrimary: string;
   brandSecondary: string;
   background: string;
   text: string;
   textOnBrand: string;
   disabled: string;
-
-  brandPrimaryInverse: string;
-  brandSecondaryInverse: string;
-  backgroundInverse: string;
-  textInverse: string;
 }

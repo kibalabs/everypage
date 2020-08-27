@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
-import { ContainingView } from '@kibalabs/ui-react';
+import { ContainingView, ColorSettingView } from '@kibalabs/ui-react';
 
 import { BackgroundView, IBackgroundConfig } from '../components/backgroundView';
 
@@ -11,6 +11,7 @@ export interface ISectionProps {
   className?: string;
   background?: IBackgroundConfig;
   shouldStickToTop: boolean;
+  isInverse?: boolean;
 }
 
 export interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
@@ -40,14 +41,16 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
       className={getClassName(Section.displayName, props.className)}
       { ...props.background }
     >
-      <StyledSection
-        id={props.id}
-        className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky')}
-      >
-        <ContainingView>
-          { props.children }
-        </ContainingView>
-      </StyledSection>
+      <ColorSettingView mode={props.isInverse ? 'inverse' : undefined}>
+        <StyledSection
+          id={props.id}
+          className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky')}
+        >
+          <ContainingView>
+            { props.children }
+          </ContainingView>
+        </StyledSection>
+      </ColorSettingView>
     </BackgroundView>
   );
 };
@@ -56,6 +59,7 @@ Section.displayName = 'section';
 Section.defaultProps = {
   className: '',
   shouldStickToTop: false,
+  isInverse: false,
 };
 
 // TODO(krish): for sticky sections it would be nice if the shadow only showed once scrolled, here is an attempt for that:

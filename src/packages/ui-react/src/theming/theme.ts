@@ -22,6 +22,7 @@ import { ILinePagerTheme } from '../atoms/linePager/theme';
 export interface ITheme extends ThemeType {
   // Base
   colors: IColorGuide,
+  alternateColors: Record<string, IColorGuide>,
   dimensions: IDimensionGuide,
   fonts: Record<string, IFont>,
 

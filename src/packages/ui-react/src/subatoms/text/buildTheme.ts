@@ -10,7 +10,7 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'font-size': dimensions.fontSize,
     'font-family': '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Asans-serif',
     'font-weight': 'normal',
-    'color': colors.text,
+    'color': '$colors.text',
     'line-height': '1.5em',
     'text-decoration': 'none',
     'margin': '0',
@@ -18,10 +18,6 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'text-shadow': 'inherit',
     'text-transform': 'inherit',
   }, base?.default);
-
-  const inverseTextTheme = mergeThemePartial<ITextTheme>({
-    'color': colors.textInverse,
-  }, base?.inverse);
 
   const inlineTextTheme = mergeThemePartial<ITextTheme>({
   }, base?.inline);
@@ -162,7 +158,6 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     inserted: insertedTextTheme,
     subscript: subscriptTextTheme,
     superscript: superscriptTextTheme,
-    inverse: inverseTextTheme,
     header: headerTextTheme,
     title: titleTextTheme,
     subtitle: subtitleTextTheme,

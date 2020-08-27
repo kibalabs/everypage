@@ -1,3 +1,4 @@
+export * from './colorSettingView';
 export * from './containingView';
 export * from './hidingView';
 export * from './paddingView';

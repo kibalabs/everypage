@@ -14,7 +14,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
           'background-color': 'transparent',
         }),
         text: mergeTheme(textThemes.default, {
-          'color': colors.brandPrimary,
+          'color': '$colors.brandPrimary',
           'font-weight': '600',
         }),
       },
@@ -48,16 +48,16 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     normal: {
       default: {
         background: {
-          'background-color': colors.brandPrimary,
-          'border-color': colors.brandPrimary,
+          'background-color': '$colors.brandPrimary',
+          'border-color': '$colors.brandPrimary',
         },
         text: {
-          'color': colors.textOnBrand,
+          'color': '$colors.textOnBrand',
         },
       },
       hover: {
         background: {
-          'background-color': colors.brandSecondary,
+          'background-color': '$colors.brandSecondary',
         },
       },
       press: {
@@ -72,7 +72,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     normal: {
       default: {
         background: {
-          'border-color': colors.brandPrimary,
+          'border-color': '$colors.brandPrimary',
         },
       },
     },
