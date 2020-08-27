@@ -30,9 +30,12 @@ export const copyPackage = (buildDirectory) => {
   copyDirectorySync(path.join(__dirname, '../bin/package'), buildDirectory);
 };
 
-export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash, siteHost) => {
+export const writeSiteFiles = (buildDirectory, siteContent, siteTheme, buildHash, siteHost, shouldHideAttribution = undefined) => {
   siteContent.buildHash = buildHash;
   siteContent.siteHost = siteHost;
+  if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
+    siteContent.shouldHideAttribution = shouldHideAttribution;
+  }
   siteContent = everypageCore.updateAssetPaths(siteContent, `/${buildHash}`);
   fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
@@ -59,7 +62,7 @@ export const serve = async (buildDirectory, outputDirectory, port) => {
   return server;
 };
 
-export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash, siteHost) => {
+export const start = async (buildDirectory, assetsDirectory, siteFilePath, themeFilePath, buildHash, siteHost, shouldHideAttribution? = false) => {
   const server = childProcess.spawn(`npx`, ['react-static', 'start', '--config', path.join(buildDirectory, 'static-dev.config.js')], { stdio: ['inherit', 'inherit', 'pipe'] });
   server.on('error', (error) => {
     console.error(`Error starting everypage project: ${error}`);
@@ -71,7 +74,7 @@ export const start = async (buildDirectory, assetsDirectory, siteFilePath, theme
     });
   }
   chokidar.watch(siteFilePath).add(themeFilePath).on('all', () => {
-    writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost);
+    writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost, shouldHideAttribution);
   });
   process.on('SIGTERM', () => {
     console.log('Shutting down server');
@@ -115,7 +118,7 @@ export const runFromProgram = async (command, params) => {
   if (assetsDirectory) {
     copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
-  writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost);
+  writeSiteFiles(buildDirectory, readJsonFile(siteFilePath), readJsonFile(themeFilePath), buildHash, siteHost, undefined);
   if (command === 'build') {
     build(buildDirectory, outputDirectory);
   } else if (command === 'serve') {

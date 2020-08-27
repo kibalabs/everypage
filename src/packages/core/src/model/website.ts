@@ -5,6 +5,7 @@ export interface IWebsite {
   company: string;
   buildHash: string;
   siteHost: string;
+  shouldHideAttribution?: boolean;
   version?: string;
   keywords?: string[];
   companyUrl?: string;

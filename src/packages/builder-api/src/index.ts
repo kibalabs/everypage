@@ -41,6 +41,7 @@ app.post('/v1/sites/generate', async (request, response) => {
   if (!siteTheme) {
     return response.status(400).json({message: 'siteTheme must be provided in request'});
   }
+  const shouldHideAttribution = request.body.shouldHideAttribution;
   console.log(`Creating site: ${siteName} ${buildHash} ${siteHost}`)
   console.log(`Site content keys: ${Object.keys(siteContent)}`)
   console.log(`Site theme keys: ${Object.keys(siteTheme)}`)
@@ -50,7 +51,7 @@ app.post('/v1/sites/generate', async (request, response) => {
   fs.mkdirSync(outputDirectory, { recursive: true });
 
   try {
-    everypage.writeSiteFiles(buildDirectory, siteContent, siteTheme, buildHash, siteHost);
+    everypage.writeSiteFiles(buildDirectory, siteContent, siteTheme, buildHash, siteHost, shouldHideAttribution);
     everypage.copyPackage(buildDirectory);
     everypage.build(buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);

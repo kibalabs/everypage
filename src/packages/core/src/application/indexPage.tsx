@@ -21,7 +21,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   const sections = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
     renderSection({...sectionObject, key: index})
   ));
-  if (props.shouldIncludeAttributionSection) {
+  if (props.shouldIncludeAttributionSection && props.pageContent.shouldHideAttribution !== true) {
     sections.push(renderSection({ key: sections.length, type: 'attribution'}));
   }
   if (props.shouldIncludeHeadSection) {
