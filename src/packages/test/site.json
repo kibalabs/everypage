@@ -292,8 +292,9 @@
         },
         {
           "author": "Elston Baretto",
+          "iconColor": "#2867B2",
+          "iconId": "ion-logo-linkedin",
           "text": "This is so simple and easy to use. Like how it itself is responsive too!",
-          "type": "producthunt",
           "url": "https://www.producthunt.com/posts/everysize-2#comment-1021709"
         },
         {
@@ -545,6 +546,14 @@
           "mediaUrl": "/assets/feature1.png"
         }
       ]
+    },
+    {
+      "type": "calendly-booking-1",
+      "titleText": "Let's talk 📞",
+      "subtitleText": null,
+      "calendarId": "chat",
+      "shouldHideEventType": false,
+      "username": "krishan711"
     }
   ]
 }

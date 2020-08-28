@@ -22,6 +22,10 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
     script2.async = true;
     script2.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js';
     props.target.head.appendChild(script2);
+    const script3 = props.target.createElement('script');
+    script3.async = true;
+    script3.src = 'https://assets.calendly.com/assets/external/widget.js';
+    props.target.head.appendChild(script3);
   }, [props.target]);
 
   return (
