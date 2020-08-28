@@ -3,18 +3,7 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-export interface IBackgroundLayer {
-  color?: string;
-  linearGradient?: string;
-  radialGradient?: string;
-  imageUrl?: string;
-  patternImageUrl?: string;
-}
-
-// Allow someone to use a single background instead of specifying layers
-export interface IBackgroundConfig extends IBackgroundLayer {
-  layers?: IBackgroundLayer[];
-}
+import { IBackgroundLayer, IBackgroundConfig } from '../model';
 
 export interface IBackgroundViewProps extends IBackgroundConfig, ISingleAnyChildProps {
   id?: string;

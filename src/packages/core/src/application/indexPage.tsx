@@ -41,7 +41,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
           {props.shouldIncludeHead && <GlobalHead />}
           {props.shouldIncludeHeadSection && <HeadContent />}
           {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
-          <SectionHolder>{ sections }</SectionHolder>
+          <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
         </React.Fragment>
       </WebsiteProvider>
     </ThemeProvider>

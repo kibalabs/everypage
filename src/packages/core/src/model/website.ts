@@ -1,3 +1,15 @@
+export interface IBackgroundLayer {
+  color?: string;
+  linearGradient?: string;
+  radialGradient?: string;
+  imageUrl?: string;
+  patternImageUrl?: string;
+}
+
+// Allow someone to use a single background instead of specifying layers
+export interface IBackgroundConfig extends IBackgroundLayer {
+  layers?: IBackgroundLayer[];
+}
 
 export interface IWebsite {
   name: string;
@@ -19,12 +31,15 @@ export interface IWebsite {
   androidAppId?: string;
   plugins?: IWebsitePlugin[];
   sections?: IWebsiteSection[];
+  background?: IBackgroundConfig;
 }
 
 export interface IWebsitePlugin {
   type: string;
+  [key: string]: any;
 }
 
 export interface IWebsiteSection {
   type: string;
+  [key: string]: any;
 }
