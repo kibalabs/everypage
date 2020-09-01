@@ -15,26 +15,12 @@
       "background": {
         "color": "#ffffff"
       },
-      "titleText": "All",
       "buttons": [
-        {
-          "target": "https://console.everypagehq.com/canvas",
-          "text": "Canvas"
-        },
-        {
-          "target": "#feature-media-half-1-left",
-          "text": "Awesome feature"
-        },
-        {
-          "mode": "secondary",
-          "target": "#signup-1-open-link",
-          "text": "Cool form"
-        },
         {
           "display": "always",
           "mode": "primary",
           "target": "https://console.everypagehq.com",
-          "text": "Sign in here"
+          "text": "Try it free"
         }
       ],
       "logoImageUrl": "https://www.everypagehq.com/20200505212614/assets/everypage-wordmark.svg",
@@ -552,7 +538,7 @@
       "titleText": "Let's talk 📞",
       "subtitleText": null,
       "calendarId": "chat",
-      "shouldHideEventType": false,
+      "shouldHideEventType": true,
       "username": "krishan711"
     }
   ]

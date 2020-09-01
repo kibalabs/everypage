@@ -72,52 +72,52 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
 
   // /////////////
 
-  const headerTextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '2.4rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+  const header1TextTheme = mergeThemePartial<ITextTheme>({
+    'font-size': '3.0rem',
+    'font-weight': '800',
+    'color': '$colors.text',
     'line-height': '1.2em',
-  }, base?.header);
+  }, base?.header1);
 
-  const header1TextTheme = mergeThemePartial(headerTextTheme, base?.header1);
+  const headerTextTheme = mergeThemePartial(header1TextTheme, base?.header);
 
   const header2TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '2.0rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+    'font-weight': '700',
+    'color': '$colors.text',
     'line-height': '1.2em',
   }, base?.header2);
 
   const titleTextTheme = mergeThemePartial(header2TextTheme, base?.title);
 
   const header3TextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.6rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+    'font-size': '1.4rem',
+    'font-weight': '700',
+    'color': '$colors.text',
     'line-height': '1.2em',
   }, base?.header3);
 
   const subtitleTextTheme = mergeThemePartial(header3TextTheme, base?.subtitle);
 
   const header4TextTheme = mergeThemePartial<ITextTheme>({
-    'font-size': '1.4rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+    'font-size': '1.3rem',
+    'font-weight': '600',
+    'color': '$colors.text',
     'text-decoration': 'underline',
     'line-height': '1.2em',
   }, base.header4);
 
   const header5TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.2rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+    'font-weight': '600',
+    'color': '$colors.text',
     'line-height': '1.2em',
   }, base.header5);
 
   const header6TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.1rem',
-    'font-weight': 'bold',
-    'color': '#171717',
+    'font-weight': '600',
+    'color': '$colors.text',
     'line-height': '1.2em',
   }, base.header6);
 

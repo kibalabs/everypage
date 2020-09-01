@@ -21,7 +21,7 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
     <Section {...props as ISectionProps} className={getClassName(CalendlyBooking1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <CalendlyEmbed username={props.username} calendarId={props.calendarId} shouldHideEventType={props.shouldHideEventType} />
@@ -46,12 +46,15 @@ interface IStyledCalendlyEmbedProps {
   shouldHideEventType?: boolean;
 }
 
-const StyledCalendlyEmbed = styled.div`
-  height: ${(props: StyledCalendlyEmbed): string => props.shouldHideEventType ? '600px' : '850px'};
+const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
+  height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '600px' : '950px'};
+  border-radius: 8px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   @media (min-width: 795px) {
-    height: ${(props: StyledCalendlyEmbed): string => props.shouldHideEventType ? '700px' : '960px'};
+    height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '700px' : '1050px'};
     margin-top: -66px;
     margin-bottom: -30px;
+    box-shadow: none;
   }
 `;
 

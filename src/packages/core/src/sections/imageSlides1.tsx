@@ -28,7 +28,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(ImageSlides1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeMedium={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionTop}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} slidesPerPage={1} slidesPerPageSmall={2} slidesPerPageLarge={3}>

@@ -10,7 +10,7 @@ export const Attribution = (): React.ReactElement => {
     <Section background={{color: String(theme.alternateColors.inverse.background)}} isInverse={true}>
       <Stack childAlignment={Alignment.Center} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} isFullWidth={true}>
         <Text alignment={TextAlignment.Center}>
-          <span>Made with <Link target='https://www.everypagehq.com' text='everypage' /></span>
+          Made with <Link target='https://www.everypagehq.com' text='everypage' /> 
         </Text>
       </Stack>
     </Section>
