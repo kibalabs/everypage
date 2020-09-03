@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
   spacer: {
     flexGrow: 1,
   },
+  navButton: {
+    marginLeft: '10px',
+    borderColor: 'white',
+    color: 'white',
+  },
 }));
 
 export const NavigationBar = (): React.ReactElement => {
@@ -72,6 +77,12 @@ export const NavigationBar = (): React.ReactElement => {
           variant='outlined'
           onClick={onLogoutClicked}
         >Log out</Button>
+        <Button
+          className={classes.navButton}
+          variant='outlined'
+          href='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
+          target='_blank'
+        >Tutorials</Button>
       </Toolbar>
       {!hasVerifiedEmail && (
         <Toolbar className={classes.alertBar}>
