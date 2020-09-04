@@ -37,9 +37,9 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
             {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true} gutterSizeBefore={PaddingSize.ExtraWide}>
               {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonMode={props.appButtonMode} appId={iosAppId} /></Stack.Item>}
               {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonMode={props.appButtonMode} appId={androidAppId} /></Stack.Item>}
               {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonMode={props.appButtonMode} appId={macAppId} /></Stack.Item>}

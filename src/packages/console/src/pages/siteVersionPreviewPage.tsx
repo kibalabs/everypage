@@ -124,7 +124,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const getSiteUrl = (): string => {
-    return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
+    return `https://${site.slug}.evrpg.com`;
   }
 
   const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
