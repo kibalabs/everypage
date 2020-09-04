@@ -23,6 +23,7 @@ export * from './markdown1';
 export * from './navbar1';
 export * from './pricingFeatures1';
 export * from './pricingMulti1';
+export * from './singlePageApp1';
 export * from './signup1';
 export * from './statisticBoxes1';
 export * from './testimonialBoxes1';

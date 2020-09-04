@@ -1,0 +1,60 @@
+import React from 'react';
+import { getClassName } from '@kibalabs/core';
+import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, Alignment, ResponsiveTextAlignmentView, MarkdownText, IosDownloadButton, AndroidDownloadButton, AppDownloadButton } from '@kibalabs/ui-react';
+
+import { Section, ISectionProps } from '.';
+import { HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
+import { useWebsite } from '../util';
+
+interface ISinglePageApp1Props extends ISectionProps {
+  logoImageUrl?: string;
+  titleText?: string;
+  subtitleText?: string;
+  copyrightText?: string;
+  iosAppId?: string;
+  androidAppId?: string;
+  macAppId?: string;
+  appButtonMode?: string;
+  bottomText?: string;
+}
+
+export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement => {
+  const website = useWebsite();
+  const iosAppId = props.iosAppId || website.iosAppId;
+  const androidAppId = props.androidAppId || website.androidAppId;
+  const macAppId = props.macAppId || website.macAppId;
+  let companyText = `${website.company}`;
+  if (website.companyUrl) {
+    companyText = `[${companyText}](${website.companyUrl})`;
+  }
+  const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
+  return (
+    <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
+      <ResponsiveContainingView size={10} sizeSmall={8}>
+        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
+          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
+              {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonMode={props.appButtonMode} appId={iosAppId} /></Stack.Item>}
+              {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonMode={props.appButtonMode} appId={androidAppId} /></Stack.Item>}
+              {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonMode={props.appButtonMode} appId={macAppId} /></Stack.Item>}
+            </Stack>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText}/></Stack.Item>}
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item gutterSizeAfter={PaddingSize.Default}><MarkdownText source={copyrightText}/></Stack.Item>
+          </Stack>
+        </ResponsiveTextAlignmentView>
+      </ResponsiveContainingView>
+    </Section>
+  );
+};
+SinglePageApp1.displayName = 'single-page-app-1';
+SinglePageApp1.defaultProps = {
+};

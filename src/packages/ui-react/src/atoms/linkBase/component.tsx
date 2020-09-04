@@ -60,8 +60,9 @@ const StyledLinkBase = styled.a<IStyledLinkBaseProps>`
 interface ILinkBaseProps extends IComponentProps<ILinkBaseTheme>, ISingleAnyChildProps {
   isEnabled: boolean;
   isFullWidth: boolean;
-  target: string;
   label?: string;
+  target?: string;
+  targetShouldOpenSameTab?: boolean;
   onClicked?(): void;
 }
 
@@ -73,14 +74,17 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
   };
 
   const theme = useBuiltTheme('linkBases', props.mode, props.theme);
+  const targetShouldOpenSameTab = props.targetShouldOpenSameTab || (props.targetShouldOpenSameTab === undefined && props.target && props.target.startsWith('#'));
   return (
     <StyledLinkBase
       id={props.id}
       className={getClassName(LinkBase.displayName, props.className, props.isFullWidth && 'fullWidth', !props.isEnabled && 'disabled')}
       theme={theme}
       onClick={onClicked}
-      href={props.target}
       aria-label={props.label}
+      href={props.target}
+      rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
+      target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       {props.children}
     </StyledLinkBase>

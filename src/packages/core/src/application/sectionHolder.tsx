@@ -14,6 +14,7 @@ const StyledSectionHolder = styled.main<IStyledSectionHolderProps>`
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
+  min-height: 100vh;
 `;
 
 interface ISectionHolderProps extends IMultiChildProps<ISectionProps> {

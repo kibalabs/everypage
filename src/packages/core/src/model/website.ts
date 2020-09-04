@@ -29,6 +29,7 @@ export interface IWebsite {
   faviconImageUrl?: string;
   iosAppId?: string;
   androidAppId?: string;
+  macAppId?: string;
   plugins?: IWebsitePlugin[];
   sections?: IWebsiteSection[];
   background?: IBackgroundConfig;

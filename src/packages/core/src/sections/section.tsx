@@ -11,6 +11,7 @@ export interface ISectionProps {
   className?: string;
   background?: IBackgroundConfig;
   shouldStickToTop: boolean;
+  isFullHeight?: boolean;
   isInverse?: boolean;
 }
 
@@ -29,6 +30,11 @@ const StyledSection = styled.section<StyledSectionProps>`
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.13);
   }
 
+  &.fullHeight {
+    flex-grow: 1;
+    display: flex;
+  }
+
   &.unstuck {
     box-shadow: none;
   }
@@ -44,7 +50,7 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
       <ColorSettingView mode={props.isInverse ? 'inverse' : undefined}>
         <StyledSection
           id={props.id}
-          className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky')}
+          className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky', props.isFullHeight && 'fullHeight')}
         >
           <ContainingView>
             { props.children }

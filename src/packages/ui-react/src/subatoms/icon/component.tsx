@@ -46,6 +46,8 @@ const getSize = (size: string): string => {
 const StyledIcon = styled.div<IStyledIconProps>`
   width: ${(props: IStyledIconProps): string => getSize(props.size)};
   height: ${(props: IStyledIconProps): string => getSize(props.size)};
+  min-width: ${(props: IStyledIconProps): string => getSize(props.size)};
+  min-height: ${(props: IStyledIconProps): string => getSize(props.size)};
   color: ${(props: IStyledIconProps): string => props.color ? props.color : 'currentColor'};
 
   svg {
