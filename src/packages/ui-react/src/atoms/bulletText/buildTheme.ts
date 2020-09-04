@@ -9,7 +9,7 @@ export const buildBulletTextThemes = (colors: IColorGuide, dimensions: IDimensio
     normal: {
       default: {
         text: mergeTheme(textThemes.default, {
-          'line-height': '2.0em',
+          'margin': '0 0 0.5em 0',
         }),
         bullet: {
           color: colors.text,

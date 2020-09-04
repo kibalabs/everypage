@@ -1,12 +1,16 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, Alignment, ResponsiveTextAlignmentView, MarkdownText, IosDownloadButton, AndroidDownloadButton, AppDownloadButton } from '@kibalabs/ui-react';
+import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, Alignment, ResponsiveTextAlignmentView, MarkdownText, IconButton, KibaIcon, AppDownloadButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
-import { EverypagePaddingSize } from '../internal';
 import { useWebsite } from '../util';
 
+interface ISinglePageApp1IconLink {
+  iconId?: string;
+  target: string;
+  label?: string;
+}
 interface ISinglePageApp1Props extends ISectionProps {
   logoImageUrl?: string;
   titleText?: string;
@@ -17,6 +21,7 @@ interface ISinglePageApp1Props extends ISectionProps {
   macAppId?: string;
   appButtonMode?: string;
   bottomText?: string;
+  iconLinks?: ISinglePageApp1IconLink[];
 }
 
 export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement => {
@@ -28,7 +33,8 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
   if (website.companyUrl) {
     companyText = `[${companyText}](${website.companyUrl})`;
   }
-  const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
+  const copyrightText = props.copyrightText !== undefined || props.copyrightText !== null ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
+  console.log('props.iconLinks', props.iconLinks);
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
       <ResponsiveContainingView size={10} sizeSmall={8}>
@@ -48,6 +54,15 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
             {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText}/></Stack.Item>}
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            {props.iconLinks && (
+              <Stack.Item gutterSizeAfter={PaddingSize.Wide}>
+                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
+                  {props.iconLinks.map((iconLink: ISinglePageApp1IconLink, index: number): React.ReactElement => (
+                    <IconButton key={index} target={iconLink.target} icon={<KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />} />
+                  ))}
+                </Stack>
+              </Stack.Item>
+            )}
             <Stack.Item gutterSizeAfter={PaddingSize.Default}><MarkdownText source={copyrightText}/></Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
