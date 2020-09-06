@@ -1,49 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { ISingleAnyChildProps, IMultiAnyChildProps } from '@kibalabs/core-react';
 import { ITheme, useTheme } from '@kibalabs/ui-react';
 
-import { useWebsite } from '../util';
+import { useWebsite, Head } from '../util';
 import { IWebsite } from '../model';
-
-export const HeadRootContext = React.createContext<HTMLElement | null>(null);
-
-interface IHeadRootProviderProps extends ISingleAnyChildProps {
-  root: HTMLElement;
-}
-
-export const HeadRootProvider = (props: IHeadRootProviderProps): React.ReactElement => {
-  return (
-    <HeadRootContext.Provider value={props.root}>
-      {props.children}
-    </HeadRootContext.Provider>
-  );
-};
-
-export function useHeadRoot(): HTMLElement {
-  const headRoot = React.useContext(HeadRootContext);
-  if (!headRoot) {
-    throw Error('No headRoot has been set!');
-  }
-  return headRoot;
-}
-
-interface IHeadProps extends IMultiAnyChildProps {
-}
-
-export const Head = (props: IHeadProps): React.ReactElement => {
-  const headRoot = useHeadRoot();
-  return React.isValidElement(headRoot) ? React.cloneElement(headRoot, {}, props.children) : ReactDOM.createPortal(props.children, headRoot);
-}
-
-interface IChildCaptureProps extends IMultiAnyChildProps {
-  headElements: HTMLElement[];
-}
-
-export const ChildCapture = (props: IChildCaptureProps): React.ReactElement => {
-  props.headElements.push(props.children);
-  return null;
-}
 
 export interface IHeadContentProps {
   website?: IWebsite;
@@ -77,8 +36,8 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <link rel='preconnect' href='https://assets.evrpg.com' crossOrigin='anonymous' />
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <React.Fragment key={index}>
-          <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
-          <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
+          <link href={theme.fonts[fontKey].url} rel='preload' as='style' />
+          <link href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
           <noscript><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript>
         </React.Fragment>
       ))}

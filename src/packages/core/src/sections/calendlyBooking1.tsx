@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { useInitialization } from '@kibalabs/core-react';
-import { Stack, Alignment, ResponsiveContainingView, TextAlignment, Direction, useTheme, ITheme, Link, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { Stack, ResponsiveContainingView, TextAlignment, Direction, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
+import { Head } from '../util';
 
 interface ICalendlyBooking1Props extends ISectionProps {
   titleText?: string;
@@ -21,7 +21,7 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
     <Section {...props as ISectionProps} className={getClassName(CalendlyBooking1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={PaddingSize.Default}>
             {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <CalendlyEmbed username={props.username} calendarId={props.calendarId} shouldHideEventType={props.shouldHideEventType} />
@@ -59,21 +59,18 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
 `;
 
 const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
-  useInitialization((): void => {
-    // NOTE(krish): see kiba frame - this doesnt work in iframe so has to be replicated there!
-    const head = document.querySelector('head');
-    const script = document.createElement('script');
-    script.setAttribute('src', 'https://assets.calendly.com/assets/external/widget.js');
-    head.appendChild(script);
-  });
-
   let url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
   return (
-    <StyledCalendlyEmbed
-      className={getClassName(CalendlyEmbed.displayName, 'calendly-inline-widget')}
-      shouldHideEventType={props.shouldHideEventType}
-      data-url={url}
-    />
+    <React.Fragment>
+      <StyledCalendlyEmbed
+        className={getClassName(CalendlyEmbed.displayName, 'calendly-inline-widget')}
+        shouldHideEventType={props.shouldHideEventType}
+        data-url={url}
+      />
+      <Head>
+        <script src='https://assets.calendly.com/assets/external/widget.js' />
+      </Head>
+    </React.Fragment>
   );
 };
 CalendlyEmbed.displayName = 'calendly-embed';
