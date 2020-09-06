@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 // const webpackBundleAnalyzer = require('webpack-bundle-analyzer');
 
+import React from 'react';
+import { HeadRootProvider, ChildCapture } from '@kibalabs/everypage-core';
+
 class CreateRobotsWebpackPlugin {
   apply(compiler) {
     compiler.hooks.afterEmit.tap('CreateRobots', async () => {
@@ -15,8 +18,8 @@ export default () => ({
     // https://github.com/react-static/react-static/pull/1329
     config.output.publicPath = process.env.REACT_STATIC_ASSETS_PATH || '/';
 
-    // config.plugins = (config.plugins || []).concat([
-    //   new CreateRobotsWebpackPlugin(),
+    config.plugins = (config.plugins || []).concat([
+      new CreateRobotsWebpackPlugin(),
     //   new webpackBundleAnalyzer.BundleAnalyzerPlugin({
     //     analyzerMode: 'json',
     //     reportFilename: './bundle-size.json',
@@ -25,7 +28,7 @@ export default () => ({
     //     analyzerMode: 'static',
     //     reportFilename: './bundle-size.html',
     //   }),
-    // ]);
+    ]);
 
     config.entry = [
       'core-js/stable',
@@ -90,6 +93,18 @@ export default () => ({
     }];
 
     return config;
+  },
+  beforeRenderToHtml: (element, { meta }) => {
+    meta.headElements = [];
+    return (
+      <HeadRootProvider root={<ChildCapture headElements={meta.headElements}/>}>
+        {element}
+      </HeadRootProvider>
+    );
+  },
+  headElements: (elements, { meta }) => {
+    elements = [...elements, meta.headElements];
+    return elements
   },
   beforeDocumentToFile: async (html) => {
     return html.replace(/\/\*!sc\*\//g, '');

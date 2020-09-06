@@ -1,9 +1,49 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { ISingleAnyChildProps, IMultiAnyChildProps } from '@kibalabs/core-react';
+import { ITheme, useTheme } from '@kibalabs/ui-react';
 
 import { useWebsite } from '../util';
 import { IWebsite } from '../model';
-import { ITheme, useTheme } from '@kibalabs/ui-react';
 
+export const HeadRootContext = React.createContext<HTMLElement | null>(null);
+
+interface IHeadRootProviderProps extends ISingleAnyChildProps {
+  root: HTMLElement;
+}
+
+export const HeadRootProvider = (props: IHeadRootProviderProps): React.ReactElement => {
+  return (
+    <HeadRootContext.Provider value={props.root}>
+      {props.children}
+    </HeadRootContext.Provider>
+  );
+};
+
+export function useHeadRoot(): HTMLElement {
+  const headRoot = React.useContext(HeadRootContext);
+  if (!headRoot) {
+    throw Error('No headRoot has been set!');
+  }
+  return headRoot;
+}
+
+interface IHeadProps extends IMultiAnyChildProps {
+}
+
+export const Head = (props: IHeadProps): React.ReactElement => {
+  const headRoot = useHeadRoot();
+  return React.isValidElement(headRoot) ? React.cloneElement(headRoot, {}, props.children) : ReactDOM.createPortal(props.children, headRoot);
+}
+
+interface IChildCaptureProps extends IMultiAnyChildProps {
+  headElements: HTMLElement[];
+}
+
+export const ChildCapture = (props: IChildCaptureProps): React.ReactElement => {
+  props.headElements.push(props.children);
+  return null;
+}
 
 export interface IHeadContentProps {
   website?: IWebsite;
@@ -23,7 +63,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
   }
 
   return (
-    <React.Fragment>
+    <Head>
       <meta charSet='utf-8' />
       <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
@@ -34,20 +74,14 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { website.version && <meta name='version' content={website.version} /> }
 
       {/* Fonts */}
-      {/* Font loading ideas from https://csswizardry.com/2020/05/the-fastest-google-fonts/ */}
-      {/* NOTE(krish): helmet doesn't work with fragments (https://github.com/nfl/react-helmet/issues/342) */}
       <link rel='preconnect' href='https://assets.evrpg.com' crossOrigin='anonymous' />
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
-        <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
+        <React.Fragment key={index}>
+          <link key={index} href={theme.fonts[fontKey].url} rel='preload' as='style' />
+          <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
+          <noscript><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript>
+        </React.Fragment>
       ))}
-      { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
-        <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' />
-      ))}
-      {/* TODO(krish): use onLoad once supported by react-helmet: https://github.com/nfl/react-helmet/pull/299 */}
-      {/* <link key={index} href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} /> */}
-      {/* { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
-        <noscript key={index}><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript>
-      ))} */}
 
       {/* Page meta */}
       <title>{title}</title>
@@ -122,6 +156,6 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js' async={true} />
       <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js' async={true} />
       <script src='https://cdn.jsdelivr.net/npm/whatwg-fetch@3.2.0/dist/fetch.umd.min.js' />
-    </React.Fragment>
+    </Head>
   );
 };

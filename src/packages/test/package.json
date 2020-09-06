@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "0.5.26",
+  "version": "0.5.27",
   "private": true,
   "description": "",
   "scripts": {
@@ -10,9 +10,9 @@
   "//": "TODO(krish): all dependencies should be removed here except everypage. silly lerna problem",
   "dependencies": {
     "@babel/runtime": "7.10.2",
-    "@kibalabs/everypage": "0.5.26",
-    "@kibalabs/everypage-core": "0.5.26",
-    "@kibalabs/ui-react": "0.5.26",
+    "@kibalabs/everypage": "0.5.27",
+    "@kibalabs/everypage-core": "0.5.27",
+    "@kibalabs/ui-react": "0.5.27",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
     "commander": "5.1.0",
@@ -24,7 +24,7 @@
     "react-static-plugin-styled-components": "7.3.0",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
-    "styled-components": "5.1.0",
+    "styled-components": "5.2.0",
     "typescript": "3.9.5"
   }
 }

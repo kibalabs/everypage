@@ -1,5 +1,4 @@
 export * from './globalCss';
-export * from './globalHead';
 export * from './headContent';
 export * from './resetCss';
 export * from './pluginRenderer';

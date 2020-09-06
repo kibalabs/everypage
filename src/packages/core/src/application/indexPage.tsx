@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider, ITheme } from '@kibalabs/ui-react';
 
-import { resetCss, GlobalCss, GlobalHead, SectionHolder, renderSection, buildEverypageTheme } from '.';
+import { resetCss, GlobalCss, SectionHolder, renderSection, buildEverypageTheme } from '.';
 import { WebsiteProvider } from '../util';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
@@ -11,7 +11,6 @@ import { HeadContent } from './headContent';
 export interface IIndexPageProps {
   pageContent: { sections: Record<string, any> } & IWebsite;
   pageTheme: ITheme;
-  shouldIncludeHead: boolean;
   shouldIncludeHeadSection: boolean;
   shouldIncludeAttributionSection: boolean;
 }
@@ -38,8 +37,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
             theme={resolvedPageTheme}
             resetCss={resetCss}
           />
-          {props.shouldIncludeHead && <GlobalHead />}
-          {props.shouldIncludeHeadSection && <HeadContent />}
+          <HeadContent />
           {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
           <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
         </React.Fragment>
@@ -48,7 +46,6 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   )
 }
 IndexPage.defaultProps = {
-  shouldIncludeHead: true,
   shouldIncludeHeadSection: false,
   shouldIncludeAttributionSection: true,
 }

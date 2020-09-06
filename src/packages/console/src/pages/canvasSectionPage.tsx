@@ -21,7 +21,7 @@ export const CanvasSectionPage = (): React.ReactElement => {
   return (
     <div className={classes.root}>
       <KibaFrame>
-        <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeHead={false} shouldIncludeAttributionSection={false} />
+        <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeAttributionSection={false} />
       </KibaFrame>
     </div>
   )

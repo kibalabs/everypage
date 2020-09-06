@@ -4,7 +4,8 @@ import { getClassName } from '@kibalabs/core';
 import { IMultiChildProps } from '@kibalabs/core-react';
 
 import { ISectionProps } from '../sections';
-import { BackgroundView, IBackgroundConfig } from '../components';
+import { BackgroundView } from '../components';
+import { IBackgroundConfig } from '../model';
 
 interface IStyledSectionHolderProps {
 }
@@ -38,10 +39,11 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
       { ...props.background }
     >
       <StyledSectionHolder>
-        {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
+        {/* {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
           // return React.cloneElement(child, { sectionHolderRef: sectionHolderRef });
           return child;
-        })}
+        })} */}
+        {props.children}
       </StyledSectionHolder>
     </BackgroundView>
   );

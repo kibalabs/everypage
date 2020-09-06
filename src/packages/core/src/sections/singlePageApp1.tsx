@@ -34,7 +34,6 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
     companyText = `[${companyText}](${website.companyUrl})`;
   }
   const copyrightText = props.copyrightText !== undefined || props.copyrightText !== null ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
-  console.log('props.iconLinks', props.iconLinks);
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
       <ResponsiveContainingView size={10} sizeSmall={8}>

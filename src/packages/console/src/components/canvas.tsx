@@ -137,10 +137,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setIsSectionChooserShowing(false);
   }
 
-  // TODO(krish): use core components here again when the bug below is resolved
-  // NOTE(krish): both styled components and react-helmet don't work great with iframes
-  // https://github.com/styled-components/styled-components/issues/2973
-  // https://github.com/nfl/react-helmet/issues/277
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -182,7 +178,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         {!props.isEditorHidden && <div className={classes.verticalLine} />}
         <div className={classes.frameWrapper}>
           <KibaFrame>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeHead={false} shouldIncludeAttributionSection={true} />
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeAttributionSection={true} />
           </KibaFrame>
         </div>
       </div>
