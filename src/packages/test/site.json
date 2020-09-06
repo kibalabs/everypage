@@ -17,10 +17,23 @@
       },
       "buttons": [
         {
+          "target": "https://console.everypagehq.com/canvas",
+          "text": "Canvas"
+        },
+        {
+          "target": "#feature-media-half-1-left",
+          "text": "Awesome feature"
+        },
+        {
+          "mode": "secondary",
+          "target": "#signup-1-open-link",
+          "text": "Cool form"
+        },
+        {
           "display": "always",
           "mode": "primary",
           "target": "https://console.everypagehq.com",
-          "text": "Try it free"
+          "text": "Sign in here"
         }
       ],
       "logoImageUrl": "https://www.everypagehq.com/20200505212614/assets/everypage-wordmark.svg",
@@ -58,7 +71,7 @@
       "background": {
         "color": "white"
       },
-      "titleText": "Create your beautiful landing page in minutes with a declarative API",
+      "titleText": "Create your landing page in minutes",
       "subtitleText": "Our easy to use landing page generator builds your landing pages with exceptional performance, SEO and accessibility built in.",
       "formAction": "POST",
       "formAdditionalInputs": [
@@ -102,6 +115,26 @@
       "leftMediaUrl": "/assets/hero.mp4",
       "logoImageUrl": null,
       "rightMediaUrl": null
+    },
+    {
+      "type": "single-page-app-1",
+      "titleText": "Make your website now",
+      "subtitleText": "Get your word out and people will love you",
+      "androidAppId": "com.wordmagicapp.android.play",
+      "appButtonMode": "light-clear",
+      "iconLinks": [
+        {
+          "iconId": "ion-logo-twitter",
+          "target": "https://twitter.com/kibalabs"
+        },
+        {
+          "iconId": "ion-mail",
+          "target": "mailto:website@kibalabs.com?Subject=Hey%20there%2C%20I%20saw%20your%20awesome%20website%21"
+        }
+      ],
+      "iosAppId": "1039710965",
+      "logoImageUrl": "/assets/everypage-wordmark.svg",
+      "macAppId": "1027457763"
     },
     {
       "type": "feature-media-half-1",
