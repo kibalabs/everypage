@@ -55,9 +55,6 @@
     },
     {
       "type": "hero-app-download-media-half-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Insert catchy header",
       "subtitleText": "Share why your product is great",
       "androidAppId": "com.wordmagicapp.android.play",
@@ -68,9 +65,6 @@
     },
     {
       "type": "hero-signup-1",
-      "background": {
-        "color": "white"
-      },
       "titleText": "Create your landing page in minutes",
       "subtitleText": "Our easy to use landing page generator builds your landing pages with exceptional performance, SEO and accessibility built in.",
       "formAction": "POST",
@@ -91,18 +85,12 @@
     },
     {
       "type": "hero-simple-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Insert catchy header",
       "subtitleText": "Share why your product is great",
       "logoImageUrl": null
     },
     {
       "type": "hero-signup-media-half-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Insert catchy header",
       "subtitleText": "Share why your product is great",
       "formAction": "OPEN",
@@ -121,7 +109,7 @@
       "titleText": "Make your website now",
       "subtitleText": "Get your word out and people will love you",
       "androidAppId": "com.wordmagicapp.android.play",
-      "appButtonMode": "light-clear",
+      "appButtonMode": "dark-clear",
       "iconLinks": [
         {
           "iconId": "ion-logo-twitter",
@@ -138,9 +126,6 @@
     },
     {
       "type": "feature-media-half-1",
-      "background": {
-        "color": "white"
-      },
       "titleText": "Look at this cool feature",
       "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
       "leftMediaUrl": null,
@@ -149,9 +134,6 @@
     {
       "id": "feature-media-half-1-left",
       "type": "feature-media-half-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "This is another cool feature",
       "subtitleText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec lorem metus. Nullam ultricies ante sed commodo ultricies. Aenean volutpat erat nec quam tempor, vitae aliquam sapien facilisis. Duis in bibendum elit, ut placerat neque. Cras facilisis tempor diam, in faucibus velit elementum eu. Nam pharetra pulvinar turpis ac finibus. Sed nec sapien porttitor, tincidunt nisl nec, placerat magna. Curabitur dui sem, dictum in mauris et, maximus tempus metus",
       "leftMediaUrl": "/assets/feature2.png",
@@ -159,9 +141,6 @@
     },
     {
       "type": "feature-boxes-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "What we're solving for you...",
       "subtitleText": "Highlight your value propositions here. Focus on what you do for the user, not what you are building! Try to keep titles to 3-5 words and descriptions to 2-3 short sentences. ",
       "features": [
@@ -189,9 +168,6 @@
     },
     {
       "type": "pricing-tiers-1",
-      "background": {
-        "color": "white"
-      },
       "titleText": "Pricing & stuff",
       "subtitleText": "💰💰💰💰💰💰",
       "categories": [
@@ -256,9 +232,6 @@
     },
     {
       "type": "pricing-features-1",
-      "background": {
-        "color": "white"
-      },
       "subtitleText": "All plans come with these awesome features:",
       "features": [
         {
@@ -274,9 +247,6 @@
     },
     {
       "type": "statistic-boxes-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "See what our numbers are saying 💯",
       "subtitleText": null,
       "boxes": [
@@ -296,9 +266,6 @@
     },
     {
       "type": "testimonial-boxes-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "What people say about us 🤩",
       "subtitleText": "Our customers love us and we love them",
       "boxMode": "card",
@@ -330,9 +297,6 @@
     },
     {
       "type": "faq-1",
-      "background": {
-        "color": "white"
-      },
       "titleText": "FAQs",
       "subtitleText": null,
       "questions": [
@@ -349,9 +313,6 @@
     {
       "id": "signup-1-subscribe",
       "type": "signup-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Stay in touch",
       "subtitleText": "Join us to keep updated on our launch and upcoming features 🚀",
       "formAction": "POST",
@@ -367,9 +328,6 @@
     {
       "id": "signup-1-open-link",
       "type": "signup-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Enter a url to see the magic",
       "subtitleText": null,
       "formAction": "OPEN",
@@ -382,9 +340,6 @@
     },
     {
       "type": "buttons-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Get started with us",
       "subtitleText": "It's totally awesome!",
       "buttons": [
@@ -402,27 +357,18 @@
     },
     {
       "type": "app-download-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Download now!",
       "androidAppId": "com.wordmagicapp.android.play",
       "iosAppId": "1039710965"
     },
     {
       "type": "markdown-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Blog",
       "subtitleText": "Check out our latest blogs from our co-founders.",
       "markdownContent": "# h1 Heading\n\n## h2 Heading\n\n### h3 Heading\n\n#### h4 Heading\n\n##### h5 Heading\n\n###### h6 Heading\n\nnormal text\n\n[an awesome link](https://via.placeholder.com/150)\n\n![an awesome image](https://via.placeholder.com/150)\nthis image is great...\n\ntext and image in same line![an awesome image](https://via.placeholder.com/150)\nanother caption\n\n- Item 1\n- Item 2\n  - Sub Item 1\n  - Sub Item 2"
     },
     {
       "type": "footer-1",
-      "background": {
-        "color": "white"
-      },
       "subtitleText": "Say hello to us [@twitter](https://twitter.com/)",
       "iconLinks": [
         {
@@ -467,9 +413,6 @@
     },
     {
       "type": "testimonial-slides-1",
-      "background": {
-        "color": "#ffffff"
-      },
       "titleText": "Why people love us 😍",
       "subtitleText": null,
       "slides": [
@@ -573,6 +516,22 @@
       "calendarId": "chat",
       "shouldHideEventType": true,
       "username": "krishan711"
+    },
+    {
+      "type": "video-1",
+      "titleText": "Watch and learn 👀",
+      "subtitleText": "Videos are great, everyone can learn from them!",
+      "embeddedVideoUrl": "https://www.youtube.com/embed/_tUCouKc4Ek",
+      "videoUrl": null
+    },
+    {
+      "type": "hero-app-download-1",
+      "titleText": "Build your websites now",
+      "subtitleText": "Faster and cheaper than ever!",
+      "androidAppId": "com.wordmagicapp.android.play",
+      "macAppId": "1027457763",
+      "iosAppId": "1039710965",
+      "logoImageUrl": "/assets/everypage-wordmark.svg"
     }
   ]
 }

@@ -14,7 +14,7 @@ export const SectionTitleText = (props: ISectionTitleTextProps): React.ReactElem
     <MarkdownText
       id={props.id}
       className={getClassName(SectionTitleText.displayName, props.className)}
-      textMode='title-sectionTitle'
+      textMode='header2-sectionTitle'
       textAlignment={props.alignment}
       source={props.text}
     />

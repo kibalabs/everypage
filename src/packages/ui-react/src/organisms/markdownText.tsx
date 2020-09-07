@@ -42,11 +42,12 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
 
   const renderers: ReactMarkdown.Renderers = {
     root: (rendererProps: object): React.ReactElement => {
-      const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
-      // TODO(krish): not totally sure this is the right check!
-      if (React.Children.count(rendererProps.children) > 1 && childrenKeys[0] !== 'text') {
-        throw new Error('MarkdownText only supports having one text child!')
-      }
+      // TODO(krish): what should this check? It cant run the below check cos would fail for markdown like: "**Hello** world"
+      // const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
+      // if (React.Children.count(rendererProps.children) > 1 && childrenKeys[0] !== 'text') {
+      //   console.log('rendererProps.children', rendererProps.children);
+      //   throw new Error('MarkdownText only supports having one text child!')
+      // }
       return (
         <PrettyText
           id={props.id}

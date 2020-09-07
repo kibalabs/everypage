@@ -16,16 +16,18 @@ interface IHeroAppButtonsMediaHalf1Props extends ISectionProps {
   rightMediaUrl?: string;
   iosAppId?: string;
   androidAppId?: string;
+  macAppId?: string;
+  appButtonMode?: string;
 }
 
 export const HeroAppButtonsMediaHalf1 = (props: IHeroAppButtonsMediaHalf1Props): React.ReactElement => {
   const website = useWebsite();
+  const iosAppId = props.iosAppId || website.iosAppId;
+  const androidAppId = props.androidAppId || website.androidAppId;
+  const macAppId = props.macAppId || website.macAppId;
   if (props.leftMediaUrl && props.rightMediaUrl) {
     throw new Error('Only one of {leftMediaUrl, rightMediaUrl} should be provided to hero-signup-media-half-1')
   }
-
-  const iosAppId = props.iosAppId || website.iosAppId;
-  const androidAppId = props.androidAppId || website.androidAppId;
 
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroAppButtonsMediaHalf1.displayName, props.className)}>
@@ -47,6 +49,7 @@ export const HeroAppButtonsMediaHalf1 = (props: IHeroAppButtonsMediaHalf1Props):
                 <Stack direction={Direction.Vertical} directionLarge={Direction.Horizontal} shouldAddGutters={true}>
                   {iosAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button mode='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-apple'/>} iconGutterSize={PaddingSize.Wide} target={`https://apps.apple.com/app/id${iosAppId}`} text='Download for iOS' /></Stack.Item>}
                   {androidAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button mode='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-android'/>} iconGutterSize={PaddingSize.Wide} target={`https://play.google.com/store/apps/details?id=${androidAppId}`} text='Download for Android' /></Stack.Item>}
+                  {macAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button mode='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-android'/>} iconGutterSize={PaddingSize.Wide} target={`https://apps.apple.com/app/id${macAppId}`} text='Download for Mac' /></Stack.Item>}
                 </Stack>
               </Stack>
             </ResponsiveTextAlignmentView>
