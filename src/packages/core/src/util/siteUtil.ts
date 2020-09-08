@@ -1,32 +1,39 @@
 
 const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9\@\:\%\_\+\.\~\#\?\&\/\=]*)\)/g;
 
+export const updateAssetPath = (assetPath: string, assetsPrefix: string): string => {
+  return assetPath.replace(/^/, assetsPrefix);
+}
+
 export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: string): Record<string, any> => {
   if (!assetsPrefix) {
     return siteConfig;
   }
-  return Object.keys(siteConfig).reduce((result: Record<string, any>, key: string): Record<string, any> => {
+  const newSiteContent = Object.keys(siteConfig).reduce((result: Record<string, any>, key: string): Record<string, any> => {
     let value = siteConfig[key];
     if (!value) {
       // Do nothing.
     } else if (typeof value === 'string') {
       if (value.startsWith('/assets/')) {
-        // Add prefix to whole string
-        value = value.replace(/^/, assetsPrefix);
+        value = updateAssetPath(value, assetsPrefix);
       } else {
         // Replace any instances of (/assets/...) with the prefixed version for markdown
-        value = value.replace(ASSET_CONTENT_REGEX, `(${assetsPrefix}$1)`);
+        value = value.replace(ASSET_CONTENT_REGEX, (match: string, capture: string): string => {
+          return `(${updateAssetPath(capture, assetsPrefix)})`;
+        });
       }
     } else if (Array.isArray(value)) {
-      value = value.map(entry => updateAssetPaths(entry, assetsPrefix));
+      value = value.map(entry => typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry);
     } else if (typeof value === 'object') {
       value = updateAssetPaths(value, assetsPrefix);
     }
     result[key] = value;
     return result
   }, {});
+  return newSiteContent;
 };
 
+// NOTE(krish): These replacement functions are because in canvas the images are stored locally so cant just be a prefix.
 export const replaceAssetPath = (assetPath: string, assetReplacements: Record<string, string>): string => {
   return assetReplacements[assetPath] ? assetReplacements[assetPath] : assetPath;
 }
@@ -41,7 +48,6 @@ export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacem
       // Do nothing.
     } else if (typeof value === 'string') {
       if (value.startsWith('/assets/')) {
-        // Add prefix to whole string
         value = replaceAssetPath(value, assetReplacements);
       } else {
         // Replace any instances of (/assets/...) with the prefixed version for markdown

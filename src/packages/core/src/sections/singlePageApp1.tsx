@@ -34,7 +34,6 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
   if (website.companyUrl) {
     companyText = `[${companyText}](${website.companyUrl})`;
   }
-  console.log('props.copyrightText', props.copyrightText);
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>

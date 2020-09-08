@@ -78,9 +78,9 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
       onClick={onClicked}
       disabled={!props.isEnabled}
       aria-label={props.label}
-      as={props.target && 'a'}
       href={props.target}
-      rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
+      as={props.target && 'a'}
+      rel={props.target && 'noopener'}
       target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       {props.icon}
