@@ -80,6 +80,18 @@ export const WebView = (props: IWebViewProps): React.ReactElement => {
       className={getClassName(WebView.displayName, props.className)}
       theme={theme}
     >
+      <noscript>
+        <StyledIframe
+          id={props.id && `${props.id}-iframe`}
+          className={'web-view-iframe'}
+          key={currentUrl}
+          src={currentUrl}
+          isLoading={false}
+          onLoad={handleOnLoad}
+          onError={handleOnError}
+          allow={props.permissions.join(';')}
+        />
+      </noscript>
       { hasFailedToLoad
         ? props.errorView
         : <React.Fragment>

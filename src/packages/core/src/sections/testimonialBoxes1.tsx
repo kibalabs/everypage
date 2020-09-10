@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, ResponsiveContainingView, Text, TextAlignment, EqualGrid, Box, KibaIcon, Direction, useTheme, ITheme, Link, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -51,9 +51,12 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                     <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
                       { getIcon(box.type, box.iconId, box.iconColor) }
-                      <Link target={box.url} text={box.author} isEnabled={!!box.url} />
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        {box.url && <Link target={box.url} text={box.author} />}
+                        {!box.url && <Text mode='bold'>{box.author}</Text>}
+                      </Stack.Item>
                     </Stack>
-                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Narrow}>
+                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Default}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
                   </Stack>

@@ -44,9 +44,13 @@ export const Head = (props: IHeadProps): React.ReactElement => {
               <Text>{website.company || '(not set)'}</Text>
               <Spacing mode={PaddingSize.Default} />
               <Text mode='strong'>Favicon</Text>
-              <Box width='100px' mode='transparent'>
-                <Image source={website.faviconImageUrl} />
-              </Box>
+              {website.faviconImageUrl && !website.faviconImageUrl.startsWith('<') ? (
+                <Box width='100px' mode='transparent'>
+                  <Image source={website.faviconImageUrl} />
+                </Box>
+                ) : (
+                <Text>(not set)</Text>
+              )}
               <Spacing mode={PaddingSize.Wide} />
             </Stack>
           </Stack.Item>

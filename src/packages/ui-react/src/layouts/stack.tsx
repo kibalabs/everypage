@@ -218,6 +218,6 @@ const withStackItem = (Component: React.ComponentType<IStyledStackItemProps>): R
 
 const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.ReactElement | React.ReactElement[] => {
   const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
-  return React.Children.map(children, ((child: React.ReactElement) => React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
+  return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
 StyledStackItem.displayName = 'stack-item';

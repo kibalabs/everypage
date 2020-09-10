@@ -27,6 +27,7 @@ export * from './pricingMulti1';
 export * from './singlePageApp1';
 export * from './signup1';
 export * from './statisticBoxes1';
+export * from './testimonialAvatars1';
 export * from './testimonialBoxes1';
 export * from './testimonialSlides1';
 export * from './video1';

@@ -17,7 +17,7 @@ const withColorSettingView = (Component: React.ComponentType<IStyledColorSetting
 
 const StyledColorSettingView = withColorSettingView((props: IStyledColorSettingViewProps): React.ReactElement => {
   const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
-  return React.Children.map(children, ((child: React.ReactElement) => React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
+  return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
 
 export interface IColorSettingViewProps extends IWrapperProps {
