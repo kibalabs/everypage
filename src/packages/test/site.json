@@ -296,6 +296,80 @@
       ]
     },
     {
+      "type": "testimonial-avatars-1",
+      "titleText": null,
+      "subtitleText": null,
+      "boxes": [
+        {
+          "authorImageUrl": "/assets/avatar1.png",
+          "authorName": "John Casey",
+          "authorTitle": "Colonel @ NSA",
+          "text": "As a developer, I work with JSON daily and I actually had fun building my landing page. If you need a landing page but don't want to do it, this is a perfect solution."
+        },
+        {
+          "authorImageUrl": null,
+          "authorName": "Sarah Fowler",
+          "authorTitle": "CIA Operative",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        },
+        {
+          "authorImageUrl": "/assets/avatar2.png",
+          "authorName": "Charles Bartowski",
+          "authorTitle": null,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend."
+        },
+        {
+          "authorImageUrl": null,
+          "authorName": "Daniel Shaw",
+          "authorTitle": null,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+          "authorImageUrl": "/assets/avatar3.png",
+          "authorName": "General Beckman",
+          "authorTitle": "Something cool",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis."
+        }
+      ]
+    },
+    {
+      "type": "testimonial-slides-1",
+      "titleText": "Why people love us 😍",
+      "subtitleText": null,
+      "slides": [
+        {
+          "authorImageUrl": "/assets/avatar1.png",
+          "authorName": "John Casey",
+          "authorTitle": "Colonel @ NSA",
+          "text": "As a developer, I work with JSON daily and I actually had fun building my landing page. If you need a landing page but don't want to do it, this is a perfect solution."
+        },
+        {
+          "authorImageUrl": null,
+          "authorName": "Sarah Fowler",
+          "authorTitle": "CIA Operative",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+        },
+        {
+          "authorImageUrl": "/assets/avatar2.png",
+          "authorName": "Charles Bartowski",
+          "authorTitle": null,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend."
+        },
+        {
+          "authorImageUrl": null,
+          "authorName": "Daniel Shaw",
+          "authorTitle": null,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+          "authorImageUrl": "/assets/avatar3.png",
+          "authorName": "General Beckman",
+          "authorTitle": "Something cool",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis."
+        }
+      ]
+    },
+    {
       "type": "faq-1",
       "titleText": "FAQs",
       "subtitleText": null,
@@ -412,35 +486,6 @@
       "oldVideoUrl": "https://everysize.kibalabs.com/_bh20200627091434/assets/hero.mp4"
     },
     {
-      "type": "testimonial-slides-1",
-      "titleText": "Why people love us 😍",
-      "subtitleText": null,
-      "slides": [
-        {
-          "authorImageUrl": "/assets/bob.jpg",
-          "authorName": "John Casey",
-          "authorTitle": "Colonel @ NSA",
-          "text": "As a developer, I work with JSON daily and I actually had fun building my landing page. If you need a landing page but don't want to do it, this is a perfect solution."
-        },
-        {
-          "authorName": "Sarah Fowler",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
-        },
-        {
-          "authorName": "Charles Bartowski",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
-        },
-        {
-          "authorName": "Daniel Shaw",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
-        },
-        {
-          "authorName": "General Beckman",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut feugiat eget dolor at eleifend. Sed placerat diam felis. Aenean hendrerit, felis a gravida viverra, ipsum libero bibendum nulla, ut volutpat eros turpis vitae ligula. Etiam maximus cursus orci ut sagittis. Donec faucibus, erat a tincidunt aliquet, nisi velit porta tellus, non ultricies diam est a lectus. Morbi non ligula elementum, suscipit sapien ut, sollicitudin odio. Sed rhoncus lacus odio, venenatis vestibulum urna hendrerit vel"
-        }
-      ]
-    },
-    {
       "type": "hero-app-buttons-media-half-1",
       "titleText": "What's **special** about your app?",
       "subtitleText": null,
@@ -529,9 +574,9 @@
       "titleText": "Build your websites now",
       "subtitleText": "Faster and cheaper than ever!",
       "androidAppId": "com.wordmagicapp.android.play",
-      "macAppId": "1027457763",
       "iosAppId": "1039710965",
-      "logoImageUrl": "/assets/everypage-wordmark.svg"
+      "logoImageUrl": "/assets/everypage-wordmark.svg",
+      "macAppId": "1027457763"
     }
   ]
 }

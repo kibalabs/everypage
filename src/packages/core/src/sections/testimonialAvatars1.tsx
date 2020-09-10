@@ -57,4 +57,5 @@ export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.React
 };
 TestimonialAvatars1.displayName = 'testimonial-avatars-1';
 TestimonialAvatars1.defaultProps = {
+  boxMode: 'bordered',
 };
