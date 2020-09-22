@@ -9,7 +9,7 @@ export interface IStyledImageProps {
   theme: IImageTheme;
   isFullWidth: boolean;
   isFullHeight: boolean;
-  fitType: 'crop' | 'scale';
+  fitType: 'crop' | 'scale' | 'contain';
 }
 
 const StyledImage = styled.img<IStyledImageProps>`
@@ -18,7 +18,7 @@ const StyledImage = styled.img<IStyledImageProps>`
   pointer-events: none;
   width: ${(props: IStyledImageProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledImageProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : 'fill')};
+  object-fit: ${(props: IStyledImageProps): string => (props.fitType === 'crop' ? 'cover' : props.fitType === 'contain' ? 'contain' : 'fill')};
 
   &.lazyloaded, &.unlazy {
     max-width: 100%;
@@ -38,7 +38,7 @@ export interface IImageProps extends IComponentProps<IImageTheme> {
   isFullWidth: boolean;
   isFullHeight: boolean;
   isCenteredHorizontally: boolean;
-  fitType: 'crop' | 'scale';
+  fitType: 'crop' | 'scale' | 'contain';
   isLazyLoadable: boolean;
 }
 

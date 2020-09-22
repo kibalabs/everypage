@@ -14,6 +14,7 @@ interface IStyledResponsiveContainingViewProps extends IWrapperProps {
   sizeMedium?: number;
   sizeLarge?: number;
   sizeExtraLarge?: number;
+  isFullWidth: boolean;
   shouldIncludeMaxSize: boolean;
 }
 
@@ -48,7 +49,8 @@ const columnCountsToCss = (totalColumnCount: number, screenWidthSmall: string, s
 };
 
 const withResponsiveContainingView = (Component: React.ComponentType<IStyledResponsiveContainingViewProps>): React.ComponentType => styled(Component)<IStyledResponsiveContainingViewProps>`
-  width: 100%;
+  width: ${(props: IStyledResponsiveContainingViewProps): string => (props.isFullWidth ? '100%' : 'auto')};
+  max-width: 100%;
   ${(props: IStyledResponsiveContainingViewProps): string => columnCountsToCss(props.theme.columnCount, props.theme.screenWidthSmall, props.theme.screenWidthMedium, props.theme.screenWidthLarge, props.theme.screenWidthExtraLarge, props.theme.screenWidthMax, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge, props.shouldIncludeMaxSize)};
   /* &.centered {
     margin-right: auto;
@@ -69,6 +71,7 @@ export interface IResponsiveContainingViewProps extends IWrapperProps {
   sizeMedium?: number;
   sizeLarge?: number;
   sizeExtraLarge?: number;
+  isFullWidth?: boolean;
   shouldIncludeMaxSize: boolean;
 }
 
@@ -83,6 +86,7 @@ export const ResponsiveContainingView = (props: IResponsiveContainingViewProps):
       sizeMedium={props.sizeMedium}
       sizeLarge={props.sizeLarge}
       sizeExtraLarge={props.sizeExtraLarge}
+      isFullWidth={props.isFullWidth}
       shouldIncludeMaxSize={props.shouldIncludeMaxSize}
     >
       {props.children}
@@ -93,5 +97,6 @@ export const ResponsiveContainingView = (props: IResponsiveContainingViewProps):
 ResponsiveContainingView.defaultProps = {
   ...defaultWrapperProps,
   shouldIncludeMaxSize: true,
+  isFullWidth: true,
 };
 ResponsiveContainingView.displayName = 'responsive-containing-view';

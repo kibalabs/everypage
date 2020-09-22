@@ -24,7 +24,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   if (website.companyUrl) {
     companyText = `[${companyText}](${website.companyUrl})`;
   }
-  const copyrightText = props.copyrightText || `© ${new Date().getFullYear()} ${companyText}`;
+  const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
       <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraWide} paddingEnd={PaddingSize.ExtraWide}>

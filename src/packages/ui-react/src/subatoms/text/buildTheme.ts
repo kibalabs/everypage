@@ -26,11 +26,11 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
   }, base?.paragraph);
 
   const boldTextTheme = mergeThemePartial<ITextTheme>({
-    'font-weight': 'bold',
+    'font-weight': 'bolder',
   }, base?.bold);
 
   const strongTextTheme = mergeThemePartial<ITextTheme>({
-    'font-weight': 'bold',
+    'font-weight': 'bolder',
   }, base?.strong);
 
   const italicTextTheme = mergeThemePartial<ITextTheme>({
