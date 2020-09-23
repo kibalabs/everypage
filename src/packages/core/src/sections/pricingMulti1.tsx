@@ -24,6 +24,7 @@ interface IPricingTiers1Category {
 interface IPricingTiers1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
+  boxMode?: string;
   categories?: IPricingTiers1Category[];
 }
 
@@ -44,7 +45,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
             {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={6} childSize={12}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
-                <Box mode='bordered' isFullHeight={true} key={index}>
+                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                     <Text alignment={TextAlignment.Center} mode='strong'>{category.name}</Text>
                     <Text alignment={TextAlignment.Center} mode='supersize'>{category.cost}</Text>

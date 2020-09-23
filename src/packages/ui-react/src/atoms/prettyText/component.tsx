@@ -18,9 +18,11 @@ const StyledPrettyText = styled.span<IStyledPrettyTextProps>`
   ${(props: IStyledPrettyTextProps): string => themeToCss(props.theme.normal.default.text)};
   ${(props: IStyledPrettyTextProps): string => props.alignment ? `text-align: ${props.alignment}`: ''};
   & > em {
+    display: inline-block;
     ${(props: IStyledPrettyTextProps): string => themeToCss(props.theme.normal.emphasis?.text)};
   }
   & > strong {
+    display: inline-block;
     ${(props: IStyledPrettyTextProps): string => themeToCss(props.theme.normal.strong?.text)};
   }
 `;
