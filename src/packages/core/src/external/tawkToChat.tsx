@@ -18,7 +18,6 @@ export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
       const script = document.createElement('script');
       script.async = true;
       script.src = `https://embed.tawk.to/${props.accountId}/${props.widgetId}`;
-      script.charset = 'UTF-8';
       script.setAttribute('crossorigin', '*');
       document.head.appendChild(script);
     } else {

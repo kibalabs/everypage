@@ -4,6 +4,7 @@ import { CrispChat } from '../external/crispChat';
 import { TawkToChat } from '../external/tawkToChat';
 import { EveryviewAnalytics } from '../external/everyviewAnalytics';
 import { GoogleAnalytics } from '../external/googleAnalytics';
+import { PandaX } from '../external/pandaX';
 
 interface PluginRendererProps {
   plugins: IWebsitePlugin[];
@@ -21,6 +22,9 @@ export const PluginRenderer = (props: PluginRendererProps): React.ReactElement =
         }
         if (pluginProps.type === 'everyview-analytics') {
           return <EveryviewAnalytics key={index} {...pluginProps} />
+        }
+        if (pluginProps.type === 'panda-x') {
+          return <PandaX key={index} {...pluginProps} />
         }
         if (pluginProps.type === 'google-analytics') {
           return <GoogleAnalytics key={index} {...pluginProps} />
