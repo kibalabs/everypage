@@ -38,7 +38,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
     }
     setIsLoading(true);
     setErrorMessage(null);
-    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget);
+    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
     setIsLoading(false);
     if (result.isSuccessful) {
       setSuccessMessage(props.inputSuccessMessageText)

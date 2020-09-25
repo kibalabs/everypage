@@ -1,6 +1,6 @@
 import { Requester, RestMethod, KibaResponse } from '@kibalabs/core';
 
-import { FormAction, IFormInput } from '../model';
+import { FormAction, IFormInput, IFormHeader } from '../model';
 
 
 export interface IFormSubmissionResult {
@@ -25,19 +25,25 @@ const paramsToQueryString = (params: Record<string, string>): string => {
   }).join('&');
 }
 
-export const submitForm = async (inputs: IFormInput[], action: FormAction, target: string): Promise<IFormSubmissionResult> => {
+export const submitForm = async (inputs: IFormInput[], action: FormAction, target: string, headers?: IFormHeader[]): Promise<IFormSubmissionResult> => {
   const params = inputsToParams(inputs);
-  const headers = {'Content-Type': 'application/json'};
+  // TODO(krish): lowercase-ing should really happen in some kind of header container
+  const providedHeaders = headers ? headers.reduce((currentHeaders: Record<string, string>, header: IFormHeader): Record<string, string> => {
+    currentHeaders[header.name.toLowerCase()] = header.value;
+    return currentHeaders;
+  }, {}) : {};
+  // NOTE(krish): remove empty values to allow un-setting content-type
+  const allHeaders = removeEmptyValues({'content-type': 'application/json', ...providedHeaders});
   if (action === FormAction.Open) {
     window.open(`${target}?${paramsToQueryString(params)}`, '_blank')
   } else if (action === FormAction.Get) {
-    return new Requester().makeRequest(RestMethod.GET, target, params, headers).then((response: KibaResponse): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.GET, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
       return {isSuccessful: true, responseMessage: response.content};
     }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
     });
   } else if (action === FormAction.Post) {
-    return new Requester().makeRequest(RestMethod.POST, target, params, headers).then((response: KibaResponse): IFormSubmissionResult => {
+    return new Requester().makeRequest(RestMethod.POST, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
       return {isSuccessful: true, responseMessage: response.content};
     }).catch((error: Error): IFormSubmissionResult => {
       return {isSuccessful: false, responseMessage: error.message};
@@ -47,3 +53,13 @@ export const submitForm = async (inputs: IFormInput[], action: FormAction, targe
     return {isSuccessful: false, responseMessage: 'Something went wrong please try again later.'};
   }
 };
+
+// NOTE(krish): this doesn't work recursively
+function removeEmptyValues<T>(obj: Record<string, T>): Record<string, T> {
+  return Object.keys(obj).reduce((newObj: Record<string, T>, key: string): Record<string, T> => {
+    if (obj[key] !== null && obj[key] !== undefined) {
+      newObj[key] = obj[key];
+    }
+    return newObj;
+  }, {});
+}

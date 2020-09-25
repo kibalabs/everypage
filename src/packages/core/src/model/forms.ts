@@ -1,5 +1,10 @@
 import { InputType } from '@kibalabs/ui-react';
 
+export interface IFormHeader {
+  name: string;
+  value: string;
+}
+
 export interface IFormInput {
   name: string;
   type: InputType;
@@ -16,6 +21,7 @@ export interface IFormProps {
   formTarget: string;
   formAction: FormAction;
   formAdditionalInputs?: IFormInput[];
+  formHeaders?: IFormHeader[];
 }
 
 export const defaultFormProps = {
