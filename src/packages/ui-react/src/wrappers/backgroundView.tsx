@@ -3,7 +3,18 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 
-import { IBackgroundLayer, IBackgroundConfig } from '../model';
+export interface IBackgroundLayer {
+  color?: string;
+  linearGradient?: string;
+  radialGradient?: string;
+  imageUrl?: string;
+  patternImageUrl?: string;
+}
+
+// Allow someone to use a single background instead of specifying layers
+export interface IBackgroundConfig extends IBackgroundLayer {
+  layers?: IBackgroundLayer[];
+}
 
 export interface IBackgroundViewProps extends IBackgroundConfig, ISingleAnyChildProps {
   id?: string;
@@ -45,9 +56,8 @@ const withBackground = (Component: React.ComponentType<IStyledBackgroundViewProp
 `;
 
 const StyledBackgroundView = withBackground((props: IStyledBackgroundViewProps): React.ReactElement => {
-  const children = React.Children.toArray(props.children);
-  const child = children.length > 0 ? children[0] : <div />;
-  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+  const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
+  return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
 
 export const BackgroundView = (props: IBackgroundViewProps): React.ReactElement => {
@@ -75,4 +85,3 @@ BackgroundView.defaultProps = {
   className: '',
   isFullHeight: true,
 };
-BackgroundView.displayName = 'background-view';

@@ -56,8 +56,6 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
 
   const focussedBoxTheme = mergeThemePartial<IBoxTheme>({
     'border-color': lighten(0.5, 'black'),
-    'border-width': '2px',
-    'border-style': 'solid',
   }, base?.focussed);
 
   return {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThemeProvider, ITheme } from '@kibalabs/ui-react';
+import { KibaApp, ITheme } from '@kibalabs/ui-react';
 
-import { resetCss, GlobalCss, SectionHolder, renderSection, buildEverypageTheme } from '.';
+import { SectionHolder, renderSection, buildEverypageTheme } from '.';
 import { WebsiteProvider } from '../util';
 import { IWebsite } from '../model';
 import { ISectionProps } from '../sections';
@@ -30,19 +30,15 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   // TODO(krish): add validation for the website information
 
   return (
-    <ThemeProvider theme={resolvedPageTheme}>
+    <KibaApp theme={resolvedPageTheme}>
       <WebsiteProvider website={props.pageContent}>
         <React.Fragment>
-          <GlobalCss
-            theme={resolvedPageTheme}
-            resetCss={resetCss}
-          />
           <HeadContent />
           {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
           <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
         </React.Fragment>
       </WebsiteProvider>
-    </ThemeProvider>
+    </KibaApp>
   )
 }
 IndexPage.defaultProps = {

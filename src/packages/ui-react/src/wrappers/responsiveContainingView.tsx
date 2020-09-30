@@ -27,7 +27,7 @@ export const getGridItemMediaCss = (totalColumnCount: number, columnCount: numbe
 const columnCountsToCss = (totalColumnCount: number, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, screenWidthMax: string, columnCountNormal: number, columnCountSmall: number, columnCountMedium: number, columnCountLarge: number, columnCountExtraLarge: number, shouldIncludeMaxSize: boolean): string => {
   const output = [];
   if (columnCountNormal !== undefined) {
-    output.push(`max-width: ${getGridItemSizeCss(totalColumnCount, '0px', columnCountNormal)};`);
+    output.push(`max-width: ${getGridItemSizeCss(totalColumnCount, '0px', columnCountNormal)} !important;`);
   }
   if (columnCountSmall !== undefined) {
     output.push(getGridItemMediaCss(totalColumnCount, columnCountSmall, screenWidthSmall));
@@ -59,9 +59,8 @@ const withResponsiveContainingView = (Component: React.ComponentType<IStyledResp
 `;
 
 const StyledResponsiveContainingView = withResponsiveContainingView((props: IStyledResponsiveContainingViewProps): React.ReactElement => {
-  const children = React.Children.toArray(props.children);
-  const child = children.length > 0 ? children[0] : <div />;
-  return React.cloneElement(child, { className: getClassName(props.className, child.props.className) });
+  const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
+  return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
 
 export interface IResponsiveContainingViewProps extends IWrapperProps {

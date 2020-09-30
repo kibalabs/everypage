@@ -105,21 +105,21 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     'color': '$colors.text',
     'text-decoration': 'underline',
     'line-height': '1.2em',
-  }, base.header4);
+  }, base?.header4);
 
   const header5TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.2rem',
     'font-weight': '600',
     'color': '$colors.text',
     'line-height': '1.2em',
-  }, base.header5);
+  }, base?.header5);
 
   const header6TextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '1.1rem',
     'font-weight': '600',
     'color': '$colors.text',
     'line-height': '1.2em',
-  }, base.header6);
+  }, base?.header6);
 
   const noteTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '0.8rem',

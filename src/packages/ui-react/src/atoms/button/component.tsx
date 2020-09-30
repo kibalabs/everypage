@@ -62,14 +62,14 @@ const StyledButton = styled.button<IStyledButtonProps>`
   }
 `;
 
-interface IButtonProps extends IComponentProps<IButtonTheme> {
+export interface IButtonProps extends IComponentProps<IButtonTheme> {
   buttonType: 'button' | 'reset' | 'submit';
   text: string;
   isEnabled: boolean;
   isLoading: boolean;
   isFullWidth: boolean;
   iconRight?: React.ComponentClass<IIconProps>;
-  iconLeft?: React.ReactElement<IIconProps>;
+  iconLeft?: React.ComponentClass<IIconProps>;
   iconGutterSize?: string;
   target?: string;
   targetShouldOpenSameTab?: boolean;

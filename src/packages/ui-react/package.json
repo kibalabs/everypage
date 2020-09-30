@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/ui-react",
-  "version": "0.5.36",
+  "version": "0.5.38",
   "description": "React ui components for building frontend projects at Kiba Labs",
   "license": "UNLICENSED",
   "repository": {
@@ -11,7 +11,10 @@
     "build": "build-react-component",
     "start": "build-react-component --start",
     "start-dev": "build-react-component --start --dev",
-    "publish": "kiba-publish"
+    "package": "npm run build && npm pack",
+    "publish": "kiba-publish",
+    "storybook": "start-storybook --docs --port 6006",
+    "build-storybook": "build-storybook --docs"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,6 +29,11 @@
   },
   "devDependencies": {
     "@kibalabs/build": "0.3.1",
+    "@storybook/addon-actions": "6.0.22",
+    "@storybook/addon-essentials": "6.0.22",
+    "@storybook/addon-links": "6.0.22",
+    "@storybook/preset-typescript": "3.0.0",
+    "@storybook/react": "6.0.22",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
     "@types/styled-components": "5.1.3",

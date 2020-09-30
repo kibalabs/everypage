@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { ITheme, themeToCss, colorsToCss } from '@kibalabs/ui-react';
+import { ITheme } from '../theming';
+import { colorsToCss, themeToCss } from '../util';
+
 
 interface IGlobalCssProps {
   theme: ITheme;

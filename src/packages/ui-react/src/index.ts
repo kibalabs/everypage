@@ -9,3 +9,4 @@ export * from './molecules';
 export * from './organisms';
 
 export * from './theming';
+export * from './app';

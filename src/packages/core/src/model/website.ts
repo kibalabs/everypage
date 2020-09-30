@@ -1,15 +1,4 @@
-export interface IBackgroundLayer {
-  color?: string;
-  linearGradient?: string;
-  radialGradient?: string;
-  imageUrl?: string;
-  patternImageUrl?: string;
-}
-
-// Allow someone to use a single background instead of specifying layers
-export interface IBackgroundConfig extends IBackgroundLayer {
-  layers?: IBackgroundLayer[];
-}
+import { IBackgroundConfig } from '@kibalabs/ui-react';
 
 export interface IWebsite {
   name: string;

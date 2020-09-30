@@ -25,6 +25,7 @@ import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';
 import { JwtRequestModifier } from './jwtRequestModifier';
 import { IConsoleConfig } from './consoleConfig';
+import { EmptyPage } from './pages/emptyPage';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester();
@@ -133,6 +134,7 @@ export const App = hot((): React.ReactElement => {
           <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
           <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
           <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
+          <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'}/>
           <Route default={true} page={NotFoundPage} />
         </Router>
       </Elements>
