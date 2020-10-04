@@ -23,41 +23,41 @@ export const Head = (props: IHeadProps): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Head.displayName, props.className)}>
       <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
-        <Text mode='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
-        <Spacing mode={PaddingSize.Default} />
+        <Text variant='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
+        <Spacing variant={PaddingSize.Default} />
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={false}>
           <Stack.Item growthFactor={1} shrinkFactor={1}>
             <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} shouldAddGutters={false}>
-              <Text mode='strong'>Title</Text>
+              <Text variant='strong'>Title</Text>
               <Text>{title}</Text>
-              <Spacing mode={PaddingSize.Default} />
-              <Text mode='strong'>Description</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Text variant='strong'>Description</Text>
               <Text>{website.description || '(not set)'}</Text>
-              <Spacing mode={PaddingSize.Default} />
-              <Text mode='strong'>Keywords</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Text variant='strong'>Keywords</Text>
               <Text>{(website.keywords || ['(not set)']).join(', ')}</Text>
-              <Spacing mode={PaddingSize.Default} />
-              <Text mode='strong'>Author</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Text variant='strong'>Author</Text>
               <Text>{website.company || '(not set)'}</Text>
-              <Spacing mode={PaddingSize.Default} />
-              <Text mode='strong'>Copyright</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Text variant='strong'>Copyright</Text>
               <Text>{website.company || '(not set)'}</Text>
-              <Spacing mode={PaddingSize.Default} />
-              <Text mode='strong'>Favicon</Text>
+              <Spacing variant={PaddingSize.Default} />
+              <Text variant='strong'>Favicon</Text>
               {website.faviconImageUrl && !website.faviconImageUrl.startsWith('<') ? (
-                <Box width='100px' mode='transparent'>
+                <Box width='100px' variant='transparent'>
                   <Image source={website.faviconImageUrl} />
                 </Box>
                 ) : (
                 <Text>(not set)</Text>
               )}
-              <Spacing mode={PaddingSize.Wide} />
+              <Spacing variant={PaddingSize.Wide} />
             </Stack>
           </Stack.Item>
-          <Spacing mode={PaddingSize.Wide} direction={Direction.Horizontal} />
+          <Spacing variant={PaddingSize.Wide} direction={Direction.Horizontal} />
           <Stack.Item>
             <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={false}>
-              <Text mode='strong'>Twitter Card</Text>
+              <Text variant='strong'>Twitter Card</Text>
               { (website.iosAppId || website.androidAppId) ? (
                 <TwitterAppCard
                   iosAppId={website.iosAppId}

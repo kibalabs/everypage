@@ -16,7 +16,6 @@ interface IFeatureMediaCenter1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   mediaUrl?: string;
-  boxMode?: string;
   features?: FeatureMediaCenter1Feature[];
 }
 
@@ -26,13 +25,13 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaCenter1.displayName, props.className)}>
       <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
         <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-          {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-          {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+          {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+          {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
             <Grid.Item size={10} sizeMedium={4}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
                 {props.features.slice(0, Math.floor(props.features.length / 2)).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
-                  <Stack.Item key={index} gutterSizeAfter={PaddingSize.Wide}>
+                  <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Right}>
                       <Stack direction={Direction.Vertical} directionMedium={Direction.Horizontal} childAlignment={Alignment.Center} childAlignmentMedium={Alignment.Start} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
@@ -42,7 +41,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Center} childAlignment={Alignment.Fill} shouldAddGutters={false} isFullWidth={true}>
-                            {feature.title && <Stack.Item gutterSizeAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textMode='subtitle' source={feature.title} /></Stack.Item>}
+                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textvariant='subtitle' source={feature.title} /></Stack.Item>}
                             {feature.description && <MarkdownText source={feature.description} />}
                           </Stack>
                         </Stack.Item>
@@ -63,7 +62,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
             <Grid.Item size={10} sizeMedium={4}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
                 {props.features.slice(Math.ceil(props.features.length / 2), props.features.length).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
-                  <Stack.Item key={index} gutterSizeAfter={PaddingSize.Wide}>
+                  <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
                       <Stack direction={Direction.Vertical} directionMedium={Direction.Horizontal} childAlignment={Alignment.Center} childAlignmentMedium={Alignment.Start} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
@@ -78,7 +77,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Center} childAlignment={Alignment.Fill} shouldAddGutters={false} isFullWidth={true}>
-                            {feature.title && <Stack.Item gutterSizeAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textMode='subtitle' source={feature.title} /></Stack.Item>}
+                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textvariant='subtitle' source={feature.title} /></Stack.Item>}
                             {feature.description && <MarkdownText source={feature.description} />}
                           </Stack>
                         </Stack.Item>

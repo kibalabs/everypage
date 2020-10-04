@@ -49,7 +49,7 @@ export const WebView = (props: IWebViewProps): React.ReactElement => {
   const [currentUrl, setCurrentUrl] = React.useState<string | undefined>(undefined);
   const [hasFailedToLoad, setHasFailedToLoad] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const theme = useBuiltTheme('webViews', props.mode, props.theme);
+  const theme = useBuiltTheme('webViews', props.variant, props.theme);
 
   React.useEffect((): void => {
     if (props.url !== currentUrl) {

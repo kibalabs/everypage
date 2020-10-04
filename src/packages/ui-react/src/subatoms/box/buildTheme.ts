@@ -38,14 +38,14 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
     'border-width': dimensions.borderWidth,
     'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
     'margin': '0px 4px 12px 4px',
-    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
+    'padding': `${dimensions.paddingWide2} ${dimensions.paddingWide2}`,
   }, base?.card);
 
   const borderedBoxTheme = mergeThemePartial<IBoxTheme>({
     'background-color': lighten(0.1, colors.background),
     'border-color': darken(0.05, colors.background),
     'border-width': dimensions.borderWidth,
-    'padding': `${dimensions.paddingExtraWide} ${dimensions.paddingExtraWide}`,
+    'padding': `${dimensions.paddingWide2} ${dimensions.paddingWide2}`,
   }, base?.bordered);
 
   const focusableBoxTheme = mergeThemePartial<IBoxTheme>({

@@ -21,11 +21,11 @@ const StyledBulletText = styled.li<IStyledBulletTextProps>`
 
 export interface IBulletTextProps extends IComponentProps<IBulletTextTheme>, ISingleChildProps<IBulletListProps> {
   text: string;
-  textMode: string;
+  textVariant: string;
 }
 
 export const BulletText = (props: IBulletTextProps): React.ReactElement => {
-  const theme = useBuiltTheme('bulletTexts', props.mode, props.theme);
+  const theme = useBuiltTheme('bulletTexts', props.variant, props.theme);
   return (
     <StyledBulletText
       id={props.id}

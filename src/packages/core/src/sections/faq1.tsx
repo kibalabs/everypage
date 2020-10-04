@@ -23,14 +23,14 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
       <ResponsiveContainingView size={10} sizeLarge={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} shouldAddGutters={true} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
               <React.Fragment key={index}>
-                <Stack.Item gutterSizeAfter={PaddingSize.Narrow}>
-                  <MarkdownText textMode='header6' textAlignment={TextAlignment.Left} source={question.questionText} />
+                <Stack.Item gutterAfter={PaddingSize.Narrow}>
+                  <MarkdownText textVariant='header6' textAlignment={TextAlignment.Left} source={question.questionText} />
                 </Stack.Item>
-                <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}>
+                <Stack.Item gutterAfter={PaddingSize.Wide2}>
                   <MarkdownText textAlignment={TextAlignment.Left} source={question.answerText} />
                 </Stack.Item>
               </React.Fragment>

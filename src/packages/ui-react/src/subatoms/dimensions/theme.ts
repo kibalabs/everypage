@@ -10,15 +10,16 @@ export interface IDimensionGuide extends ThemeType {
 
   padding: string;
   paddingNarrow: string;
-  paddingExtraNarrow: string;
-  paddingExtraExtraNarrow: string;
+  paddingNarrow1: string;
+  paddingNarrow2: string;
+  paddingNarrow3: string;
   paddingWide: string;
-  paddingExtraWide: string;
-  paddingExtraExtraWide: string;
-  paddingExtraExtraExtraWide: string;
+  paddingWide1: string;
+  paddingWide2: string;
+  paddingWide3: string;
 
   columnCount: number;
-  gutterSize: string;
+  gutter: string;
 
   screenWidthSmall: string;
   screenWidthMedium: string;
@@ -57,13 +58,16 @@ export const getScreenSize = (size: ScreenSize, theme: IDimensionGuide): string 
 export enum PaddingSize {
   None = 'none',
   Default = 'default',
-  Narrow = 'Narrow',
-  ExtraNarrow = 'ExtraNarrow',
-  ExtraExtraNarrow = 'ExtraExtraNarrow',
-  Wide = 'Wide',
-  ExtraWide = 'ExtraWide',
-  ExtraExtraWide = 'ExtraExtraWide',
-  ExtraExtraExtraWide = 'ExtraExtraExtraWide',
+  Narrow = 'Narrow1',
+  Narrow1 = 'Narrow1',
+  Narrow2 = 'Narrow2',
+  Narrow3 = 'Narrow3',
+  Narrow4 = 'Narrow4',
+  Wide = 'Wide1',
+  Wide1 = 'Wide1',
+  Wide2 = 'Wide2',
+  Wide3 = 'Wide3',
+  Wide4 = 'Wide4',
 }
 
 export const getPaddingSize = (size: PaddingSize, theme: IDimensionGuide): string => {
@@ -78,6 +82,6 @@ export const getPaddingSize = (size: PaddingSize, theme: IDimensionGuide): strin
   if (fieldName in theme) {
     return theme[fieldName] as string;
   }
-  console.error(`Failed to find padding size: ${size}`)
+  console.error(`Failed to find padding size: ${size} (${fieldName})`);
   return '0px';
 };

@@ -43,7 +43,7 @@ export interface IImageProps extends IComponentProps<IImageTheme> {
 }
 
 export const Image = (props: IImageProps): React.ReactElement => {
-  const theme = useBuiltTheme('images', props.mode, props.theme);
+  const theme = useBuiltTheme('images', props.variant, props.theme);
   return (
     <StyledImage
       id={props.id}

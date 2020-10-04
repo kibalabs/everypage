@@ -8,7 +8,7 @@ interface IMarkdownProps {
   id?: string;
   className?: string;
   source: string;
-  rootBoxMode?: string;
+  rootBoxVariant?: string;
 }
 
 export const Markdown = (props: IMarkdownProps): React.ReactElement => {
@@ -34,7 +34,7 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
       return (
         <Box
           id={props.id}
-          mode={props.rootBoxMode}
+          variant={props.rootBoxVariant}
           className={rendererProps.className}
         >
           {rendererProps.children}
@@ -47,16 +47,16 @@ export const Markdown = (props: IMarkdownProps): React.ReactElement => {
     paragraph: (rendererProps: object): React.ReactElement => {
       const childrenKeys = React.Children.map(rendererProps.children, (child: React.ReactElement): string => String(child.key).split('-')[0]);
       const isCaption = childrenKeys.indexOf('image') > -1;
-      return (<PrettyText mode='paragraph' alignment={isCaption ? TextAlignment.Center : TextAlignment.Left}>{rendererProps.children}</PrettyText>);
+      return (<PrettyText variant='paragraph' alignment={isCaption ? TextAlignment.Center : TextAlignment.Left}>{rendererProps.children}</PrettyText>);
     },
     heading: (rendererProps: object): React.ReactElement => {
-      return <PrettyText mode={`header${rendererProps.level}`} alignment={TextAlignment.Left}>{rendererProps.children}</PrettyText>;
+      return <PrettyText variant={`header${rendererProps.level}`} alignment={TextAlignment.Left}>{rendererProps.children}</PrettyText>;
     },
     emphasis: (rendererProps: object): React.ReactElement => {
-      return <PrettyText mode='emphasis'>{rendererProps.children}</PrettyText>;
+      return <PrettyText variant='emphasis'>{rendererProps.children}</PrettyText>;
     },
     strong: (rendererProps: object): React.ReactElement => {
-      return <PrettyText mode='strong'>{rendererProps.children}</PrettyText>;
+      return <PrettyText variant='strong'>{rendererProps.children}</PrettyText>;
     },
   };
 

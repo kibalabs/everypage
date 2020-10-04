@@ -13,7 +13,7 @@ export interface IInputFrameTheme {
 export interface IInputFrameProps extends IMoleculeProps<IInputFrameTheme>, ISingleAnyChildProps {
   messageText?: string;
   isEnabled: boolean;
-  inputWrapperMode?: string;
+  inputWrapperVariant?: string;
 }
 
 // NOTE(krish): this component is intended to hold anything that would commonly be used alongside input wrapper (e.g. buttons)
@@ -23,7 +23,7 @@ export const InputFrame = (props: IInputFrameProps): React.ReactElement => {
       id={props.id}
       className={getClassName(InputFrame.displayName, props.className)}
       theme={props.theme?.inputWrapperTheme}
-      mode={props.inputWrapperMode}
+      variant={props.inputWrapperVariant}
       messageText={props.messageText}
       isEnabled={props.isEnabled}
     >

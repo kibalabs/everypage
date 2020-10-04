@@ -11,17 +11,17 @@ export const buildDimensions = (base?: Partial<IDimensionGuide>): IDimensionGuid
   const borderWidthWide = base?.borderWidthWide || math(`${borderWidth} * 2`);
 
   const padding = base?.padding || '0.5em';
-  const paddingNarrow = base?.paddingNarrow || math(`${padding} / 2`);
-  const paddingExtraNarrow = base?.paddingExtraNarrow || math(`${paddingNarrow} / 2`);
-  const paddingExtraExtraNarrow = base?.paddingExtraExtraNarrow || math(`${paddingExtraNarrow} / 2`);
-  const paddingExtraExtraExtraNarrow = base?.paddingExtraExtraExtraNarrow || math(`${paddingExtraExtraNarrow} / 2`);
-  const paddingWide = base?.paddingWide || math(`${padding} * 2`);
-  const paddingExtraWide = base?.paddingExtraWide || math(`${paddingWide} * 2`);
-  const paddingExtraExtraWide = base?.paddingExtraExtraWide || math(`${paddingExtraWide} * 2`);
-  const paddingExtraExtraExtraWide = base?.paddingExtraExtraExtraWide || math(`${paddingExtraExtraWide} * 2`);
+  const paddingNarrow1 = base?.paddingNarrow || math(`${padding} / 2`);
+  const paddingNarrow2 = base?.paddingNarrow2 || math(`${paddingNarrow1} / 2`);
+  const paddingNarrow3 = base?.paddingNarrow3 || math(`${paddingNarrow2} / 2`);
+  const paddingNarrow4 = base?.paddingNarrow4 || math(`${paddingNarrow3} / 2`);
+  const paddingWide1 = base?.paddingWide || math(`${padding} * 2`);
+  const paddingWide2 = base?.paddingWide2 || math(`${paddingWide1} * 2`);
+  const paddingWide3 = base?.paddingWide3 || math(`${paddingWide2} * 2`);
+  const paddingWide4 = base?.paddingWide4 || math(`${paddingWide3} * 2`);
 
   const columnCount = base?.columnCount || 12;
-  const gutterSize = base?.gutterSize || padding;
+  const gutter = base?.gutter || padding;
   const screenWidthSmall = base?.screenWidthSmall || '576px';
   const screenWidthMedium = base?.screenWidthMedium || '768px';
   const screenWidthLarge = base?.screenWidthLarge || '992px';
@@ -36,16 +36,18 @@ export const buildDimensions = (base?: Partial<IDimensionGuide>): IDimensionGuid
     borderWidthNarrow: borderWidthNarrow,
     borderWidthWide: borderWidthWide,
     padding: padding,
-    paddingNarrow: paddingNarrow,
-    paddingExtraNarrow: paddingExtraNarrow,
-    paddingExtraExtraNarrow: paddingExtraExtraNarrow,
-    paddingExtraExtraExtraNarrow: paddingExtraExtraExtraNarrow,
-    paddingWide: paddingWide,
-    paddingExtraWide: paddingExtraWide,
-    paddingExtraExtraWide: paddingExtraExtraWide,
-    paddingExtraExtraExtraWide: paddingExtraExtraExtraWide,
+    paddingNarrow: paddingNarrow1,
+    paddingNarrow1: paddingNarrow1,
+    paddingNarrow2: paddingNarrow2,
+    paddingNarrow3: paddingNarrow3,
+    paddingNarrow4: paddingNarrow4,
+    paddingWide: paddingWide1,
+    paddingWide1: paddingWide1,
+    paddingWide2: paddingWide2,
+    paddingWide3: paddingWide3,
+    paddingWide4: paddingWide4,
     columnCount: columnCount,
-    gutterSize: gutterSize,
+    gutter: gutter,
     screenWidthSmall: screenWidthSmall,
     screenWidthMedium: screenWidthMedium,
     screenWidthLarge: screenWidthLarge,

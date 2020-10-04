@@ -17,6 +17,17 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       },
       'sectionSubtitle': {
       },
+    },
+    'colors': {
+      'sectionBackground': 'rgba(0, 0, 0, 0)',
+    },
+    'alternateColors': {
+      'everypageAttribution': {
+        'text': '#ffffff',
+        'background': '#000000',
+        'sectionBackground': '#000000',
+        'brandPrimary': '#ffffff',
+      }
     }
   };
   const theme = buildTheme(mergeThemePartial(everypageTheme, pageTheme));

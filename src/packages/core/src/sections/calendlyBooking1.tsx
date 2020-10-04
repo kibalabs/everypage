@@ -22,8 +22,8 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={PaddingSize.Default}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <CalendlyEmbed username={props.username} calendarId={props.calendarId} shouldHideEventType={props.shouldHideEventType} />
           </Stack>
         </ResponsiveTextAlignmentView>
@@ -33,7 +33,6 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
 };
 CalendlyBooking1.displayName = 'calendly-booking-1';
 CalendlyBooking1.defaultProps = {
-  boxMode: 'bordered',
 };
 
 interface ICalendelyEmbedProps {

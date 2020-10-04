@@ -19,6 +19,7 @@ interface ITestimonialBoxes1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   boxMode?: string;
+  boxVariant?: string;
   boxes?: ITestimonialBoxes1Box[];
 }
 
@@ -38,25 +39,30 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
     return <KibaIcon _color={iconColor || theme.colors.brandPrimary} iconId={iconId || 'ion-chatbox'} />;
   }
 
+  var boxVariant = props.boxVariant;
+  if (props.boxMode) {
+    console.warn('boxMode is deprecated. Please use boxVariant instead');
+    boxVariant = props.boxMode;
+  }
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
-                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                     <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
                       { getIcon(box.type, box.iconId, box.iconColor) }
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         {box.url && <Link target={box.url} text={box.author} />}
-                        {!box.url && <Text mode='bold'>{box.author}</Text>}
+                        {!box.url && <Text variant='bold'>{box.author}</Text>}
                       </Stack.Item>
                     </Stack>
-                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeBefore={PaddingSize.Default}>
+                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterBefore={PaddingSize.Default}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
                   </Stack>
@@ -71,5 +77,5 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
 };
 TestimonialBoxes1.displayName = 'testimonial-boxes-1';
 TestimonialBoxes1.defaultProps = {
-  boxMode: 'bordered',
+  boxVariant: 'bordered',
 };

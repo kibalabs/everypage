@@ -7,13 +7,13 @@ import { PaddingSize, getPaddingSize, IDimensionGuide } from '../subatoms/dimens
 import { useDimensions } from '../theming';
 
 export interface IPaddingViewPaddingProps {
-  paddingTop?: string;
-  paddingBottom?: string;
-  paddingLeft?: string;
-  paddingRight?: string;
-  paddingHorizontal?: string;
-  paddingVertical?: string;
-  padding?: string;
+  paddingTop?: PaddingSize;
+  paddingBottom?: PaddingSize;
+  paddingLeft?: PaddingSize;
+  paddingRight?: PaddingSize;
+  paddingHorizontal?: PaddingSize;
+  paddingVertical?: PaddingSize;
+  padding?: PaddingSize;
 }
 
 export interface IPaddingViewProps extends IWrapperProps, IPaddingViewPaddingProps {
@@ -47,10 +47,10 @@ PaddingView.displayName = 'padding-view';
 
 interface IStyledPaddingViewProps extends IWrapperProps {
   theme: IDimensionGuide;
-  paddingTop?: string;
-  paddingBottom?: string;
-  paddingLeft?: string;
-  paddingRight?: string;
+  paddingTop?: PaddingSize;
+  paddingBottom?: PaddingSize;
+  paddingLeft?: PaddingSize;
+  paddingRight?: PaddingSize;
 }
 
 const withPaddingView = (Component: React.ComponentType<IStyledPaddingViewProps>): React.ComponentType => styled(Component)<IStyledPaddingViewProps>`

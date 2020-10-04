@@ -14,7 +14,7 @@ export const HeroSectionTitleText = (props: IHeroSectionTitleTextProps): React.R
     <MarkdownText
       id={props.id}
       className={getClassName(HeroSectionTitleText.displayName, props.className)}
-      textMode='header1-heroSectionTitle'
+      textVariant='header1-heroSectionTitle'
       textAlignment={props.alignment}
       source={props.text}
     />

@@ -50,7 +50,7 @@ export function useAlternateColors(name?: string): Partial<IColorGuide> {
     return theme.colors;
   }
   if (!(name in theme.alternateColors)) {
-    console.error(`Unrecognized color mode requested: ${name}`);
+    console.error(`Unrecognized color variant requested: ${name}`);
     return theme.colors;
   }
   return theme.alternateColors[name];
@@ -78,7 +78,7 @@ export function useColors(): IColorGuide {
   return colors;
 }
 
-export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: string, override?: RecursivePartial<Theme>): Theme => {
+export const useBuiltTheme = <Theme extends ThemeType>(component: string, variant: string, override?: RecursivePartial<Theme>): Theme => {
   const theme = useTheme();
   const colors = useColors();
   const dimensions = useDimensions();
@@ -87,13 +87,13 @@ export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: 
     if (!componentThemes) {
       throw Error(`Could not find component ${component} in current theme. Valid keys are: ${Object.keys(theme)}`);
     }
-    let modes = mode.split('-').filter((modePart: string): boolean => modePart.length > 0);
-    const themeParts = modes.splice(modes.lastIndexOf('default') + 1).reduce((value: RecursivePartial<Theme>[], mode: string): RecursivePartial<Theme>[] => {
-      const modeTheme = componentThemes[mode];
-      if (modeTheme) {
-        value.push(modeTheme);
+    let variants = variant.split('-').filter((variantPart: string): boolean => variantPart.length > 0);
+    const themeParts = variants.splice(variants.lastIndexOf('default') + 1).reduce((value: RecursivePartial<Theme>[], variant: string): RecursivePartial<Theme>[] => {
+      const variantTheme = componentThemes[variant];
+      if (variantTheme) {
+        value.push(variantTheme);
       } else {
-        console.error(`Failed to find mode ${mode} in ${component} themes`);
+        console.error(`Failed to find variant ${variant} in ${component} themes`);
       }
       return value;
     }, []);
@@ -106,34 +106,36 @@ export const useBuiltTheme = <Theme extends ThemeType>(component: string, mode: 
       builtTheme = resolveThemeValues(builtTheme, colors, dimensions);
     }
     return builtTheme;
-  }, [theme, mode, override]);
+  }, [theme, variant, override]);
 }
 
 const isIe = (): boolean => {
   return typeof document !== 'undefined' && !!document.documentMode;
 }
 
+const resolveThemeValue = (value: string, colors: IColorGuide, dimensions: IDimensionGuide): ThemeValue => {
+  if (value.startsWith('$')) {
+    const strippedValue = value.substring(1);
+    const strippedValueParts = strippedValue.split('.');
+    const referenceType = strippedValueParts[0];
+    const referenceValue = strippedValueParts[1];
+    if (referenceType === 'colors') {
+      return colors[referenceValue];
+    }
+    if (referenceType === 'dimensions') {
+      return dimensions[referenceValue];
+    }
+    console.error(`Unknown reference used: ${referenceType} (${value})`);
+  }
+  return value;
+}
+
 const resolveThemeValues = (theme: ThemeType, colors: IColorGuide, dimensions: IDimensionGuide): ThemeType => {
   const derivedThemes = Object.keys(theme).reduce((currentMap: ThemeType, themeKey: string): ThemeType => {
     const value = theme[themeKey];
-    let themeValue: ThemeValue;
+    let themeValue = value;
     if (typeof value === 'string') {
-      if (value.startsWith('$')) {
-        const strippedValue = value.substring(1);
-        const strippedValueParts = strippedValue.split('.');
-        const referenceType = strippedValueParts[0];
-        const referenceValue = strippedValueParts[1];
-        if (referenceType === 'colors') {
-          themeValue = colors[referenceValue];
-        } else if (referenceType === 'dimensions') {
-          themeValue = dimensions[referenceValue];
-        } else {
-          console.error(`Unknown reference used: ${referenceType} (${value})`)
-          themeValue = value;
-        }
-      } else {
-        themeValue = value;
-      }
+      themeValue = resolveThemeValue(value, colors, dimensions);
     } else if (typeof value === 'object') {
       themeValue = resolveThemeValues(value, colors, dimensions);
     }

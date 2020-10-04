@@ -21,6 +21,7 @@ interface INavBar1Button {
   text: string;
   target: string;
   mode?: string;
+  variant?: string;
   display?: 'always' | 'overflow' | 'default';
 }
 interface INavBar1Props extends ISectionProps {
@@ -43,15 +44,15 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
         <StyledNavigationBar theme={theme}>
           <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
             {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image isLazyLoadable={false} source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
-            {props.titleText && <MarkdownText textMode='title-unmargined' textAlignment={TextAlignment.Center} source={props.titleText}/> }
+            {props.titleText && <MarkdownText textVariant='title-unmargined' textAlignment={TextAlignment.Center} source={props.titleText}/> }
             <Stack.Item growthFactor={1} />
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
               if (button.display === 'always') {
-                return <Button key={index} text={button.text} target={button.target} mode={button.mode} />;
+                return <Button key={index} text={button.text} target={button.target} variant={button.variant || button.mode} />;
               }
               return (!button.display || button.display === 'default') && (
                 <ResponsiveView key={index} hiddenBelow={ScreenSize.Large}>
-                  <Button text={button.text} target={button.target} mode={button.mode} />
+                  <Button text={button.text} target={button.target} variant={button.variant || button.mode} />
                 </ResponsiveView>
               );
             })}
@@ -64,10 +65,10 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
         </StyledNavigationBar>
         <HidingView isHidden={!isMenuOpen}>
           <ResponsiveView hiddenAbove={ScreenSize.Large}>
-            <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.ExtraWide} paddingEnd={PaddingSize.ExtraWide}>
+            <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide2} paddingEnd={PaddingSize.Wide2}>
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return (!button.display || button.display === 'default' || button.display === 'overflow') && (
-                  <Button key={index} text={button.text} target={button.target} mode={button.mode} />
+                  <Button key={index} text={button.text} target={button.target} variant={button.variant || button.mode} />
                 );
               })}
             </Stack>

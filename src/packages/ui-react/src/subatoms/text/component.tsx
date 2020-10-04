@@ -17,7 +17,7 @@ export enum TextAlignment {
 
 type TextTag = 'p' | 'span' | 'h1' | 'h1' | 'h2' | 'h2' | 'h3' | 'h3' | 'h4' | 'h5' | 'h6' | 'b' | 'strong' | 'i' | 'em' | 'mark' | 'small' | 'del' | 'ins' | 'sub' | 'sup';
 
-const styleModeTagMapping: Record<string, TextTag> = {
+const styleVariantTagMapping: Record<string, TextTag> = {
   bold: 'b',
   strong: 'strong',
   italic: 'i',
@@ -30,7 +30,7 @@ const styleModeTagMapping: Record<string, TextTag> = {
   superscript: 'sup',
 }
 
-const textModeTagMapping: Record<string, TextTag> = {
+const textVariantTagMapping: Record<string, TextTag> = {
   paragraph: 'p',
   inline: 'span',
   header1: 'h1',
@@ -44,18 +44,18 @@ const textModeTagMapping: Record<string, TextTag> = {
   header6: 'h6',
 }
 
-export const getTextTag = (mode: string): TextTag => {
-  const modes = mode.split('-');
-  const textModes = modes.map((mode: string): TextTag | null => {
-    if (mode in textModeTagMapping) {
-      return textModeTagMapping[mode];
+export const getTextTag = (variant: string): TextTag => {
+  const variants = variant.split('-');
+  const textVariants = variants.map((variant: string): TextTag | null => {
+    if (variant in textVariantTagMapping) {
+      return textVariantTagMapping[variant];
     }
-    if (mode in styleModeTagMapping) {
-      return styleModeTagMapping[mode];
+    if (variant in styleVariantTagMapping) {
+      return styleVariantTagMapping[variant];
     }
     return null;
-  }).filter((textMode: TextTag | null): boolean => textMode !== null);
-  return textModes.length > 0 ? textModes[textModes.length - 1] : 'p';
+  }).filter((textVariant: TextTag | null): boolean => textVariant !== null);
+  return textVariants.length > 0 ? textVariants[textVariants.length - 1] : 'p';
 }
 
 interface IStyledTextProps {
@@ -74,14 +74,14 @@ export interface ITextProps extends IComponentProps<ITextTheme>, ISingleAnyChild
 }
 
 export const Text = (props: ITextProps): React.ReactElement => {
-  const theme = useBuiltTheme('texts', props.mode, props.theme);
+  const theme = useBuiltTheme('texts', props.variant, props.theme);
   return (
     <StyledText
       id={props.id}
       className={getClassName(Text.displayName, props.className)}
       theme={theme}
       alignment={props.alignment}
-      as={props.tag || getTextTag(props.mode)}
+      as={props.tag || getTextTag(props.variant)}
     >
       { props.children }
     </StyledText>

@@ -82,7 +82,7 @@ export const buildButtonThemes = (colors: IColorGuide, dimensions: IDimensionGui
     normal: {
       default: {
         background: {
-          'padding': `${dimensions.paddingWide} ${dimensions.paddingExtraWide}`,
+          'padding': `${dimensions.paddingWide} ${dimensions.paddingWide2}`,
         },
         text: {
           'font-size': '1.2em',

@@ -22,11 +22,11 @@ const StyledColorSettingView = withColorSettingView((props: IStyledColorSettingV
 
 export interface IColorSettingViewProps extends IWrapperProps {
   theme?: Partial<IColorGuide>;
-  mode?: string;
+  variant?: string;
 }
 
 export const ColorSettingView = (props: IColorSettingViewProps): React.ReactElement => {
-  const colors = props.theme || useAlternateColors(props.mode);
+  const colors = props.theme || useAlternateColors(props.variant);
 
   return (
     <ColorProvider colors={colors}>

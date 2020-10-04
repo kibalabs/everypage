@@ -11,13 +11,13 @@ export interface AppDownloadButtonTheme {
 export interface AppDownloadButtonProps extends IMoleculeProps<AppDownloadButtonTheme> {
   appId: string;
   appType: 'android' | 'ios' | 'mac' | 'appletv';
-  buttonMode: string;
+  buttonVariant: string;
   onClick?(): void;
 }
 
 export const AppDownloadButton = (props: AppDownloadButtonProps): React.ReactElement => {
-  if (['dark', 'dark-clear', 'light', 'light-clear'].indexOf(props.buttonMode) === -1) {
-    console.error(`The buttonMode was not recognized: ${props.buttonMode}`);
+  if (['dark', 'dark-clear', 'light', 'light-clear'].indexOf(props.buttonVariant) === -1) {
+    console.error(`The buttonVariant was not recognized: ${props.buttonVariant}`);
   }
   if (['android', 'ios', 'mac', 'appletv'].indexOf(props.appType) === -1) {
     throw new KibaException(`appType not recognized: ${props.appType}`);
@@ -59,11 +59,11 @@ export const AppDownloadButton = (props: AppDownloadButtonProps): React.ReactEle
     <LinkBase
       id={props.id}
       className={getClassName(AppDownloadButton.displayName, props.className)}
-      mode='image'
+      variant='image'
       target={getAppUrl()}
     >
       <Image
-        source={`https://assets.evrpg.com/${props.appType}/download-button/v5/${props.buttonMode}.svg`}
+        source={`https://assets.evrpg.com/${props.appType}/download-button/v5/${props.buttonVariant}.svg`}
         alternativeText={getAlternativeText()}
       />
     </LinkBase>
@@ -72,6 +72,6 @@ export const AppDownloadButton = (props: AppDownloadButtonProps): React.ReactEle
 
 AppDownloadButton.defaultProps = {
   ...defaultMoleculeProps,
-  buttonMode: 'dark',
+  buttonVariant: 'dark',
 };
 AppDownloadButton.displayName = 'app-download-button';

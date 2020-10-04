@@ -10,7 +10,7 @@ interface IMarkdownTextProps {
   className?: string;
   source: string;
   textAlignment?: TextAlignment;
-  textMode?: string;
+  textVariant?: string;
   textTag?: TextTag;
 }
 
@@ -30,9 +30,9 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
     return true;
   }
 
-  const mergeModes = (...modes: (string | undefined | null)[]): string => {
+  const mergeVariants = (...variants: (string | undefined | null)[]): string => {
     const values = [];
-    modes.forEach((arg: string | undefined | null): void => {
+    variants.forEach((arg: string | undefined | null): void => {
       if (arg) {
         values.push(String(arg).trim());
       }
@@ -52,7 +52,7 @@ export const MarkdownText = (props: IMarkdownTextProps): React.ReactElement => {
         <PrettyText
           id={props.id}
           className={rendererProps.className}
-          mode={mergeModes(props.textMode, 'unmargined')}
+          variant={mergeVariants(props.textVariant, 'unmargined')}
           tag={props.textTag}
           alignment={props.textAlignment}
         >

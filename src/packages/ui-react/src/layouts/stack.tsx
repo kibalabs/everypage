@@ -45,12 +45,11 @@ export interface IStackItemProps extends ISingleAnyChildProps {
   baseSize: string;
   isHidden: boolean;
   alignment?: Alignment;
-  gutterSizeBefore?: PaddingSize,
-  gutterSizeAfter?: PaddingSize,
+  gutterBefore?: PaddingSize,
+  gutterAfter?: PaddingSize,
 }
 
 class StackItem extends React.Component<IStackItemProps> {
-  static displayName = 'Stack.Item';
   static defaultProps = {
     className: '',
     growthFactor: 0,
@@ -84,7 +83,6 @@ interface IStyledStackProps {
 
 const StyledStack = styled.div<IStyledStackProps>`
   display: flex;
-  /* flex-direction: ${(props: IStyledStackProps): string => (props.$direction === Direction.Vertical ? 'column' : 'row')}; */
   width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
   ${(props: IStyledStackProps): string => getDirectionCss(props.$direction)};
@@ -102,6 +100,12 @@ const StyledStack = styled.div<IStyledStackProps>`
   ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthMedium, props.childAlignmentMedium)};
   ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthLarge, props.childAlignmentLarge)};
   ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthExtraLarge, props.childAlignmentExtraLarge)};
+  .scrollableVertically {
+    overflow-y: auto;
+  }
+  .scrollableHorizontally {
+    overflow-x: auto;
+  }
 `;
 
 interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
@@ -124,6 +128,9 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   contentAlignmentLarge?: Alignment;
   contentAlignmentExtraLarge?: Alignment;
   shouldAddGutters: boolean;
+  defaultGutter?: PaddingSize;
+  isScrollableVertically: boolean;
+  isScrollableHorizontally: boolean;
   isFullWidth: boolean;
   isFullHeight: boolean;
   paddingStart?: PaddingSize,
@@ -139,11 +146,14 @@ export const Stack = (props: IStackProps): React.ReactElement => {
   const paddingBottom = (props.paddingEnd && props.direction == Direction.Vertical) ? props.paddingEnd : undefined;
   const paddingRight = (props.paddingStart && props.direction == Direction.Horizontal) ? props.paddingStart : undefined;
   const paddingLeft = (props.paddingEnd && props.direction == Direction.Horizontal) ? props.paddingEnd : undefined;
+
+  const defaultGutter = props.defaultGutter || PaddingSize.Default;
+  const shouldAddGutters = props.shouldAddGutters && defaultGutter !== PaddingSize.None;
   return (
     <PaddingView paddingTop={paddingTop} paddingBottom={paddingBottom} paddingRight={paddingRight} paddingLeft={paddingLeft} {...props as IPaddingViewPaddingProps}>
       <StyledStack
         id={props.id}
-        className={getClassName(Stack.displayName)}
+        className={getClassName(Stack.displayName, props.isScrollableVertically && 'scrollableVertically', props.isScrollableHorizontally && 'scrollableHorizontally')}
         theme={theme}
         $direction={props.direction}
         directionSmall={props.directionSmall}
@@ -165,7 +175,9 @@ export const Stack = (props: IStackProps): React.ReactElement => {
       >
         { children.map((child: React.ReactElement, index: number): React.ReactElement<IStackItemProps> => (
           <React.Fragment key={index}>
-            {(child.props.gutterSizeBefore) && <Spacing className='stack-gutter' mode={child.props.gutterSizeBefore}/>}
+            {child.props.gutterBefore && (
+              <Spacing className='stack-gutter' variant={child.props.gutterBefore}/>
+            )}
             <StyledStackItem
               className={getClassName(StyledStackItem.displayName, child.props.isHidden && 'isHidden')}
               growthFactor={child.props.growthFactor}
@@ -175,7 +187,9 @@ export const Stack = (props: IStackProps): React.ReactElement => {
             >
               {child.props.children}
             </StyledStackItem>
-            {(child.props.gutterSizeAfter || (props.shouldAddGutters && index < children.length - 1)) && <Spacing className='stack-gutter' mode={child.props.gutterSizeAfter || PaddingSize.Default}/>}
+            {(child.props.gutterAfter || (shouldAddGutters && index < children.length - 1)) && (
+              <Spacing className='stack-gutter' variant={child.props.gutterAfter || defaultGutter}/>
+            )}
           </React.Fragment>
         ))}
       </StyledStack>
@@ -188,11 +202,11 @@ Stack.defaultProps = {
   direction: Direction.Vertical,
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Fill,
-  shouldAddGutters: false,
   isFullWidth: false,
   isFullHeight: false,
+  isScrollableVertically: false,
+  isScrollableHorizontally: false,
 };
-Stack.displayName = 'stack';
 Stack.Item = StackItem;
 
 interface IStyledStackItemProps extends ISingleAnyChildProps {
@@ -220,4 +234,3 @@ const StyledStackItem = withStackItem((props: IStyledStackItemProps): React.Reac
   const children = React.Children.count(props.children) > 0 ? props.children : [<div />];
   return React.Children.map(children, ((child: React.ReactElement) => child && React.cloneElement(child, { className: getClassName(props.className, child.props.className) })))
 });
-StyledStackItem.displayName = 'stack-item';

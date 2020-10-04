@@ -22,8 +22,8 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             {props.videoUrl && <Video source={props.videoUrl} />}
             {props.embeddedVideoUrl && <WebView url={props.embeddedVideoUrl} permissions={['fullscreen', 'autoplay', 'encrypted-media']}/>}
           </Stack>
@@ -34,5 +34,4 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
 };
 Video1.displayName = 'video-1';
 Video1.defaultProps = {
-  boxMode: 'default',
 };

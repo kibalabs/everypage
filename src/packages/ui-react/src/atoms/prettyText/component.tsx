@@ -33,14 +33,14 @@ interface IPrettyTextProps extends IComponentProps<IPrettyTextTheme>, IMultiAnyC
 }
 
 export const PrettyText = (props: IPrettyTextProps): React.ReactElement => {
-  const theme = useBuiltTheme('prettyTexts', props.mode, props.theme);
+  const theme = useBuiltTheme('prettyTexts', props.variant, props.theme);
   return (
     <StyledPrettyText
       id={props.id}
       className={getClassName(PrettyText.displayName, props.className)}
       theme={theme}
       alignment={props.alignment}
-      as={props.tag || getTextTag(props.mode)}
+      as={props.tag || getTextTag(props.variant)}
     >
       { props.children }
     </StyledPrettyText>

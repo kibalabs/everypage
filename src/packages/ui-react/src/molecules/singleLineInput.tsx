@@ -46,7 +46,7 @@ export interface ISingleLineInputProps extends IMoleculeProps<ISingleLineInputTh
   messageText?: string;
   inputType: InputType;
   name?: string;
-  inputWrapperMode?: string;
+  inputWrapperVariant?: string;
   onKeyUp?(key: string): void;
   onKeyDown?(key: string): void;
   onClick?(): void;
@@ -83,7 +83,7 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
       id={props.id}
       className={getClassName(SingleLineInput.displayName, props.className)}
       theme={props.theme?.inputFrameTheme}
-      inputWrapperMode={props.inputWrapperMode}
+      inputWrapperVariant={props.inputWrapperVariant}
       messageText={props.messageText}
       isEnabled={props.isEnabled}
     >

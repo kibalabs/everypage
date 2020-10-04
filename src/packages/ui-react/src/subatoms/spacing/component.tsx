@@ -27,7 +27,7 @@ export const Spacing = (props: ISpacingProps): React.ReactElement => {
       id={props.id}
       className={getClassName(Spacing.displayName, props.className)}
       theme={theme}
-      size={props.mode as PaddingSize}
+      size={props.variant as PaddingSize}
       direction={props.direction}
     />
   );

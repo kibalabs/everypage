@@ -60,7 +60,7 @@ interface ILinePagerProps extends IComponentProps<ILinePagerTheme> {
 }
 
 export const LinePager = (props: ILinePagerProps): React.ReactElement => {
-  const theme = useBuiltTheme('linePagers', props.mode, props.theme);
+  const theme = useBuiltTheme('linePagers', props.variant, props.theme);
 
   const pageCount = props.pageCount;
   const pageCountSmall = props.pageCountSmall || pageCount;

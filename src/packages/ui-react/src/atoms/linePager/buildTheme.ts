@@ -10,7 +10,7 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
     normal: {
       default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
-          'padding': dimensions.paddingExtraExtraNarrow,
+          'padding': dimensions.paddingNarrow3,
           'background-color': '#f0f0f0',
         }),
       },
@@ -82,7 +82,7 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
     normal: {
       default: {
         background: {
-          'padding': dimensions.paddingExtraExtraExtraNarrow,
+          'padding': dimensions.paddingNarrow4,
         },
       },
     },

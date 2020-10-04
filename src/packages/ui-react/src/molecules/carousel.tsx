@@ -83,7 +83,7 @@ export interface ICarouselProps extends IMoleculeProps<ICarouselTheme>, ISingleA
   shouldShowButtons?: boolean;
   autoplaySeconds?: number;
   initialIndex?: number;
-  indexButtonMode?: string;
+  indexButtonVariant?: string;
   slidesPerPage: number;
   slidesPerPageSmall?: number;
   slidesPerPageMedium?: number;
@@ -192,7 +192,7 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
       direction={Direction.Horizontal}
       childAlignment={Alignment.Center}
     >
-      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} icon={<KibaIcon iconId='mui-chevron-left'/>} onClicked={onPreviousClicked} />}
+      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} variant={props.indexButtonVariant} icon={<KibaIcon iconId='mui-chevron-left'/>} onClicked={onPreviousClicked} />}
       <Stack.Item growthFactor={1} shrinkFactor={1}>
         <StyledSlider
           ref={sliderRef}
@@ -216,7 +216,7 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
           })}
         </StyledSlider>
       </Stack.Item>
-      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} mode={props.indexButtonMode} icon={<KibaIcon iconId='mui-chevron-right'/>} onClicked={onNextClicked}/>}
+      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} variant={props.indexButtonVariant} icon={<KibaIcon iconId='mui-chevron-right'/>} onClicked={onNextClicked}/>}
     </Stack>
   );
 };

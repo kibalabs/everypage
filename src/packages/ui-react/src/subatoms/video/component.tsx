@@ -46,7 +46,7 @@ export interface IVideoProps extends IComponentProps<IVideoTheme> {
 }
 
 export const Video = (props: IVideoProps): React.ReactElement => {
-  const theme = useBuiltTheme('videos', props.mode, props.theme);
+  const theme = useBuiltTheme('videos', props.variant, props.theme);
   return (
     <StyledVideo
       id={props.id}

@@ -10,6 +10,7 @@ interface IHeroButtons1Button {
   text: string;
   target: string;
   mode?: string;
+  variant?: string;
   iconIdRight?: string;
   iconIdLeft?: string;
 }
@@ -28,16 +29,16 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
-            {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><ResponsiveContainingView size={12} sizeMedium={10} isFullWidth={props.shouldLogoGrow}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' fitType={'contain'}/></ResponsiveContainingView></Stack.Item>}
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView size={12} sizeMedium={10} isFullWidth={props.shouldLogoGrow}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' fitType={'contain'}/></ResponsiveContainingView></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
               {props.buttons.map((button: IHeroButtons1Button, index: number): React.ReactElement => {
                 return (
                   <Button
                     key={index}
                     text={button.text}
-                    mode={button.mode}
+                    variant={button.variant || button.mode}
                     target={button.target}
                     iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
                     iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}

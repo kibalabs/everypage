@@ -10,6 +10,7 @@ interface IButtons1Button {
   text: string;
   target: string;
   mode?: string;
+  variant?: string;
   iconIdRight?: string;
   iconIdLeft?: string;
 }
@@ -26,15 +27,15 @@ export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
               {props.buttons.map((button: IButtons1Button, index: number): React.ReactElement => {
                 return (
                   <Button
                     key={index}
                     text={button.text}
-                    mode={button.mode}
+                    variant={button.variant || button.mode}
                     target={button.target}
                     iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
                     iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}

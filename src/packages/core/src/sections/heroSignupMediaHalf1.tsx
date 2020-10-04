@@ -64,17 +64,17 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
           <Grid.Item size={2} sizeMedium={1} />
           <Grid.Item size={8} sizeMedium={5}>
             <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
-                <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.ExtraExtraWide} contentAlignment={Alignment.Center} contentAlignmentMedium={Alignment.Start}>
-                {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
-                {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
-                {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+                <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignment={Alignment.Center} contentAlignmentMedium={Alignment.Start}>
+                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+                {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+                {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
                 <Form onFormSubmitted={onFormSubmitted}>
                   <React.Fragment>
                     <ResponsiveView hiddenBelow={ScreenSize.Small}>
                       <Stack direction={Direction.Horizontal}>
-                        <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                        <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                           <SingleLineInput
-                            inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                            inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
                             inputType={props.inputType}
                             name={props.inputName}
                             placeholderText={props.inputPlaceholderText}
@@ -84,7 +84,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           />
                         </Stack.Item>
                         <Button
-                          mode='primary'
+                          variant='primary'
                           buttonType='submit'
                           text={props.inputButtonText}
                           isLoading={isLoading}
@@ -93,9 +93,9 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                     </ResponsiveView>
                     <ResponsiveView hiddenAbove={ScreenSize.Small}>
                       <Stack direction={Direction.Vertical}>
-                        <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                        <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                           <SingleLineInput
-                            inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                            inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
                             inputType={props.inputType}
                             name={props.inputName}
                             placeholderText={props.inputPlaceholderText}
@@ -105,7 +105,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           />
                         </Stack.Item>
                         <Button
-                          mode='primary'
+                          variant='primary'
                           buttonType='submit'
                           text={props.inputButtonText}
                           isLoading={isLoading}

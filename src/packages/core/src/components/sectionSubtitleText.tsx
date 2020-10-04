@@ -14,7 +14,7 @@ export const SectionSubtitleText = (props: ISectionSubtitleTextProps): React.Rea
     <MarkdownText
       id={props.id}
       className={getClassName(SectionSubtitleText.displayName, props.className)}
-      textMode='sectionSubtitle'
+      textVariant='sectionSubtitle'
       textAlignment={props.alignment}
       source={props.text}
     />

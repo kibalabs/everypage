@@ -52,15 +52,15 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
       <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Form onFormSubmitted={onFormSubmitted}>
               <React.Fragment>
                 <ResponsiveView hiddenBelow={ScreenSize.Small}>
                   <Stack direction={Direction.Horizontal}>
-                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                    <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
-                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                        inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
                         inputType={props.inputType}
                         name={props.inputName}
                         placeholderText={props.inputPlaceholderText}
@@ -70,7 +70,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       />
                     </Stack.Item>
                     <Button
-                      mode='primary'
+                      variant='primary'
                       buttonType='submit'
                       text={props.inputButtonText}
                       isLoading={isLoading}
@@ -79,9 +79,9 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                 </ResponsiveView>
                 <ResponsiveView hiddenAbove={ScreenSize.Small}>
                   <Stack direction={Direction.Vertical}>
-                    <Stack.Item growthFactor={1} gutterSizeAfter={PaddingSize.Default}>
+                    <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
-                        inputWrapperMode={errorMessage ? 'error' : successMessage ? 'success' : ''}
+                        inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
                         inputType={props.inputType}
                         name={props.inputName}
                         placeholderText={props.inputPlaceholderText}
@@ -91,7 +91,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       />
                     </Stack.Item>
                     <Button
-                      mode='primary'
+                      variant='primary'
                       buttonType='submit'
                       text={props.inputButtonText}
                       isLoading={isLoading}

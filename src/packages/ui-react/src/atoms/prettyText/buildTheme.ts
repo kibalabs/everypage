@@ -23,14 +23,14 @@ export const buildPrettyTextThemes = (colors: IColorGuide, dimensions: IDimensio
     },
   }, base?.default);
 
-  const derivedThemes = Object.keys(textThemes).reduce((currentMap: Record<string, RecursivePartial<IPrettyTextTheme>>, textMode: string): Record<string, RecursivePartial<IPrettyTextTheme>> => {
-    currentMap[textMode] = mergeThemePartial({
+  const derivedThemes = Object.keys(textThemes).reduce((currentMap: Record<string, RecursivePartial<IPrettyTextTheme>>, textVariant: string): Record<string, RecursivePartial<IPrettyTextTheme>> => {
+    currentMap[textVariant] = mergeThemePartial({
       normal: {
         default: {
-          text: textThemes[textMode],
+          text: textThemes[textVariant],
         }
       }
-    }, base?.['textMode']);
+    }, base?.['textVariant']);
     return currentMap;
   }, {});
 

@@ -11,6 +11,7 @@ export interface ISectionProps {
   shouldStickToTop: boolean;
   isFullHeight?: boolean;
   isInverse?: boolean;
+  colorVariant?: string;
 }
 
 export interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
@@ -43,9 +44,9 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
   return (
     <BackgroundView
       className={getClassName(Section.displayName, props.className)}
-      { ...props.background }
+      { ...props.background || { color: '$colors.sectionBackground' }}
     >
-      <ColorSettingView mode={props.isInverse ? 'inverse' : undefined}>
+      <ColorSettingView variant={props.isInverse ? 'inverse' : props.colorVariant}>
         <StyledSection
           id={props.id}
           className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky', props.isFullHeight && 'fullHeight')}

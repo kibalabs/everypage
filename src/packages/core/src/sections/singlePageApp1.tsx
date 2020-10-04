@@ -21,6 +21,7 @@ interface ISinglePageApp1Props extends ISectionProps {
   androidAppId?: string;
   macAppId?: string;
   appButtonMode?: string;
+  appButtonVariant?: string;
   bottomText?: string;
   iconLinks?: ISinglePageApp1IconLink[];
 }
@@ -35,29 +36,34 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
     companyText = `[${companyText}](${website.companyUrl})`;
   }
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
+  var appButtonVariant = props.appButtonVariant;
+  if (props.appButtonMode) {
+    console.warn('appButtonMode is deprecated. Please use appButtonVariant instead');
+    appButtonVariant = props.appButtonMode;
+  }
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
       <ResponsiveContainingView size={10} sizeSmall={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop}>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
-            {props.logoImageUrl && <Stack.Item gutterSizeAfter={PaddingSize.Wide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
+            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <Stack.Item gutterSizeBefore={PaddingSize.ExtraExtraWide}>
+            <Stack.Item gutterBefore={PaddingSize.Wide3}>
               <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
-                {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonMode={props.appButtonMode} appId={iosAppId} /></Stack.Item>}
-                {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonMode={props.appButtonMode} appId={androidAppId} /></Stack.Item>}
-                {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonMode={props.appButtonMode} appId={macAppId} /></Stack.Item>}
+                {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonVariant={appButtonVariant} appId={iosAppId} /></Stack.Item>}
+                {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
+                {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}
               </Stack>
             </Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
             {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText}/></Stack.Item>}
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.ExtraExtraWide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide3}></Stack.Item>
             {props.iconLinks && (
-              <Stack.Item gutterSizeAfter={PaddingSize.Wide}>
+              <Stack.Item gutterAfter={PaddingSize.Wide}>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
                   {props.iconLinks.map((iconLink: ISinglePageApp1IconLink, index: number): React.ReactElement => (
                     <IconButton key={index} target={iconLink.target} icon={<KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />} />
@@ -65,7 +71,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
                 </Stack>
               </Stack.Item>
             )}
-            <Stack.Item gutterSizeAfter={PaddingSize.Wide}><MarkdownText source={copyrightText}/></Stack.Item>
+            <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText source={copyrightText}/></Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>

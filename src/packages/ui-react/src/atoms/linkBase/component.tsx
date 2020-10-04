@@ -73,7 +73,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
     }
   };
 
-  const theme = useBuiltTheme('linkBases', props.mode, props.theme);
+  const theme = useBuiltTheme('linkBases', props.variant, props.theme);
   const targetShouldOpenSameTab = props.targetShouldOpenSameTab || (props.targetShouldOpenSameTab === undefined && props.target && props.target.startsWith('#'));
   return (
     <StyledLinkBase

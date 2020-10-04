@@ -33,21 +33,21 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
       <ResponsiveContainingView size={10} sizeMedium={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex}>
               {props.slides.map((slide: ITestimonialSlides1Slide, index: number): React.ReactElement => (
-                <Box key={index} mode='padded-transparent'>
+                <Box key={index} variant='padded-transparent'>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
-                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterSizeAfter={PaddingSize.Wide}>
+                    <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}>
                       <MarkdownText textAlignment={TextAlignment.Center} source={slide.text} />
                     </Stack.Item>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-                      {slide.authorImageUrl && <Box width='50px'><Image mode={'profile'} source={slide.authorImageUrl} /></Box>}
+                      {slide.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={slide.authorImageUrl} /></Box>}
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
-                          {slide.authorName && <MarkdownText textMode={'bold'} textAlignment={TextAlignment.Left} source={slide.authorName} />}
-                          {slide.authorTitle && <MarkdownText textMode={'small'} textAlignment={TextAlignment.Left} source={slide.authorTitle} />}
+                          {slide.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={slide.authorName} />}
+                          {slide.authorTitle && <MarkdownText textVariant={'small'} textAlignment={TextAlignment.Left} source={slide.authorTitle} />}
                         </Stack>
                       </Stack.Item>
                     </Stack>
@@ -55,7 +55,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
                 </Box>
               ))}
             </Carousel>
-            <Stack.Item gutterSizeBefore={PaddingSize.Wide}><LinePager mode='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked}/></Stack.Item>
+            <Stack.Item gutterBefore={PaddingSize.Wide}><LinePager variant='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked}/></Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>

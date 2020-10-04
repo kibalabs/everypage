@@ -12,14 +12,14 @@ interface ITwitterCardProps {
 
 export const TwitterCard = (props: ITwitterCardProps): React.ReactElement => {
   return (
-    <Box width={'300px'} mode='card'>
+    <Box width={'300px'} variant='card'>
       <Stack childAlignment={Alignment.Fill}>
         <Image source={props.imageUrl} alternativeText='' isFullWidth={true} />
-        <Spacing mode={PaddingSize.Narrow} />
-        <Text mode='strong'>{props.title}</Text>
-        <Spacing mode={PaddingSize.Narrow} />
+        <Spacing variant={PaddingSize.Narrow} />
+        <Text variant='strong'>{props.title}</Text>
+        <Spacing variant={PaddingSize.Narrow} />
         <Text>{props.description}</Text>
-        <Spacing mode={PaddingSize.Default} />
+        <Spacing variant={PaddingSize.Default} />
       </Stack>
     </Box>
   );
@@ -74,7 +74,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
   });
 
   return (
-    <Box width={'300px'} mode='card'>
+    <Box width={'300px'} variant='card'>
       <Stack childAlignment={Alignment.Fill}>
         <Text>iOS:</Text>
         { !props.iosAppId ? (
@@ -85,11 +85,11 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
           <Text>app not found with id: {props.iosAppId}</Text>
         ) : (
           <Stack childAlignment={Alignment.Center}>
-            <Box width={'100px'} mode='transparent'>
+            <Box width={'100px'} variant='transparent'>
               <Image source={iosAppData.iconImageUrl} />
             </Box>
             <Text>{iosAppData.name}</Text>
-            <Text mode='note'>{iosAppData.description ? `${iosAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
+            <Text variant='note'>{iosAppData.description ? `${iosAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
             <Link target={iosAppData.storeUrl} text='App Store Link' />
           </Stack>
         )}
@@ -103,11 +103,11 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
           <Text>app not found with id: {props.androidAppId}</Text>
         ) : (
           <Stack childAlignment={Alignment.Center}>
-            <Box width={'100px'} mode='transparent'>
+            <Box width={'100px'} variant='transparent'>
               <Image source={androidAppData.iconImageUrl} />
             </Box>
             <Text>{androidAppData.name}</Text>
-            <Text mode='note'>{androidAppData.description ? `${androidAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
+            <Text variant='note'>{androidAppData.description ? `${androidAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
             <Link target={androidAppData.storeUrl} text='Play Store Link' />
           </Stack>
         )}

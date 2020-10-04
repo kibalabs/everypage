@@ -25,13 +25,13 @@
           "text": "Awesome feature"
         },
         {
-          "mode": "secondary",
+          "variant": "secondary",
           "target": "#signup-1-open-link",
           "text": "Cool form"
         },
         {
           "display": "always",
-          "mode": "primary",
+          "variant": "primary",
           "target": "https://console.everypagehq.com",
           "text": "Sign in here"
         }
@@ -46,7 +46,7 @@
       "buttons": [
         {
           "iconIdRight": "ion-checkmark-circle-outline",
-          "mode": "primary",
+          "variant": "primary",
           "target": "https://console.everypagehq.com/register",
           "text": "Subscribe"
         }
@@ -109,7 +109,7 @@
       "titleText": "Make your website now",
       "subtitleText": "Get your word out and people will love you",
       "androidAppId": "com.wordmagicapp.android.play",
-      "appButtonMode": "dark-clear",
+      "appButtonVariant": "dark-clear",
       "iconLinks": [
         {
           "iconId": "ion-logo-twitter",
@@ -268,7 +268,7 @@
       "type": "testimonial-boxes-1",
       "titleText": "What people say about us 🤩",
       "subtitleText": "Our customers love us and we love them",
-      "boxMode": "card",
+      "boxVariant": "card",
       "boxes": [
         {
           "author": "Guillaume",
@@ -418,12 +418,12 @@
       "subtitleText": "It's totally awesome!",
       "buttons": [
         {
-          "mode": "primary",
+          "variant": "primary",
           "target": "https://console.everypagehq.com/login",
           "text": "Log in"
         },
         {
-          "mode": "primary",
+          "variant": "primary",
           "target": "https://console.everypagehq.com/register",
           "text": "Sign up"
         }
@@ -476,7 +476,7 @@
       "subtitleText": "Why should your visitors be interested? Make it clear to them what you are going to do for them so they subscribe for early access! Anything you can offer would be great to highlight e.g. beta access or a discount once launched",
       "buttons": [
         {
-          "mode": "primary",
+          "variant": "primary",
           "target": "https://www.everypagehq.com",
           "text": "Click me!"
         }

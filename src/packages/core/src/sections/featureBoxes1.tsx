@@ -17,26 +17,32 @@ interface IFeatureBoxes1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   boxMode?: string;
+  boxVariant?: string;
   features?: IFeatureBoxes1Feature[];
 }
 
 export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
+  var boxVariant = props.boxVariant;
+  if (props.boxMode) {
+    console.warn('boxMode is deprecated. Please use boxVariant instead');
+    boxVariant = props.boxMode;
+  }
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10} sizeExtraLarge={8}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterSizeAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.ExtraWide}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterSizeAfter={PaddingSize.ExtraWide}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={6} size={12}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
-                <Box key={index} mode={props.boxMode} isFullHeight={props.boxMode !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
                     {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                    <Spacing mode={PaddingSize.Wide} />
-                    {feature.title && <Stack.Item gutterSizeAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textMode='subtitle' source={feature.title} /></Stack.Item>}
+                    <Spacing variant={PaddingSize.Wide} />
+                    {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textvariant='subtitle' source={feature.title} /></Stack.Item>}
                     {feature.description && <MarkdownText textAlignment={TextAlignment.Center} source={feature.description} />}
                   </Stack>
                 </Box>
@@ -50,5 +56,5 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
 };
 FeatureBoxes1.displayName = 'feature-boxes-1';
 FeatureBoxes1.defaultProps = {
-  boxMode: 'bordered',
+  boxVariant: 'bordered',
 };

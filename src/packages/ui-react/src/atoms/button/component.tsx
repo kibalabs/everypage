@@ -70,7 +70,7 @@ export interface IButtonProps extends IComponentProps<IButtonTheme> {
   isFullWidth: boolean;
   iconRight?: React.ComponentClass<IIconProps>;
   iconLeft?: React.ComponentClass<IIconProps>;
-  iconGutterSize?: string;
+  iconGutter?: string;
   target?: string;
   targetShouldOpenSameTab?: boolean;
   onClicked?(): void;
@@ -90,7 +90,7 @@ export const Button = (props: IButtonProps): React.ReactElement => {
     throw new Error('if the buttonType is set to submit, you should not use onClicked. use the form.onSubmitted instead');
   }
 
-  const theme = useBuiltTheme('buttons', props.mode, props.theme);
+  const theme = useBuiltTheme('buttons', props.variant, props.theme);
   const targetShouldOpenSameTab = props.targetShouldOpenSameTab || (props.targetShouldOpenSameTab === undefined && props.target && props.target.startsWith('#'));
   return (
     <StyledButton
@@ -108,17 +108,17 @@ export const Button = (props: IButtonProps): React.ReactElement => {
       { !props.isLoading && props.iconLeft && (
         <React.Fragment>
           {props.iconLeft}
-          <Spacing mode={props.iconGutterSize} />
+          <Spacing variant={props.iconGutter} />
         </React.Fragment>
       )}
       { !props.isLoading && props.text }
       { !props.isLoading && props.iconRight && (
         <React.Fragment>
-          <Spacing mode={props.iconGutterSize} />
+          <Spacing variant={props.iconGutter} />
           {props.iconRight}
         </React.Fragment>
       )}
-      { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} mode='light' size='small'/> }
+      { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} variant='light' size='small'/> }
     </StyledButton>
   );
 };
@@ -129,6 +129,6 @@ Button.defaultProps = {
   isLoading: false,
   isEnabled: true,
   isFullWidth: false,
-  iconGutterSize: PaddingSize.Default,
+  iconGutter: PaddingSize.Default,
 };
 Button.displayName = 'button';

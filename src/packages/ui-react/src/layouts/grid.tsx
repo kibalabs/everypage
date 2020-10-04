@@ -86,7 +86,7 @@ export const Grid = (props: IGridProps): React.ReactElement => {
             screenWidthExtraLarge={theme.screenWidthExtraLarge}
             isFullHeight={child.props.isFullHeight}
             totalColumnCount={theme.columnCount}
-            gutterSize={props.shouldAddGutters ? theme.gutterSize : '0px'}
+            gutter={props.shouldAddGutters ? theme.gutter : '0px'}
             alignment={child.props.alignment}
           >
             {child.props.children}
@@ -107,42 +107,42 @@ Grid.defaultProps = {
 Grid.displayName = 'grid';
 Grid.Item = GridItem;
 
-const getCssSize = (totalColumnCount: number, gutterSize: string, columnCount: number): string => (
-  `calc(${(100.0 * columnCount) / totalColumnCount}% - 2 * ${gutterSize})`
+const getCssSize = (totalColumnCount: number, gutter: string, columnCount: number): string => (
+  `calc(${(100.0 * columnCount) / totalColumnCount}% - 2 * ${gutter})`
 );
 
-const columnCountToCss = (totalColumnCount: number, gutterSize: string, columnCount: number, screenWidth: string): string => (
+const columnCountToCss = (totalColumnCount: number, gutter: string, columnCount: number, screenWidth: string): string => (
   // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
   `@media (min-width: ${screenWidth}) {
-    width: ${getCssSize(totalColumnCount, gutterSize, columnCount)};
+    width: ${getCssSize(totalColumnCount, gutter, columnCount)};
     ${columnCount === 0 ? 'display: none' : 'display: block'};
   }`
 );
 
-const columnCountsToCss = (totalColumnCount: number, gutterSize: string, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, columnCountNormal?: number, columnCountSmall?: number, columnCountMedium?: number, columnCountLarge?: number, columnCountExtraLarge?: number): string => {
+const columnCountsToCss = (totalColumnCount: number, gutter: string, screenWidthSmall: string, screenWidthMedium: string, screenWidthLarge: string, screenWidthExtraLarge: string, columnCountNormal?: number, columnCountSmall?: number, columnCountMedium?: number, columnCountLarge?: number, columnCountExtraLarge?: number): string => {
   const output = [];
   if (columnCountNormal !== undefined) {
-    output.push(`width: ${getCssSize(totalColumnCount, gutterSize, columnCountNormal).toString()};`);
+    output.push(`width: ${getCssSize(totalColumnCount, gutter, columnCountNormal).toString()};`);
     // TODO(krish): it should be unset below but ie11 doesn't like this. find a nicer way!
     output.push(columnCountNormal === 0 ? 'display: none;' : 'display: block;');
   }
   if (columnCountSmall !== undefined) {
-    output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountSmall, screenWidthSmall));
+    output.push(columnCountToCss(totalColumnCount, gutter, columnCountSmall, screenWidthSmall));
   }
   if (columnCountMedium !== undefined) {
-    output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountMedium, screenWidthMedium));
+    output.push(columnCountToCss(totalColumnCount, gutter, columnCountMedium, screenWidthMedium));
   }
   if (columnCountLarge !== undefined) {
-    output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountLarge, screenWidthLarge));
+    output.push(columnCountToCss(totalColumnCount, gutter, columnCountLarge, screenWidthLarge));
   }
   if (columnCountExtraLarge !== undefined) {
-    output.push(columnCountToCss(totalColumnCount, gutterSize, columnCountExtraLarge, screenWidthExtraLarge));
+    output.push(columnCountToCss(totalColumnCount, gutter, columnCountExtraLarge, screenWidthExtraLarge));
   }
   return output.join('\n');
 };
 
 interface IStyledGridItemProps extends IGridItemProps {
-  gutterSize: string;
+  gutter: string;
   screenWidthSmall: string;
   screenWidthMedium: string;
   screenWidthLarge: string;
@@ -156,13 +156,13 @@ const StyledGridItem = styled.div<IStyledGridItemProps>`
   flex-shrink: 0;
   flex-basis: auto;
   height: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  ${(props: IStyledGridItemProps): string => columnCountsToCss(props.totalColumnCount, props.gutterSize, props.screenWidthSmall, props.screenWidthMedium, props.screenWidthLarge, props.screenWidthExtraLarge, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge)};
+  ${(props: IStyledGridItemProps): string => columnCountsToCss(props.totalColumnCount, props.gutter, props.screenWidthSmall, props.screenWidthMedium, props.screenWidthLarge, props.screenWidthExtraLarge, props.size, props.sizeSmall, props.sizeMedium, props.sizeLarge, props.sizeExtraLarge)};
   /* overflow-x: auto; */
   overflow-y: ${(props: IStyledGridItemProps): string => (props.isFullHeight ? 'auto' : 'visible')};
-  margin-left: ${(props: IStyledGridItemProps): string => props.gutterSize};
-  margin-right: ${(props: IStyledGridItemProps): string => props.gutterSize};
-  margin-top: ${(props: IStyledGridItemProps): string => props.gutterSize};
-  margin-bottom: ${(props: IStyledGridItemProps): string => props.gutterSize};
+  margin-left: ${(props: IStyledGridItemProps): string => props.gutter};
+  margin-right: ${(props: IStyledGridItemProps): string => props.gutter};
+  margin-top: ${(props: IStyledGridItemProps): string => props.gutter};
+  margin-bottom: ${(props: IStyledGridItemProps): string => props.gutter};
   align-self: ${(props: IStyledGridItemProps): string => (props.alignment ? getFlexItemAlignment(props.alignment) : 'auto')};
 `;
 StyledGridItem.displayName = 'grid-item';
