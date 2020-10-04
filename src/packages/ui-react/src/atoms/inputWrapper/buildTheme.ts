@@ -1,5 +1,4 @@
 import { RecursivePartial } from '@kibalabs/core';
-import { lighten, darken } from 'polished';
 
 import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme, ITextTheme } from '../../subatoms';
@@ -11,48 +10,46 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
       default: {
         text: textThemes.default,
         messageText: mergeTheme(textThemes.default, {
-          'color': lighten(0.2, '#222222'),
+          'color': '$colors.textLight10',
         }),
         placeholderText: mergeTheme(textThemes.default, {
-          'color': '#AAAAAA',
+          'color': '$colors.textLight50',
         }),
         background: mergeTheme(boxThemes.default, {
-          'background-color': 'white',
+          'background-color': '$colors.backgroundLight50',
           'padding': `${dimensions.padding} ${dimensions.paddingWide}`,
           'border-radius': dimensions.borderRadius,
           'border-width': dimensions.borderWidthNarrow,
-          'border-color': darken(0.05, colors.background),
+          'border-color': '$colors.backgroundDark05',
           'border-style': 'solid',
         }),
       },
       hover: {
         background: {
-          'border-color': lighten(0.1, colors.brandPrimary),
+          'border-color': '$colors.brandPrimaryLight10',
         },
       },
       focus: {
         background: {
-          'border-color': colors.brandPrimary,
+          'border-color': '$colors.brandPrimary',
         },
       },
     },
     disabled: {
       default: {
         background: {
-          'background-color': '#dddddd',
-          'border-color': colors.disabled,
+          'background-color': '$colors.disabledLight90',
+          'border-color': '$colors.disabledLight20',
         }
       },
       hover: {
         background: {
-          'background-color': '#dddddd',
-          'border-color': colors.disabled,
+          'border-color': '$colors.disabledLight10',
         }
       },
       focus: {
         background: {
-          'background-color': '#dddddd',
-          'border-color': colors.disabled,
+          'border-color': '$colors.disabled',
         }
       },
     },
@@ -62,23 +59,21 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
     normal: {
       default: {
         messageText: {
-          color: 'red',
+          color: '$colors.error',
         },
         background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
+          'background-color': '$colors.errorLight90',
+          'border-color': '$colors.errorLight20',
         }
       },
       hover: {
         background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
+          'border-color': '$colors.errorLight10',
         }
       },
       focus: {
         background: {
-          'background-color': lighten(0.9, 'red'),
-          'border-color': 'red',
+          'border-color': '$colors.error',
         }
       },
     },
@@ -88,23 +83,21 @@ export const buildInputWrapperThemes = (colors: IColorGuide, dimensions: IDimens
     normal: {
       default: {
         messageText: {
-          color: 'green',
+          color: '$colors.success',
         },
         background: {
-          'background-color': lighten(0.9, 'green'),
-          'border-color': 'green',
+          'background-color': '$colors.successLight90',
+          'border-color': '$colors.successLight20',
         }
       },
       hover: {
         background: {
-          'background-color': lighten(0.9, 'green'),
-          'border-color': 'green',
+          'border-color': '$colors.successLight10',
         }
       },
       focus: {
         background: {
-          'background-color': lighten(0.9, 'green'),
-          'border-color': 'green',
+          'border-color': '$colors.success',
         }
       },
     },

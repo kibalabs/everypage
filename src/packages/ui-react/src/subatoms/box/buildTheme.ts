@@ -1,5 +1,4 @@
 import { RecursivePartial } from '@kibalabs/core';
-import { lighten, darken } from 'polished';
 
 import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide } from '../../subatoms/colors';
@@ -28,13 +27,13 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   }, base?.transparent);
 
   const paddedBoxTheme = mergeThemePartial<IBoxTheme>({
-    'background-color': colors.background,
+    'background-color': '$colors.background',
     'padding': dimensions.padding,
   }, base?.padded);
 
   const cardBoxTheme = mergeThemePartial<IBoxTheme>({
-    'background-color': lighten(0.1, colors.background),
-    'border-color': darken(0.05, colors.background),
+    'background-color': '$colors.backgroundLight10',
+    'border-color': '$colors.backgroundDark05',
     'border-width': dimensions.borderWidth,
     'box-shadow': '0px 8px 8px -6px rgba(0,0,0,0.15)',
     'margin': '0px 4px 12px 4px',
@@ -42,8 +41,8 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   }, base?.card);
 
   const borderedBoxTheme = mergeThemePartial<IBoxTheme>({
-    'background-color': lighten(0.1, colors.background),
-    'border-color': darken(0.05, colors.background),
+    'background-color': '$colors.backgroundLight10',
+    'border-color': '$colors.backgroundDark05',
     'border-width': dimensions.borderWidth,
     'padding': `${dimensions.paddingWide2} ${dimensions.paddingWide2}`,
   }, base?.bordered);
@@ -55,7 +54,7 @@ export const buildBoxThemes = (colors: IColorGuide, dimensions: IDimensionGuide,
   }, base?.focusable);
 
   const focussedBoxTheme = mergeThemePartial<IBoxTheme>({
-    'border-color': lighten(0.5, 'black'),
+    'border-color': '$colors.backgroundDark50',
   }, base?.focussed);
 
   return {

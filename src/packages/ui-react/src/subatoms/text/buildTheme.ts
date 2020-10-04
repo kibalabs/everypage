@@ -123,7 +123,7 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
 
   const noteTextTheme = mergeThemePartial<ITextTheme>({
     'font-size': '0.8rem',
-    'color': '#777777',
+    'color': '$colors.textLight25',
   }, base?.note);
 
   const supersizeTextTheme = mergeThemePartial<ITextTheme>({
@@ -139,7 +139,7 @@ export const buildTextThemes = (colors: IColorGuide, dimensions: IDimensionGuide
   }, base?.margined);
 
   const coloredTextTheme = mergeThemePartial<ITextTheme>({
-    'color': colors.brandPrimary,
+    'color': '$colors.brandPrimary',
   }, base?.colored);
 
   return {

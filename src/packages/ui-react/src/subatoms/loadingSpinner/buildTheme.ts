@@ -7,7 +7,7 @@ import { ILoadingSpinnerTheme } from './theme';
 
 export const buildLoadingSpinnerThemes = (colors: IColorGuide, dimensions: IDimensionGuide, base: RecursivePartial<Record<string, ILoadingSpinnerTheme>>): ThemeMap<ILoadingSpinnerTheme> => {
   const defaultLoadingSpinnerTheme = mergeTheme<ILoadingSpinnerTheme>({
-    'color': colors.brandPrimary,
+    'color': '$colors.brandPrimary',
   }, base?.default);
 
   const lightLoadingSpinnerTheme = mergeThemePartial<ILoadingSpinnerTheme>({

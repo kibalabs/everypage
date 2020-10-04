@@ -1,5 +1,4 @@
 import { RecursivePartial } from '@kibalabs/core';
-import { transparentize } from 'polished';
 
 import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme } from '../../subatoms';
@@ -17,12 +16,12 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
       },
       hover: {
         background: {
-          'background-color': transparentize(0.8, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear80',
         },
       },
       press: {
         background: {
-          'background-color': transparentize(0.6, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear60',
         },
       },
       focus: {
@@ -32,7 +31,7 @@ export const buildLinkBaseThemes = (colors: IColorGuide, dimensions: IDimensionG
     disabled: {
       default: {
         background: {
-          'background-color': '#999999',
+          'background-color': '$colors.disabledText',
         },
       },
     },

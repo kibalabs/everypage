@@ -1,5 +1,4 @@
 import { RecursivePartial } from '@kibalabs/core';
-import { darken, transparentize } from 'polished';
 
 import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme, ITextTheme } from '../../subatoms';
@@ -18,12 +17,12 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
       },
       hover: {
         background: {
-          'background-color': transparentize(0.9, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear90',
         },
       },
       press: {
         background: {
-          'background-color': transparentize(0.8, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear80',
         },
       },
       focus: {
@@ -33,10 +32,10 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
     disabled: {
       default: {
         background: {
-          'background-color': '#999999',
+          'background-color': '$colors.disabled',
         },
         text: {
-          'color': '#444444',
+          'color': '$colors.disabledText',
         },
       },
     },
@@ -46,21 +45,21 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
     normal: {
       default: {
         background: {
-          'background-color': colors.brandPrimary,
-          'border-color': colors.brandPrimary,
+          'background-color': '$colors.brandPrimary',
+          'border-color': '$colors.brandPrimary',
         },
         text: {
-          'color': colors.textOnBrand,
+          'color': '$colors.textOnBrand',
         },
       },
       hover: {
         background: {
-          'background-color': colors.brandSecondary,
+          'background-color': '$colors.brandSecondary',
         },
       },
       press: {
         background: {
-          'background-color': darken(0.1, colors.brandSecondary),
+          'background-color': '$colors.brandSecondaryDark10',
         },
       },
     },
@@ -70,7 +69,7 @@ export const buildIconButtonThemes = (colors: IColorGuide, dimensions: IDimensio
     normal: {
       default: {
         background: {
-          'border-color': colors.brandPrimary,
+          'border-color': '$colors.brandPrimary',
         },
       },
     },

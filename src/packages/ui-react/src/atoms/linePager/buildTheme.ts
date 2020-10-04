@@ -1,5 +1,4 @@
 import { RecursivePartial } from '@kibalabs/core';
-import { darken, transparentize } from 'polished';
 
 import { mergeTheme, mergeThemePartial, ThemeMap } from '../../util';
 import { IColorGuide, IDimensionGuide, IBoxTheme } from '../../subatoms';
@@ -11,17 +10,17 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
       default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
           'padding': dimensions.paddingNarrow3,
-          'background-color': '#f0f0f0',
+          'background-color': '$colors.backgroundDark20',
         }),
       },
       hover: {
         background: {
-          'background-color': transparentize(0.9, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear90',
         },
       },
       press: {
         background: {
-          'background-color': transparentize(0.8, colors.brandPrimary),
+          'background-color': '$colors.brandPrimaryClear80',
         },
       },
       focus: {
@@ -31,7 +30,7 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
     active: {
       default: {
         background: {
-          'background-color': colors.brandPrimary,
+          'background-color': '$colors.brandPrimary',
         },
       },
     },
@@ -41,18 +40,18 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
     normal: {
       default: {
         background: {
-          'background-color': colors.brandPrimary,
-          'border-color': colors.brandPrimary,
+          'background-color': '$colors.brandPrimary',
+          'border-color': '$colors.brandPrimary',
         },
       },
       hover: {
         background: {
-          'background-color': colors.brandSecondary,
+          'background-color': '$colors.brandSecondary',
         },
       },
       press: {
         background: {
-          'background-color': darken(0.1, colors.brandSecondary),
+          'background-color': '$colors.brandSecondaryDark10',
         },
       },
     },
@@ -62,7 +61,7 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
     normal: {
       default: {
         background: {
-          'border-color': colors.brandPrimary,
+          'border-color': '$colors.brandPrimary',
         },
       },
     },

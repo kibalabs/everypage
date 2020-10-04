@@ -18,14 +18,14 @@ export const buildLinkThemes = (colors: IColorGuide, dimensions: IDimensionGuide
       },
       hover: {
         text: {
-          'color': colors.brandSecondary,
+          'color': '$colors.brandSecondary',
         },
       },
     },
     disabled: {
       default: {
         text: {
-          'color': colors.disabled,
+          'color': '$colors.disabled',
         },
       },
     },

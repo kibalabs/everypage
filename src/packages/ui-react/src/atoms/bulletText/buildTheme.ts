@@ -12,7 +12,7 @@ export const buildBulletTextThemes = (colors: IColorGuide, dimensions: IDimensio
           'margin': '0 0 0.5em 0',
         }),
         bullet: {
-          color: colors.text,
+          color: '$colors.text',
           content: '"•"',
           margin: `0 ${dimensions.padding} 0 -${dimensions.padding}`,
           'font-weight': 'bold',

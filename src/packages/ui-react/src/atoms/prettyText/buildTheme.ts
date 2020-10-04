@@ -43,7 +43,7 @@ export const buildPrettyTextThemes = (colors: IColorGuide, dimensions: IDimensio
       },
       strong: {
         text: {
-          'color': colors.brandPrimary,
+          'color': '$colors.brandPrimary',
         },
       },
     },
