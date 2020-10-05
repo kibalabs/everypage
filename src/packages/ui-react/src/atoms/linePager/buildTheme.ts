@@ -10,7 +10,7 @@ export const buildLinePagerThemes = (colors: IColorGuide, dimensions: IDimension
       default: {
         background: mergeTheme(boxThemes.default, boxThemes.focusable, {
           'padding': dimensions.paddingNarrow3,
-          'background-color': '$colors.backgroundDark20',
+          'background-color': '$colors.backgroundDark10',
         }),
       },
       hover: {

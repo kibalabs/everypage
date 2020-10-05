@@ -1,23 +1,24 @@
 import { ThemeMap, ThemeType } from '../util';
-import { IColorGuide } from '../subatoms/colors/theme';
-import { IDimensionGuide } from '../subatoms/dimensions/theme';
-import { IFont } from '../subatoms/fonts/theme';
-import { ITextTheme } from '../subatoms/text/theme';
-import { IBoxTheme } from '../subatoms/box/theme';
-import { IImageTheme } from '../subatoms/image/theme';
-import { IVideoTheme } from '../subatoms/video/theme';
-import { ILoadingSpinnerTheme } from '../subatoms/loadingSpinner/theme';
-import { IPortalTheme } from '../subatoms/portal/theme';
-import { IBulletListTheme } from '../atoms/bulletList/theme';
-import { IBulletTextTheme } from '../atoms/bulletText/theme';
-import { IButtonTheme } from '../atoms/button/theme';
-import { ILinkBaseTheme } from '../atoms/linkBase/theme';
-import { IIconButtonTheme } from '../atoms/iconButton/theme';
-import { IInputWrapperTheme } from '../atoms/inputWrapper/theme';
-import { ILinkTheme } from '../atoms/link/theme';
-import { IPrettyTextTheme } from '../atoms/prettyText/theme';
-import { IWebViewTheme } from '../atoms/webView/theme';
-import { ILinePagerTheme } from '../atoms/linePager/theme';
+import { IColorGuide } from '../subatoms/colors';
+import { IDimensionGuide } from '../subatoms/dimensions';
+import { IFont } from '../subatoms/fonts';
+import { ITextTheme } from '../subatoms/text';
+import { IBoxTheme } from '../subatoms/box';
+import { IImageTheme } from '../subatoms/image';
+import { IVideoTheme } from '../subatoms/video';
+import { ILoadingSpinnerTheme } from '../subatoms/loadingSpinner';
+import { IPortalTheme } from '../subatoms/portal';
+import { IBulletListTheme } from '../atoms/bulletList';
+import { IBulletTextTheme } from '../atoms/bulletText';
+import { IButtonTheme } from '../atoms/button';
+import { ILinkBaseTheme } from '../atoms/linkBase';
+import { IIconButtonTheme } from '../atoms/iconButton';
+import { IInputWrapperTheme } from '../atoms/inputWrapper';
+import { ILinkTheme } from '../atoms/link';
+import { IPrettyTextTheme } from '../atoms/prettyText';
+import { IWebViewTheme } from '../atoms/webView';
+import { ILinePagerTheme } from '../atoms/linePager';
+import { IIconTheme } from '../subatoms/icon';
 
 export interface ITheme extends ThemeType {
   // Base
@@ -29,6 +30,7 @@ export interface ITheme extends ThemeType {
   // Subatoms
   boxes: ThemeMap<IBoxTheme>,
   texts: ThemeMap<ITextTheme>,
+  icons: ThemeMap<IIconTheme>,
   images: ThemeMap<IImageTheme>,
   loadingSpinners: ThemeMap<ILoadingSpinnerTheme>,
   portals: ThemeMap<IPortalTheme>,

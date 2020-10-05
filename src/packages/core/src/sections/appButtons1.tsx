@@ -1,10 +1,7 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, PaddingSize, Stack, Direction, Button, KibaIcon, TextAlignment, ResponsiveTextAlignmentView, AppDownloadButton, Alignment } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { useWebsite } from '../util';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { ISectionProps } from '.';
+import { AppDownload1 } from './appDownload1';
 
 // TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IAppButtons1Props extends ISectionProps {
@@ -18,39 +15,9 @@ interface IAppButtons1Props extends ISectionProps {
 }
 
 export const AppButtons1 = (props: IAppButtons1Props): React.ReactElement => {
-  const website = useWebsite();
-  const iosAppId = props.iosAppId || website.iosAppId;
-  const androidAppId = props.androidAppId || website.androidAppId;
-  const macAppId = props.macAppId || website.macAppId;
-  var appButtonVariant = props.appButtonVariant;
-  if (props.appButtonMode) {
-    console.warn('appButtonMode is deprecated. Please use appButtonVariant instead');
-    appButtonVariant = props.appButtonMode;
-  }
+  console.warn(`${AppButtons1.displayName} is now deprecated. Please use ${AppDownload1.displayName} instead.`);
   return (
-    <Section {...props as ISectionProps} className={getClassName(AppButtons1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
-        <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.Wide4} paddingEnd={PaddingSize.Wide4}>
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            {appButtonVariant === 'custom' ? (
-              <Stack direction={Direction.Vertical} directionMedium={Direction.Horizontal} shouldAddGutters={true}>
-                {iosAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button variant='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-apple'/>} iconGutter={PaddingSize.Wide} target={`https://apps.apple.com/app/id${iosAppId}`} text='Download for iOS' /></Stack.Item>}
-                {androidAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button variant='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-android'/>} iconGutter={PaddingSize.Wide} target={`https://play.google.com/store/apps/details?id=${androidAppId}`} text='Download for Android' /></Stack.Item>}
-                {macAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button variant='primary' iconLeft={<KibaIcon size='large' iconId='ion-logo-android'/>} iconGutter={PaddingSize.Wide} target={`https://apps.apple.com/app/id${macAppId}`} text='Download for Mac' /></Stack.Item>}
-              </Stack>
-            ) : (
-              <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
-                {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonVariant={appButtonVariant} appId={iosAppId} /></Stack.Item>}
-                {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
-                {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}
-              </Stack>
-            )}
-          </Stack>
-        </ResponsiveTextAlignmentView>
-      </ResponsiveContainingView>
-    </Section>
+    <AppDownload1 {...props} />
   );
 };
 AppButtons1.displayName = 'app-buttons-1';

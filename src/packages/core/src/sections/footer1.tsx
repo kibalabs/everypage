@@ -31,7 +31,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isScrollableHorizontally={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
-              <IconButton key={index} target={iconLink.target} icon={<KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />} />
+              <IconButton key={index} target={iconLink.target} icon={<KibaIcon variant='large' iconId={iconLink.iconId || 'ion-globe'} />} />
             ))}
           </Stack>
         )}

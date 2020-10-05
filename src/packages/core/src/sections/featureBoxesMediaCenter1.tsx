@@ -33,10 +33,10 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                 {props.features.slice(0, Math.floor(props.features.length / 2)).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Right}>
-                      <Stack direction={Direction.Vertical} directionMedium={Direction.Horizontal} childAlignment={Alignment.Center} childAlignmentMedium={Alignment.Start} shouldAddGutters={true} isFullWidth={true}>
+                      <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
@@ -47,7 +47,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenBelow={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon size='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                       </Stack>
@@ -64,15 +64,15 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                 {props.features.slice(Math.ceil(props.features.length / 2), props.features.length).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
-                      <Stack direction={Direction.Vertical} directionMedium={Direction.Horizontal} childAlignment={Alignment.Center} childAlignmentMedium={Alignment.Start} shouldAddGutters={true} isFullWidth={true}>
+                      <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon size='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenBelow={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon size='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>

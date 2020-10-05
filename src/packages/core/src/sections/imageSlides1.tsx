@@ -31,14 +31,29 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} slidesPerPage={1} slidesPerPageSmall={2} slidesPerPageLarge={3}>
+            <Carousel
+              onIndexChanged={onSlideIndexChanged}
+              initialIndex={slideIndex}
+              slidesPerPage={1}
+              slidesPerPageSmall={2}
+              slidesPerPageLarge={3}
+            >
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded-transparent' isFullWidth={false}>
                   <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true}/>
                 </Box>
               ))}
             </Carousel>
-            <Stack.Item gutterBefore={PaddingSize.Wide}><LinePager variant='small' pageCount={Math.ceil(props.slides.length)} pageCountSmall={Math.ceil(props.slides.length / 2)} pageCountLarge={Math.ceil(props.slides.length / 3)} activePageIndex={slideIndex} onPageClicked={onPageClicked}/></Stack.Item>
+            <Stack.Item gutterBefore={PaddingSize.Wide}>
+              <LinePager
+                variant='small'
+                pageCount={Math.ceil(props.slides.length)}
+                pageCountSmall={Math.ceil(props.slides.length / 2)}
+                pageCountLarge={Math.ceil(props.slides.length / 3)}
+                activePageIndex={slideIndex}
+                onPageClicked={onPageClicked}
+              />
+            </Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>

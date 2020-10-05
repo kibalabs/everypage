@@ -1,13 +1,11 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
 
-import { Icon } from './component';
+import { IComponentProps } from '../..';
+import { Icon, IIconTheme } from '.';
 
-interface IKibaIconProps {
-  id?: string;
-  className: string;
+interface IKibaIconProps extends IComponentProps<IIconTheme> {
   iconId: string;
-  size?: 'default' | 'small' | 'large' | 'extra-large' | 'extra-extra-large' | 'full';
   _color?: string;
 }
 
@@ -87,7 +85,6 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
     <Icon
       id={props.id}
       className={getClassName(KibaIcon.displayName, props.className)}
-      size={props.size}
       _color={props._color}
       shouldAddFill={shouldAddFill}
       shouldAddStroke={shouldAddStroke}

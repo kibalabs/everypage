@@ -6,36 +6,21 @@ import { IMultiAnyChildProps, ISingleAnyChildProps, flattenChildren } from '@kib
 import { Direction, Alignment, getFlexItemAlignment, getFlexContentAlignment, IDimensionGuide, PaddingSize, Spacing } from '..';
 import { PaddingView, IPaddingViewPaddingProps } from '../wrappers/paddingView';
 import { useDimensions } from '../theming';
+import { ResponsiveField, CssConverter, fieldToResponsiveCss } from '../util';
 
 // NOTE(krish): if the child of the stack.item declares 100% height (on vertical stack) it doesn't work on safari unless it has flex-basis: 0 (https://github.com/philipwalton/flexbugs/issues/197)
 // NOTE(krish): behavior of the above is also different on IE11, be careful!
 
-const getResponsiveCss = (screenWidth: string, css: string): string => {
-  return `@media (min-width: ${screenWidth}) { ${css} }`;
+const getContentAlignmentCss: CssConverter<Alignment> = (field: Alignment): string => {
+  return `justify-content: ${getFlexContentAlignment(field)};`;
 }
 
-const getContentAlignmentCss = (alignment: Alignment): string => {
-  return `justify-content: ${getFlexContentAlignment(alignment)};`;
+const getChildAlignmentCss: CssConverter<Alignment> = (field: Alignment): string => {
+  return `align-items: ${getFlexItemAlignment(field)};`;
 }
 
-const getResponsiveContentAlignmentCss = (screenWidth: string, alignment?: Alignment): string => {
-  return alignment ? getResponsiveCss(screenWidth, getContentAlignmentCss(alignment)) : '';
-}
-
-const getChildAlignmentCss = (alignment: Alignment): string => {
-  return `align-items: ${getFlexItemAlignment(alignment)};`;
-}
-
-const getResponsiveChildAlignmentCss = (screenWidth: string, alignment?: Alignment): string => {
-  return alignment ? getResponsiveCss(screenWidth, getChildAlignmentCss(alignment)) : '';
-}
-
-const getDirectionCss = (direction: Direction): string => {
-  return `flex-direction: ${direction === Direction.Vertical ? 'column' : 'row'};`;
-}
-
-const getResponsiveDirectionCss = (screenWidth: string, direction?: Direction): string => {
-  return direction ? getResponsiveCss(screenWidth, getDirectionCss(direction)) : '';
+const getDirectionCss: CssConverter<Direction> = (field: Direction): string => {
+  return `flex-direction: ${field === Direction.Vertical ? 'column' : 'row'};`;
 }
 
 export interface IStackItemProps extends ISingleAnyChildProps {
@@ -62,44 +47,20 @@ class StackItem extends React.Component<IStackItemProps> {
 
 interface IStyledStackProps {
   theme: IDimensionGuide;
-  $direction: Direction;
-  directionSmall?: Direction;
-  directionMedium?: Direction;
-  directionLarge?: Direction;
-  directionExtraLarge?: Direction;
-  childAlignment: Alignment;
-  childAlignmentSmall?: Alignment;
-  childAlignmentMedium?: Alignment;
-  childAlignmentLarge?: Alignment;
-  childAlignmentExtraLarge?: Alignment;
-  contentAlignment: Alignment;
-  contentAlignmentSmall?: Alignment;
-  contentAlignmentMedium?: Alignment;
-  contentAlignmentLarge?: Alignment;
-  contentAlignmentExtraLarge?: Alignment;
   isFullWidth: boolean;
   isFullHeight: boolean;
+  $direction: ResponsiveField<Direction>;
+  childAlignment: ResponsiveField<Alignment>;
+  contentAlignment: ResponsiveField<Alignment>;
 }
 
 const StyledStack = styled.div<IStyledStackProps>`
   display: flex;
   width: ${(props: IStyledStackProps): string => (props.isFullWidth ? '100%' : 'auto')};
   height: ${(props: IStyledStackProps): string => (props.isFullHeight ? '100%' : 'auto')};
-  ${(props: IStyledStackProps): string => getDirectionCss(props.$direction)};
-  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthSmall, props.directionSmall)};
-  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthMedium, props.directionMedium)};
-  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthLarge, props.directionLarge)};
-  ${(props: IStyledStackProps): string => getResponsiveDirectionCss(props.theme.screenWidthExtraLarge, props.directionExtraLarge)};
-  ${(props: IStyledStackProps): string => getContentAlignmentCss(props.contentAlignment)};
-  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthSmall, props.contentAlignmentSmall)};
-  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthMedium, props.contentAlignmentMedium)};
-  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthLarge, props.contentAlignmentLarge)};
-  ${(props: IStyledStackProps): string => getResponsiveContentAlignmentCss(props.theme.screenWidthExtraLarge, props.contentAlignmentExtraLarge)};
-  ${(props: IStyledStackProps): string => getChildAlignmentCss(props.childAlignment)};
-  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthSmall, props.childAlignmentSmall)};
-  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthMedium, props.childAlignmentMedium)};
-  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthLarge, props.childAlignmentLarge)};
-  ${(props: IStyledStackProps): string => getResponsiveChildAlignmentCss(props.theme.screenWidthExtraLarge, props.childAlignmentExtraLarge)};
+  ${(props: IStyledStackProps): string => fieldToResponsiveCss(props.$direction, props.theme, getDirectionCss)};
+  ${(props: IStyledStackProps): string => fieldToResponsiveCss(props.childAlignment, props.theme, getChildAlignmentCss)};
+  ${(props: IStyledStackProps): string => fieldToResponsiveCss(props.contentAlignment, props.theme, getContentAlignmentCss)};
   .scrollableVertically {
     overflow-y: auto;
   }
@@ -112,21 +73,6 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   id?: string;
   className: string;
   theme?: IDimensionGuide;
-  direction: Direction;
-  directionSmall?: Direction;
-  directionMedium?: Direction;
-  directionLarge?: Direction;
-  directionExtraLarge?: Direction;
-  childAlignment: Alignment;
-  childAlignmentSmall?: Alignment;
-  childAlignmentMedium?: Alignment;
-  childAlignmentLarge?: Alignment;
-  childAlignmentExtraLarge?: Alignment;
-  contentAlignment: Alignment;
-  contentAlignmentSmall?: Alignment;
-  contentAlignmentMedium?: Alignment;
-  contentAlignmentLarge?: Alignment;
-  contentAlignmentExtraLarge?: Alignment;
   shouldAddGutters: boolean;
   defaultGutter?: PaddingSize;
   isScrollableVertically: boolean;
@@ -135,6 +81,12 @@ interface IStackProps extends IMultiAnyChildProps, IPaddingViewPaddingProps {
   isFullHeight: boolean;
   paddingStart?: PaddingSize,
   paddingEnd?: PaddingSize,
+  direction: Direction;
+  directionResponsive?: ResponsiveField<Direction>;
+  childAlignment: Alignment;
+  childAlignmentResponsive?: ResponsiveField<Alignment>;
+  contentAlignment: Alignment;
+  contentAlignmentResponsive?: ResponsiveField<Alignment>;
 }
 
 export const Stack = (props: IStackProps): React.ReactElement => {
@@ -149,27 +101,18 @@ export const Stack = (props: IStackProps): React.ReactElement => {
 
   const defaultGutter = props.defaultGutter || PaddingSize.Default;
   const shouldAddGutters = props.shouldAddGutters && defaultGutter !== PaddingSize.None;
+  console.log('contentAlignmentResponsive', {...props.contentAlignmentResponsive});
+  console.log('contentAlignment', {base: props.contentAlignment, ...props.contentAlignmentResponsive});
+  console.log('contentAlignmentCss', fieldToResponsiveCss({base: props.contentAlignment, ...props.contentAlignmentResponsive}, theme, getContentAlignmentCss));
   return (
     <PaddingView paddingTop={paddingTop} paddingBottom={paddingBottom} paddingRight={paddingRight} paddingLeft={paddingLeft} {...props as IPaddingViewPaddingProps}>
       <StyledStack
         id={props.id}
         className={getClassName(Stack.displayName, props.isScrollableVertically && 'scrollableVertically', props.isScrollableHorizontally && 'scrollableHorizontally')}
         theme={theme}
-        $direction={props.direction}
-        directionSmall={props.directionSmall}
-        directionMedium={props.directionMedium}
-        directionLarge={props.directionLarge}
-        directionExtraLarge={props.directionExtraLarge}
-        childAlignment={props.childAlignment}
-        childAlignmentSmall={props.childAlignmentSmall}
-        childAlignmentMedium={props.childAlignmentMedium}
-        childAlignmentLarge={props.childAlignmentLarge}
-        childAlignmentExtraLarge={props.childAlignmentExtraLarge}
-        contentAlignment={props.contentAlignment}
-        contentAlignmentSmall={props.contentAlignmentSmall}
-        contentAlignmentMedium={props.contentAlignmentMedium}
-        contentAlignmentLarge={props.contentAlignmentLarge}
-        contentAlignmentExtraLarge={props.contentAlignmentExtraLarge}
+        $direction={{base: props.direction, ...props.directionResponsive}}
+        childAlignment={{base: props.childAlignment, ...props.childAlignmentResponsive}}
+        contentAlignment={{base: props.contentAlignment, ...props.contentAlignmentResponsive}}
         isFullWidth={props.isFullWidth}
         isFullHeight={props.isFullHeight}
       >

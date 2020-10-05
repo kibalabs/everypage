@@ -6,6 +6,7 @@ import { buildDimensions } from '../subatoms/dimensions';
 import { buildFonts } from '../subatoms/fonts';
 import { buildTextThemes } from '../subatoms/text';
 import { buildBoxThemes } from '../subatoms/box';
+import { buildIconThemes } from '../subatoms/icon';
 import { buildImageThemes } from '../subatoms/image';
 import { buildLoadingSpinnerThemes } from '../subatoms/loadingSpinner';
 import { buildPortalThemes } from '../subatoms/portal';
@@ -29,6 +30,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
 
   const textThemes = buildTextThemes(colors, dimensions, inputTheme?.texts);
   const boxThemes = buildBoxThemes(colors, dimensions, inputTheme?.boxes);
+  const iconThemes = buildIconThemes(colors, dimensions, boxThemes, inputTheme?.icons);
   const imageThemes = buildImageThemes(colors, dimensions, boxThemes, inputTheme?.images);
   const loadingSpinnerThemes = buildLoadingSpinnerThemes(colors, dimensions, inputTheme?.loadingSpinners);
   const portalThemes = buildPortalThemes(colors, dimensions, boxThemes, inputTheme?.portals);
@@ -55,6 +57,7 @@ export const buildTheme = (inputTheme?: RecursivePartial<ITheme>): ITheme => {
     // Subatoms
     boxes: boxThemes,
     texts: textThemes,
+    icons: iconThemes,
     images: imageThemes,
     loadingSpinners: loadingSpinnerThemes,
     portals: portalThemes,

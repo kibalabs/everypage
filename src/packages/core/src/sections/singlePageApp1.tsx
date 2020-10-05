@@ -52,7 +52,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack.Item gutterBefore={PaddingSize.Wide3}>
-              <Stack direction={Direction.Vertical} directionSmall={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
+              <Stack directionResponsive={{base: Direction.Vertical, small: Direction.Horizontal}} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                 {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonVariant={appButtonVariant} appId={iosAppId} /></Stack.Item>}
                 {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
                 {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}
@@ -66,7 +66,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
               <Stack.Item gutterAfter={PaddingSize.Wide}>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
                   {props.iconLinks.map((iconLink: ISinglePageApp1IconLink, index: number): React.ReactElement => (
-                    <IconButton key={index} target={iconLink.target} icon={<KibaIcon size='large' iconId={iconLink.iconId || 'ion-globe'} />} />
+                    <IconButton key={index} target={iconLink.target} icon={<KibaIcon variant='large' iconId={iconLink.iconId || 'ion-globe'} />} />
                   ))}
                 </Stack>
               </Stack.Item>
