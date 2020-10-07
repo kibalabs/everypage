@@ -43,7 +43,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
                       <MarkdownText textAlignment={TextAlignment.Center} source={slide.text} />
                     </Stack.Item>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-                      {slide.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={slide.authorImageUrl} /></Box>}
+                      {slide.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={slide.authorImageUrl} alternativeText={slide.authorName ? `${slide.authorName} image` : 'Testimonial author image'} /></Box>}
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
                           {slide.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={slide.authorName} />}

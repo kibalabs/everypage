@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { ISingleAnyChildProps, flattenChildren, useScrollListener, useInterval, useRenderedRef } from '@kibalabs/core-react';
+import { IMultiAnyChildProps, flattenChildren, useScrollListener, useInterval, useRenderedRef } from '@kibalabs/core-react';
 
 import { IMoleculeProps, defaultMoleculeProps } from './moleculeProps';
 import { Stack } from '../layouts';
@@ -79,7 +79,7 @@ const StyledSlide = styled.div<IStyledSlideProps>`
 `;
 StyledSlide.displayName = 'carousel-slide';
 
-export interface ICarouselProps extends IMoleculeProps<ICarouselTheme>, ISingleAnyChildProps {
+export interface ICarouselProps extends IMoleculeProps<ICarouselTheme>, IMultiAnyChildProps {
   shouldShowButtons?: boolean;
   autoplaySeconds?: number;
   initialIndex?: number;
@@ -192,7 +192,15 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
       direction={Direction.Horizontal}
       childAlignment={Alignment.Center}
     >
-      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} variant={props.indexButtonVariant} icon={<KibaIcon iconId='mui-chevron-left'/>} onClicked={onPreviousClicked} />}
+      {props.shouldShowButtons && (
+        <IconButton
+          theme={props.theme?.indexButtonTheme}
+          variant={props.indexButtonVariant}
+          icon={<KibaIcon iconId='mui-chevron-left' />}
+          label={'Previous'}
+          onClicked={onPreviousClicked}
+        />
+      )}
       <Stack.Item growthFactor={1} shrinkFactor={1}>
         <StyledSlider
           ref={sliderRef}
@@ -216,7 +224,15 @@ export const Carousel = (props: ICarouselProps): React.ReactElement => {
           })}
         </StyledSlider>
       </Stack.Item>
-      {props.shouldShowButtons && <IconButton theme={props.theme?.indexButtonTheme} variant={props.indexButtonVariant} icon={<KibaIcon iconId='mui-chevron-right'/>} onClicked={onNextClicked}/>}
+      {props.shouldShowButtons && (
+        <IconButton
+          theme={props.theme?.indexButtonTheme}
+          variant={props.indexButtonVariant}
+          icon={<KibaIcon iconId='mui-chevron-right'/>}
+          label={'Next'}
+          onClicked={onNextClicked}
+        />
+      )}
     </Stack>
   );
 };

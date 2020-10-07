@@ -142,6 +142,7 @@ Stack.defaultProps = {
   direction: Direction.Vertical,
   childAlignment: Alignment.Fill,
   contentAlignment: Alignment.Fill,
+  shouldAddGutters: false,
   isFullWidth: false,
   isFullHeight: false,
   isScrollableVertically: false,

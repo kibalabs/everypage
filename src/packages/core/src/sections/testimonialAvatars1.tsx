@@ -43,7 +43,7 @@ export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.React
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true} childAlignment={Alignment.Center}>
-                      {box.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={box.authorImageUrl} alternativeText={'Testimonial author'} /></Box>}
+                      {box.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={box.authorImageUrl} alternativeText={box.authorName ? `${box.authorName} image` : 'Testimonial author image'} /></Box>}
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
                           {box.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={box.authorName} />}

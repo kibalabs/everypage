@@ -46,6 +46,7 @@ export interface ISingleLineInputProps extends IMoleculeProps<ISingleLineInputTh
   messageText?: string;
   inputType: InputType;
   name?: string;
+  label?: string;
   inputWrapperVariant?: string;
   onKeyUp?(key: string): void;
   onKeyDown?(key: string): void;
@@ -98,6 +99,7 @@ export const SingleLineInput = (props: ISingleLineInputProps): React.ReactElemen
         onKeyDown={onKeyDown}
         onChange={onValueChanged}
         onClick={onClick}
+        aria-label={props.label || props.name || props.placeholderText}
         placeholder={props.placeholderText}
       />
     </InputFrame>

@@ -97,6 +97,7 @@ export const LinePager = (props: ILinePagerProps): React.ReactElement => {
             <StyledLinePagerItem
               className={getClassName(index === props.activePageIndex && 'active')}
               theme={theme}
+              aria-label={`Page ${index + 1}`}
               onClick={props.onPageClicked ? ((): void => props.onPageClicked(index)) : undefined}
             />
             {index < props.pageCount - 1 && <Spacing direction={Direction.Horizontal}/>}

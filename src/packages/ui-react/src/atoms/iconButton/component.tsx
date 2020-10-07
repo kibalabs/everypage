@@ -91,5 +91,6 @@ export const IconButton = (props: IIconButtonProps): React.ReactElement => {
 IconButton.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,
+  label: 'Icon Button',
 };
 IconButton.displayName = 'icon-button';

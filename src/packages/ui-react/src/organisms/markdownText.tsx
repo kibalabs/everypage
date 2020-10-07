@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { getClassName } from '@kibalabs/core';
 
-import { Text, TextAlignment, TextTag, Link } from '..';
+import { TextAlignment, TextTag, Link } from '..';
 import { PrettyText } from '../atoms/prettyText/component';
 
 interface IMarkdownTextProps {

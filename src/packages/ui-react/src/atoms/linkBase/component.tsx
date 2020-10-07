@@ -83,7 +83,7 @@ export const LinkBase = (props: ILinkBaseProps): React.ReactElement => {
       onClick={onClicked}
       aria-label={props.label}
       href={props.target}
-      rel={(props.target && targetShouldOpenSameTab) ? 'noopener' : undefined}
+      rel={props.target ? 'noopener' : undefined}
       target={props.target && (targetShouldOpenSameTab ? '_self' : '_blank')}
     >
       {props.children}

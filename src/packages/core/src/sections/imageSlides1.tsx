@@ -8,6 +8,7 @@ import { EverypagePaddingSize } from '../internal';
 
 interface IImages1Slide {
   mediaUrl: string;
+  label?: string;
 }
 
 interface IImages1Props extends ISectionProps {
@@ -40,7 +41,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             >
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded-transparent' isFullWidth={false}>
-                  <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true}/>
+                  <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true} alternativeText={slide.label || `Image ${index + 1}`} />
                 </Box>
               ))}
             </Carousel>

@@ -44,6 +44,7 @@ export interface IWebViewProps extends IComponentProps<IWebViewTheme> {
   url: string;
   errorView: React.FunctionComponent;
   permissions: string[];
+  title?: string;
 }
 
 export const WebView = (props: IWebViewProps): React.ReactElement => {
@@ -86,6 +87,7 @@ export const WebView = (props: IWebViewProps): React.ReactElement => {
         <StyledIframe
           id={props.id && `${props.id}-iframe`}
           className={'web-view-iframe'}
+          title={props.title}
           key={currentUrl}
           src={currentUrl}
           isLoading={false}
@@ -105,6 +107,7 @@ export const WebView = (props: IWebViewProps): React.ReactElement => {
             <StyledIframe
               id={props.id && `${props.id}-iframe`}
               className={'web-view-iframe'}
+              title={props.title}
               key={currentUrl}
               src={currentUrl}
               isLoading={isLoading}
@@ -123,6 +126,7 @@ WebView.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,
   shouldOpenSameTab: false,
+  title: 'Embedded View',
   permissions: [],
 };
 WebView.displayName = 'web-view';
