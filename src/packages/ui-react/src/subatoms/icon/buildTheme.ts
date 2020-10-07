@@ -27,18 +27,17 @@ export const buildIconThemes = (colors: IColorGuide, dimensions: IDimensionGuide
     size: '8rem',
   });
 
-  const fullIconTheme = mergeThemePartial<IIconTheme>({
+  const fillIconTheme = mergeThemePartial<IIconTheme>({
     size: '100%',
   });
-
 
   return {
     ...base,
     default: defaultIconTheme,
-    smallIconTheme: smallIconTheme,
-    largeIconTheme: largeIconTheme,
-    extraLargeIconTheme: extraLargeIconTheme,
-    extraExtraLargeIconTheme: extraExtraLargeIconTheme,
-    fullIconTheme: fullIconTheme,
+    small: smallIconTheme,
+    large: largeIconTheme,
+    extraLarge: extraLargeIconTheme,
+    extraExtraLarge: extraExtraLargeIconTheme,
+    fill: fillIconTheme,
   };
 }

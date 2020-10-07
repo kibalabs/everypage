@@ -81,5 +81,5 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
 };
 PricingTiers1.displayName = 'pricing-tiers-1';
 PricingTiers1.defaultProps = {
-  boxVariant: 'default',
+  boxVariant: 'bordered',
 };

@@ -36,7 +36,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                       <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
@@ -67,7 +67,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                       <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                           </ResponsiveView>
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>

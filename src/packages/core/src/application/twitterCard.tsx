@@ -80,7 +80,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         { !props.iosAppId ? (
           <Text>ios app not set</Text>
         ) : iosAppData === undefined ? (
-          <LoadingSpinner size={'small'} />
+          <LoadingSpinner variant={'small'} />
         ) : iosAppData === null ? (
           <Text>app not found with id: {props.iosAppId}</Text>
         ) : (
@@ -98,7 +98,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         { !props.androidAppId ? (
           <Text>android app not set</Text>
         ) : androidAppData === undefined ? (
-          <LoadingSpinner size={'small'} />
+          <LoadingSpinner variant={'small'} />
         ) : androidAppData === null ? (
           <Text>app not found with id: {props.androidAppId}</Text>
         ) : (

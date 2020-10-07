@@ -101,9 +101,6 @@ export const Stack = (props: IStackProps): React.ReactElement => {
 
   const defaultGutter = props.defaultGutter || PaddingSize.Default;
   const shouldAddGutters = props.shouldAddGutters && defaultGutter !== PaddingSize.None;
-  console.log('contentAlignmentResponsive', {...props.contentAlignmentResponsive});
-  console.log('contentAlignment', {base: props.contentAlignment, ...props.contentAlignmentResponsive});
-  console.log('contentAlignmentCss', fieldToResponsiveCss({base: props.contentAlignment, ...props.contentAlignmentResponsive}, theme, getContentAlignmentCss));
   return (
     <PaddingView paddingTop={paddingTop} paddingBottom={paddingBottom} paddingRight={paddingRight} paddingLeft={paddingLeft} {...props as IPaddingViewPaddingProps}>
       <StyledStack

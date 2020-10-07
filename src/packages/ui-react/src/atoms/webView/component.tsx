@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
+import { useInitialization } from '@kibalabs/core-react';
 
 import { IWebViewTheme } from './theme';
 import { IComponentProps, defaultComponentProps, useBuiltTheme, themeToCss } from '../..';
@@ -46,9 +47,10 @@ export interface IWebViewProps extends IComponentProps<IWebViewTheme> {
 }
 
 export const WebView = (props: IWebViewProps): React.ReactElement => {
-  const [currentUrl, setCurrentUrl] = React.useState<string | undefined>(undefined);
+  const [currentUrl, setCurrentUrl] = React.useState<string | undefined>(props.url);
   const [hasFailedToLoad, setHasFailedToLoad] = React.useState<boolean>(false);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const isInitialized = useInitialization((): void => {});
   const theme = useBuiltTheme('webViews', props.variant, props.theme);
 
   React.useEffect((): void => {
@@ -87,34 +89,36 @@ export const WebView = (props: IWebViewProps): React.ReactElement => {
           key={currentUrl}
           src={currentUrl}
           isLoading={false}
-          onLoad={handleOnLoad}
-          onError={handleOnError}
           allow={props.permissions.join(';')}
         />
       </noscript>
-      { hasFailedToLoad
+      {isInitialized && (
+        hasFailedToLoad
         ? props.errorView
-        : <React.Fragment>
-          { isLoading && (
-            <LoadingWrapper id={props.id && `${props.id}-loading-wrapper`}>
-              <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} className={'web-view-loading-spinner'} size='default' />
-            </LoadingWrapper>
-          )}
-          <StyledIframe
-            id={props.id && `${props.id}-iframe`}
-            className={'web-view-iframe'}
-            key={currentUrl}
-            src={currentUrl}
-            isLoading={isLoading}
-            onLoad={handleOnLoad}
-            onError={handleOnError}
-            allow={props.permissions.join(';')}
-          />
-        </React.Fragment>
-      }
+        : (
+          <React.Fragment>
+            { isLoading && (
+              <LoadingWrapper id={props.id && `${props.id}-loading-wrapper`}>
+                <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} className={'web-view-loading-spinner'} />
+              </LoadingWrapper>
+            )}
+            <StyledIframe
+              id={props.id && `${props.id}-iframe`}
+              className={'web-view-iframe'}
+              key={currentUrl}
+              src={currentUrl}
+              isLoading={isLoading}
+              onLoad={handleOnLoad}
+              onError={handleOnError}
+              allow={props.permissions.join(';')}
+            />
+          </React.Fragment>
+        )
+      )}
     </StyledWebView>
   );
 };
+
 WebView.defaultProps = {
   ...defaultComponentProps,
   isEnabled: true,

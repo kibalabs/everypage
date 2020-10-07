@@ -85,6 +85,7 @@ export const KibaIcon = (props: IKibaIconProps): React.ReactElement => {
     <Icon
       id={props.id}
       className={getClassName(KibaIcon.displayName, props.className)}
+      variant={props.variant}
       _color={props._color}
       shouldAddFill={shouldAddFill}
       shouldAddStroke={shouldAddStroke}

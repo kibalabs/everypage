@@ -40,7 +40,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
                     {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
-                    {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extra-large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                    {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                     <Spacing variant={PaddingSize.Wide} />
                     {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textvariant='subtitle' source={feature.title} /></Stack.Item>}
                     {feature.description && <MarkdownText textAlignment={TextAlignment.Center} source={feature.description} />}

@@ -37,8 +37,10 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <React.Fragment key={index}>
           <link href={theme.fonts[fontKey].url} rel='preload' as='style' />
-          <link href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
-          <noscript><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript>
+          {/* TODO(krish): the lazy loading doesn't work here */}
+          {/* <link href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
+          <noscript><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript> */}
+          <link href={theme.fonts[fontKey].url} rel='stylesheet' />
         </React.Fragment>
       ))}
 

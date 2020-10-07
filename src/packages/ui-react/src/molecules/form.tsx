@@ -59,7 +59,7 @@ export const Form = (props: IFormProps): React.ReactElement => {
         {props.children}
         { props.isLoading && (
           <LoadingOverlay id={props.id && `${props.id}-loading-overlay`} className={'form-overlay'}>
-            <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} className={'form-overlay-spinner'} size='large'/>
+            <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} className={'form-overlay-spinner'} variant='large' />
           </LoadingOverlay>
         )}
       </StyledForm>

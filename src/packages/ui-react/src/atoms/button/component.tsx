@@ -45,8 +45,8 @@ const StyledButton = styled.button<IStyledButtonProps>`
   }
   &.disabled {
     cursor: not-allowed;
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default.text)};
-    ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default.background)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default?.text)};
+    ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.default?.background)};
     &:hover {
       ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover?.text)};
       ${(props: IStyledButtonProps): string => themeToCss(props.theme.disabled.hover?.background)};
@@ -118,7 +118,12 @@ export const Button = (props: IButtonProps): React.ReactElement => {
           {props.iconRight}
         </React.Fragment>
       )}
-      { props.isLoading && <LoadingSpinner id={props.id && `${props.id}-loading-spinner`} variant='light' size='small'/> }
+      { props.isLoading && (
+        <LoadingSpinner
+          id={props.id && `${props.id}-loading-spinner`}
+          variant='light-small'
+        />
+      )}
     </StyledButton>
   );
 };
