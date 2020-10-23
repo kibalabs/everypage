@@ -1,0 +1,20 @@
+{
+  "name": "everypage",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "start": "lerna run start --parallel",
+    "start-console": "lerna run start-dev --parallel --scope @kibalabs/everypage-console --include-dependencies",
+    "start-builder-api": "lerna run start-dev --parallel --scope @kibalabs/everypage-builder-api --include-dependencies",
+    "build": "lerna run build",
+    "build-test": "lerna run build --scope @kibalabs/everypage-test --include-dependencies",
+    "publish-test": "lerna run publish --scope  @kibalabs/everypage-test",
+    "publish": "lerna publish from-package --no-git-tag-version --no-push --yes",
+    "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
+    "clean": "lerna clean --yes; rm -rf node_modules",
+    "clean-deep": "lerna clean --yes; rm -rf node_modules; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;"
+  },
+  "devDependencies": {
+    "lerna": "3.22.1"
+  }
+}
