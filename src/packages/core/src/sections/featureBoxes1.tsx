@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView, Button } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -11,6 +11,9 @@ interface IFeatureBoxes1Feature {
   description?: string;
   mediaUrl?: string;
   iconId?: string;
+  buttonText?: string;
+  buttonTarget?: string;
+  buttonVariant?: string;
 }
 
 interface IFeatureBoxes1Props extends ISectionProps {
@@ -38,12 +41,13 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{base: 12, small: 6, medium: 6, large: 4}}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
-                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
+                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
                     {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                     <Spacing variant={PaddingSize.Wide} />
-                    {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textVariant='subtitle' source={feature.title} /></Stack.Item>}
+                    {feature.title && <MarkdownText textAlignment={TextAlignment.Center} textVariant='subtitle' source={feature.title} />}
                     {feature.description && <MarkdownText textAlignment={TextAlignment.Center} source={feature.description} />}
+                    {feature.buttonTarget && <Button isFullWidth={true} variant={feature.buttonVariant} text={feature.buttonText || 'See more'} target={feature.buttonTarget} />}
                   </Stack>
                 </Box>
               ))}

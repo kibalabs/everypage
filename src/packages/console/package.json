@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-console",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
   "scripts": {
     "build": "build-react-app",
@@ -10,7 +10,7 @@
   "dependencies": {
     "@kibalabs/core": "^0.4.4",
     "@kibalabs/core-react": "^0.4.4",
-    "@kibalabs/everypage-core": "0.6.1",
+    "@kibalabs/everypage-core": "0.6.2",
     "@kibalabs/ui-react": "0.7.1",
     "@material-ui/core": "4.10.1",
     "@material-ui/icons": "4.9.1",
