@@ -27,7 +27,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
   };
   return (
     <Section {...props as ISectionProps} className={getClassName(ImageSlides1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeMedium={8}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, medium: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
@@ -35,12 +35,10 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             <Carousel
               onIndexChanged={onSlideIndexChanged}
               initialIndex={slideIndex}
-              slidesPerPage={1}
-              slidesPerPageSmall={2}
-              slidesPerPageLarge={3}
+              slidesPerPageResponsive={{base: 1, small: 2, large: 3}}
             >
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
-                <Box key={index} variant='padded-transparent' isFullWidth={false}>
+                <Box key={index} variant='padded' isFullWidth={false}>
                   <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true} alternativeText={slide.label || `Image ${index + 1}`} />
                 </Box>
               ))}
@@ -48,9 +46,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             <Stack.Item gutterBefore={PaddingSize.Wide}>
               <LinePager
                 variant='small'
-                pageCount={Math.ceil(props.slides.length)}
-                pageCountSmall={Math.ceil(props.slides.length / 2)}
-                pageCountLarge={Math.ceil(props.slides.length / 3)}
+                pageCountResponsive={{base: Math.ceil(props.slides.length), small: Math.ceil(props.slides.length / 2), large: Math.ceil(props.slides.length / 3)}}
                 activePageIndex={slideIndex}
                 onPageClicked={onPageClicked}
               />

@@ -29,7 +29,7 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(AppDownload1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={PaddingSize.Wide4} paddingEnd={PaddingSize.Wide4}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}

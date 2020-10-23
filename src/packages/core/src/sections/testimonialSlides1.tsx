@@ -30,14 +30,14 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
   };
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialSlides1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeMedium={8}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, medium: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex}>
               {props.slides.map((slide: ITestimonialSlides1Slide, index: number): React.ReactElement => (
-                <Box key={index} variant='padded-transparent'>
+                <Box key={index} variant='padded'>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                     <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}>
                       <MarkdownText textAlignment={TextAlignment.Center} source={slide.text} />

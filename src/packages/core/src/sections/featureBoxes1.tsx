@@ -30,19 +30,19 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeExtraLarge={8}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, extraLarge: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={6} size={12}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{base: 12, small: 6, medium: 6, large: 4}}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
                     {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                     <Spacing variant={PaddingSize.Wide} />
-                    {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textvariant='subtitle' source={feature.title} /></Stack.Item>}
+                    {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textAlignment={TextAlignment.Center} textVariant='subtitle' source={feature.title} /></Stack.Item>}
                     {feature.description && <MarkdownText textAlignment={TextAlignment.Center} source={feature.description} />}
                   </Stack>
                 </Box>

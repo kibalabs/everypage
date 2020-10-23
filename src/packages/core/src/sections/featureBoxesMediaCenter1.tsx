@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Grid, Media, PaddingSize, TextAlignment, Stack, Direction, Alignment, ResponsiveTextAlignmentView, useTheme, ITheme, KibaIcon, Box, ResponsiveView, ScreenSize } from '@kibalabs/ui-react';
+import { MarkdownText, Grid, Media, PaddingSize, TextAlignment, Stack, Direction, Alignment, ResponsiveTextAlignmentView, useTheme, ITheme, KibaIcon, Box, ResponsiveHidingView, ScreenSize } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -28,27 +28,27 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
           {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
           {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
-            <Grid.Item size={10} sizeMedium={4}>
+            <Grid.Item sizeResponsive={{base: 10, medium: 4}}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
                 {props.features.slice(0, Math.floor(props.features.length / 2)).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
-                    <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Right}>
+                    <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Right}}>
                       <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
-                          <ResponsiveView hiddenAbove={ScreenSize.Medium}>
+                          <ResponsiveHidingView hiddenAbove={ScreenSize.Medium}>
                             {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                          </ResponsiveView>
+                          </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Center} childAlignment={Alignment.Fill} shouldAddGutters={false} isFullWidth={true}>
-                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textvariant='subtitle' source={feature.title} /></Stack.Item>}
+                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textVariant='subtitle' source={feature.title} /></Stack.Item>}
                             {feature.description && <MarkdownText source={feature.description} />}
                           </Stack>
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
-                          <ResponsiveView hiddenBelow={ScreenSize.Medium}>
+                          <ResponsiveHidingView hiddenBelow={ScreenSize.Medium}>
                             {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                          </ResponsiveView>
+                          </ResponsiveHidingView>
                         </Stack.Item>
                       </Stack>
                     </ResponsiveTextAlignmentView>
@@ -56,28 +56,28 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                 ))}
               </Stack>
             </Grid.Item>
-            <Grid.Item size={8} sizeMedium={4} alignment={Alignment.Center}>
+            <Grid.Item sizeResponsive={{base: 8, medium: 4}} alignment={Alignment.Center}>
               <Media isCenteredHorizontally={true} source={props.mediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
-            <Grid.Item size={10} sizeMedium={4}>
+            <Grid.Item sizeResponsive={{base: 10, medium: 4}}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
                 {props.features.slice(Math.ceil(props.features.length / 2), props.features.length).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
-                    <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
+                    <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Left}}>
                       <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
-                          <ResponsiveView hiddenAbove={ScreenSize.Medium}>
+                          <ResponsiveHidingView hiddenAbove={ScreenSize.Medium}>
                             {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                          </ResponsiveView>
+                          </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
-                          <ResponsiveView hiddenBelow={ScreenSize.Medium}>
+                          <ResponsiveHidingView hiddenBelow={ScreenSize.Medium}>
                             {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
-                          </ResponsiveView>
+                          </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Center} childAlignment={Alignment.Fill} shouldAddGutters={false} isFullWidth={true}>
-                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textvariant='subtitle' source={feature.title} /></Stack.Item>}
+                            {feature.title && <Stack.Item gutterAfter={feature.description ? PaddingSize.Default : PaddingSize.None}><MarkdownText textVariant='subtitle' source={feature.title} /></Stack.Item>}
                             {feature.description && <MarkdownText source={feature.description} />}
                           </Stack>
                         </Stack.Item>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { Stack, Direction, Image, MarkdownText, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveView, ScreenSize, HidingView } from '@kibalabs/ui-react';
+import { Stack, Direction, Image, MarkdownText, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveHidingView, ScreenSize, HidingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 
@@ -51,20 +51,20 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
                 return <Button key={index} text={button.text} target={button.target} variant={button.variant || button.mode} />;
               }
               return (!button.display || button.display === 'default') && (
-                <ResponsiveView key={index} hiddenBelow={ScreenSize.Large}>
+                <ResponsiveHidingView key={index} hiddenBelow={ScreenSize.Large}>
                   <Button text={button.text} target={button.target} variant={button.variant || button.mode} />
-                </ResponsiveView>
+                </ResponsiveHidingView>
               );
             })}
             {props.buttons && props.buttons.filter((button: INavBar1Button): boolean => (!button.display || button.display === 'default' || button.display === 'overflow')).length > 0 && (
-              <ResponsiveView hiddenAbove={ScreenSize.Large}>
+              <ResponsiveHidingView hiddenAbove={ScreenSize.Large}>
                 <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} label='Open menu' onClicked={onMenuClicked} />
-              </ResponsiveView>
+              </ResponsiveHidingView>
             )}
           </Stack>
         </StyledNavigationBar>
         <HidingView isHidden={!isMenuOpen}>
-          <ResponsiveView hiddenAbove={ScreenSize.Large}>
+          <ResponsiveHidingView hiddenAbove={ScreenSize.Large}>
             <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide2} paddingEnd={PaddingSize.Wide2}>
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
                 return (!button.display || button.display === 'default' || button.display === 'overflow') && (
@@ -72,7 +72,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
                 );
               })}
             </Stack>
-          </ResponsiveView>
+          </ResponsiveHidingView>
         </HidingView>
       </Stack>
     </Section>

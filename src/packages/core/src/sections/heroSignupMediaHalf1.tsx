@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveView, ResponsiveContainingView } from '@kibalabs/ui-react';
+import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveHidingView, ResponsiveContainingView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
@@ -55,22 +55,22 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     <Section {...props as ISectionProps} className={getClassName(HeroSignupMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
         <Grid childAlignment={Alignment.Center}>
-        { props.leftMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+        { props.leftMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
           { props.leftMediaUrl && (
-            <Grid.Item size={0} sizeMedium={4}>
+            <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          <Grid.Item size={2} sizeMedium={1} />
-          <Grid.Item size={8} sizeMedium={5}>
-            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentMedium={TextAlignment.Left}>
+          <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
+          <Grid.Item sizeResponsive={{base: 8, medium: 5}}>
+            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Left}}>
                 <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}}>
-                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
                 {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
                 {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
                 <Form onFormSubmitted={onFormSubmitted}>
                   <React.Fragment>
-                    <ResponsiveView hiddenBelow={ScreenSize.Small}>
+                    <ResponsiveHidingView hiddenBelow={ScreenSize.Small}>
                       <Stack direction={Direction.Horizontal}>
                         <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                           <SingleLineInput
@@ -90,8 +90,8 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           isLoading={isLoading}
                         />
                       </Stack>
-                    </ResponsiveView>
-                    <ResponsiveView hiddenAbove={ScreenSize.Small}>
+                    </ResponsiveHidingView>
+                    <ResponsiveHidingView hiddenAbove={ScreenSize.Small}>
                       <Stack direction={Direction.Vertical}>
                         <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                           <SingleLineInput
@@ -112,26 +112,26 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
                           isFullWidth={true}
                         />
                       </Stack>
-                    </ResponsiveView>
+                    </ResponsiveHidingView>
                   </React.Fragment>
                 </Form>
               </Stack>
             </ResponsiveTextAlignmentView>
           </Grid.Item>
-          <Grid.Item size={2} sizeMedium={1} />
+          <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
           { props.rightMediaUrl && (
-            <Grid.Item size={0} sizeMedium={4}>
+            <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
               <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightMediaUrl && (<Grid.Item size={0} sizeMedium={1} />) }
+          { props.rightMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
           { props.leftMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0}>
+            <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
-            <Grid.Item size={8} sizeMedium={0}>
+            <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
               <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
             </Grid.Item>
           )}

@@ -30,12 +30,12 @@ export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.React
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialAvatars1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeMedium={8}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, medium: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeLarge={4} childSizeMedium={6} childSizeSmall={12}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{base: 12, small: 12, medium: 6, large: 4}}>
               {props.boxes.map((box: ITestimonialAvatarsBox, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>

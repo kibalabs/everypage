@@ -43,12 +43,12 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
-      <ResponsiveContainingView size={10} sizeSmall={8}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop}>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
-            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide}><ResponsiveContainingView size={12} sizeMedium={10}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack.Item gutterBefore={PaddingSize.Wide3}>

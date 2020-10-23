@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Form, Button, PaddingSize, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveView, ResponsiveContainingView, ResponsiveTextAlignmentView, TextAlignment } from '@kibalabs/ui-react';
+import { Form, Button, PaddingSize, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveHidingView, ResponsiveContainingView, ResponsiveTextAlignmentView, TextAlignment } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
@@ -49,14 +49,14 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
 
   return (
     <Section {...props as ISectionProps} className={getClassName(Signup1.displayName, props.className)}>
-      <ResponsiveContainingView size={10} sizeSmall={8} sizeLarge={6}>
+      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Form onFormSubmitted={onFormSubmitted}>
               <React.Fragment>
-                <ResponsiveView hiddenBelow={ScreenSize.Small}>
+                <ResponsiveHidingView hiddenBelow={ScreenSize.Small}>
                   <Stack direction={Direction.Horizontal}>
                     <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
@@ -76,8 +76,8 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       isLoading={isLoading}
                     />
                   </Stack>
-                </ResponsiveView>
-                <ResponsiveView hiddenAbove={ScreenSize.Small}>
+                </ResponsiveHidingView>
+                <ResponsiveHidingView hiddenAbove={ScreenSize.Small}>
                   <Stack direction={Direction.Vertical}>
                     <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
@@ -98,7 +98,7 @@ export const Signup1 = (props: ISignup1Props): React.ReactElement => {
                       isFullWidth={true}
                     />
                   </Stack>
-                </ResponsiveView>
+                </ResponsiveHidingView>
               </React.Fragment>
             </Form>
           </Stack>
