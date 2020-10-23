@@ -1,0 +1,95 @@
+{
+  "*name": "string",
+  "*tagline": "string",
+  "*company": "string",
+  "*companyUrl": "string",
+  "*sections": [
+    {
+      "oneOf": [
+        {
+          "type": "navbar-1"
+        },
+        {
+          "type": "footer-1",
+          "text": "string"
+        },
+        {
+          "type": "hero-signup-image-half-1",
+          "*titleText": "string",
+          "subtitleText": "string",
+          "logoImageUrl": "string",
+          "inputType": {
+            "type": "string",
+            "options": ["email", "url"],
+            "default": "email"
+          },
+          "inputPlaceholderText": "string",
+          "inputButtonText": "string",
+          "inputSuccessMessageText": "string",
+          "inputName": "string",
+          "formTarget": "string",
+          "formAction": "string"
+        }
+      ]
+    }
+  ]
+}
+
+// {
+//   "$schema": "http://json-schema.org/draft-07/schema#",
+//   "type": "object",
+//   "required": [
+//     "name",
+//     "tagline",
+//     "company",
+//     "companyUrl",
+//     "sections"
+//   ],
+//   "properties": {
+//     "name": {
+//       "type": "string"
+//     },
+//     "tagline": {
+//       "type": "string"
+//     },
+//     "company": {
+//       "type": "string"
+//     },
+//     "companyUrl": {
+//       "type": "string"
+//     },
+//     "sections": {
+//       "type": "array",
+//       "items": {
+//         "oneOf": [
+//           {
+//             "type": "object",
+//             "required": [
+//               "type"
+//             ],
+//             "properties": {
+//               "type": {
+//                 "type": "string",
+//                 "const": "navbar-1"
+//               }
+//             }
+//           },
+//           {
+//             "type": "object",
+//             "required": [
+//               "type",
+//               "titleText",
+//               "abc"
+//             ],
+//             "properties": {
+//               "type": {
+//                 "type": "string",
+//                 "const": "hero-signup-image-half-1"
+//               }
+//             }
+//           }
+//         ]
+//       }
+//     }
+//   }
+// }

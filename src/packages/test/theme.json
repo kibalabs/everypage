@@ -1,0 +1,16 @@
+{
+  "colors": {
+    "brandPrimary": "#2B59C3",
+    "brandSecondary": "#1d3557"
+  },
+  "fonts": {
+    "main": {
+      "url": "https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900&display=swap"
+    }
+  },
+  "texts": {
+    "default": {
+      "font-family": "Montserrat, Arial"
+    }
+  }
+}
