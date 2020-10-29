@@ -3,7 +3,7 @@ import React from 'react';
 import { ISectionProps } from '.';
 import { AppDownload1 } from './appDownload1';
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+// TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IAppButtons1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;

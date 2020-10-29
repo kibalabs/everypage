@@ -137,7 +137,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     setIsSiteThemeChanged(true);
   }
 
-  // TODO(krish): im sure this can be done better than just every 3 seconds
+  // TODO(krishan711): im sure this can be done better than just every 3 seconds
   useInterval(3, (): void => {
     if (!site || !siteVersion || !siteVersionEntry) {
       return;

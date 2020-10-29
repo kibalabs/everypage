@@ -22,7 +22,7 @@ interface ISectionHolderProps extends IMultiChildProps<ISectionProps> {
   background?: IBackgroundConfig;
 }
 
-// NOTE(krish): this is just a stripped down stack that prevents having to have multiple layers of children
+// NOTE(krishan711): this is just a stripped down stack that prevents having to have multiple layers of children
 export const SectionHolder = (props: ISectionHolderProps): React.ReactElement => {
   // const [hasRendered, setHasRendered] = React.useState<boolean>(false);
   // const sectionHolderRef = React.useRef<HTMLDivElement>();

@@ -9,7 +9,7 @@ interface IStyledNavigationBarProps {
   theme: IDimensionGuide;
 }
 
-// TODO(krish): this should use a box or something, not use theme directly!
+// TODO(krishan711): this should use a box or something, not use theme directly!
 const StyledNavigationBar = styled.nav<IStyledNavigationBarProps>`
   height: 4em;
   padding: ${(props: IStyledNavigationBarProps): string => props.theme.padding};

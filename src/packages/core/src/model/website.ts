@@ -31,5 +31,12 @@ export interface IWebsitePlugin {
 
 export interface IWebsiteSection {
   type: string;
+  id?: string;
+  className?: string;
+  background?: IBackgroundConfig;
+  shouldStickToTop: boolean;
+  isFullHeight?: boolean;
+  isInverse?: boolean;
+  colorVariant?: string;
   [key: string]: any;
 }

@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
+import { ITheme, colorsToCss } from '@kibalabs/ui-react';
 
 interface IGlobalCssProps {
+  theme: ITheme;
   resetCss: string;
 }
 
@@ -16,6 +18,7 @@ export const GlobalCss = createGlobalStyle<IGlobalCssProps>`
 
   html {
     overflow: hidden;
+    ${(props: IGlobalCssProps): string => colorsToCss(props.theme.colors)};
   }
 
   body {
