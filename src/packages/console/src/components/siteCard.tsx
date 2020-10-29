@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
   card: {
-
   },
   media: {
     height: 0,

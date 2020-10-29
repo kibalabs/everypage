@@ -9,14 +9,14 @@ export interface IHeadContentProps {
   theme?: ITheme;
 }
 
-// NOTE(krish): meta tags from https://github.com/gokulkrishh/awesome-meta-and-manifest/blob/master/README.md
+// NOTE(krishan711): meta tags from https://github.com/gokulkrishh/awesome-meta-and-manifest/blob/master/README.md
 export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
   const website = props.website || useWebsite();
   const theme = props.theme || useTheme();
   const title = website.title || `${website.name} - ${website.tagline}`;
   let socialCardImageUrl = website.socialCardImageUrl;
   if (!socialCardImageUrl) {
-    // TODO(krish): set a default image!
+    // TODO(krishan711): set a default image!
   } else if (socialCardImageUrl.startsWith('/')) {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
@@ -37,7 +37,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { Object.keys(theme.fonts || {}).map((fontKey: string, index: number): React.ReactElement => (
         <React.Fragment key={index}>
           <link href={theme.fonts[fontKey].url} rel='preload' as='style' />
-          {/* TODO(krish): the lazy loading doesn't work here */}
+          {/* TODO(krishan711): the lazy loading doesn't work here */}
           {/* <link href={theme.fonts[fontKey].url} rel='stylesheet' media='print' onLoad={((event: React.SyntheticEvent<HTMLLinkElement>): void => {(event.target as HTMLLinkElement).media = 'all'})} />
           <noscript><link href={theme.fonts[fontKey].url} rel='stylesheet' /></noscript> */}
           <link href={theme.fonts[fontKey].url} rel='stylesheet' />

@@ -3,15 +3,9 @@ import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
 import { ContainingView, ColorSettingView, BackgroundView, IBackgroundConfig } from '@kibalabs/ui-react';
+import { IWebsiteSection } from '../model/website';
 
-export interface ISectionProps {
-  id?: string;
-  className?: string;
-  background?: IBackgroundConfig;
-  shouldStickToTop: boolean;
-  isFullHeight?: boolean;
-  isInverse?: boolean;
-  colorVariant?: string;
+export interface ISectionProps extends IWebsiteSection {
 }
 
 export interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
@@ -67,7 +61,7 @@ Section.defaultProps = {
   isInverse: false,
 };
 
-// TODO(krish): for sticky sections it would be nice if the shadow only showed once scrolled, here is an attempt for that:
+// TODO(krishan711): for sticky sections it would be nice if the shadow only showed once scrolled, here is an attempt for that:
 // There is also this: https://medium.com/walmartlabs/activatable-drop-shadow-on-sticky-elements-d0c12f1ebfdf
 // const [isAtTop, setIsAtTop] = React.useState<boolean>(false);
 // const [lastTopPosition, setLastTopPosition] = React.useState<number | null>(null);

@@ -18,16 +18,14 @@ export interface IIndexPageProps {
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   const resolvedPageTheme = React.useMemo((): ITheme => buildEverypageTheme(props.pageTheme), [props.pageTheme]);
   const sections = props.pageContent.sections.map((sectionObject: Record<string, any>, index: number): React.ReactElement<ISectionProps> => (
-    renderSection({...sectionObject, key: index})
+    renderSection({id: `section-${index}`, ...sectionObject, key: index})
   ));
   if (props.shouldIncludeAttributionSection && props.pageContent.shouldHideAttribution !== true) {
-    sections.push(renderSection({ key: sections.length, type: 'attribution'}));
+    sections.push(renderSection({ id: 'attribution', key: sections.length, type: 'attribution'}));
   }
   if (props.shouldIncludeHeadSection) {
-    sections.unshift(renderSection({ key: sections.length, type: 'head'}));
+    sections.unshift(renderSection({ id: 'metadata', key: sections.length, type: 'head'}));
   }
-
-  // TODO(krish): add validation for the website information
 
   return (
     <KibaApp theme={resolvedPageTheme}>

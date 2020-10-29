@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { Box, Image } from '@kibalabs/ui-react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -68,9 +69,15 @@ export const NavigationBar = (): React.ReactElement => {
     <AppBar position="absolute" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <ButtonBase href={'/'}>
-          <Typography component="h1" variant="h6" color="inherit">
-            everypage
-          </Typography>
+          <Box height={'30px'}>
+            <Image
+              source={'/assets/everypage-wordmark-dark.svg'}
+              isLazyLoadable={false}
+              alternativeText={'Home'}
+              isFullWidth={false}
+              fitType={'scale'}
+            />
+          </Box>
         </ButtonBase>
         <div className={classes.spacer} />
         <Button

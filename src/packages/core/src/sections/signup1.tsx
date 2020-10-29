@@ -7,7 +7,7 @@ import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
 import { SectionTitleText, SectionSubtitleText } from '../components';
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+// TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface ISignup1Props extends ISectionProps, IFormProps {
   titleText?: string;
   subtitleText?: string;

@@ -33,7 +33,7 @@ export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: 
   return newSiteContent;
 };
 
-// NOTE(krish): These replacement functions are because in canvas the images are stored locally so cant just be a prefix.
+// NOTE(krishan711): These replacement functions are because in canvas the images are stored locally so cant just be a prefix.
 export const replaceAssetPath = (assetPath: string, assetReplacements: Record<string, string>): string => {
   return assetReplacements[assetPath] ? assetReplacements[assetPath] : assetPath;
 }
