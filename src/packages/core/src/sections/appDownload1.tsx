@@ -6,7 +6,7 @@ import { Section, ISectionProps } from '.';
 import { useWebsite } from '../util';
 import { SectionTitleText, SectionSubtitleText } from '../components';
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+// TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IAppDownload1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;

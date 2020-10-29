@@ -6,7 +6,7 @@ import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+// TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IFeatureMediaHalf1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;

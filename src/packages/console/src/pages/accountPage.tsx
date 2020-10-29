@@ -219,7 +219,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           }
         });
       } else if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_payment_method' && stripePaymentMethod) {
-        // TODO(krish): this is https://stripe.com/docs/billing/subscriptions/fixed-price?lang=python#manage-subscription-payment-failure, but not sure what to do with it!
+        // TODO(krishan711): this is https://stripe.com/docs/billing/subscriptions/fixed-price?lang=python#manage-subscription-payment-failure, but not sure what to do with it!
         setUpgradeError('Something went wrong on our side. Please try use the "Manage with stripe" feature below.');
       } else {
         setUpgradeError('Something went wrong on our side. Please try use the "Manage with stripe" feature below.');

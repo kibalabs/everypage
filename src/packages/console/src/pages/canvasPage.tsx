@@ -87,13 +87,13 @@ export const CanvasPage = (): React.ReactElement => {
 
   const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
     setSiteContent(siteContent);
-    // NOTE(krish): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
+    // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
     setIsSiteContentChanged(true);
   }
 
   const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
     setSiteTheme(siteTheme);
-    // NOTE(krish): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
+    // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
     setIsSiteContentChanged(true);
   }
 

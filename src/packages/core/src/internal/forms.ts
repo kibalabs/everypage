@@ -27,12 +27,12 @@ const paramsToQueryString = (params: Record<string, string>): string => {
 
 export const submitForm = async (inputs: IFormInput[], action: FormAction, target: string, headers?: IFormHeader[]): Promise<IFormSubmissionResult> => {
   const params = inputsToParams(inputs);
-  // TODO(krish): lowercase-ing should really happen in some kind of header container
+  // TODO(krishan711): lowercase-ing should really happen in some kind of header container
   const providedHeaders = headers ? headers.reduce((currentHeaders: Record<string, string>, header: IFormHeader): Record<string, string> => {
     currentHeaders[header.name.toLowerCase()] = header.value;
     return currentHeaders;
   }, {}) : {};
-  // NOTE(krish): remove empty values to allow un-setting content-type
+  // NOTE(krishan711): remove empty values to allow un-setting content-type
   const allHeaders = removeEmptyValues({'content-type': 'application/json', ...providedHeaders});
   if (action === FormAction.Open) {
     window.open(`${target}?${paramsToQueryString(params)}`, '_blank')
@@ -54,7 +54,7 @@ export const submitForm = async (inputs: IFormInput[], action: FormAction, targe
   }
 };
 
-// NOTE(krish): this doesn't work recursively
+// NOTE(krishan711): this doesn't work recursively
 function removeEmptyValues<T>(obj: Record<string, T>): Record<string, T> {
   return Object.keys(obj).reduce((newObj: Record<string, T>, key: string): Record<string, T> => {
     if (obj[key] !== null && obj[key] !== undefined) {

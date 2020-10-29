@@ -8,7 +8,7 @@ import { IFormProps, defaultFormProps } from '../model';
 import { HeroSectionTitleText, SectionSubtitleText } from '../components';
 
 
-// TODO(krish): These have to be optional because components don't declare them specifically. How can it be fixed?
+// TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IHeroSignup1Props extends ISectionProps, IFormProps {
   logoImageUrl?: string;
   titleText?: string;

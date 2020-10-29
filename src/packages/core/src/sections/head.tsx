@@ -16,13 +16,13 @@ export const Head = (props: IHeadProps): React.ReactElement => {
   const title = website.title || `${website.name} - ${website.tagline}`;
   let socialCardImageUrl = website.socialCardImageUrl;
   if (!socialCardImageUrl) {
-    // TODO(krish): set a default image!
+    // TODO(krishan711): set a default image!
   } else if (socialCardImageUrl.startsWith('/')) {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(Head.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide}>
+      <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} padding={PaddingSize.Wide}>
         <Text variant='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing variant={PaddingSize.Default} />
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={false}>
