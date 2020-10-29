@@ -1,14 +1,14 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Router, Route, useInitialization } from '@kibalabs/core-react';
 import { LocalStorageClient, Requester } from '@kibalabs/core';
+import { Router, Route, useInitialization } from '@kibalabs/core-react';
+import { buildTheme, ThemeProvider, resetCss } from '@kibalabs/ui-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalCss } from './components/globalCss';
-import { resetCss } from './components/resetCss';
 import { HomePage } from './pages/homePage';
 import { SitePage } from './pages/sitePage';
 import { CanvasPage } from './pages/canvasPage';
@@ -107,6 +107,13 @@ const globals = {
 const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 // const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
 
+const theme = buildTheme({
+  colors: {
+    brandPrimary: '#4b6cb7',
+    brandSecondary: '#182848',
+  },
+});
+
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
@@ -116,28 +123,30 @@ export const App = hot((): React.ReactElement => {
   });
 
   return (
-    <GlobalsProvider globals={globals}>
-      <Elements stripe={stripePromise}>
-        <Helmet>
-          <title>Everypage Console</title>
-        </Helmet>
-        {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
-        <GlobalCss resetCss={resetCss} />
-        <Router authManager={authManager}>
-          <Route path='/canvas' page={CanvasPage}/>
-          <Route path='/canvas-section' page={CanvasSectionPage}/>
-          <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
-          <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
-          <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
-          <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
-          <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
-          <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
-          <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
-          <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
-          <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'}/>
-          <Route default={true} page={NotFoundPage} />
-        </Router>
-      </Elements>
-    </GlobalsProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalsProvider globals={globals}>
+        <Elements stripe={stripePromise}>
+          <Helmet>
+            <title>Everypage Console</title>
+          </Helmet>
+          {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
+          <GlobalCss resetCss={resetCss} theme={theme} />
+          <Router authManager={authManager}>
+            <Route path='/canvas' page={CanvasPage}/>
+            <Route path='/canvas-section' page={CanvasSectionPage}/>
+            <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
+            <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
+            <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
+            <Route path='/sites/:slug' page={SitePage} redirectIfNoAuth={'/login'} />
+            <Route path='/sites/:slug/preview/:siteVersionId' page={SiteVersionPreviewPage} redirectIfNoAuth={'/login'} />
+            <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
+            <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
+            <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
+            <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'}/>
+            <Route default={true} page={NotFoundPage} />
+          </Router>
+        </Elements>
+      </GlobalsProvider>
+    </ThemeProvider>
   );
 });
