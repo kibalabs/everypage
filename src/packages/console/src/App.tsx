@@ -4,8 +4,6 @@ import { Helmet } from 'react-helmet';
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { Router, Route, useInitialization } from '@kibalabs/core-react';
 import { buildTheme, ThemeProvider, resetCss } from '@kibalabs/ui-react';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
 
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalCss } from './components/globalCss';
@@ -104,9 +102,6 @@ const globals = {
   consoleConfig,
 }
 
-const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
-// const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
-
 const theme = buildTheme({
   colors: {
     brandPrimary: '#4b6cb7',
@@ -125,7 +120,7 @@ export const App = hot((): React.ReactElement => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalsProvider globals={globals}>
-        <Elements stripe={stripePromise}>
+        <React.Fragment>
           <Helmet>
             <title>Everypage Console</title>
           </Helmet>
@@ -145,7 +140,7 @@ export const App = hot((): React.ReactElement => {
             <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'}/>
             <Route default={true} page={NotFoundPage} />
           </Router>
-        </Elements>
+        </React.Fragment>
       </GlobalsProvider>
     </ThemeProvider>
   );
