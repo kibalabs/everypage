@@ -152,13 +152,11 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
     } else if (currentPath && currentPath === 'metadata') {
       props.onSiteContentUpdated({...props.siteContent, ...json});
     } else if (currentPath && currentPath.startsWith('plugin:')) {
-      var copy = props.siteContent;
-      copy.plugins[parseInt(currentPath.replace('plugin:', ''))] = json;
-      props.onSiteContentUpdated(copy);
+      props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''))] = json;
+      props.onSiteContentUpdated(props.siteContent);
     } else if (currentPath && currentPath.startsWith('section:')) {
-      var copy = props.siteContent;
-      copy.sections[parseInt(currentPath.replace('section:', ''))] = json;
-      props.onSiteContentUpdated(copy);
+      props.siteContent.sections[parseInt(currentPath.replace('section:', ''))] = json;
+      props.onSiteContentUpdated(props.siteContent);
     }
   }
 
