@@ -9,6 +9,10 @@
   "company": "Kiba Labs",
   "companyUrl": "https://www.kibalabs.com",
   "socialCardImageUrl": "/assets/banner.png",
+  "plugins": [{
+    "type": "panelbear-analytics",
+    "siteId": "8CA6KboImrB"
+  }],
   "sections": [
     {
       "type": "navbar-1",
