@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView, Button } from '@kibalabs/ui-react';
+import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView, Button, ResponsiveField } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -21,6 +21,7 @@ interface IFeatureBoxes1Props extends ISectionProps {
   subtitleText?: string;
   boxMode?: string;
   boxVariant?: string;
+  boxSizes?: ResponsiveField<number>;
   features?: IFeatureBoxes1Feature[];
 }
 
@@ -31,6 +32,13 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
     console.warn('boxMode is deprecated. Please use boxVariant instead');
     boxVariant = props.boxMode;
   }
+  const sizes = {base: 12, small: 6, medium: 6, large: 4};
+  if (props.boxSizes) {
+    sizes.base = props.boxSizes.base ? 12 / props.boxSizes.base : sizes.base;
+    sizes.small = props.boxSizes.small ? 12 / props.boxSizes.small : sizes.small;
+    sizes.medium = props.boxSizes.medium ? 12 / props.boxSizes.medium : sizes.medium;
+    sizes.large = props.boxSizes.large ? 12 / props.boxSizes.large : sizes.large;
+  }
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{base: 10, extraLarge: 8}}>
@@ -38,7 +46,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{base: 12, small: 6, medium: 6, large: 4}}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
