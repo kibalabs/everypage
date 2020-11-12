@@ -9,7 +9,7 @@ export interface ITawkToChatProps extends IWebsitePlugin {
 
 export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
   if (!props.accountId || !props.widgetId) {
-    console.error('accountId and widgetId should be provided to EveryviewAnalytics')
+    console.error('accountId and widgetId should be provided to TawkToChat')
     return null;
   }
 
