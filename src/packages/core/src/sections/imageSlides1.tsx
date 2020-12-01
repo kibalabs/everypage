@@ -1,9 +1,9 @@
 import React from 'react';
 import { getClassName } from '@kibalabs/core';
-import { Stack, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, Image, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
+import { Stack, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { SectionTitleText, SectionSubtitleText, LazyImage } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IImages1Slide {
@@ -39,7 +39,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             >
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded' isFullWidth={false}>
-                  <Image source={slide.mediaUrl} isFullHeight={true} isFullWidth={true} alternativeText={slide.label || `Image ${index + 1}`} />
+                  <LazyImage source={slide.mediaUrl} isFullHeight={true} isFullWidth={true} alternativeText={slide.label || `Image ${index + 1}`} />
                 </Box>
               ))}
             </Carousel>
