@@ -28,15 +28,13 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
   }
 
   return (
-    <KibaApp theme={resolvedPageTheme}>
-      <WebsiteProvider website={props.pageContent}>
-        <React.Fragment>
-          <HeadContent />
-          {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
-          <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
-        </React.Fragment>
-      </WebsiteProvider>
-    </KibaApp>
+    <WebsiteProvider website={props.pageContent}>
+      <KibaApp theme={resolvedPageTheme}>
+        <HeadContent />
+        {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
+        <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
+      </KibaApp>
+    </WebsiteProvider>
   )
 }
 IndexPage.defaultProps = {

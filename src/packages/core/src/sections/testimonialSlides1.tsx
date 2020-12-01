@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, Image, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { SectionTitleText, SectionSubtitleText, LazyImage } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface ITestimonialSlides1Slide {
@@ -43,7 +43,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
                       <MarkdownText textAlignment={TextAlignment.Center} source={slide.text} />
                     </Stack.Item>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-                      {slide.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={slide.authorImageUrl} alternativeText={slide.authorName ? `${slide.authorName} image` : 'Testimonial author image'} /></Box>}
+                      {slide.authorImageUrl && <Box width='50px' height='50px'><LazyImage isFullHeight={true} isFullWidth={true} variant={'profile'} source={slide.authorImageUrl} alternativeText={slide.authorName ? `${slide.authorName} image` : 'Testimonial author image'} fitType='crop' /></Box>}
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
                           {slide.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={slide.authorName} />}

@@ -1,8 +1,6 @@
 import React from 'react';
 import { KibaException, Requester, KibaResponse } from '@kibalabs/core';
 import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { ThemeProvider } from '@kibalabs/ui-react';
-import { buildEverypageTheme } from '@kibalabs/everypage-core';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -201,7 +199,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap == undefined ? (
           <div>Loading...</div>
         ) : (
-          <ThemeProvider theme={buildEverypageTheme()}>
+          <React.Fragment>
             <Box paddingX={2} paddingY={1} className={classes.metaBox}>
               <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
               {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
@@ -231,7 +229,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
               isEditorHidden={isEditorHidden}
               onIsEditorHiddenUpdated={setIsEditorHidden}
             />
-          </ThemeProvider>
+          </React.Fragment>
         )}
       </main>
     </div>
