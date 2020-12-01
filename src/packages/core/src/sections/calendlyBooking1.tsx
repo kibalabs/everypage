@@ -71,10 +71,14 @@ const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
   const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
 
   useInitialization((): void => {
-    window.Calendly.initInlineWidget({
-      url: url,
-      parentElement: containerRef.current!,
-    });
+    if (window.Calendly) {
+      window.Calendly.initInlineWidget({
+        url: url,
+        parentElement: containerRef.current!,
+      });
+    } else {
+      console.warn('window.Calendly is not set!');
+    }
   })
 
   return (
