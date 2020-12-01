@@ -1,28 +1,19 @@
 import React from 'react';
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
+import { Box } from '@kibalabs/ui-react';
 import { IndexPage } from '@kibalabs/everypage-core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { KibaFrame } from '../components/kibaFrame';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-}));
-
-export const CanvasSectionPage = (): React.ReactElement => {
-  const classes = useStyles();
+export const CanvasPreviewPage = (): React.ReactElement => {
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
 
   return (
-    <div className={classes.root}>
+    <Box height='100%'>
       <KibaFrame>
         <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeAttributionSection={false} />
       </KibaFrame>
-    </div>
+    </Box>
   )
 }

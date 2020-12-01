@@ -7,7 +7,7 @@ interface IHeroLogoProps {
 
 export const HeroLogo = (props: IHeroLogoProps): React.ReactElement => {
   return (
-    <ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView>
+    <ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} alternativeText='logo' /></ResponsiveContainingView>
   );
 };
 

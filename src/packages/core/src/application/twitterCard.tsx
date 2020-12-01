@@ -4,6 +4,8 @@ import { Text, Stack, Alignment, Spacing, Image, Box, LoadingSpinner, PaddingSiz
 import { useInitialization, Link } from '@kibalabs/core-react';
 import { Requester, RestMethod, KibaResponse } from '@kibalabs/core';
 
+import { LazyImage } from '../components';
+
 interface ITwitterCardProps {
   title: string;
   description: string;
@@ -14,7 +16,7 @@ export const TwitterCard = (props: ITwitterCardProps): React.ReactElement => {
   return (
     <Box width={'300px'} variant='card'>
       <Stack childAlignment={Alignment.Fill}>
-        <Image source={props.imageUrl} alternativeText='' isFullWidth={true} />
+        <LazyImage source={props.imageUrl} alternativeText='' isFullWidth={true} />
         <Spacing variant={PaddingSize.Narrow} />
         <Text variant='strong'>{props.title}</Text>
         <Spacing variant={PaddingSize.Narrow} />
@@ -86,7 +88,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         ) : (
           <Stack childAlignment={Alignment.Center}>
             <Box width={'100px'} variant='transparent'>
-              <Image source={iosAppData.iconImageUrl} />
+              <LazyImage source={iosAppData.iconImageUrl} />
             </Box>
             <Text>{iosAppData.name}</Text>
             <Text variant='note'>{iosAppData.description ? `${iosAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
@@ -104,7 +106,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         ) : (
           <Stack childAlignment={Alignment.Center}>
             <Box width={'100px'} variant='transparent'>
-              <Image source={androidAppData.iconImageUrl} />
+              <LazyImage source={androidAppData.iconImageUrl} />
             </Box>
             <Text>{androidAppData.name}</Text>
             <Text variant='note'>{androidAppData.description ? `${androidAppData.description.substr(0, 150)}...` : 'no description found'}</Text>

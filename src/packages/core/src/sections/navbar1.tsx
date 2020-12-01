@@ -43,7 +43,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <StyledNavigationBar theme={theme}>
           <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
-            {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image isLazyLoadable={false} source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
+            {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
             {props.titleText && <MarkdownText textVariant='title-unmargined' textAlignment={TextAlignment.Center} source={props.titleText}/> }
             <Stack.Item growthFactor={1} />
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {

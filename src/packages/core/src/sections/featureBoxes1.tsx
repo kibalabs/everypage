@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView, Button, ResponsiveField } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { SectionTitleText, SectionSubtitleText, LazyMedia } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IFeatureBoxes1Feature {
@@ -50,7 +50,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
               {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
-                    {feature.mediaUrl && <Media source={feature.mediaUrl} alternativeText={feature.title} />}
+                    {feature.mediaUrl && <LazyMedia source={feature.mediaUrl} alternativeText={feature.title} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
                     <Spacing variant={PaddingSize.Wide} />
                     {feature.title && <MarkdownText textAlignment={TextAlignment.Center} textVariant='subtitle' source={feature.title} />}
