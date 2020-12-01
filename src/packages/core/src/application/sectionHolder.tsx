@@ -50,4 +50,4 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
 SectionHolder.defaultProps = {
   className: '',
 };
-SectionHolder.displayName = 'section-holder';
+SectionHolder.displayName = 'SectionHolder';

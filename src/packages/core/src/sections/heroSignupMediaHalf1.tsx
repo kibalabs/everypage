@@ -58,14 +58,14 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
         { props.leftMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
           { props.leftMediaUrl && (
             <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
           <Grid.Item sizeResponsive={{base: 8, medium: 5}}>
             <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Left}}>
                 <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}}>
-                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} isLazyLoadable={false} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
                 {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
                 {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
                 <Form onFormSubmitted={onFormSubmitted}>
@@ -121,18 +121,18 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
           <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
           { props.rightMediaUrl && (
             <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
           { props.leftMediaUrl && (
             <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
             <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} isLazyLoadable={false} alternativeText={'hero-media'} />
+              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
         </Grid>

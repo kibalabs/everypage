@@ -10,7 +10,7 @@ import { GlobalCss } from './components/globalCss';
 import { HomePage } from './pages/homePage';
 import { SitePage } from './pages/sitePage';
 import { CanvasPage } from './pages/canvasPage';
-import { CanvasSectionPage } from './pages/canvasSectionPage';
+import { CanvasPreviewPage } from './pages/canvasPreviewPage';
 import { LoginPage } from './pages/loginPage';
 import { RegisterPage } from './pages/registerPage';
 import { VerifyEmailPage } from './pages/verifyEmailPage';
@@ -22,7 +22,7 @@ import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';
 import { JwtRequestModifier } from './jwtRequestModifier';
-import { IConsoleConfig } from './consoleConfig';
+import { consoleConfig } from './consoleConfig';
 import { EmptyPage } from './pages/emptyPage';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
@@ -30,70 +30,6 @@ const requester = new Requester();
 const everypageClient = new EverypageClient(requester);
 const authManager = new AuthManager(localStorageClient, 'ep-console-jwt', everypageClient);
 requester.addModifier(new JwtRequestModifier(authManager));
-
-const consoleConfig: IConsoleConfig = {
-  plans: [{
-    planIndex: 1,
-    name: 'Core',
-    code: 'core',
-    priceMonthly: 0,
-    priceYearly: 0,
-    priceCodeMonthly: 'monthly',
-    priceCodeYearly: 'yearly',
-    siteLimit: 3,
-    hasCustomDomain: false,
-    hasNoBranding: false,
-    isPurchasable: true,
-    highlightFeature: 'get your pages published',
-    features: [
-    ],
-  }, {
-    planIndex: 2,
-    name: 'Starter',
-    code: 'starter',
-    priceMonthly: 500,
-    priceYearly: 5000,
-    priceCodeMonthly: 'monthly',
-    priceCodeYearly: 'yearly',
-    siteLimit: 20,
-    hasCustomDomain: true,
-    hasNoBranding: false,
-    isPurchasable: true,
-    highlightFeature: 'host pages on your own domain',
-    features: [
-    ],
-  }, {
-    planIndex: 3,
-    name: 'Premium',
-    code: 'premium',
-    priceMonthly: 2000,
-    priceYearly: 20000,
-    priceCodeMonthly: 'monthly',
-    priceCodeYearly: 'yearly',
-    siteLimit: 50,
-    hasCustomDomain: true,
-    hasNoBranding: true,
-    isPurchasable: true,
-    highlightFeature: 'remove everypage branding',
-    features: [
-    ],
-  // }, {
-  //   planIndex: 4,
-  //   name: 'Ultimate',
-  //   code: 'ultimate',
-  //   priceMonthly: 5000,
-  //   priceYearly: 50000,
-  //   priceCodeMonthly: 'monthly',
-  //   priceCodeYearly: 'yearly',
-  //   siteLimit: 100,
-  //   hasCustomDomain: true,
-  //   hasNoBranding: true,
-  //   isPurchasable: false,
-  //   highlightFeature: 'run a/b tests on your sites',
-  //   features: [
-  //   ],
-  }]
-}
 
 const globals = {
   everypageClient,
@@ -128,7 +64,8 @@ export const App = hot((): React.ReactElement => {
           <GlobalCss resetCss={resetCss} theme={theme} />
           <Router authManager={authManager}>
             <Route path='/canvas' page={CanvasPage}/>
-            <Route path='/canvas-section' page={CanvasSectionPage}/>
+            <Route path='/canvas-section' page={CanvasPreviewPage}/>
+            <Route path='/canvas-preview' page={CanvasPreviewPage}/>
             <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
             <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
             <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />

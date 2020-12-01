@@ -72,7 +72,6 @@ export const NavigationBar = (): React.ReactElement => {
           <Box height={'30px'}>
             <Image
               source={'/assets/everypage-wordmark-dark.svg'}
-              isLazyLoadable={false}
               alternativeText={'Home'}
               isFullWidth={false}
               fitType={'scale'}

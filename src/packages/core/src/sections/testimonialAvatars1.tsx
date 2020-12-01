@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, EqualGrid, Box, Direction, Image, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { SectionTitleText, SectionSubtitleText, LazyImage } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface ITestimonialAvatarsBox {
@@ -43,7 +43,7 @@ export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.React
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
                     <Stack direction={Direction.Horizontal} shouldAddGutters={true} childAlignment={Alignment.Center}>
-                      {box.authorImageUrl && <Box width='50px'><Image variant={'profile'} source={box.authorImageUrl} alternativeText={box.authorName ? `${box.authorName} image` : 'Testimonial author image'} /></Box>}
+                    {box.authorImageUrl && <Box width='50px' height='50px'><LazyImage isFullHeight={true} isFullWidth={true} variant={'profile'} source={box.authorImageUrl} alternativeText={box.authorName ? `${box.authorName} image` : 'Testimonial author image'} fitType='crop' /></Box>}
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
                         <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
                           {box.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={box.authorName} />}
