@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { Stack, ResponsiveContainingView, TextAlignment, Direction, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { useInitialization } from '@kibalabs/core-react';
+import { Stack, ResponsiveContainingView, TextAlignment, Direction, PaddingSize, ResponsiveTextAlignmentView, Link, Text } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
 import { SectionTitleText, SectionSubtitleText } from '../components';
@@ -55,23 +56,44 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
     margin-bottom: -30px;
     box-shadow: none;
   }
+
+  .no-js & {
+    height: auto !important;
+    box-shadow: none !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    border-radius: auto !important;
+  }
 `;
 
 const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
-  let url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
+  const containerRef = React.useRef<HTMLDivElement | null>();
+  const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
+
+  useInitialization((): void => {
+    window.Calendly.initInlineWidget({
+      url: url,
+      parentElement: containerRef.current!,
+    });
+  })
+
   return (
     <React.Fragment>
       <StyledCalendlyEmbed
         className={getClassName(CalendlyEmbed.displayName, 'calendly-inline-widget')}
         shouldHideEventType={props.shouldHideEventType}
         data-url={url}
+        ref={containerRef}
       />
       <Head>
         <script src='https://assets.calendly.com/assets/external/widget.js' />
       </Head>
+      <noscript>
+        <Text>Please <Link target={url} text='click here'></Link> to choose a time.</Text>
+      </noscript>
     </React.Fragment>
   );
 };
-CalendlyEmbed.displayName = 'calendly-embed';
+CalendlyEmbed.displayName = 'CalendlyEmbed';
 CalendlyEmbed.defaultProps = {
 };
