@@ -1,5 +1,5 @@
 {
-  "name": "@kibalabs/everypage",
+  "name": "@kibalabs/everypage-new",
   "version": "0.6.8",
   "description": "Build everypage sites",
   "license": "UNLICENSED",
@@ -8,9 +8,9 @@
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
   },
   "scripts": {
-    "build": "build-module --standalone",
-    "start": "build-module --standalone --start",
-    "start-dev": "build-module --standalone --start --dev",
+    "build": "build-module --standalone --include-react",
+    "start": "build-module --standalone --include-react --start",
+    "start-dev": "build-module --standalone --include-react --start --dev",
     "publish": "kiba-publish"
   },
   "bin": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "@babel/runtime": "7.10.2",
     "@kibalabs/everypage-core": "0.6.8",
+    "@kibalabs/core-react": "^0.5.0",
     "@kibalabs/ui-react": "0.7.5-next.2",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
@@ -32,13 +33,9 @@
     "core-js": "3.6.5",
     "react": "16.13.0",
     "react-dom": "16.13.0",
-    "react-static": "7.4.2",
-    "react-static-plugin-source-filesystem": "7.4.2",
-    "react-static-plugin-styled-components": "7.3.0",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
-    "styled-components": "5.2.0",
-    "typescript": "3.9.5"
+    "styled-components": "5.2.0"
   },
   "devDependencies": {
     "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-1.tgz",

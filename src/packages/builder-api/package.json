@@ -19,7 +19,7 @@
     "rimraf": "3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.3.1",
+    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-1.tgz",
     "@types/node": "14.0.13"
   }
 }
