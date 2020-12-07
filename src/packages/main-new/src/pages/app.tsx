@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Router } from '@kibalabs/core-react';
+// import { Route, Router } from '@kibalabs/core-react';
 
 import { NotFound } from './404';
 import { Home } from './home';
 
 export const App = () => (
-  <Router>
-    <Route path='/' page={Home} />
-    <Route default={true} page={NotFound} />
-  </Router>
+  // <Router>
+  //   <Route path='/' page={Home} />
+  //   <Route default={true} page={NotFound} />
+  // </Router>
+  <Home />
 );
 export default App;
 

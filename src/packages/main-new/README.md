@@ -6,11 +6,13 @@ Currently the state is I can render a single page (not totally sure how to "inje
 
 The next steps are:
 
-0. check if styled components are working
+[] get head content working
 
-1. reader page and then rehydrate on the frontend
+[] get styled components working
 
-2. how to manage the routing e.g.
+[] reader page and then rehydrate on the frontend
+
+[] how to manage the routing e.g.
 ```
   <Router>
     <Route path='/' page={Home} />
@@ -18,4 +20,4 @@ The next steps are:
   </Router>
 ```
 
-3. How to have more than one page
+[] How to have more than one page
