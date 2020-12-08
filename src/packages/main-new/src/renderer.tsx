@@ -1,9 +1,9 @@
-// import React from 'react';
-// import ReactDOMServer from 'react-dom/server';
-// import { ReportChunks } from 'react-universal-component';
-// import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
-// import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
-// import flushChunks from 'webpack-flush-chunks'
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { ReportChunks } from 'react-universal-component';
+import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import flushChunks from 'webpack-flush-chunks'
 import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
@@ -104,8 +104,9 @@ const cssConfig = (config = {}) => ({
 
 const internalPath = path.join(process.cwd(), './src/internal');
 const outputPath = path.join(process.cwd(), './output');
+
 const webpackConfig = webpackMerge(
-  commonConfig(),
+  commonConfig({analyze: true}),
   jsConfig({react: true, polyfill: true}),
   imagesConfig(),
   cssConfig(),
@@ -149,70 +150,76 @@ const webpackConfig = webpackMerge(
   ],
 });
 
-export const render = (): void => {
-  webpack(webpackConfig).run((err, stats) => {
-    if (err) {
-      console.log(chalk.red(err.stack || err))
-      if (err.details) {
-        console.log(chalk.red(err.details))
+export const render = async (): void => {
+  await new Promise(async (resolve, reject): Promise<any> => {
+    webpack(webpackConfig).run((err, stats) => {
+      if (err) {
+        console.log(chalk.red(err.stack || err))
+        if (err.details) {
+          console.log(chalk.red(err.details))
+        }
+        return reject(err);
       }
-      throw Error(err)
-    }
 
-    stats.toJson('verbose')
+      stats.toJson('verbose')
 
-    const buildErrors = stats.hasErrors()
-    const buildWarnings = stats.hasWarnings()
+      const buildErrors = stats.hasErrors()
+      const buildWarnings = stats.hasWarnings()
 
-    if (buildErrors || buildWarnings) {
-      console.log(stats.toString({
-        // context: state.config.context,
-        performance: false,
-        hash: false,
-        timings: true,
-        entrypoints: false,
-        chunkOrigins: false,
-        chunkModules: false,
-        colors: chalk.supportsColor,
-      }));
-      if (buildErrors) {
-        console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
-      } else if (buildWarnings) {
-        console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
+      if (buildErrors || buildWarnings) {
+        console.log(stats.toString({
+          // context: state.config.context,
+          performance: false,
+          hash: false,
+          timings: true,
+          entrypoints: false,
+          chunkOrigins: false,
+          chunkModules: false,
+          colors: chalk.supportsColor,
+        }));
+        if (buildErrors) {
+          console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
+        } else if (buildWarnings) {
+          console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
+        }
       }
-    }
-
-    fs.writeFile(path.join(outputPath, 'client-stats.json'), JSON.stringify(stats.toJson(), null, 2), function (err) {
+      return resolve(stats);
+    });
+  }).then(async (stats): Promise<void> => {
+    console.log('EP: here');
+    const chunkNames: string[] = []
+    const headElements = [];
+    const styledComponentsSheet = new ServerStyleSheet();
+    const bodyString = ReactDOMServer.renderToString(
+      // <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
+      <StyleSheetManager sheet={styledComponentsSheet.instance}>
+        <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
+          <App />
+        </HeadRootProvider>
+      </StyleSheetManager>
+      // </ReportChunks>
+    );
+    const headString = ReactDOMServer.renderToString(
+      <head>
+        {headElements}
+        {styledComponentsSheet.getStyleElement()}
+      </head>
+    );
+    const headStringCleaned = headString.replace(/\/\*!sc\*\//g, '');
+    console.log('EP: chunkNames', chunkNames);
+    const { scripts, stylesheets, css } = flushChunks(stats, {
+      chunkNames,
+      outputPath: '.',
+    })
+    console.log('EP: scripts', scripts);
+    console.log('EP: stylesheets', stylesheets);
+    console.log('EP: css', css);
+    const output = `<!DOCTYPE html><html><head>${headStringCleaned}</head><body>${bodyString}</body></html>`;
+    fs.writeFile(path.join(outputPath, 'index.html'), output, function (err) {
       if (err) {
         throw err
       };
-      console.log('Saved client stats');
+      console.log('EP: Saved index.html');
     });
   });
-  // const chunkNames: string[] = []
-  // const headElements = [];
-  // const styledComponentsSheet = new ServerStyleSheet();
-  // const bodyString = ReactDOMServer.renderToString(
-  //   // <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
-  //   <StyleSheetManager sheet={styledComponentsSheet.instance}>
-  //     <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-  //       <App />
-  //     </HeadRootProvider>
-  //   </StyleSheetManager>
-  //   // </ReportChunks>
-  // );
-  // const headString = ReactDOMServer.renderToString(
-  //   <head>
-  //     {headElements}
-  //     {styledComponentsSheet.getStyleElement()}
-  //   </head>
-  // );
-  // const headStringCleaned = headString.replace(/\/\*!sc\*\//g, '');
-  // console.log('chunkNames', chunkNames);
-  // const { scripts, stylesheets, css } = flushChunks({}, {
-  //   chunkNames,
-  //   outputPath: '.',
-  // })
-  // const output = `<!DOCTYPE html><html><head>${headStringCleaned}</head><body>${bodyString}</body></html>`;
-  // return output;
 };

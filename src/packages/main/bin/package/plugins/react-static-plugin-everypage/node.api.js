@@ -4,6 +4,7 @@ const path = require('path');
 
 import React from 'react';
 import { HeadRootProvider, ChildCapture } from '@kibalabs/everypage-core';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 class CreateRobotsWebpackPlugin {
   apply(compiler) {
@@ -95,15 +96,18 @@ export default () => ({
     return config;
   },
   beforeRenderToHtml: (element, { meta }) => {
+    meta.styledComponentsSheet = new ServerStyleSheet()
     meta.headElements = [];
     return (
       <HeadRootProvider root={<ChildCapture headElements={meta.headElements}/>}>
-        {element}
+        <StyleSheetManager sheet={meta.styledComponentsSheet.instance}>
+          {element}
+        </StyleSheetManager>
       </HeadRootProvider>
     );
   },
   headElements: (elements, { meta }) => {
-    elements = [...elements, meta.headElements];
+    elements = [...elements, meta.headElements, meta.styledComponentsSheet.getStyleElement()];
     return elements
   },
   beforeDocumentToFile: async (html) => {
