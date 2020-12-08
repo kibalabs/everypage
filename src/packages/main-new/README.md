@@ -6,18 +6,15 @@ Currently the state is I can render a single page (not totally sure how to "inje
 
 The next steps are:
 
-[] get head content working
-
-[] get styled components working
-
+[x] get head content working
+[x] get styled components working
+[] separate out webpack step so code is loaded in and built
 [] reader page and then rehydrate on the frontend
-
-[] how to manage the routing e.g.
+[] how to manage the routing at runtime e.g.
 ```
   <Router>
     <Route path='/' page={Home} />
     <Route default={true} page={NotFound} />
   </Router>
 ```
-
 [] How to have more than one page

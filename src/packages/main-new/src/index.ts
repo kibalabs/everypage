@@ -4,7 +4,7 @@ import * as rimraf from 'rimraf';
 import * as commander from 'commander';
 import * as childProcess from 'child_process';
 import * as chokidar from 'chokidar';
-import * as everypageCore from '@kibalabs/everypage-core';
+import * as everypageCore from './internal/src/pages/node_modules/@kibalabs/everypage-core';
 
 // export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
 //   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
@@ -172,16 +172,4 @@ import * as everypageCore from '@kibalabs/everypage-core';
 
 import { render } from './renderer';
 
-export const renderApp = (): void => {
-  const internalContent = render();
-  console.log('chunkNames', internalContent.chunkNames);
-  const output = `<html><head></head><body>${internalContent.bodyString}</body></html>`;
-  fs.writeFile('index.html', output, function (err) {
-    if (err) {
-      throw err
-    };
-    console.log('Saved!');
-  });
-}
-
-renderApp();
+render();

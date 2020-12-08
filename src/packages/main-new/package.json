@@ -8,9 +8,7 @@
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
   },
   "scripts": {
-    "build": "build-module --webpack-config-modifier ./config.webpack.js --standalone --include-react",
-    "start": "build-module --webpack-config-modifier ./config.webpack.js --standalone --include-react --start",
-    "start-dev": "build-module --webpack-config-modifier ./config.webpack.js --standalone --include-react --start --dev",
+    "build": "build-module",
     "publish": "kiba-publish"
   },
   "bin": {
@@ -36,10 +34,16 @@
     "react-dom": "16.13.0",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
-    "styled-components": "5.2.0"
+    "styled-components": "5.2.0",
+    "webpack-flush-chunks": "2.0.3",
+    "webpack": "4.43.0",
+    "webpack-bundle-analyzer": "3.8.0",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0",
+    "webpack-merge": "5.4.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-2.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-4.tgz",
     "@types/node": "14.0.13"
   }
 }
