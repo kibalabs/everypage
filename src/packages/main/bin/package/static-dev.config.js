@@ -17,7 +17,6 @@ export default {
   entry: 'index.tsx',
   plugins: [
     'react-static-plugin-everypage',
-    'react-static-plugin-styled-components',
     ['react-static-plugin-source-filesystem', { location: path.resolve(rootPath, './src/pages') }],
   ],
   getSiteData: async () => {

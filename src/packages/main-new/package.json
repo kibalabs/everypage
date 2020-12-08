@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
   },
   "scripts": {
-    "build": "build-module",
+    "build": "build-module --webpack-config-modifier ./config.webpack.js",
     "publish": "kiba-publish"
   },
   "bin": {
@@ -43,7 +43,7 @@
     "webpack-merge": "5.4.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-4.tgz",
+    "@kibalabs/build": "0.5.0",
     "@types/node": "14.0.13"
   }
 }

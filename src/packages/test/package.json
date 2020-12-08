@@ -20,7 +20,6 @@
     "react-dom": "16.13.0",
     "react-static": "7.4.2",
     "react-static-plugin-source-filesystem": "7.4.2",
-    "react-static-plugin-styled-components": "7.3.0",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
     "styled-components": "5.2.0",

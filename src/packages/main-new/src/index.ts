@@ -4,7 +4,7 @@ import * as rimraf from 'rimraf';
 import * as commander from 'commander';
 import * as childProcess from 'child_process';
 import * as chokidar from 'chokidar';
-import * as everypageCore from './internal/src/pages/node_modules/@kibalabs/everypage-core';
+import * as everypageCore from '@kibalabs/everypage-core';
 
 // export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
 //   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
@@ -171,5 +171,4 @@ import * as everypageCore from './internal/src/pages/node_modules/@kibalabs/ever
 // };
 
 import { render } from './renderer';
-
 render();
