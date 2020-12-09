@@ -8,13 +8,18 @@ The next steps are:
 
 [x] get head content working
 [x] get styled components working
-[] separate out webpack step so code is loaded in and built
+[x] separate out webpack step so code is loaded in and built
 [] reader page and then rehydrate on the frontend
-[] how to manage the routing at runtime e.g.
-```
-  <Router>
-    <Route path='/' page={Home} />
-    <Route default={true} page={NotFound} />
-  </Router>
-```
+[x] how to manage the routing at runtime
 [] How to have more than one page
+
+
+Actual documentation:
+
+The steps for generating a static site are:
+1. Run the project through webpack targeting the web (as if you were actually building the app)
+2. Run the project through webpack targeting the node
+  a. NOTE(krishan711): this should have more externals as its all bundled atm (unlike the web one which should be all bundled)
+3. Find the routes that need to be generated and get the "data" required for each
+4. For each route, use the node output from (2) and generate a html page with its content.
+  a. 

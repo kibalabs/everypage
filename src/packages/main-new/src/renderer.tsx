@@ -14,6 +14,39 @@ import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
 // import CreateRuntimeConfigPlugin from '../plugins/createRuntimeConfigPlugin';
 import webpackMerge from 'webpack-merge';
 import webpackBundleAnalyzer from 'webpack-bundle-analyzer';
+import { ServerLocation, createHistory, createMemorySource } from '@reach/router';
+
+
+export const trimLeadingSlashes = (string = '') => string.replace(/^\/{1,}/g, '')
+
+export function isAbsoluteUrl(url) {
+  if (typeof url !== 'string') {
+    return false
+  }
+  return /^[a-z][a-z0-9+.-]*:/.test(url)
+}
+
+export function makePathAbsolute(path) {
+  if (typeof path !== 'string') {
+    return '/'
+  }
+  if (isAbsoluteUrl(path)) {
+    return path
+  }
+  return `/${trimLeadingSlashes(path)}`
+}
+
+const getExternalPackages = (package) => {
+  return Object.keys(package.dependencies || {})
+    .concat(Object.keys(package.peerDependencies || {}))
+    .concat(Object.keys(package.optionalDependencies || {}));
+}
+
+const isExternalPackageRequest = (package, request) => {
+  return getExternalPackages(package).some((packageName) => {
+    return (request === packageName) || (request.indexOf(`${packageName}/`) === 0)
+  });
+}
 
 const commonConfig = (config = {}) => ({
   node: {
@@ -50,6 +83,7 @@ const babelConfig = (config = {}) => ({
   plugins: [
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-optional-chaining",
+    "babel-plugin-styled-components",
     ...(config.react ? ["react-hot-loader/babel"] : [])
   ],
 })
@@ -103,10 +137,11 @@ const cssConfig = (config = {}) => ({
 });
 
 const internalPath = path.join(process.cwd(), './src/internal');
-const outputPath = path.join(process.cwd(), './output');
+const outputPath = path.join(process.cwd(), './output-web');
+const outputPathNode = path.join(process.cwd(), './output-node');
 
-const webpackConfig = webpackMerge(
-  commonConfig({analyze: true}),
+const webWebpackConfig = webpackMerge(
+  commonConfig({analyze: false}),
   jsConfig({react: true, polyfill: true}),
   imagesConfig(),
   cssConfig(),
@@ -135,13 +170,6 @@ const webpackConfig = webpackMerge(
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
-    // new HtmlWebpackPlugin({
-    //   inject: true,
-    //   template: path.join(__dirname, './index.html'),
-    // }),
-    // new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-    //   PUBLIC_URL: '',
-    // }),
     new CopyPlugin({
       patterns: [
         { from: path.join(internalPath, './public'), noErrorOnMissing: true },
@@ -150,9 +178,47 @@ const webpackConfig = webpackMerge(
   ],
 });
 
+const nodeWebpackConfig = webpackMerge(
+  commonConfig({analyze: false}),
+  jsConfig({react: true}),
+  imagesConfig(),
+  cssConfig(),
+{
+  mode: 'production',
+  entry: [
+    'regenerator-runtime/runtime',
+    'whatwg-fetch',
+    'react-hot-loader/patch',
+    path.join(internalPath, './src/index.tsx')
+  ],
+  target: 'node',
+  output: {
+    filename: 'static-app.js',
+    chunkFilename: '[name].[hash:8].bundle.js',
+    path: outputPathNode,
+    publicPath: '/',
+    pathinfo: false,
+    libraryTarget: 'umd',
+  },
+  optimization: {
+    minimize: false,
+  },
+  externals: [
+    function(context, request, callback) {
+      if (isExternalPackageRequest(__non_webpack_require__(path.join(process.cwd(), 'package.json')), request)) {
+        return callback(null, 'commonjs ' + request);
+      }
+      console.log('non external package:', request);
+      return callback();
+    }
+  ],
+});
+
 export const render = async (): void => {
-  await new Promise(async (resolve, reject): Promise<any> => {
-    webpack(webpackConfig).run((err, stats) => {
+
+  await new Promise(async (resolve, reject): Promise<void> => {
+    console.log('EP: generating node output');
+    webpack(nodeWebpackConfig).run((err, stats) => {
       if (err) {
         console.log(chalk.red(err.stack || err))
         if (err.details) {
@@ -161,14 +227,8 @@ export const render = async (): void => {
         return reject(err);
       }
 
-      stats.toJson('verbose')
-
-      const buildErrors = stats.hasErrors()
-      const buildWarnings = stats.hasWarnings()
-
-      if (buildErrors || buildWarnings) {
+      if (stats.hasErrors() || stats.hasWarnings()) {
         console.log(stats.toString({
-          // context: state.config.context,
           performance: false,
           hash: false,
           timings: true,
@@ -177,49 +237,108 @@ export const render = async (): void => {
           chunkModules: false,
           colors: chalk.supportsColor,
         }));
-        if (buildErrors) {
+
+        if (stats.hasErrors()) {
           console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
-        } else if (buildWarnings) {
+        } else if (stats.hasWarnings()) {
           console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
         }
       }
-      return resolve(stats);
+      return resolve();
     });
+  }).then((): Promise<any> => {
+    console.log('EP: generating web output');
+    return new Promise(async (resolve, reject): Promise<any> => {
+      webpack(webWebpackConfig).run((err, stats) => {
+        if (err) {
+          console.log(chalk.red(err.stack || err))
+          if (err.details) {
+            console.log(chalk.red(err.details))
+          }
+          return reject(err);
+        }
+
+        if (stats.hasErrors() || stats.hasWarnings()) {
+          console.log(stats.toString({
+            performance: false,
+            hash: false,
+            timings: true,
+            entrypoints: false,
+            chunkOrigins: false,
+            chunkModules: false,
+            colors: chalk.supportsColor,
+          }));
+
+          if (stats.hasErrors()) {
+            console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
+          } else if (stats.hasWarnings()) {
+            console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
+          }
+        }
+        return resolve(stats);
+      });
+    })
   }).then(async (stats): Promise<void> => {
-    console.log('EP: here');
+    console.log('EP: generating static html');
+    const appPath = path.resolve(outputPathNode, 'static-app.js');
+    console.log('EP: appPath', appPath);
+    // NOTE(krish): this ensures the require is not executed at build time (only during runtime)
+    const App = __non_webpack_require__(appPath).default;
     const chunkNames: string[] = []
     const headElements = [];
     const styledComponentsSheet = new ServerStyleSheet();
+    const routerHistory = createHistory(createMemorySource('/'));
     const bodyString = ReactDOMServer.renderToString(
-      // <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
-      <StyleSheetManager sheet={styledComponentsSheet.instance}>
-        <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-          <App />
-        </HeadRootProvider>
-      </StyleSheetManager>
-      // </ReportChunks>
+      <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
+        <StyleSheetManager sheet={styledComponentsSheet.instance}>
+          <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
+            <ServerLocation url={'/'}>
+              <App routerHistory={routerHistory} />
+            </ServerLocation>
+          </HeadRootProvider>
+        </StyleSheetManager>
+      </ReportChunks>
     );
-    const headString = ReactDOMServer.renderToString(
+    console.log('bodyString', bodyString.slice(0, 100));
+    const { scripts, stylesheets, css } = flushChunks(stats.toJson(), {
+      chunkNames,
+      outputPath: '.',
+    });
+    const headString = ReactDOMServer.renderToStaticMarkup(
       <head>
         {headElements}
+        {scripts.map((script: string): React.ReactElement => (
+          <link key={script} rel='preload' as='script' href={makePathAbsolute(path.join('.', script))} />
+        ))}
         {styledComponentsSheet.getStyleElement()}
       </head>
     );
-    const headStringCleaned = headString.replace(/\/\*!sc\*\//g, '');
-    console.log('EP: chunkNames', chunkNames);
-    const { scripts, stylesheets, css } = flushChunks(stats, {
-      chunkNames,
-      outputPath: '.',
-    })
-    console.log('EP: scripts', scripts);
-    console.log('EP: stylesheets', stylesheets);
-    console.log('EP: css', css);
-    const output = `<!DOCTYPE html><html><head>${headStringCleaned}</head><body>${bodyString}</body></html>`;
+    // TODO(krishan711): use stylesheets and css
+    const bodyScriptsString = scripts.map((script: string): string => (
+      `<script defer type="text/javascript" src="${makePathAbsolute(path.join('.', script))}"></script>`
+    )).join('');
+    const output = `<!DOCTYPE html>
+      <html>
+        ${headString}
+        <body>
+          <div id="root">
+            ${bodyString}
+          </div>
+          ${bodyScriptsString}
+        </body>
+      </html>
+    `;
     fs.writeFile(path.join(outputPath, 'index.html'), output, function (err) {
       if (err) {
         throw err
       };
       console.log('EP: Saved index.html');
     });
+  }).catch((error): void => {
+    console.log('Failed due to error:', error);
   });
 };
+
+
+
+//       <main class="sc-iNiQeE bEHeDU sc-cxNIbT eZLezf BackgroundView SectionHolder sc-cOigif jODbhi no-js">
