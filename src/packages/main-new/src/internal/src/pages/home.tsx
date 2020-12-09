@@ -14,3 +14,5 @@ export const Home = (): React.ReactElement => {
     <IndexPage pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
   );
 };
+
+export default Home;
