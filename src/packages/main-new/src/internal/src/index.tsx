@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, IHistory } from '@kibalabs/core-react';
 
-import 'lazysizes';
-import 'lazysizes/plugins/attrchange/ls.attrchange';
+// import 'lazysizes';
+// import 'lazysizes/plugins/attrchange/ls.attrchange';
 
 import { NotFound } from './pages/404';
 import { Home } from './pages/home';

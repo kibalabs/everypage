@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getClassName } from '@kibalabs/core';
-import { useInitialization } from '@kibalabs/core-react';
 import { Stack, ResponsiveContainingView, TextAlignment, Direction, PaddingSize, ResponsiveTextAlignmentView, Link, Text } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
@@ -50,7 +49,7 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
   height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '600px' : '950px'};
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
-  @media (min-width: 795px) {
+  @media (min-width: 827px) {
     height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '700px' : '1050px'};
     margin-top: -66px;
     margin-bottom: -30px;
@@ -67,19 +66,7 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
 `;
 
 const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
-  const containerRef = React.useRef<HTMLDivElement | null>();
   const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
-
-  useInitialization((): void => {
-    if (window.Calendly) {
-      window.Calendly.initInlineWidget({
-        url: url,
-        parentElement: containerRef.current!,
-      });
-    } else {
-      console.warn('window.Calendly is not set!');
-    }
-  })
 
   return (
     <React.Fragment>
@@ -87,7 +74,6 @@ const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
         className={getClassName(CalendlyEmbed.displayName, 'calendly-inline-widget')}
         shouldHideEventType={props.shouldHideEventType}
         data-url={url}
-        ref={containerRef}
       />
       <Head>
         <script src='https://assets.calendly.com/assets/external/widget.js' />
