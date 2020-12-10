@@ -25,6 +25,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   }, [props.selectedElementId]);
 
   React.useEffect((): void => {
+    // NOTE(krishan711): these should be removable eventually!
     const script = props.document.createElement('script');
     script.async = true;
     script.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js';
