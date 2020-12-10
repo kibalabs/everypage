@@ -23,7 +23,7 @@
   "dependencies": {
     "@babel/runtime": "7.10.2",
     "@kibalabs/everypage-core": "0.6.8",
-    "@kibalabs/core-react": "file:/Users/krishan/Projects/core-react/kibalabs-core-react-0.5.0-5.tgz",
+    "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.0-5.tgz",
     "@kibalabs/ui-react": "0.7.5-next.2",
     "react-universal-component": "4.5.0",
     "chalk": "4.1.0",
@@ -47,7 +47,7 @@
     "webpack-merge": "5.4.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.5.1-4.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-4.tgz",
     "@types/node": "14.0.13"
   }
 }
