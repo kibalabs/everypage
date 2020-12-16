@@ -9,9 +9,12 @@ The next steps are:
 [x] get head content working
 [x] get styled components working
 [x] separate out webpack step so code is loaded in and built
-[] reader page and then rehydrate on the frontend
+[x] reader page and then rehydrate on the frontend
 [x] how to manage the routing at runtime
-[] How to have more than one page
+[x] remove warnings during compilation
+[] make scripts match current ones
+[] Use file structure to create multiple pages
+[] Look into code splitting for multiple pages
 
 
 Actual documentation:
@@ -22,4 +25,4 @@ The steps for generating a static site are:
   a. NOTE(krishan711): this should have more externals as its all bundled atm (unlike the web one which should be all bundled)
 3. Find the routes that need to be generated and get the "data" required for each
 4. For each route, use the node output from (2) and generate a html page with its content.
-  a. 
+  a.

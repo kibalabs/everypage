@@ -11,7 +11,7 @@ siteData.pageContent.siteHost = 'test.evrpg.com';
 
 export const Home = (): React.ReactElement => {
   return (
-    <IndexPage pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
+    <IndexPage isRehydrating={true} pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
   );
 };
 

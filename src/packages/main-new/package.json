@@ -23,8 +23,8 @@
   "dependencies": {
     "@babel/runtime": "7.10.2",
     "@kibalabs/everypage-core": "0.6.8",
-    "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.0-5.tgz",
-    "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.7.4-9.tgz",
+    "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.0-8.tgz",
+    "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.7.4-18.tgz",
     "react-universal-component": "4.5.0",
     "chalk": "4.1.0",
     "chokidar": "3.4.0",
