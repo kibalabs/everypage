@@ -9,9 +9,6 @@ import path from 'path';
 import webpack from 'webpack';
 import chalk from 'chalk';
 import CopyPlugin from 'copy-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
-// import CreateRuntimeConfigPlugin from '../plugins/createRuntimeConfigPlugin';
 import webpackMerge from 'webpack-merge';
 import webpackBundleAnalyzer from 'webpack-bundle-analyzer';
 import { ServerLocation, createHistory, createMemorySource } from '@reach/router';
@@ -136,10 +133,6 @@ const cssConfig = (config = {}) => ({
   },
 });
 
-const internalPath = path.join(process.cwd(), './src/internal');
-const outputPath = path.join(process.cwd(), './output-web');
-const outputPathNode = path.join(process.cwd(), './output-node');
-
 const webWebpackConfig = webpackMerge(
   commonConfig({analyze: false}),
   jsConfig({react: true, polyfill: true}),
@@ -152,13 +145,11 @@ const webWebpackConfig = webpackMerge(
     'regenerator-runtime/runtime',
     'whatwg-fetch',
     'react-hot-loader/patch',
-    path.join(internalPath, './src/index.tsx')
   ],
   target: 'web',
   output: {
     chunkFilename: '[name].[hash:8].bundle.js',
     filename: '[name].[hash:8].js',
-    path: outputPath,
     publicPath: '/',
     pathinfo: false,
   },
@@ -170,11 +161,6 @@ const webWebpackConfig = webpackMerge(
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: path.join(internalPath, './public'), noErrorOnMissing: true },
-      ]
-    }),
   ],
 });
 
@@ -189,13 +175,11 @@ const nodeWebpackConfig = webpackMerge(
     'regenerator-runtime/runtime',
     'whatwg-fetch',
     'react-hot-loader/patch',
-    path.join(internalPath, './src/index.tsx')
   ],
   target: 'node',
   output: {
     filename: 'static-app.js',
     chunkFilename: '[name].[hash:8].bundle.js',
-    path: outputPathNode,
     publicPath: '/',
     pathinfo: false,
     libraryTarget: 'umd',
@@ -214,11 +198,21 @@ const nodeWebpackConfig = webpackMerge(
   ],
 });
 
-export const render = async (): void => {
-
-  await new Promise(async (resolve, reject): Promise<void> => {
+export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
+  const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
+  const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
+  const outputDirectoryNode = path.join(buildDirectory, './output-node');
+  return new Promise(async (resolve, reject): Promise<void> => {
     console.log('EP: generating node output');
-    webpack(nodeWebpackConfig).run((err, stats) => {
+    const webpackConfig = webpackMerge(nodeWebpackConfig, {
+      entry: [
+        path.join(buildDirectory, './index.tsx'),
+      ],
+      output: {
+        path: outputDirectoryNode,
+      },
+    });
+    webpack(webpackConfig).run((err, stats) => {
       if (err) {
         console.log(chalk.red(err.stack || err))
         if (err.details) {
@@ -240,7 +234,9 @@ export const render = async (): void => {
 
         if (stats.hasErrors()) {
           console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
-        } else if (stats.hasWarnings()) {
+          return reject(err);
+        }
+        if (stats.hasWarnings()) {
           console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
         }
       }
@@ -249,7 +245,22 @@ export const render = async (): void => {
   }).then((): Promise<any> => {
     console.log('EP: generating web output');
     return new Promise(async (resolve, reject): Promise<any> => {
-      webpack(webWebpackConfig).run((err, stats) => {
+      const webpackConfig = webpackMerge(webWebpackConfig, {
+        entry: [
+          path.join(buildDirectory, './index.tsx')
+        ],
+        output: {
+          path: outputDirectory,
+        },
+        plugins: [
+          new CopyPlugin({
+            patterns: [
+              { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
+            ]
+          }),
+        ],
+      });
+      webpack(webpackConfig).run((err, stats) => {
         if (err) {
           console.log(chalk.red(err.stack || err))
           if (err.details) {
@@ -271,7 +282,9 @@ export const render = async (): void => {
 
           if (stats.hasErrors()) {
             console.log(chalk.red.bold(`=> There were ERRORS during the build stage! :(`));
-          } else if (stats.hasWarnings()) {
+            return reject(err);
+          }
+          if (stats.hasWarnings()) {
             console.log(chalk.yellow(`=> There were WARNINGS during the build stage. Your site will still function, but you may achieve better performance by addressing the warnings above.`));
           }
         }
@@ -280,8 +293,7 @@ export const render = async (): void => {
     })
   }).then(async (stats): Promise<void> => {
     console.log('EP: generating static html');
-    const appPath = path.resolve(outputPathNode, 'static-app.js');
-    console.log('EP: appPath', appPath);
+    const appPath = path.resolve(outputDirectoryNode, 'static-app.js');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(appPath).default;
     const chunkNames: string[] = []
@@ -299,7 +311,6 @@ export const render = async (): void => {
         </StyleSheetManager>
       </ReportChunks>
     );
-    console.log('bodyString', bodyString.slice(0, 100));
     const { scripts, stylesheets, css } = flushChunks(stats.toJson(), {
       chunkNames,
       outputPath: '.',
@@ -328,17 +339,8 @@ export const render = async (): void => {
         </body>
       </html>
     `;
-    fs.writeFile(path.join(outputPath, 'index.html'), output, function (err) {
-      if (err) {
-        throw err
-      };
-      console.log('EP: Saved index.html');
-    });
+    fs.writeFileSync(path.join(outputDirectory, 'index.html'), output);
   }).catch((error): void => {
     console.log('Failed due to error:', error);
   });
 };
-
-
-
-//       <main class="sc-iNiQeE bEHeDU sc-cxNIbT eZLezf BackgroundView SectionHolder sc-cOigif jODbhi no-js">

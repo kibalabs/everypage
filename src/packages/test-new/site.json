@@ -475,6 +475,21 @@
       ]
     },
     {
+      "type": "hero-buttons-video-1",
+      "titleText": "What's **awesome** about your product?",
+      "subtitleText": "Why should your visitors be interested? Make it clear to them what you are going to do for them so they subscribe for early access! Anything you can offer would be great to highlight e.g. beta access or a discount once launched",
+      "buttons": [
+        {
+          "variant": "primary",
+          "target": "https://www.everypagehq.com",
+          "text": "Click me!"
+        }
+      ],
+      "embeddedVideoUrl": "https://www.youtube.com/embed/_tUCouKc4Ek?modestbranding=1",
+      "logoImageUrl": "https://wml-images.s3-eu-west-1.amazonaws.com/awesomco-logo.svg",
+      "oldVideoUrl": "https://everysize.kibalabs.com/_bh20200627091434/assets/hero.mp4"
+    },
+    {
       "type": "hero-app-buttons-media-half-1",
       "titleText": "What's **special** about your app?",
       "subtitleText": null,
@@ -550,6 +565,13 @@
       "calendarId": "chat",
       "shouldHideEventType": true,
       "username": "krishan711"
+    },
+    {
+      "type": "video-1",
+      "titleText": "Watch and learn 👀",
+      "subtitleText": "Videos are great, everyone can learn from them!",
+      "embeddedVideoUrl": "https://www.youtube.com/embed/_tUCouKc4Ek",
+      "videoUrl": null
     },
     {
       "type": "hero-app-download-1",

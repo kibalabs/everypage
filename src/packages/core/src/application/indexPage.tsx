@@ -9,7 +9,7 @@ import { PluginRenderer } from './pluginRenderer';
 import { HeadContent } from './headContent';
 
 export interface IIndexPageProps {
-  pageContent: { sections: Record<string, any> } & IWebsite;
+  pageContent: IWebsite;
   pageTheme: ITheme;
   shouldIncludeHeadSection: boolean;
   shouldIncludeAttributionSection: boolean;

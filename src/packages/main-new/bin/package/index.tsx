@@ -1,18 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, IHistory } from '@kibalabs/core-react';
-
-import { NotFound } from './pages/404';
-import { Home } from './pages/home';
+import { IndexPage } from '@kibalabs/everypage-core';
 
 interface IAppProps {
   routerHistory?: IHistory;
 }
 
+export const NotFound = (): React.ReactElement => {
+  return (
+    <div>Oh my, not found!</div>
+  );
+};
+
+export const Index = (): React.ReactElement => {
+  const siteData = { pageContent: require('./site.json'), pageTheme: require('./theme.json') };
+  return (
+    <IndexPage isRehydrating={true} pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
+  );
+}
+
 export const App = (props: IAppProps) => {
   return (
     <Router history={props.routerHistory}>
-      <Route path='/' page={Home} />
+      <Route path='/' page={Index} />
       <Route default={true} page={NotFound} />
     </Router>
   );
