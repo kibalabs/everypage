@@ -25,7 +25,7 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
           window.panelbearQ = window.panelbearQ || [];
           panelbearQ.push(arguments);
         };
-        // NOTE(krish): not sure why honorDNT is needed. 
+        // NOTE(krishan711): not sure why honorDNT is needed.
         window.panelbear('config', { site: props.siteId, honorDNT: false });
       }, 300)
     } else {

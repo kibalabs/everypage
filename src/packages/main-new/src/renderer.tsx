@@ -282,7 +282,7 @@ export const render = async (): void => {
     console.log('EP: generating static html');
     const appPath = path.resolve(outputPathNode, 'static-app.js');
     console.log('EP: appPath', appPath);
-    // NOTE(krish): this ensures the require is not executed at build time (only during runtime)
+    // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(appPath).default;
     const chunkNames: string[] = []
     const headElements = [];

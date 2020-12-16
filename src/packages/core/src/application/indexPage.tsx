@@ -13,6 +13,7 @@ export interface IIndexPageProps {
   pageTheme: ITheme;
   shouldIncludeHeadSection: boolean;
   shouldIncludeAttributionSection: boolean;
+  isRehydrating?: boolean;
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
@@ -29,7 +30,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
 
   return (
     <WebsiteProvider website={props.pageContent}>
-      <KibaApp theme={resolvedPageTheme}>
+      <KibaApp isRehydrating={props.isRehydrating} theme={resolvedPageTheme}>
         <HeadContent />
         {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
         <SectionHolder background={props.pageContent.background}>{ sections }</SectionHolder>
