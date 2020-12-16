@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@kibalabs/core": "^0.5.0",
-    "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.0-8.tgz",
+    "@kibalabs/core-react": "0.5.1",
     "@kibalabs/everyview-tracker": "^0.2.0",
     "lazysizes": "^5.2.1",
     "react-ga": "^3.0.0"

@@ -12,10 +12,12 @@ The next steps are:
 [x] reader page and then rehydrate on the frontend
 [x] how to manage the routing at runtime
 [x] remove warnings during compilation
-[] make scripts match current ones
+[x] separate main-new into test-new
+[] reuse webpack configs from build-js
+[] add 404 handling
 [] Use file structure to create multiple pages
 [] Look into code splitting for multiple pages
-
+[] Think about alternatives for main-new/bin/package/index.tsx
 
 Actual documentation:
 
