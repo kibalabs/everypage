@@ -9,7 +9,6 @@ interface IKibaFrameInnerProps extends ISingleAnyChildProps {
   selectedElementId?: string;
 }
 
-// TODO(krishan711): have to hard-code the calendly script cos it doesn't load from within. See calendly-booking-1
 const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   React.useLayoutEffect((): void => {
     if (props.selectedElementId) {
