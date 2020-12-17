@@ -18,8 +18,15 @@ import CopyPlugin from 'copy-webpack-plugin';
 import webpackMerge from 'webpack-merge';
 import { ServerLocation, createHistory, createMemorySource } from '@reach/router';
 
+class CreateRobotsWebpackPlugin {
+  apply(compiler) {
+    compiler.hooks.afterEmit.tap('CreateRobots', async () => {
+      fs.writeFileSync(path.join(compiler.options.output.path, 'robots.txt'), 'User-agent: *\nDisallow:\n');
+    });
+  }
+}
 
-export const trimLeadingSlashes = (string = '') => string.replace(/^\/{1,}/g, '')
+export const trimLeadingSlashes = (string = '') => string.replace(/^\/{1,}/g, '');
 
 export function isAbsoluteUrl(url) {
   if (typeof url !== 'string') {
@@ -38,54 +45,44 @@ export function makePathAbsolute(path) {
   return `/${trimLeadingSlashes(path)}`
 }
 
-const nodeWebpackConfig = webpackMerge(
-  makeCommonWebpackConfig({analyze: false}),
-  makeJsWebpackConfig({react: true}),
-  makeImagesWebpackConfig(),
-  makeCssWebpackConfig(),
-{
-  mode: 'production',
-  entry: [
-    'regenerator-runtime/runtime',
-    'whatwg-fetch',
-  ],
-  target: 'node',
-  output: {
-    filename: 'static-app.js',
-    chunkFilename: '[name].[hash:8].bundle.js',
-    publicPath: '/',
-    pathinfo: false,
-    libraryTarget: 'umd',
-  },
-  optimization: {
-    minimize: false,
-  },
-  externals: [
-    function(context, request, callback) {
-      if (isExternalPackageRequest(__non_webpack_require__(path.join(process.cwd(), 'package.json')), request)) {
-        return callback(null, 'commonjs ' + request);
-      }
-      console.log('non external package:', request);
-      return callback();
-    }
-  ],
-});
-
 export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
   return new Promise(async (resolve, reject): Promise<void> => {
     console.log('EP: generating node output');
-    const webpackConfig = webpackMerge(nodeWebpackConfig, {
-      entry: [
-        path.join(buildDirectory, './index.tsx'),
-      ],
-      output: {
-        path: outputDirectoryNode,
+    const nodeWebpackConfig = webpackMerge(
+      makeCommonWebpackConfig({analyze: false}),
+      makeJsWebpackConfig({react: true}),
+      makeImagesWebpackConfig(),
+      makeCssWebpackConfig(),
+      makeReactAppWebpackConfig({entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false}),
+      {
+        mode: 'production',
+        target: 'node',
+        output: {
+          filename: 'static-app.js',
+          libraryTarget: 'umd',
+        },
+        optimization: {
+          runtimeChunk: false,
+          splitChunks: {
+            chunks: 'async',
+          },
+        },
+        externals: [
+          function(context, request, callback) {
+            if (isExternalPackageRequest(__non_webpack_require__(path.join(process.cwd(), 'package.json')), request)) {
+              return callback(null, 'commonjs ' + request);
+            }
+            console.log('non external package:', request);
+            return callback();
+          }
+        ],
       },
-    });
-    webpack(webpackConfig).run((err, stats) => {
+    );
+    console.log('nodeWebpackConfig', nodeWebpackConfig);
+    webpack(nodeWebpackConfig).run((err, stats) => {
       if (err) {
         console.log(chalk.red(err.stack || err))
         if (err.details) {
@@ -123,44 +120,18 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
       makeImagesWebpackConfig(),
       makeCssWebpackConfig(),
       makeReactAppWebpackConfig({entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory}),
-    {
-      // mode: 'production',
-      // entry: [
-      //   'core-js/stable',
-      //   'regenerator-runtime/runtime',
-      //   'whatwg-fetch',
-      // ],
-      // target: 'web',
-      // output: {
-      //   chunkFilename: '[name].[hash:8].bundle.js',
-      //   filename: '[name].[hash:8].js',
-      //   publicPath: '/',
-      //   pathinfo: false,
-      // },
-      // optimization: {
-      //   runtimeChunk: 'single',
-      //   splitChunks: {
-      //     chunks: 'all',
-      //   },
-      // },
-      // plugins: [
-      //   new webpack.HashedModuleIdsPlugin(),
-      // ],
-    }, {
-      // entry: [
-      //   path.join(buildDirectory, './index.tsx')
-      // ],
-      // output: {
-      //   path: outputDirectory,
-      // },
-      // plugins: [
-      //   new CopyPlugin({
-      //     patterns: [
-      //       { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
-      //     ]
-      //   }),
-      // ],
-    });
+      {
+        mode: 'production',
+        plugins: [
+          new CopyPlugin({
+            patterns: [
+              { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
+            ]
+          }),
+          new CreateRobotsWebpackPlugin(),
+        ],
+      },
+    );
     return new Promise(async (resolve, reject): Promise<any> => {
       webpack(webWebpackConfig).run((err, stats) => {
         if (err) {
