@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { ReportChunks } from 'react-universal-component';
+import { isExternalPackageRequest } from '@kibalabs/build/scripts/common/packageUtil';
+import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
+import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
+import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
+import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
 import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import flushChunks from 'webpack-flush-chunks'
@@ -33,111 +38,11 @@ export function makePathAbsolute(path) {
   return `/${trimLeadingSlashes(path)}`
 }
 
-const getExternalPackages = (package) => {
-  return Object.keys(package.dependencies || {})
-    .concat(Object.keys(package.peerDependencies || {}))
-    .concat(Object.keys(package.optionalDependencies || {}));
-}
-
-const isExternalPackageRequest = (package, request) => {
-  return getExternalPackages(package).some((packageName) => {
-    return (request === packageName) || (request.indexOf(`${packageName}/`) === 0)
-  });
-}
-
-const commonConfig = (config = {}) => ({
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-  },
-  resolve: {
-    alias: {
-      '@src': path.join(process.cwd(), './src'),
-    }
-  },
-  plugins: [
-    ...(config.analyze ? [
-      new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: 'json', reportFilename: './bundle-size.json' }),
-      new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: 'static', reportFilename: './bundle-size.html' }),
-    ] : [])
-  ],
-});
-
-const babelConfig = (config = {}) => ({
-  presets: [
-    ["@babel/preset-env", config.polyfill ? {
-      useBuiltIns: "usage",
-      corejs: {
-        version: 3.6,
-        proposals: true,
-      },
-      targets: "defaults, >0.2%, not dead, ie 11",
-    } : {}],
-    "@babel/preset-typescript",
-    ...(config.react ? ["@babel/preset-react"] : [])
-  ],
-  plugins: [
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-optional-chaining",
-    "babel-plugin-styled-components",
-    ...(config.react ? ["react-hot-loader/babel"] : [])
-  ],
-})
-
-const jsConfig = (config = {}) => ({
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(j|t)sx?$/,
-        exclude: /(node_modules|build|dist)\//,
-        use: {
-          loader: 'babel-loader',
-          options: babelConfig(config),
-        },
-      },
-    ],
-  },
-});
-
-const imagesConfig = (config = {}) => ({
-  module: {
-    rules: [
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            fallback: 'file-loader',
-            name: '[name]__[local]___[hash:base64:5].[ext]',
-            outputPath: 'assets/',
-            publicPath: '/assets/'
-          },
-        },
-      },
-    ],
-  },
-});
-
-const cssConfig = (config = {}) => ({
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
-  },
-});
-
 const webWebpackConfig = webpackMerge(
-  commonConfig({analyze: false}),
-  jsConfig({react: true, polyfill: true}),
-  imagesConfig(),
-  cssConfig(),
+  makeCommonWebpackConfig({analyze: false}),
+  makeJsWebpackConfig({react: true, polyfill: true}),
+  makeImagesWebpackConfig(),
+  makeCssWebpackConfig(),
 {
   mode: 'production',
   entry: [
@@ -165,10 +70,10 @@ const webWebpackConfig = webpackMerge(
 });
 
 const nodeWebpackConfig = webpackMerge(
-  commonConfig({analyze: false}),
-  jsConfig({react: true}),
-  imagesConfig(),
-  cssConfig(),
+  makeCommonWebpackConfig({analyze: false}),
+  makeJsWebpackConfig({react: true}),
+  makeImagesWebpackConfig(),
+  makeCssWebpackConfig(),
 {
   mode: 'production',
   entry: [
