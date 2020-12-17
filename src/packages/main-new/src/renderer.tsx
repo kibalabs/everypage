@@ -6,6 +6,7 @@ import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpa
 import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
 import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
 import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
+import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import flushChunks from 'webpack-flush-chunks'
@@ -15,7 +16,6 @@ import webpack from 'webpack';
 import chalk from 'chalk';
 import CopyPlugin from 'copy-webpack-plugin';
 import webpackMerge from 'webpack-merge';
-import webpackBundleAnalyzer from 'webpack-bundle-analyzer';
 import { ServerLocation, createHistory, createMemorySource } from '@reach/router';
 
 
@@ -38,37 +38,6 @@ export function makePathAbsolute(path) {
   return `/${trimLeadingSlashes(path)}`
 }
 
-const webWebpackConfig = webpackMerge(
-  makeCommonWebpackConfig({analyze: false}),
-  makeJsWebpackConfig({react: true, polyfill: true}),
-  makeImagesWebpackConfig(),
-  makeCssWebpackConfig(),
-{
-  mode: 'production',
-  entry: [
-    'core-js/stable',
-    'regenerator-runtime/runtime',
-    'whatwg-fetch',
-    'react-hot-loader/patch',
-  ],
-  target: 'web',
-  output: {
-    chunkFilename: '[name].[hash:8].bundle.js',
-    filename: '[name].[hash:8].js',
-    publicPath: '/',
-    pathinfo: false,
-  },
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
-  plugins: [
-    new webpack.HashedModuleIdsPlugin(),
-  ],
-});
-
 const nodeWebpackConfig = webpackMerge(
   makeCommonWebpackConfig({analyze: false}),
   makeJsWebpackConfig({react: true}),
@@ -79,7 +48,6 @@ const nodeWebpackConfig = webpackMerge(
   entry: [
     'regenerator-runtime/runtime',
     'whatwg-fetch',
-    'react-hot-loader/patch',
   ],
   target: 'node',
   output: {
@@ -149,23 +117,52 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     });
   }).then((): Promise<any> => {
     console.log('EP: generating web output');
+    const webWebpackConfig = webpackMerge(
+      makeCommonWebpackConfig({analyze: false}),
+      makeJsWebpackConfig({react: true, polyfill: true}),
+      makeImagesWebpackConfig(),
+      makeCssWebpackConfig(),
+      makeReactAppWebpackConfig({entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory}),
+    {
+      // mode: 'production',
+      // entry: [
+      //   'core-js/stable',
+      //   'regenerator-runtime/runtime',
+      //   'whatwg-fetch',
+      // ],
+      // target: 'web',
+      // output: {
+      //   chunkFilename: '[name].[hash:8].bundle.js',
+      //   filename: '[name].[hash:8].js',
+      //   publicPath: '/',
+      //   pathinfo: false,
+      // },
+      // optimization: {
+      //   runtimeChunk: 'single',
+      //   splitChunks: {
+      //     chunks: 'all',
+      //   },
+      // },
+      // plugins: [
+      //   new webpack.HashedModuleIdsPlugin(),
+      // ],
+    }, {
+      // entry: [
+      //   path.join(buildDirectory, './index.tsx')
+      // ],
+      // output: {
+      //   path: outputDirectory,
+      // },
+      // plugins: [
+      //   new CopyPlugin({
+      //     patterns: [
+      //       { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
+      //     ]
+      //   }),
+      // ],
+    });
     return new Promise(async (resolve, reject): Promise<any> => {
-      const webpackConfig = webpackMerge(webWebpackConfig, {
-        entry: [
-          path.join(buildDirectory, './index.tsx')
-        ],
-        output: {
-          path: outputDirectory,
-        },
-        plugins: [
-          new CopyPlugin({
-            patterns: [
-              { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
-            ]
-          }),
-        ],
-      });
-      webpack(webpackConfig).run((err, stats) => {
+      webpack(webWebpackConfig).run((err, stats) => {
         if (err) {
           console.log(chalk.red(err.stack || err))
           if (err.details) {
