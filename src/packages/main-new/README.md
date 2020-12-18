@@ -14,19 +14,19 @@ The next steps are:
 [x] remove warnings during compilation
 [x] separate main-new into test-new
 [x] reuse webpack configs from build-js
-[] sort out config.js for main-new
-[] test new build-js for multiple places
-[] add 404 handling
+[x] sort out config.js for main-new
+[x] test new build-js for multiple places
+[] test on IE
+[] add 404 page generation
 [] Use file structure to create multiple pages
 [] Look into code splitting for multiple pages
-[] Think about alternatives for main-new/bin/package/index.tsx (maybe can be compiled and copied)
+[] Think about alternatives for main-new/bin/package/index.tsx (maybe can be compiled and referenced)
 
 Actual documentation:
 
 The steps for generating a static site are:
 1. Run the project through webpack targeting the web (as if you were actually building the app)
 2. Run the project through webpack targeting the node
-  a. NOTE(krishan711): this should have more externals as its all bundled atm (unlike the web one which should be all bundled)
 3. Find the routes that need to be generated and get the "data" required for each
 4. For each route, use the node output from (2) and generate a html page with its content.
   a.

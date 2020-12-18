@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
   },
   "scripts": {
-    "build": "build-module --webpack-config-modifier ./config.webpack.js",
+    "build": "build-react-component --webpack-config-modifier ./config.webpack.js",
     "publish": "kiba-publish"
   },
   "bin": {
@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.10.2",
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-34.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-44.tgz",
     "@kibalabs/core-react": "0.5.1",
     "@kibalabs/ui-react": "0.7.5-next.3",
     "@kibalabs/everypage-core": "0.6.8",
