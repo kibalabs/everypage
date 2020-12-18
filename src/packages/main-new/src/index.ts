@@ -8,7 +8,7 @@ import { updateAssetPaths, IWebsite } from '@kibalabs/everypage-core';
 import { render } from './renderer';
 
 export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
-  console.log(`copyDirectorySync: ${sourceDirectory} ${targetDirectory}`);
+  console.log(`EP: copying directory: ${sourceDirectory} ${targetDirectory}`);
   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
     throw new Error(`copyDirectorySync must be called with a directory. source ${sourceDirectory} is not a directory`);
   }
@@ -40,7 +40,7 @@ export const writeSiteFiles = async (buildDirectory: string, siteContent: IWebsi
 }
 
 export const build = async (buildDirectory: string, outputDirectory: string) => {
-  console.log(`Building everypage project in ${buildDirectory}`);
+  console.log(`EP: Building everypage project in ${buildDirectory}`);
   await render(buildDirectory, outputDirectory);
 };
 
@@ -70,7 +70,7 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   const siteHost = params.siteHost || null;
 
   if (params.clean) {
-    console.log('Clearing build and output directories');
+    console.log('EP: Clearing build and output directories');
     rimraf.sync(buildDirectory);
     rimraf.sync(outputDirectory);
   }
@@ -99,7 +99,7 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   } else {
     console.error(`Unknown command: ${command}`);
   }
-  // rimraf.sync(buildDirectory);
+  rimraf.sync(buildDirectory);
 };
 
 export const createProgram = (version: string): Command => {

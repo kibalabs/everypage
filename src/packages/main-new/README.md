@@ -13,7 +13,7 @@ The next steps are:
 [x] how to manage the routing at runtime
 [x] remove warnings during compilation
 [x] separate main-new into test-new
-[] reuse webpack configs from build-js
+[x] reuse webpack configs from build-js
 [] sort out config.js for main-new
 [] test new build-js for multiple places
 [] add 404 handling
