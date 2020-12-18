@@ -65,6 +65,8 @@ build and push builder-api image:
 
 run on freebox:
   stage: run
+  only:
+    - master
   image: registry.gitlab.com/kibalabs/kiba/docker-images/ssh-able:latest
   variables:
     RUNNABLE_DIRECTORY: "~/deployments/$CI_PROJECT_PATH/$CI_COMMIT_SHORT_SHA"

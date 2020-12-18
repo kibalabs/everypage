@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, IHistory } from '@kibalabs/core-react';
 import { IndexPage } from '@kibalabs/everypage-core';
+// const IndexPage = require('abc');
 
 interface IAppProps {
   routerHistory?: IHistory;
