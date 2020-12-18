@@ -42,20 +42,20 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
-  const nodeWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({dev: false, analyze: false}),
-    makeJsWebpackConfig({polyfill: false, react: true}),
-    makeImagesWebpackConfig(),
-    makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false}),
-    {
-      output: {
-        filename: 'static-app.js',
-      },
-    },
-  );
   return new Promise(async (resolve, reject): Promise<void> => {
     console.log('EP: generating node output');
+    const nodeWebpackConfig = webpackMerge(
+      makeCommonWebpackConfig({dev: false, analyze: false}),
+      makeJsWebpackConfig({polyfill: false, react: true}),
+      makeImagesWebpackConfig(),
+      makeCssWebpackConfig(),
+      makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false}),
+      {
+        output: {
+          filename: 'static-app.js',
+        },
+      },
+    );
     webpack(nodeWebpackConfig).run((err, stats) => {
       if (err) {
         console.log(chalk.red(err.stack || err))
@@ -87,26 +87,26 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
       return resolve();
     });
   }).then((): Promise<any> => {
-    const webWebpackConfig = webpackMerge(
-      makeCommonWebpackConfig({dev: false, analyze: false}),
-      makeJsWebpackConfig({polyfill: true, react: true}),
-      makeImagesWebpackConfig(),
-      makeCssWebpackConfig(),
-      makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
-      {
-        plugins: [
-          new CopyPlugin({
-            patterns: [
-              { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
-            ]
-          }),
-          new CreateRobotsTxtPlugin(),
-        ],
-      },
-    );
-    console.log('webWebpackConfig', webWebpackConfig);
     return new Promise(async (resolve, reject): Promise<any> => {
       console.log('EP: generating web output');
+      const webWebpackConfig = webpackMerge(
+        makeCommonWebpackConfig({dev: false, analyze: false}),
+        makeJsWebpackConfig({polyfill: true, react: true}),
+        makeImagesWebpackConfig(),
+        makeCssWebpackConfig(),
+        makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
+        {
+          plugins: [
+            new CopyPlugin({
+              patterns: [
+                { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
+              ]
+            }),
+            new CreateRobotsTxtPlugin(),
+          ],
+        },
+      );
+      console.log('webWebpackConfig', webWebpackConfig);
       webpack(webWebpackConfig).run((err, stats) => {
         if (err) {
           console.log(chalk.red(err.stack || err))
