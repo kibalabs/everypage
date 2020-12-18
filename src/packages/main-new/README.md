@@ -19,7 +19,7 @@ The next steps are:
 [] add 404 handling
 [] Use file structure to create multiple pages
 [] Look into code splitting for multiple pages
-[] Think about alternatives for main-new/bin/package/index.tsx
+[] Think about alternatives for main-new/bin/package/index.tsx (maybe can be compiled and copied)
 
 Actual documentation:
 
