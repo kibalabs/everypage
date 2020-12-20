@@ -7,6 +7,19 @@ import { updateAssetPaths, IWebsite } from '@kibalabs/everypage-core';
 
 import { render } from './renderer';
 
+export const copyFileSync = (sourceFilePath, targetPath) => {
+  console.log(`EP: copying file: ${sourceFilePath} ${targetPath}`);
+  var targetFilePath = targetPath;
+  if (fs.existsSync(targetPath) && fs.lstatSync(targetPath).isDirectory()) {
+    targetFilePath = path.join(targetPath, path.basename(sourceFilePath));
+  }
+  const targetDirectory = path.dirname(targetFilePath);
+  if (!fs.existsSync(targetDirectory) ) {
+    fs.mkdirSync(targetDirectory, { recursive: true });
+  }
+  fs.writeFileSync(targetFilePath, fs.readFileSync(sourceFilePath));
+}
+
 export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
   console.log(`EP: copying directory: ${sourceDirectory} ${targetDirectory}`);
   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
@@ -23,7 +36,7 @@ export const copyDirectorySync = (sourceDirectory, targetDirectory) => {
     if (fs.lstatSync(sourceFilePath).isDirectory()) {
       copyDirectorySync(sourceFilePath, targetFilePath);
     } else {
-      fs.writeFileSync(targetFilePath, fs.readFileSync(sourceFilePath));
+      copyFileSync(sourceFilePath, targetFilePath);
     }
   });
 };
@@ -79,13 +92,15 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
     console.error(`Build directory ${buildDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
     return;
   }
+  fs.mkdirSync(buildDirectory, { recursive: true });
 
   if (fs.existsSync(outputDirectory)) {
     console.error(`Output directory ${outputDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
     return;
   }
+  fs.mkdirSync(outputDirectory, { recursive: true });
 
-  await copyDirectorySync(path.join(__dirname, '../bin/package'), buildDirectory);
+  await copyFileSync(path.join(__dirname, './app.js'), path.join(buildDirectory, 'index.js'));
   if (assetsDirectory) {
     await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }

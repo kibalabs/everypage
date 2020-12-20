@@ -5,6 +5,8 @@ import { IndexPage } from '@kibalabs/everypage-core';
 
 interface IAppProps {
   routerHistory?: IHistory;
+  pageContent?: object;
+  pageTheme?: object;
 }
 
 export const NotFound = (): React.ReactElement => {
@@ -13,8 +15,13 @@ export const NotFound = (): React.ReactElement => {
   );
 };
 
-export const Index = (): React.ReactElement => {
-  const siteData = { pageContent: __non_webpack_require__('./site.json'), pageTheme: __non_webpack_require__('./theme.json') };
+interface IIndexProps {
+  pageContent?: object;
+  pageTheme?: object;
+}
+
+export const Index = (props: IIndexProps): React.ReactElement => {
+  const siteData = { pageContent: props.pageContent || __non_webpack_require__('./site.json'), pageTheme: props.pageTheme || __non_webpack_require__('./theme.json') };
   return (
     <IndexPage isRehydrating={true} pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
   );
@@ -23,7 +30,7 @@ export const Index = (): React.ReactElement => {
 export const App = (props: IAppProps) => {
   return (
     <Router history={props.routerHistory}>
-      <Route path='/' page={Index} />
+      <Route path='/' pageElement={<Index pageContent={props.pageContent} pageTheme={props.pageTheme} />} />
       <Route default={true} page={NotFound} />
     </Router>
   );
