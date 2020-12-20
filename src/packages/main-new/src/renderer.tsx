@@ -37,7 +37,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     makeJsWebpackConfig({polyfill: false, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
+    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
     {
       output: {
         filename: 'static-app.js',
@@ -49,7 +49,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
+    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
     {
       plugins: [
         new CopyPlugin({
@@ -84,7 +84,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
         <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-              <App routerHistory={createHistory(createMemorySource(page.path))} />
+              <App routerHistory={createHistory(createMemorySource(page.path))} pageContent={__non_webpack_require__(path.join(buildDirectory, 'site.json'))} pageTheme={__non_webpack_require__(path.join(buildDirectory, 'theme.json'))} />
             </HeadRootProvider>
           </StyleSheetManager>
         </ReportChunks>
