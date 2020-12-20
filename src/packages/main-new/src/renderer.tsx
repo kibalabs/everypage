@@ -120,7 +120,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
       `<script defer type="text/javascript" src="${makePathAbsolute(path.join('.', script))}"></script>`
     )).join('');
     const output = `<!DOCTYPE html>
-      <html>
+      <html lang="en">
         ${headString}
         <body>
           <div id="root">

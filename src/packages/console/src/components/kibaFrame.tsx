@@ -35,7 +35,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
     props.document.head.appendChild(script2);
     const script3 = props.document.createElement('script');
     script3.async = true;
-    script3.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script3.src = 'https://assets.evrpg.com/calendly-widget.js';
     props.document.head.appendChild(script3);
   }, [props.document]);
 

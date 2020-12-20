@@ -16,7 +16,7 @@ The next steps are:
 [x] reuse webpack configs from build-js
 [x] sort out config.js for main-new
 [x] test new build-js for multiple places
-[] test on IE
+[x] test on IE
 [] add 404 page generation
 [] Use file structure to create multiple pages
 [] Look into code splitting for multiple pages

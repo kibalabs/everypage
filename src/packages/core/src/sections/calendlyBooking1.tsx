@@ -35,7 +35,7 @@ CalendlyBooking1.displayName = 'calendly-booking-1';
 CalendlyBooking1.defaultProps = {
 };
 
-interface ICalendelyEmbedProps {
+interface ICalendlyEmbedProps {
   username: string;
   calendarId: string;
   shouldHideEventType?: boolean;
@@ -65,7 +65,7 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
   }
 `;
 
-const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
+const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
   const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
 
   return (
@@ -76,7 +76,7 @@ const CalendlyEmbed = (props: ICalendelyEmbedProps): React.ReactElement => {
         data-url={url}
       />
       <Head>
-        <script src='https://assets.calendly.com/assets/external/widget.js' />
+        <script async={true} src='https://assets.evrpg.com/calendly-widget.js' />
       </Head>
       <noscript>
         <Text>Please <Link target={url} text='click here'></Link> to choose a time.</Text>
