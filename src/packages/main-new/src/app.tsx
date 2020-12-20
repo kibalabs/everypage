@@ -13,8 +13,13 @@ export const NotFound = (): React.ReactElement => {
   );
 };
 
-export const Index = (): React.ReactElement => {
-  const siteData = { pageContent: __non_webpack_require__('./site.json'), pageTheme: __non_webpack_require__('./theme.json') };
+interface IIndexProps {
+  pageContentPath?: string;
+  pageThemePath?: string;
+}
+
+export const Index = (props: IIndexProps): React.ReactElement => {
+  const siteData = { pageContent: __non_webpack_require__(props.pageContentPath || './site.json'), pageTheme: __non_webpack_require__(props.pageThemePath || './theme.json') };
   return (
     <IndexPage isRehydrating={true} pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
   );
