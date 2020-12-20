@@ -2,7 +2,7 @@
   "name": "everypage",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
+    "bootstrap": "lerna bootstrap",
     "start": "lerna run start --parallel",
     "start-console": "lerna run start-dev --parallel --scope @kibalabs/everypage-console --include-dependencies",
     "start-builder-api": "lerna run start-dev --parallel --scope @kibalabs/everypage-builder-api --include-dependencies",
