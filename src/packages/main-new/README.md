@@ -18,7 +18,7 @@ The next steps are:
 [x] test new build-js for multiple places
 [x] test on IE
 [x] add 404 page generation
-[|] Redesign main-new/bin/package/index.tsx to be compiled and referenced
+[x] Redesign main-new/bin/package/index.tsx to be compiled and referenced
 [] Look into main-new dependencies
 [] Implement start and serve in main-new
 [] Use file structure to create multiple pages
