@@ -14,7 +14,7 @@ export const NotFound = (): React.ReactElement => {
 };
 
 export const Index = (): React.ReactElement => {
-  const siteData = { pageContent: require('./site.json'), pageTheme: require('./theme.json') };
+  const siteData = { pageContent: __non_webpack_require__('./site.json'), pageTheme: __non_webpack_require__('./theme.json') };
   return (
     <IndexPage isRehydrating={true} pageContent={siteData.pageContent} pageTheme={siteData.pageTheme} />
   );
