@@ -37,7 +37,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     makeJsWebpackConfig({polyfill: false, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
+    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
     {
       output: {
         filename: 'static-app.js',
@@ -49,7 +49,7 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.tsx'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
+    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
     {
       plugins: [
         new CopyPlugin({

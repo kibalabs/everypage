@@ -36,11 +36,10 @@
     "react-static-plugin-source-filesystem": "7.4.2",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
-    "styled-components": "5.2.0",
-    "typescript": "3.9.5"
+    "styled-components": "5.2.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-49.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-55.tgz",
     "@types/node": "14.0.13"
   }
 }
