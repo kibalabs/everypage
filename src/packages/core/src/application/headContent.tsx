@@ -112,9 +112,6 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
 
       {/* PWA Manifest */}
       <link rel='manifest' href={`/${website.buildHash}/assets/_generated/manifest.json`} />
-
-      {/* Temporary fixes */}
-      <script src='https://cdn.jsdelivr.net/npm/whatwg-fetch@3.2.0/dist/fetch.umd.min.js' />
     </Head>
   );
 };
