@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@babel/runtime": "7.10.2",
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-44.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-49.tgz",
     "@kibalabs/core-react": "0.5.1",
     "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.7.4-18.tgz",
     "@kibalabs/everypage-core": "0.6.8",
