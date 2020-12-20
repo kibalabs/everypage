@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import CopyPlugin from 'copy-webpack-plugin';
 import webpackMerge from 'webpack-merge';
-import { ServerLocation, createHistory, createMemorySource } from '@reach/router';
+import { createHistory, createMemorySource } from '@reach/router';
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 import CreateRobotsTxtPlugin from '@kibalabs/build/scripts/plugins/createRobotsTxtPlugin';
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
@@ -18,23 +18,9 @@ import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.web
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
 
-export const trimLeadingSlashes = (string = '') => string.replace(/^\/{1,}/g, '');
-
-export function isAbsoluteUrl(url) {
-  if (typeof url !== 'string') {
-    return false
-  }
-  return /^[a-z][a-z0-9+.-]*:/.test(url)
-}
-
-export function makePathAbsolute(path) {
-  if (typeof path !== 'string') {
-    return '/'
-  }
-  if (isAbsoluteUrl(path)) {
-    return path
-  }
-  return `/${trimLeadingSlashes(path)}`
+interface Page {
+  path: string;
+  filename: string;
 }
 
 export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
@@ -84,52 +70,58 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     return createAndRunCompiler(webWebpackConfig);
   }).then(async (webpackBuildStats: object): Promise<void> => {
     console.log('EP: generating static html');
-    const appPath = path.resolve(outputDirectoryNode, 'static-app.js');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
-    const App = __non_webpack_require__(appPath).default;
-    const chunkNames: string[] = []
-    const headElements = [];
-    const styledComponentsSheet = new ServerStyleSheet();
-    const routerHistory = createHistory(createMemorySource('/'));
-    const bodyString = ReactDOMServer.renderToString(
-      <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
-        <StyleSheetManager sheet={styledComponentsSheet.instance}>
-          <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-            <ServerLocation url={'/'}>
-              <App routerHistory={routerHistory} />
-            </ServerLocation>
-          </HeadRootProvider>
-        </StyleSheetManager>
-      </ReportChunks>
-    );
-    const { scripts, stylesheets, css } = flushChunks(webpackBuildStats, {
-      chunkNames: chunkNames,
-      outputPath: '.',
-    });
-    const headString = ReactDOMServer.renderToStaticMarkup(
-      <head>
-        {headElements}
-        {scripts.map((script: string): React.ReactElement => (
-          <link key={script} rel='preload' as='script' href={makePathAbsolute(path.join('.', script))} />
-        ))}
-        {styledComponentsSheet.getStyleElement()}
-      </head>
-    );
-    // TODO(krishan711): use stylesheets and css
-    const bodyScriptsString = scripts.map((script: string): string => (
-      `<script defer type="text/javascript" src="${makePathAbsolute(path.join('.', script))}"></script>`
-    )).join('');
-    const output = `<!DOCTYPE html>
-      <html lang="en">
-        ${headString}
-        <body>
-          <div id="root">
-            ${bodyString}
-          </div>
-          ${bodyScriptsString}
-        </body>
-      </html>
-    `;
-    fs.writeFileSync(path.join(outputDirectory, 'index.html'), output);
+    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
+    const pages: Page[] = [
+      {path: '/', filename: 'index.html'},
+      {path: '/404', filename: '404.html'},
+    ];
+    pages.map((page: Page): void => {
+      const chunkNames: string[] = []
+      const headElements = [];
+      const styledComponentsSheet = new ServerStyleSheet();
+      const bodyString = ReactDOMServer.renderToString(
+        <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
+          <StyleSheetManager sheet={styledComponentsSheet.instance}>
+            <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
+              <App routerHistory={createHistory(createMemorySource(page.path))} />
+            </HeadRootProvider>
+          </StyleSheetManager>
+        </ReportChunks>
+      );
+      const { scripts, stylesheets, css } = flushChunks(webpackBuildStats, {
+        chunkNames: chunkNames,
+        outputPath: '.',
+      });
+      const headString = ReactDOMServer.renderToStaticMarkup(
+        <head>
+          {headElements}
+          {scripts.map((scriptName: string): React.ReactElement => (
+            <link key={scriptName} rel='preload' as='script' href={`/${scriptName}`} />
+          ))}
+          {styledComponentsSheet.getStyleElement()}
+        </head>
+      );
+      // TODO(krishan711): use stylesheets and css
+      const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
+        <React.Fragment>
+          {scripts.map((scriptName: string): React.ReactElement => (
+            <script defer={true} type='text/javascript' src={`/${scriptName}`}></script>
+          ))}
+        </React.Fragment>
+      );
+      const output = `<!DOCTYPE html>
+        <html lang="en">
+          ${headString}
+          <body>
+            <div id="root">
+              ${bodyString}
+            </div>
+            ${bodyScriptsString}
+          </body>
+        </html>
+      `;
+      fs.writeFileSync(path.join(outputDirectory, page.filename), output);
+    })
   });
 };

@@ -17,7 +17,7 @@ The next steps are:
 [x] sort out config.js for main-new
 [x] test new build-js for multiple places
 [x] test on IE
-[] add 404 page generation
+[x] add 404 page generation
 [] Use file structure to create multiple pages
 [] Look into code splitting for multiple pages
 [] Think about alternatives for main-new/bin/package/index.tsx (maybe can be compiled and referenced)
