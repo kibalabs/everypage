@@ -114,7 +114,7 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   } else {
     console.error(`Unknown command: ${command}`);
   }
-  rimraf.sync(buildDirectory);
+  // rimraf.sync(buildDirectory);
 };
 
 export const createProgram = (version: string): Command => {

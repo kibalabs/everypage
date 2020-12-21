@@ -1,0 +1,21 @@
+{
+  "keywords": [
+  ],
+  "company": "Kiba Labs",
+  "companyUrl": "https://www.kibalabs.com",
+  "sections": [
+    {
+      "type": "hero-buttons-1",
+      "titleText": "404: Not Found",
+      "subtitleText": null,
+      "buttons": [
+        {
+          "variant": "primary",
+          "target": "/",
+          "text": "Home"
+        }
+      ],
+      "logoImageUrl": null
+    }
+  ]
+}
