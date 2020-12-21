@@ -18,12 +18,15 @@ The next steps are:
 [x] test new build-js for multiple places
 [x] test on IE
 [x] Redesign main-new/bin/package/index.tsx to be compiled and referenced
-[] Look into main-new dependencies
-[] add 404 page generation
-[] implement multiple pages
-[] Use file structure to create multiple pages
+[x] add 404 page generation
+[x] Look into main-new dependencies
+[x] implement multiple pages
+[x] Use file structure to create multiple pages
+[] update builder-api
 [] Look into code splitting for multiple pages (https://loadable-components.com/docs/server-side-rendering/, https://reactrouter.com/web/guides/code-splitting, https://github.com/gregberge/loadable-components)
 [] Implement start and serve in main-new
+[] Move history creation to core-react to remove reach router dependency in main-new
+[] fix error in website console (something about setting everypage-new)
 
 Actual documentation:
 
