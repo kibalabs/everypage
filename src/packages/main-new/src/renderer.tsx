@@ -31,7 +31,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     initialContent.shouldHideAttribution = shouldHideAttribution;
   }
 
-  const pages = loadPathsFromDirectory(siteDirectory, '', initialContent, undefined);
+  const pages = loadPathsFromDirectory(siteDirectory, '', buildHash, initialContent, undefined);
   console.log(`EP: loaded ${pages.length} pages`);
   const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json'), pages[0].content) : default404Content;
   const page404 = {path: '404', filename: '404.html', content: content404, theme: pages[0].theme};
@@ -59,11 +59,6 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
-    {
-      output: {
-        filename: 'static-app.js',
-      },
-    },
   );
   const webWebpackConfig = webpackMerge(
     makeCommonWebpackConfig({dev: false, analyze: false}),
@@ -84,7 +79,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   }).then(async (webpackBuildStats: object): Promise<void> => {
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
-    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
+    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
     pages.concat(page404).forEach((page: IPage): void => {
       const chunkNames: string[] = []
       const headElements = [];

@@ -49,11 +49,14 @@ export const readJsonFileSync = (filePath: string): object => {
   return JSON.parse(String(fs.readFileSync(filePath)));
 };
 
-export const loadContentFromFileSync = (filePath: string, parentContent?: IWebsite): IWebsite => {
+export const loadContentFromFileSync = (filePath: string, buildHash?: string, parentContent?: IWebsite): IWebsite => {
   var content = readJsonFileSync(filePath) as IWebsite;
   if (parentContent) {
     const {sections, ...parentContentStripped} = parentContent;
     content = merge(parentContentStripped, content);
+  }
+  if (buildHash) {
+    content = updateAssetPaths(content, `/${buildHash}`) as IWebsite;
   }
   return content;
 }
@@ -66,14 +69,14 @@ export const loadThemeFromFileSync = (filePath: string, parentTheme?: ITheme): I
   return content;
 }
 
-export const loadPathsFromDirectory = (directory: string, urlPath: string = '', parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
-  const content = loadContentFromFileSync(path.join(directory, 'content.json'), parentContent);
+export const loadPathsFromDirectory = (directory: string, urlPath: string = '', buildHash?: string, parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
+  const content = loadContentFromFileSync(path.join(directory, 'content.json'), buildHash, parentContent);
   const theme = loadThemeFromFileSync(path.join(directory, 'theme.json'), parentTheme);
   const output: IPage[] = [{path: `${urlPath}/`, filename: `${urlPath}/index.html`, theme: theme, content: content}];
   fs.readdirSync(directory).forEach((name: string): void => {
     const itemPath = path.join(directory, name)
     if (fs.statSync(itemPath).isDirectory()) {
-      output.push(...loadPathsFromDirectory(itemPath, `${urlPath}/${name}`, content, theme));
+      output.push(...loadPathsFromDirectory(itemPath, `${urlPath}/${name}`, buildHash, content, theme));
     }
   });
   return output;
