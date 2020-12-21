@@ -5,11 +5,9 @@ import { ReportChunks } from 'react-universal-component';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
-import CopyPlugin from 'copy-webpack-plugin';
 import webpackMerge from 'webpack-merge';
 import { createHistory, createMemorySource } from '@reach/router';
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
-import CreateRobotsTxtPlugin from '@kibalabs/build/scripts/plugins/createRobotsTxtPlugin';
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
 import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
 import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
@@ -17,45 +15,31 @@ import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
-import { ITheme } from '@kibalabs/ui-react';
 
-import { copyFileSync, copyDirectorySync }  from './util';
+import { copyFileSync, copyDirectorySync, loadPathsFromDirectory, loadContentFromFileSync, IPage } from './util';
 import default404Content from './404.json';
 
-interface Page {
-  path: string;
-  filename: string;
-  content: IWebsite;
-  theme: ITheme;
-}
-
-export const render = async (siteDirectoryPath?: string, buildDirectoryPath?: string, assetsDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
+export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: string, buildHash?: string, siteHost?: string, shouldHideAttribution?: boolean, buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
   const siteDirectory = siteDirectoryPath || process.cwd();
-  const assetsDirectory = assetsDirectoryPath || path.join(siteDirectory, 'assets');
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
+  const assetsDirectory = assetsDirectoryPath || path.join(siteDirectory, 'assets');
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
 
-  // NOTE(krish): read the pages in from the site directory + update buildHash and site host during (see writeSiteFiles)
-  // NOTE(krish): this shouldn't need to read and write anymore, just read in and have the object
-  const pages: Page[] = [
-    {path: '/', filename: 'index.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
-    {path: '/page2', filename: 'page2.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
-    {path: '/404', filename: '404.html', content: default404Content, theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
-  ];
+  const initialContent = {buildHash, siteHost} as IWebsite;
+  if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
+    initialContent.shouldHideAttribution = shouldHideAttribution;
+  }
+
+  const pages = loadPathsFromDirectory(siteDirectory, '', initialContent, undefined);
+  console.log(`EP: loaded ${pages.length} pages`);
+  const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json'), pages[0].content) : default404Content;
+  const page404 = {path: '404', filename: '404.html', content: content404, theme: pages[0].theme};
 
   const siteData = {
-    routes: [{
-      path: '/',
-      content: __non_webpack_require__(path.join(buildDirectory, 'site.json')),
-      theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))
-    }, {
-      path: '/page2',
-      content: __non_webpack_require__(path.join(buildDirectory, 'site.json')),
-      theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))
-    }],
-    notFoundPageContent: default404Content,
-    notFoundPageTheme: __non_webpack_require__(path.join(buildDirectory, 'theme.json')),
+    routes: pages,
+    notFoundPageContent: page404.content,
+    notFoundPageTheme: page404.theme,
   }
   fs.writeFileSync(path.join(buildDirectory, 'siteData.json'), JSON.stringify(siteData));
 
@@ -86,16 +70,8 @@ export const render = async (siteDirectoryPath?: string, buildDirectoryPath?: st
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false}),
+    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public')}),
     {
-      plugins: [
-        new CopyPlugin({
-          patterns: [
-            { from: path.join(buildDirectory, './public'), noErrorOnMissing: true },
-          ]
-        }),
-        new CreateRobotsTxtPlugin(),
-      ],
       performance: {
         hints: false
       },
@@ -109,7 +85,7 @@ export const render = async (siteDirectoryPath?: string, buildDirectoryPath?: st
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
-    pages.forEach((page: Page): void => {
+    pages.concat(page404).forEach((page: IPage): void => {
       const chunkNames: string[] = []
       const headElements = [];
       const styledComponentsSheet = new ServerStyleSheet();
@@ -160,7 +136,9 @@ export const render = async (siteDirectoryPath?: string, buildDirectoryPath?: st
           </body>
         </html>
       `;
-      fs.writeFileSync(path.join(outputDirectory, page.filename), output);
+      const outputPath = path.join(outputDirectory, page.filename);
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true })
+      fs.writeFileSync(outputPath, output);
     })
   });
 };

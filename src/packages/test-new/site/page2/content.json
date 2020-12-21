@@ -1,0 +1,44 @@
+{
+  "name": "test page 2",
+  "sections": [
+    {
+      "type": "navbar-1",
+      "background": {
+        "color": "#ffffff"
+      },
+      "buttons": [
+        {
+          "target": "https://console.everypagehq.com/canvas",
+          "text": "Canvas"
+        },
+        {
+          "target": "#feature-media-half-1-left",
+          "text": "Awesome feature"
+        },
+        {
+          "variant": "secondary",
+          "target": "#signup-1-open-link",
+          "text": "Cool form"
+        },
+        {
+          "display": "always",
+          "variant": "primary",
+          "target": "https://console.everypagehq.com",
+          "text": "Sign in here"
+        }
+      ],
+      "logoImageUrl": "https://www.everypagehq.com/_bh20201113163808/assets/everypage-wordmark.svg",
+      "shouldStickToTop": true
+    },
+    {
+      "type": "hero-app-download-media-half-1",
+      "titleText": "Oh wow, this is page 2 🙀",
+      "subtitleText": "Share why your product is great",
+      "androidAppId": "com.wordmagicapp.android.play",
+      "iosAppId": "1244075045",
+      "leftMediaUrl": null,
+      "logoImageUrl": null,
+      "rightMediaUrl": "https://via.placeholder.com/250x500"
+    }
+  ]
+}
