@@ -2,25 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
 import { Command } from 'commander';
-import { ITheme } from '@kibalabs/ui-react';
-import { updateAssetPaths, IWebsite } from '@kibalabs/everypage-core';
 
 import { render } from './renderer';
+import { readJsonFileSync, writeSiteFiles } from './util';
 
-export const writeSiteFiles = async (buildDirectory: string, siteContent: IWebsite, siteTheme: ITheme, buildHash: string, siteHost: string, shouldHideAttribution: boolean = undefined): Promise<void> => {
-  siteContent.buildHash = buildHash;
-  siteContent.siteHost = siteHost;
-  if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
-    siteContent.shouldHideAttribution = shouldHideAttribution;
-  }
-  siteContent = updateAssetPaths(siteContent, `/${buildHash}`);
-  fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
-  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
-}
-
-const readJsonFileSync = (filePath: string): object => {
-  return JSON.parse(String(fs.readFileSync(filePath)));
-};
 
 interface ProgramParams {
   port?: number;
@@ -37,9 +22,6 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   const directory = params.directory ? path.join(process.cwd(), params.directory) : process.cwd();
   const buildDirectory = params.buildDirectory ? path.join(process.cwd(), params.buildDirectory) : path.join(directory, 'tmp');
   const outputDirectory = params.outputDirectory ? path.join(process.cwd(), params.outputDirectory) : path.join(directory, 'dist');
-  const siteFilePath = path.join(directory, 'site.json');
-  const themeFilePath = path.join(directory, 'theme.json');
-  const assetsDirectory = path.join(directory, 'assets');
   const buildHash = params.buildHash || null;
   const siteHost = params.siteHost || null;
 
@@ -61,10 +43,13 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   }
   fs.mkdirSync(outputDirectory, { recursive: true });
 
+  const siteFilePath = path.join(directory, 'site.json');
+  const themeFilePath = path.join(directory, 'theme.json');
   await writeSiteFiles(buildDirectory, readJsonFileSync(siteFilePath), readJsonFileSync(themeFilePath), buildHash, siteHost, undefined);
+  const assetsDirectory = path.join(directory, 'assets');
   if (command === 'build') {
     console.log(`EP: Building everypage project in ${buildDirectory}`);
-    await render(buildDirectory, assetsDirectory, outputDirectory);
+    await render(directory, buildDirectory, assetsDirectory, outputDirectory);
   } else if (command === 'serve') {
     console.error('Not implemented yet!');
   } else if (command === 'start') {
