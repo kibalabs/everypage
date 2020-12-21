@@ -18,6 +18,8 @@ import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.web
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
 import { ITheme } from '@kibalabs/ui-react';
+
+import { copyFileSync, copyDirectorySync }  from './util';
 import default404Content from './404.json';
 
 interface Page {
@@ -27,10 +29,22 @@ interface Page {
   theme: ITheme;
 }
 
-export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
+export const render = async (buildDirectoryPath?: string, assetsDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
+  const assetsDirectory = assetsDirectoryPath || path.join(process.cwd(), 'assets');
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
+
+  const pages: Page[] = [
+    {path: '/', filename: 'index.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
+    {path: '/404', filename: '404.html', content: default404Content, theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
+  ];
+
+  await copyFileSync(path.join(__dirname, './app.js'), path.join(buildDirectory, 'index.js'));
+  if (assetsDirectory) {
+    await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
+  }
+
   const nodeModulesPaths = [
     path.resolve(__dirname, '../node_modules'),
     // NOTE(krishan711): this is here because of lerna!)
@@ -76,10 +90,6 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
-    const pages: Page[] = [
-      {path: '/', filename: 'index.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
-      {path: '/404', filename: '404.html', content: default404Content, theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
-    ];
     pages.map((page: Page): void => {
       const chunkNames: string[] = []
       const headElements = [];
