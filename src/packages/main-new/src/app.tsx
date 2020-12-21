@@ -7,6 +7,8 @@ interface IAppProps {
   routerHistory?: IHistory;
   pageContent?: object;
   pageTheme?: object;
+  notFoundPageContent?: object;
+  notFoundPageTheme?: object;
 }
 
 export const NotFound = (): React.ReactElement => {
@@ -31,7 +33,7 @@ export const App = (props: IAppProps) => {
   return (
     <Router history={props.routerHistory}>
       <Route path='/' pageElement={<Index pageContent={props.pageContent} pageTheme={props.pageTheme} />} />
-      <Route default={true} page={NotFound} />
+      <Route default={true} pageElement={<Index pageContent={props.notFoundPageContent} pageTheme={props.notFoundPageTheme} />} />
     </Router>
   );
 }

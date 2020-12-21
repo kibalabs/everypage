@@ -16,11 +16,15 @@ import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpa
 import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
-import { ChildCapture, HeadRootProvider } from '@kibalabs/everypage-core';
+import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
+import { ITheme } from '@kibalabs/ui-react';
+import default404Content from './404.json';
 
 interface Page {
   path: string;
   filename: string;
+  content: IWebsite;
+  theme: ITheme;
 }
 
 export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
@@ -73,8 +77,8 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
     const pages: Page[] = [
-      {path: '/', filename: 'index.html'},
-      {path: '/404', filename: '404.html'},
+      {path: '/', filename: 'index.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
+      {path: '/404', filename: '404.html', content: default404Content, theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
     ];
     pages.map((page: Page): void => {
       const chunkNames: string[] = []
@@ -84,7 +88,13 @@ export const render = async (buildDirectoryPath?: string, outputDirectoryPath?: 
         <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-              <App routerHistory={createHistory(createMemorySource(page.path))} pageContent={__non_webpack_require__(path.join(buildDirectory, 'site.json'))} pageTheme={__non_webpack_require__(path.join(buildDirectory, 'theme.json'))} />
+              <App
+                routerHistory={createHistory(createMemorySource(page.path))}
+                pageContent={page.content}
+                pageTheme={page.theme}
+                notFoundPageContent={default404Content}
+                notFoundPageTheme={page.theme}
+              />
             </HeadRootProvider>
           </StyleSheetManager>
         </ReportChunks>

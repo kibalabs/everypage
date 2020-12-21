@@ -17,12 +17,13 @@ The next steps are:
 [x] sort out config.js for main-new
 [x] test new build-js for multiple places
 [x] test on IE
-[x] add 404 page generation
 [x] Redesign main-new/bin/package/index.tsx to be compiled and referenced
 [] Look into main-new dependencies
-[] Implement start and serve in main-new
+[] add 404 page generation
+[] implement multiple pages
 [] Use file structure to create multiple pages
-[] Look into code splitting for multiple pages
+[] Look into code splitting for multiple pages (https://loadable-components.com/docs/server-side-rendering/, https://reactrouter.com/web/guides/code-splitting, https://github.com/gregberge/loadable-components)
+[] Implement start and serve in main-new
 
 Actual documentation:
 
