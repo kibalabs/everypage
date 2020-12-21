@@ -9,10 +9,6 @@ module.exports = (config) => {
       'regenerator-runtime/runtime',
       path.join(process.cwd(), 'src/app.tsx'),
     ],
-    'page': [
-      'regenerator-runtime/runtime',
-      path.join(process.cwd(), 'src/page.tsx'),
-    ],
     'index': [
       'regenerator-runtime/runtime',
       ...config.entry,

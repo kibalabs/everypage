@@ -29,16 +29,35 @@ interface Page {
   theme: ITheme;
 }
 
-export const render = async (buildDirectoryPath?: string, assetsDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
+export const render = async (siteDirectoryPath?: string, buildDirectoryPath?: string, assetsDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
+  const siteDirectory = siteDirectoryPath || process.cwd();
+  const assetsDirectory = assetsDirectoryPath || path.join(siteDirectory, 'assets');
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
-  const assetsDirectory = assetsDirectoryPath || path.join(process.cwd(), 'assets');
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
 
+  // NOTE(krish): read the pages in from the site directory + update buildHash and site host during (see writeSiteFiles)
+  // NOTE(krish): this shouldn't need to read and write anymore, just read in and have the object
   const pages: Page[] = [
     {path: '/', filename: 'index.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
+    {path: '/page2', filename: 'page2.html', content: __non_webpack_require__(path.join(buildDirectory, 'site.json')), theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
     {path: '/404', filename: '404.html', content: default404Content, theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))},
   ];
+
+  const siteData = {
+    routes: [{
+      path: '/',
+      content: __non_webpack_require__(path.join(buildDirectory, 'site.json')),
+      theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))
+    }, {
+      path: '/page2',
+      content: __non_webpack_require__(path.join(buildDirectory, 'site.json')),
+      theme: __non_webpack_require__(path.join(buildDirectory, 'theme.json'))
+    }],
+    notFoundPageContent: default404Content,
+    notFoundPageTheme: __non_webpack_require__(path.join(buildDirectory, 'theme.json')),
+  }
+  fs.writeFileSync(path.join(buildDirectory, 'siteData.json'), JSON.stringify(siteData));
 
   await copyFileSync(path.join(__dirname, './app.js'), path.join(buildDirectory, 'index.js'));
   if (assetsDirectory) {
@@ -90,7 +109,7 @@ export const render = async (buildDirectoryPath?: string, assetsDirectoryPath?: 
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'static-app.js')).default;
-    pages.map((page: Page): void => {
+    pages.forEach((page: Page): void => {
       const chunkNames: string[] = []
       const headElements = [];
       const styledComponentsSheet = new ServerStyleSheet();

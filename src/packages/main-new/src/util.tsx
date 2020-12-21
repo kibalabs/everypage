@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { ITheme } from '@kibalabs/ui-react';
+import { updateAssetPaths, IWebsite } from '@kibalabs/everypage-core';
 
 export const copyFileSync = (sourceFilePath: string, targetPath: string): void => {
   console.log(`EP: copying file: ${sourceFilePath} ${targetPath}`);
@@ -33,4 +35,19 @@ export const copyDirectorySync = (sourceDirectory: string, targetDirectory: stri
       copyFileSync(sourceFilePath, targetFilePath);
     }
   });
+};
+
+export const writeSiteFiles = async (buildDirectory: string, siteContent: IWebsite, siteTheme: ITheme, buildHash: string, siteHost: string, shouldHideAttribution: boolean = undefined): Promise<void> => {
+  siteContent.buildHash = buildHash;
+  siteContent.siteHost = siteHost;
+  if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
+    siteContent.shouldHideAttribution = shouldHideAttribution;
+  }
+  siteContent = updateAssetPaths(siteContent, `/${buildHash}`);
+  fs.writeFileSync(path.join(buildDirectory, 'site.json'), JSON.stringify(siteContent));
+  fs.writeFileSync(path.join(buildDirectory, 'theme.json'), JSON.stringify(siteTheme));
+}
+
+export const readJsonFileSync = (filePath: string): object => {
+  return JSON.parse(String(fs.readFileSync(filePath)));
 };
