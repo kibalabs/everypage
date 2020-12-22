@@ -42,5 +42,3 @@ IndexPage.defaultProps = {
   shouldIncludeHeadSection: false,
   shouldIncludeAttributionSection: true,
 }
-
-export default IndexPage;

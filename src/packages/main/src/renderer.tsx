@@ -6,7 +6,8 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
 import webpackMerge from 'webpack-merge';
-import { createHistory, createMemorySource } from '@reach/router';
+import { createStaticHistory } from '@kibalabs/core-react';
+import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
 import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
@@ -14,7 +15,6 @@ import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpa
 import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
-import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
 
 import { copyFileSync, copyDirectorySync, loadPathsFromDirectory, loadContentFromFileSync, IPage } from './util';
 import default404Content from './404.json';
@@ -37,7 +37,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   const pages = loadPathsFromDirectory(siteDirectory, '', buildHash, initialContent, undefined);
   console.log(`EP: loaded ${pages.length} pages`);
   const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json'), pages[0].content) : default404Content;
-  const page404 = {path: '404', filename: '404.html', content: content404, theme: pages[0].theme};
+  const page404 = {path: '404', filename: '/404.html', content: content404, theme: pages[0].theme};
 
   const siteData = {
     routes: pages,
@@ -64,7 +64,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
+    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: true}),
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
@@ -75,6 +75,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       },
     },
   );
+  console.log('webWebpackConfig', webWebpackConfig);
   console.log('EP: generating node output');
   return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<object> => {
     console.log('EP: generating web output');
@@ -93,7 +94,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
               <App
-                routerHistory={createHistory(createMemorySource(page.path))}
+                routerHistory={createStaticHistory(page.path)}
                 pageContent={page.content}
                 pageTheme={page.theme}
                 notFoundPageContent={default404Content}
