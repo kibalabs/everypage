@@ -18,6 +18,7 @@
   "files": [
     "dist/*"
   ],
+  "sideEffects": false,
   "dependencies": {
     "@kibalabs/core": "^0.5.0",
     "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.1-4.tgz",

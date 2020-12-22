@@ -92,13 +92,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
-              <App
-                routerHistory={createStaticHistory(page.path)}
-                pageContent={page.content}
-                pageTheme={page.theme}
-                notFoundPageContent={default404Content}
-                notFoundPageTheme={page.theme}
-              />
+              <App routerHistory={createStaticHistory(page.path)} />
             </HeadRootProvider>
           </StyleSheetManager>
         </ChunkExtractorManager>
