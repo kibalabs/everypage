@@ -84,6 +84,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
     pages.concat(page404).forEach((page: IPage): void => {
+      console.log(`EP: rendering page ${page.path} to ${page.filename}`);
       const chunkNames: string[] = []
       const headElements = [];
       const styledComponentsSheet = new ServerStyleSheet();
