@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import flushChunks from 'webpack-flush-chunks'
-import { ReportChunks } from 'react-universal-component';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
 import webpackMerge from 'webpack-merge';
 import { createStaticHistory } from '@kibalabs/core-react';
 import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
 import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
@@ -86,11 +85,11 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
-      const chunkNames: string[] = []
       const headElements = [];
       const styledComponentsSheet = new ServerStyleSheet();
+      const extractor = new ChunkExtractor({stats: webpackBuildStats});
       const bodyString = ReactDOMServer.renderToString(
-        <ReportChunks report={(chunkName: string) => chunkNames.push(chunkName)}>
+        <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
               <App
@@ -102,27 +101,19 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
               />
             </HeadRootProvider>
           </StyleSheetManager>
-        </ReportChunks>
+        </ChunkExtractorManager>
       );
-      const { scripts, stylesheets, css } = flushChunks(webpackBuildStats, {
-        chunkNames: chunkNames,
-        outputPath: '.',
-      });
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
           {headElements}
-          {scripts.map((scriptName: string): React.ReactElement => (
-            <link key={scriptName} rel='preload' as='script' href={`/${scriptName}`} />
-          ))}
+          {extractor.getLinkElements()}
           {styledComponentsSheet.getStyleElement()}
         </head>
       );
       // TODO(krishan711): use stylesheets and css
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
-          {scripts.map((scriptName: string): React.ReactElement => (
-            <script defer={true} type='text/javascript' src={`/${scriptName}`}></script>
-          ))}
+          {extractor.getScriptElements()}
         </React.Fragment>
       );
       const output = `<!DOCTYPE html>

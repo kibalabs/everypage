@@ -28,7 +28,6 @@ The next steps are:
 [] Look into code splitting for multiple pages (https://loadable-components.com/docs/server-side-rendering/, https://reactrouter.com/web/guides/code-splitting, https://github.com/gregberge/loadable-components)
 [] Implement start and serve in main-new
 [] fix error in website console (something about setting everypage-new)
-[] move script from bin to index in main
 
 Actual documentation:
 
