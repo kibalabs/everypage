@@ -52,7 +52,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-
   const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
   const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
@@ -60,7 +59,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
-  const [isHeadShown, setIsMetaShown] = React.useState<boolean>(true);
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   useInitialization((): void => {
@@ -187,7 +186,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }
 
   const onIsMetaShownToggled = (): void => {
-    setIsMetaShown(!isHeadShown);
+    setIsMetaHidden(!isMetaHidden);
   }
 
   return (
@@ -206,19 +205,19 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
               {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
               <Box className={classes.metaBoxSpacer}/>
               <FormControlLabel
-                label='Show metadata'
+                label='Hide metadata'
                 control={
                   <Switch
-                    checked={isHeadShown}
+                    checked={isMetaHidden}
                     onChange={onIsMetaShownToggled}
-                    name='Show metadata'
+                    name='Hide metadata'
                   />
                 }
               />
             </Box>
             <MemoCanvas
               isEditable={isEditable}
-              isHeadShown={isHeadShown}
+              isHeadShown={!isMetaHidden}
               siteContent={siteContent}
               onSiteContentUpdated={onSiteContentUpdated}
               siteTheme={siteTheme}
