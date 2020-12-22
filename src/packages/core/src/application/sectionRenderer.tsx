@@ -1,6 +1,6 @@
 import React from 'react';
 
-const sections = require('../sections');
+import * as sections from '../sections'; 
 
 type SectionMap = Record<string, React.ComponentType>;
 const sectionMap = (Object.values(sections) as React.ComponentType[]).reduce((previousValue: SectionMap, component: React.ComponentType, currentIndex: number): SectionMap => {
