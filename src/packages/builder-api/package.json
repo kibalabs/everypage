@@ -13,13 +13,14 @@
   ],
   "dependencies": {
     "@kibalabs/everypage": "0.6.8",
+    "@kibalabs/everypage-core": "0.6.8",
     "archiver": "4.0.1",
     "express": "4.17.1",
     "morgan": "1.10.0",
     "rimraf": "3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-58.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-60.tgz",
     "@types/node": "14.0.13"
   }
 }
