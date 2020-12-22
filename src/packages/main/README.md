@@ -22,10 +22,12 @@ The next steps are:
 [x] Look into main-new dependencies
 [x] implement multiple pages
 [x] Use file structure to create multiple pages
-[] update builder-api
+[x] remove old main and test
+[x] update builder-api
+[] Move history creation to core-react to remove reach router dependency in main-new
+[] look into minimizing code
 [] Look into code splitting for multiple pages (https://loadable-components.com/docs/server-side-rendering/, https://reactrouter.com/web/guides/code-splitting, https://github.com/gregberge/loadable-components)
 [] Implement start and serve in main-new
-[] Move history creation to core-react to remove reach router dependency in main-new
 [] fix error in website console (something about setting everypage-new)
 
 Actual documentation:

@@ -26,7 +26,7 @@ export const App = (props: IAppProps) => {
   return (
     <Router history={props.routerHistory}>
       {siteData.routes.map((routeData: RouteData): React.ReactElement<IRouteProps> => (
-        <Route path={routeData.path} pageElement={<IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} />} />
+        <Route key={routeData.path} path={routeData.path} pageElement={<IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} />} />
       ))}
       <Route default={true} pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />} />
     </Router>

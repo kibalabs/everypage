@@ -22,9 +22,12 @@ import default404Content from './404.json';
 export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: string, buildHash?: string, siteHost?: string, shouldHideAttribution?: boolean, buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
   const siteDirectory = siteDirectoryPath || process.cwd();
   const buildDirectory = buildDirectoryPath || path.join(process.cwd(), 'tmp');
-  const assetsDirectory = assetsDirectoryPath || path.join(siteDirectory, 'assets');
+  const assetsDirectory = assetsDirectoryPath;
   const outputDirectory = outputDirectoryPath || path.join(process.cwd(), 'dist');
   const outputDirectoryNode = path.join(buildDirectory, './output-node');
+  fs.mkdirSync(buildDirectory, { recursive: true });
+  fs.mkdirSync(outputDirectory, { recursive: true });
+  fs.mkdirSync(outputDirectoryNode, { recursive: true });
 
   const initialContent = {buildHash, siteHost} as IWebsite;
   if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
@@ -54,14 +57,14 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     path.resolve(__dirname, '../../../node_modules'),
   ];
   const nodeWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({dev: false, analyze: false}),
+    makeCommonWebpackConfig({name: 'everypage-site-node', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: false, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({dev: false, analyze: false}),
+    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),

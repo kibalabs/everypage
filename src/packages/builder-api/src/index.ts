@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as morgan from 'morgan';
 import * as rimraf from 'rimraf';
 import * as express from 'express';
 import * as archiver from 'archiver';
 import * as everypage from '@kibalabs/everypage';
-import * as morgan from 'morgan';
 
 const app = express();
 const port = 5000;
@@ -47,13 +47,13 @@ app.post('/v1/sites/generate', async (request, response) => {
   console.log(`Site theme keys: ${Object.keys(siteTheme)}`)
   const buildDirectory = path.join(__dirname, siteName, `${buildHash}-build`);
   const outputDirectory = path.join(__dirname, siteName, buildHash);
-  fs.mkdirSync(buildDirectory, { recursive: true });
-  fs.mkdirSync(outputDirectory, { recursive: true });
 
+  const siteDirectory = path.join(__dirname, siteName, `${buildHash}-site`);
+  fs.mkdirSync(siteDirectory, { recursive: true });
+  fs.writeFileSync(path.join(siteDirectory, 'content.json'), JSON.stringify(siteContent));
+  fs.writeFileSync(path.join(siteDirectory, 'theme.json'), JSON.stringify(siteTheme));
   try {
-    everypage.writeSiteFiles(buildDirectory, siteContent, siteTheme, buildHash, siteHost, shouldHideAttribution);
-    everypage.copyPackage(buildDirectory);
-    everypage.build(buildDirectory, outputDirectory);
+    await everypage.renderSite(siteDirectory, null, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
   } catch (error) {
     console.log('Error building everypage', error);
