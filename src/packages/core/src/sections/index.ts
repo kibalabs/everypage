@@ -10,7 +10,7 @@ export * from './featureBoxesMediaCenter1';
 export * from './featureMediaHalf1';
 export * from './faq1';
 export * from './footer1';
-export * from './head';
+export * from './meta';
 export * from './heroAppButtonsMediaHalf1';
 export * from './heroAppDownload1';
 export * from './heroAppDownloadMediaHalf1';
