@@ -52,12 +52,33 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
       return serverHandler(request, response, {
         public: outputDirectory,
       });
-    })
-    server.listen(port, (): void => {
-      console.log('Running at http://localhost:3000');
     });
-  } else if (command === 'start') {
-    console.error('Not implemented yet!');
+    console.log('starting server...');
+    await new Promise((resolve, reject): Promise<void> => {
+      try {
+        server.once('listening', () => {
+          server.removeAllListeners('error');
+          server.removeAllListeners('listening');
+        });
+        server.once('error', (err: any) => {
+          server.removeAllListeners('listening');
+          server.removeAllListeners('error');
+          reject(err);
+        });
+        process.on('exit', () => {
+          server.removeAllListeners('listening');
+          server.removeAllListeners('error');
+          server.close();
+          resolve(null);
+        });
+        server.listen(port, (): void => {
+          console.log('Running at http://localhost:3000');
+        });
+      } catch (error: any) {
+        reject(error);
+      }
+    });
+    console.log('finished serving...');
   } else {
     console.error(`Unknown command: ${command}`);
   }
@@ -92,18 +113,19 @@ export const createProgram = (version: string): Command => {
     .option('-p, --port <number>')
     .action((params) => runFromProgram('serve', params));
 
-  program
-    .command('start')
-    .description('start a live-reloading version of your site')
-    .option('-d, --directory <path>')
-    .option('-a, --assets <path>')
-    .option('-c, --clean', 'delete existing build and output directories before starting')
-    .option('-b, --build-directory <path>')
-    .option('-x, --build-hash <str>')
-    .option('-u, --site-host <str>')
-    .option('-o, --output-directory <path>')
-    .option('-p, --port <number>')
-    .action((params) => runFromProgram('start', params));
+  // TODO(krishan711): implement start to watch the files and rebuild as needed (would need webpack watch I think)
+  // program
+  //   .command('start')
+  //   .description('start a live-reloading version of your site')
+  //   .option('-d, --directory <path>')
+  //   .option('-a, --assets <path>')
+  //   .option('-c, --clean', 'delete existing build and output directories before starting')
+  //   .option('-b, --build-directory <path>')
+  //   .option('-x, --build-hash <str>')
+  //   .option('-u, --site-host <str>')
+  //   .option('-o, --output-directory <path>')
+  //   .option('-p, --port <number>')
+  //   .action((params) => runFromProgram('start', params));
 
   return program;
 };

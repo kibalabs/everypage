@@ -25,7 +25,7 @@ The next steps are:
 [x] remove old main and test
 [x] update builder-api
 [x] Move history creation to core-react to remove reach router dependency in main-new
-[|] Implement start and serve in main-new
+[x] Implement serve in main-new
 [] fix error in website console (something about setting everypage-new)
 
 Actual documentation:
