@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface ICanvasProps {
   isEditable: boolean;
-  isHeadShown: boolean;
+  isMetaShown: boolean;
   siteContent: Record<string, any>;
   onSiteContentUpdated: (siteContent: Record<string, any>) => void;
   siteTheme: Record<string, any>;
@@ -355,7 +355,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         {!props.isEditorHidden && <div className={classes.verticalLine} />}
         <div className={classes.frameWrapper}>
           <KibaFrame selectedElementId={chosenSectionId}>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isHeadShown} shouldIncludeAttributionSection={true} />
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isMetaShown} shouldIncludeAttributionSection={true} />
           </KibaFrame>
         </div>
       </div>
@@ -374,7 +374,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
 Canvas.defaultProps = {
   isEditable: true,
-  isHeadShown: true,
+  isMetaShown: true,
 }
 
 export const MemoCanvas = React.memo(Canvas, deepCompare);

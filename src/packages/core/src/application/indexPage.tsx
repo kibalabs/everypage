@@ -25,7 +25,7 @@ export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
     sections.push(renderSection({ id: 'attribution', key: sections.length, type: 'attribution'}));
   }
   if (props.shouldIncludeHeadSection) {
-    sections.unshift(renderSection({ id: 'metadata', key: sections.length, type: 'head'}));
+    sections.unshift(renderSection({ id: 'metadata', key: sections.length, type: 'meta'}));
   }
 
   return (
