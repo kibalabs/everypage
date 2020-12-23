@@ -20,12 +20,12 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@kibalabs/core": "^0.5.0",
+    "@kibalabs/core": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-0.5.0-3.tgz",
     "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.1-4.tgz",
     "@kibalabs/everyview-tracker": "^0.2.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-117.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-135.tgz",
     "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.7.4-24.tgz",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",

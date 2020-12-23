@@ -19,6 +19,7 @@ interface ProgramParams {
 }
 
 export const runFromProgram = async (command: string, params: ProgramParams) => {
+  console.log('Welcome to everypage!');
   const port = params.port || 3000;
   const directory = path.join(process.cwd(), params.directory || 'site');
   const assetsDirectory = path.join(process.cwd(), params.assetsDirectory || 'assets');
