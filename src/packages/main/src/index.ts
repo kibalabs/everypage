@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
+import http from 'http';
+import serverHandler from 'serve-handler';
 import { Command } from 'commander';
 
 import { render } from './renderer';
@@ -45,7 +47,15 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
     console.log(`EP: Building everypage project in ${buildDirectory}`);
     await render(directory, assetsDirectory, buildHash, siteHost, undefined, buildDirectory, outputDirectory);
   } else if (command === 'serve') {
-    console.error('Not implemented yet!');
+    await render(directory, assetsDirectory, buildHash, siteHost, undefined, buildDirectory, outputDirectory);
+    const server = http.createServer((request, response) => {
+      return serverHandler(request, response, {
+        public: outputDirectory,
+      });
+    })
+    server.listen(port, (): void => {
+      console.log('Running at http://localhost:3000');
+    });
   } else if (command === 'start') {
     console.error('Not implemented yet!');
   } else {

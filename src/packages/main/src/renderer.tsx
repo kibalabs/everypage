@@ -63,7 +63,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: true}),
+    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
@@ -74,7 +74,6 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       },
     },
   );
-  console.log('webWebpackConfig', webWebpackConfig);
   console.log('EP: generating node output');
   return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<object> => {
     console.log('EP: generating web output');
