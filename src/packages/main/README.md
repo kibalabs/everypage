@@ -26,7 +26,8 @@ The next steps are:
 [x] update builder-api
 [x] Move history creation to core-react to remove reach router dependency in main-new
 [x] Implement serve in main-new
-[] fix error in website console (something about setting everypage-new)
+[x] fix error in website console (something about setting everypage-new)
+[] retest on IE
 
 Actual documentation:
 
@@ -35,4 +36,3 @@ The steps for generating a static site are:
 2. Run the project through webpack targeting the web (as if you were actually building the app)
 3. Run the project through webpack targeting the node
 4. For each route, use the node output from (2) and generate a html page with its content.
-  a.

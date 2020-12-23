@@ -7,7 +7,7 @@
     "start": "build-server --start --webpack-config-modifier ./config.webpack.js",
     "start-dev": "build-server --start --dev --webpack-config-modifier ./config.webpack.js"
   },
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
@@ -20,7 +20,7 @@
     "rimraf": "3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-93.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-99.tgz",
     "@types/node": "14.0.13"
   }
 }
