@@ -9,7 +9,7 @@
     "publish": "aws s3 cp --recursive ./dist/ s3://public.kiba.dev/"
   },
   "dependencies": {
-    "@kibalabs/everypage": "0.6.8",
-    "@kibalabs/everypage-core": "0.6.8"
+    "@kibalabs/everypage": "^0.6.8",
+    "@kibalabs/everypage-core": "^0.6.8"
   }
 }
