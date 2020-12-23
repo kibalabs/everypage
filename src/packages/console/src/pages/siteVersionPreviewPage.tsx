@@ -217,7 +217,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             </Box>
             <MemoCanvas
               isEditable={isEditable}
-              isHeadShown={!isMetaHidden}
+              isMetaShown={!isMetaHidden}
               siteContent={siteContent}
               onSiteContentUpdated={onSiteContentUpdated}
               siteTheme={siteTheme}
