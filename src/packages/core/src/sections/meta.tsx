@@ -7,11 +7,11 @@ import { useWebsite } from '../util';
 import { IWebsite } from '../model';
 import { TwitterCard, TwitterAppCard } from '../application/twitterCard';
 
-interface IHeadProps extends ISectionProps {
+interface IMetaProps extends ISectionProps {
   website?: IWebsite;
 }
 
-export const Head = (props: IHeadProps): React.ReactElement => {
+export const Meta = (props: IMetaProps): React.ReactElement => {
   const website = props.website || useWebsite();
   const title = website.title || `${website.name} - ${website.tagline}`;
   let socialCardImageUrl = website.socialCardImageUrl;
@@ -21,7 +21,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
   return (
-    <Section {...props as ISectionProps} className={getClassName(Head.displayName, props.className)}>
+    <Section {...props as ISectionProps} className={getClassName(Meta.displayName, props.className)}>
       <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} padding={PaddingSize.Wide}>
         <Text variant='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing variant={PaddingSize.Default} />
@@ -77,4 +77,4 @@ export const Head = (props: IHeadProps): React.ReactElement => {
     </Section>
   );
 };
-Head.displayName = 'head';
+Meta.displayName = 'meta';
