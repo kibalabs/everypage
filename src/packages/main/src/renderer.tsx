@@ -63,7 +63,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
+    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: true}),
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),

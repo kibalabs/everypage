@@ -4,19 +4,19 @@ import { Route, Router, IHistory, IRouteProps } from '@kibalabs/core-react';
 import { ITheme } from '@kibalabs/ui-react';
 import { IWebsite, IndexPage } from '@kibalabs/everypage-core';
 
-interface RouteData {
+export interface RouteData {
   path: string;
   content: IWebsite;
   theme: ITheme;
 }
 
-interface SiteData {
+export interface SiteData {
   routes: RouteData[];
   notFoundPageContent: IWebsite;
   notFoundPageTheme: ITheme;
 }
 
-interface IAppProps {
+export interface IAppProps {
   routerHistory?: IHistory;
 }
 
