@@ -27,7 +27,7 @@ The next steps are:
 [x] Move history creation to core-react to remove reach router dependency in main-new
 [x] Implement serve in main-new
 [x] fix error in website console (something about setting everypage-new)
-[] retest on IE
+[] retest on IE (check if core-js entry is needed)
 
 Actual documentation:
 
