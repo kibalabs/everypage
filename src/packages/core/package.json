@@ -25,7 +25,7 @@
     "@kibalabs/everyview-tracker": "^0.2.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-99.tgz",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.5.1-101.tgz",
     "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.7.4-23.tgz",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",
