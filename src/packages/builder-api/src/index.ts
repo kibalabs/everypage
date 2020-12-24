@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as morgan from 'morgan';
 import * as rimraf from 'rimraf';
 import * as express from 'express';
 import * as archiver from 'archiver';
 import * as everypage from '@kibalabs/everypage';
-import * as morgan from 'morgan';
 
 const app = express();
 const port = 5000;

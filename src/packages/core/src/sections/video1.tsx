@@ -24,8 +24,8 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            {props.videoUrl && <Video source={props.videoUrl} />}
-            {props.embeddedVideoUrl && <WebView url={props.embeddedVideoUrl} title={'Embedded Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']}/>}
+            {props.videoUrl && <Video  isLazyLoadable={true} source={props.videoUrl} />}
+            {props.embeddedVideoUrl && <WebView isLazyLoadable={true} url={props.embeddedVideoUrl} title={'Embedded Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']}/>}
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
