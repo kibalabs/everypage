@@ -79,6 +79,9 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <meta name='apple-mobile-web-app-title' content={website.name} />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+      <link rel='apple-touch-icon' sizes='180x180' href={`/${website.buildHash}/assets/_generated/favicon-180.png`} />
+      <link rel='apple-touch-icon' sizes='1024x1024' href={`/${website.buildHash}/assets/_generated/favicon-1024.png`} />
+
       {/* iOS Banner */}
       { website.iosAppId && <meta name='apple-itunes-app' content={website.iosAppId} /> }
 
@@ -102,21 +105,12 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <link rel='icon' type='image/png' sizes='228x228' href={`/${website.buildHash}/assets/_generated/favicon-228.png`} />
       <link rel='shortcut icon' type='image/x-icon' href={`/${website.buildHash}/assets/_generated/favicon.ico`} />
 
-      {/* Favicons - iOS */}
-      <link rel='apple-touch-icon' sizes='180x180' href={`/${website.buildHash}/assets/_generated/favicon-180.png`} />
-      <link rel='apple-touch-icon' sizes='1024x1024' href={`/${website.buildHash}/assets/_generated/favicon-1024.png`} />
-
       {/* Favicons - Android */}
       <link rel='icon' sizes='192x192' href={`/${website.buildHash}/assets/_generated/favicon-192.png`} />
       <link rel='icon' sizes='128x128' href={`/${website.buildHash}/assets/_generated/favicon-128.png`} />
 
       {/* PWA Manifest */}
       <link rel='manifest' href={`/${website.buildHash}/assets/_generated/manifest.json`} />
-
-      {/* Temporary fixes */}
-      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js' async={true} />
-      <script src='https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/plugins/attrchange/ls.attrchange.min.js' async={true} />
-      <script src='https://cdn.jsdelivr.net/npm/whatwg-fetch@3.2.0/dist/fetch.umd.min.js' />
     </Head>
   );
 };
