@@ -9,7 +9,6 @@ interface IKibaFrameInnerProps extends ISingleAnyChildProps {
   selectedElementId?: string;
 }
 
-// TODO(krishan711): have to hard-code the calendly script cos it doesn't load from within. See calendly-booking-1
 const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   React.useLayoutEffect((): void => {
     if (props.selectedElementId) {
@@ -25,6 +24,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   }, [props.selectedElementId]);
 
   React.useEffect((): void => {
+    // NOTE(krishan711): these should be removable eventually!
     const script = props.document.createElement('script');
     script.async = true;
     script.src = 'https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js';
@@ -35,7 +35,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
     props.document.head.appendChild(script2);
     const script3 = props.document.createElement('script');
     script3.async = true;
-    script3.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script3.src = 'https://assets.evrpg.com/calendly-widget.js';
     props.document.head.appendChild(script3);
   }, [props.document]);
 
