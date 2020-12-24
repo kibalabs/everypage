@@ -1,8 +1,23 @@
 stages:
+  - build
   - deploy
   - publish
   - deploy-2
   - run
+
+build:
+  stage: build
+  only:
+    - merge_requests
+  image: docker:19.03.8
+  services:
+    - docker:19.03.8-dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+  script:
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target build --tag ${CI_REGISTRY_IMAGE}:latest src
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest --target console --tag ${CI_REGISTRY_IMAGE}/console:latest src
 
 build and push images:
   stage: deploy
@@ -65,6 +80,8 @@ build and push builder-api image:
 
 run on freebox:
   stage: run
+  only:
+    - master
   image: registry.gitlab.com/kibalabs/kiba/docker-images/ssh-able:latest
   variables:
     RUNNABLE_DIRECTORY: "~/deployments/$CI_PROJECT_PATH/$CI_COMMIT_SHORT_SHA"

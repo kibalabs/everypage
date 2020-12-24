@@ -1,25 +1,26 @@
 {
   "name": "@kibalabs/everypage-builder-api",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "private": true,
   "scripts": {
     "build": "build-server --webpack-config-modifier ./config.webpack.js",
     "start": "build-server --start --webpack-config-modifier ./config.webpack.js",
     "start-dev": "build-server --start --dev --webpack-config-modifier ./config.webpack.js"
   },
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "files": [
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/everypage": "0.6.8",
-    "archiver": "4.0.1",
-    "express": "4.17.1",
-    "morgan": "1.10.0",
-    "rimraf": "3.0.2"
+    "@kibalabs/everypage": "0.6.9",
+    "@kibalabs/everypage-core": "0.6.9",
+    "archiver": "^4.0.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.3.1",
+    "@kibalabs/build": "^0.6.1",
     "@types/node": "14.0.13"
   }
 }
