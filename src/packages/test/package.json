@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "description": "",
   "scripts": {
@@ -9,7 +9,7 @@
     "publish": "aws s3 cp --recursive ./dist/ s3://public.kiba.dev/"
   },
   "dependencies": {
-    "@kibalabs/everypage": "0.7.1",
-    "@kibalabs/everypage-core": "0.7.1"
+    "@kibalabs/everypage": "0.7.2",
+    "@kibalabs/everypage-core": "0.7.2"
   }
 }
