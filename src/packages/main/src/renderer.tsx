@@ -50,10 +50,13 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
 
-  // NOTE(krishan711): this is has two values because of lerna (the module can be installed locally or in the "outer" node_modules)
+  // NOTE(krishan711): this is definitely weird but needed to work both locally and on the builder-api
   const nodeModulesPaths = [
     path.resolve(__dirname, '../node_modules'),
+    path.resolve(__dirname, '../../node_modules'),
     path.resolve(__dirname, '../../../node_modules'),
+    path.resolve(__dirname, '../../../../node_modules'),
+    path.resolve(__dirname, '../../../../../node_modules'),
   ];
   const nodeModulesPathFiltered = nodeModulesPaths.filter((directory: string) => fs.existsSync(directory));
   const nodeWebpackConfig = webpackMerge(
@@ -64,7 +67,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPathFiltered}),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: true}),
+    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: true, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
