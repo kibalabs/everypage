@@ -21,9 +21,9 @@
     "dist/*"
   ],
   "dependencies": {
-    "@kibalabs/build": "^0.6.0",
-    "@kibalabs/core-react": "^0.5.2",
-    "@kibalabs/ui-react": "^0.8.0",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.6.0-2.tgz",
+    "@kibalabs/core-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-core-react-0.5.2-1.tgz",
+    "@kibalabs/ui-react": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-ui-react-0.8.0-1.tgz",
     "@kibalabs/everypage-core": "^0.6.8",
     "@loadable/server": "^5.13.2",
     "@loadable/component": "^5.14.1",

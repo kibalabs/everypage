@@ -20,7 +20,7 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "^0.6.0",
+    "@kibalabs/build": "file:/Users/krishan/Projects/everypage-app/src/kibalabs-build-0.6.0-2.tgz",
     "@types/node": "14.0.13"
   }
 }
