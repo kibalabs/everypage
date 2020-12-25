@@ -50,15 +50,16 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
 
-  // NOTE(krishan711): this is definitely weird but needed to work both locally and on the builder-api
+  // NOTE(krishan711): this is definitely weird but needed to work both locally (with lerna) and on the builder-api
   const nodeModulesPaths = [
-    path.resolve(__dirname, '../node_modules'),
-    path.resolve(__dirname, '../../node_modules'),
-    path.resolve(__dirname, '../../../node_modules'),
-    path.resolve(__dirname, '../../../../node_modules'),
-    path.resolve(__dirname, '../../../../../node_modules'),
+    path.resolve(process.cwd(), './node_modules'),
+    path.resolve(process.cwd(), '../node_modules'),
+    path.resolve(process.cwd(), '../../node_modules'),
+    path.resolve(process.cwd(), '../../../node_modules'),
+    path.resolve(process.cwd(), '../../../../node_modules'),
   ];
   const nodeModulesPathFiltered = nodeModulesPaths.filter((directory: string) => fs.existsSync(directory));
+  console.log(`Using node_modules: ${nodeModulesPathFiltered} (from ${process.cwd()})`);
   const nodeWebpackConfig = webpackMerge(
     makeCommonWebpackConfig({name: 'everypage-site-node', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: false, react: true}),
@@ -100,17 +101,22 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
           </StyleSheetManager>
         </ChunkExtractorManager>
       );
+      const assetPrefix = buildHash ? `/${buildHash}` : '';
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
+          {extractor.getPreAssets().map((preAsset: any): React.ReactElement => (
+            <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
+          ))}
           {headElements}
-          {extractor.getLinkElements()}
           {styledComponentsSheet.getStyleElement()}
         </head>
       );
       // TODO(krishan711): use stylesheets and css
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
-          {extractor.getScriptElements()}
+          {extractor.getMainAssets().map((mainAsset: any): React.ReactElement => (
+            <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
+          ))}
         </React.Fragment>
       );
       const output = `<!DOCTYPE html>
