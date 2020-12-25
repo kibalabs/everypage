@@ -56,7 +56,7 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
               </Stack.Item>
             )}
             {props.videoUrl && <Video source={props.videoUrl} />}
-            {props.embeddedVideoUrl && <WebView url={props.embeddedVideoUrl} title={'Embedded Hero Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']}/>}
+            {props.embeddedVideoUrl && <WebView url={props.embeddedVideoUrl} title={'Embedded Hero Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']} aspectRatio={0.5625} />}
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
