@@ -57,11 +57,7 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
   }
 
   .no-js & {
-    height: auto !important;
-    box-shadow: none !important;
-    margin-top: auto !important;
-    margin-bottom: auto !important;
-    border-radius: auto !important;
+    display: none;
   }
 `;
 
@@ -76,7 +72,8 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
         data-url={url}
       />
       <Head>
-        <script async={true} src='https://assets.evrpg.com/calendly-widget.js' />
+        {/* NOTE(krishan711): async and defer to ensure it happens as late as possible */}
+        <script async={true} defer={true} src='https://assets.evrpg.com/calendly-widget.js' />
       </Head>
       <noscript>
         <Text>Please <Link target={url} text='click here'></Link> to choose a time.</Text>

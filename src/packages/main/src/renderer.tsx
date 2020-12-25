@@ -104,10 +104,10 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const assetPrefix = buildHash ? `/${buildHash}` : '';
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
+          {headElements}
           {extractor.getPreAssets().map((preAsset: any): React.ReactElement => (
             <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
           ))}
-          {headElements}
           {styledComponentsSheet.getStyleElement()}
         </head>
       );
