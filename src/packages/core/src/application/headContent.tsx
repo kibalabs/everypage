@@ -21,15 +21,16 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
 
+  const assetPrefix = website.buildHash ? `/${website.buildHash}` : '';
   return (
     <Head>
       <meta charSet='utf-8' />
       <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 
       {/* Everypage meta */}
-      <meta name='ep-version' content={process.env.PACKAGE_VERSION} />
+      <meta name='generator' content='everypage (https://www.everypagehq.com)' />
+      <meta name='everypage-version' content={process.env.PACKAGE_VERSION} />
       <meta name='build-hash' content={website.buildHash || null} />
-      <meta name='attribution' content='Made with everypage. Visit https://www.everypagehq.com' />
       { website.version && <meta name='version' content={website.version} /> }
 
       {/* Fonts */}
@@ -79,8 +80,8 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <meta name='apple-mobile-web-app-title' content={website.name} />
       <meta name='apple-mobile-web-app-capable' content='yes' />
       <meta name='apple-mobile-web-app-status-bar-style' content='default' />
-      <link rel='apple-touch-icon' sizes='180x180' href={`/${website.buildHash}/assets/_generated/favicon-180.png`} />
-      <link rel='apple-touch-icon' sizes='1024x1024' href={`/${website.buildHash}/assets/_generated/favicon-1024.png`} />
+      <link rel='apple-touch-icon' sizes='180x180' href={`${assetPrefix}/assets/_generated/favicon-180.png`} />
+      <link rel='apple-touch-icon' sizes='1024x1024' href={`${assetPrefix}/assets/_generated/favicon-1024.png`} />
 
       {/* iOS Banner */}
       { website.iosAppId && <meta name='apple-itunes-app' content={website.iosAppId} /> }
@@ -88,7 +89,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       {/* Windows */}
       <meta name='msapplication-navbutton-color' content={String(theme.colors.brandPrimary)} />
       <meta name='msapplication-TileColor' content={String(theme.colors.brandPrimary)} />
-      <meta name='msapplication-TileImage' content={`/${website.buildHash}/assets/_generated/favicon-144.png`} />
+      <meta name='msapplication-TileImage' content={`${assetPrefix}/assets/_generated/favicon-144.png`} />
       <meta name='msapplication-config' content='browserconfig.xml' />
       <meta name='msapplication-tooltip' content={website.tagline || website.description} />
       <meta name='msapplication-starturl' content='/' />
@@ -99,18 +100,18 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       <meta name='browsermode' content='application' />
 
       {/* Favicons */}
-      <link rel='icon' type='image/png' sizes='16x16' href={`/${website.buildHash}/assets/_generated/favicon-16.png`} />
-      <link rel='icon' type='image/png' sizes='32x32' href={`/${website.buildHash}/assets/_generated/favicon-32.png`} />
-      <link rel='icon' type='image/png' sizes='48x48' href={`/${website.buildHash}/assets/_generated/favicon-48.png`} />
-      <link rel='icon' type='image/png' sizes='228x228' href={`/${website.buildHash}/assets/_generated/favicon-228.png`} />
-      <link rel='shortcut icon' type='image/x-icon' href={`/${website.buildHash}/assets/_generated/favicon.ico`} />
+      <link rel='icon' type='image/png' sizes='16x16' href={`${assetPrefix}/assets/_generated/favicon-16.png`} />
+      <link rel='icon' type='image/png' sizes='32x32' href={`${assetPrefix}/assets/_generated/favicon-32.png`} />
+      <link rel='icon' type='image/png' sizes='48x48' href={`${assetPrefix}/assets/_generated/favicon-48.png`} />
+      <link rel='icon' type='image/png' sizes='228x228' href={`${assetPrefix}/assets/_generated/favicon-228.png`} />
+      <link rel='shortcut icon' type='image/x-icon' href={`${assetPrefix}/assets/_generated/favicon.ico`} />
 
       {/* Favicons - Android */}
-      <link rel='icon' sizes='192x192' href={`/${website.buildHash}/assets/_generated/favicon-192.png`} />
-      <link rel='icon' sizes='128x128' href={`/${website.buildHash}/assets/_generated/favicon-128.png`} />
+      <link rel='icon' sizes='192x192' href={`${assetPrefix}/assets/_generated/favicon-192.png`} />
+      <link rel='icon' sizes='128x128' href={`${assetPrefix}/assets/_generated/favicon-128.png`} />
 
       {/* PWA Manifest */}
-      <link rel='manifest' href={`/${website.buildHash}/assets/_generated/manifest.json`} />
+      <link rel='manifest' href={`${assetPrefix}/assets/_generated/manifest.json`} />
     </Head>
   );
 };
