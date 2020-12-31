@@ -3,7 +3,7 @@ import { getClassName } from '@kibalabs/core';
 import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, Alignment, ResponsiveTextAlignmentView, MarkdownText, IconButton, KibaIcon, AppDownloadButton } from '@kibalabs/ui-react';
 
 import { Section, ISectionProps } from '.';
-import { HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
 import { useWebsite } from '../util';
 import { EverypagePaddingSize } from '../internal';
 
@@ -46,9 +46,9 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
       <ResponsiveContainingView sizeResponsive={{base: 10, small: 8}}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop}>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
-            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
+            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack.Item gutterBefore={PaddingSize.Wide3}>
@@ -58,10 +58,10 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
                 {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}
               </Stack>
             </Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText}/></Stack.Item>}
-            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide3}></Stack.Item>
+            <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide3} />
             {props.iconLinks && (
               <Stack.Item gutterAfter={PaddingSize.Wide}>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true}>
