@@ -5,7 +5,7 @@ import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingS
 import { Section, ISectionProps } from '.';
 import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
 import { IFormProps, defaultFormProps } from '../model';
-import { HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
 
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -65,7 +65,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
           <Grid.Item sizeResponsive={{base: 8, medium: 5}}>
             <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Left}}>
                 <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}}>
-                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><ResponsiveContainingView sizeResponsive={{base: 12, medium: 10}}><Image source={props.logoImageUrl} alternativeText='logo' /></ResponsiveContainingView></Stack.Item>}
+                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
                 {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
                 {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
                 <Form onFormSubmitted={onFormSubmitted}>
