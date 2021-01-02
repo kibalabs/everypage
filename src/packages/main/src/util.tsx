@@ -81,3 +81,21 @@ export const loadPathsFromDirectory = (directory: string, urlPath: string = '', 
   });
   return output;
 }
+
+export const findAncestorSibling = (name: string, startingDirectory?: string): string[] => {
+  var directory = path.resolve(startingDirectory || '');
+  const rootDirectory = path.parse(directory).root;
+
+  const output: string[] = [];
+  while (true) {
+    const potentialDirectory = path.join(directory, name);
+    if (fs.existsSync(potentialDirectory)) {
+      output.push(potentialDirectory);
+    }
+    if (directory === rootDirectory) {
+      break;
+    }
+    directory = path.dirname(directory);
+  }
+  return output;
+};
