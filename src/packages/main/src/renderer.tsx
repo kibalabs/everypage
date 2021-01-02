@@ -15,7 +15,7 @@ import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 
-import { copyFileSync, copyDirectorySync, loadPathsFromDirectory, loadContentFromFileSync, IPage } from './util';
+import { copyFileSync, copyDirectorySync, loadPathsFromDirectory, loadContentFromFileSync, IPage, findAncestorSibling } from './util';
 import default404Content from './404.json';
 
 export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: string, buildHash?: string, siteHost?: string, shouldHideAttribution?: boolean, buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
@@ -51,21 +51,14 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   }
 
   // NOTE(krishan711): this is definitely weird but needed to work both locally (with lerna) and on the builder-api
-  const nodeModulesPaths = [
-    path.resolve(process.cwd(), './node_modules'),
-    path.resolve(process.cwd(), '../node_modules'),
-    path.resolve(process.cwd(), '../../node_modules'),
-    path.resolve(process.cwd(), '../../../node_modules'),
-    path.resolve(process.cwd(), '../../../../node_modules'),
-  ];
-  const nodeModulesPathFiltered = nodeModulesPaths.filter((directory: string) => fs.existsSync(directory));
-  console.log(`Using node_modules: ${nodeModulesPathFiltered} (from ${process.cwd()})`);
+  const nodeModulesPaths = findAncestorSibling('node_modules');
+  console.log(`Using node_modules: ${nodeModulesPaths} (from ${process.cwd()})`);
   const nodeWebpackConfig = webpackMerge(
     makeCommonWebpackConfig({name: 'everypage-site-node', dev: false, analyze: false}),
     makeJsWebpackConfig({polyfill: false, react: true}),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPathFiltered}),
+    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
   );
   const webWebpackConfig = webpackMerge(
     makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
