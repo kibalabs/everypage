@@ -37,3 +37,74 @@ jobs:
     #     json-file-path: ./typing-results.json
     #     check-name: type-package
     #     fail-on-error: false
+  deploy-packages:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Build docker image
+      run: docker build --target build --tag packages .
+    - name: Create .npmrc file
+      run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+    # - name: Publish packages to npm
+    #   run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages npm run publish
+  deploy-console:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    env:
+      DOCKER_IMAGE: docker.pkg.github.com/${{ github.repository }}/everypage-builder-api
+      DOCKER_TAG: latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Login to GitHub Packages Docker Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.repository_owner }} --password-stdin
+    - name: Build docker image
+      run: docker build --file ./builder-api.Dockerfile --tag $DOCKER_IMAGE:$DOCKER_TAG .
+    # - name: Push to GitHub Packages
+    #   run: docker push $DOCKER_IMAGE:$DOCKER_TAG
+  deploy-builder-api:
+    needs: deploy-packages
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    env:
+      DOCKER_IMAGE: docker.pkg.github.com/${{ github.repository }}/everypage-builder-api
+      DOCKER_TAG: latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Login to GitHub Packages Docker Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.repository_owner }} --password-stdin
+    - name: Build docker image
+      run: docker build --file ./builder-api.Dockerfile --tag $DOCKER_IMAGE:$DOCKER_TAG .
+    # - name: Push to GitHub Packages
+    #   run: docker push $DOCKER_IMAGE:$DOCKER_TAG
+  run-builder-api-console:
+    needs: [ deploy-builder-api, deploy-console ]
+    runs-on: ubuntu-latest
+    env:
+      RUNNABLE_DIRECTORY: deployments/${{ github.repository }}/${{ github.sha }}
+      REPOSITORY_URL: git@github.com:${{ github.repository }}
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.FREEBOX_URL }}
+          username: ${{ secrets.FREEBOX_USER }}
+          key: ${{ secrets.FREEBOX_SSH_KEY }}
+          envs: REPOSITORY_URL,RUNNABLE_DIRECTORY
+          script_stop: true
+          script: |
+            rm -rf $RUNNABLE_DIRECTORY
+            # git clone --depth 1 $REPOSITORY_URL $RUNNABLE_DIRECTORY
+            # cd $RUNNABLE_DIRECTORY
+            # ./run.sh
