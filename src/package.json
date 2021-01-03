@@ -14,7 +14,10 @@
     "publish-test": "lerna run publish --stream --scope  @kibalabs/everypage-test",
     "publish": "lerna publish from-package --no-git-tag-version --no-push --yes",
     "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
-    "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;"
+    "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;",
+    "lint": "lerna run lint",
+    "lint-fix": "lerna run lint-fix",
+    "type-check": "lerna run type-check"
   },
   "devDependencies": {
     "lerna": "3.22.1"
