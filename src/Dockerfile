@@ -8,7 +8,7 @@ COPY package.json package.json
 COPY package-lock.json package-lock.json
 COPY packages/core/package.json packges/core/package.json
 COPY packages/console/package.json packges/console/package.json
-COPY packages/main/package.json packges/main/package.json
+COPY packages/cli/package.json packges/cli/package.json
 COPY packages/test/package.json packges/test/package.json
 COPY packages/builder-api/package.json packges/builder-api/package.json
 RUN npm ci

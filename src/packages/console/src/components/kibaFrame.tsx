@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheetManager } from 'styled-components';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
 import { ErrorBoundary, ISingleAnyChildProps } from '@kibalabs/core-react';
-import { HeadRootProvider } from '@kibalabs/everypage-core';
+import { HeadRootProvider } from '@kibalabs/everypage';
 
 interface IKibaFrameInnerProps extends ISingleAnyChildProps {
   document: HTMLDocument;

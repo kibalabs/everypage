@@ -1,5 +1,5 @@
 import React from 'react';
-import { IWebsite } from '@kibalabs/everypage-core'
+import { IWebsite } from '@kibalabs/everypage'
 import { Box, Text, Stack, Direction, KibaIcon, Alignment, Spacing } from '@kibalabs/ui-react'
 
 interface IMetaItemProps {

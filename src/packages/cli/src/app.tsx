@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Router, IHistory, IRouteProps } from '@kibalabs/core-react';
 import { ITheme } from '@kibalabs/ui-react';
-import { IWebsite, IndexPage } from '@kibalabs/everypage-core';
+import { IWebsite, IndexPage } from '@kibalabs/everypage';
 
 export interface RouteData {
   path: string;
