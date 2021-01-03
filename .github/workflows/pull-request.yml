@@ -15,25 +15,25 @@ jobs:
       uses: actions/checkout@v2
     - name: Build docker image
       run: docker build --tag $DOCKER_IMAGE --target build .
-    - name: Run linting
-      run: |
-        docker run --name linting $DOCKER_IMAGE npm run lint -- --output-file linting-results.json --output-file-format annotations
-        docker cp linting:/app/linting-results.json ./linting-results.json
-    - name: Upload linting results
-      uses: kibalabs/github-action-create-annotations@main
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        json-file-path: ./linting-results.json
-        check-name: lint-package
-        fail-on-error: false
-    - name: Run typing
-      run: |
-        docker run --name typing $DOCKER_IMAGE npm run type-check -- --output-file typing-results.json --output-file-format annotations
-        docker cp typing:/app/typing-results.json ./typing-results.json
-    - name: Upload typing results
-      uses: kibalabs/github-action-create-annotations@main
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        json-file-path: ./typing-results.json
-        check-name: type-package
-        fail-on-error: false
+    # - name: Run linting
+    #   run: |
+    #     docker run --name linting $DOCKER_IMAGE npm run lint -- --output-file linting-results.json --output-file-format annotations
+    #     docker cp linting:/app/linting-results.json ./linting-results.json
+    # - name: Upload linting results
+    #   uses: kibalabs/github-action-create-annotations@main
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     json-file-path: ./linting-results.json
+    #     check-name: lint-package
+    #     fail-on-error: false
+    # - name: Run typing
+    #   run: |
+    #     docker run --name typing $DOCKER_IMAGE npm run type-check -- --output-file typing-results.json --output-file-format annotations
+    #     docker cp typing:/app/typing-results.json ./typing-results.json
+    # - name: Upload typing results
+    #   uses: kibalabs/github-action-create-annotations@main
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
+    #     json-file-path: ./typing-results.json
+    #     check-name: type-package
+    #     fail-on-error: false
