@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import webpackMerge from 'webpack-merge';
 import { createStaticHistory } from '@kibalabs/core-react';
-import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage-core';
+import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';

@@ -1,6 +1,6 @@
 {
-  "name": "@kibalabs/everypage-core",
-  "version": "0.7.6",
+  "name": "@kibalabs/everypage",
+  "version": "0.8.0",
   "description": "The core sections and constructs for everypage",
   "license": "UNLICENSED",
   "repository": {

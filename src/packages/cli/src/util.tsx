@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { merge } from '@kibalabs/core';
 import { ITheme } from '@kibalabs/ui-react';
-import { updateAssetPaths, IWebsite } from '@kibalabs/everypage-core';
+import { updateAssetPaths, IWebsite } from '@kibalabs/everypage';
 
 export interface IPage {
   path: string;

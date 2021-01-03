@@ -1,5 +1,5 @@
 import React from 'react';
-import { IWebsitePlugin } from '@kibalabs/everypage-core'
+import { IWebsitePlugin } from '@kibalabs/everypage'
 import { Box, Text } from '@kibalabs/ui-react'
 
 interface ISitePluginCardProps {

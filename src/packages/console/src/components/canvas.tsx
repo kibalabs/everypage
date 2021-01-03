@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { deepCompare } from '@kibalabs/core';
-import { IndexPage, replaceAssetPaths, IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage-core';
+import { IndexPage, replaceAssetPaths, IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
 import { TabBar, Stack, Direction, HidingView, PaddingSize, Spacing, BackgroundView, LinkBase, Button, Text, KibaIcon, Alignment, IconButton } from '@kibalabs/ui-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
