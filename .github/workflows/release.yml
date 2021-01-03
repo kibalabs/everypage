@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: .
+        working-directory: src
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
@@ -19,13 +19,13 @@ jobs:
       run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
     - name: Publish package to npm
       run: docker run -v $(pwd)/.npmrc:/root/.npmrc package npm publish
-  deploy-storybook:
+  deploy-builder-api:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: .
     env:
-      DOCKER_IMAGE: docker.pkg.github.com/${{ github.repository }}/ui-react-storybook
+      DOCKER_IMAGE: docker.pkg.github.com/${{ github.repository }}/everypage-builder-api
       DOCKER_TAG: latest
     steps:
     - name: Check out the repo
@@ -33,11 +33,11 @@ jobs:
     - name: Login to GitHub Packages Docker Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.repository_owner }} --password-stdin
     - name: Build docker image
-      run: docker build --file ./storybook.Dockerfile --tag $DOCKER_IMAGE:$DOCKER_TAG .
+      run: docker build --file ./builder-api.Dockerfile --tag $DOCKER_IMAGE:$DOCKER_TAG .
     - name: Push to GitHub Packages
       run: docker push $DOCKER_IMAGE:$DOCKER_TAG
-  run-storybook:
-    needs: deploy-storybook
+  run-builder-api:
+    needs: deploy-builder-api
     runs-on: ubuntu-latest
     env:
       RUNNABLE_DIRECTORY: deployments/${{ github.repository }}/${{ github.sha }}
