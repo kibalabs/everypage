@@ -15,7 +15,7 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run bootstrap
+RUN npm run bootstrap-ci
 RUN npm run build
 
 # Console
