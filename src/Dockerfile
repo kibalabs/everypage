@@ -19,5 +19,12 @@ RUN npm run bootstrap
 RUN npm run build
 
 # Console
-FROM registry.gitlab.com/kibalabs/kiba/docker-images/app-serve:latest as console
+FROM nginx:1.17.10 as console
+
+WORKDIR /app
+COPY packages/console/nginx.conf .
+COPY packages/console/start.sh .
 COPY --from=build /app/packages/console/dist /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["./start.sh"]
