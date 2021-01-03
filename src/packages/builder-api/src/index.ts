@@ -18,7 +18,7 @@ app.get('/', async (_, response) => {
 
 app.post('/v1/sites/generate', async (request, response) => {
   const authSecret = request.body.authSecret;
-  if (!authSecret || authSecret !== 'whatashittypassword$$%%ohman') {
+  if (!authSecret || authSecret !== process.env.AUTH_SECRET) {
     return response.status(401).json({message: 'Unauthorised'});
   }
   const siteName = request.body.siteName;
