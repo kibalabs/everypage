@@ -1,7 +1,7 @@
 import React from 'react';
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Box } from '@kibalabs/ui-react';
-import { IndexPage } from '@kibalabs/everypage-core';
+import { IndexPage } from '@kibalabs/everypage';
 
 import { KibaFrame } from '../components/kibaFrame';
 

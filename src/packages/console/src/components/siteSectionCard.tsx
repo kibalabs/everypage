@@ -1,5 +1,5 @@
 import React from 'react';
-import { IWebsiteSection } from '@kibalabs/everypage-core'
+import { IWebsiteSection } from '@kibalabs/everypage'
 import { Box, Text, Stack, Direction, IconButton, KibaIcon, Alignment } from '@kibalabs/ui-react'
 
 interface ISiteSectionCardProps {
