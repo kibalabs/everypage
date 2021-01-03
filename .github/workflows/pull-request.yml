@@ -14,7 +14,7 @@ jobs:
     - name: Check out the repo
       uses: actions/checkout@v2
     - name: Build docker image
-      run: docker build --tag $DOCKER_IMAGE --target build.
+      run: docker build --tag $DOCKER_IMAGE --target build .
     - name: Run linting
       run: |
         docker run --name linting $DOCKER_IMAGE npm run lint -- --output-file linting-results.json --output-file-format annotations
