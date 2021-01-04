@@ -23,7 +23,7 @@ jobs:
       uses: kibalabs/github-action-create-annotations@main
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        json-file-path: ./linting-results.json
+        json-file-path: ./src/linting-results.json
         check-name: lint-package
         fail-on-error: false
     # - name: Run typing
@@ -34,7 +34,7 @@ jobs:
     #   uses: kibalabs/github-action-create-annotations@main
     #   with:
     #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     json-file-path: ./typing-results.json
+    #     json-file-path: ./src/typing-results.json
     #     check-name: type-package
     #     fail-on-error: false
     - name: Build console docker image
