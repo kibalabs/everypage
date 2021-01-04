@@ -147,7 +147,7 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersion;
   }
 
-  public createSiteVersion = async (siteId: number, siteContent?: Record<string, any>, siteTheme?: Record<string, any>, name?: string, templateId?: number): Promise<Resources.SiteVersion> => {
+  public createSiteVersion = async (siteId: number, siteContent?: Record<string, unknown>, siteTheme?: Record<string, unknown>, name?: string, templateId?: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions`;
     const request = new Endpoints.CreateSiteVersionRequest(siteContent, siteTheme, name, templateId);
@@ -225,7 +225,7 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersionEntry;
   }
 
-  public updateSiteVersionEntry = async (siteId: number, siteVersionId: number, siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null): Promise<Resources.SiteVersionEntry> => {
+  public updateSiteVersionEntry = async (siteId: number, siteVersionId: number, siteContent: Record<string, unknown> | null, siteTheme: Record<string, unknown> | null): Promise<Resources.SiteVersionEntry> => {
     const method = RestMethod.PATCH;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
     const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
@@ -321,7 +321,7 @@ export class EverypageClient extends ServiceClient {
     return response.sections;
   }
 
-  public createSection = async (name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, any>): Promise<Resources.Section> => {
+  public createSection = async (name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, unknown>): Promise<Resources.Section> => {
     const method = RestMethod.POST;
     const path = 'v1/sections';
     const request = new Endpoints.CreateSectionRequest(name, description, sectionType, sectionCategoryId, previewImageUrl, content);

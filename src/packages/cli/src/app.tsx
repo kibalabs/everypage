@@ -22,9 +22,10 @@ export interface IAppProps {
   routerHistory?: IHistory;
 }
 
+// eslint-disable-next-line no-undef
 const siteData: SiteData = __non_webpack_require__('./siteData.json');
 
-export const App = (props: IAppProps) => {
+export const App = (props: IAppProps): React.ReactElement => {
   return (
     <Router history={props.routerHistory}>
       {siteData.routes.map((routeData: RouteData): React.ReactElement<IRouteProps> => (
@@ -39,6 +40,7 @@ export default App;
 
 if (typeof document !== 'undefined') {
   const target = document.getElementById('root');
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const renderMethod = target.hasChildNodes() ? ReactDOM.hydrate : ReactDOM.render;
   const render = (Component: Function) => {
     renderMethod(<Component />, target);

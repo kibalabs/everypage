@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
-import { BackgroundView, ColorSettingView, ContainingView, IBackgroundConfig } from '@kibalabs/ui-react';
+import { BackgroundView, ColorSettingView, ContainingView } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { IWebsiteSection } from '../model/website';

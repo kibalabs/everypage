@@ -125,12 +125,12 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     return `https://${site.slug}.evrpg.com`;
   };
 
-  const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
+  const onSiteContentUpdated = (siteContent: Record<string, unknown>): void => {
     setSiteContent(siteContent);
     setIsSiteContentChanged(true);
   };
 
-  const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
+  const onSiteThemeUpdated = (siteTheme: Record<string, unknown>): void => {
     setSiteTheme(siteTheme);
     setIsSiteThemeChanged(true);
   };

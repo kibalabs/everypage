@@ -12,7 +12,7 @@ const sectionMap = (Object.values(sections) as React.ComponentType[]).reduce((pr
   return previousValue;
 }, {});
 
-export const renderSection = (params: Record<string, any>): React.ReactElement => {
+export const renderSection = (params: Record<string, unknown>): React.ReactElement => {
   if (Object.keys(sectionMap).includes(params.type)) {
     const Component = sectionMap[params.type];
     return <Component {...params} />;

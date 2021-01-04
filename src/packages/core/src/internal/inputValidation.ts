@@ -18,8 +18,10 @@ export const validateInput = (input: string, inputType: InputType): IInputValida
       // if (!isValidUrl(input)) {
       //   return {isValid: false, errorMessage: 'Please enter a valid url'};
       // }
-      // break;
+      break;
     }
+    default:
+      break;
   }
   return { isValid: true };
 };

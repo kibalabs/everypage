@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/* eslint-disable */
 
 const everypage = require('../dist');
 const everypagePackage = require('../package.json');

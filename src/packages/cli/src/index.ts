@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as fs from 'fs';
 import http from 'http';
 import * as path from 'path';
@@ -19,7 +20,7 @@ interface ProgramParams {
   clean?: boolean;
 }
 
-export const runFromProgram = async (command: string, params: ProgramParams) => {
+export const runFromProgram = async (command: string, params: ProgramParams): Promise<void> => {
   console.log('Welcome to everypage!');
   const port = params.port || 3000;
   const directory = path.join(process.cwd(), params.directory || 'site');
@@ -56,13 +57,13 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
       });
     });
     console.log('starting server...');
-    await new Promise((resolve, reject): Promise<void> => {
+    await new Promise((resolve, reject): void => {
       try {
         server.once('listening', () => {
           server.removeAllListeners('error');
           server.removeAllListeners('listening');
         });
-        server.once('error', (err: any) => {
+        server.once('error', (err) => {
           server.removeAllListeners('listening');
           server.removeAllListeners('error');
           reject(err);
@@ -76,7 +77,7 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
         server.listen(port, (): void => {
           console.log('Running at http://localhost:3000');
         });
-      } catch (error: any) {
+      } catch (error) {
         reject(error);
       }
     });

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Box, Button, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, Media, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Spacing, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Spacing, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';

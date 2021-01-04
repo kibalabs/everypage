@@ -10,12 +10,11 @@ export interface IGoogleAnalyticsProp extends IWebsitePlugin {
 }
 
 export const GoogleAnalytics = (props: IGoogleAnalyticsProp): React.ReactElement => {
-  if (!props.trackingId) {
-    console.error('trackingId should be provided to GoogleAnalytics');
-    return null;
-  }
-
   useInitialization((): void => {
+    if (!props.trackingId) {
+      console.error('trackingId should be provided to GoogleAnalytics');
+      return;
+    }
     ReactGA.initialize(props.trackingId);
     ReactGA.pageview(window.location.pathname + window.location.search);
   });

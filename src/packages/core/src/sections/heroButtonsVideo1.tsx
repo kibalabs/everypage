@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, Image, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, Video, WebView } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, Video, WebView } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';

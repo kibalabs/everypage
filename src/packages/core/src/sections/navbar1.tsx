@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, HidingView, IconButton, IDimensionGuide, Image, KibaIcon, MarkdownText, PaddingSize, ResponsiveHidingView, ScreenSize, Spacing, Stack, TextAlignment, useDimensions } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, HidingView, IconButton, IDimensionGuide, Image, KibaIcon, MarkdownText, PaddingSize, ResponsiveHidingView, ScreenSize, Stack, TextAlignment, useDimensions } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { ISectionProps, Section } from '.';

@@ -86,10 +86,10 @@ const useStyles = makeStyles((theme) => ({
 interface ICanvasProps {
   isEditable: boolean;
   isMetaShown: boolean;
-  siteContent: Record<string, any>;
-  onSiteContentUpdated: (siteContent: Record<string, any>) => void;
-  siteTheme: Record<string, any>;
-  onSiteThemeUpdated: (siteTheme: Record<string, any>) => void;
+  siteContent: Record<string, unknown>;
+  onSiteContentUpdated: (siteContent: Record<string, unknown>) => void;
+  siteTheme: Record<string, unknown>;
+  onSiteThemeUpdated: (siteTheme: Record<string, unknown>) => void;
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
   deleteAssetFile?: (fileKey: string) => Promise<void>;

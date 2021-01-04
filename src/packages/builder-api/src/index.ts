@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -17,7 +18,7 @@ app.get('/', async (_, response) => {
   response.send('Welcome to Site Builder');
 });
 
-app.post('/v1/sites/generate', async (request, response) => {
+app.post('/v1/sites/generate', async (request, response): Promise<void> => {
   const authSecret = request.body.authSecret;
   if (!authSecret || authSecret !== process.env.AUTH_SECRET) {
     return response.status(401).json({ message: 'Unauthorised' });
@@ -44,8 +45,6 @@ app.post('/v1/sites/generate', async (request, response) => {
   }
   const shouldHideAttribution = request.body.shouldHideAttribution;
   console.log(`Creating site: ${siteName} ${buildHash} ${siteHost}`);
-  console.log(`Site content keys: ${Object.keys(siteContent)}`);
-  console.log(`Site theme keys: ${Object.keys(siteTheme)}`);
   const buildDirectory = path.join(__dirname, siteName, `${buildHash}-build`);
   const outputDirectory = path.join(__dirname, siteName, buildHash);
 
@@ -57,7 +56,7 @@ app.post('/v1/sites/generate', async (request, response) => {
     await everypage.renderSite(siteDirectory, null, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
   } catch (error) {
-    console.log('Error building everypage', error);
+    console.error('Error building everypage', error);
     rimraf.sync(outputDirectory);
     return response.status(500).json({ message: error.message });
   }
@@ -76,6 +75,6 @@ app.post('/v1/sites/generate', async (request, response) => {
   response.status(200);
 });
 
-app.listen(port, async () => {
+app.listen(port, async (): Promise<void> => {
   return console.log(`Server started on port ${port}`);
 });

@@ -13,7 +13,7 @@ interface IMetaProps extends ISectionProps {
 }
 
 export const Meta = (props: IMetaProps): React.ReactElement => {
-  const website = props.website || useWebsite();
+  const website = useWebsite(props.website);
   const title = website.title || `${website.name} - ${website.tagline}`;
   let socialCardImageUrl = website.socialCardImageUrl;
   if (!socialCardImageUrl) {
@@ -24,7 +24,7 @@ export const Meta = (props: IMetaProps): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Meta.displayName, props.className)}>
       <Stack direction={Direction.Vertical} childAlignment={Alignment.Fill} isFullHeight={true} isFullWidth={true} shouldAddGutters={false} padding={PaddingSize.Wide}>
-        <Text variant='note'>(This is the metadata on your site - it won't be shown on the actual page but it's important because it's what Google and other search engines see when they visit your site for indexing 👀)</Text>
+        <Text variant='note'>(This is the metadata on your site - it won&apos;t be shown on the actual page but it&apos;s important because it&apos;s what Google and other search engines see when they visit your site for indexing 👀)</Text>
         <Spacing variant={PaddingSize.Default} />
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Fill} isFullWidth={true} shouldAddGutters={false}>
           <Stack.Item growthFactor={1} shrinkFactor={1}>

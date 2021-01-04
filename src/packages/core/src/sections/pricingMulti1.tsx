@@ -34,7 +34,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
   if (props.categories.length > 4) {
     throw new Error('You can only add up to 4 pricing categories');
   }
-  if (props.categories.length == 0) {
+  if (props.categories.length === 0) {
     throw new Error('You need at least 1 pricing category');
   }
   let boxVariant = props.boxVariant;
@@ -63,8 +63,8 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                     <Stack.Item alignment={Alignment.Start} growthFactor={1} gutterAfter={PaddingSize.Wide}>
                       <ResponsiveTextAlignmentView alignment={TextAlignment.Left}>
                         <BulletList>
-                          {category.features.map((feature: IPricingTiers1Feature, index: number): React.ReactElement => (
-                            <BulletText key={index} text={feature.text} />
+                          {category.features.map((feature: IPricingTiers1Feature, featureIndex: number): React.ReactElement => (
+                            <BulletText key={featureIndex} text={feature.text} />
                           ))}
                         </BulletList>
                       </ResponsiveTextAlignmentView>
