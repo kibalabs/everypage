@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import * as everypage from '@kibalabs/everypage';
+import * as everypageCli from '@kibalabs/everypage-cli';
 import * as archiver from 'archiver';
 import * as express from 'express';
 import * as morgan from 'morgan';
@@ -53,10 +53,10 @@ app.post('/v1/sites/generate', async (request, response): Promise<void> => {
   fs.writeFileSync(path.join(siteDirectory, 'content.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(siteDirectory, 'theme.json'), JSON.stringify(siteTheme));
   try {
-    await everypage.renderSite(siteDirectory, null, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
+    await everypageCli.renderSite(siteDirectory, null, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
   } catch (error) {
-    console.error('Error building everypage', error);
+    console.error('Error building everypageCli', error);
     rimraf.sync(outputDirectory);
     return response.status(500).json({ message: error.message });
   }
@@ -72,7 +72,7 @@ app.post('/v1/sites/generate', async (request, response): Promise<void> => {
   response.attachment(`${buildHash}.zip`);
   archive.pipe(response);
   archive.finalize();
-  response.status(200);
+  return response.status(200);
 });
 
 app.listen(port, async (): Promise<void> => {

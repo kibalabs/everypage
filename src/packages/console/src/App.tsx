@@ -2,13 +2,13 @@ import React from 'react';
 
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { Route, Router, useInitialization } from '@kibalabs/core-react';
+import { TawkToChat } from '@kibalabs/everypage';
 import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
 import { Helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader/root';
 
 import { AuthManager } from './authManager';
 import { GlobalCss } from './components/globalCss';
-import { TawkTo } from './components/tawkto';
 import { consoleConfig } from './consoleConfig';
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalsProvider } from './globalsContext';
@@ -48,6 +48,7 @@ const theme = buildTheme({
 
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
+    // eslint-disable-next-line no-console
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refreshToken();
@@ -61,7 +62,7 @@ export const App = hot((): React.ReactElement => {
           <Helmet>
             <title>Everypage Console</title>
           </Helmet>
-          {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
+          {process.env.NODE_ENV === 'production' && <TawkToChat accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
           <GlobalCss resetCss={resetCss} theme={theme} />
           <Router authManager={authManager}>
             <Route path='/canvas' page={CanvasPage}/>

@@ -14,7 +14,7 @@ export interface IMessageDialogProps {
   onCloseClicked: () => void;
 }
 
-export const MessageDialog = (props: IMessageDialogProps) => {
+export const MessageDialog = (props: IMessageDialogProps): React.ReactElement => {
   return (
     <Dialog onClose={props.onCloseClicked} open={props.isOpen}>
       <DialogTitle>{props.title}</DialogTitle>

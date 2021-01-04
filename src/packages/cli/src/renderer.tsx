@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
 
@@ -75,12 +76,13 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     },
   );
   console.log('EP: generating node output');
-  return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<object> => {
+  return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<Record<string, unknown>> => {
     console.log('EP: generating web output');
     return createAndRunCompiler(webWebpackConfig);
-  }).then(async (webpackBuildStats: object): Promise<void> => {
+  }).then(async (webpackBuildStats: Record<string, unknown>): Promise<void> => {
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
+    // eslint-disable-next-line no-undef
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
@@ -100,7 +102,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
           {headElements}
-          {extractor.getPreAssets().map((preAsset: any): React.ReactElement => (
+          {extractor.getPreAssets().map((preAsset: Record<string, string>): React.ReactElement => (
             <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
           ))}
           {styledComponentsSheet.getStyleElement()}
@@ -109,7 +111,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       // TODO(krishan711): use stylesheets and css
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
-          {extractor.getMainAssets().map((mainAsset: any): React.ReactElement => (
+          {extractor.getMainAssets().map((mainAsset: Record<string, string>): React.ReactElement => (
             <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
           ))}
         </React.Fragment>,

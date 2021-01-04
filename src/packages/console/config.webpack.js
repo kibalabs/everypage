@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 
 // NOTE(krishan711): this sucks! Find another way to use local libraries with lerna monorepos without this mess

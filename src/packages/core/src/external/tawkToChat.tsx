@@ -17,7 +17,7 @@ export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
     }
 
     if (!document) {
-      console.warn('Could not set up PanelbearAnalytics since document is not set.');
+      console.warn('Could not set up TawkToChat since document is not set.');
       return;
     }
 

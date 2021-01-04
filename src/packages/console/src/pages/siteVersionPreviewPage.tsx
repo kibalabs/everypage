@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
-import { useBooleanLocalStorageState, useInitialization, useInterval } from '@kibalabs/core-react';
+import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,8 +53,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
-  const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const [siteContent, setSiteContent] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
+  const [siteTheme, setSiteTheme] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -63,13 +63,15 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
-  useInitialization((): void => {
+  React.useEffect((): void => {
     loadSite();
-  });
+  }, [props.slug]);
 
   React.useEffect((): void => {
     if (site) {
       loadSiteVersion();
+    } else {
+      setSiteVersion(null);
     }
   }, [site]);
 
@@ -77,12 +79,15 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     if (siteVersion) {
       loadSiteVersionEntry();
       loadSiteVersionAssets();
+    } else {
+      setSiteVersionEntry(null);
+      setAssetFileMap(undefined);
     }
   }, [siteVersion]);
 
   const loadSite = (): void => {
-    everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
-      setSite(site);
+    everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+      setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
@@ -90,8 +95,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   };
 
   const loadSiteVersion = (): void => {
-    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((siteVersion: SiteVersion) => {
-      setSiteVersion(siteVersion);
+    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersion: SiteVersion) => {
+      setSiteVersion(receivedSiteVersion);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersion(null);
@@ -99,10 +104,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   };
 
   const loadSiteVersionEntry = (): void => {
-    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((siteVersionEntry: SiteVersionEntry) => {
-      setSiteVersionEntry(siteVersionEntry);
-      setSiteContent(siteVersionEntry.siteContent);
-      setSiteTheme(siteVersionEntry.siteTheme);
+    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
+      setSiteVersionEntry(receivedSiteVersionEntry);
+      setSiteContent(receivedSiteVersionEntry.siteContent);
+      setSiteTheme(receivedSiteVersionEntry.siteTheme);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersionEntry(null);
@@ -112,12 +117,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const loadSiteVersionAssets = (): void => {
     everypageClient.listSiteVersionAssets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
       setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
+        // eslint-disable-next-line no-param-reassign
         currentMap[assetFile.path] = `${getSiteUrl()}/${siteVersion.buildHash}${assetFile.path}`;
         return currentMap;
       }, {}));
     }).catch((error: KibaException): void => {
       console.error('error', error);
-      setSiteVersionEntry(null);
+      setAssetFileMap(undefined);
     });
   };
 
@@ -125,13 +131,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     return `https://${site.slug}.evrpg.com`;
   };
 
-  const onSiteContentUpdated = (siteContent: Record<string, unknown>): void => {
-    setSiteContent(siteContent);
+  const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
+    setSiteContent(newSiteContent);
     setIsSiteContentChanged(true);
   };
 
-  const onSiteThemeUpdated = (siteTheme: Record<string, unknown>): void => {
-    setSiteTheme(siteTheme);
+  const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
+    setSiteTheme(newSiteTheme);
     setIsSiteThemeChanged(true);
   };
 
@@ -161,6 +167,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         Object.keys(presignedUpload.params).forEach((key: string): void => {
           formData.set(key, presignedUpload.params[key]);
         });
+        // eslint-disable-next-line no-template-curly-in-string
         formData.set('key', presignedUpload.params.key.replace('${filename}', fileName));
         formData.set('content-type', file.type);
         formData.append('file', file, file.name);
@@ -196,7 +203,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <div>Error loading site version. Please go back and try again...</div>
-        ) : siteContent === undefined || siteTheme === undefined || assetFileMap == undefined ? (
+        ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <div>Loading...</div>
         ) : (
           <React.Fragment>

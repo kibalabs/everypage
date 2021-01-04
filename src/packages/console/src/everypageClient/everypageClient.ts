@@ -179,7 +179,7 @@ export class EverypageClient extends ServiceClient {
     return response.assetFiles;
   }
 
-  public deleteSiteVersionAsset = async (siteId: number, siteVersionId: number, assetPath: string): Promise<Void> => {
+  public deleteSiteVersionAsset = async (siteId: number, siteVersionId: number, assetPath: string): Promise<void> => {
     const method = RestMethod.DELETE;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets/${encodeURIComponent(assetPath)}`;
     const request = new Endpoints.DeleteSiteVersionAssetsRequest();
@@ -204,7 +204,7 @@ export class EverypageClient extends ServiceClient {
   public archiveSiteVersion = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/archive`;
-    const request = new Endpoints.ArchiveSiteVersionRequest(name);
+    const request = new Endpoints.ArchiveSiteVersionRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.ArchiveSiteVersionResponse);
     return response.siteVersion;
   }

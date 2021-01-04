@@ -53,7 +53,7 @@ export const NavigationBar = (): React.ReactElement => {
     });
   };
 
-  useInitialization((): (() => void) => {
+  useInitialization((): void | (() => void) => {
     setHasVerifiedEmail(authManager.getJwt().hasVerifiedEmail);
     if (!authManager.getJwt().hasVerifiedEmail) {
       const intervalId = setInterval((): void => {
@@ -64,6 +64,7 @@ export const NavigationBar = (): React.ReactElement => {
       }, 1000);
       return (): void => clearInterval(intervalId);
     }
+    return null;
   });
 
   return (

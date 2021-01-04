@@ -8,7 +8,6 @@ export interface IDropzoneProps {
   onFilesChosen: (files: File[]) => void;
 }
 
-// TODO(krishan711): design a preview holder with https://react-dropzone.js.org/#section-previews
 const StyledDropzone = styled.div`
   flex: 1;
   display: flex;
@@ -38,7 +37,7 @@ export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
       { isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (
-        <p>Drag 'n drop some files here, or click to select files</p>
+        <p>Drag and drop some files here, or click to select files</p>
       )}
     </StyledDropzone>
   );

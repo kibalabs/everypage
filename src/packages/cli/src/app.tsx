@@ -40,9 +40,8 @@ export default App;
 
 if (typeof document !== 'undefined') {
   const target = document.getElementById('root');
-  // eslint-disable-next-line @typescript-eslint/ban-types
   const renderMethod = target.hasChildNodes() ? ReactDOM.hydrate : ReactDOM.render;
-  const render = (Component: Function) => {
+  const render = (Component: React.ReactElement): void => {
     renderMethod(<Component />, target);
   };
   render(App);

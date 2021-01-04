@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useInitialization } from '@kibalabs/core-react';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
@@ -89,7 +89,7 @@ export interface ITemplateChooserModalProps {
   onChooseTemplateClicked: (template: Template) => void;
 }
 
-export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
+export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
@@ -107,8 +107,8 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
   });
 
   React.useEffect((): void => {
-    everypageClient.listTemplates(selectedTemplateCategoryId).then((templates: Template[]) => {
-      setTemplates(templates);
+    everypageClient.listTemplates(selectedTemplateCategoryId).then((receivedTemplates: Template[]) => {
+      setTemplates(receivedTemplates);
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplates(null);

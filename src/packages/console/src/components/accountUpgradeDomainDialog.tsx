@@ -4,13 +4,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
-import { Account } from '../everypageClient/resources';
-
-const useStyles = makeStyles({
-});
 
 export interface IAccountUpgradeDomainDialogProps {
   isOpen: boolean;
@@ -18,9 +12,7 @@ export interface IAccountUpgradeDomainDialogProps {
   onUpgradeClicked: () => void;
 }
 
-export const AccountUpgradeDomainDialog = (props: IAccountUpgradeDomainDialogProps) => {
-  const classes = useStyles();
-
+export const AccountUpgradeDomainDialog = (props: IAccountUpgradeDomainDialogProps): React.ReactElement => {
   const onCloseClicked = () => {
     props.onCloseClicked();
   };

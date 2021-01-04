@@ -13,7 +13,6 @@ export interface IPage {
 }
 
 export const copyFileSync = (sourceFilePath: string, targetPath: string): void => {
-  console.log(`EP: copying file: ${sourceFilePath} ${targetPath}`);
   let targetFilePath = targetPath;
   if (fs.existsSync(targetPath) && fs.lstatSync(targetPath).isDirectory()) {
     targetFilePath = path.join(targetPath, path.basename(sourceFilePath));
@@ -26,7 +25,6 @@ export const copyFileSync = (sourceFilePath: string, targetPath: string): void =
 };
 
 export const copyDirectorySync = (sourceDirectory: string, targetDirectory: string): void => {
-  console.log(`EP: copying directory: ${sourceDirectory} ${targetDirectory}`);
   if (!fs.lstatSync(sourceDirectory).isDirectory()) {
     throw new Error(`copyDirectorySync must be called with a directory. source ${sourceDirectory} is not a directory`);
   }
@@ -46,13 +44,14 @@ export const copyDirectorySync = (sourceDirectory: string, targetDirectory: stri
   });
 };
 
-export const readJsonFileSync = (filePath: string): object => {
+export const readJsonFileSync = (filePath: string): Record<string, unknown> => {
   return JSON.parse(String(fs.readFileSync(filePath)));
 };
 
 export const loadContentFromFileSync = (filePath: string, buildHash?: string, parentContent?: IWebsite): IWebsite => {
   let content = readJsonFileSync(filePath) as IWebsite;
   if (parentContent) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { sections, ...parentContentStripped } = parentContent;
     content = merge(parentContentStripped, content);
   }
@@ -88,6 +87,7 @@ export const findAncestorSibling = (name: string, startingDirectory?: string): s
   const rootDirectory = path.parse(directory).root;
 
   const output: string[] = [];
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const potentialDirectory = path.join(directory, name);
     if (fs.existsSync(potentialDirectory)) {

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { Site } from '../everypageClient/resources';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   siteCardButtonBase: {
     width: '100%',
   },

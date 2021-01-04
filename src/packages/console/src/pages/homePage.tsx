@@ -66,8 +66,8 @@ export const HomePage = (): React.ReactElement => {
   }, [accounts]);
 
   const loadAccounts = (): void => {
-    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
-      setAccounts(accounts);
+    everypageClient.retrieveAccounts().then((receivedAccount: Account[]) => {
+      setAccounts(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccounts(null);
@@ -79,16 +79,17 @@ export const HomePage = (): React.ReactElement => {
       return everypageClient.retrieveSitesForAccount(account.accountId);
     });
     Promise.all(promises).then((responses: Site[][]): void => {
-      const accountSites = accounts.reduce((currentMap: Record<number, Site[]>, account: Account): Record<number, Site[]> => {
+      const updatedAccountSites = accounts.reduce((currentMap: Record<number, Site[]>, account: Account): Record<number, Site[]> => {
+        // eslint-disable-next-line no-param-reassign
         currentMap[account.accountId] = [];
         return currentMap;
       }, {});
       responses.forEach((sites: Site[]): void => {
         sites.forEach((site: Site): void => {
-          accountSites[site.accountId].push(site);
+          updatedAccountSites[site.accountId].push(site);
         });
       });
-      setAccountSites(accountSites);
+      setAccountSites(updatedAccountSites);
     });
   };
 
@@ -97,7 +98,7 @@ export const HomePage = (): React.ReactElement => {
   };
 
   const onCreateSiteClicked = (account: Account): void => {
-    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
     if (accountPlan && accountSites[account.accountId].length >= accountPlan.siteLimit) {
       setAccountUpgradePopupAccount(account);
     } else {

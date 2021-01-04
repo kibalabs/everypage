@@ -84,14 +84,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const _OTHER_SECTION_CATEGORY_ID = 1;
+const OTHER_SECTION_CATEGORY_ID = 1;
 
 export interface ISectionChooserModalProps {
   isOpen: boolean;
   onChooseSectionClicked: (section: Section) => void;
 }
 
-export const SectionChooserModal = (props: ISectionChooserModalProps) => {
+export const SectionChooserModal = (props: ISectionChooserModalProps): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [sectionCategories, setSectionCategories] = React.useState<SectionCategory[] | undefined>(undefined);
@@ -99,9 +99,9 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
   const [sections, setSections] = React.useState<Section[] | undefined>(undefined);
 
   useInitialization((): void => {
-    everypageClient.listSectionCategories().then((sectionCategories: SectionCategory[]) => {
-      const orderedSectionCategories = sectionCategories.filter((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId !== _OTHER_SECTION_CATEGORY_ID);
-      orderedSectionCategories.push(sectionCategories.find((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId === _OTHER_SECTION_CATEGORY_ID));
+    everypageClient.listSectionCategories().then((receivedSectionCategories: SectionCategory[]) => {
+      const orderedSectionCategories = receivedSectionCategories.filter((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId !== OTHER_SECTION_CATEGORY_ID);
+      orderedSectionCategories.push(receivedSectionCategories.find((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId === OTHER_SECTION_CATEGORY_ID));
       setSectionCategories(orderedSectionCategories);
       setSelectedSectionCategoryId(orderedSectionCategories[0].sectionCategoryId);
     }).catch((error: Error): void => {
@@ -111,8 +111,8 @@ export const SectionChooserModal = (props: ISectionChooserModalProps) => {
   });
 
   React.useEffect((): void => {
-    everypageClient.listSections(selectedSectionCategoryId).then((sections: Section[]) => {
-      setSections(sections);
+    everypageClient.listSections(selectedSectionCategoryId).then((receivedSections: Section[]) => {
+      setSections(receivedSections);
     }).catch((error: Error): void => {
       console.error('error', error);
       setSections(null);

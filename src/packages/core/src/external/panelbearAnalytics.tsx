@@ -23,10 +23,9 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://cdn.panelbear.com/analytics.js?site=${props.siteId}`;
-    script.charset = 'UTF-8';
     script.setAttribute('crossorigin', '*');
     document.head.appendChild(script);
-    setTimeout((): void => {
+    window.setTimeout((): void => {
       window.panelbear = window.panelbear || function (...args) {
         window.panelbearQ = window.panelbearQ || [];
         window.panelbearQ.push(args);

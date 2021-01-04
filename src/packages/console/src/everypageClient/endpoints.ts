@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file */
+/* eslint-disable max-classes-per-file, no-useless-constructor, @typescript-eslint/no-unused-vars */
 import { RequestData, ResponseData } from '@kibalabs/core';
 
 import * as Resources from './resources';
@@ -22,7 +22,6 @@ export class LoginUserRequest extends RequestData {
 }
 
 export class LoginUserResponse extends ResponseData {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static fromObject = (obj: Record<string, unknown>): LoginUserResponse => {
     return new LoginUserResponse(
     );
@@ -37,7 +36,6 @@ export class LogoutUserRequest extends RequestData {
 }
 
 export class LogoutUserResponse extends ResponseData {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static fromObject = (obj: Record<string, unknown>): LogoutUserResponse => {
     return new LogoutUserResponse(
     );
@@ -72,7 +70,6 @@ export class CreateUserRequest extends RequestData {
 }
 
 export class CreateUserResponse extends ResponseData {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static fromObject = (obj: Record<string, unknown>): CreateUserResponse => {
     return new CreateUserResponse(
     );
@@ -87,7 +84,6 @@ export class RefreshTokenRequest extends RequestData {
 }
 
 export class RefreshTokenResponse extends ResponseData {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static fromObject = (obj: Record<string, unknown>): RefreshTokenResponse => {
     return new RefreshTokenResponse(
     );
@@ -102,7 +98,6 @@ export class SendEmailVerificationForUserRequest extends RequestData {
 }
 
 export class SendEmailVerificationForUserResponse extends ResponseData {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public static fromObject = (obj: Record<string, unknown>): SendEmailVerificationForUserResponse => {
     return new SendEmailVerificationForUserResponse(
     );

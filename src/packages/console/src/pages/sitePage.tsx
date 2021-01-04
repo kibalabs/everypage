@@ -19,6 +19,7 @@ import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDi
 import { MessageDialog } from '../components/messageDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
+import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
@@ -105,8 +106,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       // If its publishing, keep reloading the site until its done
       if (site.isPublishing) {
         const intervalId = setInterval((): void => {
-          everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
-            if (!site.isPublishing) {
+          everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+            if (!receivedSite.isPublishing) {
               clearInterval(intervalId);
               loadSite();
             }
@@ -115,11 +116,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         return (): void => clearInterval(intervalId);
       }
     }
+    return null;
   }, [site]);
 
   const loadAccount = (): void => {
-    everypageClient.getAccount(Number(site.accountId)).then((account: Account) => {
-      setAccount(account);
+    everypageClient.getAccount(Number(site.accountId)).then((receivedAccount: Account) => {
+      setAccount(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccount(null);
@@ -127,8 +129,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const loadSite = (): void => {
-    everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
-      setSite(site);
+    everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+      setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
@@ -240,7 +242,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onSetCustomDomainClicked = (): void => {
-    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
     if (!accountPlan.hasCustomDomain) {
       setIsAccountUpgradePopupShowing(true);
     } else {
@@ -254,7 +256,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onCustomDomainNextClicked = (): void => {
-    if (!/^[A-Za-z0-9-\.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
+    if (!/^[A-Za-z0-9-.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
       setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
       return;
     }
@@ -266,8 +268,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onCustomDomainSetClicked = (): void => {
-    everypageClient.updateDomainForSite(site.siteId, newCustomDomainValue).then((site: Site) => {
-      setSite(site);
+    everypageClient.updateDomainForSite(site.siteId, newCustomDomainValue).then((receivedSite: Site) => {
+      setSite(receivedSite);
       setIsCustomDomainPanelShowing(false);
       setNewCustomDomain(undefined);
       setNewCustomDomainValue('');
@@ -280,8 +282,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onSiteStatusClicked = (): void => {
-    everypageClient.updateDomainForSite(site.siteId, site.customDomain).then((site: Site) => {
-      setSite(site);
+    everypageClient.updateDomainForSite(site.siteId, site.customDomain).then((receivedSite: Site) => {
+      setSite(receivedSite);
       setIsCustomDomainPanelShowing(false);
       setNewCustomDomain(undefined);
       setNewCustomDomainValue('');
@@ -353,8 +355,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     <Typography color='textSecondary'>
                       Url: {getSiteUrl()}
                     </Typography>
-                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customise</Button> }
-                    {site.customDomain && site.customDomainStatus != 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
+                    {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customize</Button> }
+                    {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
                   </Box>
                 )}
                 {isCustomDomainPanelShowing && (

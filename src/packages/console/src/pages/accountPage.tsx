@@ -112,7 +112,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const [isUpgradeDialogLoading, setIsUpgradeDialogLoading] = React.useState<boolean>(false);
   const [upgradeDiscountCode, setUpgradeDiscountCode] = React.useState<string | undefined>(undefined);
   const [upgradeDiscountCodeError, setUpgradeDiscountCodeError] = React.useState<string | undefined>(undefined);
-  const currentPlan = account ? consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift() : undefined;
+  const currentPlan = account ? consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift() : undefined;
   const nextPlan = currentPlan ? consoleConfig.plans[consoleConfig.plans.indexOf(currentPlan) + 1] : undefined;
 
   useInitialization((): void => {
@@ -143,7 +143,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   };
 
   const onCreateSiteClicked = (): void => {
-    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
     if (accountPlan && accountSites.length >= accountPlan.siteLimit) {
       setUpgradeError(undefined);
       setUpgradeCardError(undefined);
@@ -325,18 +325,18 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                 <Typography>
                   If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
                   <br/><br/>
-                  If we can help you get more value out of your current plan instead, just reach out to us, we're always open to feedback 👀
+                  If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
                   <br/><br/>
                   If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
                 </Typography>
               )}
               {newPlan.planIndex > currentPlan.planIndex && (
                 <React.Fragment>
-                  <Typography>We're so glad you're enjoying everypage. 🙌</Typography>
+                  <Typography>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Typography>
                   {currentPlan.code === 'core' ? (
                     <React.Fragment>
                       <br/>
-                      <Typography>Since you haven't got a current subscription for this account, we'll need your credit card details to continue.</Typography>
+                      <Typography>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Typography>
                       <TextField
                         variant='outlined'
                         margin='normal'
@@ -356,7 +356,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                       <Typography variant='caption'>Secured by Stripe</Typography>
                     </React.Fragment>
                   ) : (
-                    <Typography>When upgrading, you won't be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
+                    <Typography>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
                   )}
                   <br/>
                   <TextField

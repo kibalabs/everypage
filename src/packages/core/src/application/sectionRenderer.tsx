@@ -8,6 +8,7 @@ const sectionMap = (Object.values(sections) as React.ComponentType[]).reduce((pr
     console.warn(`Section component "${Object.keys(sections)[currentIndex]}" does not have a displayName so cannot be used with SectionRenderer`);
     return previousValue;
   }
+  // eslint-disable-next-line no-param-reassign
   previousValue[component.displayName] = component;
   return previousValue;
 }, {});

@@ -22,7 +22,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
         }, 1000);
       }
     }
-  }, [props.selectedElementId]);
+  }, [props.document, props.selectedElementId]);
 
   React.useEffect((): void => {
     // NOTE(krishan711): these should be removable eventually!

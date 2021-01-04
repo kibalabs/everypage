@@ -69,10 +69,10 @@ export const CreateSitePage = (): React.ReactElement => {
   });
 
   const loadAccounts = (): void => {
-    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
-      setAccounts(accounts);
+    everypageClient.retrieveAccounts().then((receivedAccounts: Account[]) => {
+      setAccounts(receivedAccounts);
       if (!selectedAccountId) {
-        setSelectedAccountId(accounts[0].accountId);
+        setSelectedAccountId(receivedAccounts[0].accountId);
       }
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -137,8 +137,8 @@ export const CreateSitePage = (): React.ReactElement => {
     setIsTemplateChooserOpen(true);
   };
 
-  const onChooseTemplateClicked = (template: Template) => {
-    setTemplate(template);
+  const onChooseTemplateClicked = (clickedTemplate: Template) => {
+    setTemplate(clickedTemplate);
     setIsTemplateChooserOpen(false);
   };
 

@@ -13,7 +13,7 @@ export const CrispChat = (props: ICrispChatProps): React.ReactElement => {
   useInitialization((): void => {
     if (!props.websiteId) {
       console.error('websiteId should be provided to EveryviewAnalytics');
-      return null;
+      return;
     }
 
     if (!window || !document) {

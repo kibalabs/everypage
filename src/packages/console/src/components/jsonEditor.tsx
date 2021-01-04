@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import 'jsoneditor/dist/jsoneditor.css';
 
 interface IJsonEditorProps {
-  json: object;
-  schema?: object;
+  json: Record<string, undefined>;
+  schema?: Record<string, undefined>;
   name?: string;
   isEditable: boolean;
-  onJsonUpdated: (parsedJson: object) => void;
+  onJsonUpdated: (parsedJson: Record<string, undefined>) => void;
 }
 
 const StyledJsonEditor = styled.div`
