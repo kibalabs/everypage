@@ -2,24 +2,26 @@
   "name": "@kibalabs/everypage-cli",
   "version": "0.8.0",
   "description": "Build everypage sites",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
   },
+  "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
     "build": "build-react-component --webpack-config-modifier ./config.webpack.js",
+    "pack": "npm pack",
     "publish": "kiba-publish"
   },
   "bin": {
     "everypage": "bin/everypage.js"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "bin/*",
     "dist/*"
   ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@kibalabs/build": "^0.6.3",
     "@kibalabs/core": "^0.5.2",

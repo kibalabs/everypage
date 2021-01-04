@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap --hoist",
+    "bootstrap-ci": "lerna bootstrap --hoist --ci",
     "start": "lerna run start --stream --parallel",
     "start-console": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-console --include-dependencies",
     "start-builder-api": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-builder-api --include-dependencies",
@@ -13,7 +14,11 @@
     "publish-test": "lerna run publish --stream --scope  @kibalabs/everypage-test",
     "publish": "lerna publish from-package --no-git-tag-version --no-push --yes",
     "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
-    "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;"
+    "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;",
+    "lint": "lint",
+    "lint-fix": "lint-fix",
+    "type-check": "type-check",
+    "pack": "lerna run pack"
   },
   "devDependencies": {
     "lerna": "3.22.1"

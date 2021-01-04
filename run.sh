@@ -3,7 +3,7 @@ set -e -o pipefail
 
 name="everypage-console"
 url="console.everypagehq.com"
-dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app/console"
+dockerImageName="docker.pkg.github.com/kibalabs/everypage/everypage-console"
 dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
@@ -26,7 +26,7 @@ docker run \
 
 name="everypage-api-builder"
 url="builder-api.everypagehq.com"
-dockerImageName="registry.gitlab.com/kibalabs/everypage/everypage-app/builder-api"
+dockerImageName="docker.pkg.github.com/kibalabs/everypage/everypage-builder-api"
 dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
