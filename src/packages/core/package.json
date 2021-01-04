@@ -12,6 +12,7 @@
     "build": "build-react-component",
     "start": "build-react-component --start",
     "start-dev": "build-react-component --start --dev",
+    "pack": "npm pack",
     "publish": "kiba-publish"
   },
   "files": [

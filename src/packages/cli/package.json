@@ -10,6 +10,7 @@
   "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
     "build": "build-react-component --webpack-config-modifier ./config.webpack.js",
+    "pack": "npm pack",
     "publish": "kiba-publish"
   },
   "bin": {

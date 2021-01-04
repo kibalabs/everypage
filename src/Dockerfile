@@ -17,6 +17,9 @@ COPY . .
 
 RUN npm run bootstrap-ci
 RUN npm run build
+RUN npm run pack
+RUN mv packages/cli/kibalabs-everypage-cli-*.tgz everypage-cli.tgz
+RUN mv packages/core/kibalabs-everypage-*.tgz everypage.tgz
 
 # Console
 FROM nginx:1.17.10 as console
@@ -27,4 +30,20 @@ COPY packages/console/start.sh .
 COPY --from=build /app/packages/console/dist /usr/share/nginx/html
 
 EXPOSE 80
+CMD ["./start.sh"]
+
+# Builder API
+FROM node:12.16.1-stretch as builder-api
+
+WORKDIR /app
+COPY --from=build /app/everypage-cli.tgz .
+COPY --from=build /app/everypage.tgz .
+COPY ./packages/builder-api/package.json .
+RUN npm install ./everypage-cli.tgz ./everypage.tgz
+RUN npm install
+
+COPY ./packages/builder-api/ ./
+RUN npm run build
+
+EXPOSE 5000
 CMD ["./start.sh"]
