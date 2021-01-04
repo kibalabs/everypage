@@ -1,11 +1,12 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { Text, Stack, Alignment, Spacing, Direction, Image, Box, PaddingSize } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { useWebsite } from '../util';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Box, Direction, Image, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { TwitterAppCard, TwitterCard } from '../application/twitterCard';
 import { IWebsite } from '../model';
-import { TwitterCard, TwitterAppCard } from '../application/twitterCard';
+import { useWebsite } from '../util';
 
 interface IMetaProps extends ISectionProps {
   website?: IWebsite;
@@ -48,7 +49,7 @@ export const Meta = (props: IMetaProps): React.ReactElement => {
                 <Box width='100px' variant='transparent'>
                   <Image source={website.faviconImageUrl} />
                 </Box>
-                ) : (
+              ) : (
                 <Text>(not set)</Text>
               )}
               <Spacing variant={PaddingSize.Wide} />

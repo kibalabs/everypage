@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import { useGlobals } from '../globalsContext';
 
@@ -76,35 +77,35 @@ export const RegisterPage = (): React.ReactElement => {
       if (error.message.includes('USER_EMAIL_EXISTS')) {
         setEmailError('A user with this email exists. Please log in instead.');
       } else {
-        setPasswordError('Something went wrong on our side. Please try again later.')
+        setPasswordError('Something went wrong on our side. Please try again later.');
       }
       setIsLoading(false);
     });
-  }
+  };
 
   const onFirstNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setFirstName(event.target.value);
     setFirstNameError(undefined);
-  }
+  };
 
   const onLastNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setLastName(event.target.value);
     setLastNameError(undefined);
-  }
+  };
 
   const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setEmail(event.target.value);
     setEmailError(undefined);
-  }
+  };
 
   const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setPassword(event.target.value);
     setPasswordError(undefined);
-  }
+  };
 
   const onShouldJoinNewsletterChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setShouldJoinNewsletter(event.target.checked);
-  }
+  };
 
   return (
     <Container component='main' maxWidth='sm'>
@@ -217,4 +218,4 @@ export const RegisterPage = (): React.ReactElement => {
       </Box>
     </Container>
   );
-}
+};

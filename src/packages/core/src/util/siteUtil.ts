@@ -3,7 +3,7 @@ const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9\@\:\%\_\+\.\~\#\?\&\/\=]*)
 
 export const updateAssetPath = (assetPath: string, assetsPrefix: string): string => {
   return assetPath.replace(/^/, assetsPrefix);
-}
+};
 
 export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: string): Record<string, any> => {
   if (!assetsPrefix) {
@@ -23,12 +23,12 @@ export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: 
         });
       }
     } else if (Array.isArray(value)) {
-      value = value.map(entry => typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry);
+      value = value.map((entry) => (typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry));
     } else if (typeof value === 'object') {
       value = updateAssetPaths(value, assetsPrefix);
     }
     result[key] = value;
-    return result
+    return result;
   }, {});
   return newSiteContent;
 };
@@ -36,7 +36,7 @@ export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: 
 // NOTE(krishan711): These replacement functions are because in canvas the images are stored locally so cant just be a prefix.
 export const replaceAssetPath = (assetPath: string, assetReplacements: Record<string, string>): string => {
   return assetReplacements[assetPath] ? assetReplacements[assetPath] : assetPath;
-}
+};
 
 export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacements: Record<string, string>): Record<string, any> => {
   if (!assetReplacements) {
@@ -56,12 +56,12 @@ export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacem
         });
       }
     } else if (Array.isArray(value)) {
-      value = value.map(entry => typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry);
+      value = value.map((entry) => (typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry));
     } else if (typeof value === 'object') {
       value = replaceAssetPaths(value, assetReplacements);
     }
     result[key] = value;
-    return result
+    return result;
   }, {});
   return newSiteContent;
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { Stack, Alignment, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Text, Direction, Button, BulletText, BulletList, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Box, BulletList, BulletText, Button, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IPricingTiers1Feature {
@@ -36,7 +37,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
   if (props.categories.length == 0) {
     throw new Error('You need at least 1 pricing category');
   }
-  var boxVariant = props.boxVariant;
+  let boxVariant = props.boxVariant;
   if (props.boxMode) {
     console.warn('boxMode is deprecated. Please use boxVariant instead');
     boxVariant = props.boxMode;
@@ -49,7 +50,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{base: 12, small: 6, medium: 6, large: 4}}>
+            <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>

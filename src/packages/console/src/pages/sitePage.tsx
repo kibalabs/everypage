@@ -1,26 +1,26 @@
 import React from 'react';
-import { useInitialization, useHistory } from '@kibalabs/core-react';
-import { KibaException, dateToString } from '@kibalabs/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+
+import { dateToString, KibaException } from '@kibalabs/core';
+import { useHistory, useInitialization } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-import { Template } from '../everypageClient/resources';
-import { Site, SiteVersion, Account } from '../everypageClient/resources';
-import { useGlobals } from '../globalsContext';
-import { NavigationBar } from '../components/navigationBar';
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
-import { TemplateChooserModal } from '../components/templateChooserModal';
 import { MessageDialog } from '../components/messageDialog';
+import { NavigationBar } from '../components/navigationBar';
+import { TemplateChooserModal } from '../components/templateChooserModal';
+import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
+import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #ccc',
     marginTop: theme.spacing(2),
     padding: theme.spacing(2),
-  }
+  },
 }));
 
 export interface ISitePageProps {
@@ -124,7 +124,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setAccount(null);
     });
-  }
+  };
 
   const loadSite = (): void => {
     everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
@@ -133,7 +133,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setSite(null);
     });
-  }
+  };
 
   const loadVersions = (): void => {
     everypageClient.listSiteVersions(site.siteId).then((siteVersions: SiteVersion[]) => {
@@ -142,7 +142,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setVersions([]);
     });
-  }
+  };
 
   const loadPrimaryVersion = (): void => {
     everypageClient.getSitePrimaryVersion(site.siteId).then((siteVersion: SiteVersion) => {
@@ -151,7 +151,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setPrimaryVersionId(undefined);
     });
-  }
+  };
 
   const loadNewVersionDefaultName = (): void => {
     everypageClient.retrieveNextVersionName(site.siteId).then((nextVersionName: string) => {
@@ -159,11 +159,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     }).catch((error: KibaException): void => {
       console.error('error', error);
     });
-  }
+  };
 
   const getSiteUrl = (): string => {
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
-  }
+  };
 
   const onSetPrimaryClicked = (version: SiteVersion): void => {
     setIsLoading(true);
@@ -176,11 +176,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setIsLoading(false);
     });
-  }
+  };
 
   const onArchiveClicked = (version: SiteVersion): void => {
     setArchivingSiteVersionId(version.siteVersionId);
-  }
+  };
 
   const onArchiveSiteVersionConfirmClicked = (): void => {
     everypageClient.archiveSiteVersion(site.siteId, archivingSiteVersionId).then((): void => {
@@ -191,29 +191,29 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       setIsLoading(false);
     });
     setArchivingSiteVersionId(null);
-  }
+  };
 
   const onArchiveSiteVersionCancelClicked = (): void => {
     setArchivingSiteVersionId(null);
-  }
+  };
 
   const onCreateNewVersionClicked = (): void => {
     loadNewVersionDefaultName();
     setIsNewVersionPopupShowing(true);
-  }
+  };
 
   const onCreateFromTemplateClicked = (): void => {
     setIsNewVersionPopupShowing(false);
     setIsTemplateChooserPopupShowing(true);
-  }
+  };
 
   const onNewVersionPopupCloseClicked = (): void => {
     setIsNewVersionPopupShowing(false);
-  }
+  };
 
   const onNewVersionNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setNewVersionName(event.target.value);
-  }
+  };
 
   const onClonePrimaryClicked = (): void => {
     setIsNewVersionPopupShowing(false);
@@ -225,7 +225,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setIsLoading(false);
     });
-  }
+  };
 
   const onChooseTemplateClicked = (template: Template) => {
     setIsTemplateChooserPopupShowing(false);
@@ -246,12 +246,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     } else {
       setIsCustomDomainPanelShowing(true);
     }
-  }
+  };
 
   const onNewCustomDomainValueChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setNewCustomDomainValue(event.target.value);
     setNewCustomDomainError(undefined);
-  }
+  };
 
   const onCustomDomainNextClicked = (): void => {
     if (!/^[A-Za-z0-9-\.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
@@ -263,7 +263,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       return;
     }
     setNewCustomDomain(newCustomDomainValue);
-  }
+  };
 
   const onCustomDomainSetClicked = (): void => {
     everypageClient.updateDomainForSite(site.siteId, newCustomDomainValue).then((site: Site) => {
@@ -277,7 +277,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setNewCustomDomainApiError(error.message);
     });
-  }
+  };
 
   const onSiteStatusClicked = (): void => {
     everypageClient.updateDomainForSite(site.siteId, site.customDomain).then((site: Site) => {
@@ -290,24 +290,24 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     }).catch((error: KibaException): void => {
       console.error('error', error);
     });
-  }
+  };
 
   const onAccountUpgradePopupCloseClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-  }
+  };
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     history.navigate(`/accounts/${account.accountId}#plan`);
     setIsAccountUpgradePopupShowing(false);
-  }
+  };
 
   const onRemoveBrandingClicked = (): void => {
     history.navigate(`/accounts/${account.accountId}#plan`);
-  }
+  };
 
   const onArchiveSiteClicked = (): void => {
     setIsArchivingSite(true);
-  }
+  };
 
   const onArchiveSiteConfirmClicked = (): void => {
     everypageClient.archiveSite(site.siteId).then((): void => {
@@ -316,11 +316,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       console.error('error', error);
       setIsLoading(false);
     });
-  }
+  };
 
   const onArchiveSiteCancelClicked = (): void => {
     setIsArchivingSite(false);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -516,4 +516,4 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       />
     </div>
   );
-}
+};

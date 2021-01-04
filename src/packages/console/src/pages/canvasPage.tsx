@@ -1,18 +1,20 @@
 import React from 'react';
-import { useObjectLocalStorageState, useBooleanLocalStorageState } from '@kibalabs/core-react';
-import { makeStyles } from '@material-ui/core/styles';
+
+import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
+import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { MemoCanvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';
-import { Template, SiteVersionEntry } from '../everypageClient';
+import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-import { Typography } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +54,7 @@ export const CanvasPage = (): React.ReactElement => {
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
-    const newAssetFileMap = {...assetFileMap};
+    const newAssetFileMap = { ...assetFileMap };
     files.map((file: File): void => {
       newAssetFileMap[`/assets/${file.path}`] = URL.createObjectURL(file);
     });
@@ -73,29 +75,29 @@ export const CanvasPage = (): React.ReactElement => {
 
   const onStartOverClicked = (): void => {
     setIsShowingStartOverAlert(true);
-  }
+  };
 
   const onStartOverAlertCloseClicked = (): void => {
     setIsShowingStartOverAlert(false);
-  }
+  };
 
   const onStartOverAlertConfirmClicked = (): void => {
     setIsShowingStartOverAlert(false);
     setSiteContent(null);
     setSiteTheme(null);
-  }
+  };
 
   const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
     setSiteContent(siteContent);
     // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
     setIsSiteContentChanged(true);
-  }
+  };
 
   const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
     setSiteTheme(siteTheme);
     // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
     setIsSiteContentChanged(true);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -148,5 +150,5 @@ export const CanvasPage = (): React.ReactElement => {
         </DialogActions>
       </Dialog>
     </div>
-  )
-}
+  );
+};

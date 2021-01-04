@@ -1,10 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import { getClassName } from '@kibalabs/core';
-import { Stack, ResponsiveContainingView, TextAlignment, Direction, PaddingSize, ResponsiveTextAlignmentView, Link, Text } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Direction, Link, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import styled from 'styled-components';
+
+import { ISectionProps, Section } from '.';
+import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 import { Head } from '../util';
 
@@ -46,11 +47,11 @@ interface IStyledCalendlyEmbedProps {
 }
 
 const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
-  height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '600px' : '950px'};
+  height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '600px' : '950px')};
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   @media (min-width: 827px) {
-    height: ${(props: IStyledCalendlyEmbedProps): string => props.shouldHideEventType ? '700px' : '1050px'};
+    height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '700px' : '1050px')};
     margin-top: -66px;
     margin-bottom: -30px;
     box-shadow: none;

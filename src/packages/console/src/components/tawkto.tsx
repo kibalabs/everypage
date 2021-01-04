@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useInitialization } from '@kibalabs/core-react';
 
 export interface ITawkToProps {
@@ -11,7 +12,7 @@ export const TawkTo = (props: ITawkToProps): React.ReactElement => {
     return null;
   }
 
-   useInitialization((): void => {
+  useInitialization((): void => {
     if (window) {
       const script = document.createElement('script');
       script.async = true;
@@ -27,4 +28,4 @@ export const TawkTo = (props: ITawkToProps): React.ReactElement => {
 
 TawkTo.defaultProps = {
   widgetId: 'default',
-}
+};

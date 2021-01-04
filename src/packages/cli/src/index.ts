@@ -1,9 +1,10 @@
 import * as fs from 'fs';
-import * as path from 'path';
-import * as rimraf from 'rimraf';
 import http from 'http';
-import serverHandler from 'serve-handler';
+import * as path from 'path';
+
 import { Command } from 'commander';
+import * as rimraf from 'rimraf';
+import serverHandler from 'serve-handler';
 
 import { render } from './renderer';
 
@@ -35,12 +36,12 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   }
 
   if (fs.existsSync(buildDirectory)) {
-    console.error(`Build directory ${buildDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
+    console.error(`Build directory ${buildDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`);
     return;
   }
 
   if (fs.existsSync(outputDirectory)) {
-    console.error(`Output directory ${outputDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
+    console.error(`Output directory ${outputDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`);
     return;
   }
 

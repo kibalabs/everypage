@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import { deepCompare } from '@kibalabs/core'
-import { useDeepCompareEffect } from '@kibalabs/core-react'
+
+import { deepCompare } from '@kibalabs/core';
+import { useDeepCompareEffect } from '@kibalabs/core-react';
 import JSONEditor, { NodeName } from 'jsoneditor';
+import styled from 'styled-components';
 import 'jsoneditor/dist/jsoneditor.css';
 
 interface IJsonEditorProps {
@@ -34,11 +35,11 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     try {
       props.onJsonUpdated(JSON.parse(jsonText));
     } catch (error) {
-      console.warn('Caught error when parsing json')
+      console.warn('Caught error when parsing json');
     }
   };
 
-  const calculateNodeName = (nodeName: NodeName): string  | undefined => {
+  const calculateNodeName = (nodeName: NodeName): string | undefined => {
     if (nodeName.path.length === 0) {
       return 'site';
     }
@@ -48,7 +49,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
       }
       if (nodeName.path.length === 2) {
         // @ts-ignore
-        return props.json['sections'][nodeName.path[1]].type;
+        return props.json.sections[nodeName.path[1]].type;
       }
     }
     // if (nodeName.path)
@@ -60,7 +61,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
       const newEditor = new JSONEditor(editorRef.current, {
         name: props.name || 'json',
         schema: props.schema,
-        onChangeText: onChangeText,
+        onChangeText,
         enableSort: false,
         enableTransform: false,
         onNodeName: calculateNodeName,
@@ -92,7 +93,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
       ref={editorRef}
     />
   );
-}
+};
 JsonEditor.defaultProps = {
   isEditable: true,
-}
+};

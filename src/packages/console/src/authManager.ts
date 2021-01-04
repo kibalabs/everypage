@@ -1,5 +1,6 @@
 import { LocalStorageClient } from '@kibalabs/core';
 import { IRouterAuthManager } from '@kibalabs/core-react';
+
 import { EverypageClient } from './everypageClient';
 
 const ALGORITHM = 'alg';
@@ -9,7 +10,7 @@ const SESSION_ID = 'sid';
 const APPLICATION_ID = 'aid';
 const APPLICATION_KEY_ID = 'kid';
 const SCOPES = 'scp';
-const HAS_VERIFIED_EMAIL = 'hve'
+const HAS_VERIFIED_EMAIL = 'hve';
 
 export class Jwt {
   private header: Record<string, string>;
@@ -127,9 +128,8 @@ export class AuthManager implements IRouterAuthManager {
     return this.everypageClient.logoutUser().then((): void => {
       this.localStorageClient.clear();
     }).catch((error: Error): void => {
-      console.error(`error logging out: ${error}`)
+      console.error(`error logging out: ${error}`);
       this.localStorageClient.clear();
     });
   }
-
 }

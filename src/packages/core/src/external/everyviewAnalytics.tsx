@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useInitialization } from '@kibalabs/core-react';
 import { EveryviewTracker } from '@kibalabs/everyview-tracker';
 
@@ -10,7 +11,7 @@ export interface IEveryviewAnalyticsProp extends IWebsitePlugin {
 
 export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): React.ReactElement => {
   if (!props.applicationId) {
-    console.error('applicationId should be provided to EveryviewAnalytics')
+    console.error('applicationId should be provided to EveryviewAnalytics');
     return null;
   }
 
@@ -23,4 +24,4 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): React.ReactE
 };
 
 EveryviewAnalytics.defaultProps = {
-}
+};

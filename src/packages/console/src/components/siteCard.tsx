@@ -1,10 +1,11 @@
 import React from 'react';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
 
 import { Site } from '../everypageClient/resources';
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   disabledCard: {
     backgroundColor: '#eee',
-  }
+  },
 }));
 
 interface ISiteCardProps {
@@ -40,7 +41,7 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
 
   const onSiteClicked = (): void => {
     props.onSiteClicked(props.site);
-  }
+  };
 
   return (
     <Card className={props.isEnabled ? classes.card : classes.disabledCard}>
@@ -61,7 +62,7 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
       </CardActionArea>
     </Card>
   );
-}
+};
 SiteCard.defaultProps = {
   isEnabled: true,
-}
+};

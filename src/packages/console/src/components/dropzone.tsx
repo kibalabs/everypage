@@ -1,7 +1,8 @@
 
 import React from 'react';
-import styled from 'styled-components';
+
 import * as ReactDropzone from 'react-dropzone';
+import styled from 'styled-components';
 
 export interface IDropzoneProps {
   onFilesChosen: (files: File[]) => void;
@@ -29,10 +30,10 @@ export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
     props.onFilesChosen(files);
   }, []);
 
-  const {getRootProps, getInputProps, isDragActive} = ReactDropzone.useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = ReactDropzone.useDropzone({ onDrop });
 
   return (
-    <StyledDropzone {...getRootProps()} style={{padding: '20px'}}>
+    <StyledDropzone {...getRootProps()} style={{ padding: '20px' }}>
       <input {...getInputProps()}/>
       { isDragActive ? (
         <p>Drop the files here ...</p>
@@ -40,10 +41,10 @@ export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
         <p>Drag 'n drop some files here, or click to select files</p>
       )}
     </StyledDropzone>
-  )
-}
+  );
+};
 
-//////////////////////////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////////////////////////////////////////////////
 
 const ThumbsContainer = styled.div`
   display: flex;
@@ -129,4 +130,4 @@ export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElemen
       ))}
     </ThumbsContainer>
   );
-}
+};

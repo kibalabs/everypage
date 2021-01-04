@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { ITheme, useTheme } from '@kibalabs/ui-react';
 
-import { useWebsite, Head } from '../util';
 import { IWebsite } from '../model';
+import { Head, useWebsite } from '../util';
 
 export interface IHeadContentProps {
   website?: IWebsite;

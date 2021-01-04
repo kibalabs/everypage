@@ -80,5 +80,5 @@ export const consoleConfig: IConsoleConfig = {
   //   highlightFeature: 'run a/b tests on your sites',
   //   features: [
   //   ],
-  }]
-}
+  }],
+};

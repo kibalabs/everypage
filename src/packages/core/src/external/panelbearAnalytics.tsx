@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { useInitialization } from '@kibalabs/core-react';
+
 import { IWebsitePlugin } from '../model';
 
 export interface IPanelbearAnalyticsProps extends IWebsitePlugin {
@@ -8,7 +10,7 @@ export interface IPanelbearAnalyticsProps extends IWebsitePlugin {
 
 export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.ReactElement => {
   if (!props.siteId) {
-    console.error('siteId should be provided to PanelbearAnalytics')
+    console.error('siteId should be provided to PanelbearAnalytics');
     return null;
   }
 
@@ -21,15 +23,15 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
       script.setAttribute('crossorigin', '*');
       document.head.appendChild(script);
       setTimeout((): void => {
-        window.panelbear = window.panelbear || function() {
+        window.panelbear = window.panelbear || function () {
           window.panelbearQ = window.panelbearQ || [];
           panelbearQ.push(arguments);
         };
         // NOTE(krishan711): not sure why honorDNT is needed.
         window.panelbear('config', { site: props.siteId, honorDNT: false });
-      }, 300)
+      }, 300);
     } else {
-      console.warn('Could not set up PanelbearAnalytics since document is not set.')
+      console.warn('Could not set up PanelbearAnalytics since document is not set.');
     }
   });
 
@@ -37,4 +39,4 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
 };
 
 PanelbearAnalytics.defaultProps = {
-}
+};

@@ -1,29 +1,30 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { LocalStorageClient, Requester } from '@kibalabs/core';
-import { Router, Route, useInitialization } from '@kibalabs/core-react';
-import { buildTheme, ThemeProvider, resetCss } from '@kibalabs/ui-react';
 
-import { EverypageClient } from './everypageClient/everypageClient';
-import { GlobalCss } from './components/globalCss';
-import { HomePage } from './pages/homePage';
-import { SitePage } from './pages/sitePage';
-import { CanvasPage } from './pages/canvasPage';
-import { CanvasPreviewPage } from './pages/canvasPreviewPage';
-import { LoginPage } from './pages/loginPage';
-import { RegisterPage } from './pages/registerPage';
-import { VerifyEmailPage } from './pages/verifyEmailPage';
-import { NotFoundPage } from './pages/notFoundPage';
+import { LocalStorageClient, Requester } from '@kibalabs/core';
+import { Route, Router, useInitialization } from '@kibalabs/core-react';
+import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
+import { Helmet } from 'react-helmet';
+import { hot } from 'react-hot-loader/root';
+
 import { CreateSitePage } from './pages/createSitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
 import { AccountPage } from './pages/accountPage';
 import { GlobalsProvider } from './globalsContext';
 import { TawkTo } from './components/tawkto';
 import { AuthManager } from './authManager';
+import { GlobalCss } from './components/globalCss';
 import { JwtRequestModifier } from './jwtRequestModifier';
 import { consoleConfig } from './consoleConfig';
+import { EverypageClient } from './everypageClient/everypageClient';
+import { CanvasPage } from './pages/canvasPage';
+import { CanvasPreviewPage } from './pages/canvasPreviewPage';
 import { EmptyPage } from './pages/emptyPage';
+import { HomePage } from './pages/homePage';
+import { LoginPage } from './pages/loginPage';
+import { NotFoundPage } from './pages/notFoundPage';
+import { RegisterPage } from './pages/registerPage';
+import { SitePage } from './pages/sitePage';
+import { VerifyEmailPage } from './pages/verifyEmailPage';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester();
@@ -36,7 +37,7 @@ const globals = {
   authManager,
   localStorageClient,
   consoleConfig,
-}
+};
 
 const theme = buildTheme({
   colors: {

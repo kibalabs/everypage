@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { Stack, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText, LazyImage } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Box, Carousel, Direction, LinePager, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { LazyImage, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IImages1Slide {
@@ -27,7 +28,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
   };
   return (
     <Section {...props as ISectionProps} className={getClassName(ImageSlides1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, medium: 8}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, medium: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
@@ -35,7 +36,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             <Carousel
               onIndexChanged={onSlideIndexChanged}
               initialIndex={slideIndex}
-              slidesPerPageResponsive={{base: 1, small: 2, large: 3}}
+              slidesPerPageResponsive={{ base: 1, small: 2, large: 3 }}
             >
               {props.slides.map((slide: IImages1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded' isFullWidth={false}>
@@ -46,7 +47,7 @@ export const ImageSlides1 = (props: IImages1Props): React.ReactElement => {
             <Stack.Item gutterBefore={PaddingSize.Wide}>
               <LinePager
                 variant='small'
-                pageCountResponsive={{base: Math.ceil(props.slides.length), small: Math.ceil(props.slides.length / 2), large: Math.ceil(props.slides.length / 3)}}
+                pageCountResponsive={{ base: Math.ceil(props.slides.length), small: Math.ceil(props.slides.length / 2), large: Math.ceil(props.slides.length / 3) }}
                 activePageIndex={slideIndex}
                 onPageClicked={onPageClicked}
               />

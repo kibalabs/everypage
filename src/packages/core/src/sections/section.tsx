@@ -1,8 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
-import { ContainingView, ColorSettingView, BackgroundView, IBackgroundConfig } from '@kibalabs/ui-react';
+import { BackgroundView, ColorSettingView, ContainingView, IBackgroundConfig } from '@kibalabs/ui-react';
+import styled from 'styled-components';
+
 import { IWebsiteSection } from '../model/website';
 
 export interface ISectionProps extends IWebsiteSection {

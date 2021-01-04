@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { LocalStorageClient } from '@kibalabs/core';
 
-import { EverypageClient } from './everypageClient';
 import { AuthManager } from './authManager';
 import { IConsoleConfig } from './consoleConfig';
+import { EverypageClient } from './everypageClient';
 
 
 export interface IGlobals {
@@ -29,7 +30,7 @@ export const GlobalsProvider = (props: IGlobalsProviderProps): React.ReactElemen
 export const useGlobals = (): IGlobals => {
   const globals = React.useContext(GlobalsContext);
   if (!globals) {
-    throw new Error('Cannot use useGlobals since globals has not ben provided above in the hierarchy')
+    throw new Error('Cannot use useGlobals since globals has not ben provided above in the hierarchy');
   }
   return globals;
-}
+};

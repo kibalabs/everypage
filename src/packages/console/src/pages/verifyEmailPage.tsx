@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 import { useGlobals } from '../globalsContext';
 
@@ -29,7 +30,7 @@ export const VerifyEmailPage = (): React.ReactElement => {
     everypageClient.sendEmailVerificationForUser().then((): void => {
       setVerificationSent(true);
     });
-  }
+  };
 
   useInitialization((): (() => void) => {
     if (authManager.getJwt().hasVerifiedEmail) {
@@ -70,4 +71,4 @@ export const VerifyEmailPage = (): React.ReactElement => {
       </Paper>
     </Container>
   );
-}
+};

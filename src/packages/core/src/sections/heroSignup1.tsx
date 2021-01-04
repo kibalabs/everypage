@@ -1,11 +1,12 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { Form, Button, TextAlignment, Alignment, PaddingSize, Stack, SingleLineInput, Direction, InputType, ScreenSize, ResponsiveHidingView, ResponsiveContainingView, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
-import { IFormProps, defaultFormProps } from '../model';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, Form, InputType, PaddingSize, ResponsiveContainingView, ResponsiveHidingView, ResponsiveTextAlignmentView, ScreenSize, SingleLineInput, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize, submitForm, validateInput } from '../internal';
+import { defaultFormProps, IFormProps } from '../model';
 
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -30,7 +31,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
     setInput(value);
     setErrorMessage(null);
     setSuccessMessage(null);
-  }
+  };
 
   const onFormSubmitted = async (): Promise<void> => {
     const validationResult = validateInput(input, props.inputType);
@@ -40,10 +41,10 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
     }
     setIsLoading(true);
     setErrorMessage(null);
-    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
+    const result = await submitForm([{ value: input, type: props.inputType, name: props.inputName }, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
     setIsLoading(false);
     if (result.isSuccessful) {
-      setSuccessMessage(props.inputSuccessMessageText)
+      setSuccessMessage(props.inputSuccessMessageText);
     } else {
       setErrorMessage(result.responseMessage);
     }
@@ -51,7 +52,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
 
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroSignup1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}

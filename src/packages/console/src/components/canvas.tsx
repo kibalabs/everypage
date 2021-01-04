@@ -1,22 +1,23 @@
 
 import React from 'react';
-import { deepCompare } from '@kibalabs/core';
-import { IndexPage, replaceAssetPaths, IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
-import { TabBar, Stack, Direction, HidingView, PaddingSize, Spacing, BackgroundView, LinkBase, Button, Text, KibaIcon, Alignment, IconButton } from '@kibalabs/ui-react';
-import { makeStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import MaterialButton from '@material-ui/core/Button';
-import MaterialBox from '@material-ui/core/Box';
 
-import { KibaFrame } from './kibaFrame';
-import { JsonEditor } from './jsonEditor';
+import { deepCompare } from '@kibalabs/core';
+import { IndexPage, IWebsite, IWebsitePlugin, IWebsiteSection, replaceAssetPaths } from '@kibalabs/everypage';
+import { Alignment, BackgroundView, Button, Direction, HidingView, IconButton, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
+import MaterialBox from '@material-ui/core/Box';
+import MaterialButton from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import { makeStyles } from '@material-ui/core/styles';
+import EditIcon from '@material-ui/icons/Edit';
+
+import { Section } from '../everypageClient';
 import { Dropzone, FilePreviewGrid } from './dropzone';
+import { JsonEditor } from './jsonEditor';
+import { KibaFrame } from './kibaFrame';
 import { SectionChooserModal } from './sectionChooserModal';
 import { SiteMetaCard } from './siteMetaCard';
-import { SiteSectionCard } from './siteSectionCard';
 import { SitePluginCard } from './sitePluginCard';
-import { Section } from '../everypageClient';
+import { SiteSectionCard } from './siteSectionCard';
 
 const TAB_KEY_CONTENT = 'content';
 const TAB_KEY_THEME = 'theme';
@@ -110,23 +111,23 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
 
   const onTabKeySelected = (tabKey: string): void => {
     setSelectedTypeTabKey(tabKey);
-  }
+  };
 
   const onMetaClicked = (): void => {
     setCurrentPath('metadata');
-  }
+  };
 
   const onBackClicked = (): void => {
     setCurrentPath(undefined);
-  }
+  };
 
   const onPluginClicked = (index: number): void => {
     setCurrentPath(`plugin:${index}`);
-  }
+  };
 
   const onSectionClicked = (index: number): void => {
     setCurrentPath(`section:${index}`);
-  }
+  };
 
   React.useEffect((): void => {
     props.onNavigationChanged(currentPath);
@@ -134,7 +135,7 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
 
   const getJsonFromPath = (): object => {
     if (currentPath && currentPath === 'metadata') {
-      const {sections, plugins, ...metadata} = props.siteContent;
+      const { sections, plugins, ...metadata } = props.siteContent;
       return metadata;
     }
     if (currentPath && currentPath.startsWith('plugin:')) {
@@ -144,13 +145,13 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
       return props.siteContent.sections[parseInt(currentPath.replace('section:', ''))];
     }
     return props.siteContent;
-  }
+  };
 
   const onJsonUpdated = (json: object): void => {
     if (currentPath === undefined) {
       props.onSiteContentUpdated(json);
     } else if (currentPath && currentPath === 'metadata') {
-      props.onSiteContentUpdated({...props.siteContent, ...json});
+      props.onSiteContentUpdated({ ...props.siteContent, ...json });
     } else if (currentPath && currentPath.startsWith('plugin:')) {
       props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''))] = json;
       props.onSiteContentUpdated(props.siteContent);
@@ -158,33 +159,33 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
       props.siteContent.sections[parseInt(currentPath.replace('section:', ''))] = json;
       props.onSiteContentUpdated(props.siteContent);
     }
-  }
+  };
 
   const onMoveSectionUpClicked = (sectionIndex: number): void => {
     if (sectionIndex === 0) {
       return;
     }
-    var sectionsCopy = [...props.siteContent.sections];
+    const sectionsCopy = [...props.siteContent.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex - 1, 0, section);
-    props.onSiteContentUpdated({...props.siteContent, sections: sectionsCopy});
-  }
+    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
+  };
 
   const onMoveSectionDownClicked = (sectionIndex: number): void => {
     if (sectionIndex === props.siteContent.length - 1) {
       return;
     }
-    var sectionsCopy = [...props.siteContent.sections];
+    const sectionsCopy = [...props.siteContent.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex + 1, 0, section);
-    props.onSiteContentUpdated({...props.siteContent, sections: sectionsCopy});
-  }
+    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
+  };
 
   const onDeleteSectionClicked = (sectionIndex: number): void => {
 
-  }
+  };
 
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
@@ -218,34 +219,34 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
               )} */}
               {/* {currentPath === undefined && (
                 <React.Fragment> */}
-                  <LinkBase isFullWidth={true} onClicked={onMetaClicked}>
-                    <SiteMetaCard website={props.siteContent} />
-                  </LinkBase>
-                  <Stack.Item gutterBefore={PaddingSize.Wide}>
-                    <Text variant='header3'>Plugins</Text>
-                  </Stack.Item>
-                  {(props.siteContent.plugins || []).map((plugin: IWebsitePlugin, index: number): React.ReactElement => (
-                    <LinkBase key={plugin.id || `plugin-${index}`} isFullWidth={true} onClicked={() => onPluginClicked(index)}>
-                      <SitePluginCard plugin={plugin} />
-                    </LinkBase>
-                  ))}
-                  <Stack.Item gutterBefore={PaddingSize.Default}>
-                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center}>
-                      <Text variant='header3'>Sections</Text>
-                      <Button text='Add' onClicked={props.onAddSectionClicked} />
-                    </Stack>
-                  </Stack.Item>
-                  {(props.siteContent.sections || []).map((section: IWebsiteSection, index: number): React.ReactElement => (
-                    <LinkBase key={section.id || `section-${index}`} isFullWidth={true} onClicked={() => onSectionClicked(index)}>
-                      <SiteSectionCard
-                        section={section}
-                        onMoveUpClicked={(): void => onMoveSectionUpClicked(index)}
-                        onMoveDownClicked={(): void => onMoveSectionDownClicked(index)}
-                        onDeleteClicked={(): void => onDeleteSectionClicked(index)}
-                      />
-                    </LinkBase>
-                  ))}
-                {/* </React.Fragment>
+              <LinkBase isFullWidth={true} onClicked={onMetaClicked}>
+                <SiteMetaCard website={props.siteContent} />
+              </LinkBase>
+              <Stack.Item gutterBefore={PaddingSize.Wide}>
+                <Text variant='header3'>Plugins</Text>
+              </Stack.Item>
+              {(props.siteContent.plugins || []).map((plugin: IWebsitePlugin, index: number): React.ReactElement => (
+                <LinkBase key={plugin.id || `plugin-${index}`} isFullWidth={true} onClicked={() => onPluginClicked(index)}>
+                  <SitePluginCard plugin={plugin} />
+                </LinkBase>
+              ))}
+              <Stack.Item gutterBefore={PaddingSize.Default}>
+                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center}>
+                  <Text variant='header3'>Sections</Text>
+                  <Button text='Add' onClicked={props.onAddSectionClicked} />
+                </Stack>
+              </Stack.Item>
+              {(props.siteContent.sections || []).map((section: IWebsiteSection, index: number): React.ReactElement => (
+                <LinkBase key={section.id || `section-${index}`} isFullWidth={true} onClicked={() => onSectionClicked(index)}>
+                  <SiteSectionCard
+                    section={section}
+                    onMoveUpClicked={(): void => onMoveSectionUpClicked(index)}
+                    onMoveDownClicked={(): void => onMoveSectionDownClicked(index)}
+                    onDeleteClicked={(): void => onDeleteSectionClicked(index)}
+                  />
+                </LinkBase>
+              ))}
+              {/* </React.Fragment>
               )} */}
               <Stack.Item growthFactor={1}>
                 <Spacing variant={PaddingSize.Wide} />
@@ -264,7 +265,7 @@ const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
       </Stack.Item>
     </Stack>
   );
-}
+};
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const classes = useStyles();
@@ -274,23 +275,23 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   const onSiteContentUpdated = (parsedJson: object): void => {
     props.onSiteContentUpdated(parsedJson);
-  }
+  };
 
   const onSiteThemeUpdated = (parsedJson: object): void => {
     props.onSiteThemeUpdated(parsedJson);
-  }
+  };
 
   const onAssetFilesChosen = (files: File[]): void => {
     props.addAssetFiles(files);
-  }
+  };
 
   const onHideEditorClicked = (): void => {
     props.onIsEditorHiddenUpdated(true);
-  }
+  };
 
   const onShowEditorClicked = (): void => {
     props.onIsEditorHiddenUpdated(false);
-  }
+  };
 
   const onEditorTabKeySelected = (tabKey: string) => {
     setSelectedEditorTabKey(tabKey);
@@ -298,7 +299,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   const onAddSectionClicked = (): void => {
     setIsSectionChooserShowing(true);
-  }
+  };
 
   const onNavigationChanged = (path: string): void => {
     if (!path) {
@@ -314,7 +315,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
       const sectionId = section.id || `section-${sectionIndex}`;
       setChosenSectionId(sectionId);
     }
-  }
+  };
 
   const onChooseSectionClicked = (section: Section): void => {
     // TODO(krishan711): find a nicer way to create a deep clone
@@ -323,7 +324,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     newContent.sections.push(section.content);
     props.onSiteContentUpdated(newContent);
     setIsSectionChooserShowing(false);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -369,12 +370,12 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         onChooseSectionClicked={onChooseSectionClicked}
       />
     </React.Fragment>
-  )
-}
+  );
+};
 
 Canvas.defaultProps = {
   isEditable: true,
   isMetaShown: true,
-}
+};
 
 export const MemoCanvas = React.memo(Canvas, deepCompare);

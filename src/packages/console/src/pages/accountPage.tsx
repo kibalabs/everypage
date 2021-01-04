@@ -1,31 +1,32 @@
 import React from 'react';
-import { useInitialization, useHistory } from '@kibalabs/core-react';
+
 import { KibaException } from '@kibalabs/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { useHistory, useInitialization } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Stripe, loadStripe, StripeError, StripeElements } from '@stripe/stripe-js';
+import Typography from '@material-ui/core/Typography';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
-import { ToastContainer, toast } from 'react-toastify';
+import { loadStripe, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Account, Site, StripeSubscription, StripePortalSession } from '../everypageClient/resources';
-import { NavigationBar } from '../components/navigationBar';
-import { useGlobals } from '../globalsContext';
-import { SiteCard } from '../components/siteCard';
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { NavigationBar } from '../components/navigationBar';
+import { SiteCard } from '../components/siteCard';
 import { IPlan } from '../consoleConfig';
+import { Account, Site, StripePortalSession, StripeSubscription } from '../everypageClient/resources';
+import { useGlobals } from '../globalsContext';
 
 const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 // const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
@@ -126,7 +127,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       console.error('error', error);
       setAccount(null);
     });
-  }
+  };
 
   const loadAccountSites = (): void => {
     everypageClient.retrieveSitesForAccount(Number(props.accountId)).then((sites: Site[]): void => {
@@ -135,11 +136,11 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       console.error('error', error);
       setAccountSites(null);
     });
-  }
+  };
 
   const onSiteClicked = (site: Site): void => {
     history.navigate(`/sites/${site.slug}`);
-  }
+  };
 
   const onCreateSiteClicked = (): void => {
     const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
@@ -152,31 +153,31 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     } else {
       history.navigate(`/sites/create?accountId=${account.accountId}`);
     }
-  }
+  };
 
   const onAccountUpgradePopupCloseClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-  }
+  };
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
     history.navigate(`/accounts/${account.accountId}#plan`);
-  }
+  };
 
   const onChangePlanClicked = (plan: IPlan): void => {
     if (plan.planIndex !== currentPlan.planIndex) {
       setNewPlan(plan);
     }
-  }
+  };
 
   const onUpgradeDialogClosed = (): void => {
     setNewPlan(undefined);
-  }
+  };
 
   const onUpgradeDiscountCodeChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setUpgradeDiscountCode(event.target.value);
     setUpgradeDiscountCodeError(undefined);
-  }
+  };
 
   const onUpgradeDialogUpgradeClicked = async (stripe: Stripe, elements: StripeElements): Promise<void> => {
     setUpgradeError(undefined);
@@ -188,8 +189,8 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       return;
     }
     setIsUpgradeDialogLoading(true);
-    var callPromise: Promise<StripeSubscription>;
-    var stripePaymentMethod = null;
+    let callPromise: Promise<StripeSubscription>;
+    let stripePaymentMethod = null;
     if (stripeCardElement) {
       stripePaymentMethod = await stripe.createPaymentMethod({
         type: 'card',
@@ -202,19 +203,19 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       }
       callPromise = everypageClient.createSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, stripePaymentMethod.paymentMethod.id, upgradeDiscountCode || undefined);
     } else {
-      callPromise = everypageClient.changeSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, upgradeDiscountCode || undefined)
+      callPromise = everypageClient.changeSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, upgradeDiscountCode || undefined);
     }
     callPromise.then((stripeSubscription: StripeSubscription): void => {
       if (stripeSubscription.status === 'active' || stripeSubscription.status === 'canceled') {
-          toast.success("Moved to new plan");
-          loadAccount();
-          setNewPlan(undefined);
+        toast.success('Moved to new plan');
+        loadAccount();
+        setNewPlan(undefined);
       } else if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_action' && stripePaymentMethod) {
-        stripe.confirmCardPayment(stripeSubscription.latestInvoicePaymentActionSecret, {payment_method: stripePaymentMethod.paymentMethod.id}).then((result: {paymentIntent?: PaymentIntent; error?: StripeError}): void => {
+        stripe.confirmCardPayment(stripeSubscription.latestInvoicePaymentActionSecret, { payment_method: stripePaymentMethod.paymentMethod.id }).then((result: {paymentIntent?: PaymentIntent; error?: StripeError}): void => {
           if (result.error) {
             setUpgradeError(result.error.message);
           } else {
-            toast.success(newPlan.planIndex > currentPlan.planIndex ? "Woo! you're upgraded 🚀" : "Moved to new plan");
+            toast.success(newPlan.planIndex > currentPlan.planIndex ? "Woo! you're upgraded 🚀" : 'Moved to new plan');
             loadAccount();
             setNewPlan(undefined);
           }
@@ -229,13 +230,13 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     }).catch((error: KibaException): void => {
       console.error('error', error);
       if (error.message.includes('Coupon not found')) {
-        setUpgradeDiscountCodeError('This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘')
+        setUpgradeDiscountCodeError('This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘');
       } else {
         setUpgradeError(error.message);
       }
       setIsUpgradeDialogLoading(false);
     });
-  }
+  };
 
   const onManageWithStripeClicked = (): void => {
     everypageClient.createPortalSessionForAccount(account.accountId).then((stripePortalSession: StripePortalSession): void => {
@@ -243,7 +244,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     }).catch((error: KibaException): void => {
       toast.error('Something went wrong. Please try again later');
     });
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -356,7 +357,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                     </React.Fragment>
                   ) : (
                     <Typography>When upgrading, you won't be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
-                    )}
+                  )}
                   <br/>
                   <TextField
                     variant='outlined'
@@ -403,7 +404,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       </Elements>
     </div>
   );
-}
+};
 
 
 interface StripeInputProps {
@@ -414,13 +415,13 @@ interface StripeInputProps {
 const StripeInput = (props: StripeInputProps) => {
   const elementRef = React.useRef();
   React.useImperativeHandle(props.inputRef, () => ({
-    focus: () => elementRef.current.focus
+    focus: () => elementRef.current.focus,
   }));
   return (
     <props.component
-      onReady={element => (elementRef.current = element)}
+      onReady={(element) => (elementRef.current = element)}
       {...props}
     />
-  )
-}
-export default StripeInput
+  );
+};
+export default StripeInput;

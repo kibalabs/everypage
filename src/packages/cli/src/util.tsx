@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+
 import { merge } from '@kibalabs/core';
+import { IWebsite, updateAssetPaths } from '@kibalabs/everypage';
 import { ITheme } from '@kibalabs/ui-react';
-import { updateAssetPaths, IWebsite } from '@kibalabs/everypage';
 
 export interface IPage {
   path: string;
@@ -13,7 +14,7 @@ export interface IPage {
 
 export const copyFileSync = (sourceFilePath: string, targetPath: string): void => {
   console.log(`EP: copying file: ${sourceFilePath} ${targetPath}`);
-  var targetFilePath = targetPath;
+  let targetFilePath = targetPath;
   if (fs.existsSync(targetPath) && fs.lstatSync(targetPath).isDirectory()) {
     targetFilePath = path.join(targetPath, path.basename(sourceFilePath));
   }
@@ -22,7 +23,7 @@ export const copyFileSync = (sourceFilePath: string, targetPath: string): void =
     fs.mkdirSync(targetDirectory, { recursive: true });
   }
   fs.writeFileSync(targetFilePath, fs.readFileSync(sourceFilePath));
-}
+};
 
 export const copyDirectorySync = (sourceDirectory: string, targetDirectory: string): void => {
   console.log(`EP: copying directory: ${sourceDirectory} ${targetDirectory}`);
@@ -50,40 +51,40 @@ export const readJsonFileSync = (filePath: string): object => {
 };
 
 export const loadContentFromFileSync = (filePath: string, buildHash?: string, parentContent?: IWebsite): IWebsite => {
-  var content = readJsonFileSync(filePath) as IWebsite;
+  let content = readJsonFileSync(filePath) as IWebsite;
   if (parentContent) {
-    const {sections, ...parentContentStripped} = parentContent;
+    const { sections, ...parentContentStripped } = parentContent;
     content = merge(parentContentStripped, content);
   }
   if (buildHash) {
     content = updateAssetPaths(content, `/${buildHash}`) as IWebsite;
   }
   return content;
-}
+};
 
 export const loadThemeFromFileSync = (filePath: string, parentTheme?: ITheme): ITheme => {
-  var content = readJsonFileSync(filePath) as ITheme;
+  let content = readJsonFileSync(filePath) as ITheme;
   if (parentTheme) {
     content = merge(parentTheme, content);
   }
   return content;
-}
+};
 
-export const loadPathsFromDirectory = (directory: string, urlPath: string = '', buildHash?: string, parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
+export const loadPathsFromDirectory = (directory: string, urlPath = '', buildHash?: string, parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
   const content = loadContentFromFileSync(path.join(directory, 'content.json'), buildHash, parentContent);
   const theme = loadThemeFromFileSync(path.join(directory, 'theme.json'), parentTheme);
-  const output: IPage[] = [{path: `${urlPath}/`, filename: `${urlPath}/index.html`, theme: theme, content: content}];
+  const output: IPage[] = [{ path: `${urlPath}/`, filename: `${urlPath}/index.html`, theme, content }];
   fs.readdirSync(directory).forEach((name: string): void => {
-    const itemPath = path.join(directory, name)
+    const itemPath = path.join(directory, name);
     if (fs.statSync(itemPath).isDirectory()) {
       output.push(...loadPathsFromDirectory(itemPath, `${urlPath}/${name}`, buildHash, content, theme));
     }
   });
   return output;
-}
+};
 
 export const findAncestorSibling = (name: string, startingDirectory?: string): string[] => {
-  var directory = path.resolve(startingDirectory || '');
+  let directory = path.resolve(startingDirectory || '');
   const rootDirectory = path.parse(directory).root;
 
   const output: string[] = [];

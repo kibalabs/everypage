@@ -1,22 +1,24 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import fs from 'fs';
 import path from 'path';
-import webpackMerge from 'webpack-merge';
-import { createStaticHistory } from '@kibalabs/core-react';
-import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server'
-import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
+
+import React from 'react';
+
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
-import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
-import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
 import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
+import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
+import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
+import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
+import { createStaticHistory } from '@kibalabs/core-react';
+import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import ReactDOMServer from 'react-dom/server';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import webpackMerge from 'webpack-merge';
 
-import { copyFileSync, copyDirectorySync, loadPathsFromDirectory, loadContentFromFileSync, IPage, findAncestorSibling } from './util';
 import default404Content from './404.json';
+import { copyDirectorySync, copyFileSync, findAncestorSibling, IPage, loadContentFromFileSync, loadPathsFromDirectory } from './util';
 
 export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: string, buildHash?: string, siteHost?: string, shouldHideAttribution?: boolean, buildDirectoryPath?: string, outputDirectoryPath?: string): Promise<void> => {
   const siteDirectory = siteDirectoryPath || process.cwd();
@@ -28,7 +30,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   fs.mkdirSync(outputDirectory, { recursive: true });
   fs.mkdirSync(outputDirectoryNode, { recursive: true });
 
-  const initialContent = {buildHash, siteHost} as IWebsite;
+  const initialContent = { buildHash, siteHost } as IWebsite;
   if (shouldHideAttribution !== null && shouldHideAttribution !== undefined) {
     initialContent.shouldHideAttribution = shouldHideAttribution;
   }
@@ -36,13 +38,13 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   const pages = loadPathsFromDirectory(siteDirectory, '', buildHash, initialContent, undefined);
   console.log(`EP: loaded ${pages.length} pages`);
   const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json'), pages[0].content) : default404Content;
-  const page404 = {path: '404', filename: '/404.html', content: content404, theme: pages[0].theme};
+  const page404 = { path: '404', filename: '/404.html', content: content404, theme: pages[0].theme };
 
   const siteData = {
     routes: pages,
     notFoundPageContent: page404.content,
     notFoundPageTheme: page404.theme,
-  }
+  };
   fs.writeFileSync(path.join(buildDirectory, 'siteData.json'), JSON.stringify(siteData));
 
   await copyFileSync(path.join(__dirname, './app.js'), path.join(buildDirectory, 'index.js'));
@@ -54,21 +56,21 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   const nodeModulesPaths = findAncestorSibling('node_modules');
   console.log(`Using node_modules: ${nodeModulesPaths} (from ${process.cwd()})`);
   const nodeWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site-node', dev: false, analyze: false}),
-    makeJsWebpackConfig({polyfill: false, react: true}),
+    makeCommonWebpackConfig({ name: 'everypage-site-node', dev: false, analyze: false }),
+    makeJsWebpackConfig({ polyfill: false, react: true }),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths: nodeModulesPaths}),
+    makeReactComponentWebpackConfig({ dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths }),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({name: 'everypage-site', dev: false, analyze: false}),
-    makeJsWebpackConfig({polyfill: true, react: true}),
+    makeCommonWebpackConfig({ name: 'everypage-site', dev: false, analyze: false }),
+    makeJsWebpackConfig({ polyfill: true, react: true }),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public')}),
+    makeReactAppWebpackConfig({ dev: false, entryFile: path.join(buildDirectory, './index.js'), outputPath: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
     {
       performance: {
-        hints: false
+        hints: false,
       },
     },
   );
@@ -84,7 +86,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
       const headElements = [];
       const styledComponentsSheet = new ServerStyleSheet();
-      const extractor = new ChunkExtractor({stats: webpackBuildStats});
+      const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
@@ -92,7 +94,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
               <App routerHistory={createStaticHistory(page.path)} />
             </HeadRootProvider>
           </StyleSheetManager>
-        </ChunkExtractorManager>
+        </ChunkExtractorManager>,
       );
       const assetPrefix = buildHash ? `/${buildHash}` : '';
       const headString = ReactDOMServer.renderToStaticMarkup(
@@ -102,7 +104,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
             <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
           ))}
           {styledComponentsSheet.getStyleElement()}
-        </head>
+        </head>,
       );
       // TODO(krishan711): use stylesheets and css
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
@@ -110,7 +112,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
           {extractor.getMainAssets().map((mainAsset: any): React.ReactElement => (
             <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
           ))}
-        </React.Fragment>
+        </React.Fragment>,
       );
       const output = `<!DOCTYPE html>
         <html lang="en">
@@ -124,8 +126,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         </html>
       `;
       const outputPath = path.join(outputDirectory, page.filename);
-      fs.mkdirSync(path.dirname(outputPath), { recursive: true })
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
       fs.writeFileSync(outputPath, output);
-    })
+    });
   });
 };

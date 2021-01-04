@@ -1,10 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
+
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 import { Account } from '../everypageClient/resources';
 
@@ -46,4 +47,4 @@ export const AccountUpgradeDomainDialog = (props: IAccountUpgradeDomainDialogPro
       </Box>
     </Dialog>
   );
-}
+};

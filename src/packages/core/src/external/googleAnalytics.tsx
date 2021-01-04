@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useInitialization } from '@kibalabs/core-react';
 import ReactGA from 'react-ga';
 
@@ -10,7 +11,7 @@ export interface IGoogleAnalyticsProp extends IWebsitePlugin {
 
 export const GoogleAnalytics = (props: IGoogleAnalyticsProp): React.ReactElement => {
   if (!props.trackingId) {
-    console.error('trackingId should be provided to GoogleAnalytics')
+    console.error('trackingId should be provided to GoogleAnalytics');
     return null;
   }
 
@@ -23,4 +24,4 @@ export const GoogleAnalytics = (props: IGoogleAnalyticsProp): React.ReactElement
 };
 
 GoogleAnalytics.defaultProps = {
-}
+};

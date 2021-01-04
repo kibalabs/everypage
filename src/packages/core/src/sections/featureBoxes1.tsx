@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Spacing, TextAlignment, ResponsiveContainingView, EqualGrid, Box, Media, Direction, KibaIcon, useTheme, ITheme, PaddingSize, ResponsiveTextAlignmentView, Button, ResponsiveField } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText, LazyMedia } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Box, Button, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, Media, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Spacing, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IFeatureBoxes1Feature {
@@ -27,12 +28,12 @@ interface IFeatureBoxes1Props extends ISectionProps {
 
 export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
-  var boxVariant = props.boxVariant;
+  let boxVariant = props.boxVariant;
   if (props.boxMode) {
     console.warn('boxMode is deprecated. Please use boxVariant instead');
     boxVariant = props.boxMode;
   }
-  const sizes = {base: 12, small: 6, medium: 6, large: 4};
+  const sizes = { base: 12, small: 6, medium: 6, large: 4 };
   if (props.boxSizes) {
     sizes.base = props.boxSizes.base ? 12 / props.boxSizes.base : sizes.base;
     sizes.small = props.boxSizes.small ? 12 / props.boxSizes.small : sizes.small;
@@ -41,7 +42,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, extraLarge: 8}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, extraLarge: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}

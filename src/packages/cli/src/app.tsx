@@ -1,8 +1,10 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import { Route, Router, IHistory, IRouteProps } from '@kibalabs/core-react';
+
+import { IHistory, IRouteProps, Route, Router } from '@kibalabs/core-react';
+import { IndexPage, IWebsite } from '@kibalabs/everypage';
 import { ITheme } from '@kibalabs/ui-react';
-import { IWebsite, IndexPage } from '@kibalabs/everypage';
 
 export interface RouteData {
   path: string;
@@ -31,7 +33,7 @@ export const App = (props: IAppProps) => {
       <Route default={true} pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />} />
     </Router>
   );
-}
+};
 
 export default App;
 

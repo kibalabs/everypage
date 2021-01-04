@@ -1,9 +1,10 @@
 import React from 'react';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+
 import { Box } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 export interface IMessageDialogProps {
   isOpen: boolean;
@@ -29,4 +30,4 @@ export const MessageDialog = (props: IMessageDialogProps) => {
       </Box>
     </Dialog>
   );
-}
+};
