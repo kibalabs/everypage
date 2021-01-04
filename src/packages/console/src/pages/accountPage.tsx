@@ -9,7 +9,6 @@ import Container from '@material-ui/core/Container';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -121,8 +120,8 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   });
 
   const loadAccount = (): void => {
-    everypageClient.getAccount(Number(props.accountId)).then((account: Account) => {
-      setAccount(account);
+    everypageClient.getAccount(Number(props.accountId)).then((receivedAccount: Account) => {
+      setAccount(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccount(null);
@@ -242,6 +241,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     everypageClient.createPortalSessionForAccount(account.accountId).then((stripePortalSession: StripePortalSession): void => {
       window.open(stripePortalSession.url, '_blank');
     }).catch((error: KibaException): void => {
+      console.error('error', error);
       toast.error('Something went wrong. Please try again later');
     });
   };
@@ -412,8 +412,9 @@ interface StripeInputProps {
   inputRef: React.Ref<HTMLInputElement>;
 }
 
-const StripeInput = (props: StripeInputProps) => {
+const StripeInput = (props: StripeInputProps): React.ReactElement => {
   const elementRef = React.useRef();
+  // eslint-disable-next-line no-return-assign
   React.useImperativeHandle(props.inputRef, () => ({
     focus: () => elementRef.current.focus,
   }));
