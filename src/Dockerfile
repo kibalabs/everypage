@@ -40,7 +40,7 @@ COPY --from=build /app/everypage-cli.tgz .
 COPY --from=build /app/everypage.tgz .
 COPY ./packages/builder-api/package.json .
 RUN npm install ./everypage-cli.tgz ./everypage.tgz
-# RUN npm install
+RUN npm install
 
 COPY ./packages/builder-api/ ./
 RUN npm run build
