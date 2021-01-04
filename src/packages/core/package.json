@@ -2,7 +2,7 @@
   "name": "@kibalabs/everypage",
   "version": "0.8.0",
   "description": "The core sections and constructs for everypage",
-  "license": "MIT",
+  "license": "AGPLV3",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"

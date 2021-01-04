@@ -2,7 +2,7 @@
   "name": "@kibalabs/everypage-cli",
   "version": "0.8.0",
   "description": "Build everypage sites",
-  "license": "MIT",
+  "license": "AGPLV3",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
