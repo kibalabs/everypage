@@ -269,11 +269,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   {nextPlan && (
                     <Typography variant='caption'>
                       <Button color='primary' size='small' onClick={(): void => onChangePlanClicked(nextPlan)}>Upgrade</Button>
-                      {' to  '}
-                      <b>{nextPlan.name}</b>
                       {' to '}
-                      {nextPlan.highlightFeature}
-                      {' and more 🚀'}
+                      <b>{nextPlan.name}</b>
+                      {` to ${nextPlan.highlightFeature} and more 🚀`}
                     </Typography>
                   )}
                 </Paper>
