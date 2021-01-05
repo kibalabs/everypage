@@ -78,10 +78,9 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
       </Head>
       <noscript>
         <Text>
-Please
+          {'Please '}
           <Link target={url} text='click here' />
-          {' '}
-to choose a time.
+          {' to choose a time.'}
         </Text>
       </noscript>
     </React.Fragment>
