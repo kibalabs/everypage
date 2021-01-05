@@ -174,7 +174,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                             target='_blank'
                             href={template.previewUrl}
                           >
-Preview
+                            Preview
                           </Button>
                           <Button
                             variant='outlined'
@@ -182,7 +182,7 @@ Preview
                             className={classes.templateButton}
                             onClick={(): void => onChooseTemplateClicked(template)}
                           >
-Choose
+                            Choose
                           </Button>
                         </div>
                       </div>

@@ -106,7 +106,7 @@ export const CanvasPage = (): React.ReactElement => {
           variant='outlined'
           onClick={onStartOverClicked}
         >
-Start again
+          Start again
         </Button>
         <div className={classes.spacer} />
         <div className={classes.topBarSignInBox}>
@@ -115,7 +115,7 @@ Start again
             color='primary'
             href='/register'
           >
-Sign in to publish
+            Sign in to publish
           </Button>
           <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
         </div>

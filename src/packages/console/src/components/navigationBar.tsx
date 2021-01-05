@@ -85,7 +85,7 @@ export const NavigationBar = (): React.ReactElement => {
           variant='outlined'
           onClick={onLogoutClicked}
         >
-Log out
+          Log out
         </Button>
         <Button
           className={classes.navButton}
@@ -93,7 +93,7 @@ Log out
           href='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
           target='_blank'
         >
-Tutorials
+          Tutorials
         </Button>
       </Toolbar>
       {!hasVerifiedEmail && (
@@ -107,7 +107,7 @@ Tutorials
               variant='outlined'
               onClick={onResendVerificationClicked}
             >
-Resend Verification
+              Resend Verification
             </Button>
           )}
           {verificationSent && (

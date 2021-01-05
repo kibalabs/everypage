@@ -112,7 +112,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
           {extractor.getMainAssets().map((mainAsset: Record<string, string>): React.ReactElement => (
-            <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`} />
+            // eslint-disable-next-line react/self-closing-comp
+            <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
           ))}
         </React.Fragment>,
       );

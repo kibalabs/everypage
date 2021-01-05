@@ -178,7 +178,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
                             className={classes.sectionButton}
                             onClick={(): void => onChooseSectionClicked(section)}
                           >
-Choose
+                            Choose
                           </Button>
                         </div>
                       </div>

@@ -33,34 +33,15 @@ export const AccountUpgradeDialog = (props: IAccountUpgradeDialogProps): React.R
 
   return (
     <Dialog onClose={onCloseClicked} open={props.isOpen}>
-      <DialogTitle>
-You&apos;ve reached the site limit for
-        {plan.name}
-        {' '}
-accounts
-      </DialogTitle>
+      <DialogTitle>{`You've reached the site limit for ${plan.name} accounts`}</DialogTitle>
       <Box marginX={4} marginBottom={4}>
-        <Typography component='p'>
-          {plan.name}
-          {' '}
-everypage accounts have a limit of
-          {' '}
-          {plan.siteLimit}
-          {' '}
-sites.
-        </Typography>
+        <Typography component='p'>{`${plan.name} everypage accounts have a limit of ${plan.siteLimit} sites.`}</Typography>
         <br />
         {plan.code === 'core' ? (
-          <Typography component='p'>
-            To create more sites, and gain access to an ever-growing list of more features,
-            upgrade to a paid account which suits you - they start from just $
-            {nextPlan.priceMonthly}
-/month!
-          </Typography>
+          <Typography component='p'>{`To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just ${nextPlan.priceMonthly}/month!`}</Typography>
         ) : nextPlan ? (
           <Typography component='p'>
-            To create more sites, and gain access to an ever-growing list of more features,
-            upgrade to a paid account which suits you - they start from just $5/month!
+            To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!
           </Typography>
         ) : (
           <Typography component='p'>Please email us at help@everypagehq.com and we&apos;ll sort something out for you.</Typography>

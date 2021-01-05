@@ -262,24 +262,18 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   <Typography variant='h5' className={classes.accountName}>{account.name}</Typography>
                   <br />
                   <Typography>
-Your are currently on the
+                    {' You are currently on the '}
                     <b>{currentPlan.name}</b>
-                    {' '}
-plan
+                    {' plan'}
                   </Typography>
                   {nextPlan && (
                     <Typography variant='caption'>
                       <Button color='primary' size='small' onClick={(): void => onChangePlanClicked(nextPlan)}>Upgrade</Button>
-                      {' '}
-to
-                      {' '}
+                      {' to  '}
                       <b>{nextPlan.name}</b>
-                      {' '}
-to
-                      {' '}
+                      {' to '}
                       {nextPlan.highlightFeature}
-                      {' '}
-and more 🚀
+                      {' and more 🚀'}
                     </Typography>
                   )}
                 </Paper>
@@ -288,11 +282,7 @@ and more 🚀
                     <Typography variant='h6' className={classes.paperTitle}>Sites</Typography>
                     {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>}
                   </Box>
-                  <Typography>
-                    {accountSites.length}
-                    {' '}
-sites
-                  </Typography>
+                  <Typography>{`${accountSites.length} sites`}</Typography>
                   <Grid container spacing={2} className={classes.siteCardGrid}>
                     {accountSites.map((site: Site, innerIndex: number): React.ReactElement => (
                       <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
@@ -322,10 +312,7 @@ sites
                         <Paper key={index} className={classes.planBox}>
                           <Typography variant='h6' className={classes.planBoxTitle}>{plan.name}</Typography>
                           <Typography variant='caption'>{plan.highlightFeature.toUpperCase()}</Typography>
-                          <Typography color='primary' className={classes.planPrice}>
-$
-                            {plan.priceMonthly / 100}
-                          </Typography>
+                          <Typography color='primary' className={classes.planPrice}>{`$${plan.priceMonthly / 100}`}</Typography>
                           <Typography variant='caption'>per month</Typography>
                           {plan.planIndex < currentPlan.planIndex && <Button variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Downgrade</Button>}
                           {plan.planIndex === currentPlan.planIndex && <Button disabled={true} variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Your plan</Button>}
@@ -345,13 +332,7 @@ $
             open={true}
             onClose={onUpgradeDialogClosed}
           >
-            <DialogTitle>
-              {newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'}
-              {' '}
-to
-              {' '}
-              {newPlan.name}
-            </DialogTitle>
+            <DialogTitle>{`${newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to ${newPlan.name}`}</DialogTitle>
             <DialogContent>
               {newPlan.planIndex < currentPlan.planIndex && (
                 <Typography>
@@ -419,15 +400,15 @@ to
                   <DialogActions>
                     {newPlan.planIndex < currentPlan.planIndex && (
                       <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} color='secondary'>
-                      Downgrade
+                        Downgrade
                       </Button>
                     )}
                     <Button onClick={onUpgradeDialogClosed} autoFocus>
-                    Cancel
+                      Cancel
                     </Button>
                     {newPlan.planIndex > currentPlan.planIndex && (
                       <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='contained' color='primary'>
-                      Upgrade
+                        Upgrade
                       </Button>
                     )}
                   </DialogActions>
