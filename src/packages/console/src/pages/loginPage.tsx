@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useHistory } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
@@ -55,17 +55,15 @@ export const LoginPage = (): React.ReactElement => {
 
   return (
     <ContainingView>
-      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 4 }}>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
             <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
-              <Stack direction={Direction.Vertical}>
-                <Stack.Item alignment={Alignment.Center}>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+                <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
                   <Text variant='header3'>Log in to everypage</Text>
                 </Stack.Item>
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <SingleLineInput
                   inputWrapperVariant={emailError ? 'error' : ''}
                   value={email}
@@ -77,8 +75,6 @@ export const LoginPage = (): React.ReactElement => {
                   placeholderText='Email Address'
                   inputType={InputType.Email}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <SingleLineInput
                   inputWrapperVariant={passwordError ? 'error' : ''}
                   value={password}
@@ -90,17 +86,16 @@ export const LoginPage = (): React.ReactElement => {
                   placeholderText='Password'
                   inputType={InputType.Password}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
-                <Button
-                  buttonType='submit'
-                  isFullWidth
-                  variant='primary'
-                  text='Log in'
-                />
-                <Spacing variant={PaddingSize.Wide1} />
-                <Stack.Item alignment={Alignment.End}>
-                  <Link target='/register' variant='default' text="Don't have an account yet? Sign Up" />
+                <Stack.Item gutterBefore={PaddingSize.Wide2}>
+                  <Button
+                    buttonType='submit'
+                    isFullWidth
+                    variant='primary'
+                    text='Log in'
+                  />
+                </Stack.Item>
+                <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
+                  <Link target='/register' text="Don't have an account yet? Sign Up" shouldOpenSameTab={true} />
                 </Stack.Item>
               </Stack>
             </Form>
