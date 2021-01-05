@@ -1,34 +1,8 @@
 import React from 'react';
 import { useHistory } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { InputType, SingleLineInput, ContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, Grid, Form, Link } from "@kibalabs/ui-react";
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(1, 2),
-  },
-}));
 
 export const LoginPage = (): React.ReactElement => {
   const { everypageClient, authManager } = useGlobals();
@@ -38,10 +12,10 @@ export const LoginPage = (): React.ReactElement => {
   const [emailError, setEmailError] = React.useState<string | undefined>(undefined);
   const [password, setPassword] = React.useState<string>('');
   const [passwordError, setPasswordError] = React.useState<string | undefined>(undefined);
-  const classes = useStyles();
 
-  const onLoginClicked = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // event: React.FormEvent<HTMLFormElement>
+  const onLoginClicked = (): void => {
+    // event.preventDefault();
     setEmailError(undefined);
     setPasswordError(undefined);
     if (!email) {
@@ -67,7 +41,7 @@ export const LoginPage = (): React.ReactElement => {
     });
   }
 
-  const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  /*const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setEmail(event.target.value);
     setEmailError(undefined);
   }
@@ -75,68 +49,102 @@ export const LoginPage = (): React.ReactElement => {
   const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setPassword(event.target.value);
     setPasswordError(undefined);
-  }
+  }*/
 
   return (
-    <Container component='main' maxWidth='sm'>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Log in to everypage
-        </Typography>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <form className={classes.form} noValidate onSubmit={onLoginClicked}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              value={email}
-              onChange={onEmailChanged}
-              error={emailError !== undefined}
-              helperText={emailError}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              value={password}
-              onChange={onPasswordChanged}
-              error={passwordError !== undefined}
-              helperText={passwordError}
-            />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-            >Log In</Button>
-            <Grid container>
-              <Grid item xs>
-                {/* <Link href='#' variant='body2'>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: "center" }}>
+      <Spacing variant={PaddingSize.Wide4} />
+      <ContainingView>
+        <PaddingView paddingTop={PaddingSize.Wide} padding={PaddingSize.Wide1}>
+          <Box variant='card' isFullWidth={false}>
+            <Text variant='header3'>Log in to everypage</Text>
+            {/*isLoading ? (
+              <React.Fragment>
+                <Spacing variant={PaddingSize.Wide} />
+                <LoadingSpinner />
+              </React.Fragment>
+            ) : (*/}
+            <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
+              {/*<TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                autoFocus
+                value={email}
+                onChange={onEmailChanged}
+                error={emailError !== undefined}
+                helperText={emailError}
+              />*/}
+              <Spacing variant={PaddingSize.Wide2} />
+              <SingleLineInput
+                inputWrapperVariant={emailError ? "error" : ""}
+                value={email}
+                onValueChanged={setEmail}
+                name="email"
+                id='email'
+                label='Email Address'
+                messageText={emailError}
+                placeholderText="Email Address"
+                inputType={InputType.Email}
+              />
+              <Spacing variant={PaddingSize.Wide2} />
+
+              {/*<TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+                value={password}
+                onChange={onPasswordChanged}
+                error={passwordError !== undefined}
+                helperText={passwordError}
+              />*/}
+              <SingleLineInput
+                inputWrapperVariant={passwordError ? "error" : ""}
+                value={password}
+                onValueChanged={setPassword}
+                name="password"
+                id='password'
+                label='Password'
+                messageText={passwordError}
+                placeholderText="Password"
+                inputType={InputType.Password}
+              />
+              <Spacing variant={PaddingSize.Wide2} />
+
+              <Button
+                buttonType='submit'
+                isFullWidth
+                variant='primary'
+                // color='primary'
+                text="Log in"
+              />
+              <Spacing variant={PaddingSize.Wide1} />
+
+              <Grid>
+                <Grid.Item size={1}>
+                  {/* <Link href='#' variant='body2'>
                   Forgot password?
                 </Link> */}
+                </Grid.Item>
+                <Grid.Item>
+                  <Link target='/register' variant='default' text="Don't have an account yet? Sign Up" />
+                </Grid.Item>
               </Grid>
-              <Grid item>
-                <Link href='/register' variant='body2'>{'Don\'t have an account yet? Sign Up'}</Link>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Paper>
-    </Container>
+            </Form>
+          </Box>
+        </PaddingView>
+      </ContainingView>
+    </div>
   );
 }
