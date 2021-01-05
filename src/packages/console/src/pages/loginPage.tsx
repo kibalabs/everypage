@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useHistory } from '@kibalabs/core-react';
-import { InputType, SingleLineInput, ResponsiveContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, EqualGrid, Form, Link, Alignment, ContainingView, Stack, Direction } from "@kibalabs/ui-react";
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
@@ -52,7 +52,7 @@ export const LoginPage = (): React.ReactElement => {
     setPasswordError(undefined);
   };
 
-  //<EqualGrid childSizeResponsive={{ small: 4, base: 4 }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center}>
+
   return (
     <ContainingView>
       < ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 4 }}>
@@ -67,7 +67,7 @@ export const LoginPage = (): React.ReactElement => {
                 <Spacing variant={PaddingSize.Wide2} />
 
                 <SingleLineInput
-                  inputWrapperVariant={emailError ? "error" : ""}
+                  inputWrapperVariant={emailError ? 'error' : ''}
                   value={email}
                   onValueChanged={onEmailChanged}
                   name="email"
@@ -80,7 +80,7 @@ export const LoginPage = (): React.ReactElement => {
                 <Spacing variant={PaddingSize.Wide2} />
 
                 <SingleLineInput
-                  inputWrapperVariant={passwordError ? "error" : ""}
+                  inputWrapperVariant={passwordError ? 'error' : ''}
                   value={password}
                   onValueChanged={onPasswordChanged}
                   name="password"
