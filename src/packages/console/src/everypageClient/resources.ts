@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { dateFromString } from '@kibalabs/core';
 
 export class Account {
@@ -11,7 +12,7 @@ export class Account {
     this.name = name;
   }
 
-  public static fromObject = (obj: Record<string, any>): Account => {
+  public static fromObject = (obj: Record<string, unknown>): Account => {
     return new Account(
       Number(obj.accountId),
       String(obj.accountType),
@@ -33,7 +34,7 @@ export class StripeSubscription {
     this.latestInvoicePaymentActionSecret = latestInvoicePaymentActionSecret;
   }
 
-  public static fromObject = (obj: Record<string, any>): StripeSubscription => {
+  public static fromObject = (obj: Record<string, unknown>): StripeSubscription => {
     return new StripeSubscription(
       String(obj.subscriptionId),
       String(obj.status),
@@ -52,7 +53,7 @@ export class StripePortalSession {
     this.url = url;
   }
 
-  public static fromObject = (obj: Record<string, any>): StripePortalSession => {
+  public static fromObject = (obj: Record<string, unknown>): StripePortalSession => {
     return new StripePortalSession(
       String(obj.portalSessionId),
       String(obj.url),
@@ -81,7 +82,7 @@ export class Site {
     this.customDomainStatus = customDomainStatus;
   }
 
-  public static fromObject = (obj: Record<string, any>): Site => {
+  public static fromObject = (obj: Record<string, unknown>): Site => {
     return new Site(
       Number(obj.siteId),
       Number(obj.accountId),
@@ -116,7 +117,7 @@ export class SiteVersion {
     this.lastUpdateDate = lastUpdateDate;
   }
 
-  public static fromObject = (obj: Record<string, any>): SiteVersion => {
+  public static fromObject = (obj: Record<string, unknown>): SiteVersion => {
     return new SiteVersion(
       Number(obj.siteVersionId),
       String(obj.buildHash),
@@ -133,17 +134,17 @@ export class SiteVersion {
 export class SiteVersionEntry {
   readonly siteVersionEntryId: number;
   readonly siteVersionId: number;
-  readonly siteContent: Record<string, any>;
-  readonly siteTheme: Record<string, any>;
+  readonly siteContent: Record<string, unknown>;
+  readonly siteTheme: Record<string, unknown>;
 
-  public constructor(siteVersionEntryId: number, siteVersionId: number, siteContent: Record<string, any>, siteTheme: Record<string, any>) {
+  public constructor(siteVersionEntryId: number, siteVersionId: number, siteContent: Record<string, unknown>, siteTheme: Record<string, unknown>) {
     this.siteVersionEntryId = siteVersionEntryId;
     this.siteVersionId = siteVersionId;
     this.siteContent = siteContent;
     this.siteTheme = siteTheme;
   }
 
-  public static fromObject = (obj: Record<string, any>): SiteVersionEntry => {
+  public static fromObject = (obj: Record<string, unknown>): SiteVersionEntry => {
     return new SiteVersionEntry(
       Number(obj.siteVersionEntryId),
       Number(obj.siteVersionId),
@@ -162,7 +163,7 @@ export class PresignedUpload {
     this.params = params;
   }
 
-  public static fromObject = (obj: Record<string, any>): PresignedUpload => {
+  public static fromObject = (obj: Record<string, unknown>): PresignedUpload => {
     return new PresignedUpload(
       String(obj.url),
       obj.params,
@@ -177,7 +178,7 @@ export class AssetFile {
     this.path = path;
   }
 
-  public static fromObject = (obj: Record<string, any>): AssetFile => {
+  public static fromObject = (obj: Record<string, unknown>): AssetFile => {
     return new AssetFile(
       String(obj.path),
     );
@@ -193,7 +194,7 @@ export class TemplateCategory {
     this.name = name;
   }
 
-  public static fromObject = (obj: Record<string, any>): TemplateCategory => {
+  public static fromObject = (obj: Record<string, unknown>): TemplateCategory => {
     return new TemplateCategory(
       Number(obj.templateCategoryId),
       String(obj.name),
@@ -220,7 +221,7 @@ export class Template {
     this.previewUrl = previewUrl;
   }
 
-  public static fromObject = (obj: Record<string, any>): Template => {
+  public static fromObject = (obj: Record<string, unknown>): Template => {
     return new Template(
       Number(obj.templateId),
       String(obj.name),
@@ -242,7 +243,7 @@ export class SectionCategory {
     this.name = name;
   }
 
-  public static fromObject = (obj: Record<string, any>): SectionCategory => {
+  public static fromObject = (obj: Record<string, unknown>): SectionCategory => {
     return new SectionCategory(
       Number(obj.sectionCategoryId),
       String(obj.name),
@@ -256,10 +257,10 @@ export class Section {
   readonly description: string;
   readonly sectionType: string;
   readonly sectionCategoryId: number;
-  readonly content: Record<string, any>;
+  readonly content: Record<string, unknown>;
   readonly previewImageUrl: string;
 
-  public constructor(sectionId: number, name: string, description: string, sectionType: string, sectionCategoryId: number, content: Record<string, any>, previewImageUrl: string) {
+  public constructor(sectionId: number, name: string, description: string, sectionType: string, sectionCategoryId: number, content: Record<string, unknown>, previewImageUrl: string) {
     this.sectionId = sectionId;
     this.name = name;
     this.description = description;
@@ -269,7 +270,7 @@ export class Section {
     this.previewImageUrl = previewImageUrl;
   }
 
-  public static fromObject = (obj: Record<string, any>): Section => {
+  public static fromObject = (obj: Record<string, unknown>): Section => {
     return new Section(
       Number(obj.sectionId),
       String(obj.name),
@@ -299,7 +300,7 @@ export class IosApp {
     this.storeUrl = storeUrl;
   }
 
-  public static fromObject = (obj: Record<string, any>): IosApp => {
+  public static fromObject = (obj: Record<string, unknown>): IosApp => {
     return new IosApp(
       String(obj.iosAppId),
       String(obj.name),
@@ -330,7 +331,7 @@ export class AndroidApp {
     this.storeUrl = storeUrl;
   }
 
-  public static fromObject = (obj: Record<string, any>): AndroidApp => {
+  public static fromObject = (obj: Record<string, unknown>): AndroidApp => {
     return new AndroidApp(
       String(obj.androidAppId),
       String(obj.name),

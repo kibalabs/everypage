@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheetManager } from 'styled-components';
-import Frame, { FrameContextConsumer } from 'react-frame-component';
+
 import { ErrorBoundary, ISingleAnyChildProps } from '@kibalabs/core-react';
 import { HeadRootProvider } from '@kibalabs/everypage';
+import Frame, { FrameContextConsumer } from 'react-frame-component';
+import { StyleSheetManager } from 'styled-components';
 
 interface IKibaFrameInnerProps extends ISingleAnyChildProps {
   document: HTMLDocument;
@@ -21,7 +22,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
         }, 1000);
       }
     }
-  }, [props.selectedElementId]);
+  }, [props.document, props.selectedElementId]);
 
   React.useEffect((): void => {
     // NOTE(krishan711): these should be removable eventually!
@@ -42,7 +43,7 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
   return (
     <React.Fragment>{ props.children }</React.Fragment>
   );
-}
+};
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
   selectedElementId?: string;
@@ -50,8 +51,8 @@ interface IKibaFrameProps extends ISingleAnyChildProps {
 
 export const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
   return (
-    <Frame style={{height: '100%', width: '100%'}}>
-      <FrameContextConsumer>{ frameContext => (
+    <Frame style={{ height: '100%', width: '100%' }}>
+      <FrameContextConsumer>{ (frameContext) => (
         <HeadRootProvider root={frameContext.document.head}>
           <KibaFrameInner document={frameContext.document} selectedElementId={props.selectedElementId}>
             <StyleSheetManager target={frameContext.document.head}>
@@ -64,4 +65,4 @@ export const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
       )}</FrameContextConsumer>
     </Frame>
   );
-}
+};

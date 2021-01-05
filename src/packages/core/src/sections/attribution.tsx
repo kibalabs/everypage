@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Stack, TextAlignment, PaddingSize, Link, Alignment } from '@kibalabs/ui-react';
+
+import { Alignment, Link, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { Section } from '.';
 

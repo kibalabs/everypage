@@ -1,29 +1,31 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { LocalStorageClient, Requester } from '@kibalabs/core';
-import { Router, Route, useInitialization } from '@kibalabs/core-react';
-import { buildTheme, ThemeProvider, resetCss } from '@kibalabs/ui-react';
 
-import { EverypageClient } from './everypageClient/everypageClient';
+import { LocalStorageClient, Requester } from '@kibalabs/core';
+import { Route, Router, useInitialization } from '@kibalabs/core-react';
+import { TawkToChat } from '@kibalabs/everypage';
+import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
+import { Helmet } from 'react-helmet';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { hot } from 'react-hot-loader/root';
+
+import { AuthManager } from './authManager';
 import { GlobalCss } from './components/globalCss';
-import { HomePage } from './pages/homePage';
-import { SitePage } from './pages/sitePage';
+import { consoleConfig } from './consoleConfig';
+import { EverypageClient } from './everypageClient/everypageClient';
+import { GlobalsProvider } from './globalsContext';
+import { JwtRequestModifier } from './jwtRequestModifier';
+import { AccountPage } from './pages/accountPage';
 import { CanvasPage } from './pages/canvasPage';
 import { CanvasPreviewPage } from './pages/canvasPreviewPage';
-import { LoginPage } from './pages/loginPage';
-import { RegisterPage } from './pages/registerPage';
-import { VerifyEmailPage } from './pages/verifyEmailPage';
-import { NotFoundPage } from './pages/notFoundPage';
 import { CreateSitePage } from './pages/createSitePage';
-import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
-import { AccountPage } from './pages/accountPage';
-import { GlobalsProvider } from './globalsContext';
-import { TawkTo } from './components/tawkto';
-import { AuthManager } from './authManager';
-import { JwtRequestModifier } from './jwtRequestModifier';
-import { consoleConfig } from './consoleConfig';
 import { EmptyPage } from './pages/emptyPage';
+import { HomePage } from './pages/homePage';
+import { LoginPage } from './pages/loginPage';
+import { NotFoundPage } from './pages/notFoundPage';
+import { RegisterPage } from './pages/registerPage';
+import { SitePage } from './pages/sitePage';
+import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
+import { VerifyEmailPage } from './pages/verifyEmailPage';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester();
@@ -36,7 +38,7 @@ const globals = {
   authManager,
   localStorageClient,
   consoleConfig,
-}
+};
 
 const theme = buildTheme({
   colors: {
@@ -47,6 +49,7 @@ const theme = buildTheme({
 
 export const App = hot((): React.ReactElement => {
   useInitialization((): void => {
+    // eslint-disable-next-line no-console
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refreshToken();
@@ -60,7 +63,7 @@ export const App = hot((): React.ReactElement => {
           <Helmet>
             <title>Everypage Console</title>
           </Helmet>
-          {process.env.NODE_ENV === 'production' && <TawkTo accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
+          {process.env.NODE_ENV === 'production' && <TawkToChat accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
           <GlobalCss resetCss={resetCss} theme={theme} />
           <Router authManager={authManager}>
             <Route path='/canvas' page={CanvasPage}/>

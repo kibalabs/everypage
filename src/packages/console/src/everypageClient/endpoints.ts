@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file, no-useless-constructor, @typescript-eslint/no-unused-vars */
 import { RequestData, ResponseData } from '@kibalabs/core';
 
 import * as Resources from './resources';
@@ -12,7 +13,7 @@ export class LoginUserRequest extends RequestData {
     this.password = password;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       email: this.email,
       password: this.password,
@@ -21,21 +22,21 @@ export class LoginUserRequest extends RequestData {
 }
 
 export class LoginUserResponse extends ResponseData {
-  public static fromObject = (obj: Record<string, any>): LoginUserResponse => {
+  public static fromObject = (obj: Record<string, unknown>): LoginUserResponse => {
     return new LoginUserResponse(
     );
   }
 }
 
 export class LogoutUserRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
 }
 
 export class LogoutUserResponse extends ResponseData {
-  public static fromObject = (obj: Record<string, any>): LogoutUserResponse => {
+  public static fromObject = (obj: Record<string, unknown>): LogoutUserResponse => {
     return new LogoutUserResponse(
     );
   }
@@ -57,7 +58,7 @@ export class CreateUserRequest extends RequestData {
     this.shouldJoinNewsletter = shouldJoinNewsletter;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       firstName: this.firstName,
       lastName: this.lastName,
@@ -69,42 +70,42 @@ export class CreateUserRequest extends RequestData {
 }
 
 export class CreateUserResponse extends ResponseData {
-  public static fromObject = (obj: Record<string, any>): CreateUserResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateUserResponse => {
     return new CreateUserResponse(
     );
   }
 }
 
 export class RefreshTokenRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
 }
 
 export class RefreshTokenResponse extends ResponseData {
-  public static fromObject = (obj: Record<string, any>): RefreshTokenResponse => {
+  public static fromObject = (obj: Record<string, unknown>): RefreshTokenResponse => {
     return new RefreshTokenResponse(
     );
   }
 }
 
 export class SendEmailVerificationForUserRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
 }
 
 export class SendEmailVerificationForUserResponse extends ResponseData {
-  public static fromObject = (obj: Record<string, any>): SendEmailVerificationForUserResponse => {
+  public static fromObject = (obj: Record<string, unknown>): SendEmailVerificationForUserResponse => {
     return new SendEmailVerificationForUserResponse(
     );
   }
 }
 
 export class RetrieveAccountsRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -118,15 +119,15 @@ export class RetrieveAccountsResponse extends ResponseData {
     this.accounts = accounts;
   }
 
-  public static fromObject = (obj: Record<string, any>): RetrieveAccountsResponse => {
+  public static fromObject = (obj: Record<string, unknown>): RetrieveAccountsResponse => {
     return new RetrieveAccountsResponse(
-      obj.accounts.map((account: Record<string, any>): Resources.Account => Resources.Account.fromObject(account)),
+      obj.accounts.map((account: Record<string, unknown>): Resources.Account => Resources.Account.fromObject(account)),
     );
   }
 }
 
 export class GetAccountRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -140,7 +141,7 @@ export class GetAccountResponse extends ResponseData {
     this.account = account;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetAccountResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetAccountResponse => {
     return new GetAccountResponse(
       Resources.Account.fromObject(obj.account),
     );
@@ -161,7 +162,7 @@ export class CreateSubscriptionForAccountRequest extends RequestData {
     this.couponCode = couponCode;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       planCode: this.planCode,
       priceCode: this.priceCode,
@@ -179,7 +180,7 @@ export class CreateSubscriptionForAccountResponse extends ResponseData {
     this.stripeSubscription = stripeSubscription;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateSubscriptionForAccountResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateSubscriptionForAccountResponse => {
     return new CreateSubscriptionForAccountResponse(
       Resources.StripeSubscription.fromObject(obj.stripeSubscription),
     );
@@ -198,7 +199,7 @@ export class ChangeSubscriptionForAccountRequest extends RequestData {
     this.couponCode = couponCode;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       planCode: this.planCode,
       priceCode: this.priceCode,
@@ -215,14 +216,14 @@ export class ChangeSubscriptionForAccountResponse extends ResponseData {
     this.stripeSubscription = stripeSubscription;
   }
 
-  public static fromObject = (obj: Record<string, any>): ChangeSubscriptionForAccountResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ChangeSubscriptionForAccountResponse => {
     return new ChangeSubscriptionForAccountResponse(
       Resources.StripeSubscription.fromObject(obj.stripeSubscription),
     );
   }
 }
 export class CreatePortalSessionForAccountRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -236,7 +237,7 @@ export class CreatePortalSessionForAccountResponse extends ResponseData {
     this.stripePortalSession = stripePortalSession;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreatePortalSessionForAccountResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreatePortalSessionForAccountResponse => {
     return new CreatePortalSessionForAccountResponse(
       Resources.StripePortalSession.fromObject(obj.stripePortalSession),
     );
@@ -245,7 +246,7 @@ export class CreatePortalSessionForAccountResponse extends ResponseData {
 
 
 export class RetrieveSitesForAccountRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -259,9 +260,9 @@ export class RetrieveSitesForAccountResponse extends ResponseData {
     this.sites = sites;
   }
 
-  public static fromObject = (obj: Record<string, any>): RetrieveSitesForAccountResponse => {
+  public static fromObject = (obj: Record<string, unknown>): RetrieveSitesForAccountResponse => {
     return new RetrieveSitesForAccountResponse(
-      obj.sites.map((site: Record<string, any>): Resources.Site => Resources.Site.fromObject(site)),
+      obj.sites.map((site: Record<string, unknown>): Resources.Site => Resources.Site.fromObject(site)),
     );
   }
 }
@@ -281,7 +282,7 @@ export class CreateSiteRequest extends RequestData {
     this.templateId = templateId;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       accountId: this.accountId,
       slug: this.slug,
@@ -299,7 +300,7 @@ export class CreateSiteResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateSiteResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateSiteResponse => {
     return new CreateSiteResponse(
       Resources.Site.fromObject(obj.site),
     );
@@ -307,12 +308,12 @@ export class CreateSiteResponse extends ResponseData {
 }
 
 export class CreateSiteVersionRequest extends RequestData {
-  readonly siteContent?: Record<string, any>;
-  readonly siteTheme?: Record<string, any>;
+  readonly siteContent?: Record<string, unknown>;
+  readonly siteTheme?: Record<string, unknown>;
   readonly name?: string;
   readonly templateId?: number;
 
-  public constructor(siteContent?: Record<string, any>, siteTheme?: Record<string, any>, name?: string, templateId?: number) {
+  public constructor(siteContent?: Record<string, unknown>, siteTheme?: Record<string, unknown>, name?: string, templateId?: number) {
     super();
     this.siteContent = siteContent;
     this.siteTheme = siteTheme;
@@ -320,7 +321,7 @@ export class CreateSiteVersionRequest extends RequestData {
     this.templateId = templateId;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       siteContent: this.siteContent,
       siteTheme: this.siteTheme,
@@ -338,7 +339,7 @@ export class CreateSiteVersionResponse extends ResponseData {
     this.siteVersion = siteVersion;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateSiteVersionResponse => {
     return new CreateSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion),
     );
@@ -346,7 +347,7 @@ export class CreateSiteVersionResponse extends ResponseData {
 }
 
 export class RetrieveNextVersionNameRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -360,7 +361,7 @@ export class RetrieveNextVersionNameResponse extends ResponseData {
     this.nextVersionName = nextVersionName;
   }
 
-  public static fromObject = (obj: Record<string, any>): RetrieveNextVersionNameResponse => {
+  public static fromObject = (obj: Record<string, unknown>): RetrieveNextVersionNameResponse => {
     return new RetrieveNextVersionNameResponse(
       String(obj.nextVersionName),
     );
@@ -372,7 +373,7 @@ export class ListSiteVersionAssetsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -386,9 +387,9 @@ export class ListSiteVersionAssetsResponse extends ResponseData {
     this.assetFiles = assetFiles;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListSiteVersionAssetsResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListSiteVersionAssetsResponse => {
     return new ListSiteVersionAssetsResponse(
-      obj.assetFiles.map((siteVersion: Record<string, any>): Resources.AssetFile => Resources.AssetFile.fromObject(siteVersion)),
+      obj.assetFiles.map((siteVersion: Record<string, unknown>): Resources.AssetFile => Resources.AssetFile.fromObject(siteVersion)),
     );
   }
 }
@@ -398,7 +399,7 @@ export class DeleteSiteVersionAssetsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -409,7 +410,7 @@ export class DeleteSiteVersionAssetsResponse extends ResponseData {
     super();
   }
 
-  public static fromObject = (obj: Record<string, any>): DeleteSiteVersionAssetsResponse => {
+  public static fromObject = (obj: Record<string, unknown>): DeleteSiteVersionAssetsResponse => {
     return new DeleteSiteVersionAssetsResponse(
     );
   }
@@ -421,7 +422,7 @@ export class PromoteSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -432,7 +433,7 @@ export class PromoteSiteVersionResponse extends ResponseData {
     super();
   }
 
-  public static fromObject = (obj: Record<string, any>): PromoteSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): PromoteSiteVersionResponse => {
     return new PromoteSiteVersionResponse(
     );
   }
@@ -446,7 +447,7 @@ export class CloneSiteVersionRequest extends RequestData {
     this.name = name;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       name: this.name,
     };
@@ -461,7 +462,7 @@ export class CloneSiteVersionResponse extends ResponseData {
     this.siteVersion = siteVersion;
   }
 
-  public static fromObject = (obj: Record<string, any>): CloneSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CloneSiteVersionResponse => {
     return new CloneSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion),
     );
@@ -473,7 +474,7 @@ export class ArchiveSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -487,7 +488,7 @@ export class ArchiveSiteVersionResponse extends ResponseData {
     this.siteVersion = siteVersion;
   }
 
-  public static fromObject = (obj: Record<string, any>): ArchiveSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ArchiveSiteVersionResponse => {
     return new ArchiveSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion),
     );
@@ -499,7 +500,7 @@ export class GenerateAssetUploadForSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -513,7 +514,7 @@ export class GenerateAssetUploadForSiteVersionResponse extends ResponseData {
     this.presignedUpload = presignedUpload;
   }
 
-  public static fromObject = (obj: Record<string, any>): GenerateAssetUploadForSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GenerateAssetUploadForSiteVersionResponse => {
     return new GenerateAssetUploadForSiteVersionResponse(
       Resources.PresignedUpload.fromObject(obj.presignedUpload),
     );
@@ -526,7 +527,7 @@ export class GetSiteRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -540,7 +541,7 @@ export class GetSiteResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSiteResponse => {
     return new GetSiteResponse(
       Resources.Site.fromObject(obj.site),
     );
@@ -555,7 +556,7 @@ export class UpdateDomainForSiteRequest extends RequestData {
     this.customDomain = customDomain;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       customDomain: this.customDomain,
     };
@@ -570,7 +571,7 @@ export class UpdateDomainForSiteResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): UpdateDomainForSiteResponse => {
+  public static fromObject = (obj: Record<string, unknown>): UpdateDomainForSiteResponse => {
     return new UpdateDomainForSiteResponse(
       Resources.Site.fromObject(obj.site),
     );
@@ -582,7 +583,7 @@ export class ArchiveSiteRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -596,7 +597,7 @@ export class ArchiveSiteResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): ArchiveSiteResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ArchiveSiteResponse => {
     return new GetSiteResponse(
       Resources.Site.fromObject(obj.site),
     );
@@ -608,7 +609,7 @@ export class GetSiteBySlugRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -622,7 +623,7 @@ export class GetSiteBySlugResponse extends ResponseData {
     this.site = site;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteBySlugResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSiteBySlugResponse => {
     return new GetSiteBySlugResponse(
       Resources.Site.fromObject(obj.site),
     );
@@ -634,7 +635,7 @@ export class ListSiteVersionsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -648,9 +649,9 @@ export class ListSiteVersionsResponse extends ResponseData {
     this.siteVersions = siteVersions;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListSiteVersionsResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListSiteVersionsResponse => {
     return new ListSiteVersionsResponse(
-      obj.siteVersions.map((siteVersion: Record<string, any>): Resources.SiteVersion => Resources.SiteVersion.fromObject(siteVersion)),
+      obj.siteVersions.map((siteVersion: Record<string, unknown>): Resources.SiteVersion => Resources.SiteVersion.fromObject(siteVersion)),
     );
   }
 }
@@ -660,7 +661,7 @@ export class GetSitePrimaryVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -674,7 +675,7 @@ export class GetSitePrimaryVersionResponse extends ResponseData {
     this.siteVersion = siteVersion;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSitePrimaryVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSitePrimaryVersionResponse => {
     return new GetSitePrimaryVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion),
     );
@@ -687,7 +688,7 @@ export class GetSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -701,7 +702,7 @@ export class GetSiteVersionResponse extends ResponseData {
     this.siteVersion = siteVersion;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteVersionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSiteVersionResponse => {
     return new GetSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion),
     );
@@ -714,7 +715,7 @@ export class GetSiteVersionEntryRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -728,7 +729,7 @@ export class GetSiteVersionEntryResponse extends ResponseData {
     this.siteVersionEntry = siteVersionEntry;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteVersionEntryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSiteVersionEntryResponse => {
     return new GetSiteVersionEntryResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
     );
@@ -736,16 +737,16 @@ export class GetSiteVersionEntryResponse extends ResponseData {
 }
 
 export class UpdateSiteVersionEntryRequest extends RequestData {
-  readonly siteContent: Record<string, any> | null;
-  readonly siteTheme: Record<string, any> | null;
+  readonly siteContent: Record<string, unknown> | null;
+  readonly siteTheme: Record<string, unknown> | null;
 
-  public constructor(siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null) {
+  public constructor(siteContent: Record<string, unknown> | null, siteTheme: Record<string, unknown> | null) {
     super();
     this.siteContent = siteContent;
     this.siteTheme = siteTheme;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       siteContent: this.siteContent,
       siteTheme: this.siteTheme,
@@ -761,7 +762,7 @@ export class UpdateSiteVersionEntryResponse extends ResponseData {
     this.siteVersionEntry = siteVersionEntry;
   }
 
-  public static fromObject = (obj: Record<string, any>): UpdateSiteVersionEntryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): UpdateSiteVersionEntryResponse => {
     return new UpdateSiteVersionEntryResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
     );
@@ -769,7 +770,7 @@ export class UpdateSiteVersionEntryResponse extends ResponseData {
 }
 
 export class ListTemplateCategoriesRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -783,9 +784,9 @@ export class ListTemplateCategoriesResponse extends ResponseData {
     this.templateCategories = templateCategories;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListTemplateCategoriesResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListTemplateCategoriesResponse => {
     return new ListTemplateCategoriesResponse(
-      obj.templateCategories.map((templateCategory: Record<string, any>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
+      obj.templateCategories.map((templateCategory: Record<string, unknown>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
     );
   }
 }
@@ -798,7 +799,7 @@ export class CreateTemplateCategoryRequest extends RequestData {
     this.name = name;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       name: this.name,
     };
@@ -813,7 +814,7 @@ export class CreateTemplateCategoryResponse extends ResponseData {
     this.templateCategory = templateCategory;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateTemplateCategoryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateTemplateCategoryResponse => {
     return new CreateTemplateCategoryResponse(
       Resources.TemplateCategory.fromObject(obj.templateCategory),
     );
@@ -821,7 +822,7 @@ export class CreateTemplateCategoryResponse extends ResponseData {
 }
 
 export class GetTemplateCategoryRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -835,7 +836,7 @@ export class GetTemplateCategoryResponse extends ResponseData {
     this.templateCategory = templateCategory;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetTemplateCategoryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetTemplateCategoryResponse => {
     return new GetTemplateCategoryResponse(
       Resources.TemplateCategory.fromObject(obj.templateCategory),
     );
@@ -850,7 +851,7 @@ export class ListTemplatesRequest extends RequestData {
     this.templateCategoryId = templateCategoryId;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       templateCategoryId: this.templateCategoryId,
     };
@@ -865,9 +866,9 @@ export class ListTemplatesResponse extends ResponseData {
     this.templates = templates;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListTemplatesResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListTemplatesResponse => {
     return new ListTemplatesResponse(
-      obj.templates.map((template: Record<string, any>): Resources.Template => Resources.Template.fromObject(template)),
+      obj.templates.map((template: Record<string, unknown>): Resources.Template => Resources.Template.fromObject(template)),
     );
   }
 }
@@ -886,7 +887,7 @@ export class CreateTemplateRequest extends RequestData {
     this.templateCategoryId = templateCategoryId;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       name: this.name,
       description: this.description,
@@ -904,7 +905,7 @@ export class CreateTemplateResponse extends ResponseData {
     this.template = template;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateTemplateResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateTemplateResponse => {
     return new CreateTemplateResponse(
       Resources.Template.fromObject(obj.template),
     );
@@ -912,7 +913,7 @@ export class CreateTemplateResponse extends ResponseData {
 }
 
 export class GetTemplateRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -926,7 +927,7 @@ export class GetTemplateResponse extends ResponseData {
     this.template = template;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetTemplateResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetTemplateResponse => {
     return new GetTemplateResponse(
       Resources.Template.fromObject(obj.template),
     );
@@ -934,7 +935,7 @@ export class GetTemplateResponse extends ResponseData {
 }
 
 export class GetSiteVersionEntryForTemplateRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -948,7 +949,7 @@ export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
     this.siteVersionEntry = siteVersionEntry;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSiteVersionEntryForTemplateResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSiteVersionEntryForTemplateResponse => {
     return new GetSiteVersionEntryForTemplateResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry),
     );
@@ -956,7 +957,7 @@ export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
 }
 
 export class ListSectionCategoriesRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -970,9 +971,9 @@ export class ListSectionCategoriesResponse extends ResponseData {
     this.sectionCategories = sectionCategories;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListSectionCategoriesResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListSectionCategoriesResponse => {
     return new ListSectionCategoriesResponse(
-      obj.sectionCategories.map((sectionCategory: Record<string, any>): Resources.SectionCategory => Resources.SectionCategory.fromObject(sectionCategory)),
+      obj.sectionCategories.map((sectionCategory: Record<string, unknown>): Resources.SectionCategory => Resources.SectionCategory.fromObject(sectionCategory)),
     );
   }
 }
@@ -985,7 +986,7 @@ export class CreateSectionCategoryRequest extends RequestData {
     this.name = name;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       name: this.name,
     };
@@ -1000,7 +1001,7 @@ export class CreateSectionCategoryResponse extends ResponseData {
     this.sectionCategory = sectionCategory;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateSectionCategoryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateSectionCategoryResponse => {
     return new CreateSectionCategoryResponse(
       Resources.SectionCategory.fromObject(obj.sectionCategory),
     );
@@ -1008,7 +1009,7 @@ export class CreateSectionCategoryResponse extends ResponseData {
 }
 
 export class GetSectionCategoryRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -1022,7 +1023,7 @@ export class GetSectionCategoryResponse extends ResponseData {
     this.sectionCategory = sectionCategory;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSectionCategoryResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSectionCategoryResponse => {
     return new GetSectionCategoryResponse(
       Resources.SectionCategory.fromObject(obj.sectionCategory),
     );
@@ -1037,7 +1038,7 @@ export class ListSectionsRequest extends RequestData {
     this.sectionCategoryId = sectionCategoryId;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       sectionCategoryId: this.sectionCategoryId,
     };
@@ -1052,9 +1053,9 @@ export class ListSectionsResponse extends ResponseData {
     this.sections = sections;
   }
 
-  public static fromObject = (obj: Record<string, any>): ListSectionsResponse => {
+  public static fromObject = (obj: Record<string, unknown>): ListSectionsResponse => {
     return new ListSectionsResponse(
-      obj.sections.map((section: Record<string, any>): Resources.Section => Resources.Section.fromObject(section)),
+      obj.sections.map((section: Record<string, unknown>): Resources.Section => Resources.Section.fromObject(section)),
     );
   }
 }
@@ -1065,9 +1066,9 @@ export class CreateSectionRequest extends RequestData {
   readonly sectionType: string;
   readonly sectionCategoryId: number;
   readonly previewImageUrl: string;
-  readonly content: Record<string, any>;
+  readonly content: Record<string, unknown>;
 
-  public constructor(name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, any>) {
+  public constructor(name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, unknown>) {
     super();
     this.name = name;
     this.description = description;
@@ -1077,7 +1078,7 @@ export class CreateSectionRequest extends RequestData {
     this.content = content;
   }
 
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
       name: this.name,
       description: this.description,
@@ -1097,7 +1098,7 @@ export class CreateSectionResponse extends ResponseData {
     this.section = section;
   }
 
-  public static fromObject = (obj: Record<string, any>): CreateSectionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): CreateSectionResponse => {
     return new CreateSectionResponse(
       Resources.Section.fromObject(obj.section),
     );
@@ -1105,7 +1106,7 @@ export class CreateSectionResponse extends ResponseData {
 }
 
 export class GetSectionRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -1119,7 +1120,7 @@ export class GetSectionResponse extends ResponseData {
     this.section = section;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetSectionResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetSectionResponse => {
     return new GetSectionResponse(
       Resources.Section.fromObject(obj.section),
     );
@@ -1127,7 +1128,7 @@ export class GetSectionResponse extends ResponseData {
 }
 
 export class GetIosAppRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -1141,7 +1142,7 @@ export class GetIosAppResponse extends ResponseData {
     this.iosApp = iosApp;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetIosAppResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetIosAppResponse => {
     return new GetIosAppResponse(
       Resources.IosApp.fromObject(obj.iosApp),
     );
@@ -1149,7 +1150,7 @@ export class GetIosAppResponse extends ResponseData {
 }
 
 export class GetAndroidAppRequest extends RequestData {
-  public toObject = (): Record<string, any> => {
+  public toObject = (): Record<string, unknown> => {
     return {
     };
   }
@@ -1163,7 +1164,7 @@ export class GetAndroidAppResponse extends ResponseData {
     this.iosApp = iosApp;
   }
 
-  public static fromObject = (obj: Record<string, any>): GetAndroidAppResponse => {
+  public static fromObject = (obj: Record<string, unknown>): GetAndroidAppResponse => {
     return new GetAndroidAppResponse(
       Resources.AndroidApp.fromObject(obj.iosApp),
     );

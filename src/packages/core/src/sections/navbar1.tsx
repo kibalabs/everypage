@@ -1,9 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { getClassName } from '@kibalabs/core';
-import { Stack, Direction, Image, MarkdownText, TextAlignment, useDimensions, Alignment, IDimensionGuide, Button, KibaIcon, IconButton, Spacing, PaddingSize, ResponsiveHidingView, ScreenSize, HidingView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, HidingView, IconButton, IDimensionGuide, Image, KibaIcon, MarkdownText, PaddingSize, ResponsiveHidingView, ScreenSize, Stack, TextAlignment, useDimensions } from '@kibalabs/ui-react';
+import styled from 'styled-components';
+
+import { ISectionProps, Section } from '.';
 
 interface IStyledNavigationBarProps {
   theme: IDimensionGuide;

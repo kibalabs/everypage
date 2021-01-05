@@ -1,4 +1,4 @@
-import { RequesterModifier, Request, Response } from '@kibalabs/core';
+import { Request, RequesterModifier, Response } from '@kibalabs/core';
 
 import { AuthManager } from './authManager';
 
@@ -13,7 +13,7 @@ export class JwtRequestModifier extends RequesterModifier {
   public modifyRequest(request: Request): Request {
     const jwt = this.authManager.getJwtString();
     if (jwt) {
-      request.headers['Authorization'] = `Bearer ${jwt}`;
+      request.headers.Authorization = `Bearer ${jwt}`;
     }
     return request;
   }
@@ -24,5 +24,4 @@ export class JwtRequestModifier extends RequesterModifier {
     }
     return response;
   }
-
 }

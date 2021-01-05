@@ -1,24 +1,25 @@
 import React from 'react';
+
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container';
+import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-import { Account, Template } from '../everypageClient/resources';
-import { NavigationBar } from '../components/navigationBar';
-import { useGlobals } from '../globalsContext';
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
+import { Account, Template } from '../everypageClient/resources';
+import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,16 +69,16 @@ export const CreateSitePage = (): React.ReactElement => {
   });
 
   const loadAccounts = (): void => {
-    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
-      setAccounts(accounts);
+    everypageClient.retrieveAccounts().then((receivedAccounts: Account[]) => {
+      setAccounts(receivedAccounts);
       if (!selectedAccountId) {
-        setSelectedAccountId(accounts[0].accountId);
+        setSelectedAccountId(receivedAccounts[0].accountId);
       }
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccounts(null);
     });
-  }
+  };
 
   const onCreateSiteClicked = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,42 +103,42 @@ export const CreateSitePage = (): React.ReactElement => {
       } else if (error.statusCode && error.statusCode === 400) {
         setSlugError(error.message);
       } else {
-        setSlugError('Something went wrong on our side. Please try again later.')
+        setSlugError('Something went wrong on our side. Please try again later.');
       }
       setIsLoading(false);
     });
-  }
+  };
 
   const onSlugChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setSlug(event.target.value);
     setSlugError(undefined);
-  }
+  };
 
   const onNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setName(event.target.value);
     setNameError(undefined);
-  }
+  };
 
   const onAccountSelected = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setSelectedAccountId(event.target.value);
-  }
+  };
 
   const onAccountUpgradePopupCloseClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-  }
+  };
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
     history.navigate(`/accounts/${selectedAccountId}#plan`);
-  }
+  };
 
   const onTemplateChoiceClicked = (event: React.SyntheticEvent<HTMLDivElement>): void => {
     event.preventDefault();
     setIsTemplateChooserOpen(true);
-  }
+  };
 
-  const onChooseTemplateClicked = (template: Template) => {
-    setTemplate(template);
+  const onChooseTemplateClicked = (clickedTemplate: Template) => {
+    setTemplate(clickedTemplate);
     setIsTemplateChooserOpen(false);
   };
 
@@ -235,4 +236,4 @@ export const CreateSitePage = (): React.ReactElement => {
       <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
     </div>
   );
-}
+};

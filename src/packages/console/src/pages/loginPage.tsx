@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { useHistory } from '@kibalabs/core-react';
 import { InputType, SingleLineInput, ResponsiveContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, EqualGrid, Form, Link, Alignment, ContainingView, Stack, Direction } from "@kibalabs/ui-react";
+
 import { useGlobals } from '../globalsContext';
 
 
@@ -34,21 +36,21 @@ export const LoginPage = (): React.ReactElement => {
       } else if (error.message.includes('INCORRECT_PASSWORD')) {
         setPasswordError('Incorrect password');
       } else {
-        setPasswordError('Something went wrong on our side. Please try again later.')
+        setPasswordError('Something went wrong on our side. Please try again later.');
       }
       setIsLoading(false);
     });
-  }
+  };
 
   const onEmailChanged = (value: string): void => {
     setEmail(value);
     setEmailError(undefined);
-  }
+  };
 
   const onPasswordChanged = (value: string): void => {
     setPassword(value);
     setPasswordError(undefined);
-  }
+  };
 
   //<EqualGrid childSizeResponsive={{ small: 4, base: 4 }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center}>
   return (
@@ -108,5 +110,4 @@ export const LoginPage = (): React.ReactElement => {
       </ResponsiveContainingView >
     </ContainingView>
   );
-  // </EqualGrid>
-}
+};

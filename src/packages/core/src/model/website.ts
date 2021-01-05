@@ -26,7 +26,7 @@ export interface IWebsite {
 
 export interface IWebsitePlugin {
   type: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface IWebsiteSection {
@@ -38,5 +38,5 @@ export interface IWebsiteSection {
   isFullHeight?: boolean;
   isInverse?: boolean;
   colorVariant?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -50,35 +51,35 @@ export const RegisterPage = (): React.ReactElement => {
       if (error.message.includes('USER_EMAIL_EXISTS')) {
         setEmailError('A user with this email exists. Please log in instead.');
       } else {
-        setPasswordError('Something went wrong on our side. Please try again later.')
+        setPasswordError('Something went wrong on our side. Please try again later.');
       }
       setIsLoading(false);
     });
-  }
+  };
 
   const onFirstNameChanged = (value: string): void => {
     setFirstName(value);
     setFirstNameError(undefined);
-  }
+  };
 
   const onLastNameChanged = (value: string): void => {
     setLastName(value);
     setLastNameError(undefined);
-  }
+  };
 
   const onEmailChanged = (value: string): void => {
     setEmail(value);
     setEmailError(undefined);
-  }
+  };
 
   const onPasswordChanged = (value: string): void => {
     setPassword(value);
     setPasswordError(undefined);
-  }
+  };
 
   const onShouldJoinNewsletterChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setShouldJoinNewsletter(event.target.checked);
-  }
+  };
 
   // <EqualGrid childSizeResponsive={{ small: 4, base: 4 }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center}>
   return (
@@ -171,5 +172,4 @@ export const RegisterPage = (): React.ReactElement => {
       </PaddingView>
     </ResponsiveContainingView>
   );
-  // </EqualGrid>
-}
+};

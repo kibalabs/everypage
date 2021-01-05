@@ -1,20 +1,21 @@
 import React from 'react';
-import { useInitialization, useHistory } from '@kibalabs/core-react';
+
 import { KibaException } from '@kibalabs/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { useHistory, useInitialization } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import { Account, Site } from '../everypageClient/resources';
-import { NavigationBar } from '../components/navigationBar';
-import { useGlobals } from '../globalsContext';
-import { SiteCard } from '../components/siteCard';
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { NavigationBar } from '../components/navigationBar';
+import { SiteCard } from '../components/siteCard';
 import { IPlan } from '../consoleConfig';
+import { Account, Site } from '../everypageClient/resources';
+import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
     display: 'inline',
     fontSize: '1em',
-  }
+  },
 }));
 
 export const HomePage = (): React.ReactElement => {
@@ -54,6 +55,60 @@ export const HomePage = (): React.ReactElement => {
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
   const [accountUpgradePopupAccount, setAccountUpgradePopupAccount] = React.useState<Account | null>(null);
 
+  const loadAccounts = React.useCallback((): void => {
+    everypageClient.retrieveAccounts().then((receivedAccount: Account[]) => {
+      setAccounts(receivedAccount);
+    }).catch((error: KibaException): void => {
+      console.error('error', error);
+      setAccounts(null);
+    });
+  }, [everypageClient]);
+
+  const loadAccountSites = React.useCallback((): void => {
+    const promises = accounts.map((account: Account): Promise<Site[]> => {
+      return everypageClient.retrieveSitesForAccount(account.accountId);
+    });
+    Promise.all(promises).then((responses: Site[][]): void => {
+      const updatedAccountSites = accounts.reduce((currentMap: Record<number, Site[]>, account: Account): Record<number, Site[]> => {
+        // eslint-disable-next-line no-param-reassign
+        currentMap[account.accountId] = [];
+        return currentMap;
+      }, {});
+      responses.forEach((sites: Site[]): void => {
+        sites.forEach((site: Site): void => {
+          updatedAccountSites[site.accountId].push(site);
+        });
+      });
+      setAccountSites(updatedAccountSites);
+    });
+  }, [everypageClient, accounts]);
+
+  const onSiteClicked = (site: Site): void => {
+    history.navigate(`/sites/${site.slug}`);
+  };
+
+  const onCreateSiteClicked = (account: Account): void => {
+    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
+    if (accountPlan && accountSites[account.accountId].length >= accountPlan.siteLimit) {
+      setAccountUpgradePopupAccount(account);
+    } else {
+      history.navigate(`/sites/create?accountId=${account.accountId}`);
+    }
+  };
+
+  const onManageAccountClicked = (account: Account): void => {
+    history.navigate(`/accounts/${account.accountId}`);
+  };
+
+  const onAccountUpgradePopupCloseClicked = (): void => {
+    setAccountUpgradePopupAccount(null);
+  };
+
+  const onAccountUpgradePopupUpgradeClicked = (): void => {
+    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
+    setAccountUpgradePopupAccount(null);
+  };
+
   useInitialization((): void => {
     loadAccounts();
   });
@@ -62,60 +117,7 @@ export const HomePage = (): React.ReactElement => {
     if (accounts) {
       loadAccountSites();
     }
-  }, [accounts]);
-
-  const loadAccounts = (): void => {
-    everypageClient.retrieveAccounts().then((accounts: Account[]) => {
-      setAccounts(accounts);
-    }).catch((error: KibaException): void => {
-      console.error('error', error);
-      setAccounts(null);
-    });
-  }
-
-  const loadAccountSites = (): void => {
-    const promises = accounts.map((account: Account): Promise<Site[]> => {
-      return everypageClient.retrieveSitesForAccount(account.accountId);
-    });
-    Promise.all(promises).then((responses: Site[][]): void => {
-      const accountSites = accounts.reduce((currentMap: Record<number, Site[]>,  account: Account): Record<number, Site[]> => {
-        currentMap[account.accountId] = [];
-        return currentMap;
-      }, {});
-      responses.forEach((sites: Site[]): void => {
-        sites.forEach((site: Site): void => {
-          accountSites[site.accountId].push(site);
-        });
-      });
-      setAccountSites(accountSites);
-    });
-  }
-
-  const onSiteClicked = (site: Site): void => {
-    history.navigate(`/sites/${site.slug}`);
-  }
-
-  const onCreateSiteClicked = (account: Account): void => {
-    const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code == account.accountType).shift();
-    if (accountPlan && accountSites[account.accountId].length >= accountPlan.siteLimit) {
-      setAccountUpgradePopupAccount(account);
-    } else {
-      history.navigate(`/sites/create?accountId=${account.accountId}`);
-    }
-  }
-
-  const onManageAccountClicked = (account: Account): void => {
-    history.navigate(`/accounts/${account.accountId}`);
-  }
-
-  const onAccountUpgradePopupCloseClicked = (): void => {
-    setAccountUpgradePopupAccount(null);
-  }
-
-  const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
-    setAccountUpgradePopupAccount(null);
-  }
+  }, [accounts, loadAccountSites]);
 
   return (
     <div className={classes.root}>
@@ -166,4 +168,4 @@ export const HomePage = (): React.ReactElement => {
       {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
     </div>
   );
-}
+};

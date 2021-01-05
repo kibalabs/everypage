@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import * as fs from 'fs';
-import * as path from 'path';
-import * as rimraf from 'rimraf';
 import http from 'http';
-import serverHandler from 'serve-handler';
+import * as path from 'path';
+
 import { Command } from 'commander';
+import * as rimraf from 'rimraf';
+import serverHandler from 'serve-handler';
 
 import { render } from './renderer';
 
@@ -18,7 +20,7 @@ interface ProgramParams {
   clean?: boolean;
 }
 
-export const runFromProgram = async (command: string, params: ProgramParams) => {
+export const runFromProgram = async (command: string, params: ProgramParams): Promise<void> => {
   console.log('Welcome to everypage!');
   const port = params.port || 3000;
   const directory = path.join(process.cwd(), params.directory || 'site');
@@ -35,12 +37,12 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
   }
 
   if (fs.existsSync(buildDirectory)) {
-    console.error(`Build directory ${buildDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
+    console.error(`Build directory ${buildDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`);
     return;
   }
 
   if (fs.existsSync(outputDirectory)) {
-    console.error(`Output directory ${outputDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`)
+    console.error(`Output directory ${outputDirectory} already exists! Please delete it and run this command again (or add --clean when calling everypage).`);
     return;
   }
 
@@ -55,13 +57,13 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
       });
     });
     console.log('starting server...');
-    await new Promise((resolve, reject): Promise<void> => {
+    await new Promise((resolve, reject): void => {
       try {
         server.once('listening', () => {
           server.removeAllListeners('error');
           server.removeAllListeners('listening');
         });
-        server.once('error', (err: any) => {
+        server.once('error', (err) => {
           server.removeAllListeners('listening');
           server.removeAllListeners('error');
           reject(err);
@@ -75,7 +77,7 @@ export const runFromProgram = async (command: string, params: ProgramParams) => 
         server.listen(port, (): void => {
           console.log('Running at http://localhost:3000');
         });
-      } catch (error: any) {
+      } catch (error) {
         reject(error);
       }
     });

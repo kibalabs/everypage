@@ -1,8 +1,9 @@
 import React from 'react';
-import { ITheme, useTheme } from '@kibalabs/ui-react';
 
-import { useWebsite, Head } from '../util';
+import { ITheme, mergeTheme, useTheme } from '@kibalabs/ui-react';
+
 import { IWebsite } from '../model';
+import { Head, useWebsite } from '../util';
 
 export interface IHeadContentProps {
   website?: IWebsite;
@@ -11,8 +12,8 @@ export interface IHeadContentProps {
 
 // NOTE(krishan711): meta tags from https://github.com/gokulkrishh/awesome-meta-and-manifest/blob/master/README.md
 export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
-  const website = props.website || useWebsite();
-  const theme = props.theme || useTheme();
+  const website = useWebsite(props.website);
+  const theme = mergeTheme(useTheme(), props.theme);
   const title = website.title || `${website.name} - ${website.tagline}`;
   let socialCardImageUrl = website.socialCardImageUrl;
   if (!socialCardImageUrl) {

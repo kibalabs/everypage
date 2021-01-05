@@ -1,6 +1,7 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core'
-import { MarkdownText, TextAlignment } from '@kibalabs/ui-react'
+
+import { getClassName } from '@kibalabs/core';
+import { MarkdownText, TextAlignment } from '@kibalabs/ui-react';
 
 interface IHeroSectionTitleTextProps {
   id?: string;
@@ -18,8 +19,8 @@ export const HeroSectionTitleText = (props: IHeroSectionTitleTextProps): React.R
       textAlignment={props.alignment}
       source={props.text}
     />
-  )
-}
+  );
+};
 HeroSectionTitleText.defaultProps = {
   className: '',
 };
