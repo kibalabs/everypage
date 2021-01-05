@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from '@kibalabs/core-react';
-import { InputType, SingleLineInput, ContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, Grid, Form, Link } from "@kibalabs/ui-react";
+import { InputType, SingleLineInput, ResponsiveContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, EqualGrid, Form, Link, Alignment } from "@kibalabs/ui-react";
 import { useGlobals } from '../globalsContext';
 
 
@@ -13,9 +13,8 @@ export const LoginPage = (): React.ReactElement => {
   const [password, setPassword] = React.useState<string>('');
   const [passwordError, setPasswordError] = React.useState<string | undefined>(undefined);
 
-  // event: React.FormEvent<HTMLFormElement>
+
   const onLoginClicked = (): void => {
-    // event.preventDefault();
     setEmailError(undefined);
     setPasswordError(undefined);
     if (!email) {
@@ -41,50 +40,29 @@ export const LoginPage = (): React.ReactElement => {
     });
   }
 
-  /*const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setEmail(event.target.value);
+  const onEmailChanged = (value: string): void => {
+    setEmail(value);
     setEmailError(undefined);
   }
 
-  const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setPassword(event.target.value);
+  const onPasswordChanged = (value: string): void => {
+    setPassword(value);
     setPasswordError(undefined);
-  }*/
+  }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: "center" }}>
-      <Spacing variant={PaddingSize.Wide4} />
-      <ContainingView>
+    <EqualGrid childSizeResponsive={{ small: 4, base: 4 }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center}>
+      < ResponsiveContainingView size={5} sizeResponsive={{ small: 5, base: 4 }}>
         <PaddingView paddingTop={PaddingSize.Wide} padding={PaddingSize.Wide1}>
-          <Box variant='card' isFullWidth={false}>
+          <Box variant='card' isFullWidth={true}>
             <Text variant='header3'>Log in to everypage</Text>
-            {/*isLoading ? (
-              <React.Fragment>
-                <Spacing variant={PaddingSize.Wide} />
-                <LoadingSpinner />
-              </React.Fragment>
-            ) : (*/}
+            <Spacing variant={PaddingSize.Wide2} />
             <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
-              {/*<TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='email'
-                label='Email Address'
-                name='email'
-                autoComplete='email'
-                autoFocus
-                value={email}
-                onChange={onEmailChanged}
-                error={emailError !== undefined}
-                helperText={emailError}
-              />*/}
-              <Spacing variant={PaddingSize.Wide2} />
+
               <SingleLineInput
                 inputWrapperVariant={emailError ? "error" : ""}
                 value={email}
-                onValueChanged={setEmail}
+                onValueChanged={onEmailChanged}
                 name="email"
                 id='email'
                 label='Email Address'
@@ -94,25 +72,10 @@ export const LoginPage = (): React.ReactElement => {
               />
               <Spacing variant={PaddingSize.Wide2} />
 
-              {/*<TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                name='password'
-                label='Password'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-                value={password}
-                onChange={onPasswordChanged}
-                error={passwordError !== undefined}
-                helperText={passwordError}
-              />*/}
               <SingleLineInput
                 inputWrapperVariant={passwordError ? "error" : ""}
                 value={password}
-                onValueChanged={setPassword}
+                onValueChanged={onPasswordChanged}
                 name="password"
                 id='password'
                 label='Password'
@@ -126,25 +89,15 @@ export const LoginPage = (): React.ReactElement => {
                 buttonType='submit'
                 isFullWidth
                 variant='primary'
-                // color='primary'
                 text="Log in"
               />
               <Spacing variant={PaddingSize.Wide1} />
 
-              <Grid>
-                <Grid.Item size={1}>
-                  {/* <Link href='#' variant='body2'>
-                  Forgot password?
-                </Link> */}
-                </Grid.Item>
-                <Grid.Item>
-                  <Link target='/register' variant='default' text="Don't have an account yet? Sign Up" />
-                </Grid.Item>
-              </Grid>
+              <Link target='/register' variant='default' text="Don't have an account yet? Sign Up" />
             </Form>
           </Box>
         </PaddingView>
-      </ContainingView>
-    </div>
+      </ResponsiveContainingView >
+    </EqualGrid>
   );
 }
