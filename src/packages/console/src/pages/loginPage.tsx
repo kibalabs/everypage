@@ -1,35 +1,10 @@
 import React from 'react';
 
 import { useHistory } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(1, 2),
-  },
-}));
 
 export const LoginPage = (): React.ReactElement => {
   const { everypageClient, authManager } = useGlobals();
@@ -39,10 +14,9 @@ export const LoginPage = (): React.ReactElement => {
   const [emailError, setEmailError] = React.useState<string | undefined>(undefined);
   const [password, setPassword] = React.useState<string>('');
   const [passwordError, setPasswordError] = React.useState<string | undefined>(undefined);
-  const classes = useStyles();
 
-  const onLoginClicked = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+
+  const onLoginClicked = (): void => {
     setEmailError(undefined);
     setPasswordError(undefined);
     if (!email) {
@@ -68,78 +42,67 @@ export const LoginPage = (): React.ReactElement => {
     });
   };
 
-  const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setEmail(event.target.value);
+  const onEmailChanged = (value: string): void => {
+    setEmail(value);
     setEmailError(undefined);
   };
 
-  const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setPassword(event.target.value);
+  const onPasswordChanged = (value: string): void => {
+    setPassword(value);
     setPasswordError(undefined);
   };
 
+
   return (
-    <Container component='main' maxWidth='sm'>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Log in to everypage
-        </Typography>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <form className={classes.form} noValidate onSubmit={onLoginClicked}>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              value={email}
-              onChange={onEmailChanged}
-              error={emailError !== undefined}
-              helperText={emailError}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              value={password}
-              onChange={onPasswordChanged}
-              error={passwordError !== undefined}
-              helperText={passwordError}
-            />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-            >
-              Log In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                {/* <Link href='#' variant='body2'>
-                  Forgot password?
-                </Link> */}
-              </Grid>
-              <Grid item>
-                <Link href='/register' variant='body2'>{'Don\'t have an account yet? Sign Up'}</Link>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Paper>
-    </Container>
+    <ContainingView>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
+        <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Box variant='card' isFullWidth={false}>
+            <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+                <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
+                  <Text variant='header3'>Log in to everypage</Text>
+                </Stack.Item>
+                <SingleLineInput
+                  inputWrapperVariant={emailError ? 'error' : ''}
+                  value={email}
+                  onValueChanged={onEmailChanged}
+                  name='email'
+                  id='email'
+                  label='Email Address'
+                  messageText={emailError}
+                  placeholderText='Email Address'
+                  inputType={InputType.Email}
+                />
+                <SingleLineInput
+                  inputWrapperVariant={passwordError ? 'error' : ''}
+                  value={password}
+                  onValueChanged={onPasswordChanged}
+                  name='password'
+                  id='password'
+                  label='Password'
+                  messageText={passwordError}
+                  placeholderText='Password'
+                  inputType={InputType.Password}
+                />
+                <Stack.Item gutterBefore={PaddingSize.Wide2}>
+                  <Button
+                    buttonType='submit'
+                    isFullWidth
+                    variant='primary'
+                    text='Log in'
+                  />
+                </Stack.Item>
+                <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
+                  <Link target='/register' text="Don't have an account yet? Sign Up" shouldOpenSameTab={true} />
+                </Stack.Item>
+              </Stack>
+            </Form>
+          </Box>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+        </Stack>
+      </ResponsiveContainingView>
+    </ContainingView>
   );
 };
