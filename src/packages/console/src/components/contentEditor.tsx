@@ -109,7 +109,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
     <Stack direction={Direction.Vertical} isFullHeight={true}>
       <HidingView isHidden={currentPath === undefined}>
         <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
-          <Button text='Back' onClicked={onBackClicked} iconLeft={<KibaIcon iconId='ion-arrow-back'/>} />
+          <Button text='Back' onClicked={onBackClicked} iconLeft={<KibaIcon iconId='ion-arrow-back' />} />
           <Stack.Item growthFactor={1}>
             <Text>{currentPath}</Text>
           </Stack.Item>
@@ -178,7 +178,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
       </HidingView>
       <Stack.Item growthFactor={1}>
         {(currentPath !== undefined || selectedTypeTabKey === TAB_KEY_JSON) && (
-          <JsonEditor isEditable={props.isEditable} name='site' json={getJsonFromPath()} onJsonUpdated={onJsonUpdated}/>
+          <JsonEditor isEditable={props.isEditable} name='site' json={getJsonFromPath()} onJsonUpdated={onJsonUpdated} />
         )}
       </Stack.Item>
     </Stack>

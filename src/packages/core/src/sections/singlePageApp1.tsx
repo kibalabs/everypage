@@ -50,18 +50,18 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <Stack.Item gutterBefore={PaddingSize.Wide3}>
               <Stack directionResponsive={{ base: Direction.Vertical, small: Direction.Horizontal }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                 {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonVariant={appButtonVariant} appId={iosAppId} /></Stack.Item>}
-                {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
+                {androidAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
                 {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}
               </Stack>
             </Stack.Item>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
-            {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText}/></Stack.Item>}
+            {props.bottomText && <Stack.Item><MarkdownText source={props.bottomText} /></Stack.Item>}
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide3} />
             {props.iconLinks && (
               <Stack.Item gutterAfter={PaddingSize.Wide}>
@@ -72,7 +72,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
                 </Stack>
               </Stack.Item>
             )}
-            <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText source={copyrightText}/></Stack.Item>
+            <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText source={copyrightText} /></Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>

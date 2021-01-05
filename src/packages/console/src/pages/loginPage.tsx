@@ -55,7 +55,7 @@ export const LoginPage = (): React.ReactElement => {
 
   return (
     <ContainingView>
-      < ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 4 }}>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 4 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
@@ -70,11 +70,11 @@ export const LoginPage = (): React.ReactElement => {
                   inputWrapperVariant={emailError ? 'error' : ''}
                   value={email}
                   onValueChanged={onEmailChanged}
-                  name="email"
+                  name='email'
                   id='email'
                   label='Email Address'
                   messageText={emailError}
-                  placeholderText="Email Address"
+                  placeholderText='Email Address'
                   inputType={InputType.Email}
                 />
                 <Spacing variant={PaddingSize.Wide2} />
@@ -83,11 +83,11 @@ export const LoginPage = (): React.ReactElement => {
                   inputWrapperVariant={passwordError ? 'error' : ''}
                   value={password}
                   onValueChanged={onPasswordChanged}
-                  name="password"
+                  name='password'
                   id='password'
                   label='Password'
                   messageText={passwordError}
-                  placeholderText="Password"
+                  placeholderText='Password'
                   inputType={InputType.Password}
                 />
                 <Spacing variant={PaddingSize.Wide2} />
@@ -96,7 +96,7 @@ export const LoginPage = (): React.ReactElement => {
                   buttonType='submit'
                   isFullWidth
                   variant='primary'
-                  text="Log in"
+                  text='Log in'
                 />
                 <Spacing variant={PaddingSize.Wide1} />
                 <Stack.Item alignment={Alignment.End}>
@@ -107,7 +107,7 @@ export const LoginPage = (): React.ReactElement => {
           </Box>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
-      </ResponsiveContainingView >
+      </ResponsiveContainingView>
     </ContainingView>
   );
 };

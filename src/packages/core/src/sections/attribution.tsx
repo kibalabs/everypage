@@ -9,7 +9,8 @@ export const Attribution = (): React.ReactElement => {
     <Section colorVariant='everypageAttribution'>
       <Stack childAlignment={Alignment.Center} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} isFullWidth={true}>
         <Text alignment={TextAlignment.Center}>
-          Made with <Link target='https://www.everypagehq.com' text='everypage' />
+          {'Made with '}
+          <Link target='https://www.everypagehq.com' text='everypage' />
         </Text>
       </Stack>
     </Section>

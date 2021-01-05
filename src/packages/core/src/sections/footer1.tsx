@@ -36,8 +36,8 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
             ))}
           </Stack>
         )}
-        {props.subtitleText && <SectionSubtitleText text={props.subtitleText}/>}
-        <MarkdownText source={copyrightText}/>
+        {props.subtitleText && <SectionSubtitleText text={props.subtitleText} />}
+        <MarkdownText source={copyrightText} />
       </Stack>
     </Section>
   );
