@@ -210,8 +210,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             <Box paddingX={2} paddingY={1} className={classes.metaBox}>
               <Typography variant='subtitle1'>
                 <b>{site.slug}</b>
-                {' '}
-                {siteVersion.name || 'Unnamed'}
+                {` ${siteVersion.name || 'Unnamed'}`}
               </Typography>
               {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
               {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}

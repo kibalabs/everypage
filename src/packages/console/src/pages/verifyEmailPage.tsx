@@ -63,7 +63,7 @@ export const VerifyEmailPage = (): React.ReactElement => {
             variant='outlined'
             onClick={onResendVerificationClicked}
           >
-Resend Verification
+            Resend Verification
           </Button>
         )}
         {verificationSent && (
