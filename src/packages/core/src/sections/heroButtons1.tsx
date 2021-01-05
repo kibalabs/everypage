@@ -1,8 +1,9 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, KibaIcon } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
@@ -26,7 +27,7 @@ interface IHeroButtons1Props extends ISectionProps {
 export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroButtons1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}

@@ -1,8 +1,9 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, ResponsiveTextAlignmentView, Button, Alignment, Video, WebView, KibaIcon } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, Video, WebView } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
@@ -26,12 +27,12 @@ interface IHeroButtonsVideo1Props extends ISectionProps {
 
 export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactElement => {
   if (props.videoUrl && props.embeddedVideoUrl) {
-    throw new Error('Only one of {videoUrl, embeddedVideoUrl} should be provided to hero-buttons-video-1')
+    throw new Error('Only one of {videoUrl, embeddedVideoUrl} should be provided to hero-buttons-video-1');
   }
 
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroButtonsVideo1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}

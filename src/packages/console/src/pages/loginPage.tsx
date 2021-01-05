@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { useHistory } from '@kibalabs/core-react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
 import { useGlobals } from '../globalsContext';
 
@@ -61,21 +62,21 @@ export const LoginPage = (): React.ReactElement => {
       } else if (error.message.includes('INCORRECT_PASSWORD')) {
         setPasswordError('Incorrect password');
       } else {
-        setPasswordError('Something went wrong on our side. Please try again later.')
+        setPasswordError('Something went wrong on our side. Please try again later.');
       }
       setIsLoading(false);
     });
-  }
+  };
 
   const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setEmail(event.target.value);
     setEmailError(undefined);
-  }
+  };
 
   const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setPassword(event.target.value);
     setPasswordError(undefined);
-  }
+  };
 
   return (
     <Container component='main' maxWidth='sm'>
@@ -139,4 +140,4 @@ export const LoginPage = (): React.ReactElement => {
       </Paper>
     </Container>
   );
-}
+};

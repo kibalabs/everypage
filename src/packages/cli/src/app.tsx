@@ -1,8 +1,10 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import { Route, Router, IHistory, IRouteProps } from '@kibalabs/core-react';
+
+import { IHistory, IRouteProps, Route, Router } from '@kibalabs/core-react';
+import { IndexPage, IWebsite } from '@kibalabs/everypage';
 import { ITheme } from '@kibalabs/ui-react';
-import { IWebsite, IndexPage } from '@kibalabs/everypage';
 
 export interface RouteData {
   path: string;
@@ -20,9 +22,10 @@ export interface IAppProps {
   routerHistory?: IHistory;
 }
 
+// eslint-disable-next-line no-undef
 const siteData: SiteData = __non_webpack_require__('./siteData.json');
 
-export const App = (props: IAppProps) => {
+export const App = (props: IAppProps): React.ReactElement => {
   return (
     <Router history={props.routerHistory}>
       {siteData.routes.map((routeData: RouteData): React.ReactElement<IRouteProps> => (
@@ -31,14 +34,14 @@ export const App = (props: IAppProps) => {
       <Route default={true} pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />} />
     </Router>
   );
-}
+};
 
 export default App;
 
 if (typeof document !== 'undefined') {
   const target = document.getElementById('root');
   const renderMethod = target.hasChildNodes() ? ReactDOM.hydrate : ReactDOM.render;
-  const render = (Component: Function) => {
+  const render = (Component: React.ReactElement): void => {
     renderMethod(<Component />, target);
   };
   render(App);

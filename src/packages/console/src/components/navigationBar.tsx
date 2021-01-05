@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { Box, Image } from '@kibalabs/ui-react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 import { useGlobals } from '../globalsContext';
 
@@ -44,15 +45,15 @@ export const NavigationBar = (): React.ReactElement => {
     authManager.logout().then((): void => {
       history.navigate('/');
     });
-  }
+  };
 
   const onResendVerificationClicked = (): void => {
     everypageClient.sendEmailVerificationForUser().then((): void => {
       setVerificationSent(true);
     });
-  }
+  };
 
-  useInitialization((): (() => void) => {
+  useInitialization((): void | (() => void) => {
     setHasVerifiedEmail(authManager.getJwt().hasVerifiedEmail);
     if (!authManager.getJwt().hasVerifiedEmail) {
       const intervalId = setInterval((): void => {
@@ -63,6 +64,7 @@ export const NavigationBar = (): React.ReactElement => {
       }, 1000);
       return (): void => clearInterval(intervalId);
     }
+    return null;
   });
 
   return (
@@ -111,4 +113,4 @@ export const NavigationBar = (): React.ReactElement => {
       )}
     </AppBar>
   );
-}
+};

@@ -1,15 +1,16 @@
 
-const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9\@\:\%\_\+\.\~\#\?\&\/\=]*)\)/g;
+const ASSET_CONTENT_REGEX = /\((\/assets\/[-a-zA-Z0-9@:%_+.~#?&/=]*)\)/g;
 
 export const updateAssetPath = (assetPath: string, assetsPrefix: string): string => {
   return assetPath.replace(/^/, assetsPrefix);
-}
+};
 
-export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: string): Record<string, any> => {
+export const updateAssetPaths = (siteConfig: Record<string, unknown>, assetsPrefix: string): Record<string, unknown> => {
   if (!assetsPrefix) {
     return siteConfig;
   }
-  const newSiteContent = Object.keys(siteConfig).reduce((result: Record<string, any>, key: string): Record<string, any> => {
+  const newSiteContent = Object.keys(siteConfig).reduce((result: Record<string, unknown>, key: string): Record<string, unknown> => {
+    const resultCopy = result;
     let value = siteConfig[key];
     if (!value) {
       // Do nothing.
@@ -23,12 +24,12 @@ export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: 
         });
       }
     } else if (Array.isArray(value)) {
-      value = value.map(entry => typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry);
+      value = value.map((entry) => (typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry));
     } else if (typeof value === 'object') {
       value = updateAssetPaths(value, assetsPrefix);
     }
-    result[key] = value;
-    return result
+    resultCopy[key] = value;
+    return resultCopy;
   }, {});
   return newSiteContent;
 };
@@ -36,13 +37,14 @@ export const updateAssetPaths = (siteConfig: Record<string, any>, assetsPrefix: 
 // NOTE(krishan711): These replacement functions are because in canvas the images are stored locally so cant just be a prefix.
 export const replaceAssetPath = (assetPath: string, assetReplacements: Record<string, string>): string => {
   return assetReplacements[assetPath] ? assetReplacements[assetPath] : assetPath;
-}
+};
 
-export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacements: Record<string, string>): Record<string, any> => {
+export const replaceAssetPaths = (siteConfig: Record<string, unknown>, assetReplacements: Record<string, string>): Record<string, unknown> => {
   if (!assetReplacements) {
     return siteConfig;
   }
-  const newSiteContent = Object.keys(siteConfig).reduce((result: Record<string, any>, key: string): Record<string, any> => {
+  const newSiteContent = Object.keys(siteConfig).reduce((result: Record<string, unknown>, key: string): Record<string, unknown> => {
+    const resultCopy = result;
     let value = siteConfig[key];
     if (!value) {
       // Do nothing.
@@ -56,12 +58,12 @@ export const replaceAssetPaths = (siteConfig: Record<string, any>, assetReplacem
         });
       }
     } else if (Array.isArray(value)) {
-      value = value.map(entry => typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry);
+      value = value.map((entry) => (typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry));
     } else if (typeof value === 'object') {
       value = replaceAssetPaths(value, assetReplacements);
     }
-    result[key] = value;
-    return result
+    resultCopy[key] = value;
+    return resultCopy;
   }, {});
   return newSiteContent;
 };

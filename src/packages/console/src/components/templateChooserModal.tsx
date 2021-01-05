@@ -1,23 +1,24 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+
+import { useInitialization } from '@kibalabs/core-react';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Button from '@material-ui/core/Button';
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import ListItemText from '@material-ui/core/ListItemText';
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import { useGlobals } from '../globalsContext';
 import { Template, TemplateCategory } from '../everypageClient';
+import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     top: '50%',
     left: '50%',
-    transform: `translate(-50%, -50%)`,
+    transform: 'translate(-50%, -50%)',
     position: 'absolute',
     width: '85%',
     maxWidth: '850px',
@@ -88,7 +89,7 @@ export interface ITemplateChooserModalProps {
   onChooseTemplateClicked: (template: Template) => void;
 }
 
-export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
+export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
@@ -96,9 +97,9 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
   const [templates, setTemplates] = React.useState<Template[] | undefined>(undefined);
 
   useInitialization((): void => {
-    everypageClient.listTemplateCategories().then((templateCategories: TemplateCategory[]) => {
-      setTemplateCategories(templateCategories);
-      setSelectedTemplateCategoryId(templateCategories[0].templateCategoryId);
+    everypageClient.listTemplateCategories().then((receivedTemplateCategories: TemplateCategory[]) => {
+      setTemplateCategories(receivedTemplateCategories);
+      setSelectedTemplateCategoryId(receivedTemplateCategories[0].templateCategoryId);
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplateCategories(null);
@@ -106,13 +107,13 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
   });
 
   React.useEffect((): void => {
-    everypageClient.listTemplates(selectedTemplateCategoryId).then((templates: Template[]) => {
-      setTemplates(templates);
+    everypageClient.listTemplates(selectedTemplateCategoryId).then((receivedTemplates: Template[]) => {
+      setTemplates(receivedTemplates);
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplates(null);
     });
-  }, [selectedTemplateCategoryId]);
+  }, [everypageClient, selectedTemplateCategoryId]);
 
   const onTemplateCategoryClicked = (templateCategory: TemplateCategory) => {
     setTemplates(undefined);
@@ -136,7 +137,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
         ) : (
           <div className={classes.modalContent}>
             <List className={classes.categoryList}>
-            {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
+              {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                 return (
                   <ListItem
                     key={templateCategory.templateCategoryId}
@@ -191,4 +192,4 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps) => {
       </div>
     </Modal>
   );
-}
+};

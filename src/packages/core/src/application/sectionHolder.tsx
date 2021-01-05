@@ -1,10 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import { getClassName } from '@kibalabs/core';
 import { IMultiChildProps } from '@kibalabs/core-react';
 import { BackgroundView, IBackgroundConfig } from '@kibalabs/ui-react';
+import styled from 'styled-components';
 
 import { ISectionProps } from '../sections';
+
 interface IStyledSectionHolderProps {
 }
 

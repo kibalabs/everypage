@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Direction, TextAlignment, ResponsiveContainingView, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Direction, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IFaq1Question {
@@ -20,7 +21,7 @@ interface IFaq1Props extends ISectionProps {
 export const Faq1 = (props: IFaq1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Faq1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, large: 8}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, large: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} shouldAddGutters={true} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}

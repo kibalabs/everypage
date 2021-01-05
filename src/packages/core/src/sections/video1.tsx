@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import {  Stack, TextAlignment, ResponsiveContainingView, Video, WebView, Direction, PaddingSize, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Direction, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, Video, WebView } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IVideo1Props extends ISectionProps {
@@ -15,7 +16,7 @@ interface IVideo1Props extends ISectionProps {
 
 export const Video1 = (props: IVideo1Props): React.ReactElement => {
   if (props.videoUrl && props.embeddedVideoUrl) {
-    throw new Error('video-1')
+    throw new Error('video-1');
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(Video1.displayName, props.className)}>

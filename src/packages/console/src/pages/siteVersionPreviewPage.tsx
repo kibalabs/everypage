@@ -1,16 +1,17 @@
 import React from 'react';
-import { KibaException, Requester, KibaResponse } from '@kibalabs/core';
-import { useInitialization, useInterval, useBooleanLocalStorageState } from '@kibalabs/core-react';
+
+import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
+import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
+import Box from '@material-ui/core/Box';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
-import { Site, SiteVersion, SiteVersionEntry, AssetFile, PresignedUpload } from '../everypageClient';
 import { MemoCanvas } from '../components/canvas';
-import { useGlobals } from '../globalsContext';
 import { NavigationBar } from '../components/navigationBar';
+import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
+import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,8 +53,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
-  const [siteTheme, setSiteTheme] = React.useState<object | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const [siteContent, setSiteContent] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
+  const [siteTheme, setSiteTheme] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -62,94 +63,61 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
-  useInitialization((): void => {
-    loadSite();
-  });
+  const getSiteUrl = React.useCallback((): string => {
+    return `https://${props.slug}.evrpg.com`;
+  }, [props.slug]);
 
-  React.useEffect((): void => {
-    if (site) {
-      loadSiteVersion();
-    }
-  }, [site]);
-
-  React.useEffect((): void => {
-    if (siteVersion) {
-      loadSiteVersionEntry();
-      loadSiteVersionAssets();
-    }
-  }, [siteVersion]);
-
-  const loadSite = (): void => {
-    everypageClient.getSiteBySlug(props.slug).then((site: Site) => {
-      setSite(site);
+  const loadSite = React.useCallback((): void => {
+    everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+      setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
     });
-  }
+  }, [everypageClient, props.slug]);
 
-  const loadSiteVersion = (): void => {
-    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((siteVersion: SiteVersion) => {
-      setSiteVersion(siteVersion);
+  const loadSiteVersion = React.useCallback((): void => {
+    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersion: SiteVersion) => {
+      setSiteVersion(receivedSiteVersion);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersion(null);
     });
-  }
+  }, [everypageClient, props.siteVersionId, site]);
 
-  const loadSiteVersionEntry = (): void => {
-    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((siteVersionEntry: SiteVersionEntry) => {
-      setSiteVersionEntry(siteVersionEntry);
-      setSiteContent(siteVersionEntry.siteContent);
-      setSiteTheme(siteVersionEntry.siteTheme);
+  const loadSiteVersionEntry = React.useCallback((): void => {
+    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
+      setSiteVersionEntry(receivedSiteVersionEntry);
+      setSiteContent(receivedSiteVersionEntry.siteContent);
+      setSiteTheme(receivedSiteVersionEntry.siteTheme);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersionEntry(null);
     });
-  }
+  }, [everypageClient, props.siteVersionId, site]);
 
-  const loadSiteVersionAssets = (): void => {
+  const loadSiteVersionAssets = React.useCallback((): void => {
     everypageClient.listSiteVersionAssets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
       setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
+        // eslint-disable-next-line no-param-reassign
         currentMap[assetFile.path] = `${getSiteUrl()}/${siteVersion.buildHash}${assetFile.path}`;
         return currentMap;
       }, {}));
     }).catch((error: KibaException): void => {
       console.error('error', error);
-      setSiteVersionEntry(null);
+      setAssetFileMap(undefined);
     });
-  }
+  }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
 
-  const getSiteUrl = (): string => {
-    return `https://${site.slug}.evrpg.com`;
-  }
-
-  const onSiteContentUpdated = (siteContent: Record<string, any>): void => {
-    setSiteContent(siteContent);
+  const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
+    setSiteContent(newSiteContent);
     setIsSiteContentChanged(true);
-  }
+  };
 
-  const onSiteThemeUpdated = (siteTheme: Record<string, any>): void => {
-    setSiteTheme(siteTheme);
+  const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
+    setSiteTheme(newSiteTheme);
     setIsSiteThemeChanged(true);
-  }
-
-  // TODO(krishan711): im sure this can be done better than just every 3 seconds
-  useInterval(3, (): void => {
-    if (!site || !siteVersion || !siteVersionEntry) {
-      return;
-    }
-    if (!siteVersion.publishDate && (isSiteContentChanged || isSiteThemeChanged)) {
-      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
-        setIsSiteContentChanged(false);
-        setIsSiteThemeChanged(false);
-        setSavingError(null);
-      }).catch((exception: KibaException): void => {
-        console.error(`Error saving: ${exception}`)
-        setSavingError(exception);
-      });
-    }
-  });
+  };
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generateAssetUploadForSiteVersion(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
@@ -160,18 +128,19 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         Object.keys(presignedUpload.params).forEach((key: string): void => {
           formData.set(key, presignedUpload.params[key]);
         });
-        formData.set('key', presignedUpload.params['key'].replace('${filename}', fileName));
+        // eslint-disable-next-line no-template-curly-in-string
+        formData.set('key', presignedUpload.params.key.replace('${filename}', fileName));
         formData.set('content-type', file.type);
         formData.append('file', file, file.name);
         return requester.makeFormRequest(presignedUpload.url, formData);
       });
       Promise.all(promises).then((): void => {
-        setAssetFileMap((assetFileMap: Record<string, string>): Record<string, string> => {
-          const newAssetFileMap = {...assetFileMap};
+        setAssetFileMap((currentAssetFileMap: Record<string, string>): Record<string, string> => {
+          const newAssetFileMap = { ...currentAssetFileMap };
           files.forEach((file: File): void => {
             newAssetFileMap[`/assets/${file.path}`] = `${getSiteUrl()}/${siteVersion.buildHash}/assets/${file.path}`;
           });
-          return newAssetFileMap
+          return newAssetFileMap;
         });
       });
     }).catch((error: KibaException): void => {
@@ -183,11 +152,50 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     return everypageClient.deleteSiteVersionAsset(siteVersion.siteId, siteVersion.siteVersionId, fileKey.replace('/assets/', '')).then((): void => {
       loadSiteVersionAssets();
     });
-  }
+  };
 
   const onIsMetaShownToggled = (): void => {
     setIsMetaHidden(!isMetaHidden);
-  }
+  };
+
+  React.useEffect((): void => {
+    loadSite();
+  }, [loadSite, props.slug]);
+
+  React.useEffect((): void => {
+    if (site) {
+      loadSiteVersion();
+    } else {
+      setSiteVersion(null);
+    }
+  }, [loadSiteVersion, site]);
+
+  React.useEffect((): void => {
+    if (siteVersion) {
+      loadSiteVersionEntry();
+      loadSiteVersionAssets();
+    } else {
+      setSiteVersionEntry(null);
+      setAssetFileMap(undefined);
+    }
+  }, [loadSiteVersionEntry, loadSiteVersionAssets, siteVersion]);
+
+  // TODO(krishan711): im sure this can be done better than just every 3 seconds
+  useInterval(3, (): void => {
+    if (!site || !siteVersion || !siteVersionEntry) {
+      return;
+    }
+    if (isEditable && (isSiteContentChanged || isSiteThemeChanged)) {
+      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
+        setIsSiteContentChanged(false);
+        setIsSiteThemeChanged(false);
+        setSavingError(null);
+      }).catch((exception: KibaException): void => {
+        console.error(`Error saving: ${exception}`);
+        setSavingError(exception);
+      });
+    }
+  });
 
   return (
     <div className={classes.root}>
@@ -195,7 +203,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <div>Error loading site version. Please go back and try again...</div>
-        ) : siteContent === undefined || siteTheme === undefined || assetFileMap == undefined ? (
+        ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <div>Loading...</div>
         ) : (
           <React.Fragment>
@@ -233,4 +241,4 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       </main>
     </div>
   );
-}
+};

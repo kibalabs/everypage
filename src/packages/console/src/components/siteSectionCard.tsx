@@ -1,6 +1,7 @@
 import React from 'react';
-import { IWebsiteSection } from '@kibalabs/everypage'
-import { Box, Text, Stack, Direction, IconButton, KibaIcon, Alignment } from '@kibalabs/ui-react'
+
+import { IWebsiteSection } from '@kibalabs/everypage';
+import { Alignment, Box, Direction, IconButton, KibaIcon, Stack, Text } from '@kibalabs/ui-react';
 
 interface ISiteSectionCardProps {
   section: IWebsiteSection;
@@ -38,4 +39,4 @@ export const SiteSectionCard = (props: ISiteSectionCardProps): React.ReactElemen
       </Stack>
     </Box>
   );
-}
+};

@@ -1,52 +1,51 @@
-import { RestMethod, Requester, ServiceClient } from '@kibalabs/core';
+import { Requester, RestMethod, ServiceClient } from '@kibalabs/core';
 
-import * as Resources from './resources';
 import * as Endpoints from './endpoints';
+import * as Resources from './resources';
 
 export class EverypageClient extends ServiceClient {
-
   public constructor(requester: Requester, baseUrl?: string) {
     super(requester, baseUrl || 'https://api.everypagehq.com');
   }
 
   public loginUser = async (email: string, password: string): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/users/login`;
+    const path = 'v1/users/login';
     const request = new Endpoints.LoginUserRequest(email, password);
     await this.makeRequest(method, path, request, Endpoints.LoginUserResponse);
   }
 
   public logoutUser = async (): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/users/logout`;
+    const path = 'v1/users/logout';
     const request = new Endpoints.LogoutUserRequest();
     await this.makeRequest(method, path, request, Endpoints.LogoutUserResponse);
   }
 
   public createUser = async (firstName: string, lastName: string, email: string, password: string, shouldJoinNewsletter?: boolean): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/users/create`;
+    const path = 'v1/users/create';
     const request = new Endpoints.CreateUserRequest(firstName, lastName, email, password, shouldJoinNewsletter);
     await this.makeRequest(method, path, request, Endpoints.CreateUserResponse);
   }
 
   public refreshToken = async (): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/users/refresh-token`;
+    const path = 'v1/users/refresh-token';
     const request = new Endpoints.RefreshTokenRequest();
     await this.makeRequest(method, path, request, Endpoints.RefreshTokenResponse);
   }
 
   public sendEmailVerificationForUser = async (): Promise<void> => {
     const method = RestMethod.POST;
-    const path = `v1/users/send-email-verification`;
+    const path = 'v1/users/send-email-verification';
     const request = new Endpoints.SendEmailVerificationForUserRequest();
     await this.makeRequest(method, path, request, Endpoints.SendEmailVerificationForUserResponse);
   }
 
   public retrieveAccounts = async (): Promise<Resources.Account[]> => {
     const method = RestMethod.POST;
-    const path = `v1/retrieve-accounts`;
+    const path = 'v1/retrieve-accounts';
     const request = new Endpoints.RetrieveAccountsRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.RetrieveAccountsResponse);
     return response.accounts;
@@ -148,7 +147,7 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersion;
   }
 
-  public createSiteVersion = async (siteId: number, siteContent?: Record<string, any>, siteTheme?: Record<string, any>, name?: string, templateId?: number): Promise<Resources.SiteVersion> => {
+  public createSiteVersion = async (siteId: number, siteContent?: Record<string, unknown>, siteTheme?: Record<string, unknown>, name?: string, templateId?: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions`;
     const request = new Endpoints.CreateSiteVersionRequest(siteContent, siteTheme, name, templateId);
@@ -180,7 +179,7 @@ export class EverypageClient extends ServiceClient {
     return response.assetFiles;
   }
 
-  public deleteSiteVersionAsset = async (siteId: number, siteVersionId: number, assetPath: string): Promise<Void> => {
+  public deleteSiteVersionAsset = async (siteId: number, siteVersionId: number, assetPath: string): Promise<void> => {
     const method = RestMethod.DELETE;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/assets/${encodeURIComponent(assetPath)}`;
     const request = new Endpoints.DeleteSiteVersionAssetsRequest();
@@ -205,7 +204,7 @@ export class EverypageClient extends ServiceClient {
   public archiveSiteVersion = async (siteId: number, siteVersionId: number): Promise<Resources.SiteVersion> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/archive`;
-    const request = new Endpoints.ArchiveSiteVersionRequest(name);
+    const request = new Endpoints.ArchiveSiteVersionRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.ArchiveSiteVersionResponse);
     return response.siteVersion;
   }
@@ -226,7 +225,7 @@ export class EverypageClient extends ServiceClient {
     return response.siteVersionEntry;
   }
 
-  public updateSiteVersionEntry = async (siteId: number, siteVersionId: number, siteContent: Record<string, any> | null, siteTheme: Record<string, any> | null): Promise<Resources.SiteVersionEntry> => {
+  public updateSiteVersionEntry = async (siteId: number, siteVersionId: number, siteContent: Record<string, unknown> | null, siteTheme: Record<string, unknown> | null): Promise<Resources.SiteVersionEntry> => {
     const method = RestMethod.PATCH;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/entry`;
     const request = new Endpoints.UpdateSiteVersionEntryRequest(siteContent, siteTheme);
@@ -236,7 +235,7 @@ export class EverypageClient extends ServiceClient {
 
   public listTemplateCategories = async (): Promise<Resources.TemplateCategory[]> => {
     const method = RestMethod.GET;
-    const path = `v1/template-categories`;
+    const path = 'v1/template-categories';
     const request = new Endpoints.ListTemplateCategoriesRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.ListTemplateCategoriesResponse);
     return response.templateCategories;
@@ -244,7 +243,7 @@ export class EverypageClient extends ServiceClient {
 
   public createTemplateCategory = async (name: string): Promise<Resources.TemplateCategory> => {
     const method = RestMethod.POST;
-    const path = `v1/template-categories`;
+    const path = 'v1/template-categories';
     const request = new Endpoints.CreateTemplateCategoryRequest(name);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateTemplateCategoryResponse);
     return response.templateCategory;
@@ -260,7 +259,7 @@ export class EverypageClient extends ServiceClient {
 
   public listTemplates = async (templateCategoryId?: number): Promise<Resources.Template[]> => {
     const method = RestMethod.GET;
-    const path = `v1/templates`;
+    const path = 'v1/templates';
     const request = new Endpoints.ListTemplatesRequest(templateCategoryId);
     const response = await this.makeRequest(method, path, request, Endpoints.ListTemplatesResponse);
     return response.templates;
@@ -268,7 +267,7 @@ export class EverypageClient extends ServiceClient {
 
   public createTemplate = async (name: string, description: string, siteId: number, templateCategoryId: number): Promise<Resources.Template> => {
     const method = RestMethod.POST;
-    const path = `v1/templates`;
+    const path = 'v1/templates';
     const request = new Endpoints.CreateTemplateRequest(name, description, siteId, templateCategoryId);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateTemplateResponse);
     return response.template;
@@ -292,7 +291,7 @@ export class EverypageClient extends ServiceClient {
 
   public listSectionCategories = async (): Promise<Resources.SectionCategory[]> => {
     const method = RestMethod.GET;
-    const path = `v1/section-categories`;
+    const path = 'v1/section-categories';
     const request = new Endpoints.ListSectionCategoriesRequest();
     const response = await this.makeRequest(method, path, request, Endpoints.ListSectionCategoriesResponse);
     return response.sectionCategories;
@@ -300,7 +299,7 @@ export class EverypageClient extends ServiceClient {
 
   public createSectionCategory = async (name: string): Promise<Resources.SectionCategory> => {
     const method = RestMethod.POST;
-    const path = `v1/section-categories`;
+    const path = 'v1/section-categories';
     const request = new Endpoints.CreateSectionCategoryRequest(name);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateSectionCategoryResponse);
     return response.sectionCategory;
@@ -316,15 +315,15 @@ export class EverypageClient extends ServiceClient {
 
   public listSections = async (sectionCategoryId?: number): Promise<Resources.Section[]> => {
     const method = RestMethod.GET;
-    const path = `v1/sections`;
+    const path = 'v1/sections';
     const request = new Endpoints.ListSectionsRequest(sectionCategoryId);
     const response = await this.makeRequest(method, path, request, Endpoints.ListSectionsResponse);
     return response.sections;
   }
 
-  public createSection = async (name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, any>): Promise<Resources.Section> => {
+  public createSection = async (name: string, description: string, sectionType: string, sectionCategoryId: number, previewImageUrl: string, content: Record<string, unknown>): Promise<Resources.Section> => {
     const method = RestMethod.POST;
-    const path = `v1/sections`;
+    const path = 'v1/sections';
     const request = new Endpoints.CreateSectionRequest(name, description, sectionType, sectionCategoryId, previewImageUrl, content);
     const response = await this.makeRequest(method, path, request, Endpoints.CreateSectionResponse);
     return response.section;

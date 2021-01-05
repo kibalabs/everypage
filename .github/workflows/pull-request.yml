@@ -19,17 +19,17 @@ jobs:
       run: docker build --target console .
     - name: Build builder-api docker image
       run: docker build --target builder-api .
-    # - name: Run linting
-    #   run: |
-    #     docker run --name linting $DOCKER_IMAGE npm run lint -- --output-file linting-results.json --output-file-format annotations
-    #     docker cp linting:/app/linting-results.json ./linting-results.json
-    # - name: Upload linting results
-    #   uses: kibalabs/github-action-create-annotations@main
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     json-file-path: ./linting-results.json
-    #     check-name: lint-package
-    #     fail-on-error: false
+    - name: Run linting
+      run: |
+        docker run --name linting $DOCKER_IMAGE npm run lint -- --output-file linting-results.json --output-file-format annotations
+        docker cp linting:/app/linting-results.json ./linting-results.json
+    - name: Upload linting results
+      uses: kibalabs/github-action-create-annotations@main
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        json-file-path: ./src/linting-results.json
+        check-name: lint-package
+        fail-on-error: false
     # - name: Run typing
     #   run: |
     #     docker run --name typing $DOCKER_IMAGE npm run type-check -- --output-file typing-results.json --output-file-format annotations
@@ -38,6 +38,6 @@ jobs:
     #   uses: kibalabs/github-action-create-annotations@main
     #   with:
     #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     json-file-path: ./typing-results.json
+    #     json-file-path: ./src/typing-results.json
     #     check-name: type-package
     #     fail-on-error: false

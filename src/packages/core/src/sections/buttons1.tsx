@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Button, PaddingSize, Stack, Direction, Alignment, TextAlignment, ResponsiveTextAlignmentView, KibaIcon } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IButtons1Button {
@@ -24,7 +25,7 @@ interface IButtons1Props extends ISectionProps {
 export const Buttons1 = (props: IButtons1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Buttons1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8, large: 6}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}

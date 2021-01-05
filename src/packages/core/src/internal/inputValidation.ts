@@ -1,5 +1,5 @@
-import {InputType } from '@kibalabs/ui-react';
 import { isValidEmail } from '@kibalabs/core';
+import { InputType } from '@kibalabs/ui-react';
 
 export interface IInputValidationResult {
   isValid: boolean;
@@ -10,7 +10,7 @@ export const validateInput = (input: string, inputType: InputType): IInputValida
   switch (inputType) {
     case InputType.Email: {
       if (!isValidEmail(input)) {
-        return {isValid: false, errorMessage: 'Please enter a valid email address'};
+        return { isValid: false, errorMessage: 'Please enter a valid email address' };
       }
       break;
     }
@@ -18,8 +18,10 @@ export const validateInput = (input: string, inputType: InputType): IInputValida
       // if (!isValidUrl(input)) {
       //   return {isValid: false, errorMessage: 'Please enter a valid url'};
       // }
-      // break;
+      break;
     }
+    default:
+      break;
   }
-  return {isValid: true};
-}
+  return { isValid: true };
+};

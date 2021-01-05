@@ -1,11 +1,12 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { Form, Grid, Image, Media, Button, ResponsiveTextAlignmentView, PaddingSize, TextAlignment, Stack, SingleLineInput, Direction, InputType, Alignment, ScreenSize, ResponsiveHidingView, ResponsiveContainingView } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { submitForm, validateInput, EverypagePaddingSize } from '../internal';
-import { IFormProps, defaultFormProps } from '../model';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Button, Direction, Form, Grid, InputType, Media, PaddingSize, ResponsiveHidingView, ResponsiveTextAlignmentView, ScreenSize, SingleLineInput, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { EverypagePaddingSize, submitForm, validateInput } from '../internal';
+import { defaultFormProps, IFormProps } from '../model';
 
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -32,7 +33,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     setInput(value);
     setErrorMessage(null);
     setSuccessMessage(null);
-  }
+  };
 
   const onFormSubmitted = async (): Promise<void> => {
     const validationResult = validateInput(input, props.inputType);
@@ -42,10 +43,10 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     }
     setIsLoading(true);
     setErrorMessage(null);
-    const result = await submitForm([{value: input, type: props.inputType, name: props.inputName}, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
+    const result = await submitForm([{ value: input, type: props.inputType, name: props.inputName }, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
     setIsLoading(false);
     if (result.isSuccessful) {
-      setSuccessMessage(props.inputSuccessMessageText)
+      setSuccessMessage(props.inputSuccessMessageText);
     } else {
       setErrorMessage(result.responseMessage);
     }
@@ -55,16 +56,16 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
     <Section {...props as ISectionProps} className={getClassName(HeroSignupMediaHalf1.displayName, props.className)}>
       <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
         <Grid childAlignment={Alignment.Center}>
-        { props.leftMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
+          { props.leftMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
           { props.leftMediaUrl && (
-            <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
+            <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
-          <Grid.Item sizeResponsive={{base: 8, medium: 5}}>
-            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{medium: TextAlignment.Left}}>
-                <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}}>
+          <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
+          <Grid.Item sizeResponsive={{ base: 8, medium: 5 }}>
+            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
+              <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }}>
                 {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
                 {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
                 {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
@@ -118,20 +119,20 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
               </Stack>
             </ResponsiveTextAlignmentView>
           </Grid.Item>
-          <Grid.Item sizeResponsive={{base: 2, medium: 1}} />
+          <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
           { props.rightMediaUrl && (
-            <Grid.Item sizeResponsive={{base: 0, medium: 4}}>
+            <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
               <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
-          { props.rightMediaUrl && (<Grid.Item sizeResponsive={{base: 0, medium: 1}} />) }
+          { props.rightMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
           { props.leftMediaUrl && (
-            <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
+            <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
               <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}
           { props.rightMediaUrl && (
-            <Grid.Item sizeResponsive={{base: 8, medium: 0}}>
+            <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
               <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
             </Grid.Item>
           )}

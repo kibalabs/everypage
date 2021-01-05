@@ -1,11 +1,12 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { ResponsiveContainingView, Image, PaddingSize, Stack, Direction, TextAlignment, Alignment, ResponsiveTextAlignmentView, MarkdownText, IconButton, KibaIcon, AppDownloadButton } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, AppDownloadButton, Direction, IconButton, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
-import { useWebsite } from '../util';
 import { EverypagePaddingSize } from '../internal';
+import { useWebsite } from '../util';
 
 interface ISinglePageApp1IconLink {
   iconId?: string;
@@ -36,14 +37,14 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
     companyText = `[${companyText}](${website.companyUrl})`;
   }
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
-  var appButtonVariant = props.appButtonVariant;
+  let appButtonVariant = props.appButtonVariant;
   if (props.appButtonMode) {
     console.warn('appButtonMode is deprecated. Please use appButtonVariant instead');
     appButtonVariant = props.appButtonMode;
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, small: 8}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop}>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
@@ -52,7 +53,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Default : PaddingSize.None}><HeroSectionTitleText text={props.titleText}/></Stack.Item>}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
             <Stack.Item gutterBefore={PaddingSize.Wide3}>
-              <Stack directionResponsive={{base: Direction.Vertical, small: Direction.Horizontal}} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
+              <Stack directionResponsive={{ base: Direction.Vertical, small: Direction.Horizontal }} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                 {iosAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='ios' buttonVariant={appButtonVariant} appId={iosAppId} /></Stack.Item>}
                 {androidAppId && <Stack.Item shrinkFactor={1} ><AppDownloadButton appType='android' buttonVariant={appButtonVariant} appId={androidAppId} /></Stack.Item>}
                 {macAppId && <Stack.Item shrinkFactor={1}><AppDownloadButton appType='mac' buttonVariant={appButtonVariant} appId={macAppId} /></Stack.Item>}

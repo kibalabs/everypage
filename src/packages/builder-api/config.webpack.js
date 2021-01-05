@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 module.exports = (config) => {
   config.externals = config.externals || {};

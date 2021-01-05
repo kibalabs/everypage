@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { useInitialization } from '@kibalabs/core-react';
+
 import { IWebsitePlugin } from '../model';
 
 export interface ITawkToChatProps extends IWebsitePlugin {
@@ -8,22 +10,22 @@ export interface ITawkToChatProps extends IWebsitePlugin {
 }
 
 export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
-  if (!props.accountId || !props.widgetId) {
-    console.error('accountId and widgetId should be provided to TawkToChat')
-    return null;
-  }
-
   useInitialization((): void => {
-    if (document) {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://embed.tawk.to/${props.accountId}/${props.widgetId}`;
-      script.charset = 'UTF-8';
-      script.setAttribute('crossorigin', '*');
-      document.head.appendChild(script);
-    } else {
-      console.warn('Could not set up TawkToChat since document is not set.')
+    if (!props.accountId || !props.widgetId) {
+      console.error('accountId and widgetId should be provided to TawkToChat');
+      return;
     }
+
+    if (!document) {
+      console.warn('Could not set up TawkToChat since document is not set.');
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://embed.tawk.to/${props.accountId}/${props.widgetId}`;
+    script.setAttribute('crossorigin', '*');
+    document.head.appendChild(script);
   });
 
   return null;
@@ -31,4 +33,4 @@ export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
 
 TawkToChat.defaultProps = {
   widgetId: 'default',
-}
+};

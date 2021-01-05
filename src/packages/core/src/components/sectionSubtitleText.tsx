@@ -1,6 +1,7 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core'
-import { MarkdownText, TextAlignment } from '@kibalabs/ui-react'
+
+import { getClassName } from '@kibalabs/core';
+import { MarkdownText, TextAlignment } from '@kibalabs/ui-react';
 
 interface ISectionSubtitleTextProps {
   id?: string;
@@ -18,8 +19,8 @@ export const SectionSubtitleText = (props: ISectionSubtitleTextProps): React.Rea
       textAlignment={props.alignment}
       source={props.text}
     />
-  )
-}
+  );
+};
 SectionSubtitleText.defaultProps = {
   className: '',
 };

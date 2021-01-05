@@ -1,10 +1,11 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, Direction, KibaIcon, PaddingSize, IconButton } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { useWebsite } from '../util';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Direction, IconButton, KibaIcon, MarkdownText, PaddingSize, Stack } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
 import { SectionSubtitleText } from '../components';
+import { useWebsite } from '../util';
 
 interface IFooter1IconLink {
   iconId?: string;

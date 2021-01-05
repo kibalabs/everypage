@@ -23,11 +23,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "^0.6.3",
+    "@kibalabs/build": "^0.6.4-next.2",
     "@kibalabs/core": "^0.5.2",
     "@kibalabs/core-react": "^0.5.4",
     "@kibalabs/everypage": "0.8.0",
-    "@kibalabs/ui-react": "^0.8.1",
+    "@kibalabs/ui-react": "^0.8.2-next.0",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^6.2.1",

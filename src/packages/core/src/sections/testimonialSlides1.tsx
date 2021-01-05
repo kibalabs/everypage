@@ -1,9 +1,10 @@
 import React from 'react';
-import { getClassName } from '@kibalabs/core';
-import { MarkdownText, Stack, Alignment, ResponsiveContainingView, TextAlignment, LinePager, Box, Direction, Image, PaddingSize, ResponsiveTextAlignmentView, Carousel } from '@kibalabs/ui-react';
 
-import { Section, ISectionProps } from '.';
-import { SectionTitleText, SectionSubtitleText, LazyImage } from '../components';
+import { getClassName } from '@kibalabs/core';
+import { Alignment, Box, Carousel, Direction, LinePager, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+
+import { ISectionProps, Section } from '.';
+import { LazyImage, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface ITestimonialSlides1Slide {
@@ -30,7 +31,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
   };
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialSlides1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{base: 10, medium: 8}}>
+      <ResponsiveContainingView sizeResponsive={{ base: 10, medium: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}

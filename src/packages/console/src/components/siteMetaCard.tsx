@@ -1,6 +1,7 @@
 import React from 'react';
-import { IWebsite } from '@kibalabs/everypage'
-import { Box, Text, Stack, Direction, KibaIcon, Alignment, Spacing } from '@kibalabs/ui-react'
+
+import { IWebsite } from '@kibalabs/everypage';
+import { Alignment, Box, Direction, KibaIcon, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 interface IMetaItemProps {
   isChecked: boolean;
@@ -14,7 +15,7 @@ const MetaItem = (props: IMetaItemProps): React.ReactElement => {
       <Text variant='small'>{ props.text }</Text>
     </Stack>
   );
-}
+};
 
 interface ISiteMetaCardProps {
   website: IWebsite;
@@ -33,4 +34,4 @@ export const SiteMetaCard = (props: ISiteMetaCardProps): React.ReactElement => {
       </Stack>
     </Box>
   );
-}
+};

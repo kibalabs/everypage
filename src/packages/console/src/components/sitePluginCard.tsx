@@ -1,6 +1,7 @@
 import React from 'react';
-import { IWebsitePlugin } from '@kibalabs/everypage'
-import { Box, Text } from '@kibalabs/ui-react'
+
+import { IWebsitePlugin } from '@kibalabs/everypage';
+import { Box, Text } from '@kibalabs/ui-react';
 
 interface ISitePluginCardProps {
   plugin: IWebsitePlugin;
@@ -12,4 +13,4 @@ export const SitePluginCard = (props: ISitePluginCardProps): React.ReactElement 
       <Text variant='header5'>{props.plugin.type}</Text>
     </Box>
   );
-}
+};

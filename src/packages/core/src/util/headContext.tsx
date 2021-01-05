@@ -1,6 +1,8 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom';
-import { ISingleAnyChildProps, IMultiAnyChildProps } from '@kibalabs/core-react';
+
+import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
 export const HeadRootContext = React.createContext<HTMLElement | null>(null);
 
@@ -33,7 +35,7 @@ export const Head = (props: IHeadProps): React.ReactElement => {
     return React.cloneElement(headRoot, {}, props.children);
   }
   return ReactDOM.createPortal(props.children, headRoot);
-}
+};
 
 interface IChildCaptureProps extends IMultiAnyChildProps {
   headElements: HTMLElement[];
@@ -42,4 +44,4 @@ interface IChildCaptureProps extends IMultiAnyChildProps {
 export const ChildCapture = (props: IChildCaptureProps): React.ReactElement | null => {
   props.headElements.push(props.children);
   return null;
-}
+};
