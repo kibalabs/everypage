@@ -21,11 +21,11 @@ export const MessageDialog = (props: IMessageDialogProps): React.ReactElement =>
       <Box marginX={4} marginBottom={4}>
         <Typography>{props.message}</Typography>
         <Box marginTop={2} width={1} display='flex' flexDirection='row' justifyContent='start' alignItems='baseline'>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
           <Button color='primary' onClick={props.onCloseClicked}>Cancel</Button>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
           <Button color='primary' onClick={props.onConfirmClicked}>Confirm</Button>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
         </Box>
       </Box>
     </Dialog>

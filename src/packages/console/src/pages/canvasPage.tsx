@@ -105,27 +105,33 @@ export const CanvasPage = (): React.ReactElement => {
         <Button
           variant='outlined'
           onClick={onStartOverClicked}
-        >Start again</Button>
-        <div className={classes.spacer}/>
+        >
+Start again
+        </Button>
+        <div className={classes.spacer} />
         <div className={classes.topBarSignInBox}>
           <Button
             variant='contained'
             color='primary'
             href='/register'
-          >Sign in to publish</Button>
+          >
+Sign in to publish
+          </Button>
           <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
         </div>
       </div>
-      {siteContent && <MemoCanvas
-        siteContent={siteContent}
-        onSiteContentUpdated={onSiteContentUpdated}
-        siteTheme={siteTheme}
-        onSiteThemeUpdated={onSiteThemeUpdated}
-        isEditorHidden={isEditorHidden}
-        onIsEditorHiddenUpdated={setIsEditorHidden}
-        assetFileMap={assetFileMap}
-        addAssetFiles={addAssetFiles}
-      />}
+      {siteContent && (
+        <MemoCanvas
+          siteContent={siteContent}
+          onSiteContentUpdated={onSiteContentUpdated}
+          siteTheme={siteTheme}
+          onSiteThemeUpdated={onSiteThemeUpdated}
+          isEditorHidden={isEditorHidden}
+          onIsEditorHiddenUpdated={setIsEditorHidden}
+          assetFileMap={assetFileMap}
+          addAssetFiles={addAssetFiles}
+        />
+      )}
       <TemplateChooserModal
         isOpen={!siteContent}
         onChooseTemplateClicked={onChooseTemplateClicked}

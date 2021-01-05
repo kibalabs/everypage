@@ -23,8 +23,8 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <CalendlyEmbed username={props.username} calendarId={props.calendarId} shouldHideEventType={props.shouldHideEventType} />
           </Stack>
         </ResponsiveTextAlignmentView>
@@ -77,7 +77,12 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
         <script async={true} defer={true} src='https://assets.evrpg.com/calendly-widget.js' />
       </Head>
       <noscript>
-        <Text>Please <Link target={url} text='click here'></Link> to choose a time.</Text>
+        <Text>
+Please
+          <Link target={url} text='click here' />
+          {' '}
+to choose a time.
+        </Text>
       </noscript>
     </React.Fragment>
   );

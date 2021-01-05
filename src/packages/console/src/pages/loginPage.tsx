@@ -124,7 +124,9 @@ export const LoginPage = (): React.ReactElement => {
               variant='contained'
               color='primary'
               className={classes.submit}
-            >Log In</Button>
+            >
+Log In
+            </Button>
             <Grid container>
               <Grid item xs>
                 {/* <Link href='#' variant='body2'>

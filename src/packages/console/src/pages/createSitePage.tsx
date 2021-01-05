@@ -227,7 +227,9 @@ export const CreateSitePage = (): React.ReactElement => {
                 variant='contained'
                 color='primary'
                 className={classes.submit}
-              >Create Site</Button>
+              >
+Create Site
+              </Button>
             </form>
           )}
         </Paper>

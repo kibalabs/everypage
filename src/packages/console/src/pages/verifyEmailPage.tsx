@@ -51,16 +51,20 @@ export const VerifyEmailPage = (): React.ReactElement => {
         <Typography component='h1' variant='h5'>
           Please check your email
         </Typography>
-        <br /><br />
+        <br />
+        <br />
         <Typography>
           We need to verify your email before you can create and edit sites. It only takes a second, please check your inbox for an email from everypass@kibalabs.com.
         </Typography>
-        <br /><br />
+        <br />
+        <br />
         {!verificationSent && (
           <Button
             variant='outlined'
             onClick={onResendVerificationClicked}
-          >Resend Verification</Button>
+          >
+Resend Verification
+          </Button>
         )}
         {verificationSent && (
           <Typography color="textPrimary">

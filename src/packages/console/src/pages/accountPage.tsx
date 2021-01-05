@@ -261,19 +261,42 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                 <Paper elevation={0} className={classes.paper}>
                   <Typography variant='h5' className={classes.accountName}>{account.name}</Typography>
                   <br />
-                  <Typography>Your are currently on the <b>{currentPlan.name}</b> plan</Typography>
-                  {nextPlan && <Typography variant='caption'><Button color='primary' size='small' onClick={(): void => onChangePlanClicked(nextPlan)}>Upgrade</Button> to <b>{nextPlan.name}</b> to {nextPlan.highlightFeature} and more 🚀</Typography>}
+                  <Typography>
+Your are currently on the
+                    <b>{currentPlan.name}</b>
+                    {' '}
+plan
+                  </Typography>
+                  {nextPlan && (
+                    <Typography variant='caption'>
+                      <Button color='primary' size='small' onClick={(): void => onChangePlanClicked(nextPlan)}>Upgrade</Button>
+                      {' '}
+to
+                      {' '}
+                      <b>{nextPlan.name}</b>
+                      {' '}
+to
+                      {' '}
+                      {nextPlan.highlightFeature}
+                      {' '}
+and more 🚀
+                    </Typography>
+                  )}
                 </Paper>
                 <Paper elevation={0} className={classes.paper}>
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography variant='h6' className={classes.paperTitle}>Sites</Typography>
                     {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={onCreateSiteClicked}>Create site</Button>}
                   </Box>
-                  <Typography>{accountSites.length} sites</Typography>
+                  <Typography>
+                    {accountSites.length}
+                    {' '}
+sites
+                  </Typography>
                   <Grid container spacing={2} className={classes.siteCardGrid}>
                     {accountSites.map((site: Site, innerIndex: number): React.ReactElement => (
                       <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
-                        <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)}/>
+                        <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                       </Grid>
                     ))}
                     {accountSites.length === 0 && (
@@ -299,7 +322,10 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                         <Paper key={index} className={classes.planBox}>
                           <Typography variant='h6' className={classes.planBoxTitle}>{plan.name}</Typography>
                           <Typography variant='caption'>{plan.highlightFeature.toUpperCase()}</Typography>
-                          <Typography color='primary' className={classes.planPrice}>${plan.priceMonthly / 100}</Typography>
+                          <Typography color='primary' className={classes.planPrice}>
+$
+                            {plan.priceMonthly / 100}
+                          </Typography>
                           <Typography variant='caption'>per month</Typography>
                           {plan.planIndex < currentPlan.planIndex && <Button variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Downgrade</Button>}
                           {plan.planIndex === currentPlan.planIndex && <Button disabled={true} variant='outlined' fullWidth={true} className={classes.planButton} onClick={(): void => onChangePlanClicked(plan)}>Your plan</Button>}
@@ -319,14 +345,22 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
             open={true}
             onClose={onUpgradeDialogClosed}
           >
-            <DialogTitle>{newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to {newPlan.name}</DialogTitle>
+            <DialogTitle>
+              {newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'}
+              {' '}
+to
+              {' '}
+              {newPlan.name}
+            </DialogTitle>
             <DialogContent>
               {newPlan.planIndex < currentPlan.planIndex && (
                 <Typography>
                   If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
-                  <br/><br/>
+                  <br />
+                  <br />
                   If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
-                  <br/><br/>
+                  <br />
+                  <br />
                   If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
                 </Typography>
               )}
@@ -335,7 +369,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   <Typography>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Typography>
                   {currentPlan.code === 'core' ? (
                     <React.Fragment>
-                      <br/>
+                      <br />
                       <Typography>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Typography>
                       <TextField
                         variant='outlined'
@@ -358,7 +392,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   ) : (
                     <Typography>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
                   )}
-                  <br/>
+                  <br />
                   <TextField
                     variant='outlined'
                     margin='normal'
@@ -380,23 +414,25 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                 <CircularProgress />
               </Box>
             ) : (
-              <ElementsConsumer>{(stripeProps) => (
-                <DialogActions>
-                  {newPlan.planIndex < currentPlan.planIndex && (
-                    <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} color='secondary'>
+              <ElementsConsumer>
+                {(stripeProps) => (
+                  <DialogActions>
+                    {newPlan.planIndex < currentPlan.planIndex && (
+                      <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} color='secondary'>
                       Downgrade
-                    </Button>
-                  )}
-                  <Button onClick={onUpgradeDialogClosed} autoFocus>
+                      </Button>
+                    )}
+                    <Button onClick={onUpgradeDialogClosed} autoFocus>
                     Cancel
-                  </Button>
-                  {newPlan.planIndex > currentPlan.planIndex && (
-                    <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='contained' color='primary'>
-                      Upgrade
                     </Button>
-                  )}
-                </DialogActions>
-              )}</ElementsConsumer>
+                    {newPlan.planIndex > currentPlan.planIndex && (
+                      <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='contained' color='primary'>
+                      Upgrade
+                      </Button>
+                    )}
+                  </DialogActions>
+                )}
+              </ElementsConsumer>
             )}
           </Dialog>
         )}

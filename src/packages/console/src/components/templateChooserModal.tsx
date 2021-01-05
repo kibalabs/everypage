@@ -133,7 +133,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
         {templateCategories === null ? (
           <Typography className={classes.errorMessage}>Failed to load templates. Please try again later.</Typography>
         ) : templateCategories === undefined ? (
-          <CircularProgress className={classes.loadingSpinner}/>
+          <CircularProgress className={classes.loadingSpinner} />
         ) : (
           <div className={classes.modalContent}>
             <List className={classes.categoryList}>
@@ -173,13 +173,17 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                             className={classes.templateButton}
                             target='_blank'
                             href={template.previewUrl}
-                          >Preview</Button>
+                          >
+Preview
+                          </Button>
                           <Button
                             variant='outlined'
                             color='primary'
                             className={classes.templateButton}
                             onClick={(): void => onChooseTemplateClicked(template)}
-                          >Choose</Button>
+                          >
+Choose
+                          </Button>
                         </div>
                       </div>
                     </ListItem>

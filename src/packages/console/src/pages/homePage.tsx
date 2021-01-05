@@ -140,7 +140,9 @@ export const HomePage = (): React.ReactElement => {
                     {account.name}
                   </Typography>
                   <Typography color='textSecondary' className={classes.accountType}>
-                    ({account.accountType})
+                    (
+                    {account.accountType}
+)
                   </Typography>
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button color='primary' onClick={(): void => onManageAccountClicked(account)}>Manage</Button>}
                   <Box flexGrow={1} />
@@ -149,7 +151,7 @@ export const HomePage = (): React.ReactElement => {
                 <Grid container spacing={2} className={classes.siteCardGrid}>
                   {accountSites[account.accountId].map((site: Site, innerIndex: number): React.ReactElement => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
-                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)}/>
+                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                     </Grid>
                   ))}
                   {accountSites[account.accountId].length === 0 && (

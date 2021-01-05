@@ -92,7 +92,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const bodyString = ReactDOMServer.renderToString(
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
-            <HeadRootProvider root={<ChildCapture headElements={headElements}/>}>
+            <HeadRootProvider root={<ChildCapture headElements={headElements} />}>
               <App routerHistory={createStaticHistory(page.path)} />
             </HeadRootProvider>
           </StyleSheetManager>
@@ -112,7 +112,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
           {extractor.getMainAssets().map((mainAsset: Record<string, string>): React.ReactElement => (
-            <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
+            <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`} />
           ))}
         </React.Fragment>,
       );

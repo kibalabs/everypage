@@ -189,7 +189,9 @@ export const RegisterPage = (): React.ReactElement => {
                 variant='contained'
                 color='primary'
                 className={classes.submit}
-              >Create account</Button>
+              >
+Create account
+              </Button>
               <Grid container>
                 <Grid item xs>
                   {/* <Link href='#' variant='body2'>

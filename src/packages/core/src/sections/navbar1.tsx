@@ -45,7 +45,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
         <StyledNavigationBar theme={theme}>
           <Stack direction={Direction.Horizontal} isFullHeight={true} isFullWidth={true} shouldAddGutters={true} childAlignment={Alignment.Center}>
             {props.logoImageUrl && <Stack.Item shrinkFactor={1} isFullHeight={true}><Image source={props.logoImageUrl} isFullHeight={true} alternativeText='logo' /></Stack.Item>}
-            {props.titleText && <MarkdownText textVariant='title-unmargined' textAlignment={TextAlignment.Center} source={props.titleText}/> }
+            {props.titleText && <MarkdownText textVariant='title-unmargined' textAlignment={TextAlignment.Center} source={props.titleText} /> }
             <Stack.Item growthFactor={1} />
             {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement => {
               if (button.display === 'always') {
@@ -59,7 +59,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             })}
             {props.buttons && props.buttons.filter((button: INavBar1Button): boolean => (!button.display || button.display === 'default' || button.display === 'overflow')).length > 0 && (
               <ResponsiveHidingView hiddenAbove={ScreenSize.Large}>
-                <IconButton icon={<KibaIcon iconId='ion-menu-outline'/>} label='Open menu' onClicked={onMenuClicked} />
+                <IconButton icon={<KibaIcon iconId='ion-menu-outline' />} label='Open menu' onClicked={onMenuClicked} />
               </ResponsiveHidingView>
             )}
           </Stack>

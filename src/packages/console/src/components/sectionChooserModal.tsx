@@ -137,7 +137,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
         {sectionCategories === null ? (
           <Typography className={classes.errorMessage}>Failed to load sections. Please try again later.</Typography>
         ) : sectionCategories === undefined ? (
-          <CircularProgress className={classes.loadingSpinner}/>
+          <CircularProgress className={classes.loadingSpinner} />
         ) : (
           <div className={classes.modalContent}>
             <List className={classes.categoryList}>
@@ -177,7 +177,9 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
                             color='primary'
                             className={classes.sectionButton}
                             onClick={(): void => onChooseSectionClicked(section)}
-                          >Choose</Button>
+                          >
+Choose
+                          </Button>
                         </div>
                       </div>
                     </ListItem>

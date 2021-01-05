@@ -334,7 +334,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
             <div>Loading...</div>
           ) : site.archiveDate ? (
-            <div>This site has been archived 📦.<br/><br/>Please contact us if you want it to be restored.</div>
+            <div>
+This site has been archived 📦.
+              <br />
+              <br />
+Please contact us if you want it to be restored.
+            </div>
           ) : (
             <React.Fragment>
               <Paper className={classes.paper}>
@@ -345,15 +350,21 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   <Button onClick={onArchiveSiteClicked} color='secondary'>Archive</Button>
                 </Box>
                 <Typography color='textSecondary'>
-                  Site slug: {site.slug}
+                  Site slug:
+                  {' '}
+                  {site.slug}
                 </Typography>
                 <Typography color='textSecondary'>
-                  Status: {site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}
+                  Status:
+                  {' '}
+                  {site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}
                 </Typography>
                 {!isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography color='textSecondary'>
-                      Url: {getSiteUrl()}
+                      Url:
+                      {' '}
+                      {getSiteUrl()}
                     </Typography>
                     {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customize</Button> }
                     {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
@@ -364,7 +375,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     <Typography color='textPrimary'>
                       <strong>Custom domain set up</strong>
                     </Typography>
-                    <Box mt={2}/>
+                    <Box mt={2} />
                     {!newCustomDomain && (
                       <React.Fragment>
                         <Typography color='textPrimary'>
@@ -388,7 +399,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           variant='contained'
                           color='primary'
                           onClick={onCustomDomainNextClicked}
-                        >Next</Button>
+                        >
+Next
+                        </Button>
                       </React.Fragment>
                     )}
                     {newCustomDomain && (
@@ -407,7 +420,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                             {' ➡️ '}
                           </Typography>
                           <Typography color='textPrimary'>
-                            {site.slug}.int.evrpg.com
+                            {site.slug}
+.int.evrpg.com
                           </Typography>
                         </Box>
                         {newCustomDomainApiError && (
@@ -419,7 +433,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           variant='contained'
                           color='primary'
                           onClick={onCustomDomainSetClicked}
-                        >Done</Button>
+                        >
+Done
+                        </Button>
                         <Typography color='textSecondary' variant='caption'>
                           {'It can take up to 1 hour for this to work. If it\'s taken longer, please get in touch with us, something might have failed :('}
                         </Typography>
@@ -454,9 +470,15 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
                       {version.publishDate ? (
-                        <Typography color='textSecondary' className={classes.versionDate}>Published: {dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}</Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>
+Published:
+                          {dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}
+                        </Typography>
                       ) : (
-                        <Typography color='textSecondary' className={classes.versionDate}>Last updated: {dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}</Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>
+Last updated:
+                          {dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}
+                        </Typography>
                       )}
                     </Box>
                   );
