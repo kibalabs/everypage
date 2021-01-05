@@ -139,11 +139,7 @@ export const HomePage = (): React.ReactElement => {
                   <Typography variant='h5' className={classes.accountName}>
                     {account.name}
                   </Typography>
-                  <Typography color='textSecondary' className={classes.accountType}>
-                    (
-                    {account.accountType}
-)
-                  </Typography>
+                  <Typography color='textSecondary' className={classes.accountType}>{`(${account.accountType})`}</Typography>
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button color='primary' onClick={(): void => onManageAccountClicked(account)}>Manage</Button>}
                   <Box flexGrow={1} />
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create site</Button>}

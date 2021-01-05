@@ -125,7 +125,7 @@ export const LoginPage = (): React.ReactElement => {
               color='primary'
               className={classes.submit}
             >
-Log In
+              Log In
             </Button>
             <Grid container>
               <Grid item xs>

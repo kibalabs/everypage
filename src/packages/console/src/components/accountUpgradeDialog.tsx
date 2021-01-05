@@ -40,9 +40,7 @@ export const AccountUpgradeDialog = (props: IAccountUpgradeDialogProps): React.R
         {plan.code === 'core' ? (
           <Typography component='p'>{`To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just ${nextPlan.priceMonthly}/month!`}</Typography>
         ) : nextPlan ? (
-          <Typography component='p'>
-            To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!
-          </Typography>
+          <Typography component='p'>To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!</Typography>
         ) : (
           <Typography component='p'>Please email us at help@everypagehq.com and we&apos;ll sort something out for you.</Typography>
         )}

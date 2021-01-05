@@ -190,7 +190,7 @@ export const RegisterPage = (): React.ReactElement => {
                 color='primary'
                 className={classes.submit}
               >
-Create account
+                Create account
               </Button>
               <Grid container>
                 <Grid item xs>

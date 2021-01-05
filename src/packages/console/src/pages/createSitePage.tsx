@@ -228,7 +228,7 @@ export const CreateSitePage = (): React.ReactElement => {
                 color='primary'
                 className={classes.submit}
               >
-Create Site
+                Create Site
               </Button>
             </form>
           )}
