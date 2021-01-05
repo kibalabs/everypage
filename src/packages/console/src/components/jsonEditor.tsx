@@ -86,7 +86,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     if (editor) {
       editor.update(props.json);
     }
-  }, [editor]);
+  }, [editor, props.json]);
 
   return (
     <StyledJsonEditor

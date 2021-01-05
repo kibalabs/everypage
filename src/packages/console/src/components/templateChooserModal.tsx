@@ -97,9 +97,9 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   const [templates, setTemplates] = React.useState<Template[] | undefined>(undefined);
 
   useInitialization((): void => {
-    everypageClient.listTemplateCategories().then((templateCategories: TemplateCategory[]) => {
-      setTemplateCategories(templateCategories);
-      setSelectedTemplateCategoryId(templateCategories[0].templateCategoryId);
+    everypageClient.listTemplateCategories().then((receivedTemplateCategories: TemplateCategory[]) => {
+      setTemplateCategories(receivedTemplateCategories);
+      setSelectedTemplateCategoryId(receivedTemplateCategories[0].templateCategoryId);
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplateCategories(null);
@@ -113,7 +113,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
       console.error('error', error);
       setTemplates(null);
     });
-  }, [selectedTemplateCategoryId]);
+  }, [everypageClient, selectedTemplateCategoryId]);
 
   const onTemplateCategoryClicked = (templateCategory: TemplateCategory) => {
     setTemplates(undefined);

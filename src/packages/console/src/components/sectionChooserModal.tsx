@@ -117,7 +117,7 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
       console.error('error', error);
       setSections(null);
     });
-  }, [selectedSectionCategoryId]);
+  }, [everypageClient, selectedSectionCategoryId]);
 
   const onSectionCategoryClicked = (sectionCategory: SectionCategory) => {
     setSections(undefined);

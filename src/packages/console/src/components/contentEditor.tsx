@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import { IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
@@ -46,6 +45,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
 
   React.useEffect((): void => {
     props.onNavigationChanged(currentPath);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.onNavigationChanged, currentPath]);
 
   const getJsonFromPath = (): Record<string, unknown> => {

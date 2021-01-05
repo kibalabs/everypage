@@ -7,8 +7,8 @@ import { Box } from '@kibalabs/ui-react';
 import { KibaFrame } from '../components/kibaFrame';
 
 export const CanvasPreviewPage = (): React.ReactElement => {
-  const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
-  const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
+  const [siteContent] = useObjectLocalStorageState('siteContent');
+  const [siteTheme] = useObjectLocalStorageState('siteTheme');
 
   return (
     <Box height='100%'>

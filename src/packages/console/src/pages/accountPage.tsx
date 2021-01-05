@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
-import { loadStripe, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
+import { loadStripe, PaymentIntent, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -414,12 +414,12 @@ interface StripeInputProps {
 
 const StripeInput = (props: StripeInputProps): React.ReactElement => {
   const elementRef = React.useRef();
-  // eslint-disable-next-line no-return-assign
   React.useImperativeHandle(props.inputRef, () => ({
     focus: () => elementRef.current.focus,
   }));
   return (
     <props.component
+      // eslint-disable-next-line no-return-assign
       onReady={(element) => (elementRef.current = element)}
       {...props}
     />

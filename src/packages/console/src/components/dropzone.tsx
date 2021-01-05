@@ -27,7 +27,8 @@ const StyledDropzone = styled.div`
 export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
   const onDrop = React.useCallback((files: File[]) => {
     props.onFilesChosen(files);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.onFilesChosen]);
 
   const { getRootProps, getInputProps, isDragActive } = ReactDropzone.useDropzone({ onDrop });
 

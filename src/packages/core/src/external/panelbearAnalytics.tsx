@@ -26,7 +26,7 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
     script.setAttribute('crossorigin', '*');
     document.head.appendChild(script);
     window.setTimeout((): void => {
-      window.panelbear = window.panelbear || function (...args) {
+      window.panelbear = window.panelbear || function panelbear(...args) {
         window.panelbearQ = window.panelbearQ || [];
         window.panelbearQ.push(args);
       };

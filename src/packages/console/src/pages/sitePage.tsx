@@ -92,76 +92,49 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const [archivingSiteVersionId, setArchivingSiteVersionId] = React.useState<number | null>(null);
   const [isArchivingSite, setIsArchivingSite] = React.useState<boolean>(false);
 
-  useInitialization((): void => {
-    loadSite();
-  });
-
-  React.useEffect((): React.EffectCallback => {
-    if (site) {
-      loadAccount();
-      loadVersions();
-      loadPrimaryVersion();
-      loadNewVersionDefaultName();
-
-      // If its publishing, keep reloading the site until its done
-      if (site.isPublishing) {
-        const intervalId = setInterval((): void => {
-          everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
-            if (!receivedSite.isPublishing) {
-              clearInterval(intervalId);
-              loadSite();
-            }
-          });
-        }, 5000);
-        return (): void => clearInterval(intervalId);
-      }
-    }
-    return null;
-  }, [site]);
-
-  const loadAccount = (): void => {
+  const loadAccount = React.useCallback((): void => {
     everypageClient.getAccount(Number(site.accountId)).then((receivedAccount: Account) => {
       setAccount(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccount(null);
     });
-  };
+  }, [everypageClient, site]);
 
-  const loadSite = (): void => {
+  const loadSite = React.useCallback((): void => {
     everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
       setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
     });
-  };
+  }, [everypageClient, props.slug]);
 
-  const loadVersions = (): void => {
+  const loadVersions = React.useCallback((): void => {
     everypageClient.listSiteVersions(site.siteId).then((siteVersions: SiteVersion[]) => {
       setVersions(siteVersions.reverse());
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setVersions([]);
     });
-  };
+  }, [everypageClient, site]);
 
-  const loadPrimaryVersion = (): void => {
+  const loadPrimaryVersion = React.useCallback((): void => {
     everypageClient.getSitePrimaryVersion(site.siteId).then((siteVersion: SiteVersion) => {
       setPrimaryVersionId(siteVersion.siteVersionId);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setPrimaryVersionId(undefined);
     });
-  };
+  }, [everypageClient, site]);
 
-  const loadNewVersionDefaultName = (): void => {
+  const loadNewVersionDefaultName = React.useCallback((): void => {
     everypageClient.retrieveNextVersionName(site.siteId).then((nextVersionName: string) => {
       setNewVersionDefaultName(nextVersionName);
     }).catch((error: KibaException): void => {
       console.error('error', error);
     });
-  };
+  }, [everypageClient, site]);
 
   const getSiteUrl = (): string => {
     return site.customDomain ? `https://${site.customDomain}` : `https://${site.slug}.evrpg.com`;
@@ -323,6 +296,33 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   const onArchiveSiteCancelClicked = (): void => {
     setIsArchivingSite(false);
   };
+
+  useInitialization((): void => {
+    loadSite();
+  });
+
+  React.useEffect((): React.EffectCallback => {
+    if (site) {
+      loadAccount();
+      loadVersions();
+      loadPrimaryVersion();
+      loadNewVersionDefaultName();
+
+      // If its publishing, keep reloading the site until its done
+      if (site.isPublishing) {
+        const intervalId = setInterval((): void => {
+          everypageClient.getSiteBySlug(site.slug).then((receivedSite: Site) => {
+            if (!receivedSite.isPublishing) {
+              clearInterval(intervalId);
+              loadSite();
+            }
+          });
+        }, 5000);
+        return (): void => clearInterval(intervalId);
+      }
+    }
+    return null;
+  }, [everypageClient, site, loadAccount, loadNewVersionDefaultName, loadPrimaryVersion, loadSite, loadVersions]);
 
   return (
     <div className={classes.root}>

@@ -51,11 +51,11 @@ export const CanvasPage = (): React.ReactElement => {
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
-  const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
+  // const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = { ...assetFileMap };
-    files.map((file: File): void => {
+    files.forEach((file: File): void => {
       newAssetFileMap[`/assets/${file.path}`] = URL.createObjectURL(file);
     });
     setAssetFileMap(newAssetFileMap);
@@ -87,16 +87,16 @@ export const CanvasPage = (): React.ReactElement => {
     setSiteTheme(null);
   };
 
-  const onSiteContentUpdated = (siteContent: Record<string, unknown>): void => {
-    setSiteContent(siteContent);
+  const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
+    setSiteContent(newSiteContent);
     // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
-    setIsSiteContentChanged(true);
+    // setIsSiteContentChanged(true);
   };
 
-  const onSiteThemeUpdated = (siteTheme: Record<string, unknown>): void => {
-    setSiteTheme(siteTheme);
+  const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
+    setSiteTheme(newSiteTheme);
     // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
-    setIsSiteContentChanged(true);
+    // setIsSiteContentChanged(true);
   };
 
   return (

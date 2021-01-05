@@ -55,26 +55,16 @@ export const HomePage = (): React.ReactElement => {
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
   const [accountUpgradePopupAccount, setAccountUpgradePopupAccount] = React.useState<Account | null>(null);
 
-  useInitialization((): void => {
-    loadAccounts();
-  });
-
-  React.useEffect((): void => {
-    if (accounts) {
-      loadAccountSites();
-    }
-  }, [accounts]);
-
-  const loadAccounts = (): void => {
+  const loadAccounts = React.useCallback((): void => {
     everypageClient.retrieveAccounts().then((receivedAccount: Account[]) => {
       setAccounts(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setAccounts(null);
     });
-  };
+  }, [everypageClient]);
 
-  const loadAccountSites = (): void => {
+  const loadAccountSites = React.useCallback((): void => {
     const promises = accounts.map((account: Account): Promise<Site[]> => {
       return everypageClient.retrieveSitesForAccount(account.accountId);
     });
@@ -91,7 +81,7 @@ export const HomePage = (): React.ReactElement => {
       });
       setAccountSites(updatedAccountSites);
     });
-  };
+  }, [everypageClient, accounts]);
 
   const onSiteClicked = (site: Site): void => {
     history.navigate(`/sites/${site.slug}`);
@@ -118,6 +108,16 @@ export const HomePage = (): React.ReactElement => {
     history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
     setAccountUpgradePopupAccount(null);
   };
+
+  useInitialization((): void => {
+    loadAccounts();
+  });
+
+  React.useEffect((): void => {
+    if (accounts) {
+      loadAccountSites();
+    }
+  }, [accounts, loadAccountSites]);
 
   return (
     <div className={classes.root}>
