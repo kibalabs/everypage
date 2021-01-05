@@ -335,10 +335,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
             <div>Loading...</div>
           ) : site.archiveDate ? (
             <div>
-This site has been archived 📦.
+              This site has been archived 📦.
               <br />
               <br />
-Please contact us if you want it to be restored.
+              Please contact us if you want it to be restored.
             </div>
           ) : (
             <React.Fragment>
@@ -349,38 +349,22 @@ Please contact us if you want it to be restored.
                   <Box flexGrow={1} />
                   <Button onClick={onArchiveSiteClicked} color='secondary'>Archive</Button>
                 </Box>
-                <Typography color='textSecondary'>
-                  Site slug:
-                  {' '}
-                  {site.slug}
-                </Typography>
-                <Typography color='textSecondary'>
-                  Status:
-                  {' '}
-                  {site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}
-                </Typography>
+                <Typography color='textSecondary'>{`Site slug: ${site.slug}`}</Typography>
+                <Typography color='textSecondary'>{`Status: ${site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}`}</Typography>
                 {!isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
-                    <Typography color='textSecondary'>
-                      Url:
-                      {' '}
-                      {getSiteUrl()}
-                    </Typography>
+                    <Typography color='textSecondary'>{`Url: ${getSiteUrl()}`}</Typography>
                     {!site.customDomain && <Button onClick={onSetCustomDomainClicked} color='primary'>Customize</Button> }
                     {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClick={onSiteStatusClicked} color='secondary'>{site.customDomainStatus}</Button> }
                   </Box>
                 )}
                 {isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='start' flexDirection='column' className={classes.customDomainBox}>
-                    <Typography color='textPrimary'>
-                      <strong>Custom domain set up</strong>
-                    </Typography>
+                    <Typography color='textPrimary'><strong>Custom domain set up</strong></Typography>
                     <Box mt={2} />
                     {!newCustomDomain && (
                       <React.Fragment>
-                        <Typography color='textPrimary'>
-                          What domain would you like to point to this site?
-                        </Typography>
+                        <Typography color='textPrimary'>What domain would you like to point to this site?</Typography>
                         <TextField
                           autoFocus
                           variant='outlined'
@@ -400,54 +384,37 @@ Please contact us if you want it to be restored.
                           color='primary'
                           onClick={onCustomDomainNextClicked}
                         >
-Next
+                          Next
                         </Button>
                       </React.Fragment>
                     )}
                     {newCustomDomain && (
                       <React.Fragment>
-                        <Typography color='textPrimary'>
-                          Great! Now please create the following DNS CNAME record with your hosting provider:
-                        </Typography>
-                        <Typography color='textSecondary' variant='caption'>
-                        (just message us if you need help with this)
-                        </Typography>
+                        <Typography color='textPrimary'>Great! Now please create the following DNS CNAME record with your hosting provider:</Typography>
+                        <Typography color='textSecondary' variant='caption'>(just message us if you need help with this)</Typography>
                         <Box width={1} display='flex' justifyContent='start' alignItems='baseline' mt={2} mb={2}>
-                          <Typography color='textPrimary'>
-                            {newCustomDomain}
-                          </Typography>
-                          <Typography color='textSecondary'>
-                            {' ➡️ '}
-                          </Typography>
-                          <Typography color='textPrimary'>
-                            {site.slug}
-.int.evrpg.com
-                          </Typography>
+                          <Typography color='textPrimary'>{newCustomDomain}</Typography>
+                          <Typography color='textSecondary'>{' ➡️ '}</Typography>
+                          <Typography color='textPrimary'>{`${site.slug}.int.evrpg.com`}</Typography>
                         </Box>
                         {newCustomDomainApiError && (
-                          <Typography color='error'>
-                            Something went wrong on our side. Please try again later or contact support.
-                          </Typography>
+                          <Typography color='error'>Something went wrong on our side. Please try again later or contact support.</Typography>
                         )}
                         <Button
                           variant='contained'
                           color='primary'
                           onClick={onCustomDomainSetClicked}
                         >
-Done
+                          Done
                         </Button>
-                        <Typography color='textSecondary' variant='caption'>
-                          {'It can take up to 1 hour for this to work. If it\'s taken longer, please get in touch with us, something might have failed :('}
-                        </Typography>
+                        <Typography color='textSecondary' variant='caption'>It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!</Typography>
                       </React.Fragment>
                     )}
                   </Box>
                 )}
                 {(account.accountType === 'core' || account.accountType === 'starter') && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
-                    <Typography color='textSecondary'>
-                      Branding: Made with everypage
-                    </Typography>
+                    <Typography color='textSecondary'>Branding: Made with everypage</Typography>
                     {!site.customDomain && <Button onClick={onRemoveBrandingClicked} color='primary'>Upgrade to remove</Button> }
                   </Box>
                 )}
@@ -470,15 +437,9 @@ Done
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
                       </Box>
                       {version.publishDate ? (
-                        <Typography color='textSecondary' className={classes.versionDate}>
-Published:
-                          {dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}
-                        </Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>{`Published: ${dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}`}</Typography>
                       ) : (
-                        <Typography color='textSecondary' className={classes.versionDate}>
-Last updated:
-                          {dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}
-                        </Typography>
+                        <Typography color='textSecondary' className={classes.versionDate}>{`Last updated: ${dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}`}</Typography>
                       )}
                     </Box>
                   );
