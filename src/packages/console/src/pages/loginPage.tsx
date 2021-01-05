@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from '@kibalabs/core-react';
-import { InputType, SingleLineInput, ResponsiveContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, EqualGrid, Form, Link, Alignment, ContainingView } from "@kibalabs/ui-react";
+import { InputType, SingleLineInput, ResponsiveContainingView, Box, PaddingView, Text, PaddingSize, Button, Spacing, EqualGrid, Form, Link, Alignment, ContainingView, Stack, Direction } from "@kibalabs/ui-react";
 import { useGlobals } from '../globalsContext';
 
 
@@ -54,54 +54,57 @@ export const LoginPage = (): React.ReactElement => {
   return (
     <ContainingView>
       < ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 4 }}>
-        <PaddingView paddingTop={PaddingSize.Wide3} >
-          <Box variant="transparent">
-            <PaddingView paddingTop={PaddingSize.Wide} padding={PaddingSize.Wide1}>
-              <Box variant='card' isFullWidth={true}>
-                <Text variant='header3'>Log in to everypage</Text>
+        <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Box variant='card' isFullWidth={false}>
+            <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
+              <Stack direction={Direction.Vertical}>
+                <Stack.Item alignment={Alignment.Center}>
+                  <Text variant='header3'>Log in to everypage</Text>
+                </Stack.Item>
                 <Spacing variant={PaddingSize.Wide2} />
-                <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
 
-                  <SingleLineInput
-                    inputWrapperVariant={emailError ? "error" : ""}
-                    value={email}
-                    onValueChanged={onEmailChanged}
-                    name="email"
-                    id='email'
-                    label='Email Address'
-                    messageText={emailError}
-                    placeholderText="Email Address"
-                    inputType={InputType.Email}
-                  />
-                  <Spacing variant={PaddingSize.Wide2} />
+                <SingleLineInput
+                  inputWrapperVariant={emailError ? "error" : ""}
+                  value={email}
+                  onValueChanged={onEmailChanged}
+                  name="email"
+                  id='email'
+                  label='Email Address'
+                  messageText={emailError}
+                  placeholderText="Email Address"
+                  inputType={InputType.Email}
+                />
+                <Spacing variant={PaddingSize.Wide2} />
 
-                  <SingleLineInput
-                    inputWrapperVariant={passwordError ? "error" : ""}
-                    value={password}
-                    onValueChanged={onPasswordChanged}
-                    name="password"
-                    id='password'
-                    label='Password'
-                    messageText={passwordError}
-                    placeholderText="Password"
-                    inputType={InputType.Password}
-                  />
-                  <Spacing variant={PaddingSize.Wide2} />
+                <SingleLineInput
+                  inputWrapperVariant={passwordError ? "error" : ""}
+                  value={password}
+                  onValueChanged={onPasswordChanged}
+                  name="password"
+                  id='password'
+                  label='Password'
+                  messageText={passwordError}
+                  placeholderText="Password"
+                  inputType={InputType.Password}
+                />
+                <Spacing variant={PaddingSize.Wide2} />
 
-                  <Button
-                    buttonType='submit'
-                    isFullWidth
-                    variant='primary'
-                    text="Log in"
-                  />
-                  <Spacing variant={PaddingSize.Wide1} />
-
+                <Button
+                  buttonType='submit'
+                  isFullWidth
+                  variant='primary'
+                  text="Log in"
+                />
+                <Spacing variant={PaddingSize.Wide1} />
+                <Stack.Item alignment={Alignment.End}>
                   <Link target='/register' variant='default' text="Don't have an account yet? Sign Up" />
-                </Form>
-              </Box>
-            </PaddingView>
+                </Stack.Item>
+              </Stack>
+            </Form>
           </Box>
-        </PaddingView>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+        </Stack>
       </ResponsiveContainingView >
     </ContainingView>
   );
