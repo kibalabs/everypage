@@ -68,7 +68,7 @@ export const NavigationBar = (): React.ReactElement => {
   });
 
   return (
-    <AppBar position="absolute" className={classes.appBar}>
+    <AppBar position='absolute' className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <ButtonBase href={'/'}>
           <Box height={'30px'}>
@@ -98,7 +98,7 @@ export const NavigationBar = (): React.ReactElement => {
       </Toolbar>
       {!hasVerifiedEmail && (
         <Toolbar className={classes.alertBar}>
-          <Typography color="textPrimary">
+          <Typography color='textPrimary'>
             You need to verify your account before you can create and edit sites. Please check your email.
           </Typography>
           <div className={classes.spacer} />
@@ -111,7 +111,7 @@ export const NavigationBar = (): React.ReactElement => {
             </Button>
           )}
           {verificationSent && (
-            <Typography color="textPrimary">
+            <Typography color='textPrimary'>
               Email sent.
             </Typography>
           )}

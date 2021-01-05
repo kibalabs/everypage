@@ -67,7 +67,7 @@ export const VerifyEmailPage = (): React.ReactElement => {
           </Button>
         )}
         {verificationSent && (
-          <Typography color="textPrimary">
+          <Typography color='textPrimary'>
             Email sent.
           </Typography>
         )}

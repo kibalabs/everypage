@@ -121,14 +121,14 @@ export const RegisterPage = (): React.ReactElement => {
               <Grid item xs={12} />
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
+                  autoComplete='fname'
+                  name='firstName'
+                  variant='outlined'
                   margin='normal'
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id='firstName'
+                  label='First Name'
                   autoFocus
                   value={firstName}
                   onChange={onFirstNameChanged}
@@ -136,14 +136,14 @@ export const RegisterPage = (): React.ReactElement => {
                   helperText={firstNameError}
                 />
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   margin='normal'
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
+                  id='lastName'
+                  label='Last Name'
+                  name='lastName'
+                  autoComplete='lname'
                   value={lastName}
                   onChange={onLastNameChanged}
                   error={lastNameError !== undefined}
