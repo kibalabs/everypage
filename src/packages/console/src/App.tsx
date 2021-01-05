@@ -66,9 +66,9 @@ export const App = hot((): React.ReactElement => {
           {process.env.NODE_ENV === 'production' && <TawkToChat accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
           <GlobalCss resetCss={resetCss} theme={theme} />
           <Router authManager={authManager}>
-            <Route path='/canvas' page={CanvasPage}/>
-            <Route path='/canvas-section' page={CanvasPreviewPage}/>
-            <Route path='/canvas-preview' page={CanvasPreviewPage}/>
+            <Route path='/canvas' page={CanvasPage} />
+            <Route path='/canvas-section' page={CanvasPreviewPage} />
+            <Route path='/canvas-preview' page={CanvasPreviewPage} />
             <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
             <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />
             <Route path='/sites/create' page={CreateSitePage} redirectIfNoAuth={'/login'} />
@@ -77,7 +77,7 @@ export const App = hot((): React.ReactElement => {
             <Route path='/login' page={LoginPage} redirectIfAuth={'/'} />
             <Route path='/register' page={RegisterPage} redirectIfAuth={'/'} />
             <Route path='/verify-email' page={VerifyEmailPage} redirectIfNoAuth={'/'} />
-            <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'}/>
+            <Route path='/start' page={EmptyPage} redirectIfAuth={'/'} redirectIfNoAuth={'/canvas'} />
             <Route default={true} page={NotFoundPage} />
           </Router>
         </React.Fragment>

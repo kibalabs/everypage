@@ -26,8 +26,8 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaCenter1.displayName, props.className)}>
       <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
         <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-          {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-          {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+          {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+          {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
             <Grid.Item sizeResponsive={{ base: 10, medium: 4 }}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
@@ -37,7 +37,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                       <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveHidingView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
                           </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>
@@ -48,7 +48,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveHidingView hiddenBelow={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
                           </ResponsiveHidingView>
                         </Stack.Item>
                       </Stack>
@@ -68,12 +68,12 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
                       <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} isFullWidth={true}>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveHidingView hiddenAbove={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
                           </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item shrinkFactor={0}>
                           <ResponsiveHidingView hiddenBelow={ScreenSize.Medium}>
-                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary}/>}
+                            {feature.iconId && <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
                           </ResponsiveHidingView>
                         </Stack.Item>
                         <Stack.Item growthFactor={1} shrinkFactor={1}>

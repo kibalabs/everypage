@@ -68,7 +68,7 @@ export const NavigationBar = (): React.ReactElement => {
   });
 
   return (
-    <AppBar position="absolute" className={classes.appBar}>
+    <AppBar position='absolute' className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <ButtonBase href={'/'}>
           <Box height={'30px'}>
@@ -84,17 +84,21 @@ export const NavigationBar = (): React.ReactElement => {
         <Button
           variant='outlined'
           onClick={onLogoutClicked}
-        >Log out</Button>
+        >
+          Log out
+        </Button>
         <Button
           className={classes.navButton}
           variant='outlined'
           href='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
           target='_blank'
-        >Tutorials</Button>
+        >
+          Tutorials
+        </Button>
       </Toolbar>
       {!hasVerifiedEmail && (
         <Toolbar className={classes.alertBar}>
-          <Typography color="textPrimary">
+          <Typography color='textPrimary'>
             You need to verify your account before you can create and edit sites. Please check your email.
           </Typography>
           <div className={classes.spacer} />
@@ -102,10 +106,12 @@ export const NavigationBar = (): React.ReactElement => {
             <Button
               variant='outlined'
               onClick={onResendVerificationClicked}
-            >Resend Verification</Button>
+            >
+              Resend Verification
+            </Button>
           )}
           {verificationSent && (
-            <Typography color="textPrimary">
+            <Typography color='textPrimary'>
               Email sent.
             </Typography>
           )}
