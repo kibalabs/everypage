@@ -33,9 +33,9 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
         <Grid.Item sizeResponsive={{ base: 10, medium: 5 }}>
           <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
             <Stack direction={Direction.Vertical}>
-              {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-              {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
-              {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText}/></Stack.Item>}
+              {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+              {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+              {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
             </Stack>
           </ResponsiveTextAlignmentView>
         </Grid.Item>

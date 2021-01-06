@@ -34,7 +34,7 @@ export const Dropzone = (props: IDropzoneProps): React.ReactElement => {
 
   return (
     <StyledDropzone {...getRootProps()} style={{ padding: '20px' }}>
-      <input {...getInputProps()}/>
+      <input {...getInputProps()} />
       { isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (
@@ -125,7 +125,7 @@ export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElemen
             <ThumbImage src={props.fileMap[filePath]} />
           </ThumbImageHolder>
           <ThumbSubtitle>{filePath}</ThumbSubtitle>
-          {props.onDeleteClicked && <ThumbDeleteButton onClick={(): void => props.onDeleteClicked(filePath)}/>}
+          {props.onDeleteClicked && <ThumbDeleteButton onClick={(): void => props.onDeleteClicked(filePath)} />}
         </Thumb>
       ))}
     </ThumbsContainer>

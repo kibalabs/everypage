@@ -52,17 +52,19 @@ interface IKibaFrameProps extends ISingleAnyChildProps {
 export const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
   return (
     <Frame style={{ height: '100%', width: '100%' }}>
-      <FrameContextConsumer>{ (frameContext) => (
-        <HeadRootProvider root={frameContext.document.head}>
-          <KibaFrameInner document={frameContext.document} selectedElementId={props.selectedElementId}>
-            <StyleSheetManager target={frameContext.document.head}>
-              <ErrorBoundary>
-                { props.children }
-              </ErrorBoundary>
-            </StyleSheetManager>
-          </KibaFrameInner>
-        </HeadRootProvider>
-      )}</FrameContextConsumer>
+      <FrameContextConsumer>
+        { (frameContext) => (
+          <HeadRootProvider root={frameContext.document.head}>
+            <KibaFrameInner document={frameContext.document} selectedElementId={props.selectedElementId}>
+              <StyleSheetManager target={frameContext.document.head}>
+                <ErrorBoundary>
+                  { props.children }
+                </ErrorBoundary>
+              </StyleSheetManager>
+            </KibaFrameInner>
+          </HeadRootProvider>
+        )}
+      </FrameContextConsumer>
     </Frame>
   );
 };
