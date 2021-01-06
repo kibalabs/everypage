@@ -87,93 +87,79 @@ export const RegisterPage = (): React.ReactElement => {
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
             <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
-              <Stack direction={Direction.Vertical}>
-                <Stack.Item alignment={Alignment.Center}>
-                  <Text variant='header3' alignment={TextAlignment.Center}>
-                    Create your everypage account
-                  </Text>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+                <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
+                  <Text variant='header3' alignment={TextAlignment.Center}>Create your everypage account</Text>
                 </Stack.Item>
-                <Spacing variant={PaddingSize.Wide2} />
                 <SingleLineInput
-                  name="firstName"
-                  id="firstName"
-                  label="First Name"
-                  placeholderText="First Name"
+                  name='firstName'
+                  id='firstName'
+                  label='First Name'
+                  placeholderText='First Name'
                   value={firstName}
                   inputType={InputType.Text}
                   messageText={firstNameError}
                   inputWrapperVariant={firstNameError ? 'error' : ''}
                   onValueChanged={onFirstNameChanged}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <SingleLineInput
-                  name="lastName"
-                  id="lastName"
-                  label="Last Name"
-                  placeholderText="Last Name"
+                  name='lastName'
+                  id='lastName'
+                  label='Last Name'
+                  placeholderText='Last Name'
                   value={lastName}
                   inputType={InputType.Text}
                   messageText={lastNameError}
                   inputWrapperVariant={lastNameError ? 'error' : ''}
                   onValueChanged={onLastNameChanged}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <SingleLineInput
                   inputWrapperVariant={emailError ? 'error' : ''}
                   value={email}
                   onValueChanged={onEmailChanged}
-                  name="email"
+                  name='email'
                   id='email'
                   label='Email Address'
                   messageText={emailError}
-                  placeholderText="Email Address"
+                  placeholderText='Email Address'
                   inputType={InputType.Email}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <SingleLineInput
                   inputWrapperVariant={passwordError ? 'error' : ''}
                   value={password}
                   onValueChanged={onPasswordChanged}
-                  name="password"
+                  name='password'
                   id='password'
                   label='Password'
                   messageText={passwordError}
-                  placeholderText="Password"
+                  placeholderText='Password'
                   inputType={InputType.Password}
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
                 <FormControlLabel
                   control={<Checkbox checked={shouldJoinNewsletter} onChange={onShouldJoinNewsletterChanged} color='primary' />}
                   label='Keep me updated (no spam, we promise)!'
                 />
-                <Spacing variant={PaddingSize.Wide2} />
-
-                <Button
-                  buttonType='submit'
-                  isFullWidth
-                  variant='primary'
-                  text='Create account'
-                />
-                <Spacing variant={PaddingSize.Wide1} />
-
-                <Stack.Item alignment={Alignment.End}>
-                  <Link shouldOpenSameTab target='/login' variant='default' text={'Already got an account? Log in'} />
+                <Stack.Item gutterBefore={PaddingSize.Wide2}>
+                  <Button
+                    buttonType='submit'
+                    isFullWidth
+                    variant='primary'
+                    text='Create account'
+                  />
+                </Stack.Item>
+                <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
+                  <Link target='/login' text={'Already got an account? Log in'} shouldOpenSameTab={true} />
                 </Stack.Item>
               </Stack>
             </Form>
           </Box>
-          <Box>
-            <Text variant='body2'>
-              {'By creating an account, you are agreeing to our '}
-              <Link shouldOpenSameTab target='https://terms.everypagehq.com' text='Terms of Use' />
-              {' and '}
-              <Link shouldOpenSameTab target='https://privacy.everypagehq.com' text='Privacy Policy' />
-            </Text>
-          </Box>
+          <Spacing variant={PaddingSize.Wide} />
+          <Text variant='note' alignment={TextAlignment.Center}>
+            {'By creating an account, you are agreeing to our '}
+            <Link target='https://terms.everypagehq.com' text='Terms of Use' />
+            {' and '}
+            <Link target='https://privacy.everypagehq.com' text='Privacy Policy' />
+          </Text>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
       </ResponsiveContainingView>
