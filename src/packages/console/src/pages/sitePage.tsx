@@ -442,7 +442,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         <Typography color='textSecondary' className={classes.versionDate}>{`Last updated: ${dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}`}</Typography>
                       )}
                     </Box>
-                  );  
+                  );
                 })}
               </Paper>
             </React.Fragment>
