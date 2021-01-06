@@ -23,7 +23,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "^0.6.4-next.3",
+    "@kibalabs/build": "^0.6.4-next.5",
     "@kibalabs/core": "^0.5.2",
     "@kibalabs/core-react": "^0.5.4",
     "@kibalabs/everypage": "0.8.0",
@@ -39,6 +39,7 @@
     "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
-    "@types/node": "14.0.13"
+    "@types/node": "14.0.13",
+    "@types/serve-handler": "6.1.0"
   }
 }

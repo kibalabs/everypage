@@ -121,7 +121,7 @@ export class RetrieveAccountsResponse extends ResponseData {
 
   public static fromObject = (obj: Record<string, unknown>): RetrieveAccountsResponse => {
     return new RetrieveAccountsResponse(
-      obj.accounts.map((account: Record<string, unknown>): Resources.Account => Resources.Account.fromObject(account)),
+      (obj.accounts as Record<string, unknown>[]).map((account: Record<string, unknown>): Resources.Account => Resources.Account.fromObject(account)),
     );
   }
 }

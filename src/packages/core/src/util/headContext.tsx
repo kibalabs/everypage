@@ -18,15 +18,18 @@ export const HeadRootProvider = (props: IHeadRootProviderProps): React.ReactElem
   );
 };
 
-export function useHeadRoot(): HTMLElement {
+export function useHeadRoot(): HTMLElement | null {
   const headRoot = React.useContext(HeadRootContext);
+  // if (!headRoot) {
+  //   throw Error('No headRoot has been set!');
+  // }
   return headRoot;
 }
 
 interface IHeadProps extends IMultiAnyChildProps {
 }
 
-export const Head = (props: IHeadProps): React.ReactElement => {
+export const Head = (props: IHeadProps): React.ReactElement | null => {
   const headRoot = useHeadRoot();
   if (!headRoot) {
     return null;
@@ -42,6 +45,8 @@ interface IChildCaptureProps extends IMultiAnyChildProps {
 }
 
 export const ChildCapture = (props: IChildCaptureProps): React.ReactElement | null => {
-  props.headElements.push(props.children);
+  if (props.children) {
+    props.headElements.push(props.children as HTMLElement);
+  }
   return null;
 };

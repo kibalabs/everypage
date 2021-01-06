@@ -26,7 +26,7 @@ export const updateAssetPaths = (siteConfig: Record<string, unknown>, assetsPref
     } else if (Array.isArray(value)) {
       value = value.map((entry) => (typeof entry === 'object' ? updateAssetPaths(entry, assetsPrefix) : entry));
     } else if (typeof value === 'object') {
-      value = updateAssetPaths(value, assetsPrefix);
+      value = updateAssetPaths(value as Record<string, unknown>, assetsPrefix);
     }
     resultCopy[key] = value;
     return resultCopy;
@@ -60,7 +60,7 @@ export const replaceAssetPaths = (siteConfig: Record<string, unknown>, assetRepl
     } else if (Array.isArray(value)) {
       value = value.map((entry) => (typeof entry === 'object' ? replaceAssetPaths(entry, assetReplacements) : entry));
     } else if (typeof value === 'object') {
-      value = replaceAssetPaths(value, assetReplacements);
+      value = replaceAssetPaths(value as Record<string, unknown>, assetReplacements);
     }
     resultCopy[key] = value;
     return resultCopy;

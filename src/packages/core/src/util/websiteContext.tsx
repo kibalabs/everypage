@@ -17,7 +17,7 @@ export const WebsiteProvider = (props: IWebsiteProviderProps): React.ReactElemen
   </WebsiteContext.Provider>
 );
 
-export function useWebsite(override: RecursivePartial<IWebsite>): IWebsite {
+export function useWebsite(override?: RecursivePartial<IWebsite>): IWebsite {
   const website = React.useContext(WebsiteContext);
   if (!website) {
     throw Error('No website has been set!');
