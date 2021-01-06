@@ -49,14 +49,14 @@ export const readJsonFileSync = (filePath: string): Record<string, unknown> => {
 };
 
 export const loadContentFromFileSync = (filePath: string, buildHash?: string, parentContent?: IWebsite): IWebsite => {
-  let content = readJsonFileSync(filePath) as IWebsite;
+  let content = readJsonFileSync(filePath) as unknown as IWebsite;
   if (parentContent) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { sections, ...parentContentStripped } = parentContent;
     content = merge(parentContentStripped, content);
   }
   if (buildHash) {
-    content = updateAssetPaths(content, `/${buildHash}`) as IWebsite;
+    content = updateAssetPaths(content as unknown as Record<string, unknown>, `/${buildHash}`) as unknown as IWebsite;
   }
   return content;
 };

@@ -4,11 +4,18 @@ import { useInitialization } from '@kibalabs/core-react';
 
 import { IWebsitePlugin } from '../model';
 
+declare global {
+  interface Window {
+    panelbear: (...args: unknown[]) => void;
+    panelbearQ: unknown[];
+  }
+}
+
 export interface IPanelbearAnalyticsProps extends IWebsitePlugin {
   siteId?: string;
 }
 
-export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.ReactElement => {
+export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): null => {
   useInitialization((): void => {
     if (!props.siteId) {
       console.error('siteId should be provided to PanelbearAnalytics');
@@ -26,7 +33,7 @@ export const PanelbearAnalytics = (props: IPanelbearAnalyticsProps): React.React
     script.setAttribute('crossorigin', '*');
     document.head.appendChild(script);
     window.setTimeout((): void => {
-      window.panelbear = window.panelbear || function panelbear(...args) {
+      window.panelbear = window.panelbear || function panelbear(...args: unknown[]): void {
         window.panelbearQ = window.panelbearQ || [];
         window.panelbearQ.push(args);
       };

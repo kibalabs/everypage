@@ -89,7 +89,7 @@ export class Site {
       String(obj.slug),
       String(obj.name),
       Boolean(obj.isPublishing),
-      obj.archiveDate ? dateFromString(obj.archiveDate) : null,
+      obj.archiveDate ? dateFromString(obj.archiveDate as string) : null,
       obj.customDomain ? String(obj.customDomain) : null,
       obj.customDomainStatus ? String(obj.customDomainStatus) : null,
     );
@@ -124,9 +124,9 @@ export class SiteVersion {
       Number(obj.siteId),
       obj.name ? String(obj.name) : null,
       Boolean(obj.isPublishing),
-      obj.publishDate ? dateFromString(obj.publishDate) : null,
-      obj.archiveDate ? dateFromString(obj.archiveDate) : null,
-      dateFromString(obj.lastUpdateDate),
+      obj.publishDate ? dateFromString(obj.publishDate as string) : null,
+      obj.archiveDate ? dateFromString(obj.archiveDate as string) : null,
+      dateFromString(obj.lastUpdateDate as string),
     );
   }
 }
@@ -148,8 +148,8 @@ export class SiteVersionEntry {
     return new SiteVersionEntry(
       Number(obj.siteVersionEntryId),
       Number(obj.siteVersionId),
-      obj.siteContent,
-      obj.siteTheme,
+      obj.siteContent as Record<string, unknown>,
+      obj.siteTheme as Record<string, unknown>,
     );
   }
 }
@@ -166,7 +166,7 @@ export class PresignedUpload {
   public static fromObject = (obj: Record<string, unknown>): PresignedUpload => {
     return new PresignedUpload(
       String(obj.url),
-      obj.params,
+      obj.params as Record<string, string>,
     );
   }
 }
@@ -277,7 +277,7 @@ export class Section {
       String(obj.description),
       String(obj.sectionType),
       Number(obj.sectionCategoryId),
-      obj.content,
+      obj.content as Record<string, unknown>,
       String(obj.previewImageUrl),
     );
   }

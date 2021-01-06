@@ -353,3 +353,20 @@ export class EverypageClient extends ServiceClient {
     return response.androidApp;
   }
 }
+
+// import { Requester, RestMethod } from '../requester';
+// export declare class RequestData {
+//     toObject: () => Record<string, unknown>;
+// }
+
+// export declare class ResponseData {
+//     new(...args: any): this;
+//     // static fromObject: <T extends typeof ResponseData>(this: T, obj: Record<string, unknown>) => InstanceType<T>;
+// }
+// type Constructor<T = {}> = new (...args: any[]) => T;
+// export declare class ServiceClient {
+//     protected requester: Requester;
+//     protected baseUrl: string;
+//     constructor(requester: Requester, baseUrl: string);
+//     protected makeRequest: <ResponseType_1 extends ResponseData>(method: RestMethod, path: string, request?: RequestData | undefined, responseClass?: Constructor<ResponseType_1> | undefined) => Promise<ResponseType_1>;
+// }

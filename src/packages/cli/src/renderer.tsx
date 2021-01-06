@@ -4,16 +4,23 @@ import path from 'path';
 
 import React from 'react';
 
+// @ts-ignore
 import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
+// @ts-ignore
 import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
+// @ts-ignore
 import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
+// @ts-ignore
 import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
+// @ts-ignore
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
+// @ts-ignore
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
+// @ts-ignore
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 import { createStaticHistory } from '@kibalabs/core-react';
 import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import ReactDOMServer from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import webpackMerge from 'webpack-merge';
@@ -38,7 +45,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
 
   const pages = loadPathsFromDirectory(siteDirectory, '', buildHash, initialContent, undefined);
   console.log(`EP: loaded ${pages.length} pages`);
-  const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json'), pages[0].content) : default404Content;
+  const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json')) : default404Content;
   const page404 = { path: '404', filename: '/404.html', content: content404, theme: pages[0].theme };
 
   const siteData = {
@@ -83,10 +90,11 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     console.log('EP: generating static html');
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     // eslint-disable-next-line no-undef
+    // @ts-ignore
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
-      const headElements = [];
+      const headElements: Element[] = [];
       const styledComponentsSheet = new ServerStyleSheet();
       const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
@@ -102,7 +110,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
           {headElements}
-          {extractor.getPreAssets().map((preAsset: Record<string, string>): React.ReactElement => (
+          {/* @ts-ignore */}
+          {extractor.getPreAssets().map((preAsset: Chunk): React.ReactElement => (
             <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
           ))}
           {styledComponentsSheet.getStyleElement()}
@@ -111,7 +120,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       // TODO(krishan711): use stylesheets and css
       const bodyScriptsString = ReactDOMServer.renderToStaticMarkup(
         <React.Fragment>
-          {extractor.getMainAssets().map((mainAsset: Record<string, string>): React.ReactElement => (
+          {extractor.getMainAssets().map((mainAsset: Chunk): React.ReactElement => (
             // eslint-disable-next-line react/self-closing-comp
             <script key={mainAsset.filename} data-chunk={mainAsset.chunk} async={true} src={`${assetPrefix}/${mainAsset.filename}`}></script>
           ))}
