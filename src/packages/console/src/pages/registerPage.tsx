@@ -2,38 +2,13 @@ import React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+
 
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(1, 2),
-  },
-}));
 
 export const RegisterPage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
@@ -48,10 +23,8 @@ export const RegisterPage = (): React.ReactElement => {
   const [password, setPassword] = React.useState<string>('');
   const [passwordError, setPasswordError] = React.useState<string | undefined>(undefined);
   const [shouldJoinNewsletter, setShouldJoinNewsletter] = React.useState<boolean>(false);
-  const classes = useStyles();
 
-  const onLoginClicked = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onLoginClicked = (): void => {
     setEmailError(undefined);
     setPasswordError(undefined);
     if (!firstName) {
@@ -83,23 +56,23 @@ export const RegisterPage = (): React.ReactElement => {
     });
   };
 
-  const onFirstNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setFirstName(event.target.value);
+  const onFirstNameChanged = (value: string): void => {
+    setFirstName(value);
     setFirstNameError(undefined);
   };
 
-  const onLastNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setLastName(event.target.value);
+  const onLastNameChanged = (value: string): void => {
+    setLastName(value);
     setLastNameError(undefined);
   };
 
-  const onEmailChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setEmail(event.target.value);
+  const onEmailChanged = (value: string): void => {
+    setEmail(value);
     setEmailError(undefined);
   };
 
-  const onPasswordChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setPassword(event.target.value);
+  const onPasswordChanged = (value: string): void => {
+    setPassword(value);
     setPasswordError(undefined);
   };
 
@@ -108,114 +81,88 @@ export const RegisterPage = (): React.ReactElement => {
   };
 
   return (
-    <Container component='main' maxWidth='sm'>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Create your everypage account
-        </Typography>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <form className={classes.form} noValidate onSubmit={onLoginClicked}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} />
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  margin='normal'
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
+    <ContainingView>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
+        <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Box variant='card' isFullWidth={false}>
+            <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+                <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
+                  <Text variant='header3' alignment={TextAlignment.Center}>Create your everypage account</Text>
+                </Stack.Item>
+                <SingleLineInput
+                  name='firstName'
+                  id='firstName'
+                  label='First Name'
+                  placeholderText='First Name'
                   value={firstName}
-                  onChange={onFirstNameChanged}
-                  error={firstNameError !== undefined}
-                  helperText={firstNameError}
+                  inputType={InputType.Text}
+                  messageText={firstNameError}
+                  inputWrapperVariant={firstNameError ? 'error' : ''}
+                  onValueChanged={onFirstNameChanged}
                 />
-                <TextField
-                  variant="outlined"
-                  margin='normal'
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
+                <SingleLineInput
+                  name='lastName'
+                  id='lastName'
+                  label='Last Name'
+                  placeholderText='Last Name'
                   value={lastName}
-                  onChange={onLastNameChanged}
-                  error={lastNameError !== undefined}
-                  helperText={lastNameError}
+                  inputType={InputType.Text}
+                  messageText={lastNameError}
+                  inputWrapperVariant={lastNameError ? 'error' : ''}
+                  onValueChanged={onLastNameChanged}
                 />
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
+                <SingleLineInput
+                  inputWrapperVariant={emailError ? 'error' : ''}
+                  value={email}
+                  onValueChanged={onEmailChanged}
+                  name='email'
                   id='email'
                   label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                  value={email}
-                  onChange={onEmailChanged}
-                  error={emailError !== undefined}
-                  helperText={emailError}
+                  messageText={emailError}
+                  placeholderText='Email Address'
+                  inputType={InputType.Email}
                 />
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='current-password'
+                <SingleLineInput
+                  inputWrapperVariant={passwordError ? 'error' : ''}
                   value={password}
-                  onChange={onPasswordChanged}
-                  error={passwordError !== undefined}
-                  helperText={passwordError}
+                  onValueChanged={onPasswordChanged}
+                  name='password'
+                  id='password'
+                  label='Password'
+                  messageText={passwordError}
+                  placeholderText='Password'
+                  inputType={InputType.Password}
                 />
-              </Grid>
-              <FormControlLabel
-                control={<Checkbox checked={shouldJoinNewsletter} onChange={onShouldJoinNewsletterChanged} color='primary' />}
-                label='Keep me updated (no spam, we promise)!'
-              />
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-              >Create account</Button>
-              <Grid container>
-                <Grid item xs>
-                  {/* <Link href='#' variant='body2'>
-                    Forgot password?
-                  </Link> */}
-                </Grid>
-                <Grid item>
-                  <Link href='/login' variant='body2'>{'Already got an account? Log in'}</Link>
-                </Grid>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Paper>
-      <Box mt={8}>
-        <Typography variant='body2' color='textSecondary' align='center'>
-          {'By creating an account, you are agreeing to our '}
-          <Link color='inherit' href='https://terms.everypagehq.com'>
-            Terms of Use
-          </Link>
-          {' and '}
-          <Link color='inherit' href='https://privacy.everypagehq.com'>
-            Privacy Policy
-          </Link>
-        </Typography>
-      </Box>
-    </Container>
+                <FormControlLabel
+                  control={<Checkbox checked={shouldJoinNewsletter} onChange={onShouldJoinNewsletterChanged} color='primary' />}
+                  label='Keep me updated (no spam, we promise)!'
+                />
+                <Stack.Item gutterBefore={PaddingSize.Wide2}>
+                  <Button
+                    buttonType='submit'
+                    isFullWidth
+                    variant='primary'
+                    text='Create account'
+                  />
+                </Stack.Item>
+                <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
+                  <Link target='/login' text={'Already got an account? Log in'} shouldOpenSameTab={true} />
+                </Stack.Item>
+              </Stack>
+            </Form>
+          </Box>
+          <Spacing variant={PaddingSize.Wide} />
+          <Text variant='note' alignment={TextAlignment.Center}>
+            {'By creating an account, you are agreeing to our '}
+            <Link target='https://terms.everypagehq.com' text='Terms of Use' />
+            {' and '}
+            <Link target='https://privacy.everypagehq.com' text='Privacy Policy' />
+          </Text>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+        </Stack>
+      </ResponsiveContainingView>
+    </ContainingView>
   );
 };

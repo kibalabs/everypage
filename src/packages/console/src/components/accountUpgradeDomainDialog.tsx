@@ -30,11 +30,11 @@ export const AccountUpgradeDomainDialog = (props: IAccountUpgradeDomainDialogPro
           upgrade to a paid account which suits you - they start from just $5/month!
         </Typography>
         <Box marginTop={2} width={1} display='flex' flexDirection='row' justifyContent='start' alignItems='baseline'>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
           <Button color='primary' onClick={onCloseClicked}>Maybe later</Button>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
           <Button color='primary' variant='contained' onClick={onUpgradeClicked}>Manage Account</Button>
-          <Box flexGrow={1}/>
+          <Box flexGrow={1} />
         </Box>
       </Box>
     </Dialog>

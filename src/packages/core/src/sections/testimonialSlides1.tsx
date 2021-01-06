@@ -34,8 +34,8 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
       <ResponsiveContainingView sizeResponsive={{ base: 10, medium: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex}>
               {props.slides.map((slide: ITestimonialSlides1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded'>
@@ -56,7 +56,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
                 </Box>
               ))}
             </Carousel>
-            <Stack.Item gutterBefore={PaddingSize.Wide}><LinePager variant='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked}/></Stack.Item>
+            <Stack.Item gutterBefore={PaddingSize.Wide}><LinePager variant='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked} /></Stack.Item>
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>

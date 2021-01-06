@@ -48,8 +48,8 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText}/></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText}/></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
@@ -69,7 +69,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
                         </BulletList>
                       </ResponsiveTextAlignmentView>
                     </Stack.Item>
-                    <Button isFullWidth={true} variant={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} target={category.buttonTarget}/>
+                    <Button isFullWidth={true} variant={category.isPrimary ? 'primary' : 'secondary'} text={category.buttonText ? category.buttonText : 'Get Started'} target={category.buttonTarget} />
                   </Stack>
                 </Box>
               ))}

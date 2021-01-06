@@ -208,19 +208,22 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : (
           <React.Fragment>
             <Box paddingX={2} paddingY={1} className={classes.metaBox}>
-              <Typography variant='subtitle1'><b>{site.slug}</b> {siteVersion.name || 'Unnamed'}</Typography>
+              <Typography variant='subtitle1'>
+                <b>{site.slug}</b>
+                {` ${siteVersion.name || 'Unnamed'}`}
+              </Typography>
               {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
               {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
-              <Box className={classes.metaBoxSpacer}/>
+              <Box className={classes.metaBoxSpacer} />
               <FormControlLabel
                 label='Hide metadata'
-                control={
+                control={(
                   <Switch
                     checked={isMetaHidden}
                     onChange={onIsMetaShownToggled}
                     name='Hide metadata'
                   />
-                }
+                )}
               />
             </Box>
             <MemoCanvas

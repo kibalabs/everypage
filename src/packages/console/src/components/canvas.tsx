@@ -170,11 +170,11 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
             </MaterialBox>
             <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_THEME ? 'flex' : 'none'}>
-              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated}/>
+              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
             </MaterialBox>
             <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_MEDIA ? 'flex' : 'none'}>
               {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-              <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile}/>
+              <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
             </MaterialBox>
           </div>
         )}
