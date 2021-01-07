@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-export interface GithubCornerProps {
+export interface IGithubCornerProps {
   githubUrl: string;
   fill?: string;
   color?: string;
@@ -10,7 +10,7 @@ export interface GithubCornerProps {
   height?: number;
 }
 
-interface StyledSvgProps {
+interface IStyledSvgProps {
   fill: string;
   color: string;
 }
@@ -19,16 +19,16 @@ const StyledLink = styled.a`
   cursor: pointer;
 `;
 
-const StyledSvg = styled.svg<StyledSvgProps>`
-  fill: ${(props: StyledSvgProps) => props.fill};
-  color: ${(props: StyledSvgProps) => props.color};
+const StyledSvg = styled.svg<IStyledSvgProps>`
+  fill: ${(props: IStyledSvgProps) => props.fill};
+  color: ${(props: IStyledSvgProps) => props.color};
   position: absolute;
   top: 0;
   border: 0;
   right: 0;
 `;
 
-export const GithubCorner = (props: GithubCornerProps): React.ReactElement => {
+export const GithubCorner = (props: IGithubCornerProps): React.ReactElement => {
   return (
     <StyledLink href={props.githubUrl} target='_blank' rel='noopener'>
       <StyledSvg
