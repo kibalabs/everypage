@@ -37,9 +37,7 @@ export const SectionHolder = (props: ISectionHolderProps): React.ReactElement =>
       className={getClassName(SectionHolder.displayName, props.className)}
       { ...props.background }
     >
-      <StyledSectionHolder
-        id={props.id}
-      >
+      <StyledSectionHolder id={props.id}>
         {/* {React.Children.map(props.children, (child: React.Component<ISectionProps>): React.Component<ISectionProps> => {
           // return React.cloneElement(child, { sectionHolderRef: sectionHolderRef });
           return child;

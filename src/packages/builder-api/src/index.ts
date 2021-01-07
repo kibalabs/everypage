@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import everypageCli from '@kibalabs/everypage-cli';
+import { renderSite } from '@kibalabs/everypage-cli';
 import archiver from 'archiver';
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
@@ -53,10 +53,10 @@ app.post('/v1/sites/generate', async (request: Request, response: Response): Pro
   fs.writeFileSync(path.join(siteDirectory, 'content.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(siteDirectory, 'theme.json'), JSON.stringify(siteTheme));
   try {
-    await everypageCli.renderSite(siteDirectory, undefined, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
+    await renderSite(siteDirectory, undefined, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
   } catch (error) {
-    console.error('Error building everypageCli', error);
+    console.error('Error building site', error);
     rimraf.sync(outputDirectory);
     return response.status(500).json({ message: error.message });
   }
