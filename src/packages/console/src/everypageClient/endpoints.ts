@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file, no-useless-constructor, @typescript-eslint/no-unused-vars */
+/* eslint-disable no-useless-constructor, @typescript-eslint/no-unused-vars */
 import { RequestData, ResponseData } from '@kibalabs/core';
 
 import * as Resources from './resources';

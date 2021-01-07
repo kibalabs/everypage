@@ -29,6 +29,9 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
   const onPageClicked = (index: number): void => {
     setSlideIndex(index);
   };
+  if (!props.slides) {
+    throw Error(`slides must be passed to ${TestimonialSlides1.displayName}`);
+  }
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialSlides1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, medium: 8 }}>

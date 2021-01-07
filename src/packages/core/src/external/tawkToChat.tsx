@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useInitialization } from '@kibalabs/core-react';
 
 import { IWebsitePlugin } from '../model';

@@ -6,6 +6,7 @@ import { Direction, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignme
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
+import { ensureSingleDefined } from '../util';
 
 interface IVideo1Props extends ISectionProps {
   titleText?: string;
@@ -15,9 +16,7 @@ interface IVideo1Props extends ISectionProps {
 }
 
 export const Video1 = (props: IVideo1Props): React.ReactElement => {
-  if (props.videoUrl && props.embeddedVideoUrl) {
-    throw new Error('video-1');
-  }
+  ensureSingleDefined(Video1.displayName, props, ['videoUrl', 'embeddedVideoUrl']);
   return (
     <Section {...props as ISectionProps} className={getClassName(Video1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
@@ -25,7 +24,7 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            {props.videoUrl && <Video isLazyLoadable={true} source={props.videoUrl} />}
+            {props.videoUrl && <Video isLazyLoadable={true} source={props.videoUrl} alternativeText={`${props.titleText || ''} video`} />}
             {props.embeddedVideoUrl && <WebView isLazyLoadable={true} url={props.embeddedVideoUrl} title={'Embedded Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']} aspectRatio={0.5625} />}
           </Stack>
         </ResponsiveTextAlignmentView>

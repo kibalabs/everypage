@@ -6,6 +6,7 @@ import { Alignment, Box, Direction, EqualGrid, MarkdownText, PaddingSize, Respon
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
+import { MissingPropError, warnDeprecated } from '../util';
 
 interface IStatisticBoxes1Box {
   value: string;
@@ -21,11 +22,12 @@ interface IStatisticBoxes1Props extends ISectionProps {
 }
 
 export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElement => {
-  let boxVariant = props.boxVariant;
-  if (props.boxMode) {
-    console.warn('boxMode is deprecated. Please use boxVariant instead');
-    boxVariant = props.boxMode;
+  warnDeprecated(StatisticBoxes1.displayName, props, 'boxMode', 'boxVariant');
+  const boxVariant = props.boxVariant || props.boxMode;
+  if (props.boxes == null) {
+    throw new MissingPropError(StatisticBoxes1.displayName, 'boxes');
   }
+  
   return (
     <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>

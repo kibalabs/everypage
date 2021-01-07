@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { LocalStorageClient } from '@kibalabs/core';
 import { IRouterAuthManager } from '@kibalabs/core-react';
 

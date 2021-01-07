@@ -6,6 +6,7 @@ import { Alignment, Box, Direction, EqualGrid, ITheme, KibaIcon, Link, MarkdownT
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
+import { MissingPropError, warnDeprecated } from '../util';
 
 interface ITestimonialBoxes1Box {
   text: string;
@@ -27,7 +28,7 @@ interface ITestimonialBoxes1Props extends ISectionProps {
 export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
 
-  const getIcon = (boxType: string, iconId?: string, iconColor?: string): React.ReactElement => {
+  const getIcon = (boxType?: string, iconId?: string, iconColor?: string): React.ReactElement => {
     if (boxType === 'producthunt') {
       return <KibaIcon _color='#DA552F' iconId={'remix-product-hunt'} />;
     }
@@ -40,10 +41,10 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
     return <KibaIcon _color={iconColor || theme.colors.brandPrimary} iconId={iconId || 'ion-chatbox'} />;
   };
 
-  let boxVariant = props.boxVariant;
-  if (props.boxMode) {
-    console.warn('boxMode is deprecated. Please use boxVariant instead');
-    boxVariant = props.boxMode;
+  warnDeprecated(TestimonialBoxes1.displayName, props, 'boxMode', 'boxVariant');
+  const boxVariant = props.boxVariant || props.boxMode;
+  if (props.boxes == null) {
+    throw new MissingPropError(TestimonialBoxes1.displayName, 'boxes');
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialBoxes1.displayName, props.className)}>
