@@ -34,7 +34,7 @@ export interface IWebsiteSection {
   id?: string;
   className?: string;
   background?: IBackgroundConfig;
-  shouldStickToTop: boolean;
+  shouldStickToTop?: boolean;
   isFullHeight?: boolean;
   isInverse?: boolean;
   colorVariant?: string;

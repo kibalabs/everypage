@@ -107,14 +107,15 @@ export class AuthManager implements IRouterAuthManager {
     return this.getJwtString() !== null;
   }
 
-  public getJwt = (): Jwt| null => {
-    return Jwt.fromString(this.getJwtString());
+  public getJwt = (): Jwt | null => {
+    const jwtString = this.getJwtString();
+    return jwtString ? Jwt.fromString(jwtString) : null;
   }
 
   public getHasJwtPermission = (name: string): boolean => {
-    return Jwt.fromString(this.getJwtString()).scopes.indexOf(name) !== -1;
+    const jwtString = this.getJwtString();
+    return jwtString ? Jwt.fromString(jwtString).scopes.indexOf(name) !== -1 : false;
   }
-
 
   public getJwtString = (): string | null => {
     return this.localStorageClient.getValue(this.jwtStorageKey);

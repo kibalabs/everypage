@@ -4,12 +4,19 @@ import { useInitialization } from '@kibalabs/core-react';
 
 import { IWebsitePlugin } from '../model';
 
+declare global {
+  interface Window {
+    $crisp: unknown[];
+    CRISP_WEBSITE_ID: string;
+  }
+}
+
 // Needs to be optional because the plugin renderer can't guarantee the props
 export interface ICrispChatProps extends IWebsitePlugin {
   websiteId?: string;
 }
 
-export const CrispChat = (props: ICrispChatProps): React.ReactElement => {
+export const CrispChat = (props: ICrispChatProps): null => {
   useInitialization((): void => {
     if (!props.websiteId) {
       console.error('websiteId should be provided to EveryviewAnalytics');

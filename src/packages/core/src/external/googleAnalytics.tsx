@@ -10,7 +10,7 @@ export interface IGoogleAnalyticsProp extends IWebsitePlugin {
   trackingId?: string;
 }
 
-export const GoogleAnalytics = (props: IGoogleAnalyticsProp): React.ReactElement => {
+export const GoogleAnalytics = (props: IGoogleAnalyticsProp): null => {
   useInitialization((): void => {
     if (!props.trackingId) {
       console.error('trackingId should be provided to GoogleAnalytics');
