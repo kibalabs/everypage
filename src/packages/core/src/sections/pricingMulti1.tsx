@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
+import { MissingPropError, warnDeprecated } from '@kibalabs/core-react';
 import { Alignment, Box, BulletList, BulletText, Button, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
@@ -31,17 +32,17 @@ interface IPricingTiers1Props extends ISectionProps {
 }
 
 export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement => {
+  if (props.categories == null) {
+    throw new MissingPropError(PricingTiers1.displayName, 'categories');
+  }
   if (props.categories.length > 4) {
-    throw new Error('You can only add up to 4 pricing categories');
+    throw new Error(`You can only add up to 4 pricing categories for ${PricingTiers1.displayName}`);
   }
   if (props.categories.length === 0) {
-    throw new Error('You need at least 1 pricing category');
+    throw new Error(`You need at least 1 pricing category for ${PricingTiers1.displayName}`);
   }
-  let boxVariant = props.boxVariant;
-  if (props.boxMode) {
-    console.warn('boxMode is deprecated. Please use boxVariant instead');
-    boxVariant = props.boxMode;
-  }
+  warnDeprecated(PricingTiers1.displayName, props, 'boxMode', 'boxVariant');
+  const boxVariant = props.boxVariant || props.boxMode;
 
   return (
     <Section {...props as ISectionProps} className={getClassName(PricingTiers1.displayName, props.className)}>

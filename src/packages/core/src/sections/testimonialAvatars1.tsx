@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
+import { MissingPropError, warnDeprecated } from '@kibalabs/core-react';
 import { Alignment, Box, Direction, EqualGrid, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
@@ -24,11 +25,12 @@ interface ITestimonialAvatarProps extends ISectionProps {
 }
 
 export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.ReactElement => {
-  let boxVariant = props.boxVariant;
-  if (props.boxMode) {
-    console.warn('boxMode is deprecated. Please use boxVariant instead');
-    boxVariant = props.boxMode;
+  warnDeprecated(TestimonialAvatars1.displayName, props, 'boxMode', 'boxVariant');
+  const boxVariant = props.boxVariant || props.boxMode;
+  if (props.boxes == null) {
+    throw new MissingPropError(TestimonialAvatars1.displayName, 'boxes');
   }
+
   return (
     <Section {...props as ISectionProps} className={getClassName(TestimonialAvatars1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, medium: 8 }}>

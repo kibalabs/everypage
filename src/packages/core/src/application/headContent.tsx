@@ -31,7 +31,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       {/* Everypage meta */}
       <meta name='generator' content='everypage (https://www.everypagehq.com)' />
       <meta name='everypage-version' content={process.env.PACKAGE_VERSION} />
-      <meta name='build-hash' content={website.buildHash || null} />
+      <meta name='build-hash' content={website.buildHash} />
       { website.version && <meta name='version' content={website.version} /> }
 
       {/* Fonts */}

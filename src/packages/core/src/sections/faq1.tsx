@@ -26,7 +26,7 @@ export const Faq1 = (props: IFaq1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} shouldAddGutters={true} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            {props.questions.map((question: IFaq1Question, index: number): React.ReactElement => (
+            {props.questions?.map((question: IFaq1Question, index: number): React.ReactElement => (
               <React.Fragment key={index}>
                 <Stack.Item gutterAfter={PaddingSize.Narrow}>
                   <MarkdownText textVariant='header6' textAlignment={TextAlignment.Left} source={question.questionText} textTag={'strong'} />

@@ -48,10 +48,10 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
-              {props.features.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
+              {props.features?.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
-                    {feature.mediaUrl && <LazyMedia source={feature.mediaUrl} alternativeText={feature.title} />}
+                    {feature.mediaUrl && <LazyMedia source={feature.mediaUrl} alternativeText={feature.title || `feature ${index} image`} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
                     <Spacing variant={PaddingSize.Wide} />
                     {feature.title && <MarkdownText textAlignment={TextAlignment.Center} textVariant='subtitle' source={feature.title} />}

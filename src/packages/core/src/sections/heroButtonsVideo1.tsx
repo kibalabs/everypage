@@ -48,15 +48,15 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
                         text={button.text}
                         variant={button.variant || button.mode}
                         target={button.target}
-                        iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
-                        iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                        iconLeft={button.iconIdLeft && <KibaIcon iconId={button.iconIdLeft} />}
+                        iconRight={button.iconIdRight && <KibaIcon iconId={button.iconIdRight} />}
                       />
                     );
                   })}
                 </Stack>
               </Stack.Item>
             )}
-            {props.videoUrl && <Video source={props.videoUrl} />}
+            {props.videoUrl && <Video source={props.videoUrl} alternativeText={`${props.titleText || ''} video`} />}
             {props.embeddedVideoUrl && <WebView url={props.embeddedVideoUrl} title={'Embedded Hero Video'} permissions={['fullscreen', 'autoplay', 'encrypted-media']} aspectRatio={0.5625} />}
           </Stack>
         </ResponsiveTextAlignmentView>

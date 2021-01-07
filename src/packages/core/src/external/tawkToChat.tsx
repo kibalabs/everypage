@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useInitialization } from '@kibalabs/core-react';
 
 import { IWebsitePlugin } from '../model';
@@ -9,7 +7,7 @@ export interface ITawkToChatProps extends IWebsitePlugin {
   widgetId?: string;
 }
 
-export const TawkToChat = (props: ITawkToChatProps): React.ReactElement => {
+export const TawkToChat = (props: ITawkToChatProps): null => {
   useInitialization((): void => {
     if (!props.accountId || !props.widgetId) {
       console.error('accountId and widgetId should be provided to TawkToChat');

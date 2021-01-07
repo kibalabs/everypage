@@ -23,11 +23,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "^0.6.4-next.3",
-    "@kibalabs/core": "^0.5.2",
-    "@kibalabs/core-react": "^0.5.4",
+    "@kibalabs/build": "0.6.4",
+    "@kibalabs/core": "^0.5.3-next.0",
+    "@kibalabs/core-react": "0.5.5-next.0",
     "@kibalabs/everypage": "0.8.0",
-    "@kibalabs/ui-react": "^0.8.2-next.0",
+    "@kibalabs/ui-react": "^0.8.2-next.1",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^6.2.1",
@@ -39,6 +39,8 @@
     "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
-    "@types/node": "14.0.13"
+    "@types/node": "14.0.13",
+    "@types/loadable__server": "5.12.3",
+    "@types/serve-handler": "6.1.0"
   }
 }

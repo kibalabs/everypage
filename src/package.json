@@ -18,7 +18,7 @@
     "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;",
     "lint": "lint",
     "lint-fix": "lint --fix",
-    "type-check": "type-check",
+    "type-check": "type-check --directory './packages/**/src'",
     "pack": "lerna run pack"
   },
   "devDependencies": {

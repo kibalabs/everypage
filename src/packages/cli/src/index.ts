@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import * as fs from 'fs';
+import fs from 'fs';
 import http from 'http';
-import * as path from 'path';
+import path from 'path';
 
-import { Command } from 'commander';
-import * as rimraf from 'rimraf';
+import { Command, program as commanderProgram } from 'commander';
+import rimraf from 'rimraf';
 import serverHandler from 'serve-handler';
 
 import { render } from './renderer';
@@ -27,8 +27,8 @@ export const runFromProgram = async (command: string, params: ProgramParams): Pr
   const assetsDirectory = path.join(process.cwd(), params.assetsDirectory || 'assets');
   const buildDirectory = path.join(process.cwd(), params.buildDirectory || 'tmp');
   const outputDirectory = path.join(process.cwd(), params.outputDirectory || 'dist');
-  const buildHash = params.buildHash || null;
-  const siteHost = params.siteHost || null;
+  const buildHash = params.buildHash || undefined;
+  const siteHost = params.siteHost || undefined;
 
   if (params.clean) {
     console.log('EP: Clearing build and output directories');
@@ -88,9 +88,10 @@ export const runFromProgram = async (command: string, params: ProgramParams): Pr
   rimraf.sync(buildDirectory);
 };
 
-export const createProgram = (version: string): Command => {
-  const program = new Command();
+export const createProgram = (version: string): typeof commanderProgram.Command => {
+  const program = new Command('everypage-cli');
   program.version(version);
+
   program
     .command('build')
     .description('build a production ready output')

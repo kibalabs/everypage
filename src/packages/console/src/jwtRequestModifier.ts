@@ -1,4 +1,4 @@
-import { Request, RequesterModifier, Response } from '@kibalabs/core';
+import { KibaRequest, KibaResponse, RequesterModifier } from '@kibalabs/core';
 
 import { AuthManager } from './authManager';
 
@@ -10,7 +10,7 @@ export class JwtRequestModifier extends RequesterModifier {
     this.authManager = authManager;
   }
 
-  public modifyRequest(request: Request): Request {
+  public modifyRequest(request: KibaRequest): KibaRequest {
     const jwt = this.authManager.getJwtString();
     if (jwt) {
       request.headers.Authorization = `Bearer ${jwt}`;
@@ -18,7 +18,7 @@ export class JwtRequestModifier extends RequesterModifier {
     return request;
   }
 
-  public modifyResponse(response: Response): Response {
+  public modifyResponse(response: KibaResponse): KibaResponse {
     if ('x-kiba-token' in response.headers && response.headers['x-kiba-token']) {
       this.authManager.setJwtString(response.headers['x-kiba-token']);
     }

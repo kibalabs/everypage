@@ -15,7 +15,7 @@ interface PluginRendererProps {
 export const PluginRenderer = (props: PluginRendererProps): React.ReactElement => {
   return (
     <React.Fragment>
-      {props.plugins.map((pluginProps: IWebsitePlugin, index: number): React.ReactElement => {
+      {props.plugins.map((pluginProps: IWebsitePlugin, index: number): React.ReactElement | null => {
         if (pluginProps.type === 'crisp-chat') {
           return <CrispChat key={index} {...pluginProps} />;
         }

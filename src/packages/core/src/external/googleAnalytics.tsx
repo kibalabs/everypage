@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useInitialization } from '@kibalabs/core-react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ReactGA from 'react-ga';
@@ -10,7 +8,7 @@ export interface IGoogleAnalyticsProp extends IWebsitePlugin {
   trackingId?: string;
 }
 
-export const GoogleAnalytics = (props: IGoogleAnalyticsProp): React.ReactElement => {
+export const GoogleAnalytics = (props: IGoogleAnalyticsProp): null => {
   useInitialization((): void => {
     if (!props.trackingId) {
       console.error('trackingId should be provided to GoogleAnalytics');

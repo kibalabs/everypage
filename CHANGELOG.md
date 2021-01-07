@@ -8,9 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
+- [MINOR] Created `GithubCorner` plugin
 
 ### Changed
 - [MINOR] Updated all code to pass linting check
+- [MINOR] Updated all code to pass typing check
 
 ### Removed
 
@@ -37,7 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.7.4] - 2020-12-25
 
 ### Changed
-- [PATCH] Update to make webviews lazy-loaded
+- [PATCH] Update to make `WebView` lazy-loadable
 
 ## [0.7.3] - 2020-12-25
 
@@ -62,7 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.6.9] - 2020-12-24
 
 ### Added
-- [MINOR] Preserve state of "show meta" with local storage in SiteVersionPreviewPage
+- [MINOR] Preserve state of "show meta" with local storage in `SiteVersionPreviewPage`
 
 ### Changed
 - [PATCH] Small changes in preparation for custom SSR
@@ -91,7 +93,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.6.4] - 2020-11-12
 
 ### Added
-- [MINOR] Created PanelbearAnalytics plugin
+- [MINOR] Created `PanelbearAnalytics` plugin
 
 ## [0.6.3] - 2020-10-29
 

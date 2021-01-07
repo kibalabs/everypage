@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 
-import * as everypageCli from '@kibalabs/everypage-cli';
-import * as archiver from 'archiver';
-import * as express from 'express';
-import * as morgan from 'morgan';
-import * as rimraf from 'rimraf';
+import { renderSite } from '@kibalabs/everypage-cli';
+import archiver from 'archiver';
+import express, { Request, Response } from 'express';
+import morgan from 'morgan';
+import rimraf from 'rimraf';
 
 const app = express();
 const port = 5000;
@@ -18,7 +18,7 @@ app.get('/', async (_, response) => {
   response.send('Welcome to Site Builder');
 });
 
-app.post('/v1/sites/generate', async (request, response): Promise<void> => {
+app.post('/v1/sites/generate', async (request: Request, response: Response): Promise<Response> => {
   const authSecret = request.body.authSecret;
   if (!authSecret || authSecret !== process.env.AUTH_SECRET) {
     return response.status(401).json({ message: 'Unauthorised' });
@@ -53,10 +53,10 @@ app.post('/v1/sites/generate', async (request, response): Promise<void> => {
   fs.writeFileSync(path.join(siteDirectory, 'content.json'), JSON.stringify(siteContent));
   fs.writeFileSync(path.join(siteDirectory, 'theme.json'), JSON.stringify(siteTheme));
   try {
-    await everypageCli.renderSite(siteDirectory, null, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
+    await renderSite(siteDirectory, undefined, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
   } catch (error) {
-    console.error('Error building everypageCli', error);
+    console.error('Error building site', error);
     rimraf.sync(outputDirectory);
     return response.status(500).json({ message: error.message });
   }
