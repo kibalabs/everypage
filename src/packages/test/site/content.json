@@ -9,10 +9,16 @@
   "company": "Kiba Labs",
   "companyUrl": "https://www.kibalabs.com",
   "socialCardImageUrl": "/assets/banner.png",
-  "plugins": [{
-    "type": "panelbear-analytics",
-    "siteId": "8CA6KboImrB"
-  }],
+  "plugins": [
+    {
+      "type": "panelbear-analytics",
+      "siteId": "8CA6KboImrB"
+    },
+    {
+      "type": "github-corner",
+      "githubUrl": "https://github.com/kibalabs/everypage/"
+    }
+  ],
   "sections": [
     {
       "type": "navbar-1",

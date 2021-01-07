@@ -350,7 +350,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   <Button onClick={onArchiveSiteClicked} color='secondary'>Archive</Button>
                 </Box>
                 <Typography color='textSecondary'>{`Site slug: ${site.slug}`}</Typography>
-                <Typography color='textSecondary'>{`Status: ${site.isPublishing ? <Typography color='secondary' component='span'>Promoting new version</Typography> : 'Ready'}`}</Typography>
+                <Typography color='textSecondary'>{`Status: ${site.isPublishing ? <Typography color='secondary' component='span'>Publishing new version</Typography> : 'Ready'}`}</Typography>
                 {!isCustomDomainPanelShowing && (
                   <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
                     <Typography color='textSecondary'>{`Url: ${getSiteUrl()}`}</Typography>
@@ -429,9 +429,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     <Box key={index} mt={2}>
                       <Box display='flex' justifyContent='start' alignItems='baseline'>
                         <Typography variant='subtitle1' className={classes.versionNameLabel}>{version.name || 'Unnamed'}</Typography>
-                        {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PRIMARY)</Typography>}
-                        {version.isPublishing && <Typography color='secondary' component='span'>Promoting</Typography>}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Set primary</Button>}
+                        {version.siteVersionId === primaryVersionId && <Typography color='textSecondary' className={classes.versionPrimaryLabel}>(PUBLISHED)</Typography>}
+                        {version.isPublishing && <Typography color='secondary' component='span'>Publishing</Typography>}
+                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onSetPrimaryClicked(version)}>Publish</Button>}
                         {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button color='primary' disabled={site.isPublishing} className={classes.versionButton} onClick={() => onArchiveClicked(version)}>ARCHIVE</Button>}
                         {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button>}
                         {version.publishDate && <Button color='primary' className={classes.versionButton}><Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button>}
@@ -472,7 +472,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
             Choose Template
           </Button>
           <Button color='primary' variant='contained' onClick={onClonePrimaryClicked}>
-            Clone primary
+            Clone Published
           </Button>
         </DialogActions>
         <DialogActions>

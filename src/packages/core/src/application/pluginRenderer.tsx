@@ -2,6 +2,7 @@ import React from 'react';
 
 import { CrispChat } from '../external/crispChat';
 import { EveryviewAnalytics } from '../external/everyviewAnalytics';
+import { GithubCorner } from '../external/githubCorner';
 import { GoogleAnalytics } from '../external/googleAnalytics';
 import { PanelbearAnalytics } from '../external/panelbearAnalytics';
 import { TawkToChat } from '../external/tawkToChat';
@@ -29,6 +30,9 @@ export const PluginRenderer = (props: PluginRendererProps): React.ReactElement =
         }
         if (pluginProps.type === 'panelbear-analytics') {
           return <PanelbearAnalytics key={index} {...pluginProps} />;
+        }
+        if (pluginProps.type === 'github-corner') {
+          return <GithubCorner key={index} {...pluginProps} />;
         }
         console.error(`Unrecognized plugin: ${pluginProps.type}`);
         return null;
