@@ -10,25 +10,34 @@ export interface GithubCornerProps {
   height?: number;
 }
 
+interface StyledSvgProps {
+  fill: string;
+  color: string;
+}
 
-export const GithubCorner = (props: GithubCornerProps): React.ReactElement => {
-  const StyledLink = styled.a`
+const StyledLink = styled.a`
   cursor: pointer;
-  z-index: 9999;
-  `;
+`;
 
-  const StyledSvg = styled.svg`
-  fill: ${props.fill};
-  color: ${props.color};
+const StyledSvg = styled.svg<StyledSvgProps>`
+  fill: ${(props: StyledSvgProps) => props.fill};
+  color: ${(props: StyledSvgProps) => props.color};
   position: absolute;
   top: 0;
   border: 0;
   right: 0;
-  `;
+`;
 
+export const GithubCorner = (props: GithubCornerProps): React.ReactElement => {
   return (
     <StyledLink href={props.githubUrl} target='_blank' rel='noopener'>
-      <StyledSvg width={props.width} height={props.height} viewBox='0 0 250 250'>
+      <StyledSvg
+        fill={props.fill}
+        color={props.color}
+        width={props.width}
+        height={props.height}
+        viewBox='0 0 250 250'
+      >
         <path
           d='M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z'
         />
