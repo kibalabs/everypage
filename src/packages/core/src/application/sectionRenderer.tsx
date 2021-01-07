@@ -1,6 +1,6 @@
 import React from 'react';
-import { IWebsiteSection } from '../model';
 
+import { IWebsiteSection } from '../model';
 import * as sections from '../sections';
 
 type SectionMap = Record<string, React.ComponentType>;

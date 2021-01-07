@@ -786,7 +786,7 @@ export class ListTemplateCategoriesResponse extends ResponseData {
 
   public static fromObject = (obj: Record<string, unknown>): ListTemplateCategoriesResponse => {
     return new ListTemplateCategoriesResponse(
-      (obj.templateCategories  as Record<string, unknown>[]).map((templateCategory: Record<string, unknown>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
+      (obj.templateCategories as Record<string, unknown>[]).map((templateCategory: Record<string, unknown>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
     );
   }
 }

@@ -1,4 +1,4 @@
-import { KibaRequest, RequesterModifier, KibaResponse } from '@kibalabs/core';
+import { KibaRequest, KibaResponse, RequesterModifier } from '@kibalabs/core';
 
 import { AuthManager } from './authManager';
 

@@ -27,7 +27,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
   if (props.boxes == null) {
     throw new MissingPropError(StatisticBoxes1.displayName, 'boxes');
   }
-  
+
   return (
     <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>

@@ -18,18 +18,18 @@ export const warnDeprecated = (componentName: string, props: Record<string, unkn
     const suffix = newPropName ? ` Please use ${newPropName} instead.` : '';
     console.warn(`${deprecatedPropName} is deprecated in ${componentName}. ${suffix}`);
   }
-}
+};
 
 export class MissingPropsError extends Error {
   constructor(componentName: string, missingPropNames: string[]) {
-    super(`${missingPropNames} must be passed to ${componentName}`); // (1)
+    super(`${missingPropNames} must be passed to ${componentName}`);
     this.name = 'MissingPropsError';
   }
 }
 
 export class MissingPropError extends Error {
   constructor(componentName: string, missingPropName: string) {
-    super(`${missingPropName} must be passed to ${componentName}`); // (1)
+    super(`${missingPropName} must be passed to ${componentName}`);
     this.name = 'MissingPropError';
   }
 }
