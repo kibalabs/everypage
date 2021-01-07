@@ -46,7 +46,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   const pages = loadPathsFromDirectory(siteDirectory, '', buildHash, initialContent, undefined);
   console.log(`EP: loaded ${pages.length} pages`);
   const content404 = fs.existsSync(path.join(siteDirectory, '404.json')) ? loadContentFromFileSync(path.join(siteDirectory, '404.json')) : default404Content;
-  const page404 = { path: '404', filename: '/404.html', content: content404, theme: pages[0].theme };
+  const page404: IPage = { path: '404', filename: '/404.html', content: content404 as unknown as IWebsite, theme: pages[0].theme };
 
   const siteData = {
     routes: pages,

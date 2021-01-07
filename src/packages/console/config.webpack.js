@@ -5,6 +5,7 @@ const path = require('path');
 const nodeModulesDirectory = path.join(__dirname, '..', '..', './node_modules');
 
 module.exports = (config) => {
+  // NOTE(krishan711): this enables running with locally linked packages
   config.resolve = config.resolve || {};
   config.resolve.alias = {
     ...(config.resolve.alias || {}),

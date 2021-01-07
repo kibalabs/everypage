@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 
 import { IMultiAnyChildProps, ISingleAnyChildProps } from '@kibalabs/core-react';
 
-export const HeadRootContext = React.createContext<Element | null>(null);
+export const HeadRootContext = React.createContext<React.ReactElement | null>(null);
 
 interface IHeadRootProviderProps extends ISingleAnyChildProps {
-  root: Element;
+  root: React.ReactElement;
 }
 
 export const HeadRootProvider = (props: IHeadRootProviderProps): React.ReactElement => {
@@ -18,7 +18,7 @@ export const HeadRootProvider = (props: IHeadRootProviderProps): React.ReactElem
   );
 };
 
-export function useHeadRoot(): Element | null {
+export function useHeadRoot(): React.ReactElement | null {
   const headRoot = React.useContext(HeadRootContext);
   // if (!headRoot) {
   //   throw Error('No headRoot has been set!');
@@ -41,12 +41,12 @@ export const Head = (props: IHeadProps): React.ReactElement | null => {
 };
 
 interface IChildCaptureProps extends IMultiAnyChildProps {
-  headElements: Element[];
+  headElements: React.ReactNode[];
 }
 
 export const ChildCapture = (props: IChildCaptureProps): React.ReactElement | null => {
   if (props.children) {
-    props.headElements.push(props.children as Element);
+    props.headElements.push(props.children as React.ReactNode);
   }
   return null;
 };

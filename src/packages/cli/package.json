@@ -24,10 +24,10 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@kibalabs/build": "0.6.4-next.6",
-    "@kibalabs/core": "file:/Users/krishan/Projects/core-js",
-    "@kibalabs/core-react": "file:/Users/krishan/Projects/core-react",
+    "@kibalabs/core": "file:/Users/krishan/Projects/core-js/kibalabs-core-0.5.2.tgz",
+    "@kibalabs/core-react": "file:/Users/krishan/Projects/core-react/kibalabs-core-react-0.5.4.tgz",
     "@kibalabs/everypage": "0.8.0",
-    "@kibalabs/ui-react": "file:/Users/krishan/Projects/ui-react",
+    "@kibalabs/ui-react": "file:/Users/krishan/Projects/ui-react/kibalabs-ui-react-0.8.1.tgz",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^6.2.1",
