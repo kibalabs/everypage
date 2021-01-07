@@ -18,6 +18,7 @@ export const Meta = (props: IMetaProps): React.ReactElement => {
   let socialCardImageUrl = website.socialCardImageUrl;
   if (!socialCardImageUrl) {
     // TODO(krishan711): set a default image!
+    socialCardImageUrl = '';
   } else if (socialCardImageUrl.startsWith('/')) {
     socialCardImageUrl = `https://${website.siteHost}${socialCardImageUrl}`;
   }
@@ -47,7 +48,7 @@ export const Meta = (props: IMetaProps): React.ReactElement => {
               <Text variant='strong'>Favicon</Text>
               {website.faviconImageUrl && !website.faviconImageUrl.startsWith('<') ? (
                 <Box width='100px' variant='transparent'>
-                  <Image source={website.faviconImageUrl} />
+                  <Image source={website.faviconImageUrl} alternativeText={'Site favicon'} />
                 </Box>
               ) : (
                 <Text>(not set)</Text>

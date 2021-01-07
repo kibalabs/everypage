@@ -88,7 +88,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         ) : (
           <Stack childAlignment={Alignment.Center}>
             <Box width={'100px'} variant='transparent'>
-              <LazyImage source={iosAppData.iconImageUrl} />
+              <LazyImage source={iosAppData.iconImageUrl} alternativeText={'ios app icon'} />
             </Box>
             <Text>{iosAppData.name}</Text>
             <Text variant='note'>{iosAppData.description ? `${iosAppData.description.substr(0, 150)}...` : 'no description found'}</Text>
@@ -106,7 +106,7 @@ export const TwitterAppCard = (props: ITwitterAppCardProps): React.ReactElement 
         ) : (
           <Stack childAlignment={Alignment.Center}>
             <Box width={'100px'} variant='transparent'>
-              <LazyImage source={androidAppData.iconImageUrl} />
+              <LazyImage source={androidAppData.iconImageUrl} alternativeText={'android app icon'} />
             </Box>
             <Text>{androidAppData.name}</Text>
             <Text variant='note'>{androidAppData.description ? `${androidAppData.description.substr(0, 150)}...` : 'no description found'}</Text>

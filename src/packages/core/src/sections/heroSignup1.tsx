@@ -22,29 +22,33 @@ interface IHeroSignup1Props extends ISectionProps, IFormProps {
 }
 
 export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
-  const [input, setInput] = React.useState<string | null>(null);
+  const [input, setInput] = React.useState<string>('');
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = React.useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
+  const [successMessage, setSuccessMessage] = React.useState<string | undefined>(undefined);
+  const inputType = props.inputType || InputType.Email;
+  const inputName = props.inputName || inputType;
+  const inputButtonText = props.inputButtonText || 'Submit';
+  const additionalFormInputs = props.formAdditionalInputs || [];
 
   const onInputValueChanged = (value: string): void => {
     setInput(value);
-    setErrorMessage(null);
-    setSuccessMessage(null);
+    setErrorMessage(undefined);
+    setSuccessMessage(undefined);
   };
 
   const onFormSubmitted = async (): Promise<void> => {
-    const validationResult = validateInput(input, props.inputType);
+    const validationResult = validateInput(input, inputType);
     if (!validationResult.isValid) {
-      setErrorMessage(validationResult.errorMessage);
+      setErrorMessage(validationResult.errorMessage || 'Input is not valid.');
       return;
     }
     setIsLoading(true);
-    setErrorMessage(null);
-    const result = await submitForm([{ value: input, type: props.inputType, name: props.inputName }, ...props.formAdditionalInputs], props.formAction, props.formTarget, props.formHeaders);
+    setErrorMessage(undefined);
+    const result = await submitForm([{ value: input, type: inputType, name: inputName }, ...additionalFormInputs], props.formAction, props.formTarget, props.formHeaders);
     setIsLoading(false);
     if (result.isSuccessful) {
-      setSuccessMessage(props.inputSuccessMessageText);
+      setSuccessMessage(props.inputSuccessMessageText || 'Success.');
     } else {
       setErrorMessage(result.responseMessage);
     }
@@ -65,8 +69,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
                         inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                        inputType={props.inputType}
-                        name={props.inputName}
+                        inputType={inputType}
+                        name={inputName}
                         placeholderText={props.inputPlaceholderText}
                         value={input}
                         onValueChanged={onInputValueChanged}
@@ -76,7 +80,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Button
                       variant='primary'
                       buttonType='submit'
-                      text={props.inputButtonText}
+                      text={inputButtonText}
                       isLoading={isLoading}
                     />
                   </Stack>
@@ -86,8 +90,8 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Stack.Item growthFactor={1} gutterAfter={PaddingSize.Default}>
                       <SingleLineInput
                         inputWrapperVariant={errorMessage ? 'error' : successMessage ? 'success' : ''}
-                        inputType={props.inputType}
-                        name={props.inputName}
+                        inputType={inputType}
+                        name={inputName}
                         placeholderText={props.inputPlaceholderText}
                         value={input}
                         onValueChanged={onInputValueChanged}
@@ -97,7 +101,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
                     <Button
                       variant='primary'
                       buttonType='submit'
-                      text={props.inputButtonText}
+                      text={inputButtonText}
                       isLoading={isLoading}
                       isFullWidth={true}
                     />

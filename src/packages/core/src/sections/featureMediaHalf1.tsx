@@ -11,6 +11,7 @@ import { EverypagePaddingSize } from '../internal';
 interface IFeatureMediaHalf1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
+  bodyText?: string;
   leftMediaUrl?: string;
   rightMediaUrl?: string;
 }

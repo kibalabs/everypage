@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
+import { MissingPropError, warnDeprecated } from '@kibalabs/core-react';
 import { Alignment, Box, Direction, EqualGrid, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyImage, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
-import { MissingPropError, warnDeprecated } from '../util';
 
 interface ITestimonialAvatarsBox {
   text: string;

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
+import { MissingPropError, warnDeprecated } from '@kibalabs/core-react';
 import { Alignment, Box, BulletList, BulletText, Button, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
-import { MissingPropError, warnDeprecated } from '../util';
 
 interface IPricingTiers1Feature {
   text: string;

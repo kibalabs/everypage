@@ -23,8 +23,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "file:/Users/krishan/Projects/build-js/kibalabs-build-0.6.3-32.tgz",
-    "@kibalabs/core": "^0.5.2",
+    "@kibalabs/build": "0.6.4-next.6",
+    "@kibalabs/core": "file:/Users/krishan/Projects/core-js",
     "@kibalabs/core-react": "file:/Users/krishan/Projects/core-react",
     "@kibalabs/everypage": "0.8.0",
     "@kibalabs/ui-react": "file:/Users/krishan/Projects/ui-react",

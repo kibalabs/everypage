@@ -6,7 +6,7 @@ import { Section } from '.';
 
 export const Attribution = (): React.ReactElement => {
   return (
-    <Section colorVariant='everypageAttribution'>
+    <Section type={Attribution.displayName} colorVariant='everypageAttribution'>
       <Stack childAlignment={Alignment.Center} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} isFullWidth={true}>
         <Text alignment={TextAlignment.Center}>
           {'Made with '}

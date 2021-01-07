@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
+import { ensureSingleDefined } from '@kibalabs/core-react';
 import { Direction, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, Video, WebView } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
-import { ensureSingleDefined } from '../util';
 
 interface IVideo1Props extends ISectionProps {
   titleText?: string;
