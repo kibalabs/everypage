@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
@@ -36,29 +36,23 @@ export const VerifyEmailPage = (): React.ReactElement => {
         <Stack direction={Direction.Vertical} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
-            <Text variant='header5' tag='h1' alignment={TextAlignment.Center}>
-          Please check your email
-            </Text>
-            <br />
-            <br />
-            <Text>
-          We need to verify your email before you can create and edit sites. It only takes a second, please check your inbox for an email from everypass@kibalabs.com.
-            </Text>
-            <br />
-            <br />
-            <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center}>
-              {!verificationSent && (
-                <Button
-                  isFullWidth={false}
-                  onClicked={onResendVerificationClicked}
-                  text='Resend Verification'
-                />
-              )}
-              {verificationSent && (
-                <Text variant='colored'>
-            Email sent.
-                </Text>
-              )}
+            <Text variant='header5' tag='h1' alignment={TextAlignment.Center}>Please check your email</Text>
+            <Spacing variant={PaddingSize.Wide2} />
+            <Text>We need to verify your email before you can create and edit sites. It only takes a second, please check your inbox for an email from everypass@kibalabs.com.</Text>
+            <Spacing variant={PaddingSize.Wide2} />
+            <Stack>
+              <Stack.Item alignment={Alignment.Center}>
+                {!verificationSent && (
+                  <Button
+                    isFullWidth={false}
+                    onClicked={onResendVerificationClicked}
+                    text='Resend Verification'
+                  />
+                )}
+                {verificationSent && (
+                  <Text variant='colored'>Email sent.</Text>
+                )}
+              </Stack.Item>
             </Stack>
           </Box>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
