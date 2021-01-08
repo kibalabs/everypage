@@ -10,15 +10,15 @@ jobs:
         working-directory: src
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      DOCKER_IMAGE_CONSOLE: docker.pkg.github.com/${{ github.repository }}/everypage-console
+      DOCKER_IMAGE_CONSOLE: ghcr.io/${{ github.repository }}-console
       DOCKER_TAG_CONSOLE: latest
-      DOCKER_IMAGE_BUILDER_API: docker.pkg.github.com/${{ github.repository }}/everypage-builder-api
+      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api
       DOCKER_TAG_BUILDER_API: latest
     steps:
     - name: Check out the repo
       uses: actions/checkout@v2
-    - name: Login to GitHub Packages Docker Registry
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.repository_owner }} --password-stdin
+    - name: Login to GitHub container registry
+      run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
     - name: Create .npmrc file
       run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
     - name: Build docker image
@@ -27,11 +27,11 @@ jobs:
       run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages npm run publish
     - name: Build console docker image
       run: docker build --target console --tag $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE .
-    - name: Push console to GitHub Packages
+    - name: Push console to container registry
       run: docker push $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE
     - name: Build builder-api docker image
       run: docker build --target builder-api --tag $DOCKER_IMAGE_BUILDER_API:$DOCKER_TAG_BUILDER_API .
-    - name: Push builder-api to GitHub Packages
+    - name: Push builder-api to container registry
       run: docker push $DOCKER_IMAGE_BUILDER_API:$DOCKER_TAG_BUILDER_API
   run-all:
     needs: deploy-all
