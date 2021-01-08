@@ -2,12 +2,12 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-import { Button, ResponsiveContainingView, ContainingView, Text, SingleLineInput, Box, Stack, Direction, PaddingSize, Alignment, Form, TextAlignment, InputType } from "@kibalabs/ui-react";
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -109,94 +109,94 @@ export const CreateSitePage = (): React.ReactElement => {
 
   return (
     <ContainingView>
-    <ResponsiveContainingView size={12} sizeResponsive={{small: 12, medium: 8, large: 5}}>
-      <NavigationBar />
-      <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 12, medium: 8, large: 5 }}>
+        <NavigationBar />
+        <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
-        <Box variant='card'>
-        <Stack direction={Direction.Vertical} shouldAddGutters={true}>
-          <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
-            <Text tag='h1' variant='header5'>Create a new site</Text>
-          </Stack.Item>
-          {accounts === null ? (
-            <Text tag='p'>
-              {'An error occurred. Please try again later.'}
-            </Text>
-          ) : (
-            <Form isLoading={isLoading || accounts === undefined}  onFormSubmitted={onCreateSiteClicked}>
-              <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true}>
-              <FormControl
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-              >
-                <InputLabel id='account-select-label'>Account</InputLabel>
-                <Select
-                  labelId='account-select-label'
-                  value={selectedAccountId}
-                  onChange={onAccountSelected}
-                  error={selectedAccountIdError !== undefined}
-                  label='Account'
-                  // helperText={selectedAccountIdError}
-                >
-                  {accounts?.map((account: Account, index: number): React.ReactElement => (
-                    <MenuItem key={index} value={account.accountId}>{account.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <SingleLineInput
-              id='slug'
-              label='Site slug'
-              name='slug'
-              value={slug}
-              onValueChanged={onSlugChanged}
-              inputType={InputType.Text}
-              inputWrapperVariant={slugError ? 'error' : ''}
-              messageText={slugError}
-              placeholderText='Site slug'
-              />
-              <Text variant='small' alignment={TextAlignment.Left}>
-                {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
-              </Text>
-              <SingleLineInput
-              id='name'
-              label='Site name'
-              name='name'
-              value={name}
-              onValueChanged={onNameChanged}
-              inputType={InputType.Text}
-              inputWrapperVariant={nameError ? 'error' : ''}
-              messageText={nameError}
-              placeholderText='Site name'
-              />
-              <SingleLineInput
-              id='template'
-              label='Site template'
-              name='template'
-              value={template ? template.name : 'Blank'}
-              inputType={InputType.Text}
-              onClick={onTemplateChoiceClicked}
-              placeholderText='Site template'
-              />
-              <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide} gutterAfter={PaddingSize.Wide}>
-              <Button
-                buttonType='submit'
-                isFullWidth={true}
-                variant='primary'
-                text='Create Site'
-              />
+          <Box variant='card'>
+            <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+              <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
+                <Text tag='h1' variant='header5'>Create a new site</Text>
               </Stack.Item>
-              </Stack>
-            </Form>
-          )}
-          </Stack>
-        </Box>
-        <Stack.Item growthFactor={1} shrinkFactor={1} />
+              {accounts === null ? (
+                <Text tag='p'>
+                  {'An error occurred. Please try again later.'}
+                </Text>
+              ) : (
+                <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
+                  <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true}>
+                    <FormControl
+                      variant='outlined'
+                      margin='normal'
+                      required
+                      fullWidth
+                    >
+                      <InputLabel id='account-select-label'>Account</InputLabel>
+                      <Select
+                        labelId='account-select-label'
+                        value={selectedAccountId}
+                        onChange={onAccountSelected}
+                        error={selectedAccountIdError !== undefined}
+                        label='Account'
+                        // helperText={selectedAccountIdError}
+                      >
+                        {accounts?.map((account: Account, index: number): React.ReactElement => (
+                          <MenuItem key={index} value={account.accountId}>{account.name}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <SingleLineInput
+                      id='slug'
+                      label='Site slug'
+                      name='slug'
+                      value={slug}
+                      onValueChanged={onSlugChanged}
+                      inputType={InputType.Text}
+                      inputWrapperVariant={slugError ? 'error' : ''}
+                      messageText={slugError}
+                      placeholderText='Site slug'
+                    />
+                    <Text variant='small' alignment={TextAlignment.Left}>
+                      {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
+                    </Text>
+                    <SingleLineInput
+                      id='name'
+                      label='Site name'
+                      name='name'
+                      value={name}
+                      onValueChanged={onNameChanged}
+                      inputType={InputType.Text}
+                      inputWrapperVariant={nameError ? 'error' : ''}
+                      messageText={nameError}
+                      placeholderText='Site name'
+                    />
+                    <SingleLineInput
+                      id='template'
+                      label='Site template'
+                      name='template'
+                      value={template ? template.name : 'Blank'}
+                      inputType={InputType.Text}
+                      onClick={onTemplateChoiceClicked}
+                      placeholderText='Site template'
+                    />
+                    <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide} gutterAfter={PaddingSize.Wide}>
+                      <Button
+                        buttonType='submit'
+                        isFullWidth={true}
+                        variant='primary'
+                        text='Create Site'
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Form>
+              )}
+            </Stack>
+          </Box>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
-      {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-      <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
-    </ResponsiveContainingView>
+        {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
+        <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
+      </ResponsiveContainingView>
     </ContainingView>
   );
 };
