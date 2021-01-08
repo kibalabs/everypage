@@ -1,26 +1,11 @@
 import React from 'react';
 
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-}));
-
 export const VerifyEmailPage = (): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
@@ -46,32 +31,33 @@ export const VerifyEmailPage = (): React.ReactElement => {
   });
 
   return (
-    <Container component='main' maxWidth='sm'>
-      <Paper className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Please check your email
-        </Typography>
-        <br />
-        <br />
-        <Typography>
-          We need to verify your email before you can create and edit sites. It only takes a second, please check your inbox for an email from everypass@kibalabs.com.
-        </Typography>
-        <br />
-        <br />
-        {!verificationSent && (
-          <Button
-            variant='outlined'
-            onClick={onResendVerificationClicked}
-          >
-            Resend Verification
-          </Button>
-        )}
-        {verificationSent && (
-          <Typography color='textPrimary'>
-            Email sent.
-          </Typography>
-        )}
-      </Paper>
-    </Container>
+    <ContainingView isCenteredHorizontally>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
+        <Stack direction={Direction.Vertical} isFullHeight={true}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Box variant='card' isFullWidth={false}>
+            <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide2}>
+              <Text variant='header5' tag='h1' alignment={TextAlignment.Center}>Please check your email</Text>
+              <Text>We need to verify your email before you can create and edit sites. It only takes a second, please check your inbox for an email from everypass@kibalabs.com.</Text>
+              {!verificationSent && (
+                <Stack.Item alignment={Alignment.Center}>
+                  <Button
+                    isFullWidth={false}
+                    onClicked={onResendVerificationClicked}
+                    text='Resend Verification'
+                  />
+                </Stack.Item>
+              )}
+              {verificationSent && (
+                <Stack.Item alignment={Alignment.Center}>
+                  <Text variant='bold'>Email sent.</Text>
+                </Stack.Item>
+              )}
+            </Stack>
+          </Box>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+        </Stack>
+      </ResponsiveContainingView>
+    </ContainingView>
   );
 };
