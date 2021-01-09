@@ -2,18 +2,31 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-
+import styled from 'styled-components';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { Account, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
+
+interface IStyledBox {
+  bordered?: boolean;
+}
+
+const StyledBox = styled.div<IStyledBox>`
+  border: ${(props: IStyledBox): string => (props.bordered ? '0.5px solid #e8e8e8' : 'none')};
+  border-radius: ${(props: IStyledBox): string => (props.bordered ? '0.5em' : '')};
+`;
+
+StyledBox.defaultProps = {
+  bordered: false,
+};
 
 export const CreateSitePage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
@@ -119,9 +132,7 @@ export const CreateSitePage = (): React.ReactElement => {
                 <Text tag='h1' variant='header5'>Create a new site</Text>
               </Stack.Item>
               {accounts === null ? (
-                <Text tag='p'>
-                  {'An error occurred. Please try again later.'}
-                </Text>
+                <Text variant='note'>An error occurred. Please try again later.</Text>
               ) : (
                 <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
                   <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true}>
@@ -152,13 +163,10 @@ export const CreateSitePage = (): React.ReactElement => {
                       value={slug}
                       onValueChanged={onSlugChanged}
                       inputType={InputType.Text}
-                      inputWrapperVariant={slugError ? 'error' : ''}
-                      messageText={slugError}
+                      inputWrapperVariant={slugError ? 'error' : 'default'}
+                      messageText={slugError || (!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`)}
                       placeholderText='Site slug'
                     />
-                    <Text variant='small' alignment={TextAlignment.Left}>
-                      {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
-                    </Text>
                     <SingleLineInput
                       id='name'
                       label='Site name'
@@ -170,15 +178,19 @@ export const CreateSitePage = (): React.ReactElement => {
                       messageText={nameError}
                       placeholderText='Site name'
                     />
-                    <SingleLineInput
-                      id='template'
-                      label='Site template'
-                      name='template'
-                      value={template ? template.name : 'Blank'}
-                      inputType={InputType.Text}
-                      onClick={onTemplateChoiceClicked}
-                      placeholderText='Site template'
-                    />
+                    <StyledBox bordered>
+                      <Stack direction={Direction.Horizontal} padding={PaddingSize.Narrow} paddingLeft={PaddingSize.Wide1}>
+                        <Stack.Item alignment={Alignment.Center}>
+                          <Text tag='h2'>{template ? template.name : 'Blank'}</Text>
+                        </Stack.Item>
+                        <Stack.Item growthFactor={1} shrinkFactor={1} />
+                        <IconButton
+                          variant='primary'
+                          icon={<KibaIcon iconId='ion-pencil' />}
+                          onClicked={onTemplateChoiceClicked}
+                        />
+                      </Stack>
+                    </StyledBox>
                     <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide} gutterAfter={PaddingSize.Wide}>
                       <Button
                         buttonType='submit'
