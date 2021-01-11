@@ -339,6 +339,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           ) : (
             <React.Fragment>
               <Box variant='card'>
+                <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
                   <Text variant='header5'>{site.name}</Text>
                   <Button target={getSiteUrl()} text='Open' />
@@ -346,9 +347,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   <Button onClicked={onArchiveSiteClicked} text='Archive' />
                 </Stack>
                 <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Site slug: ${site.slug}`}</Text>
-                <Spacing variant={PaddingSize.Narrow} />
                 <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Status: ${site.isPublishing ? <Text variant='note' tag='span'>Publishing new version</Text> : 'Ready'}`}</Text>
-                <Spacing variant={PaddingSize.Narrow} />
                 {!isCustomDomainPanelShowing && (
                   <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
                     <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Url: ${getSiteUrl()}`}</Text>
@@ -357,8 +356,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                   </Stack>
                 )}
                 {isCustomDomainPanelShowing && (
-                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
-                    <Text variant='header3'><strong>Custom domain set up</strong></Text>
+                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                    <Text variant='header5' tag='strong'>Custom domain set up</Text>
                     {!newCustomDomain && (
                       <React.Fragment>
                         <Text variant='header6'>What domain would you like to point to this site?</Text>
@@ -375,20 +374,23 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           error={newCustomDomainError !== undefined}
                           helperText={newCustomDomainError}
                         /> */}
+                        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                         <SingleLineInput
                           name='domain'
                           inputType={InputType.Url}
                           id='domain'
                           value={newCustomDomainValue}
                           onValueChanged={onNewCustomDomainValueChanged}
-                          error={newCustomDomainError !== undefined}
+                          inputWrapperVariant={newCustomDomainError}
                           messageText={newCustomDomainError}
                         />
                         <Button
                           variant='primary'
+                          isFullWidth={false}
                           onClicked={onCustomDomainNextClicked}
                           text='Next'
                         />
+                        </Stack>
                       </React.Fragment>
                     )}
                     {newCustomDomain && (
@@ -419,6 +421,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                     {!site.customDomain && <Button onClicked={onRemoveBrandingClicked} text='Upgrade to remove' /> }
                   </Stack>
                 )}
+                </Stack>
               </Box>
               <Box variant='card'>
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
