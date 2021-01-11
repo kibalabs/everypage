@@ -2,7 +2,7 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, InputType, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Container, ContainingView, Direction, InputType, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -326,42 +326,41 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         <ResponsiveContainingView isFullWidth={true} size={12} sizeResponsive={{ medium: 10, large: 8 }}>
           <Spacing direction={Direction.Vertical} variant={PaddingSize.Wide4} />
           {site === null ? (
-            <div>Site not found</div>
+            <Container>Site not found</Container>
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
-            <div>Loading...</div>
+            <Container>Loading...</Container>
           ) : site.archiveDate ? (
-            <div>
+            <Container>
               This site has been archived 📦.
-              <br />
-              <br />
+              <Spacing variant={PaddingSize.Wide} />
               Please contact us if you want it to be restored.
-            </div>
+            </Container>
           ) : (
             <React.Fragment>
               <Box variant='card'>
                 <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
-                  <Text variant='header5'>{site.name}</Text>
-                  <Button target={getSiteUrl()} text='Open' />
-                  <Stack.Item growthFactor={1} shrinkFactor={1} />
-                  <Button onClicked={onArchiveSiteClicked} text='Archive' />
-                </Stack>
-                <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Site slug: ${site.slug}`}</Text>
-                <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Status: ${site.isPublishing ? <Text variant='note' tag='span'>Publishing new version</Text> : 'Ready'}`}</Text>
-                {!isCustomDomainPanelShowing && (
-                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                    <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Url: ${getSiteUrl()}`}</Text>
-                    {!site.customDomain && <Button onClicked={onSetCustomDomainClicked} text='Customize' /> }
-                    {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClicked={onSiteStatusClicked} text={site.customDomainStatus} /> }
+                  <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
+                    <Text variant='header5'>{site.name}</Text>
+                    <Button target={getSiteUrl()} text='Open' />
+                    <Stack.Item growthFactor={1} shrinkFactor={1} />
+                    <Button onClicked={onArchiveSiteClicked} text='Archive' />
                   </Stack>
-                )}
-                {isCustomDomainPanelShowing && (
-                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                    <Text variant='header5' tag='strong'>Custom domain set up</Text>
-                    {!newCustomDomain && (
-                      <React.Fragment>
-                        <Text variant='header6'>What domain would you like to point to this site?</Text>
-                        {/* <TextField
+                  <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Site slug: ${site.slug}`}</Text>
+                  <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Status: ${site.isPublishing ? <Text variant='note' tag='span'>Publishing new version</Text> : 'Ready'}`}</Text>
+                  {!isCustomDomainPanelShowing && (
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
+                      <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Url: ${getSiteUrl()}`}</Text>
+                      {!site.customDomain && <Button onClicked={onSetCustomDomainClicked} text='Customize' /> }
+                      {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClicked={onSiteStatusClicked} text={site.customDomainStatus} /> }
+                    </Stack>
+                  )}
+                  {isCustomDomainPanelShowing && (
+                    <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                      <Text variant='header5' tag='strong'>Custom domain set up</Text>
+                      {!newCustomDomain && (
+                        <React.Fragment>
+                          <Text variant='header6'>What domain would you like to point to this site?</Text>
+                          {/* <TextField
                           autoFocus
                           variant='outlined'
                           margin='normal'
@@ -374,53 +373,53 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           error={newCustomDomainError !== undefined}
                           helperText={newCustomDomainError}
                         /> */}
-                        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                        <SingleLineInput
-                          name='domain'
-                          inputType={InputType.Url}
-                          id='domain'
-                          value={newCustomDomainValue}
-                          onValueChanged={onNewCustomDomainValueChanged}
-                          inputWrapperVariant={newCustomDomainError}
-                          messageText={newCustomDomainError}
-                        />
-                        <Button
-                          variant='primary'
-                          isFullWidth={false}
-                          onClicked={onCustomDomainNextClicked}
-                          text='Next'
-                        />
-                        </Stack>
-                      </React.Fragment>
-                    )}
-                    {newCustomDomain && (
-                      <React.Fragment>
-                        <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
-                        <Text variant='note'>(just message us if you need help with this)</Text>
-                        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
-                          <Text>{newCustomDomain}</Text>
-                          <Text>{' ➡️ '}</Text>
-                          <Text>{`${site.slug}.int.evrpg.com`}</Text>
-                        </Stack>
-                        {newCustomDomainApiError && (
-                          <Text variant='colored' theme={{ color: '--color-error' }}>Something went wrong on our side. Please try again later or contact support.</Text>
-                        )}
-                        <Text variant='note'>It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!</Text>
-                        <Button
-                          variant='primary'
-                          onClicked={onCustomDomainSetClicked}
-                          text='Done'
-                        />
-                      </React.Fragment>
-                    )}
-                  </Stack>
-                )}
-                {(account.accountType === 'core' || account.accountType === 'starter') && (
-                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                    <Text theme={{ color: 'var(--color-text-light25)' }}>Branding: Made with everypage</Text>
-                    {!site.customDomain && <Button onClicked={onRemoveBrandingClicked} text='Upgrade to remove' /> }
-                  </Stack>
-                )}
+                          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                            <SingleLineInput
+                              name='domain'
+                              inputType={InputType.Url}
+                              id='domain'
+                              value={newCustomDomainValue}
+                              onValueChanged={onNewCustomDomainValueChanged}
+                              inputWrapperVariant={newCustomDomainError}
+                              messageText={newCustomDomainError}
+                            />
+                            <Button
+                              variant='primary'
+                              isFullWidth={false}
+                              onClicked={onCustomDomainNextClicked}
+                              text='Next'
+                            />
+                          </Stack>
+                        </React.Fragment>
+                      )}
+                      {newCustomDomain && (
+                        <React.Fragment>
+                          <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
+                          <Text variant='note'>(just message us if you need help with this)</Text>
+                          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
+                            <Text>{newCustomDomain}</Text>
+                            <Text>{' ➡️ '}</Text>
+                            <Text>{`${site.slug}.int.evrpg.com`}</Text>
+                          </Stack>
+                          {newCustomDomainApiError && (
+                            <Text variant='colored' theme={{ color: '--color-error' }}>Something went wrong on our side. Please try again later or contact support.</Text>
+                          )}
+                          <Text variant='note'>It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!</Text>
+                          <Button
+                            variant='primary'
+                            onClicked={onCustomDomainSetClicked}
+                            text='Done'
+                          />
+                        </React.Fragment>
+                      )}
+                    </Stack>
+                  )}
+                  {(account.accountType === 'core' || account.accountType === 'starter') && (
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
+                      <Text theme={{ color: 'var(--color-text-light25)' }}>Branding: Made with everypage</Text>
+                      {!site.customDomain && <Button onClicked={onRemoveBrandingClicked} text='Upgrade to remove' /> }
+                    </Stack>
+                  )}
                 </Stack>
               </Box>
               <Box variant='card'>
