@@ -109,9 +109,7 @@ export const CreateSitePage = (): React.ReactElement => {
     setIsAccountUpgradePopupShowing(false);
     history.navigate(`/accounts/${selectedAccountId}#plan`);
   };
-  // event: React.SyntheticEvent<HTMLDivElement>
   const onTemplateChoiceClicked = (): void => {
-    // event.preventDefault();
     setIsTemplateChooserOpen(true);
   };
 
