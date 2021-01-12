@@ -2,18 +2,12 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Container from '@material-ui/core/Container';
+import { Alignment, Box, Button, ContainingView, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import styled from 'styled-components';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -21,35 +15,20 @@ import { TemplateChooserModal } from '../components/templateChooserModal';
 import { Account, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minHeight: '100%',
-  },
-  content: {
-    flexGrow: 1,
-    overflow: 'auto',
-    marginTop: theme.spacing(12),
-  },
-  paper: {
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(1, 2),
-  },
-}));
+interface IStyledBox {
+  bordered?: boolean;
+}
+
+const StyledBox = styled.div<IStyledBox>`
+  border: ${(props: IStyledBox): string => (props.bordered ? '0.5px solid #e8e8e8' : 'none')};
+  border-radius: ${(props: IStyledBox): string => (props.bordered ? '0.5em' : '')};
+`;
+
+StyledBox.defaultProps = {
+  bordered: false,
+};
 
 export const CreateSitePage = (): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const history = useHistory();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -80,8 +59,7 @@ export const CreateSitePage = (): React.ReactElement => {
     });
   };
 
-  const onCreateSiteClicked = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onCreateSiteClicked = (): void => {
     setSlugError(undefined);
     setNameError(undefined);
     setSelectedAccountIdError(undefined);
@@ -109,13 +87,13 @@ export const CreateSitePage = (): React.ReactElement => {
     });
   };
 
-  const onSlugChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setSlug(event.target.value);
+  const onSlugChanged = (value: string): void => {
+    setSlug(value);
     setSlugError(undefined);
   };
 
-  const onNameChanged = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setName(event.target.value);
+  const onNameChanged = (value: string): void => {
+    setName(value);
     setNameError(undefined);
   };
 
@@ -131,9 +109,7 @@ export const CreateSitePage = (): React.ReactElement => {
     setIsAccountUpgradePopupShowing(false);
     history.navigate(`/accounts/${selectedAccountId}#plan`);
   };
-
-  const onTemplateChoiceClicked = (event: React.SyntheticEvent<HTMLDivElement>): void => {
-    event.preventDefault();
+  const onTemplateChoiceClicked = (): void => {
     setIsTemplateChooserOpen(true);
   };
 
@@ -143,99 +119,94 @@ export const CreateSitePage = (): React.ReactElement => {
   };
 
   return (
-    <div className={classes.root}>
-      <NavigationBar />
-      <Container component='main' maxWidth='sm' className={classes.content}>
-        <Paper className={classes.paper}>
-          <Typography component='h1' variant='h5'>
-            Create a new site
-          </Typography>
-          <Box m={0.5} />
-          {isLoading || accounts === undefined ? (
-            <CircularProgress />
-          ) : accounts === null ? (
-            <Typography component='p'>
-              {'An error occurred. Please try again later.'}
-            </Typography>
-          ) : (
-            <form className={classes.form} noValidate onSubmit={onCreateSiteClicked}>
-              <FormControl
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-              >
-                <InputLabel id='account-select-label'>Account</InputLabel>
-                <Select
-                  labelId='account-select-label'
-                  value={selectedAccountId}
-                  onChange={onAccountSelected}
-                  error={selectedAccountIdError !== undefined}
-                  label='Account'
-                  // helperText={selectedAccountIdError}
-                >
-                  {accounts.map((account: Account, index: number): React.ReactElement => (
-                    <MenuItem key={index} value={account.accountId}>{account.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                required
-                fullWidth
-                id='slug'
-                label='Site slug'
-                name='slug'
-                autoComplete='slug'
-                autoFocus
-                value={slug}
-                onChange={onSlugChanged}
-                error={slugError !== undefined}
-                helperText={slugError}
-              />
-              <Typography variant='subtitle2'>
-                {!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`}
-              </Typography>
-              <TextField
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                name='name'
-                label='Site name'
-                type='name'
-                id='name'
-                value={name}
-                onChange={onNameChanged}
-                error={nameError !== undefined}
-                helperText={nameError}
-              />
-              <TextField
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                name='template'
-                label='Site template'
-                type='template'
-                id='template'
-                value={template ? template.name : 'Blank'}
-                onClick={onTemplateChoiceClicked}
-              />
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-                className={classes.submit}
-              >
-                Create Site
-              </Button>
-            </form>
-          )}
-        </Paper>
-      </Container>
-      {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-      <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
-    </div>
+    <ContainingView>
+      <ResponsiveContainingView size={12} sizeResponsive={{ small: 12, medium: 8, large: 5 }}>
+        <NavigationBar />
+        <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Box variant='card'>
+            <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+              <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
+                <Text tag='h1' variant='header5'>Create a new site</Text>
+              </Stack.Item>
+              {accounts === null ? (
+                <Text variant='note'>An error occurred. Please try again later.</Text>
+              ) : (
+                <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
+                  <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true}>
+                    <FormControl
+                      variant='outlined'
+                      margin='normal'
+                      required
+                      fullWidth
+                    >
+                      <InputLabel id='account-select-label'>Account</InputLabel>
+                      <Select
+                        labelId='account-select-label'
+                        value={selectedAccountId}
+                        onChange={onAccountSelected}
+                        error={selectedAccountIdError !== undefined}
+                        label='Account'
+                        // helperText={selectedAccountIdError}
+                      >
+                        {accounts?.map((account: Account, index: number): React.ReactElement => (
+                          <MenuItem key={index} value={account.accountId}>{account.name}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <SingleLineInput
+                      id='slug'
+                      label='Site slug'
+                      name='slug'
+                      value={slug}
+                      onValueChanged={onSlugChanged}
+                      inputType={InputType.Text}
+                      inputWrapperVariant={slugError ? 'error' : 'default'}
+                      messageText={slugError || (!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`)}
+                      placeholderText='Site slug'
+                    />
+                    <SingleLineInput
+                      id='name'
+                      label='Site name'
+                      name='name'
+                      value={name}
+                      onValueChanged={onNameChanged}
+                      inputType={InputType.Text}
+                      inputWrapperVariant={nameError ? 'error' : ''}
+                      messageText={nameError}
+                      placeholderText='Site name'
+                    />
+                    <StyledBox bordered>
+                      <Stack direction={Direction.Horizontal} padding={PaddingSize.Narrow} paddingLeft={PaddingSize.Wide1}>
+                        <Stack.Item alignment={Alignment.Center}>
+                          <Text tag='h2'>{template ? template.name : 'Blank'}</Text>
+                        </Stack.Item>
+                        <Stack.Item growthFactor={1} shrinkFactor={1} />
+                        <IconButton
+                          variant='primary'
+                          icon={<KibaIcon iconId='ion-pencil' />}
+                          onClicked={onTemplateChoiceClicked}
+                        />
+                      </Stack>
+                    </StyledBox>
+                    <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide} gutterAfter={PaddingSize.Wide}>
+                      <Button
+                        buttonType='submit'
+                        isFullWidth={true}
+                        variant='primary'
+                        text='Create Site'
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Form>
+              )}
+            </Stack>
+          </Box>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+        </Stack>
+        {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
+        <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
+      </ResponsiveContainingView>
+    </ContainingView>
   );
 };
