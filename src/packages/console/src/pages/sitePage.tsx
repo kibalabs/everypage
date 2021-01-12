@@ -8,7 +8,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { MessageDialog } from '../components/messageDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -16,50 +15,6 @@ import { TemplateChooserModal } from '../components/templateChooserModal';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
-
-/* const useStyles = makeStyles((theme) => ({
-
-  root: {
-    display: 'flex',
-    minHeight: '100%',
-  },
-  content: {
-    flexGrow: 1,
-    overflow: 'auto',
-    marginTop: theme.spacing(12),
-  },
-  paper: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'start',
-  },
-  versionDate: {
-    fontSize: '1em',
-  },
-  versionPrimaryLabel: {
-    fontSize: '0.9em',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  versionButton: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  versionNameLabel: {
-    marginRight: theme.spacing(2),
-  },
-  siteNameText: {
-    fontWeight: 'bold',
-    marginRight: theme.spacing(2),
-  },
-  customDomainBox: {
-    border: '1px solid #ccc',
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-})); */
 
 export interface ISitePageProps {
   slug: string;
@@ -326,14 +281,16 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         <ResponsiveContainingView isFullWidth={true} size={12} sizeResponsive={{ medium: 10, large: 8 }}>
           <Spacing direction={Direction.Vertical} variant={PaddingSize.Wide4} />
           {site === null ? (
-            <Container>Site not found</Container>
+            <Container><Text>Site not found</Text></Container>
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
-            <Container>Loading...</Container>
+            <Container><Text>Loading...</Text></Container>
           ) : site.archiveDate ? (
             <Container>
+              <Text>
               This site has been archived 📦.
-              <Spacing variant={PaddingSize.Wide} />
+                <Spacing variant={PaddingSize.Wide} />
               Please contact us if you want it to be restored.
+              </Text>
             </Container>
           ) : (
             <React.Fragment>
@@ -360,19 +317,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                       {!newCustomDomain && (
                         <React.Fragment>
                           <Text variant='header6'>What domain would you like to point to this site?</Text>
-                          {/* <TextField
-                          autoFocus
-                          variant='outlined'
-                          margin='normal'
-                          required
-                          name='domain'
-                          type='domain'
-                          id='domain'
-                          value={newCustomDomainValue}
-                          onChange={onNewCustomDomainValueChanged}
-                          error={newCustomDomainError !== undefined}
-                          helperText={newCustomDomainError}
-                        /> */}
                           <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                             <SingleLineInput
                               name='domain'
@@ -437,8 +381,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button isEnabled={!site.isPublishing} onClicked={() => onSetPrimaryClicked(version)} text='Publish' />}
                         {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button isEnabled={!site.isPublishing} onClicked={() => onArchiveClicked(version)} text='Archive' />}
                         {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
-                        {/* <Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>EDIT</Link></Button> */}
-                        {/* <Link href={`/sites/${props.slug}/preview/${version.siteVersionId}`}>VIEW</Link></Button> */}
                         {version.publishDate && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='View' />}
                       </Stack>
 
@@ -461,16 +403,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         >
           <DialogTitle>Create new version</DialogTitle>
           <DialogContent>
-            {/* <TextField
-            variant='outlined'
-            margin='normal'
-            fullWidth
-            name='name'
-            label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
-            placeholder={newVersionDefaultName}
-            value={newVersionName}
-            onChange={onNewVersionNameChanged}
-          /> */}
             <SingleLineInput
               name='name'
               label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
