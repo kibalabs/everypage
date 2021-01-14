@@ -275,6 +275,25 @@
       ]
     },
     {
+      "type": "image-gallery-1",
+      "titleText": "Image Gallery",
+      "subtitleText": "Why should your visitors be interested? Make it clear to them what you are going to do for them so they subscribe for early access! Anything you can offer would be great to highlight e.g. beta access or a discount once launched",
+      "images": [
+        {
+          "title": "subscribers to date",
+          "mediaUrl": "nothing"
+        },
+        {
+          "title": "subscribers to date",
+          "mediaUrl": "nothing"
+        },
+        {
+          "title": "subscribers to date",
+          "mediaUrl": "nothing"
+        }
+      ]
+    },
+    {
       "type": "testimonial-boxes-1",
       "titleText": "What people say about us 🤩",
       "subtitleText": "Our customers love us and we love them",
