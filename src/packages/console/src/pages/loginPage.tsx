@@ -55,7 +55,7 @@ export const LoginPage = (): React.ReactElement => {
 
   return (
     <ContainingView>
-      <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
+      <ResponsiveContainingView sizeResponsive={{ base: 12, small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
