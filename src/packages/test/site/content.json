@@ -565,6 +565,28 @@
       ]
     },
     {
+      "type": "image-gallery-1",
+      "titleText": "Image Gallery",
+      "subtitleText": "Everyone loves images!",
+      "images": [
+        {
+          "mediaUrl": "/assets/feature1.png"
+        },
+        {
+          "mediaUrl": "/assets/feature2.png"
+        },
+        {
+          "mediaUrl": "/assets/feature1.png"
+        },
+        {
+          "mediaUrl": "/assets/feature2.png"
+        },
+        {
+          "mediaUrl": "/assets/freebird-ss.png"
+        }
+      ]
+    },
+    {
       "type": "calendly-booking-1",
       "titleText": "Let's talk 📞",
       "subtitleText": null,

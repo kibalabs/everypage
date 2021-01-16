@@ -20,6 +20,7 @@ export * from './heroSignup1';
 export * from './heroSimple1';
 export * from './heroSignupMediaHalf1';
 export * from './imageSlides1';
+export * from './imageGallery1';
 export * from './markdown1';
 export * from './navbar1';
 export * from './pricingFeatures1';

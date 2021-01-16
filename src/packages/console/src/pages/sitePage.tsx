@@ -180,7 +180,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   const onCustomDomainNextClicked = (): void => {
     if (!/^[A-Za-z0-9-.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
-      setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
+      setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. everysize.kibalabs.com, www.kiba.dev');
       return;
     }
     if (newCustomDomainValue.endsWith('.evrpg.com')) {

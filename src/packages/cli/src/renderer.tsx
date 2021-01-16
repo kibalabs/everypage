@@ -60,9 +60,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
 
-  // NOTE(krishan711): this is definitely weird but needed to work both locally (with lerna) and on the builder-api
+  // NOTE(krishan711): this is weird but needed to work both locally (with lerna) and on the builder-api
   const nodeModulesPaths = findAncestorSibling('node_modules');
-  console.log(`Using node_modules: ${nodeModulesPaths} (from ${process.cwd()})`);
   const nodeWebpackConfig = webpackMerge(
     makeCommonWebpackConfig({ name: 'everypage-site-node', dev: false, analyze: false }),
     makeJsWebpackConfig({ polyfill: false, react: true }),
