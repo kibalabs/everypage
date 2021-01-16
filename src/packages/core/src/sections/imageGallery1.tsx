@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, EqualGrid, ITheme, PaddingSize, ResponsiveContainingView, ResponsiveField, Stack, TextAlignment, useTheme, ResponsiveTextAlignmentView } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IImageGallery1Image {
-  mediaUrl?: string;
+  mediaUrl: string;
   title?: string;
 }
 
@@ -20,7 +20,6 @@ interface IImageGallery1Props extends ISectionProps {
 }
 
 export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement => {
-  const theme: ITheme = useTheme();
   const sizes = { base: 12, small: 6, medium: 6, large: 4 };
   if (props.imageSizes) {
     sizes.base = props.imageSizes.base ? 12 / props.imageSizes.base : sizes.base;
