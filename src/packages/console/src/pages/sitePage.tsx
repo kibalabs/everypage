@@ -2,7 +2,7 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Container, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -340,16 +340,27 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         {newCustomDomain && (
                           <React.Fragment>
                             <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
-                            <Text>{newCustomDomain} ➡️ {site.slug}.int.evrpg.com</Text>
+                            <Text>
+                              {newCustomDomain}
+                              {' '}
+➡️
+                              {' '}
+                              {site.slug}
+.int.evrpg.com
+                            </Text>
                             {newCustomDomainApiError && (
                               <Text variant='error'>Something went wrong on our side. Please try again later or contact support.</Text>
                             )}
-                            <Text variant='note'>It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!<br />Please message us if you need any help with this.</Text>
-                              <Button
-                                variant='primary'
-                                onClicked={onCustomDomainSetClicked}
-                                text='Done'
-                              />
+                            <Text variant='note'>
+It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!
+                              <br />
+Please message us if you need any help with this.
+                            </Text>
+                            <Button
+                              variant='primary'
+                              onClicked={onCustomDomainSetClicked}
+                              text='Done'
+                            />
                           </React.Fragment>
                         )}
                       </Stack>

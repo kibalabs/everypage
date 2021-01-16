@@ -51,7 +51,7 @@ const theme = buildTheme({
       normal: {
         default: {
           background: {
-            'padding': `${defaultTheme.dimensions.paddingNarrow} ${defaultTheme.dimensions.paddingWide}`,
+            padding: `${defaultTheme.dimensions.paddingNarrow} ${defaultTheme.dimensions.paddingWide}`,
           },
           text: {
             'font-weight': 'normal',
@@ -84,7 +84,7 @@ const theme = buildTheme({
       'font-size': '16px',
     },
     light: {
-      color: '$colors.textLight25'
+      color: '$colors.textLight25',
     },
   },
 });
