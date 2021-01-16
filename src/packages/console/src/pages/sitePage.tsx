@@ -2,7 +2,7 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Container, ContainingView, Direction, InputType, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -180,7 +180,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   const onCustomDomainNextClicked = (): void => {
     if (!/^[A-Za-z0-9-.]*\.[A-Za-z0-9-]+/.test(newCustomDomainValue)) {
-      setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. eversize.kibalabs.com, www.kiba.dev');
+      setNewCustomDomainError('This doesn\'t look like a valid domain. It must only contain letters, numbers and hyphens. e.g. everysize.kibalabs.com, www.kiba.dev');
       return;
     }
     if (newCustomDomainValue.endsWith('.evrpg.com')) {
@@ -275,169 +275,182 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }, [everypageClient, site, loadAccount, loadNewVersionDefaultName, loadPrimaryVersion, loadSite, loadVersions]);
 
   return (
-    <ContainingView>
-      <ResponsiveContainingView size={12} isFullWidth={true}>
-        <NavigationBar />
-        <ResponsiveContainingView isFullWidth={true} size={12} sizeResponsive={{ medium: 10, large: 8 }}>
-          <Spacing direction={Direction.Vertical} variant={PaddingSize.Wide4} />
+    <React.Fragment>
+      <NavigationBar />
+      <ContainingView>
+        <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
           {site === null ? (
-            <Container><Text>Site not found</Text></Container>
+            <Text>Site not found</Text>
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (
-            <Container><Text>Loading...</Text></Container>
+            <Text>Loading...</Text>
           ) : site.archiveDate ? (
-            <Container>
-              <Text>
-              This site has been archived 📦.
-                <Spacing variant={PaddingSize.Wide} />
-              Please contact us if you want it to be restored.
-              </Text>
-            </Container>
+            <Text>This site has been archived 📦. Please contact us if you want it to be restored.</Text>
           ) : (
             <React.Fragment>
-              <Box variant='card'>
+              <Box variant='card' isFullWidth={false}>
                 <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                  <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
-                    <Text variant='header5'>{site.name}</Text>
-                    <Button target={getSiteUrl()} text='Open' />
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                    <Text variant='header2'>{site.name}</Text>
                     <Stack.Item growthFactor={1} shrinkFactor={1} />
-                    <Button onClicked={onArchiveSiteClicked} text='Archive' />
+                    <Button onClicked={onArchiveSiteClicked} variant='destructive' text='Archive' />
                   </Stack>
-                  <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Site slug: ${site.slug}`}</Text>
-                  <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Status: ${site.isPublishing ? <Text variant='note' tag='span'>Publishing new version</Text> : 'Ready'}`}</Text>
+                  <Spacing />
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                    <Text variant='light'>Site slug:</Text>
+                    <Text>{site.slug}</Text>
+                  </Stack>
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                    <Text variant='light'>Status:</Text>
+                    <Text>{site.isPublishing ? 'Publishing new version' : 'Ready'}</Text>
+                  </Stack>
                   {!isCustomDomainPanelShowing && (
-                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                      <Text theme={{ color: 'var(--color-text-light25)' }} variant='big-default'>{`Url: ${getSiteUrl()}`}</Text>
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true}>
+                      <Text variant='light'>Url:</Text>
+                      <Link target={getSiteUrl()} text={getSiteUrl()} />
                       {!site.customDomain && <Button onClicked={onSetCustomDomainClicked} text='Customize' /> }
                       {site.customDomain && site.customDomainStatus !== 'completed' && <Button onClicked={onSiteStatusClicked} text={site.customDomainStatus} /> }
                     </Stack>
                   )}
                   {isCustomDomainPanelShowing && (
-                    <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                      <Text variant='header5' tag='strong'>Custom domain set up</Text>
-                      {!newCustomDomain && (
-                        <React.Fragment>
-                          <Text variant='header6'>What domain would you like to point to this site?</Text>
-                          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                            <SingleLineInput
-                              name='domain'
-                              inputType={InputType.Url}
-                              id='domain'
-                              value={newCustomDomainValue}
-                              onValueChanged={onNewCustomDomainValueChanged}
-                              inputWrapperVariant={newCustomDomainError}
-                              messageText={newCustomDomainError}
-                            />
+                    <Box variant='bordered'>
+                      <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                        <Text variant='strong'>Custom domain set up</Text>
+                        {!newCustomDomain && (
+                          <React.Fragment>
+                            <Text>What domain would you like for this site?</Text>
+                            <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                              <SingleLineInput
+                                name='domain'
+                                inputType={InputType.Url}
+                                id='domain'
+                                value={newCustomDomainValue}
+                                onValueChanged={onNewCustomDomainValueChanged}
+                                inputWrapperVariant={newCustomDomainError}
+                                messageText={newCustomDomainError}
+                              />
+                              <Button
+                                variant='primary'
+                                isFullWidth={false}
+                                onClicked={onCustomDomainNextClicked}
+                                text='Next'
+                              />
+                            </Stack>
+                          </React.Fragment>
+                        )}
+                        {newCustomDomain && (
+                          <React.Fragment>
+                            <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
+                            <Text>
+                              {newCustomDomain}
+                              {' '}
+➡️
+                              {' '}
+                              {site.slug}
+.int.evrpg.com
+                            </Text>
+                            {newCustomDomainApiError && (
+                              <Text variant='error'>Something went wrong on our side. Please try again later or contact support.</Text>
+                            )}
+                            <Text variant='note'>
+It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!
+                              <br />
+Please message us if you need any help with this.
+                            </Text>
                             <Button
                               variant='primary'
-                              isFullWidth={false}
-                              onClicked={onCustomDomainNextClicked}
-                              text='Next'
+                              onClicked={onCustomDomainSetClicked}
+                              text='Done'
                             />
-                          </Stack>
-                        </React.Fragment>
-                      )}
-                      {newCustomDomain && (
-                        <React.Fragment>
-                          <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
-                          <Text variant='note'>(just message us if you need help with this)</Text>
-                          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
-                            <Text>{newCustomDomain}</Text>
-                            <Text>{' ➡️ '}</Text>
-                            <Text>{`${site.slug}.int.evrpg.com`}</Text>
-                          </Stack>
-                          {newCustomDomainApiError && (
-                            <Text variant='colored' theme={{ color: '--color-error' }}>Something went wrong on our side. Please try again later or contact support.</Text>
-                          )}
-                          <Text variant='note'>It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!</Text>
-                          <Button
-                            variant='primary'
-                            onClicked={onCustomDomainSetClicked}
-                            text='Done'
-                          />
-                        </React.Fragment>
-                      )}
-                    </Stack>
+                          </React.Fragment>
+                        )}
+                      </Stack>
+                    </Box>
                   )}
                   {(account.accountType === 'core' || account.accountType === 'starter') && (
-                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                      <Text theme={{ color: 'var(--color-text-light25)' }}>Branding: Made with everypage</Text>
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true}>
+                      <Text variant='light'>Branding: Made with everypage</Text>
                       {!site.customDomain && <Button onClicked={onRemoveBrandingClicked} text='Upgrade to remove' /> }
                     </Stack>
                   )}
                 </Stack>
               </Box>
-              <Box variant='card'>
-                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
-                  <Text variant='header6'>Site Versions</Text>
-                  {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button onClicked={onCreateNewVersionClicked} text='Create new version' />}
-                </Stack>
-                { versions && versions.map((version: SiteVersion): React.ReactElement => {
-                  return version.archiveDate ? null : (
-                    <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
-                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
-                        <Text variant='default'>{version.name || 'Unnamed'}</Text>
-                        {version.siteVersionId === primaryVersionId && <Text variant='small-bold'>&nbsp;(PUBLISHED)</Text>}
-                        {version.isPublishing && <Text variant='header6-note' tag='span'>Publishing</Text>}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button isEnabled={!site.isPublishing} onClicked={() => onSetPrimaryClicked(version)} text='Publish' />}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button isEnabled={!site.isPublishing} onClicked={() => onArchiveClicked(version)} text='Archive' />}
-                        {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
-                        {version.publishDate && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='View' />}
+              <Box variant='card' isFullWidth={false}>
+                <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide1}>
+                  <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start}>
+                    <Text variant='header3'>Site Versions</Text>
+                    {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button onClicked={onCreateNewVersionClicked} text='Create new version' />}
+                  </Stack>
+                  { versions && versions.map((version: SiteVersion): React.ReactElement => {
+                    return version.archiveDate ? null : (
+                      <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
+                        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                          <Text variant='default'>{version.name || 'Unnamed'}</Text>
+                          {version.siteVersionId === primaryVersionId && <Text variant='note-small'>(PUBLISHED)</Text>}
+                          {version.isPublishing && <Text variant='header6-note' tag='span'>Publishing</Text>}
+                          {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button isEnabled={!site.isPublishing} onClicked={() => onSetPrimaryClicked(version)} text='Publish' />}
+                          {version.publishDate && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='View' />}
+                          {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
+                          {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button isEnabled={!site.isPublishing} onClicked={() => onArchiveClicked(version)} text='Archive' />}
+                        </Stack>
+                        {version.publishDate ? (
+                          <Text variant='note'>{`Published: ${dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}`}</Text>
+                        ) : (
+                          <Text variant='note'>{`Last updated: ${dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}`}</Text>
+                        )}
                       </Stack>
-
-                      {version.publishDate ? (
-                        <Text variant='note'>{`Published: ${dateToString(version.publishDate, 'yyyy-MM-dd HH:mm')}`}</Text>
-                      ) : (
-                        <Text variant='note'>{`Last updated: ${dateToString(version.lastUpdateDate, 'yyyy-MM-dd HH:mm')}`}</Text>
-                      )}
-                    </Stack>
-                  );
-                })}
+                    );
+                  })}
+                </Stack>
               </Box>
             </React.Fragment>
           )}
-        </ResponsiveContainingView>
-        <AccountUpgradeDomainDialog isOpen={isAccountUpgradePopupShowing} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />
-        <Dialog
-          open={isNewVersionPopupShowing}
-          onClose={onNewVersionPopupCloseClicked}
-        >
-          <DialogTitle>Create new version</DialogTitle>
-          <DialogContent>
-            <SingleLineInput
-              name='name'
-              label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
-              placeholderText={newVersionDefaultName}
-              value={newVersionName}
-              onValueChanged={onNewVersionNameChanged}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
-            <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
-          </DialogActions>
-          <DialogActions>
-            <Button onClicked={onNewVersionPopupCloseClicked} text='Cancel' />
-          </DialogActions>
-        </Dialog>
-        <TemplateChooserModal
-          isOpen={isTemplateChooserPopupShowing}
-          onChooseTemplateClicked={onChooseTemplateClicked}
-        />
-        <MessageDialog
-          isOpen={archivingSiteVersionId !== null}
-          onConfirmClicked={onArchiveSiteVersionConfirmClicked}
-          onCloseClicked={onArchiveSiteVersionCancelClicked}
-          title={'Archive this version?'}
-          message={'Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
-        />
-        <MessageDialog
-          isOpen={isArchivingSite}
-          onConfirmClicked={onArchiveSiteConfirmClicked}
-          onCloseClicked={onArchiveSiteCancelClicked}
-          title={'Archive this site?'}
-          message={'Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'}
-        />
-      </ResponsiveContainingView>
-    </ContainingView>
+        </Stack>
+      </ContainingView>
+      <AccountUpgradeDomainDialog
+        isOpen={isAccountUpgradePopupShowing}
+        onCloseClicked={onAccountUpgradePopupCloseClicked}
+        onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
+      />
+      <Dialog
+        open={isNewVersionPopupShowing}
+        onClose={onNewVersionPopupCloseClicked}
+      >
+        <DialogTitle>Create new version</DialogTitle>
+        <DialogContent>
+          <SingleLineInput
+            name='name'
+            label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
+            placeholderText={newVersionDefaultName}
+            value={newVersionName}
+            onValueChanged={onNewVersionNameChanged}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
+          <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
+        </DialogActions>
+        <DialogActions>
+          <Button onClicked={onNewVersionPopupCloseClicked} text='Cancel' />
+        </DialogActions>
+      </Dialog>
+      <TemplateChooserModal
+        isOpen={isTemplateChooserPopupShowing}
+        onChooseTemplateClicked={onChooseTemplateClicked}
+      />
+      <MessageDialog
+        isOpen={archivingSiteVersionId !== null}
+        onConfirmClicked={onArchiveSiteVersionConfirmClicked}
+        onCloseClicked={onArchiveSiteVersionCancelClicked}
+        title={'Archive this version?'}
+        message={'Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
+      />
+      <MessageDialog
+        isOpen={isArchivingSite}
+        onConfirmClicked={onArchiveSiteConfirmClicked}
+        onCloseClicked={onArchiveSiteCancelClicked}
+        title={'Archive this site?'}
+        message={'Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'}
+      />
+    </React.Fragment>
   );
 };

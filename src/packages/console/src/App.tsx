@@ -40,10 +40,52 @@ const globals = {
   consoleConfig,
 };
 
+const defaultTheme = buildTheme();
 const theme = buildTheme({
   colors: {
     brandPrimary: '#4b6cb7',
     brandSecondary: '#182848',
+  },
+  buttons: {
+    default: {
+      normal: {
+        default: {
+          background: {
+            padding: `${defaultTheme.dimensions.paddingNarrow} ${defaultTheme.dimensions.paddingWide}`,
+          },
+          text: {
+            'font-weight': 'normal',
+          },
+        },
+      },
+    },
+    destructive: {
+      normal: {
+        default: {
+          text: {
+            color: '$colors.error',
+          },
+        },
+        hover: {
+          background: {
+            'background-color': '$colors.errorClear90',
+          },
+        },
+        press: {
+          background: {
+            'background-color': '$colors.errorClear80',
+          },
+        },
+      },
+    },
+  },
+  texts: {
+    default: {
+      'font-size': '16px',
+    },
+    light: {
+      color: '$colors.textLight25',
+    },
   },
 });
 
