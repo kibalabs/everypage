@@ -66,7 +66,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
-  const [isContentLoaded, setIsContentLoaded] = React.useState<boolean>(false);
 
   const getSiteUrl = React.useCallback((): string => {
     return `https://${props.slug}.evrpg.com`;
@@ -226,7 +225,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <div>Error loading site version. Please go back and try again...</div>
-        ) : !isContentLoaded || assetFileMap === undefined ? (
+        ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <div>Loading...</div>
         ) : (
           <React.Fragment>
