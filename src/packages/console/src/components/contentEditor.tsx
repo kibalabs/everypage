@@ -7,6 +7,7 @@ import { JsonEditor } from './jsonEditor';
 import { SiteMetaCard } from './siteMetaCard';
 import { SitePluginCard } from './sitePluginCard';
 import { SiteSectionCard } from './siteSectionCard';
+import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';
 
 const TAB_KEY_FORM = 'form';
 const TAB_KEY_JSON = 'json';
@@ -16,20 +17,25 @@ interface IContentEditorProps {
   siteContent: IWebsite;
   onAddSectionClicked: () => void;
   onNavigationChanged: (path: string) => void;
-  onSiteContentUpdated: (siteContent: Record<string, unknown>) => void;
+  onSiteContentUpdated: (siteContent: IWebsite) => void;
 }
 
 export const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
   const [selectedTypeTabKey, setSelectedTypeTabKey] = React.useState<string>(TAB_KEY_FORM);
   const [currentPath, setCurrentPath] = React.useState<string | undefined>(undefined);
+  const siteContentRef = React.useRef<IWebsite | undefined>(props.siteContent);
+
+  React.useEffect((): void => {
+    siteContentRef.current = props.siteContent;
+  }, [props.siteContent])
 
   const onTabKeySelected = (tabKey: string): void => {
     setSelectedTypeTabKey(tabKey);
   };
 
-  const onMetaClicked = (): void => {
+  const onMetaClicked = React.useCallback((): void => {
     setCurrentPath('metadata');
-  };
+  }, []);
 
   const onBackClicked = (): void => {
     setCurrentPath(undefined);
@@ -51,59 +57,59 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   const getJsonFromPath = (): Record<string, unknown> => {
     if (currentPath && currentPath === 'metadata') {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { sections, plugins, ...metadata } = props.siteContent;
+      const { sections, plugins, ...metadata } = siteContentRef.current;
       return metadata;
     }
     if (currentPath && currentPath.startsWith('plugin:')) {
-      return props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)];
+      return siteContentRef.current.plugins[parseInt(currentPath.replace('plugin:', ''), 10)];
     }
     if (currentPath && currentPath.startsWith('section:')) {
-      return props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)];
+      return siteContentRef.current.sections[parseInt(currentPath.replace('section:', ''), 10)];
     }
-    return props.siteContent;
+    return siteContentRef.current;
   };
 
-  const onJsonUpdated = (json: Record<string, unknown>): void => {
+  const onJsonUpdated = React.useCallback((json: Record<string, unknown>): void => {
     if (currentPath === undefined) {
       props.onSiteContentUpdated(json);
     } else if (currentPath && currentPath === 'metadata') {
-      props.onSiteContentUpdated({ ...props.siteContent, ...json });
+      props.onSiteContentUpdated({ ...siteContentRef.current, ...json });
     } else if (currentPath && currentPath.startsWith('plugin:')) {
       // eslint-disable-next-line no-param-reassign
-      props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
+      siteContentRef.current.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
+      props.onSiteContentUpdated(siteContentRef.current);
     } else if (currentPath && currentPath.startsWith('section:')) {
       // eslint-disable-next-line no-param-reassign
-      props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
+      siteContentRef.current.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
+      props.onSiteContentUpdated(siteContentRef.current);
     }
-  };
+  }, [currentPath, siteContentRef.current, props.onSiteContentUpdated]);
 
-  const onMoveSectionUpClicked = (sectionIndex: number): void => {
+  const onMoveSectionUpClicked = React.useCallback((sectionIndex: number): void => {
     if (sectionIndex === 0) {
       return;
     }
-    const sectionsCopy = [...props.siteContent.sections];
+    const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex - 1, 0, section);
-    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
-  };
+    props.onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [siteContentRef.current, props.onSiteContentUpdated]);;
 
-  const onMoveSectionDownClicked = (sectionIndex: number): void => {
-    if (sectionIndex === props.siteContent.length - 1) {
+  const onMoveSectionDownClicked = React.useCallback((sectionIndex: number): void => {
+    if (sectionIndex === siteContentRef.current.length - 1) {
       return;
     }
-    const sectionsCopy = [...props.siteContent.sections];
+    const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex + 1, 0, section);
-    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
-  };
+    props.onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [siteContentRef.current, props.onSiteContentUpdated]);
 
-  const onDeleteSectionClicked = (sectionIndex: number): void => {
+  const onDeleteSectionClicked = React.useCallback((sectionIndex: number): void => {
     console.error(`deleting sections is not implemented yet: ${sectionIndex}`);
-  };
+  }, []);
 
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
@@ -117,8 +123,8 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
       </HidingView>
       <HidingView isHidden={currentPath !== undefined}>
         <TabBar isFullWidth={true} selectedTabKey={selectedTypeTabKey} onTabKeySelected={onTabKeySelected}>
-          <TabBar.Item tabKey={TAB_KEY_FORM} text='Form' />
-          <TabBar.Item tabKey={TAB_KEY_JSON} text='JSON' />
+          <TabBar.Item tabKey={TAB_KEY_FORM} text='Form' isEnabled={true} isCollapsible={false} isExpandable={true} />
+          <TabBar.Item tabKey={TAB_KEY_JSON} text='JSON' isEnabled={true} isCollapsible={false} isExpandable={true} />
         </TabBar>
       </HidingView>
       <Stack.Item growthFactor={1} shrinkFactor={1}>
@@ -138,7 +144,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
               {/* {currentPath === undefined && (
                 <React.Fragment> */}
               <LinkBase isFullWidth={true} onClicked={onMetaClicked}>
-                <SiteMetaCard website={props.siteContent} />
+                <SiteMetaCard website={getMetaFromWebsite(props.siteContent)} />
               </LinkBase>
               <Stack.Item gutterBefore={PaddingSize.Wide}>
                 <Text variant='header3'>Plugins</Text>
@@ -158,9 +164,10 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
                 <LinkBase key={section.id || `section-${index}`} isFullWidth={true} onClicked={() => onSectionClicked(index)}>
                   <SiteSectionCard
                     section={section}
-                    onMoveUpClicked={(): void => onMoveSectionUpClicked(index)}
-                    onMoveDownClicked={(): void => onMoveSectionDownClicked(index)}
-                    onDeleteClicked={(): void => onDeleteSectionClicked(index)}
+                    cardIndex={index}
+                    onMoveUpClicked={onMoveSectionUpClicked}
+                    onMoveDownClicked={onMoveSectionDownClicked}
+                    onDeleteClicked={onDeleteSectionClicked}
                   />
                 </LinkBase>
               ))}

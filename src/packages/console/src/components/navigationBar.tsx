@@ -8,6 +8,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { deepCompare } from '@kibalabs/core';
 
 import { useGlobals } from '../globalsContext';
 
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NavigationBar = (): React.ReactElement => {
+// TODO(krishan711): this wont need memo once its moved out of each page and to the "App" level
+export const NavigationBar = React.memo((): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
@@ -119,4 +121,4 @@ export const NavigationBar = (): React.ReactElement => {
       )}
     </AppBar>
   );
-};
+}, deepCompare);

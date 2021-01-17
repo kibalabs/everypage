@@ -280,11 +280,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     <React.Fragment>
       <NavigationBar />
       <Helmet>
-        <title>
-          {site ? site.name : 'Site page'}
-          {' '}
-| Everypage Console
-        </title>
+        <title>{`${site ? site.name : 'Site page'} | Everypage Console`}</title>
       </Helmet>
       <ContainingView>
         <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>

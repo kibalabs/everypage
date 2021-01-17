@@ -14,6 +14,8 @@ import { MemoCanvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
+import { ITheme } from '@kibalabs/ui-react';
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,8 +57,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
-  const [siteTheme, setSiteTheme] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const siteContentRef = React.useRef<IWebsite | undefined>(siteVersionEntry ? siteVersionEntry.siteContent as unknown as IWebsite : undefined);
+  const siteThemeRef = React.useRef<ITheme | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme as unknown as ITheme : undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -64,6 +66,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
+  const [isContentLoaded, setIsContentLoaded] = React.useState<boolean>(false);
 
   const getSiteUrl = React.useCallback((): string => {
     return `https://${props.slug}.evrpg.com`;
@@ -98,8 +101,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
     everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(receivedSiteVersionEntry);
-      setSiteContent(receivedSiteVersionEntry.siteContent);
-      setSiteTheme(receivedSiteVersionEntry.siteTheme);
+      siteContentRef.current = receivedSiteVersionEntry.siteContent as unknown as IWebste;
+      siteThemeRef.current = receivedSiteVersionEntry.siteTheme as unknown as ITheme;
+      setIsContentLoaded(true);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersionEntry(null);
@@ -123,15 +127,15 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     });
   }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
 
-  const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
-    setSiteContent(newSiteContent);
+  const onSiteContentUpdated = React.useCallback((newSiteContent: IWebsite): void => {
+    siteContentRef.current = newSiteContent;
     setIsSiteContentChanged(true);
-  };
+  }, []);
 
-  const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
-    setSiteTheme(newSiteTheme);
+  const onSiteThemeUpdated = React.useCallback((newSiteTheme: ITheme): void => {
+    siteThemeRef.current = newSiteTheme;
     setIsSiteThemeChanged(true);
-  };
+  }, []);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generateAssetUploadForSiteVersion(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
@@ -200,7 +204,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       return;
     }
     if (isEditable && (isSiteContentChanged || isSiteThemeChanged)) {
-      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
+      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContentRef.current as unknown as Record<string, unknown> : null, isSiteThemeChanged ? siteThemeRef.current : null).then((): void => {
         setIsSiteContentChanged(false);
         setIsSiteThemeChanged(false);
         setSavingError(null);
@@ -214,21 +218,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   return (
     <div className={classes.root}>
       <Helmet>
-        <title>
-          {site ? site.name : 'Site page'}
-          {' '}
-| Preview
-          {' '}
-          {siteVersion ? siteVersion.name : ''}
-          {' '}
-| Everypage Console
-        </title>
+        <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
       </Helmet>
       <NavigationBar />
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <div>Error loading site version. Please go back and try again...</div>
-        ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
+        ) : !isContentLoaded || assetFileMap === undefined ? (
           <div>Loading...</div>
         ) : (
           <React.Fragment>
@@ -254,9 +250,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             <MemoCanvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
-              siteContent={siteContent}
+              siteContent={siteContentRef.current}
               onSiteContentUpdated={onSiteContentUpdated}
-              siteTheme={siteTheme}
+              siteTheme={siteThemeRef.current}
               onSiteThemeUpdated={onSiteThemeUpdated}
               assetFileMap={assetFileMap}
               addAssetFiles={addAssetFiles}

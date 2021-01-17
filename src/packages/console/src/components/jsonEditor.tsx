@@ -32,6 +32,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
 
   const onChangeText = (jsonText: string) => {
+    console.log('onChangeText', jsonText);
     try {
       props.onJsonUpdated(JSON.parse(jsonText));
     } catch (error) {

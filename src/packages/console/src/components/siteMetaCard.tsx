@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { IWebsite } from '@kibalabs/everypage';
+import { IWebsiteMeta } from '@kibalabs/everypage';
 import { Alignment, Box, Direction, KibaIcon, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { deepCompare } from '@kibalabs/core';
 
 interface IMetaItemProps {
   isChecked: boolean;
@@ -18,10 +19,10 @@ const MetaItem = (props: IMetaItemProps): React.ReactElement => {
 };
 
 interface ISiteMetaCardProps {
-  website: IWebsite;
+  website: IWebsiteMeta;
 }
 
-export const SiteMetaCard = (props: ISiteMetaCardProps): React.ReactElement => {
+export const SiteMetaCard = React.memo((props: ISiteMetaCardProps): React.ReactElement => {
   return (
     <Box variant='bordered'>
       <Stack direction={Direction.Vertical}>
@@ -34,4 +35,4 @@ export const SiteMetaCard = (props: ISiteMetaCardProps): React.ReactElement => {
       </Stack>
     </Box>
   );
-};
+}, deepCompare);

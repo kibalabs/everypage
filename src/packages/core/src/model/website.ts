@@ -1,17 +1,14 @@
 import { IBackgroundConfig } from '@kibalabs/ui-react';
 
-export interface IWebsite {
+export interface IWebsiteMeta {
   name: string;
   tagline: string;
   company: string;
-  buildHash: string;
-  siteHost: string;
-  shouldHideAttribution?: boolean;
   version?: string;
   keywords?: string[];
-  companyUrl?: string;
   title?: string;
   description?: string;
+  companyUrl?: string;
   twitterUsername?: string;
   twitterCompanyUsername?: string;
   socialCardImageUrl?: string;
@@ -19,6 +16,12 @@ export interface IWebsite {
   iosAppId?: string;
   androidAppId?: string;
   macAppId?: string;
+}
+
+export interface IWebsite extends IWebsiteMeta {
+  buildHash: string;
+  siteHost: string;
+  shouldHideAttribution?: boolean;
   plugins?: IWebsitePlugin[];
   sections?: IWebsiteSection[];
   background?: IBackgroundConfig;
@@ -39,4 +42,24 @@ export interface IWebsiteSection {
   isInverse?: boolean;
   colorVariant?: string;
   [key: string]: unknown;
+}
+
+export const getMetaFromWebsite = (website: IWebsite): IWebsiteMeta => {
+  return {
+    name: website.name,
+    tagline: website.tagline,
+    company: website.company,
+    version: website.version,
+    keywords: website.keywords,
+    title: website.title,
+    description: website.description,
+    companyUrl: website.companyUrl,
+    twitterUsername: website.twitterUsername,
+    twitterCompanyUsername: website.twitterCompanyUsername,
+    socialCardImageUrl: website.socialCardImageUrl,
+    faviconImageUrl: website.faviconImageUrl,
+    iosAppId: website.iosAppId,
+    androidAppId: website.androidAppId,
+    macAppId: website.macAppId,
+  }
 }
