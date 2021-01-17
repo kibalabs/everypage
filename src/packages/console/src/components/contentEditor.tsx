@@ -24,10 +24,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   const [selectedTypeTabKey, setSelectedTypeTabKey] = React.useState<string>(TAB_KEY_FORM);
   const [currentPath, setCurrentPath] = React.useState<string | undefined>(undefined);
   const siteContentRef = React.useRef<IWebsite | undefined>(props.siteContent);
-
-  React.useEffect((): void => {
-    siteContentRef.current = props.siteContent;
-  }, [props.siteContent])
+  siteContentRef.current = props.siteContent;
 
   const onTabKeySelected = (tabKey: string): void => {
     setSelectedTypeTabKey(tabKey);
@@ -57,33 +54,33 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   const getJsonFromPath = (): Record<string, unknown> => {
     if (currentPath && currentPath === 'metadata') {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { sections, plugins, ...metadata } = siteContentRef.current;
+      const { sections, plugins, ...metadata } = props.siteContent;
       return metadata;
     }
     if (currentPath && currentPath.startsWith('plugin:')) {
-      return siteContentRef.current.plugins[parseInt(currentPath.replace('plugin:', ''), 10)];
+      return props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)];
     }
     if (currentPath && currentPath.startsWith('section:')) {
-      return siteContentRef.current.sections[parseInt(currentPath.replace('section:', ''), 10)];
+      return props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)];
     }
-    return siteContentRef.current;
+    return props.siteContent;
   };
 
-  const onJsonUpdated = React.useCallback((json: Record<string, unknown>): void => {
-    if (currentPath === undefined) {
+  const onJsonUpdated = (json: Record<string, unknown>): void => {
+    if (!currentPath) {
       props.onSiteContentUpdated(json);
-    } else if (currentPath && currentPath === 'metadata') {
-      props.onSiteContentUpdated({ ...siteContentRef.current, ...json });
-    } else if (currentPath && currentPath.startsWith('plugin:')) {
+    } else if (currentPath === 'metadata') {
+      props.onSiteContentUpdated({ ...props.siteContent, ...json });
+    } else if (currentPath.startsWith('plugin:')) {
       // eslint-disable-next-line no-param-reassign
-      siteContentRef.current.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
-      props.onSiteContentUpdated(siteContentRef.current);
-    } else if (currentPath && currentPath.startsWith('section:')) {
+      props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
+      props.onSiteContentUpdated(props.siteContent);
+    } else if (currentPath.startsWith('section:')) {
       // eslint-disable-next-line no-param-reassign
-      siteContentRef.current.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
-      props.onSiteContentUpdated(siteContentRef.current);
+      props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
+      props.onSiteContentUpdated(props.siteContent);
     }
-  }, [currentPath, siteContentRef.current, props.onSiteContentUpdated]);
+  };
 
   const onMoveSectionUpClicked = React.useCallback((sectionIndex: number): void => {
     if (sectionIndex === 0) {
@@ -111,6 +108,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
     console.error(`deleting sections is not implemented yet: ${sectionIndex}`);
   }, []);
 
+  console.log('ContentEditor');
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
       <HidingView isHidden={currentPath === undefined}>
@@ -184,7 +182,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
         <Button text='Add section' onClicked={props.onAddSectionClicked} />
       </HidingView>
       <Stack.Item growthFactor={1}>
-        {(currentPath !== undefined || selectedTypeTabKey === TAB_KEY_JSON) && (
+        {(selectedTypeTabKey === TAB_KEY_JSON || currentPath !== undefined) && (
           <JsonEditor isEditable={props.isEditable} name='site' json={getJsonFromPath()} onJsonUpdated={onJsonUpdated} />
         )}
       </Stack.Item>

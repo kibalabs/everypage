@@ -30,14 +30,21 @@ const StyledJsonEditor = styled.div`
 export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const editorRef = React.useRef<HTMLDivElement | null>(null);
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
+  const onJsonUpdatedTimeoutRef = React.useRef<number>(null);
+  const onPropsJsonUpdatedTimeoutRef = React.useRef<number>(null);
 
   const onChangeText = (jsonText: string) => {
-    console.log('onChangeText', jsonText);
-    try {
-      props.onJsonUpdated(JSON.parse(jsonText));
-    } catch (error) {
-      console.warn('Caught error when parsing json');
+    if (onJsonUpdatedTimeoutRef.current) {
+      clearTimeout(onJsonUpdatedTimeoutRef.current);
     }
+    const timeout = setTimeout((): void => {
+      try {
+        props.onJsonUpdated(JSON.parse(jsonText));
+      } catch (error) {
+        console.warn('Caught error when parsing json');
+      }
+    }, 50);
+    onJsonUpdatedTimeoutRef.current = timeout;
   };
 
   const calculateNodeName = (nodeName: NodeName): string | undefined => {
@@ -77,15 +84,41 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useDeepCompareEffect((): void => {
-    if (editor && !deepCompare(props.json, editor.get())) {
-      editor.update(props.json);
+  console.log('JsonEditor props.json', JSON.stringify(props.json));
+  React.useEffect((): void | (() => void) => {
+    if (!editor) {
+      return;
     }
-  }, [props.json]);
 
-  React.useEffect((): void => {
-    if (editor) {
+    if (!editor.get() || Object.keys(editor.get()).length === 0) {
       editor.update(props.json);
+      return;
+    }
+
+    if (onPropsJsonUpdatedTimeoutRef.current) {
+      console.log('clearing old one');
+      clearTimeout(onPropsJsonUpdatedTimeoutRef.current);
+      onPropsJsonUpdatedTimeoutRef.current = null;
+    }
+
+    const timeout = setTimeout((): void => {
+      if (!deepCompare(props.json, editor.get())) {
+        console.log('JsonEditor Updating content');
+        console.log('props.json', JSON.stringify(props.json));
+        console.log('editor.get()', JSON.stringify(editor.get()));
+        editor.update(props.json);
+      }
+      onPropsJsonUpdatedTimeoutRef.current = null;
+    }, 2500);
+    console.log('updating timeout', JSON.stringify(props.json));
+    onPropsJsonUpdatedTimeoutRef.current = timeout;
+
+    return (): void => {
+      if (onPropsJsonUpdatedTimeoutRef.current) {
+        console.log('unmounting old one');
+        clearTimeout(onPropsJsonUpdatedTimeoutRef.current);
+        onPropsJsonUpdatedTimeoutRef.current = null;
+      }
     }
   }, [editor, props.json]);
 

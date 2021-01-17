@@ -36,3 +36,5 @@ export const SiteMetaCard = React.memo((props: ISiteMetaCardProps): React.ReactE
     </Box>
   );
 }, deepCompare);
+
+SiteMetaCard.displayName = 'SiteMetaCard';

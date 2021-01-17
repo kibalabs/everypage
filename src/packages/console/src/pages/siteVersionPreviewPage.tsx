@@ -57,8 +57,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const siteContentRef = React.useRef<IWebsite | undefined>(siteVersionEntry ? siteVersionEntry.siteContent as unknown as IWebsite : undefined);
-  const siteThemeRef = React.useRef<ITheme | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme as unknown as ITheme : undefined);
+  const [siteContent, setSiteContent] = React.useState<IWebsite | undefined>(siteVersionEntry ? siteVersionEntry.siteContent as unknown as IWebsite : undefined);
+  const [siteTheme, setSiteTheme] = React.useState<ITheme | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme as unknown as ITheme : undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -101,8 +101,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
     everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(receivedSiteVersionEntry);
-      siteContentRef.current = receivedSiteVersionEntry.siteContent as unknown as IWebste;
-      siteThemeRef.current = receivedSiteVersionEntry.siteTheme as unknown as ITheme;
+      setSiteContent(receivedSiteVersionEntry.siteContent as unknown as IWebsite);
+      setSiteTheme(receivedSiteVersionEntry.siteTheme as unknown as ITheme);
       setIsContentLoaded(true);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -128,12 +128,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
 
   const onSiteContentUpdated = React.useCallback((newSiteContent: IWebsite): void => {
-    siteContentRef.current = newSiteContent;
+    console.log('SiteVersionPreviewPage onSiteContentUpdated');
+    setSiteContent(newSiteContent as unknown as IWebsite);
     setIsSiteContentChanged(true);
   }, []);
 
   const onSiteThemeUpdated = React.useCallback((newSiteTheme: ITheme): void => {
-    siteThemeRef.current = newSiteTheme;
+    setSiteTheme(newSiteTheme as unknown as ITheme);
     setIsSiteThemeChanged(true);
   }, []);
 
@@ -204,7 +205,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       return;
     }
     if (isEditable && (isSiteContentChanged || isSiteThemeChanged)) {
-      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContentRef.current as unknown as Record<string, unknown> : null, isSiteThemeChanged ? siteThemeRef.current : null).then((): void => {
+      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent as unknown as Record<string, unknown> : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
         setIsSiteContentChanged(false);
         setIsSiteThemeChanged(false);
         setSavingError(null);
@@ -215,6 +216,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
   });
 
+  console.log('SiteVersionPreviewPage');
   return (
     <div className={classes.root}>
       <Helmet>
@@ -250,9 +252,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
-              siteContent={siteContentRef.current}
+              siteContent={siteContent}
               onSiteContentUpdated={onSiteContentUpdated}
-              siteTheme={siteThemeRef.current}
+              siteTheme={siteTheme}
               onSiteThemeUpdated={onSiteThemeUpdated}
               assetFileMap={assetFileMap}
               addAssetFiles={addAssetFiles}

@@ -151,6 +151,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setIsSectionChooserShowing(false);
   };
 
+  console.log('Canvas');
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -166,16 +167,22 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               </Stack.Item>
               <MaterialButton variant='outlined' onClick={onHideEditorClicked}>Hide</MaterialButton>
             </Stack>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_CONTENT ? 'flex' : 'none'}>
-              <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-            </MaterialBox>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_THEME ? 'flex' : 'none'}>
-              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-            </MaterialBox>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_MEDIA ? 'flex' : 'none'}>
-              {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-              <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-            </MaterialBox>
+            {selectedEditorTabKey === TAB_KEY_CONTENT && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+              </MaterialBox>
+            )}
+            {selectedEditorTabKey === TAB_KEY_THEME && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+              </MaterialBox>
+            )}
+            {selectedEditorTabKey === TAB_KEY_MEDIA && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+              </MaterialBox>
+            )}
           </div>
         )}
         {!props.isEditorHidden && <div className={classes.verticalLine} />}
