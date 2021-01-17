@@ -22,12 +22,12 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "dependencies": {
-    "@kibalabs/core": "^0.5.3-next.0",
-    "@kibalabs/core-react": "0.5.5-next.0",
+    "@kibalabs/core": "^0.5.3",
+    "@kibalabs/core-react": "^0.5.5",
     "@kibalabs/everyview-tracker": "^0.2.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.6.4",
+    "@kibalabs/build": "^0.6.4",
     "@kibalabs/ui-react": "^0.8.3-next.5",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",

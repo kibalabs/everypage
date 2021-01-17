@@ -23,9 +23,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "0.6.4",
-    "@kibalabs/core": "^0.5.3-next.0",
-    "@kibalabs/core-react": "0.5.5-next.0",
+    "@kibalabs/build": "^0.6.4",
+    "@kibalabs/core": "^0.5.3",
+    "@kibalabs/core-react": "^0.5.5",
     "@kibalabs/everypage": "0.8.1",
     "@kibalabs/ui-react": "^0.8.3-next.5",
     "@loadable/component": "^5.14.1",
