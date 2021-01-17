@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
+import Helmet from 'react-helmet';
 
 import { MemoCanvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
@@ -213,7 +214,15 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   return (
     <div className={classes.root}>
       <Helmet>
-        <title>{site ? site.name : 'Site page'} | Preview {siteVersion ? siteVersion.name : ''} | Everypage Console</title>
+        <title>
+          {site ? site.name : 'Site page'}
+          {' '}
+| Preview
+          {' '}
+          {siteVersion ? siteVersion.name : ''}
+          {' '}
+| Everypage Console
+        </title>
       </Helmet>
       <NavigationBar />
       <main className={classes.content}>

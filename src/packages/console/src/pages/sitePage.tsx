@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Helmet from 'react-helmet';
 
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { MessageDialog } from '../components/messageDialog';
@@ -279,7 +280,11 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     <React.Fragment>
       <NavigationBar />
       <Helmet>
-        <title>{site ? site.name : 'Site page'} | Everypage Console</title>
+        <title>
+          {site ? site.name : 'Site page'}
+          {' '}
+| Everypage Console
+        </title>
       </Helmet>
       <ContainingView>
         <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>

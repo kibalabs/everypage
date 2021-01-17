@@ -1,8 +1,9 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { useHistory } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
+import Helmet from 'react-helmet';
 
 import { useGlobals } from '../globalsContext';
 

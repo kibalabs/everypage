@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet'
+
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';
@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
+import Helmet from 'react-helmet';
 
 import { MemoCanvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';

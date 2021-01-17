@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Helmet from 'react-helmet';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';

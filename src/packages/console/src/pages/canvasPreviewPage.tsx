@@ -1,9 +1,10 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
 import { IndexPage } from '@kibalabs/everypage';
 import { Box } from '@kibalabs/ui-react';
+import Helmet from 'react-helmet';
 
 import { KibaFrame } from '../components/kibaFrame';
 

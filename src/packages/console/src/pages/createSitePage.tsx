@@ -1,5 +1,5 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
