@@ -202,6 +202,3 @@ Canvas.defaultProps = {
   isEditable: true,
   isMetaShown: true,
 };
-
-// export const MemoCanvas = React.memo(Canvas, deepCompare);
-export const MemoCanvas = Canvas;

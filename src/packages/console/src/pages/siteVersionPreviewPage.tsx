@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Helmet from 'react-helmet';
 
-import { MemoCanvas } from '../components/canvas';
+import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -247,7 +247,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 )}
               />
             </Box>
-            <MemoCanvas
+            <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
               siteContent={siteContentRef.current}
