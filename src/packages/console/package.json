@@ -8,10 +8,10 @@
     "start-dev": "build-react-app --webpack-config-modifier ./config.webpack.js --start --dev"
   },
   "dependencies": {
-    "@kibalabs/core": "^0.5.3-next.0",
-    "@kibalabs/core-react": "0.5.5-next.0",
+    "@kibalabs/core": "^0.5.3",
+    "@kibalabs/core-react": "^0.5.5",
     "@kibalabs/everypage": "0.8.1",
-    "@kibalabs/ui-react": "^0.8.2-next.1",
+    "@kibalabs/ui-react": "^0.8.3-next.5",
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
     "@stripe/react-stripe-js": "^1.1.2",

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import Helmet from 'react-helmet';
 
 import { useGlobals } from '../globalsContext';
 
@@ -32,6 +33,9 @@ export const VerifyEmailPage = (): React.ReactElement => {
 
   return (
     <ContainingView isCenteredHorizontally>
+      <Helmet>
+        <title>Verify Email | Everypage Console</title>
+      </Helmet>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />

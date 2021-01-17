@@ -1,7 +1,9 @@
 import React from 'react';
 
+
 import { useHistory } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
+import Helmet from 'react-helmet';
 
 import { useGlobals } from '../globalsContext';
 
@@ -52,9 +54,11 @@ export const LoginPage = (): React.ReactElement => {
     setPasswordError(undefined);
   };
 
-
   return (
     <ContainingView>
+      <Helmet>
+        <title>Login | Everypage Console</title>
+      </Helmet>
       <ResponsiveContainingView sizeResponsive={{ base: 12, small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />

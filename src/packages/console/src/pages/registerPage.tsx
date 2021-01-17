@@ -1,10 +1,12 @@
 import React from 'react';
 
+
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Helmet from 'react-helmet';
 
 
 import { useGlobals } from '../globalsContext';
@@ -82,6 +84,9 @@ export const RegisterPage = (): React.ReactElement => {
 
   return (
     <ContainingView>
+      <Helmet>
+        <title>Register | Everypage Console</title>
+      </Helmet>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />

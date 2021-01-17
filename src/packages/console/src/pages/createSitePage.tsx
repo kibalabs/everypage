@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
@@ -7,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -120,6 +122,9 @@ export const CreateSitePage = (): React.ReactElement => {
 
   return (
     <ContainingView>
+      <Helmet>
+        <title>Create Site | Everypage Console</title>
+      </Helmet>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 12, medium: 8, large: 5 }}>
         <NavigationBar />
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>

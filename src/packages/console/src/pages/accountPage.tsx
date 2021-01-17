@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
@@ -17,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe, PaymentIntent, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
+import Helmet from 'react-helmet';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -250,6 +252,13 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     <div className={classes.root}>
       <Elements stripe={stripePromise}>
         <NavigationBar />
+        <Helmet>
+          <title>
+            {account ? account.name : 'Account page'}
+            {' '}
+| Everypage Console
+          </title>
+        </Helmet>
         <main className={classes.content}>
           <Container maxWidth='lg'>
             {account === undefined || accountSites === undefined ? (

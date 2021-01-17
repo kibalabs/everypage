@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -9,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
+import Helmet from 'react-helmet';
 
 import { MemoCanvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';
@@ -101,6 +103,9 @@ export const CanvasPage = (): React.ReactElement => {
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>Canvas | Everypage Console</title>
+      </Helmet>
       <div className={classes.topBar}>
         <Button
           variant='outlined'
