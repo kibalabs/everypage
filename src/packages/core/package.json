@@ -27,7 +27,7 @@
     "@kibalabs/everyview-tracker": "^0.2.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "^0.6.4",
+    "@kibalabs/build": "0.6.4",
     "@kibalabs/ui-react": "^0.8.3-next.5",
     "@types/react": "16.9.31",
     "@types/react-dom": "16.9.5",

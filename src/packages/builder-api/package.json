@@ -20,7 +20,7 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "^0.6.4",
+    "@kibalabs/build": "0.6.4",
     "@types/archiver": "5.1.0",
     "@types/express": "4.17.9",
     "@types/morgan": "1.9.2",
