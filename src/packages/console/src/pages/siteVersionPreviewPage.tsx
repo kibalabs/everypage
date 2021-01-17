@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
@@ -77,6 +78,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [everypageClient, props.slug]);
 
   const loadSiteVersion = React.useCallback((): void => {
+    if (!site.siteId) {
+      setSiteVersion(undefined);
+      return;
+    }
     everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersion: SiteVersion) => {
       setSiteVersion(receivedSiteVersion);
     }).catch((error: KibaException): void => {
@@ -86,6 +91,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [everypageClient, props.siteVersionId, site]);
 
   const loadSiteVersionEntry = React.useCallback((): void => {
+    if (!site.siteId) {
+      setSiteVersionEntry(undefined);
+      return;
+    }
     everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(receivedSiteVersionEntry);
       setSiteContent(receivedSiteVersionEntry.siteContent);
@@ -97,6 +106,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [everypageClient, props.siteVersionId, site]);
 
   const loadSiteVersionAssets = React.useCallback((): void => {
+    if (!site.siteId) {
+      setAssetFileMap(undefined);
+      return;
+    }
     everypageClient.listSiteVersionAssets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
       setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
         // eslint-disable-next-line no-param-reassign
@@ -175,7 +188,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       loadSiteVersionEntry();
       loadSiteVersionAssets();
     } else {
-      setSiteVersionEntry(null);
+      setSiteVersionEntry(undefined);
       setAssetFileMap(undefined);
     }
   }, [loadSiteVersionEntry, loadSiteVersionAssets, siteVersion]);
@@ -199,6 +212,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>{site ? site.name : 'Site page'} | Preview {siteVersion ? siteVersion.name : ''} | Everypage Console</title>
+      </Helmet>
       <NavigationBar />
       <main className={classes.content}>
         {site === null || siteVersion === null || siteVersionEntry === null ? (

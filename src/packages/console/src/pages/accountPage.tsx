@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
@@ -250,6 +251,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
     <div className={classes.root}>
       <Elements stripe={stripePromise}>
         <NavigationBar />
+        <Helmet>
+          <title>{account ? account.name : 'Account page'} | Everypage Console</title>
+        </Helmet>
         <main className={classes.content}>
           <Container maxWidth='lg'>
             {account === undefined || accountSites === undefined ? (

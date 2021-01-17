@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';

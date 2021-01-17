@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
@@ -82,6 +83,9 @@ export const RegisterPage = (): React.ReactElement => {
 
   return (
     <ContainingView>
+      <Helmet>
+        <title>Register | Everypage Console</title>
+      </Helmet>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />

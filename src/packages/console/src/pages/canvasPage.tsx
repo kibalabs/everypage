@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet'
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';
@@ -101,6 +102,9 @@ export const CanvasPage = (): React.ReactElement => {
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>Canvas | Everypage Console</title>
+      </Helmet>
       <div className={classes.topBar}>
         <Button
           variant='outlined'

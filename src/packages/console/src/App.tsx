@@ -4,7 +4,7 @@ import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { Route, Router, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
 import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
-import { Helmet } from 'react-helmet';
+import Helmet from 'react-helmet';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { hot } from 'react-hot-loader/root';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
@@ -122,6 +123,9 @@ export const HomePage = (): React.ReactElement => {
   return (
     <div className={classes.root}>
       <NavigationBar />
+      <Helmet>
+        <title>Home | Everypage Console</title>
+      </Helmet>
       <main className={classes.content}>
         <Container maxWidth='lg'>
           {accounts === undefined || accountSites === undefined ? (

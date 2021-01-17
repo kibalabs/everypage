@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
 import { IndexPage } from '@kibalabs/everypage';
@@ -11,10 +12,15 @@ export const CanvasPreviewPage = (): React.ReactElement => {
   const [siteTheme] = useObjectLocalStorageState('siteTheme');
 
   return (
-    <Box height='100%'>
-      <KibaFrame>
-        <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeAttributionSection={false} />
-      </KibaFrame>
-    </Box>
+    <React.Fragment>
+      <Helmet>
+        <title>Canvas Preview | Everypage Console</title>
+      </Helmet>
+      <Box height='100%'>
+        <KibaFrame>
+          <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeAttributionSection={false} />
+        </KibaFrame>
+      </Box>
+    </React.Fragment>
   );
 };

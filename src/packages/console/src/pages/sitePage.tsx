@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
@@ -277,6 +278,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   return (
     <React.Fragment>
       <NavigationBar />
+      <Helmet>
+        <title>{site ? site.name : 'Site page'} | Everypage Console</title>
+      </Helmet>
       <ContainingView>
         <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
           {site === null ? (
@@ -340,21 +344,14 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                         {newCustomDomain && (
                           <React.Fragment>
                             <Text>Great! Now please create the following DNS CNAME record with your hosting provider:</Text>
-                            <Text>
-                              {newCustomDomain}
-                              {' '}
-➡️
-                              {' '}
-                              {site.slug}
-.int.evrpg.com
-                            </Text>
+                            <Text>{`${newCustomDomain} ➡️ ${site.slug}.int.evrpg.com`}</Text>
                             {newCustomDomainApiError && (
                               <Text variant='error'>Something went wrong on our side. Please try again later or contact support.</Text>
                             )}
                             <Text variant='note'>
-It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!
+                              It can take up to 1 hour for this to work. If it has taken longer, please get in touch with us because something might have failed!
                               <br />
-Please message us if you need any help with this.
+                              Please message us if you need any help with this.
                             </Text>
                             <Button
                               variant='primary'
@@ -380,9 +377,9 @@ Please message us if you need any help with this.
                     <Text variant='header3'>Site Versions</Text>
                     {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button onClicked={onCreateNewVersionClicked} text='Create new version' />}
                   </Stack>
-                  { versions && versions.map((version: SiteVersion): React.ReactElement => {
+                  { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
                     return version.archiveDate ? null : (
-                      <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
+                      <Stack key={index} direction={Direction.Vertical} contentAlignment={Alignment.Start}>
                         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                           <Text variant='default'>{version.name || 'Unnamed'}</Text>
                           {version.siteVersionId === primaryVersionId && <Text variant='note-small'>(PUBLISHED)</Text>}
