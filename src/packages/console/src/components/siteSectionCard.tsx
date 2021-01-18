@@ -1,17 +1,54 @@
 import React from 'react';
 
-import { IWebsiteSection } from '@kibalabs/everypage';
+import { deepCompare } from '@kibalabs/core';
+import { IWebsiteSection } from '@kibalabs/everypage/src/model/website';
 import { Alignment, Box, Direction, IconButton, KibaIcon, Stack, Text } from '@kibalabs/ui-react';
+
+interface ISectionCardSectionProps {
+  id?: string;
+  titleText?: string;
+  type: string;
+}
 
 interface ISiteSectionCardProps {
   section: IWebsiteSection;
-  onMoveUpClicked: () => void;
-  onMoveDownClicked: () => void;
-  onDeleteClicked: () => void;
+  cardIndex: number;
+  onMoveUpClicked: (cardIndex: number) => void;
+  onMoveDownClicked: (cardIndex: number) => void;
+  onDeleteClicked: (cardIndex: number) => void;
 }
 
-export const SiteSectionCard = (props: ISiteSectionCardProps): React.ReactElement => {
+const extractSiteSectionCardSectionProps = (section: IWebsiteSection): ISectionCardSectionProps => {
+  return {
+    id: section.id,
+    titleText: section.titleText ? String(section.titleText) : undefined,
+    type: section.type,
+  };
+};
+
+const deepCompareProps = (oldProps: ISiteSectionCardProps, newProps: ISiteSectionCardProps) => {
+  const cleanedObj1 = {
+    ...oldProps,
+    section: extractSiteSectionCardSectionProps(oldProps.section),
+  };
+  const cleanedObj2 = {
+    ...newProps,
+    section: extractSiteSectionCardSectionProps(newProps.section),
+  };
+  return deepCompare(cleanedObj1, cleanedObj2);
+};
+
+export const SiteSectionCard = React.memo((props: ISiteSectionCardProps): React.ReactElement => {
   const title = props.section.id || props.section.titleText || 'Untitled';
+
+  const onMoveUpClicked = (): void => {
+    props.onMoveUpClicked(props.cardIndex);
+  };
+
+  const onMoveDownClicked = (): void => {
+    props.onMoveDownClicked(props.cardIndex);
+  };
+
   return (
     <Box variant='bordered'>
       <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
@@ -23,12 +60,12 @@ export const SiteSectionCard = (props: ISiteSectionCardProps): React.ReactElemen
           <IconButton
             variant='small-passive'
             icon={<KibaIcon iconId='ion-arrow-up' variant='small' />}
-            onClicked={props.onMoveUpClicked}
+            onClicked={onMoveUpClicked}
           />
           <IconButton
             variant='small-passive'
             icon={<KibaIcon iconId='ion-arrow-down' variant='small' />}
-            onClicked={props.onMoveDownClicked}
+            onClicked={onMoveDownClicked}
           />
           {/* <IconButton
             variant='small-passive'
@@ -39,4 +76,6 @@ export const SiteSectionCard = (props: ISiteSectionCardProps): React.ReactElemen
       </Stack>
     </Box>
   );
-};
+}, deepCompareProps);
+
+SiteSectionCard.displayName = 'SiteSectionCard';

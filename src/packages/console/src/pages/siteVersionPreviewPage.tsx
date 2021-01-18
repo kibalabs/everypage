@@ -3,6 +3,8 @@ import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
+import { ITheme } from '@kibalabs/ui-react';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +12,7 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Helmet from 'react-helmet';
 
-import { MemoCanvas } from '../components/canvas';
+import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -55,8 +57,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteContent : undefined);
-  const [siteTheme, setSiteTheme] = React.useState<Record<string, unknown> | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme : undefined);
+  const [siteContent, setSiteContent] = React.useState<IWebsite | undefined>(undefined);
+  const [siteTheme, setSiteTheme] = React.useState<ITheme | undefined>(undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -98,8 +100,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
     everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(receivedSiteVersionEntry);
-      setSiteContent(receivedSiteVersionEntry.siteContent);
-      setSiteTheme(receivedSiteVersionEntry.siteTheme);
+      setSiteContent(receivedSiteVersionEntry.siteContent as unknown as IWebsite);
+      setSiteTheme(receivedSiteVersionEntry.siteTheme as unknown as ITheme);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersionEntry(null);
@@ -123,15 +125,15 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     });
   }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
 
-  const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
-    setSiteContent(newSiteContent);
+  const onSiteContentUpdated = React.useCallback((newSiteContent: IWebsite): void => {
+    setSiteContent(newSiteContent as unknown as IWebsite);
     setIsSiteContentChanged(true);
-  };
+  }, []);
 
-  const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
-    setSiteTheme(newSiteTheme);
+  const onSiteThemeUpdated = React.useCallback((newSiteTheme: ITheme): void => {
+    setSiteTheme(newSiteTheme as unknown as ITheme);
     setIsSiteThemeChanged(true);
-  };
+  }, []);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     return everypageClient.generateAssetUploadForSiteVersion(site.siteId, siteVersion.siteVersionId).then((presignedUpload: PresignedUpload): void => {
@@ -194,13 +196,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
   }, [loadSiteVersionEntry, loadSiteVersionAssets, siteVersion]);
 
-  // TODO(krishan711): im sure this can be done better than just every 3 seconds
-  useInterval(3, (): void => {
+  // TODO(krishan711): im sure this can be done better than just every 5 seconds
+  useInterval(30, (): void => {
     if (!site || !siteVersion || !siteVersionEntry) {
       return;
     }
     if (isEditable && (isSiteContentChanged || isSiteThemeChanged)) {
-      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
+      everypageClient.updateSiteVersionEntry(site.siteId, siteVersion.siteVersionId, isSiteContentChanged ? siteContent as unknown as Record<string, unknown> : null, isSiteThemeChanged ? siteTheme : null).then((): void => {
         setIsSiteContentChanged(false);
         setIsSiteThemeChanged(false);
         setSavingError(null);
@@ -214,15 +216,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   return (
     <div className={classes.root}>
       <Helmet>
-        <title>
-          {site ? site.name : 'Site page'}
-          {' '}
-| Preview
-          {' '}
-          {siteVersion ? siteVersion.name : ''}
-          {' '}
-| Everypage Console
-        </title>
+        <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
       </Helmet>
       <NavigationBar />
       <main className={classes.content}>
@@ -251,7 +245,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 )}
               />
             </Box>
-            <MemoCanvas
+            <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
               siteContent={siteContent}

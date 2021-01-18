@@ -253,11 +253,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       <Elements stripe={stripePromise}>
         <NavigationBar />
         <Helmet>
-          <title>
-            {account ? account.name : 'Account page'}
-            {' '}
-| Everypage Console
-          </title>
+          <title>{`${account ? account.name : 'Account page'} | Everypage Console`}</title>
         </Helmet>
         <main className={classes.content}>
           <Container maxWidth='lg'>

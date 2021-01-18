@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { deepCompare } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { Box, Image } from '@kibalabs/ui-react';
 import AppBar from '@material-ui/core/AppBar';
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const NavigationBar = (): React.ReactElement => {
+// TODO(krishan711): this wont need memo once its moved out of each page and to the "App" level
+export const NavigationBar = React.memo((): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
   const history = useHistory();
@@ -119,4 +121,6 @@ export const NavigationBar = (): React.ReactElement => {
       )}
     </AppBar>
   );
-};
+}, deepCompare);
+
+NavigationBar.displayName = 'NavigationBar';

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
+import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';
 import { Alignment, BackgroundView, Button, Direction, HidingView, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { JsonEditor } from './jsonEditor';
@@ -16,20 +17,22 @@ interface IContentEditorProps {
   siteContent: IWebsite;
   onAddSectionClicked: () => void;
   onNavigationChanged: (path: string) => void;
-  onSiteContentUpdated: (siteContent: Record<string, unknown>) => void;
+  onSiteContentUpdated: (siteContent: IWebsite) => void;
 }
 
 export const ContentEditor = (props: IContentEditorProps): React.ReactElement => {
   const [selectedTypeTabKey, setSelectedTypeTabKey] = React.useState<string>(TAB_KEY_FORM);
   const [currentPath, setCurrentPath] = React.useState<string | undefined>(undefined);
+  const siteContentRef = React.useRef<IWebsite | undefined>(props.siteContent);
+  siteContentRef.current = props.siteContent;
 
   const onTabKeySelected = (tabKey: string): void => {
     setSelectedTypeTabKey(tabKey);
   };
 
-  const onMetaClicked = (): void => {
+  const onMetaClicked = React.useCallback((): void => {
     setCurrentPath('metadata');
-  };
+  }, []);
 
   const onBackClicked = (): void => {
     setCurrentPath(undefined);
@@ -64,46 +67,48 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   };
 
   const onJsonUpdated = (json: Record<string, unknown>): void => {
-    if (currentPath === undefined) {
+    if (!currentPath) {
       props.onSiteContentUpdated(json);
-    } else if (currentPath && currentPath === 'metadata') {
+    } else if (currentPath === 'metadata') {
       props.onSiteContentUpdated({ ...props.siteContent, ...json });
-    } else if (currentPath && currentPath.startsWith('plugin:')) {
+    } else if (currentPath.startsWith('plugin:')) {
       // eslint-disable-next-line no-param-reassign
       props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
-    } else if (currentPath && currentPath.startsWith('section:')) {
+      props.onSiteContentUpdated({ ...props.siteContent });
+    } else if (currentPath.startsWith('section:')) {
       // eslint-disable-next-line no-param-reassign
       props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
+      props.onSiteContentUpdated({ ...props.siteContent });
     }
   };
 
-  const onMoveSectionUpClicked = (sectionIndex: number): void => {
+  const onMoveSectionUpClicked = React.useCallback((sectionIndex: number): void => {
     if (sectionIndex === 0) {
       return;
     }
-    const sectionsCopy = [...props.siteContent.sections];
+    const onSiteContentUpdated = props.onSiteContentUpdated;
+    const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex - 1, 0, section);
-    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
-  };
+    onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [props.onSiteContentUpdated]);
 
-  const onMoveSectionDownClicked = (sectionIndex: number): void => {
-    if (sectionIndex === props.siteContent.length - 1) {
+  const onMoveSectionDownClicked = React.useCallback((sectionIndex: number): void => {
+    if (sectionIndex === siteContentRef.current.length - 1) {
       return;
     }
-    const sectionsCopy = [...props.siteContent.sections];
+    const onSiteContentUpdated = props.onSiteContentUpdated;
+    const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex + 1, 0, section);
-    props.onSiteContentUpdated({ ...props.siteContent, sections: sectionsCopy });
-  };
+    onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [props.onSiteContentUpdated]);
 
-  const onDeleteSectionClicked = (sectionIndex: number): void => {
+  const onDeleteSectionClicked = React.useCallback((sectionIndex: number): void => {
     console.error(`deleting sections is not implemented yet: ${sectionIndex}`);
-  };
+  }, []);
 
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
@@ -117,8 +122,8 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
       </HidingView>
       <HidingView isHidden={currentPath !== undefined}>
         <TabBar isFullWidth={true} selectedTabKey={selectedTypeTabKey} onTabKeySelected={onTabKeySelected}>
-          <TabBar.Item tabKey={TAB_KEY_FORM} text='Form' />
-          <TabBar.Item tabKey={TAB_KEY_JSON} text='JSON' />
+          <TabBar.Item tabKey={TAB_KEY_FORM} text='Form' isEnabled={true} isCollapsible={false} isExpandable={true} />
+          <TabBar.Item tabKey={TAB_KEY_JSON} text='JSON' isEnabled={true} isCollapsible={false} isExpandable={true} />
         </TabBar>
       </HidingView>
       <Stack.Item growthFactor={1} shrinkFactor={1}>
@@ -138,7 +143,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
               {/* {currentPath === undefined && (
                 <React.Fragment> */}
               <LinkBase isFullWidth={true} onClicked={onMetaClicked}>
-                <SiteMetaCard website={props.siteContent} />
+                <SiteMetaCard website={getMetaFromWebsite(props.siteContent)} />
               </LinkBase>
               <Stack.Item gutterBefore={PaddingSize.Wide}>
                 <Text variant='header3'>Plugins</Text>
@@ -158,9 +163,10 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
                 <LinkBase key={section.id || `section-${index}`} isFullWidth={true} onClicked={() => onSectionClicked(index)}>
                   <SiteSectionCard
                     section={section}
-                    onMoveUpClicked={(): void => onMoveSectionUpClicked(index)}
-                    onMoveDownClicked={(): void => onMoveSectionDownClicked(index)}
-                    onDeleteClicked={(): void => onDeleteSectionClicked(index)}
+                    cardIndex={index}
+                    onMoveUpClicked={onMoveSectionUpClicked}
+                    onMoveDownClicked={onMoveSectionDownClicked}
+                    onDeleteClicked={onDeleteSectionClicked}
                   />
                 </LinkBase>
               ))}
@@ -177,7 +183,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
         <Button text='Add section' onClicked={props.onAddSectionClicked} />
       </HidingView>
       <Stack.Item growthFactor={1}>
-        {(currentPath !== undefined || selectedTypeTabKey === TAB_KEY_JSON) && (
+        {(selectedTypeTabKey === TAB_KEY_JSON || currentPath !== undefined) && (
           <JsonEditor isEditable={props.isEditable} name='site' json={getJsonFromPath()} onJsonUpdated={onJsonUpdated} />
         )}
       </Stack.Item>

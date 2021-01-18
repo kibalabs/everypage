@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
-import { MemoCanvas } from '../components/canvas';
+import { Canvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -126,7 +126,7 @@ export const CanvasPage = (): React.ReactElement => {
         </div>
       </div>
       {siteContent && (
-        <MemoCanvas
+        <Canvas
           siteContent={siteContent}
           onSiteContentUpdated={onSiteContentUpdated}
           siteTheme={siteTheme}

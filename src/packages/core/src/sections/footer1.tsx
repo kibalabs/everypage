@@ -5,7 +5,7 @@ import { Alignment, Direction, IconButton, KibaIcon, MarkdownText, PaddingSize, 
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText } from '../components';
-import { useWebsite } from '../util';
+import { useWebsiteMeta } from '../util';
 
 interface IFooter1IconLink {
   iconId?: string;
@@ -20,10 +20,10 @@ interface IFooter1Props extends ISectionProps {
 }
 
 export const Footer1 = (props: IFooter1Props): React.ReactElement => {
-  const website = useWebsite();
-  let companyText = `${website.company}`;
-  if (website.companyUrl) {
-    companyText = `[${companyText}](${website.companyUrl})`;
+  const websiteMeta = useWebsiteMeta();
+  let companyText = `${websiteMeta.company}`;
+  if (websiteMeta.companyUrl) {
+    companyText = `[${companyText}](${websiteMeta.companyUrl})`;
   }
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (

@@ -1,14 +1,13 @@
 
 import React from 'react';
 
-import { deepCompare } from '@kibalabs/core';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
-import { Direction, Stack, TabBar } from '@kibalabs/ui-react';
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
+import { Direction, ITheme, KibaIcon, Stack, TabBar } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
 import MaterialButton from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-import EditIcon from '@material-ui/icons/Edit';
 
 import { Section } from '../everypageClient';
 import { ContentEditor } from './contentEditor';
@@ -81,10 +80,10 @@ const useStyles = makeStyles((theme) => ({
 interface ICanvasProps {
   isEditable: boolean;
   isMetaShown: boolean;
-  siteContent: Record<string, unknown>;
-  onSiteContentUpdated: (siteContent: Record<string, unknown>) => void;
-  siteTheme: Record<string, unknown>;
-  onSiteThemeUpdated: (siteTheme: Record<string, unknown>) => void;
+  siteContent: IWebsite;
+  onSiteContentUpdated: (siteContent: IWebsite) => void;
+  siteTheme: ITheme;
+  onSiteThemeUpdated: (siteTheme: ITheme) => void;
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
   deleteAssetFile?: (fileKey: string) => Promise<void>;
@@ -98,13 +97,15 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const [isSectionChooserShowing, setIsSectionChooserShowing] = React.useState<boolean>(false);
   const [chosenSectionId, setChosenSectionId] = React.useState<string | undefined>(undefined);
 
-  const onSiteContentUpdated = (parsedJson: Record<string, unknown>): void => {
-    props.onSiteContentUpdated(parsedJson);
-  };
+  const onSiteContentUpdated = React.useCallback((siteContent: IWebsite): void => {
+    const onSiteContentUpdatedFunc = props.onSiteContentUpdated;
+    onSiteContentUpdatedFunc(siteContent);
+  }, [props.onSiteContentUpdated]);
 
-  const onSiteThemeUpdated = (parsedJson: Record<string, unknown>): void => {
-    props.onSiteThemeUpdated(parsedJson);
-  };
+  const onSiteThemeUpdated = React.useCallback((siteTheme: ITheme): void => {
+    const onSiteThemeUpdatedFunc = props.onSiteThemeUpdated;
+    onSiteThemeUpdatedFunc(siteTheme);
+  }, [props.onSiteThemeUpdated]);
 
   const onAssetFilesChosen = (files: File[]): void => {
     props.addAssetFiles(files);
@@ -166,16 +167,22 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               </Stack.Item>
               <MaterialButton variant='outlined' onClick={onHideEditorClicked}>Hide</MaterialButton>
             </Stack>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_CONTENT ? 'flex' : 'none'}>
-              <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-            </MaterialBox>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_THEME ? 'flex' : 'none'}>
-              <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-            </MaterialBox>
-            <MaterialBox className={classes.editor} display={selectedEditorTabKey === TAB_KEY_MEDIA ? 'flex' : 'none'}>
-              {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-              <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-            </MaterialBox>
+            {selectedEditorTabKey === TAB_KEY_CONTENT && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+              </MaterialBox>
+            )}
+            {selectedEditorTabKey === TAB_KEY_THEME && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+              </MaterialBox>
+            )}
+            {selectedEditorTabKey === TAB_KEY_MEDIA && (
+              <MaterialBox className={classes.editor} display={'flex'}>
+                {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+              </MaterialBox>
+            )}
           </div>
         )}
         {!props.isEditorHidden && <div className={classes.verticalLine} />}
@@ -187,7 +194,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
       </div>
       {props.isEditorHidden && (
         <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
-          <EditIcon />
+          <KibaIcon iconId='ion-brush' />
         </Fab>
       )}
       <SectionChooserModal
@@ -202,5 +209,3 @@ Canvas.defaultProps = {
   isEditable: true,
   isMetaShown: true,
 };
-
-export const MemoCanvas = React.memo(Canvas, deepCompare);
