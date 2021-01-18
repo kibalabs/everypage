@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { deepCompare } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
 import { Box, Image } from '@kibalabs/ui-react';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +9,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { deepCompare } from '@kibalabs/core';
 
 import { useGlobals } from '../globalsContext';
 
@@ -122,3 +122,5 @@ export const NavigationBar = React.memo((): React.ReactElement => {
     </AppBar>
   );
 }, deepCompare);
+
+NavigationBar.displayName = 'NavigationBar';

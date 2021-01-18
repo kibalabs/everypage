@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
-import { useDeepCompareEffect } from '@kibalabs/core-react';
 import JSONEditor, { NodeName } from 'jsoneditor';
 import styled from 'styled-components';
 import 'jsoneditor/dist/jsoneditor.css';
@@ -27,24 +26,46 @@ const StyledJsonEditor = styled.div`
   }
 `;
 
+const useDebouncedCallback = (delaySeconds = 30): [(callback: (() => void)) => void, () => void] => {
+  const timeoutRef = React.useRef<number>(null);
+  const callbackRef = React.useRef<() => void>(null);
+
+  const clearCallback = React.useCallback((): void => {
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+      callbackRef.current = null;
+    }
+  }, []);
+
+  const setCallback = React.useCallback((callback: (() => void)): void => {
+    clearCallback();
+    callbackRef.current = callback;
+    timeoutRef.current = setTimeout((): void => {
+      callbackRef.current();
+      timeoutRef.current = null;
+      callbackRef.current = null;
+    }, delaySeconds);
+  }, [delaySeconds, clearCallback]);
+
+  return [setCallback, clearCallback];
+};
+
 export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const editorRef = React.useRef<HTMLDivElement | null>(null);
   const [editor, setEditor] = React.useState<JSONEditor | null>(null);
-  const onJsonUpdatedTimeoutRef = React.useRef<number>(null);
-  const onPropsJsonUpdatedTimeoutRef = React.useRef<number>(null);
+  const [setJsonUpdatedCallback] = useDebouncedCallback(100);
+  const [setPropsUpdatedCallback, clearPropsUpdatedCallback] = useDebouncedCallback(500);
 
   const onChangeText = (jsonText: string) => {
-    if (onJsonUpdatedTimeoutRef.current) {
-      clearTimeout(onJsonUpdatedTimeoutRef.current);
-    }
-    const timeout = setTimeout((): void => {
+    clearPropsUpdatedCallback();
+    setJsonUpdatedCallback((): void => {
       try {
         props.onJsonUpdated(JSON.parse(jsonText));
       } catch (error) {
         console.warn('Caught error when parsing json');
       }
-    }, 50);
-    onJsonUpdatedTimeoutRef.current = timeout;
+    });
   };
 
   const calculateNodeName = (nodeName: NodeName): string | undefined => {
@@ -84,8 +105,7 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('JsonEditor props.json', JSON.stringify(props.json));
-  React.useEffect((): void | (() => void) => {
+  React.useEffect((): (void | (() => void)) => {
     if (!editor) {
       return;
     }
@@ -95,32 +115,16 @@ export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
       return;
     }
 
-    if (onPropsJsonUpdatedTimeoutRef.current) {
-      console.log('clearing old one');
-      clearTimeout(onPropsJsonUpdatedTimeoutRef.current);
-      onPropsJsonUpdatedTimeoutRef.current = null;
-    }
-
-    const timeout = setTimeout((): void => {
+    setPropsUpdatedCallback((): void => {
       if (!deepCompare(props.json, editor.get())) {
-        console.log('JsonEditor Updating content');
-        console.log('props.json', JSON.stringify(props.json));
-        console.log('editor.get()', JSON.stringify(editor.get()));
         editor.update(props.json);
       }
-      onPropsJsonUpdatedTimeoutRef.current = null;
-    }, 2500);
-    console.log('updating timeout', JSON.stringify(props.json));
-    onPropsJsonUpdatedTimeoutRef.current = timeout;
+    });
 
-    return (): void => {
-      if (onPropsJsonUpdatedTimeoutRef.current) {
-        console.log('unmounting old one');
-        clearTimeout(onPropsJsonUpdatedTimeoutRef.current);
-        onPropsJsonUpdatedTimeoutRef.current = null;
-      }
-    }
-  }, [editor, props.json]);
+    // TODO(krishan711): figure out why this lint disable is needed!
+    // eslint-disable-next-line consistent-return
+    return clearPropsUpdatedCallback;
+  }, [editor, props.json, setPropsUpdatedCallback, clearPropsUpdatedCallback]);
 
   return (
     <StyledJsonEditor

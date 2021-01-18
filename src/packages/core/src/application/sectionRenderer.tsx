@@ -1,5 +1,6 @@
-import { deepCompare } from '@kibalabs/core';
 import React from 'react';
+
+import { deepCompare } from '@kibalabs/core';
 
 import { IWebsiteSection } from '../model';
 import * as sections from '../sections';

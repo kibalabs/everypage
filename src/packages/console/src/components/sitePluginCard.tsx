@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { deepCompare } from '@kibalabs/core';
 import { IWebsitePlugin } from '@kibalabs/everypage';
 import { Box, Text } from '@kibalabs/ui-react';
-import { deepCompare } from '@kibalabs/core';
 
 interface ISitePluginCardProps {
   plugin: IWebsitePlugin;

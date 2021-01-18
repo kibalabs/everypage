@@ -3,6 +3,8 @@ import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
+import { ITheme } from '@kibalabs/ui-react';
 import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,8 +16,6 @@ import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-import { ITheme } from '@kibalabs/ui-react';
-import { IWebsite } from '@kibalabs/everypage/src/model/website';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +57,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
-  const [siteContent, setSiteContent] = React.useState<IWebsite | undefined>(siteVersionEntry ? siteVersionEntry.siteContent as unknown as IWebsite : undefined);
-  const [siteTheme, setSiteTheme] = React.useState<ITheme | undefined>(siteVersionEntry ? siteVersionEntry.siteTheme as unknown as ITheme : undefined);
+  const [siteContent, setSiteContent] = React.useState<IWebsite | undefined>(undefined);
+  const [siteTheme, setSiteTheme] = React.useState<ITheme | undefined>(undefined);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string> | undefined>(undefined);
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
@@ -102,7 +102,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       setSiteVersionEntry(receivedSiteVersionEntry);
       setSiteContent(receivedSiteVersionEntry.siteContent as unknown as IWebsite);
       setSiteTheme(receivedSiteVersionEntry.siteTheme as unknown as ITheme);
-      setIsContentLoaded(true);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersionEntry(null);
@@ -127,7 +126,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
 
   const onSiteContentUpdated = React.useCallback((newSiteContent: IWebsite): void => {
-    console.log('SiteVersionPreviewPage onSiteContentUpdated');
     setSiteContent(newSiteContent as unknown as IWebsite);
     setIsSiteContentChanged(true);
   }, []);
@@ -198,8 +196,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
   }, [loadSiteVersionEntry, loadSiteVersionAssets, siteVersion]);
 
-  // TODO(krishan711): im sure this can be done better than just every 3 seconds
-  useInterval(3, (): void => {
+  // TODO(krishan711): im sure this can be done better than just every 5 seconds
+  useInterval(30, (): void => {
     if (!site || !siteVersion || !siteVersionEntry) {
       return;
     }
@@ -215,7 +213,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
   });
 
-  console.log('SiteVersionPreviewPage');
   return (
     <div className={classes.root}>
       <Helmet>

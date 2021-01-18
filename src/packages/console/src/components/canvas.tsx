@@ -1,8 +1,8 @@
 
 import React from 'react';
 
-import { deepCompare } from '@kibalabs/core';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
 import { Direction, ITheme, KibaIcon, Stack, TabBar } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
 import MaterialButton from '@material-ui/core/Button';
@@ -15,7 +15,6 @@ import { Dropzone, FilePreviewGrid } from './dropzone';
 import { JsonEditor } from './jsonEditor';
 import { KibaFrame } from './kibaFrame';
 import { SectionChooserModal } from './sectionChooserModal';
-import { IWebsite } from '@kibalabs/everypage/src/model/website';
 
 const TAB_KEY_CONTENT = 'content';
 const TAB_KEY_THEME = 'theme';
@@ -99,11 +98,13 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const [chosenSectionId, setChosenSectionId] = React.useState<string | undefined>(undefined);
 
   const onSiteContentUpdated = React.useCallback((siteContent: IWebsite): void => {
-    props.onSiteContentUpdated(siteContent);
+    const onSiteContentUpdatedFunc = props.onSiteContentUpdated;
+    onSiteContentUpdatedFunc(siteContent);
   }, [props.onSiteContentUpdated]);
 
   const onSiteThemeUpdated = React.useCallback((siteTheme: ITheme): void => {
-    props.onSiteThemeUpdated(siteTheme);
+    const onSiteThemeUpdatedFunc = props.onSiteThemeUpdated;
+    onSiteThemeUpdatedFunc(siteTheme);
   }, [props.onSiteThemeUpdated]);
 
   const onAssetFilesChosen = (files: File[]): void => {
@@ -151,7 +152,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setIsSectionChooserShowing(false);
   };
 
-  console.log('Canvas');
   return (
     <React.Fragment>
       <div className={classes.root}>

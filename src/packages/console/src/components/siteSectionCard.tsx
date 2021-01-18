@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Alignment, Box, Direction, IconButton, KibaIcon, Stack, Text } from '@kibalabs/ui-react';
 import { deepCompare } from '@kibalabs/core';
 import { IWebsiteSection } from '@kibalabs/everypage/src/model/website';
+import { Alignment, Box, Direction, IconButton, KibaIcon, Stack, Text } from '@kibalabs/ui-react';
 
 interface ISectionCardSectionProps {
   id?: string;
@@ -11,7 +11,7 @@ interface ISectionCardSectionProps {
 }
 
 interface ISiteSectionCardProps {
-  section: ISectionCardSectionProps;
+  section: IWebsiteSection;
   cardIndex: number;
   onMoveUpClicked: (cardIndex: number) => void;
   onMoveDownClicked: (cardIndex: number) => void;
@@ -23,20 +23,20 @@ const extractSiteSectionCardSectionProps = (section: IWebsiteSection): ISectionC
     id: section.id,
     titleText: section.titleText ? String(section.titleText) : undefined,
     type: section.type,
-  }
-}
+  };
+};
 
-const deepCompareProps = (obj1: any, obj2: any) => {
+const deepCompareProps = (oldProps: ISiteSectionCardProps, newProps: ISiteSectionCardProps) => {
   const cleanedObj1 = {
-    ...obj1,
-    section: extractSiteSectionCardSectionProps(obj1.section),
+    ...oldProps,
+    section: extractSiteSectionCardSectionProps(oldProps.section),
   };
   const cleanedObj2 = {
-    ...obj2,
-    section: extractSiteSectionCardSectionProps(obj2.section),
+    ...newProps,
+    section: extractSiteSectionCardSectionProps(newProps.section),
   };
   return deepCompare(cleanedObj1, cleanedObj2);
-}
+};
 
 export const SiteSectionCard = React.memo((props: ISiteSectionCardProps): React.ReactElement => {
   const title = props.section.id || props.section.titleText || 'Untitled';

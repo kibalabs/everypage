@@ -5,7 +5,7 @@ import { Alignment, Direction, IconButton, KibaIcon, MarkdownText, PaddingSize, 
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText } from '../components';
-import { useWebsite, useWebsiteMeta } from '../util';
+import { useWebsiteMeta } from '../util';
 
 interface IFooter1IconLink {
   iconId?: string;

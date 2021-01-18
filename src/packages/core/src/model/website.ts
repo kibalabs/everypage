@@ -61,5 +61,5 @@ export const getMetaFromWebsite = (website: IWebsite): IWebsiteMeta => {
     iosAppId: website.iosAppId,
     androidAppId: website.androidAppId,
     macAppId: website.macAppId,
-  }
-}
+  };
+};

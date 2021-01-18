@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { deepCompare } from '@kibalabs/core';
 import { IWebsiteMeta } from '@kibalabs/everypage';
 import { Alignment, Box, Direction, KibaIcon, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import { deepCompare } from '@kibalabs/core';
 
 interface IMetaItemProps {
   isChecked: boolean;

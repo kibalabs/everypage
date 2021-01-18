@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
+import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';
 import { Alignment, BackgroundView, Button, Direction, HidingView, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { JsonEditor } from './jsonEditor';
 import { SiteMetaCard } from './siteMetaCard';
 import { SitePluginCard } from './sitePluginCard';
 import { SiteSectionCard } from './siteSectionCard';
-import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';
 
 const TAB_KEY_FORM = 'form';
 const TAB_KEY_JSON = 'json';
@@ -74,11 +74,11 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
     } else if (currentPath.startsWith('plugin:')) {
       // eslint-disable-next-line no-param-reassign
       props.siteContent.plugins[parseInt(currentPath.replace('plugin:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
+      props.onSiteContentUpdated({ ...props.siteContent });
     } else if (currentPath.startsWith('section:')) {
       // eslint-disable-next-line no-param-reassign
       props.siteContent.sections[parseInt(currentPath.replace('section:', ''), 10)] = json;
-      props.onSiteContentUpdated(props.siteContent);
+      props.onSiteContentUpdated({ ...props.siteContent });
     }
   };
 
@@ -86,29 +86,30 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
     if (sectionIndex === 0) {
       return;
     }
+    const onSiteContentUpdated = props.onSiteContentUpdated;
     const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex - 1, 0, section);
-    props.onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
-  }, [siteContentRef.current, props.onSiteContentUpdated]);;
+    onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [props.onSiteContentUpdated]);
 
   const onMoveSectionDownClicked = React.useCallback((sectionIndex: number): void => {
     if (sectionIndex === siteContentRef.current.length - 1) {
       return;
     }
+    const onSiteContentUpdated = props.onSiteContentUpdated;
     const sectionsCopy = [...siteContentRef.current.sections];
     const section = sectionsCopy[sectionIndex];
     sectionsCopy.splice(sectionIndex, 1);
     sectionsCopy.splice(sectionIndex + 1, 0, section);
-    props.onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
-  }, [siteContentRef.current, props.onSiteContentUpdated]);
+    onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [props.onSiteContentUpdated]);
 
   const onDeleteSectionClicked = React.useCallback((sectionIndex: number): void => {
     console.error(`deleting sections is not implemented yet: ${sectionIndex}`);
   }, []);
 
-  console.log('ContentEditor');
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
       <HidingView isHidden={currentPath === undefined}>
