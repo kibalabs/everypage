@@ -1,14 +1,11 @@
 import React from 'react';
 
-
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment, Checkbox } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
-
 import { useGlobals } from '../globalsContext';
-
 
 export const RegisterPage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
