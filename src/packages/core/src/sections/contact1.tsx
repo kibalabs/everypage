@@ -168,6 +168,4 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
 };
 Contact1.displayName = 'contact-1';
 Contact1.defaultProps = {
-  titleText: 'Contact Us',
-  subtitleText: 'Leave us a message & we will reply soon',
 };
