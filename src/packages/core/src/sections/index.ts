@@ -5,6 +5,7 @@ export * from './appButtons1';
 export * from './attribution';
 export * from './buttons1';
 export * from './calendlyBooking1';
+export * from './contact1';
 export * from './featureBoxes1';
 export * from './featureBoxesMediaCenter1';
 export * from './featureMediaHalf1';
