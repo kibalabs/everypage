@@ -19,10 +19,10 @@ interface IContact1Props extends ISectionProps, IFormProps {
 
 export const Contact1 = (props: IContact1Props): React.ReactElement => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [name, setName] = React.useState<string| undefined>(undefined);
-  const [email, setEmail] = React.useState<string| undefined>(undefined);
-  const [phoneNumber, setPhoneNumber] = React.useState<string| undefined>(undefined);
-  const [message, setMessage] = React.useState<string| undefined>(undefined);
+  const [name, setName] = React.useState<string| null>(null);
+  const [email, setEmail] = React.useState<string| null>(null);
+  const [phoneNumber, setPhoneNumber] = React.useState<string| null>(null);
+  const [message, setMessage] = React.useState<string| null>(null);
   const [nameError, setNameError] = React.useState<string | undefined>(undefined);
   const [emailError, setEmailError] = React.useState<string | undefined>(undefined);
   const [phoneNumberError, setPhoneNumberError] = React.useState<string | undefined>(undefined);
@@ -63,7 +63,7 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
       setNameError('Please enter your name');
       return;
     }
-    if (!email ) {
+    if (!email) {
       setEmailError('Please enter your email address');
       return;
     }
@@ -87,14 +87,14 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
       { name: 'phoneNumber', value: phoneNumber, type: InputType.PhoneNumber },
       { name: 'message', value: message, type: InputType.Text },
       ...additionalFormInputs,
-    ]
+    ];
     const result = await submitForm(formFields, props.formAction, props.formTarget, props.formHeaders);
     setIsLoading(false);
     if (result.isSuccessful) {
-      setName(undefined);
-      setEmail(undefined);
-      setPhoneNumber(undefined);
-      setMessage(undefined);
+      setName(null);
+      setEmail(null);
+      setPhoneNumber(null);
+      setMessage(null);
       setSuccessMessage(props.inputSuccessMessageText || 'Success.');
     } else {
       setErrorMessage(result.responseMessage);
@@ -120,7 +120,7 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
                   onValueChanged={onNameChanged}
                   messageText={nameError}
                 />
-                <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
+                <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
                   <Stack.Item growthFactor={1} shrinkFactor={1}>
                     <SingleLineInput
                       inputWrapperVariant={emailError ? 'error' : ''}
