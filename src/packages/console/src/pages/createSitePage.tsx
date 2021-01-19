@@ -138,7 +138,7 @@ export const CreateSitePage = (): React.ReactElement => {
                 <Text variant='note'>An error occurred. Please try again later.</Text>
               ) : (
                 <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
-                  <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true}>
+                  <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true} defaultGutter={PaddingSize.Wide}>
                     <FormControl
                       variant='outlined'
                       margin='normal'
@@ -167,7 +167,7 @@ export const CreateSitePage = (): React.ReactElement => {
                       onValueChanged={onSlugChanged}
                       inputType={InputType.Text}
                       inputWrapperVariant={slugError ? 'error' : 'default'}
-                      messageText={slugError || (!slug ? 'This will be your everypage sub-domain e.g. hello.evrpg.com' : `Your everypage sub-domain will be ${slug}.evrpg.com`)}
+                      messageText={slugError || (!slug ? 'This will be your site\'s URL prefix e.g. hello.evrpg.com' : `Your site URL will be ${slug}.evrpg.com`)}
                       placeholderText='Site slug'
                     />
                     <SingleLineInput
@@ -198,7 +198,7 @@ export const CreateSitePage = (): React.ReactElement => {
                       <Button
                         buttonType='submit'
                         isFullWidth={true}
-                        variant='primary'
+                        variant='primary-padded'
                         text='Create Site'
                       />
                     </Stack.Item>

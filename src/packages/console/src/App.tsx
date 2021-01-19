@@ -59,6 +59,15 @@ const theme = buildTheme({
         },
       },
     },
+    padded: {
+      normal: {
+        default: {
+          background: {
+            padding: `${defaultTheme.dimensions.padding} ${defaultTheme.dimensions.paddingWide}`,
+          },
+        },
+      },
+    },
     destructive: {
       normal: {
         default: {

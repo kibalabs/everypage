@@ -3,9 +3,7 @@ import React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useHistory } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment, Checkbox } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 
@@ -78,8 +76,8 @@ export const RegisterPage = (): React.ReactElement => {
     setPasswordError(undefined);
   };
 
-  const onShouldJoinNewsletterChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setShouldJoinNewsletter(event.target.checked);
+  const onShouldJoinNewsletterToggled = (): void => {
+    setShouldJoinNewsletter(!shouldJoinNewsletter);
   };
 
   return (
@@ -92,7 +90,7 @@ export const RegisterPage = (): React.ReactElement => {
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
             <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
-              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                 <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
                   <Text variant='header3' alignment={TextAlignment.Center}>Create your everypage account</Text>
                 </Stack.Item>
@@ -140,15 +138,16 @@ export const RegisterPage = (): React.ReactElement => {
                   placeholderText='Password'
                   inputType={InputType.Password}
                 />
-                <FormControlLabel
-                  control={<Checkbox checked={shouldJoinNewsletter} onChange={onShouldJoinNewsletterChanged} color='primary' />}
-                  label='Keep me updated (no spam, we promise)!'
+                <Checkbox
+                  isChecked={shouldJoinNewsletter}
+                  onToggled={onShouldJoinNewsletterToggled}
+                  text='Keep me updated (no spam, we promise)'
                 />
                 <Stack.Item gutterBefore={PaddingSize.Wide2}>
                   <Button
                     buttonType='submit'
-                    isFullWidth
-                    variant='primary'
+                    isFullWidth={true}
+                    variant='primary-padded'
                     text='Create account'
                   />
                 </Stack.Item>
@@ -161,9 +160,9 @@ export const RegisterPage = (): React.ReactElement => {
           <Spacing variant={PaddingSize.Wide} />
           <Text variant='note' alignment={TextAlignment.Center}>
             {'By creating an account, you are agreeing to our '}
-            <Link target='https://terms.everypagehq.com' text='Terms of Use' />
+            <Link variant='inherit' target='https://terms.everypagehq.com' text='Terms of Use' />
             {' and '}
-            <Link target='https://privacy.everypagehq.com' text='Privacy Policy' />
+            <Link variant='inherit' target='https://privacy.everypagehq.com' text='Privacy Policy' />
           </Text>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
