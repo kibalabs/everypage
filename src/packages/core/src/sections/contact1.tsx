@@ -1,67 +1,79 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, Form, InputType, MultiLineInput, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, SingleLineInput, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, Form, InputType, MultiLineInput, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, SingleLineInput, Spacing, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
-import { EverypagePaddingSize } from '../internal';
+import { EverypagePaddingSize, submitForm, validateInput } from '../internal';
+import { IFormProps } from '../model';
 
 
-interface IContact1Props extends ISectionProps {
+interface IContact1Props extends ISectionProps, IFormProps {
   titleText?: string;
   subtitleText?: string;
-  receivingEmail: string;
+  // TODO(krishan711): think about how the other input fields should be customized.
+  inputButtonText?: string;
+  inputSuccessMessageText?: string;
 }
 
 export const Contact1 = (props: IContact1Props): React.ReactElement => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [name, setName] = React.useState<string| undefined>(undefined);
   const [email, setEmail] = React.useState<string| undefined>(undefined);
-  const [phoneNumber, setPhoneNumber] = React.useState<number| undefined>(undefined);
+  const [phoneNumber, setPhoneNumber] = React.useState<string| undefined>(undefined);
   const [message, setMessage] = React.useState<string| undefined>(undefined);
   const [nameError, setNameError] = React.useState<string | undefined>(undefined);
   const [emailError, setEmailError] = React.useState<string | undefined>(undefined);
   const [phoneNumberError, setPhoneNumberError] = React.useState<string | undefined>(undefined);
-
   const [messageError, setMessageError] = React.useState<string | undefined>(undefined);
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
   const [successMessage, setSuccessMessage] = React.useState<string | undefined>(undefined);
+  const inputButtonText = props.inputButtonText || 'Submit';
+  const additionalFormInputs = props.formAdditionalInputs || [];
 
-  const onMessageChange = (value :string) :void => {
-    setMessage(value);
-    setMessageError(undefined);
-  };
-
-  const onNameChange = (value :string) :void => {
+  const onNameChanged = (value: string) :void => {
     setName(value);
-    setNameError(undefined);
+    setErrorMessage(undefined);
   };
 
-  const onEmailChange = (value :string) :void => {
+  const onEmailChanged = (value: string) :void => {
     setEmail(value);
-    setEmailError(undefined);
+    setErrorMessage(undefined);
   };
 
-  const onPhoneNumberChange = (value :number) :void => {
+  const onPhoneNumberChanged = (value: string) :void => {
     setPhoneNumber(value);
-    setPhoneNumberError(undefined);
+    setErrorMessage(undefined);
   };
+
+  const onMessageChanged = (value: string) :void => {
+    setMessage(value);
+    setErrorMessage(undefined);
+  };
+
   const onFormSubmitted = async () :Promise<void> => {
     setNameError(undefined);
     setEmailError(undefined);
     setPhoneNumberError(undefined);
     setMessageError(undefined);
+    setErrorMessage(undefined);
+    setSuccessMessage(undefined);
     if (!name) {
-      setNameError('Please enter name');
+      setNameError('Please enter your name');
       return;
     }
-    if (!email) {
-      setEmailError('Please enter a valid email');
+    if (!email ) {
+      setEmailError('Please enter your email address');
+      return;
+    }
+    const emailValidationResult = validateInput(email, InputType.Email);
+    if (!emailValidationResult.isValid) {
+      setErrorMessage(emailValidationResult.errorMessage || 'Email is not valid.');
       return;
     }
     if (!phoneNumber) {
-      setPhoneNumberError('Please enter a valid phone number');
+      setPhoneNumberError('Please enter your phone number');
       return;
     }
     if (!message) {
@@ -69,15 +81,24 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
       return;
     }
     setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
+    const formFields = [
+      { name: 'name', value: name, type: InputType.Email },
+      { name: 'email', value: email, type: InputType.Text },
+      { name: 'phoneNumber', value: phoneNumber, type: InputType.PhoneNumber },
+      { name: 'message', value: message, type: InputType.Text },
+      ...additionalFormInputs,
+    ]
+    const result = await submitForm(formFields, props.formAction, props.formTarget, props.formHeaders);
+    setIsLoading(false);
+    if (result.isSuccessful) {
       setName(undefined);
       setEmail(undefined);
       setPhoneNumber(undefined);
       setMessage(undefined);
-      setSuccessMessage('Message sent');
-    }, 2000);
+      setSuccessMessage(props.inputSuccessMessageText || 'Success.');
+    } else {
+      setErrorMessage(result.responseMessage);
+    }
   };
 
   return (
@@ -96,10 +117,10 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
                   name='name'
                   placeholderText='Name'
                   value={name}
-                  onValueChanged={onNameChange}
+                  onValueChanged={onNameChanged}
                   messageText={nameError}
                 />
-                <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
+                <Stack directionResponsive={{base: Direction.Vertical, medium: Direction.Horizontal}} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Narrow}>
                   <Stack.Item growthFactor={1} shrinkFactor={1}>
                     <SingleLineInput
                       inputWrapperVariant={emailError ? 'error' : ''}
@@ -107,11 +128,11 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
                       name='email'
                       placeholderText='Email'
                       value={email}
-                      onValueChanged={onEmailChange}
+                      onValueChanged={onEmailChanged}
                       messageText={emailError}
                     />
                   </Stack.Item>
-                  {/* <Stack.Item growthFactor={0.2} shrinkFactor={0.2} /> */}
+                  <Stack.Item><Spacing /></Stack.Item>
                   <Stack.Item growthFactor={1} shrinkFactor={1}>
                     <SingleLineInput
                       inputWrapperVariant={phoneNumberError ? 'error' : ''}
@@ -119,22 +140,22 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
                       name='phone-number'
                       placeholderText='Phone Number'
                       value={phoneNumber}
-                      onValueChanged={onPhoneNumberChange}
+                      onValueChanged={onPhoneNumberChanged}
                       messageText={phoneNumberError}
                     />
                   </Stack.Item>
                 </Stack>
                 <MultiLineInput
-                  inputWrapperVariant={errorMessage || messageError ? 'error' : successMessage ? 'sucess' : ''}
+                  inputWrapperVariant={errorMessage || messageError ? 'error' : successMessage ? 'success' : ''}
                   placeholderText='Message'
                   value={message}
-                  onValueChanged={onMessageChange}
+                  onValueChanged={onMessageChanged}
                   messageText={errorMessage || messageError || successMessage}
                 />
                 <Button
                   variant='primary'
                   buttonType='submit'
-                  text='Send'
+                  text={inputButtonText}
                   isLoading={isLoading}
                 />
               </Stack>
