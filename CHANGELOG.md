@@ -8,9 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
-- [MINOR] Created `ImagesGallery1` section
 
 ### Changed
+
+### Removed
+
+## [0.8.2] - 2021-01-20
+
+### Added
+- [MINOR] Created `ImagesGallery1` section
+- [MINOR] Created `Contact1` section
+
+### Changed
+- [MINOR] [Console] Optimized the Canvas experience
 
 ### Removed
 
