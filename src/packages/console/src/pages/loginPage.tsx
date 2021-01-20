@@ -64,7 +64,7 @@ export const LoginPage = (): React.ReactElement => {
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Box variant='card' isFullWidth={false}>
             <Form isLoading={isLoading} onFormSubmitted={onLoginClicked}>
-              <Stack direction={Direction.Vertical} shouldAddGutters={true}>
+              <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                 <Stack.Item alignment={Alignment.Center} gutterAfter={PaddingSize.Wide2}>
                   <Text variant='header3'>Log in to everypage</Text>
                 </Stack.Item>
@@ -90,14 +90,12 @@ export const LoginPage = (): React.ReactElement => {
                   placeholderText='Password'
                   inputType={InputType.Password}
                 />
-                <Stack.Item gutterBefore={PaddingSize.Wide2}>
-                  <Button
-                    buttonType='submit'
-                    isFullWidth
-                    variant='primary'
-                    text='Log in'
-                  />
-                </Stack.Item>
+                <Button
+                  buttonType='submit'
+                  isFullWidth
+                  variant='primary-padded'
+                  text='Log in'
+                />
                 <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
                   <Link target='/register' text="Don't have an account yet? Sign Up" shouldOpenSameTab={true} />
                 </Stack.Item>
