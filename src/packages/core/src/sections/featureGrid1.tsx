@@ -1,29 +1,29 @@
-import React, { version } from 'react';
+import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Container, ContainingView, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Spacing, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 
 interface IFeatureGrid1Feature {
-	title?: string;
+  title?: string;
   description?: string;
   iconId?: string;
 }
 
 interface IFeatureGrid1Props extends ISectionProps {
-	titleText?: string;
-	subtitleText?: string;
-	boxSize?: string;
+  titleText?: string;
+  subtitleText?: string;
+  boxSize?: string;
   features?: IFeatureGrid1Feature[];
 }
 
 export const FeatureGrid1 = (props: IFeatureGrid1Props): React.ReactElement => {
   const theme: ITheme = useTheme();
 
-	const sizes = { base: 12, small: 6, medium: 6, large: 4 };
+  const sizes = { base: 12, small: 6, medium: 6, large: 4 };
   if (props.boxSizes) {
     sizes.base = props.boxSizes.base ? 12 / props.boxSizes.base : sizes.base;
     sizes.small = props.boxSizes.small ? 12 / props.boxSizes.small : sizes.small;
@@ -40,20 +40,26 @@ export const FeatureGrid1 = (props: IFeatureGrid1Props): React.ReactElement => {
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.features?.map((feature: IFeatureGrid1Feature, index: number): React.ReactElement => (
                 <Stack key={index} direction={Direction.Horizontal} isFullWidth contentAlignment={Alignment.Start} childAlignment={Alignment.Fill} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                {feature.iconId && <Stack direction={Direction.Vertical}><Stack.Item growthFactor={1} shrinkFactor={1}/><KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary} /><Stack.Item growthFactor={3} shrinkFactor={3}/></Stack>}
-                <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
-                {feature.title && <MarkdownText textAlignment={TextAlignment.Left} textVariant='subtitle' source={feature.title} />}
-                {feature.description && <MarkdownText textAlignment={TextAlignment.Left} source={feature.description} />}    
-                </Stack>
+                  {feature.iconId && (
+                    <Stack direction={Direction.Vertical}>
+                      <Stack.Item growthFactor={1} shrinkFactor={1} />
+                      <KibaIcon variant='large' iconId={feature.iconId} _color={theme.colors.brandPrimary} />
+                      <Stack.Item growthFactor={3} shrinkFactor={3} />
+                    </Stack>
+                  )}
+                  <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
+                    {feature.title && <MarkdownText textAlignment={TextAlignment.Left} textVariant='subtitle' source={feature.title} />}
+                    {feature.description && <MarkdownText textAlignment={TextAlignment.Left} source={feature.description} />}
+                  </Stack>
                 </Stack>
               ))}
-              </EqualGrid>
-              </Stack>
-              </ResponsiveTextAlignmentView>
-              </ResponsiveContainingView>
-              </Section>
-  )
-}
+            </EqualGrid>
+          </Stack>
+        </ResponsiveTextAlignmentView>
+      </ResponsiveContainingView>
+    </Section>
+  );
+};
 
 FeatureGrid1.displayName = 'feature-grid-1';
 FeatureGrid1.defaultProps = {};
