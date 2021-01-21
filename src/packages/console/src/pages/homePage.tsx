@@ -8,11 +8,10 @@ import { useHistory, useInitialization } from '@kibalabs/core-react';
 // import Container from '@material-ui/core/Container';
 // import Grid from '@material-ui/core/Grid';
 // import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
 
-import { Text, Button, Box, Stack, Alignment, Direction, Spacing, PaddingSize, Grid, ContainingView } from '@kibalabs/ui-react';
-
+import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -143,40 +142,36 @@ export const HomePage = (): React.ReactElement => {
           ) : (
             accounts.map((account: Account, index: number): React.ReactElement => (
               <Box variant='bordered'>
-              {/* <Paper key={index} elevation={0} className={classes.accountBox}> */}
+                {/* <Paper key={index} elevation={0} className={classes.accountBox}> */}
                 {/* <Box width={1} display='flex' justifyContent='start' alignItems='baseline'> */}
                 <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                  <Text variant='header5' >
+                  <Text variant='header5'>
                     {account.name}
                   </Text>
-                  <Text  variant='colored'>{`(${account.accountType})`}</Text>
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage'/>}
+                  <Text variant='colored'>{`(${account.accountType})`}</Text>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage' />}
                   <Stack.Item growthFactor={1} shrinkFactor={1} />
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site'/>}
-                  </Stack>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
+                </Stack>
                 {/* </Box> */}
-                <Spacing variant={PaddingSize.Wide}/>
-                  {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
-                <Grid contentAlignment={Alignment.Fill} shouldAddGutters={true}>
-                    <Grid.Item size={6} sizeResponsive={{small: 12, medium: 4, large: 3}} key={innerIndex}>
-                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
-                    </Grid.Item>
-                  </Grid>
-                  ))}
-                  {accountSites[account.accountId].length === 0 && (
-                    <Grid contentAlignment={Alignment.Start} className={classes.siteCardGrid}>
-                    <Grid.Item sizeResponsive={{small: 12}}>
-                      <Text variant='header6-note'>
-                        {'No sites yet. Create one now!'}
-                      </Text>
-                    </Grid.Item>
-                    </Grid>
-                  )}
-              {/* </Paper> */}
+                <Spacing variant={PaddingSize.Wide} />
+                {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
+                  <EqualGrid contentAlignment={Alignment.Fill} shouldAddGutters={true}>
+                    <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
+                  </EqualGrid>
+                ))}
+                {accountSites[account.accountId].length === 0 && (
+                  <EqualGrid contentAlignment={Alignment.Start}>
+                    <Text variant='header6-note'>
+                      {'No sites yet. Create one now!'}
+                    </Text>
+                  </EqualGrid>
+                )}
+                {/* </Paper> */}
               </Box>
             ))
           )}
-        {/* </Container> */}
+          {/* </Container> */}
         </Stack>
       </ContainingView>
       {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
