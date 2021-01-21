@@ -1,15 +1,13 @@
 import React from 'react';
 
-
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { ITheme } from '@kibalabs/ui-react';
-import Box from '@material-ui/core/Box';
+import { Alignment, ContainingView, Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -17,34 +15,34 @@ import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    height: '100%',
-  },
-  metaBox: {
-    backgroundColor: 'white',
-    borderBottom: '1px solid #777',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'start',
-    alignItems: 'baseline',
-  },
-  metaBoxSpacer: {
-    flexGrow: 1,
-  },
-  content: {
-    flexGrow: 1,
-    flexShrink: 1,
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  saveStatusText: {
-    marginLeft: theme.spacing(2),
-    fontSize: '1.1em',
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     height: '100%',
+//   },
+//   metaBox: {
+//     backgroundColor: 'white',
+//     borderBottom: '1px solid #777',
+//     display: 'flex',
+//     flexDirection: 'row',
+//     justifyContent: 'start',
+//     alignItems: 'baseline',
+//   },
+//   metaBoxSpacer: {
+//     flexGrow: 1,
+//   },
+//   content: {
+//     flexGrow: 1,
+//     flexShrink: 1,
+//     marginTop: theme.spacing(8),
+//     display: 'flex',
+//     flexDirection: 'column',
+//   },
+//   saveStatusText: {
+//     marginLeft: theme.spacing(2),
+//     fontSize: '1.1em',
+//   },
+// }));
 
 export interface ISiteVersionPreviewPageProps {
   slug: string;
@@ -52,7 +50,7 @@ export interface ISiteVersionPreviewPageProps {
 }
 
 export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): React.ReactElement => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
@@ -214,26 +212,30 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   });
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <Helmet>
         <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
       </Helmet>
       <NavigationBar />
-      <main className={classes.content}>
+      {/* TODO: Still need to position the container,
+       find a way to display the containing view just below the  navbar*/}
+      <Spacing variant={PaddingSize.Wide4}/>
+      <ContainingView>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
-          <div>Error loading site version. Please go back and try again...</div>
+          <Text>Error loading site version. Please go back and try again...</Text>
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
-          <div>Loading...</div>
+          <Text>Loading...</Text>
         ) : (
           <React.Fragment>
-            <Box paddingX={2} paddingY={1} className={classes.metaBox}>
-              <Typography variant='subtitle1'>
+            <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingLeft={PaddingSize.Wide} paddingVertical={PaddingSize.Default}>
+              <Text variant='subtitle1'>
                 <b>{site.slug}</b>
                 {` ${siteVersion.name || 'Unnamed'}`}
-              </Typography>
-              {isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Typography>}
-              {!isEditable && <Typography color='textSecondary' className={classes.saveStatusText}>{'view-only mode'}</Typography>}
-              <Box className={classes.metaBoxSpacer} />
+              </Text>
+              {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
+              {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
+              <Stack.Item growthFactor={1} shrinkFactor={1} />
+              {/* TODO: Need to create a switch component in ui-react */}
               <FormControlLabel
                 label='Hide metadata'
                 control={(
@@ -244,7 +246,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                   />
                 )}
               />
-            </Box>
+            </Stack>
             <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
@@ -260,7 +262,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             />
           </React.Fragment>
         )}
-      </main>
-    </div>
+      </ContainingView>
+    </React.Fragment>
   );
 };
