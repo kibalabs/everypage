@@ -3,13 +3,16 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Box from '@material-ui/core/Box';
+// import Button from '@material-ui/core/Button';
+// import Container from '@material-ui/core/Container';
+// import Grid from '@material-ui/core/Grid';
+// import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
+
+import { Text, Button, Box, Stack, Alignment, Direction, Spacing, PaddingSize, Grid, ContainingView } from '@kibalabs/ui-react';
+
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -19,38 +22,38 @@ import { IPlan } from '../consoleConfig';
 import { Account, Site } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minHeight: '100%',
-  },
-  content: {
-    flexGrow: 1,
-    overflow: 'auto',
-    marginTop: theme.spacing(12),
-  },
-  accountBox: {
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    padding: theme.spacing(2, 4),
-    marginBottom: theme.spacing(4),
-  },
-  siteCardGrid: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  accountName: {
-    marginRight: theme.spacing(1),
-    display: 'inline',
-  },
-  accountType: {
-    marginRight: theme.spacing(4),
-    display: 'inline',
-    fontSize: '1em',
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     minHeight: '100%',
+//   },
+//   content: {
+//     flexGrow: 1,
+//     overflow: 'auto',
+//     marginTop: theme.spacing(12),
+//   },
+//   accountBox: {
+//     backgroundColor: 'rgba(255, 255, 255, 0.4)',
+//     padding: theme.spacing(2, 4),
+//     marginBottom: theme.spacing(4),
+//   },
+//   siteCardGrid: {
+//     marginTop: theme.spacing(1),
+//     marginBottom: theme.spacing(1),
+//   },
+//   accountName: {
+//     marginRight: theme.spacing(1),
+//     display: 'inline',
+//   },
+//   accountType: {
+//     marginRight: theme.spacing(4),
+//     display: 'inline',
+//     fontSize: '1em',
+//   },
+// }));
 
 export const HomePage = (): React.ReactElement => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const history = useHistory();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
@@ -122,53 +125,61 @@ export const HomePage = (): React.ReactElement => {
   }, [accounts, loadAccountSites]);
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <NavigationBar />
       <Helmet>
         <title>Home | Everypage Console</title>
       </Helmet>
-      <main className={classes.content}>
-        <Container maxWidth='lg'>
+      <ContainingView>
+        <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
           {accounts === undefined || accountSites === undefined ? (
-            <Typography component='p'>
+            <Text tag='p'>
               {'loading...'}
-            </Typography>
+            </Text>
           ) : accounts === null || accountSites === null ? (
-            <Typography component='p'>
+            <Text tag='p'>
               {'An error occurred. Please try again later.'}
-            </Typography>
+            </Text>
           ) : (
             accounts.map((account: Account, index: number): React.ReactElement => (
-              <Paper key={index} elevation={0} className={classes.accountBox}>
-                <Box width={1} display='flex' justifyContent='start' alignItems='baseline'>
-                  <Typography variant='h5' className={classes.accountName}>
+              <Box variant='bordered'>
+              {/* <Paper key={index} elevation={0} className={classes.accountBox}> */}
+                {/* <Box width={1} display='flex' justifyContent='start' alignItems='baseline'> */}
+                <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
+                  <Text variant='header5' >
                     {account.name}
-                  </Typography>
-                  <Typography color='textSecondary' className={classes.accountType}>{`(${account.accountType})`}</Typography>
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button color='primary' onClick={(): void => onManageAccountClicked(account)}>Manage</Button>}
-                  <Box flexGrow={1} />
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button color='primary' onClick={(): void => onCreateSiteClicked(account)}>Create site</Button>}
-                </Box>
-                <Grid container spacing={2} className={classes.siteCardGrid}>
-                  {accountSites[account.accountId].map((site: Site, innerIndex: number): React.ReactElement => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={innerIndex}>
+                  </Text>
+                  <Text  variant='colored'>{`(${account.accountType})`}</Text>
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage'/>}
+                  <Stack.Item growthFactor={1} shrinkFactor={1} />
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site'/>}
+                  </Stack>
+                {/* </Box> */}
+                <Spacing variant={PaddingSize.Wide}/>
+                  {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
+                <Grid contentAlignment={Alignment.Fill} shouldAddGutters={true}>
+                    <Grid.Item size={6} sizeResponsive={{small: 12, medium: 4, large: 3}} key={innerIndex}>
                       <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
-                    </Grid>
+                    </Grid.Item>
+                  </Grid>
                   ))}
                   {accountSites[account.accountId].length === 0 && (
-                    <Grid item xs={12}>
-                      <Typography color='textSecondary'>
+                    <Grid contentAlignment={Alignment.Start} className={classes.siteCardGrid}>
+                    <Grid.Item sizeResponsive={{small: 12}}>
+                      <Text variant='header6-note'>
                         {'No sites yet. Create one now!'}
-                      </Typography>
+                      </Text>
+                    </Grid.Item>
                     </Grid>
                   )}
-                </Grid>
-              </Paper>
+              {/* </Paper> */}
+              </Box>
             ))
           )}
-        </Container>
-      </main>
+        {/* </Container> */}
+        </Stack>
+      </ContainingView>
       {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-    </div>
+    </React.Fragment>
   );
 };
