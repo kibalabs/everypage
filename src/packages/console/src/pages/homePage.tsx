@@ -3,7 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, ResponsiveContainingView, Direction, EqualGrid, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -91,6 +91,7 @@ export const HomePage = (): React.ReactElement => {
         <title>Home | Everypage Console</title>
       </Helmet>
       <ContainingView>
+      <ResponsiveContainingView size={12}>
         <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
           {accounts === undefined || accountSites === undefined ? (
             <Text tag='p'>
@@ -113,7 +114,7 @@ export const HomePage = (): React.ReactElement => {
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
                 </Stack>
                 <Spacing variant={PaddingSize.Wide} />
-                <EqualGrid childSizeResponsive={{ small: 3, base: 2 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
                   {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
                     <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                   ))}
@@ -127,6 +128,7 @@ export const HomePage = (): React.ReactElement => {
             ))
           )}
         </Stack>
+      </ResponsiveContainingView>
       </ContainingView>
       {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
     </React.Fragment>
