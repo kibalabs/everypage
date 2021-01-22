@@ -3,7 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useHistory, useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, ResponsiveContainingView, Direction, EqualGrid, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -91,44 +91,44 @@ export const HomePage = (): React.ReactElement => {
         <title>Home | Everypage Console</title>
       </Helmet>
       <ContainingView>
-      <ResponsiveContainingView size={12}>
-        <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
-          {accounts === undefined || accountSites === undefined ? (
-            <Text tag='p'>
-              {'loading...'}
-            </Text>
-          ) : accounts === null || accountSites === null ? (
-            <Text tag='p'>
-              {'An error occurred. Please try again later.'}
-            </Text>
-          ) : (
-            accounts.map((account: Account, index: number): React.ReactElement => (
-              <Box variant='bordered' isFullHeight={true} key={index}>
-                <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                  <Text variant='header5'>
-                    {account.name}
-                  </Text>
-                  <Text variant='colored'>{`(${account.accountType})`}</Text>
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage' />}
-                  <Stack.Item growthFactor={1} shrinkFactor={1} />
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
-                </Stack>
-                <Spacing variant={PaddingSize.Wide} />
-                <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
-                  {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
-                    <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
-                  ))}
-                  {accountSites[account.accountId].length === 0 && (
-                    <Text variant='light'>
-                      {'No sites yet. Create one now!'}
+        <ResponsiveContainingView size={12}>
+          <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
+            {accounts === undefined || accountSites === undefined ? (
+              <Text tag='p'>
+                {'loading...'}
+              </Text>
+            ) : accounts === null || accountSites === null ? (
+              <Text tag='p'>
+                {'An error occurred. Please try again later.'}
+              </Text>
+            ) : (
+              accounts.map((account: Account, index: number): React.ReactElement => (
+                <Box variant='bordered' isFullHeight={true} key={index}>
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
+                    <Text variant='header5'>
+                      {account.name}
                     </Text>
-                  )}
-                </EqualGrid>
-              </Box>
-            ))
-          )}
-        </Stack>
-      </ResponsiveContainingView>
+                    <Text variant='colored'>{`(${account.accountType})`}</Text>
+                    {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage' />}
+                    <Stack.Item growthFactor={1} shrinkFactor={1} />
+                    {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
+                  </Stack>
+                  <Spacing variant={PaddingSize.Wide} />
+                  <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                    {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
+                      <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
+                    ))}
+                    {accountSites[account.accountId].length === 0 && (
+                      <Text variant='light'>
+                        {'No sites yet. Create one now!'}
+                      </Text>
+                    )}
+                  </EqualGrid>
+                </Box>
+              ))
+            )}
+          </Stack>
+        </ResponsiveContainingView>
       </ContainingView>
       {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
     </React.Fragment>
