@@ -113,12 +113,12 @@ export const HomePage = (): React.ReactElement => {
                   {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
                 </Stack>
                 <Spacing variant={PaddingSize.Wide} />
-                <EqualGrid childSizeResponsive={{ small: 4, base: 3 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                <EqualGrid childSizeResponsive={{ small: 3, base: 2 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
                   {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
                     <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                   ))}
                   {accountSites[account.accountId].length === 0 && (
-                    <Text variant='header6-note'>
+                    <Text variant='light'>
                       {'No sites yet. Create one now!'}
                     </Text>
                   )}
