@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
@@ -16,7 +16,7 @@ interface IFeatureGrid1Feature {
 interface IFeatureGrid1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
-  boxSize?: string;
+  boxSizes?: ResponsiveField<number>;
   features?: IFeatureGrid1Feature[];
 }
 
