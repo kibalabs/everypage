@@ -1,15 +1,11 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
-import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, ContainingView, Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import { makeStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
-// import Typography from '@material-ui/core/Typography';
-import Helmet from 'react-helmet';
+import { Alignment, Checkbox, ContainingView, Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
+import { IWebsite } from '@kibalabs/everypage/src/model/website';
 import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
@@ -219,7 +215,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <NavigationBar />
       {/* TODO: Still need to position the container,
        find a way to display the containing view just below the  navbar*/}
-      <Spacing variant={PaddingSize.Wide4}/>
       <ContainingView>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <Text>Error loading site version. Please go back and try again...</Text>
@@ -228,25 +223,14 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : (
           <React.Fragment>
             <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingLeft={PaddingSize.Wide} paddingVertical={PaddingSize.Default}>
-              <Text variant='subtitle1'>
-                <b>{site.slug}</b>
-                {` ${siteVersion.name || 'Unnamed'}`}
-              </Text>
+              <Text variant='header5' tag='h4'>{site.slug}</Text>
+                <Text>{` ${siteVersion.name || 'Unnamed'}`}</Text>
               {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
               {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
               <Stack.Item growthFactor={1} shrinkFactor={1} />
               {/* TODO: Need to create a switch component in ui-react */}
-              <FormControlLabel
-                label='Hide metadata'
-                control={(
-                  <Switch
-                    checked={isMetaHidden}
-                    onChange={onIsMetaShownToggled}
-                    name='Hide metadata'
-                  />
-                )}
-              />
-            </Stack>
+              <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled}/>
+        </Stack>
             <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
@@ -259,7 +243,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
               deleteAssetFile={deleteAssetFile}
               isEditorHidden={isEditorHidden}
               onIsEditorHiddenUpdated={setIsEditorHidden}
-            />
+              />
           </React.Fragment>
         )}
       </ContainingView>
