@@ -10,6 +10,13 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       paddingSectionTop: '5em',
       paddingSectionBottom: '5em',
     },
+    icons: {
+      colored: {
+        'background': '$colors.brandPrimaryClear90',
+        'border-color': '$colors.brandPrimaryClear90',
+        'border-radius': '10%'
+    }
+    },
     texts: {
       heroSectionTitle: {
       },
