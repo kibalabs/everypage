@@ -12,10 +12,10 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
     },
     icons: {
       colored: {
-        'background': '$colors.brandPrimaryClear90',
+        background: '$colors.brandPrimaryClear90',
         'border-color': '$colors.brandPrimaryClear90',
-        'border-radius': '10%'
-    }
+        'border-radius': '10%',
+      },
     },
     texts: {
       heroSectionTitle: {
