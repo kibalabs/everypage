@@ -118,7 +118,6 @@ export const App = hot((): React.ReactElement => {
           <GlobalCss resetCss={resetCss} theme={theme} />
           <Router authManager={authManager}>
             <Route path='/canvas' page={CanvasPage} />
-            <Route path='/canvas-section' page={CanvasPreviewPage} />
             <Route path='/canvas-preview' page={CanvasPreviewPage} />
             <Route path='/' page={HomePage} redirectIfNoAuth={'/login'} />
             <Route path='/accounts/:accountId' page={AccountPage} redirectIfNoAuth={'/login'} />

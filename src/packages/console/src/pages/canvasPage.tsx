@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
