@@ -26,7 +26,7 @@ const StyledJsonEditor = styled.div`
   }
 `;
 
-const useDebouncedCallback = (delaySeconds = 30): [(callback: (() => void)) => void, () => void] => {
+const useDebouncedCallback = (delayMillis = 30000): [(callback: (() => void)) => void, () => void] => {
   const timeoutRef = React.useRef<number>(null);
   const callbackRef = React.useRef<() => void>(null);
 
@@ -45,8 +45,8 @@ const useDebouncedCallback = (delaySeconds = 30): [(callback: (() => void)) => v
       callbackRef.current();
       timeoutRef.current = null;
       callbackRef.current = null;
-    }, delaySeconds);
-  }, [delaySeconds, clearCallback]);
+    }, delayMillis);
+  }, [delayMillis, clearCallback]);
 
   return [setCallback, clearCallback];
 };

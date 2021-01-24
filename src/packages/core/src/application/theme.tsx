@@ -12,8 +12,8 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
     },
     boxes: {
       iconHolder: {
-        'background': '$colors.brandPrimary',
-        'padding': '0.8em',
+        background: '$colors.brandPrimary',
+        padding: '0.8em',
       },
     },
     texts: {
