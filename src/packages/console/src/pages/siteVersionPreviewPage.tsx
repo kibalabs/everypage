@@ -1,44 +1,15 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
-import { Alignment, Checkbox, ContainingView, Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
-
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
+import { Alignment, Checkbox, ContainingView, Direction, ITheme, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import Helmet from 'react-helmet';
+
 import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: 'flex',
-//     height: '100%',
-//   },
-//   metaBox: {
-//     backgroundColor: 'white',
-//     borderBottom: '1px solid #777',
-//     display: 'flex',
-//     flexDirection: 'row',
-//     justifyContent: 'start',
-//     alignItems: 'baseline',
-//   },
-//   metaBoxSpacer: {
-//     flexGrow: 1,
-//   },
-//   content: {
-//     flexGrow: 1,
-//     flexShrink: 1,
-//     marginTop: theme.spacing(8),
-//     display: 'flex',
-//     flexDirection: 'column',
-//   },
-//   saveStatusText: {
-//     marginLeft: theme.spacing(2),
-//     fontSize: '1.1em',
-//   },
-// }));
 
 export interface ISiteVersionPreviewPageProps {
   slug: string;
@@ -46,7 +17,6 @@ export interface ISiteVersionPreviewPageProps {
 }
 
 export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): React.ReactElement => {
-  // const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
@@ -213,8 +183,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
       </Helmet>
       <NavigationBar />
-      {/* TODO: Still need to position the container,
-       find a way to display the containing view just below the  navbar*/}
+      {/* TODO: Still need to position the container, find a way to display the containing view just below the  navbar */}
       <ContainingView>
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <Text>Error loading site version. Please go back and try again...</Text>
@@ -224,13 +193,13 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
           <React.Fragment>
             <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingLeft={PaddingSize.Wide} paddingVertical={PaddingSize.Default}>
               <Text variant='header5' tag='h4'>{site.slug}</Text>
-                <Text>{` ${siteVersion.name || 'Unnamed'}`}</Text>
+              <Text>{` ${siteVersion.name || 'Unnamed'}`}</Text>
               {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
               {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
               <Stack.Item growthFactor={1} shrinkFactor={1} />
               {/* TODO: Need to create a switch component in ui-react */}
-              <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled}/>
-        </Stack>
+              <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled} />
+            </Stack>
             <Canvas
               isEditable={isEditable}
               isMetaShown={!isMetaHidden}
@@ -243,7 +212,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
               deleteAssetFile={deleteAssetFile}
               isEditorHidden={isEditorHidden}
               onIsEditorHiddenUpdated={setIsEditorHidden}
-              />
+            />
           </React.Fragment>
         )}
       </ContainingView>
