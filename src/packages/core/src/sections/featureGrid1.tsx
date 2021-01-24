@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Box, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, ITheme, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment, useTheme } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
@@ -53,7 +53,7 @@ export const FeatureGrid1 = (props: IFeatureGrid1Props): React.ReactElement => {
                 </Stack>
               ))}
             </EqualGrid>
-            </Stack>
+          </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
     </Section>
