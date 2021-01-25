@@ -13,6 +13,7 @@ module.exports = (config) => {
     'react-dom': path.resolve(nodeModulesDirectory, '@hot-loader/react-dom'),
     'styled-components': path.resolve(nodeModulesDirectory, 'styled-components'),
     '@kibalabs/ui-react': path.resolve(nodeModulesDirectory, '@kibalabs/ui-react'),
+    '@kibalabs/core-react': path.resolve(nodeModulesDirectory, '@kibalabs/core-react'),
   };
   return config;
 };

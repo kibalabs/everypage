@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Box, Image } from '@kibalabs/ui-react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -39,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
 export const NavigationBar = React.memo((): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
   const [hasVerifiedEmail, setHasVerifiedEmail] = React.useState<boolean>(true);
 
   const onLogoutClicked = (): void => {
     authManager.logout().then((): void => {
-      history.navigate('/');
+      navigator.navigateTo('/');
     });
   };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
-import { useHistory } from '@kibalabs/core-react';
+import { useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, Checkbox, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -9,7 +9,7 @@ import { useGlobals } from '../globalsContext';
 
 export const RegisterPage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [firstName, setFirstName] = React.useState<string>('');
   const [firstNameError, setFirstNameError] = React.useState<string | undefined>(undefined);
@@ -42,7 +42,7 @@ export const RegisterPage = (): React.ReactElement => {
     }
     setIsLoading(true);
     everypageClient.createUser(firstName, lastName, email, password, shouldJoinNewsletter).then((): void => {
-      history.navigate('/verify-email', { replace: true });
+      navigator.navigateTo('/verify-email', true);
     }).catch((error: Error): void => {
       if (error.message.includes('USER_EMAIL_EXISTS')) {
         setEmailError('A user with this email exists. Please log in instead.');

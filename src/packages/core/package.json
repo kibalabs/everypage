@@ -23,7 +23,7 @@
   "sideEffects": false,
   "dependencies": {
     "@kibalabs/core": "^0.5.3",
-    "@kibalabs/core-react": "^0.5.5",
+    "@kibalabs/core-react": "0.5.6-next.0",
     "@kibalabs/everyview-tracker": "^0.2.0"
   },
   "devDependencies": {

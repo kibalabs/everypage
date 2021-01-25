@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { KibaException } from '@kibalabs/core';
-import { useHistory, useInitialization, useIntegerUrlQueryState } from '@kibalabs/core-react';
+import { useInitialization, useIntegerUrlQueryState, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -32,7 +32,7 @@ StyledBox.defaultProps = {
 
 export const CreateSitePage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [selectedAccountId, setSelectedAccountId] = useIntegerUrlQueryState('accountId');
   const [selectedAccountIdError, setSelectedAccountIdError] = React.useState<string | undefined>(undefined);
@@ -75,7 +75,7 @@ export const CreateSitePage = (): React.ReactElement => {
     }
     setIsLoading(true);
     everypageClient.createSite(selectedAccountId, slug, name || undefined, template ? template.templateId : null).then((): void => {
-      history.navigate(`/sites/${slug}`);
+      navigator.navigateTo(`/sites/${slug}`);
     }).catch((error: KibaException): void => {
       if (error.message === 'SITE_LIMIT_REACHED_CORE') {
         setIsAccountUpgradePopupShowing(true);
@@ -109,7 +109,7 @@ export const CreateSitePage = (): React.ReactElement => {
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-    history.navigate(`/accounts/${selectedAccountId}#plan`);
+    navigator.navigateTo(`/accounts/${selectedAccountId}#plan`);
   };
   const onTemplateChoiceClicked = (): void => {
     setIsTemplateChooserOpen(true);

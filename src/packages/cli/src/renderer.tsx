@@ -18,7 +18,6 @@ import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
-import { createStaticHistory } from '@kibalabs/core-react';
 import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
 import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import ReactDOMServer from 'react-dom/server';
@@ -100,7 +99,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <HeadRootProvider root={<ChildCapture headElements={headElements} />}>
-              <App routerHistory={createStaticHistory(page.path)} />
+              <App staticPath={page.path} />
             </HeadRootProvider>
           </StyleSheetManager>
         </ChunkExtractorManager>,
