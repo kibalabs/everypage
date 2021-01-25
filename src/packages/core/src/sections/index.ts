@@ -8,6 +8,7 @@ export * from './calendlyBooking1';
 export * from './contact1';
 export * from './featureBoxes1';
 export * from './featureBoxesMediaCenter1';
+export * from './featureIcons1';
 export * from './featureMediaHalf1';
 export * from './faq1';
 export * from './footer1';

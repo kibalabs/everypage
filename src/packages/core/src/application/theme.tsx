@@ -10,6 +10,12 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       paddingSectionTop: '5em',
       paddingSectionBottom: '5em',
     },
+    boxes: {
+      iconHolder: {
+        background: '$colors.brandPrimary',
+        padding: '0.8em',
+      },
+    },
     texts: {
       heroSectionTitle: {
       },
