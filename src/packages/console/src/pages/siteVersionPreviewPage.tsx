@@ -2,8 +2,8 @@ import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
-import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, Checkbox, ContainingView, Direction, ITheme, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { IWebsite } from '@kibalabs/everypage';
+import { Alignment, Box, Checkbox, Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -182,40 +182,45 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <Helmet>
         <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
       </Helmet>
-      <NavigationBar />
-      {/* TODO: Still need to position the container, find a way to display the containing view just below the  navbar */}
-      <ContainingView>
+      <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+        <NavigationBar />
+        <Spacing variant={PaddingSize.Narrow} />
+        <Spacing variant={PaddingSize.Wide1} />
+        <Spacing variant={PaddingSize.Wide3} />
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <Text>Error loading site version. Please go back and try again...</Text>
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <Text>Loading...</Text>
         ) : (
           <React.Fragment>
-            <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingLeft={PaddingSize.Wide} paddingVertical={PaddingSize.Default}>
-              <Text variant='header5' tag='h4'>{site.slug}</Text>
-              <Text>{` ${siteVersion.name || 'Unnamed'}`}</Text>
-              {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
-              {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
-              <Stack.Item growthFactor={1} shrinkFactor={1} />
-              {/* TODO: Need to create a switch component in ui-react */}
-              <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled} />
-            </Stack>
-            <Canvas
-              isEditable={isEditable}
-              isMetaShown={!isMetaHidden}
-              siteContent={siteContent}
-              onSiteContentUpdated={onSiteContentUpdated}
-              siteTheme={siteTheme}
-              onSiteThemeUpdated={onSiteThemeUpdated}
-              assetFileMap={assetFileMap}
-              addAssetFiles={addAssetFiles}
-              deleteAssetFile={deleteAssetFile}
-              isEditorHidden={isEditorHidden}
-              onIsEditorHiddenUpdated={setIsEditorHidden}
-            />
+            <Box variant='banner'>
+              <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                <Text variant='header5' tag='h4'>{site.slug}</Text>
+                <Text>{` ${siteVersion.name || 'Unnamed'}`}</Text>
+                {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
+                {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
+                <Stack.Item growthFactor={1} shrinkFactor={1} />
+                <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled} />
+              </Stack>
+            </Box>
+            <Stack.Item growthFactor={1} shrinkFactor={1}>
+              <Canvas
+                isEditable={isEditable}
+                isMetaShown={!isMetaHidden}
+                siteContent={siteContent}
+                onSiteContentUpdated={onSiteContentUpdated}
+                siteTheme={siteTheme}
+                onSiteThemeUpdated={onSiteThemeUpdated}
+                assetFileMap={assetFileMap}
+                addAssetFiles={addAssetFiles}
+                deleteAssetFile={deleteAssetFile}
+                isEditorHidden={isEditorHidden}
+                onIsEditorHiddenUpdated={setIsEditorHidden}
+              />
+            </Stack.Item>
           </React.Fragment>
         )}
-      </ContainingView>
+      </Stack>
     </React.Fragment>
   );
 };
