@@ -96,6 +96,15 @@ const theme = buildTheme({
       color: '$colors.textLight25',
     },
   },
+  boxes: {
+    banner: {
+      'background-color': 'white',
+      padding: `${defaultTheme.dimensions.padding} ${defaultTheme.dimensions.paddingWide}`,
+      'border-width': '1px',
+      'border-color': '$colors.backgroundDark25',
+      'border-radius': '0',
+    },
+  },
 });
 
 export const App = hot((): React.ReactElement => {
