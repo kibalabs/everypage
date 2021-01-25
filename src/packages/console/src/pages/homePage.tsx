@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { KibaException } from '@kibalabs/core';
-import { useNavigator, useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 

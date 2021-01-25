@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import { Router, IRouteProps, Route } from '@kibalabs/core-react';
+import { IRouteProps, Route, Router } from '@kibalabs/core-react';
 import { IndexPage, IWebsite } from '@kibalabs/everypage';
 import { ITheme } from '@kibalabs/ui-react';
 
