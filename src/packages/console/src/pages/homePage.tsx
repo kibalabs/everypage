@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { KibaException } from '@kibalabs/core';
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useNavigator, useInitialization } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -14,7 +14,7 @@ import { Account, Site } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
 export const HomePage = (): React.ReactElement => {
-  const history = useHistory();
+  const navigator = useNavigator();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [accounts, setAccounts] = React.useState<Account[] | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Record<number, Site[]> | undefined>(undefined);
@@ -49,7 +49,7 @@ export const HomePage = (): React.ReactElement => {
   }, [everypageClient, accounts]);
 
   const onSiteClicked = (site: Site): void => {
-    history.navigate(`/sites/${site.slug}`);
+    navigator.navigateTo(`/sites/${site.slug}`);
   };
 
   const onCreateSiteClicked = (account: Account): void => {
@@ -57,12 +57,12 @@ export const HomePage = (): React.ReactElement => {
     if (accountPlan && accountSites[account.accountId].length >= accountPlan.siteLimit) {
       setAccountUpgradePopupAccount(account);
     } else {
-      history.navigate(`/sites/create?accountId=${account.accountId}`);
+      navigator.navigateTo(`/sites/create?accountId=${account.accountId}`);
     }
   };
 
   const onManageAccountClicked = (account: Account): void => {
-    history.navigate(`/accounts/${account.accountId}`);
+    navigator.navigateTo(`/accounts/${account.accountId}`);
   };
 
   const onAccountUpgradePopupCloseClicked = (): void => {
@@ -70,7 +70,7 @@ export const HomePage = (): React.ReactElement => {
   };
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
+    navigator.navigateTo(`/accounts/${accountUpgradePopupAccount.accountId}#plan`);
     setAccountUpgradePopupAccount(null);
   };
 
@@ -92,23 +92,17 @@ export const HomePage = (): React.ReactElement => {
       </Helmet>
       <ContainingView>
         <ResponsiveContainingView size={12}>
-          <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
+          <Stack direction={Direction.Vertical} padding={PaddingSize.Default} paddingTop={PaddingSize.Wide4} shouldAddGutters={true}>
             {accounts === undefined || accountSites === undefined ? (
-              <Text tag='p'>
-                {'loading...'}
-              </Text>
+              <Text>loading...</Text>
             ) : accounts === null || accountSites === null ? (
-              <Text tag='p'>
-                {'An error occurred. Please try again later.'}
-              </Text>
+              <Text>An error occurred. Please try again later.</Text>
             ) : (
               accounts.map((account: Account, index: number): React.ReactElement => (
                 <Box variant='bordered' isFullHeight={true} key={index}>
-                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center}>
-                    <Text variant='header5'>
-                      {account.name}
-                    </Text>
-                    <Text variant='colored'>{`(${account.accountType})`}</Text>
+                  <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true}>
+                    <Text variant='header5'>{account.name}</Text>
+                    <Text variant='light'>{`(${account.accountType})`}</Text>
                     {authManager.getHasJwtPermission(`acc-${account.accountId}-ed`) && <Button onClicked={(): void => onManageAccountClicked(account)} text='Manage' />}
                     <Stack.Item growthFactor={1} shrinkFactor={1} />
                     {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button onClicked={(): void => onCreateSiteClicked(account)} text='Create site' />}
@@ -118,12 +112,10 @@ export const HomePage = (): React.ReactElement => {
                     {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
                       <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                     ))}
-                    {accountSites[account.accountId].length === 0 && (
-                      <Text variant='light'>
-                        {'No sites yet. Create one now!'}
-                      </Text>
-                    )}
                   </EqualGrid>
+                  {accountSites[account.accountId].length === 0 && (
+                    <Text variant='light'>No sites yet.</Text>
+                  )}
                 </Box>
               ))
             )}

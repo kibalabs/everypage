@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { KibaException } from '@kibalabs/core';
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -102,7 +102,7 @@ export interface IAccountPageProps {
 
 export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigator = useNavigator();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [accountSites, setAccountSites] = React.useState<Site[] | null | undefined>(undefined);
@@ -140,7 +140,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   };
 
   const onSiteClicked = (site: Site): void => {
-    history.navigate(`/sites/${site.slug}`);
+    navigator.navigateTo(`/sites/${site.slug}`);
   };
 
   const onCreateSiteClicked = (): void => {
@@ -152,7 +152,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       setUpgradeDiscountCodeError(undefined);
       setIsAccountUpgradePopupShowing(true);
     } else {
-      history.navigate(`/sites/create?accountId=${account.accountId}`);
+      navigator.navigateTo(`/sites/create?accountId=${account.accountId}`);
     }
   };
 
@@ -162,7 +162,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
     setIsAccountUpgradePopupShowing(false);
-    history.navigate(`/accounts/${account.accountId}#plan`);
+    navigator.navigateTo(`/accounts/${account.accountId}#plan`);
   };
 
   const onChangePlanClicked = (plan: IPlan): void => {

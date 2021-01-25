@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import { useHistory } from '@kibalabs/core-react';
+import { useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -10,7 +10,7 @@ import { useGlobals } from '../globalsContext';
 
 export const LoginPage = (): React.ReactElement => {
   const { everypageClient, authManager } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>('');
   const [emailError, setEmailError] = React.useState<string | undefined>(undefined);
@@ -31,7 +31,7 @@ export const LoginPage = (): React.ReactElement => {
     }
     setIsLoading(true);
     everypageClient.loginUser(email, password).then((): void => {
-      history.navigate(authManager.getJwt().hasVerifiedEmail ? '/' : '/verify-email', { replace: true });
+      navigator.navigateTo(authManager.getJwt().hasVerifiedEmail ? '/' : '/verify-email', true);
     }).catch((error: Error): void => {
       if (error.message.includes('NotFoundException')) {
         setEmailError('No user found with this email');

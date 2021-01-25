@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 
-import { IHistory, IRouteProps, Route, Router } from '@kibalabs/core-react';
+import { BaseRouter, IRouteProps, Route } from '@kibalabs/core-react';
 import { IndexPage, IWebsite } from '@kibalabs/everypage';
 import { ITheme } from '@kibalabs/ui-react';
 
@@ -19,7 +19,7 @@ export interface SiteData {
 }
 
 export interface IAppProps {
-  routerHistory?: IHistory;
+  staticPath?: string;
 }
 
 // eslint-disable-next-line no-undef
@@ -27,12 +27,12 @@ const siteData: SiteData = __non_webpack_require__('./siteData.json');
 
 export const App = (props: IAppProps): React.ReactElement => {
   return (
-    <Router history={props.routerHistory}>
+    <BaseRouter staticPath={props.staticPath}>
       {siteData.routes.map((routeData: RouteData): React.ReactElement<IRouteProps> => (
         <Route key={routeData.path} path={routeData.path} pageElement={<IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} />} />
       ))}
       <Route default={true} pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />} />
-    </Router>
+    </BaseRouter>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { dateToString, KibaException } from '@kibalabs/core';
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -25,7 +25,7 @@ export interface ISitePageProps {
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
   // const classes = useStyles();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
   const [versions, setVersions] = React.useState<SiteVersion[] | undefined>(undefined);
@@ -224,12 +224,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onAccountUpgradePopupUpgradeClicked = (): void => {
-    history.navigate(`/accounts/${account.accountId}#plan`);
+    navigator.navigateTo(`/accounts/${account.accountId}#plan`);
     setIsAccountUpgradePopupShowing(false);
   };
 
   const onRemoveBrandingClicked = (): void => {
-    history.navigate(`/accounts/${account.accountId}#plan`);
+    navigator.navigateTo(`/accounts/${account.accountId}#plan`);
   };
 
   const onArchiveSiteClicked = (): void => {
@@ -238,7 +238,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
 
   const onArchiveSiteConfirmClicked = (): void => {
     everypageClient.archiveSite(site.siteId).then((): void => {
-      history.navigate('/');
+      navigator.navigateTo('/');
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setIsLoading(false);

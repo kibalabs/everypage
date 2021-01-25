@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useHistory, useInitialization } from '@kibalabs/core-react';
+import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -8,7 +8,7 @@ import { useGlobals } from '../globalsContext';
 
 export const VerifyEmailPage = (): React.ReactElement => {
   const { everypageClient, authManager } = useGlobals();
-  const history = useHistory();
+  const navigator = useNavigator();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
 
   const onResendVerificationClicked = (): void => {
@@ -19,13 +19,13 @@ export const VerifyEmailPage = (): React.ReactElement => {
 
   useInitialization((): void | (() => void) => {
     if (authManager.getJwt().hasVerifiedEmail) {
-      history.navigate('/', { replace: true });
+      navigator.navigateTo('/', true);
       return null;
     }
     const intervalId = setInterval((): void => {
       if (authManager.getJwt().hasVerifiedEmail) {
         clearInterval(intervalId);
-        history.navigate('/', { replace: true });
+        navigator.navigateTo('/', true);
       }
     }, 1000);
     return (): void => clearInterval(intervalId);
