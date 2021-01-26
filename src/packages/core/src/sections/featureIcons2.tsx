@@ -44,7 +44,7 @@ export const FeatureIcons2 = (props: IFeatureIcons2Props): React.ReactElement =>
                   <Box variant='iconHolder' isFullWidth={false}>
                     <KibaIcon iconId={feature.iconId || 'ion-list'} _color={theme.colors.textOnBrand} />
                   </Box>
-                	{feature.title && <MarkdownText textAlignment={TextAlignment.Left} textVariant='subtitle' source={feature.title} />}
+                  {feature.title && <MarkdownText textAlignment={TextAlignment.Left} textVariant='subtitle' source={feature.title} />}
                   {feature.description && <MarkdownText textAlignment={TextAlignment.Left} source={feature.description} />}
                 </Stack>
               ))}
