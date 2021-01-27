@@ -496,22 +496,6 @@
       "oldVideoUrl": "https://everysize.kibalabs.com/_bh20200627091434/assets/hero.mp4"
     },
     {
-      "type": "hero-app-buttons-media-half-1",
-      "titleText": "What's **special** about your app?",
-      "subtitleText": null,
-      "androidAppId": "com.wordmagicapp.android.play",
-      "iosAppId": "1039710965",
-      "leftMediaUrl": null,
-      "logoImageUrl": "https://wml-images.s3-eu-west-1.amazonaws.com/awesomco-logo.svg",
-      "rightMediaUrl": "/assets/feature2.png"
-    },
-    {
-      "type": "app-buttons-1",
-      "titleText": "Download now!",
-      "androidAppId": "com.wordmagicapp.android.play",
-      "iosAppId": "1039710965"
-    },
-    {
       "type": "feature-media-center-1",
       "titleText": "Brilliant Features",
       "subtitleText": "Here's what makes Your App awesome:",
@@ -538,6 +522,73 @@
         }
       ],
       "mediaUrl": "/assets/feature1.png"
+    },
+    {
+      "type": "feature-icons-1",
+      "titleText": "Brilliant Features",
+      "subtitleText": "Here's what makes Your App awesome:",
+      "features": [
+        {
+          "description": "How do you or your product/service relate to this group? Why are you addressing this problem?",
+          "iconId": "ion-list",
+          "title": "Built for {target user group}"
+        },
+        {
+          "description": "What big problem are you solving? Why is it relevant to your reader?",
+          "iconId": "mui-web-asset",
+          "title": "Get your {painpoint} resolved"
+        },
+        {
+          "description": "How is your solution unique? What do you provide that your competitors don't?",
+          "iconId": "feather-airplay",
+          "title": "Our {value proposition} differentiates us"
+        },
+        {
+          "description": "It's best to stay between 3-6 features but don't be afraid to highlight more if it's important",
+          "iconId": "ion-happy-outline",
+          "title": "Any other advantages"
+        }
+      ]
+    },
+    {
+      "type": "feature-icons-2",
+      "titleText": "Brilliant Features",
+      "subtitleText": "Here's what makes Your App awesome:",
+      "features": [
+        {
+          "description": "How do you or your product/service relate to this group? Why are you addressing this problem?",
+          "iconId": "ion-list",
+          "title": "Built for {target user group}"
+        },
+        {
+          "description": "What big problem are you solving? Why is it relevant to your reader?",
+          "iconId": "mui-web-asset",
+          "title": "Get your {painpoint} resolved"
+        },
+        {
+          "description": "How is your solution unique? What do you provide that your competitors don't?",
+          "iconId": "feather-airplay",
+          "title": "Our {value proposition} differentiates us"
+        },
+        {
+          "description": "It's best to stay between 3-6 features but don't be afraid to highlight more if it's important",
+          "iconId": "ion-happy-outline",
+          "title": "Any other advantages"
+        }
+      ]
+    },
+    {
+      "type": "contact-1",
+      "titleText": "Let's talk 📞",
+      "subtitleText":"Share why your product is great",
+      "inputButtonText": "Send"
+    },
+    {
+      "type": "calendly-booking-1",
+      "titleText":"Create your beautiful landing page in minutes",
+      "subtitleText":"It's totally awesome!",
+      "username": "krishan711",
+      "calendarId": "chat"
     },
     {
       "type": "image-slides-1",
