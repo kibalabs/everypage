@@ -23,6 +23,8 @@ This project is a lerna monorepo. If you look in `src/packages/`, you will see t
 1. Run `npm run start-console`. This will start the everypage console on your local machine.
 1. Run `npm run build-test`. This will build the test project and create a deployable output in `./packages/test/dist`.
 
+everypage heavily leans on [UI-React](https://github.com/kibalabs/ui-react) which is a React component library maintained by [Kiba Labs](https://www.kibalabs.com). If you are considering contributing (please do!) it would be great to read up on some of the principles there as they follow through into this project.
+
 ## Support
 
 everypage is mostly written by me ([krishan711](https://twitter.com/krishan711)) at the moment. If you want help with contributing or even if you want help using everypage in your own application just reach out, I'd love to help 🙌.
