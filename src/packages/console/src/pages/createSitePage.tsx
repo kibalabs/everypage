@@ -3,7 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useIntegerUrlQueryState, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -121,7 +121,7 @@ export const CreateSitePage = (): React.ReactElement => {
   };
 
   return (
-    <ContainingView>
+    <React.Fragment>
       <Helmet>
         <title>Create Site | Everypage Console</title>
       </Helmet>
@@ -212,6 +212,6 @@ export const CreateSitePage = (): React.ReactElement => {
         {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
         <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
       </ResponsiveContainingView>
-    </ContainingView>
+    </React.Fragment>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { useGlobals } from '../globalsContext';
@@ -55,7 +55,7 @@ export const LoginPage = (): React.ReactElement => {
   };
 
   return (
-    <ContainingView>
+    <React.Fragment>
       <Helmet>
         <title>Login | Everypage Console</title>
       </Helmet>
@@ -105,6 +105,6 @@ export const LoginPage = (): React.ReactElement => {
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
       </ResponsiveContainingView>
-    </ContainingView>
+    </React.Fragment>
   );
 };

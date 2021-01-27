@@ -2,7 +2,7 @@ import React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Checkbox, ContainingView, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Checkbox, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { useGlobals } from '../globalsContext';
@@ -78,7 +78,7 @@ export const RegisterPage = (): React.ReactElement => {
   };
 
   return (
-    <ContainingView>
+    <React.Fragment>
       <Helmet>
         <title>Register | Everypage Console</title>
       </Helmet>
@@ -164,6 +164,6 @@ export const RegisterPage = (): React.ReactElement => {
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
       </ResponsiveContainingView>
-    </ContainingView>
+    </React.Fragment>
   );
 };
