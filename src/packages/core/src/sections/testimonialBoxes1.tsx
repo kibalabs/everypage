@@ -57,14 +57,14 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                  <Stack.Item growthFactor={1} shrinkFactor={1}>
-                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
-                      { getIcon(box.type, box.iconId, box.iconColor) }
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        {box.url && <Link target={box.url} text={box.author} />}
-                        {!box.url && <Text variant='bold'>{box.author}</Text>}
-                      </Stack.Item>
-                    </Stack>
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
+                        { getIcon(box.type, box.iconId, box.iconColor) }
+                        <Stack.Item growthFactor={1} shrinkFactor={1}>
+                          {box.url && <Link target={box.url} text={box.author} />}
+                          {!box.url && <Text variant='bold'>{box.author}</Text>}
+                        </Stack.Item>
+                      </Stack>
                     </Stack.Item>
                     <Stack.Item growthFactor={1} shrinkFactor={1} gutterBefore={PaddingSize.Default}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
