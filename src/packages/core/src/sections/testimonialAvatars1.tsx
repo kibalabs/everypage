@@ -40,20 +40,20 @@ export const TestimonialAvatars1 = (props: ITestimonialAvatarProps): React.React
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 12, medium: 6, large: 4 }}>
               {props.boxes.map((box: ITestimonialAvatarsBox, index: number): React.ReactElement => (
-                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
                     <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
-                    <Stack direction={Direction.Horizontal} shouldAddGutters={true} childAlignment={Alignment.Center}>
-                      {box.authorImageUrl && <Box width='50px' height='50px'><LazyImage isFullHeight={true} isFullWidth={true} variant={'profile'} source={box.authorImageUrl} alternativeText={box.authorName ? `${box.authorName} image` : 'Testimonial author image'} fitType='crop' /></Box>}
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
-                          {box.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={box.authorName} />}
-                          {box.authorTitle && <MarkdownText textVariant={'small'} textAlignment={TextAlignment.Left} source={box.authorTitle} />}
-                        </Stack>
-                      </Stack.Item>
-                    </Stack>
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      <Stack direction={Direction.Horizontal} shouldAddGutters={true} childAlignment={Alignment.Center}>
+                        {box.authorImageUrl && <Box width='50px' height='50px'><LazyImage isFullHeight={true} isFullWidth={true} variant={'profile'} source={box.authorImageUrl} alternativeText={box.authorName ? `${box.authorName} image` : 'Testimonial author image'} fitType='crop' /></Box>}
+                          <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} contentAlignment={Alignment.Center}>
+                            {box.authorName && <MarkdownText textVariant={'bold'} textAlignment={TextAlignment.Left} source={box.authorName} />}
+                            {box.authorTitle && <MarkdownText textVariant={'small'} textAlignment={TextAlignment.Left} source={box.authorTitle} />}
+                          </Stack>
+                      </Stack>
+                    </Stack.Item>
                   </Stack>
                 </Box>
               ))}
