@@ -57,11 +57,11 @@ export const TestimonialBoxes1 = (props: ITestimonialBoxes1Props): React.ReactEl
               {props.boxes.map((box: ITestimonialBoxes1Box, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Start} isFullWidth={true}>
-                      <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
-                        { getIcon(box.type, box.iconId, box.iconColor) }
-                          {box.url && <Link variant='left' target={box.url} text={box.author} />}
-                          {!box.url && <Text alignment={TextAlignment.Left} variant='bold'>{box.author}</Text>}
-                      </Stack>
+                    <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} isFullWidth={true} isFullHeight={true} shouldAddGutters={true}>
+                      { getIcon(box.type, box.iconId, box.iconColor) }
+                      {box.url && <Link variant='left' target={box.url} text={box.author} />}
+                      {!box.url && <Text alignment={TextAlignment.Left} variant='bold'>{box.author}</Text>}
+                    </Stack>
                     <Stack.Item growthFactor={1} shrinkFactor={1} gutterBefore={PaddingSize.Default}>
                       <MarkdownText textAlignment={TextAlignment.Left} source={box.text} />
                     </Stack.Item>
