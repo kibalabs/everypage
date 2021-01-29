@@ -7,10 +7,10 @@ import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, Pad
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
+import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { MessageDialog } from '../components/messageDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
-import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
@@ -406,7 +406,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         onCloseClicked={onAccountUpgradePopupCloseClicked}
         onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
       />
-      <CreateNewVersionDialog 
+      <CreateNewVersionDialog
         isOpen={isNewVersionPopupShowing}
         newVersionDefaultName={newVersionDefaultName}
         newVersionName={newVersionName}
