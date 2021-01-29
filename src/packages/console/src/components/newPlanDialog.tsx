@@ -34,7 +34,7 @@ export interface INewPlanDialogProps {
   upgradeDiscountCode: string;
   upgradeDiscountCodeError: string;
   onUpgradeDialogClosed: () => void;
-  onUpgradeDiscountCodeChanged: () => void;
+  onUpgradeDiscountCodeChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   upgradeError: string;
   onUpgradeDialogUpgradeClicked: (stripe: Stripe, elements: StripeElements) => Promise<void>;
 }
