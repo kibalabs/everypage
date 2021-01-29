@@ -5,26 +5,20 @@ import { KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+import { CardElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe, PaymentIntent, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
 import Helmet from 'react-helmet';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
-import { NewPlanDialog } from "../components/newPlanDialog";
 import { NavigationBar } from '../components/navigationBar';
+import { NewPlanDialog } from '../components/newPlanDialog';
 import { SiteCard } from '../components/siteCard';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, StripePortalSession, StripeSubscription } from '../everypageClient/resources';
@@ -323,10 +317,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           </Container>
         </main>
         {account && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={account} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-        {newPlan && <NewPlanDialog isUpgradeDialogLoading={isUpgradeDialogLoading} newPlan={newPlan} currentPlan={currentPlan} upgradeCardError={upgradeCardError} upgradeDiscountCode={upgradeDiscountCode} upgradeDiscountCodeError={upgradeDiscountCodeError} onUpgradeDialogClosed={onUpgradeDialogClosed} onUpgradeDiscountCodeChanged={onUpgradeDiscountCodeChanged} upgradeError={upgradeError} onUpgradeDialogUpgradeClicked={onUpgradeDialogUpgradeClicked}/>}
+        {newPlan && <NewPlanDialog isUpgradeDialogLoading={isUpgradeDialogLoading} newPlan={newPlan} currentPlan={currentPlan} upgradeCardError={upgradeCardError} upgradeDiscountCode={upgradeDiscountCode} upgradeDiscountCodeError={upgradeDiscountCodeError} onUpgradeDialogClosed={onUpgradeDialogClosed} onUpgradeDiscountCodeChanged={onUpgradeDiscountCodeChanged} upgradeError={upgradeError} onUpgradeDialogUpgradeClicked={onUpgradeDialogUpgradeClicked} />}
         <ToastContainer />
       </Elements>
     </div>
   );
 };
-
