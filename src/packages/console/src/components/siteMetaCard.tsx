@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { IWebsiteMeta } from '@kibalabs/everypage';

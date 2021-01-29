@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
 import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';

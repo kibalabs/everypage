@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { ErrorBoundary, ISingleAnyChildProps } from '@kibalabs/core-react';
 import { HeadRootProvider } from '@kibalabs/everypage';

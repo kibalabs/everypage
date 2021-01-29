@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';

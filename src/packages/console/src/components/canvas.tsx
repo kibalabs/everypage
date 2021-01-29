@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';

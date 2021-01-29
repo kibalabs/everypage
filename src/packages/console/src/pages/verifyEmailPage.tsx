@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, PaddingSize, ResponsiveContainingView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';

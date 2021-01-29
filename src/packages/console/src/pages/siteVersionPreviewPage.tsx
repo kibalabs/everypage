@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';

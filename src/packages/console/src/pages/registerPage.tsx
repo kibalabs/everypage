@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useNavigator } from '@kibalabs/core-react';

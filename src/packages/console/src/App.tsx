@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { Route, Router, useInitialization } from '@kibalabs/core-react';

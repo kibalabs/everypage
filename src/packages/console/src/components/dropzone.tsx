@@ -1,5 +1,5 @@
 
-import React from 'react';
+import * as React from 'react';
 
 import * as ReactDropzone from 'react-dropzone';
 import styled from 'styled-components';
