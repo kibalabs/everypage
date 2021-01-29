@@ -4,16 +4,13 @@ import React from 'react';
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { MessageDialog } from '../components/messageDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
+import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
@@ -409,28 +406,15 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         onCloseClicked={onAccountUpgradePopupCloseClicked}
         onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
       />
-      <Dialog
-        open={isNewVersionPopupShowing}
-        onClose={onNewVersionPopupCloseClicked}
-      >
-        <DialogTitle>Create new version</DialogTitle>
-        <DialogContent>
-          <SingleLineInput
-            name='name'
-            label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
-            placeholderText={newVersionDefaultName}
-            value={newVersionName}
-            onValueChanged={onNewVersionNameChanged}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
-          <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
-        </DialogActions>
-        <DialogActions>
-          <Button onClicked={onNewVersionPopupCloseClicked} text='Cancel' />
-        </DialogActions>
-      </Dialog>
+      <CreateNewVersionDialog 
+        isOpen={isNewVersionPopupShowing}
+        newVersionDefaultName={newVersionDefaultName}
+        newVersionName={newVersionName}
+        onCloseClicked={onNewVersionPopupCloseClicked}
+        onClonePrimaryClicked={onClonePrimaryClicked}
+        onCreateFromTemplateClicked={onCreateFromTemplateClicked}
+        onNewVersionNameChanged={onNewVersionNameChanged}
+      />
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
