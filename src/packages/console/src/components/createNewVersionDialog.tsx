@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, SingleLineInput } from '@kibalabs/ui-react';
+import { Button, Direction, PaddingSize, SingleLineInput, Stack } from '@kibalabs/ui-react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -46,8 +46,10 @@ export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): Rea
         />
       </DialogContent>
       <DialogActions>
-        <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
-        <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
+        <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Default} paddingHorizontal={PaddingSize.Wide}>
+          <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
+          <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
+        </Stack>
       </DialogActions>
       <DialogActions>
         <Button onClicked={onCloseClicked} text='Cancel' />

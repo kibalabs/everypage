@@ -23,6 +23,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
+import { NewPlanDialog } from "../components/newPlanDialog";
 import { NavigationBar } from '../components/navigationBar';
 import { SiteCard } from '../components/siteCard';
 import { IPlan } from '../consoleConfig';
@@ -85,14 +86,6 @@ const useStyles = makeStyles((theme) => ({
   planCurrentText: {
     textAlign: 'center',
     marginTop: theme.spacing(2),
-  },
-  upgradeDialogLoadingBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    margin: theme.spacing(2),
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 }));
 
@@ -330,119 +323,10 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           </Container>
         </main>
         {account && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={account} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-        {newPlan && (
-          <Dialog
-            open={true}
-            onClose={onUpgradeDialogClosed}
-          >
-            <DialogTitle>{`${newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to ${newPlan.name}`}</DialogTitle>
-            <DialogContent>
-              {newPlan.planIndex < currentPlan.planIndex && (
-                <Typography>
-                  If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
-                  <br />
-                  <br />
-                  If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
-                  <br />
-                  <br />
-                  If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
-                </Typography>
-              )}
-              {newPlan.planIndex > currentPlan.planIndex && (
-                <React.Fragment>
-                  <Typography>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Typography>
-                  {currentPlan.code === 'core' ? (
-                    <React.Fragment>
-                      <br />
-                      <Typography>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Typography>
-                      <TextField
-                        variant='outlined'
-                        margin='normal'
-                        fullWidth
-                        label='Card Details'
-                        disabled={isUpgradeDialogLoading}
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{
-                          inputComponent: StripeInput,
-                          inputProps: {
-                            component: CardElement,
-                          },
-                        }}
-                        error={upgradeCardError !== undefined}
-                        helperText={upgradeCardError}
-                      />
-                      <Typography variant='caption'>Secured by Stripe</Typography>
-                    </React.Fragment>
-                  ) : (
-                    <Typography>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Typography>
-                  )}
-                  <br />
-                  <TextField
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    label='Discount Code (if you have one)'
-                    disabled={isUpgradeDialogLoading}
-                    InputLabelProps={{ shrink: true }}
-                    value={upgradeDiscountCode}
-                    onChange={onUpgradeDiscountCodeChanged}
-                    error={upgradeDiscountCodeError !== undefined}
-                    helperText={upgradeDiscountCodeError}
-                  />
-                  {upgradeError && <Typography color='error'>{upgradeError}</Typography>}
-                </React.Fragment>
-              )}
-            </DialogContent>
-            {isUpgradeDialogLoading ? (
-              <Box className={classes.upgradeDialogLoadingBox}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <ElementsConsumer>
-                {(stripeProps) => (
-                  <DialogActions>
-                    {newPlan.planIndex < currentPlan.planIndex && (
-                      <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} color='secondary'>
-                        Downgrade
-                      </Button>
-                    )}
-                    <Button onClick={onUpgradeDialogClosed} autoFocus>
-                      Cancel
-                    </Button>
-                    {newPlan.planIndex > currentPlan.planIndex && (
-                      <Button onClick={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='contained' color='primary'>
-                        Upgrade
-                      </Button>
-                    )}
-                  </DialogActions>
-                )}
-              </ElementsConsumer>
-            )}
-          </Dialog>
-        )}
+        {newPlan && <NewPlanDialog isUpgradeDialogLoading={isUpgradeDialogLoading} newPlan={newPlan} currentPlan={currentPlan} upgradeCardError={upgradeCardError} upgradeDiscountCode={upgradeDiscountCode} upgradeDiscountCodeError={upgradeDiscountCodeError} onUpgradeDialogClosed={onUpgradeDialogClosed} onUpgradeDiscountCodeChanged={onUpgradeDiscountCodeChanged} upgradeError={upgradeError} onUpgradeDialogUpgradeClicked={onUpgradeDialogUpgradeClicked}/>}
         <ToastContainer />
       </Elements>
     </div>
   );
 };
 
-
-interface StripeInputProps {
-  component: React.Component;
-  inputRef: React.Ref<HTMLInputElement>;
-}
-
-const StripeInput = (props: StripeInputProps): React.ReactElement => {
-  const elementRef = React.useRef();
-  React.useImperativeHandle(props.inputRef, () => ({
-    focus: () => elementRef.current.focus,
-  }));
-  return (
-    <props.component
-      // eslint-disable-next-line no-return-assign
-      onReady={(element) => (elementRef.current = element)}
-      {...props}
-    />
-  );
-};
-export default StripeInput;
