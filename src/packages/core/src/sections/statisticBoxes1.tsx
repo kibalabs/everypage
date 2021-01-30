@@ -37,7 +37,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }}>
               {props.boxes.map((box: IStatisticBoxes1Box, index: number): React.ReactElement => (
-                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
                     <Text alignment={TextAlignment.Center} variant='supersize'>{box.value}</Text>
                     <Spacing direction={Direction.Vertical} variant='narrow' />
