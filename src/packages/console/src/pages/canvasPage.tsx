@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
-import { StartOverDialog } from '../components/startOverDialog';
+import { MessageDialog } from "../components/messageDialog";
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     width: '250px',
   },
 }));
+
+const startOverTitle = 'Are you sure?';
+const startOverMessage = 'Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!';
 
 export const CanvasPage = (): React.ReactElement => {
   const classes = useStyles();
@@ -136,7 +139,14 @@ export const CanvasPage = (): React.ReactElement => {
         isOpen={!siteContent}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
-      <StartOverDialog isOpen={isShowingStartOverAlert} onCloseClicked={onStartOverAlertCloseClicked} onStartOverAlertConfirmClicked={onStartOverAlertConfirmClicked} />
+      <MessageDialog 
+        isOpen={isShowingStartOverAlert}
+        title={startOverTitle}
+        message={startOverMessage}
+        btnText='Start over anyway'
+        onCloseClicked={onStartOverAlertCloseClicked}
+        onConfirmClicked={onStartOverAlertConfirmClicked}
+      />
     </div>
   );
 };

@@ -12,6 +12,7 @@ export interface IMessageDialogProps {
   message: string;
   onConfirmClicked: () => void;
   onCloseClicked: () => void;
+  btnText?: string;
 }
 
 export const MessageDialog = (props: IMessageDialogProps): React.ReactElement => {
@@ -22,12 +23,16 @@ export const MessageDialog = (props: IMessageDialogProps): React.ReactElement =>
         <Typography>{props.message}</Typography>
         <Box marginTop={2} width={1} display='flex' flexDirection='row' justifyContent='start' alignItems='baseline'>
           <Box flexGrow={1} />
-          <Button color='primary' onClick={props.onCloseClicked}>Cancel</Button>
+          <Button color='primary' variant='contained' onClick={props.onConfirmClicked}>{props.btnText}</Button>
           <Box flexGrow={1} />
-          <Button color='primary' onClick={props.onConfirmClicked}>Confirm</Button>
+          <Button color='primary' variant='outlined' onClick={props.onCloseClicked}>Cancel</Button>
           <Box flexGrow={1} />
         </Box>
       </Box>
     </Dialog>
   );
 };
+
+MessageDialog.defaultProps = {
+  btnText: 'Confirm'
+}
