@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - [MINOR] Created `FeatureIcons2` section
 
 ### Changed
+- [MINOR] Update to use react v17 for all packages
+- [MINOR] Update card boxes to be full height wherever used
 
 ### Removed
 
