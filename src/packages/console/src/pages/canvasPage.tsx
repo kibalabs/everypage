@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
-import { MessageDialog } from '../components/messageDialog';
+import { ConfirmationDialog } from '../components/messageDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -132,11 +132,13 @@ export const CanvasPage = (): React.ReactElement => {
           addAssetFiles={addAssetFiles}
         />
       )}
+
       <TemplateChooserModal
         isOpen={!siteContent}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
-      <MessageDialog
+
+      <ConfirmationDialog
         isOpen={isShowingStartOverAlert}
         title='Are you sure?'
         message='Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!'

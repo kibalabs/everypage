@@ -8,7 +8,7 @@ import Helmet from 'react-helmet';
 
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
-import { MessageDialog } from '../components/messageDialog';
+import { ConfirmationDialog } from '../components/confirmationDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { IPlan } from '../consoleConfig';
@@ -418,7 +418,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
 
-      <MessageDialog
+      <ConfirmationDialog
         isOpen={archivingSiteVersionId !== null}
         onConfirmClicked={onArchiveSiteVersionConfirmClicked}
         onCloseClicked={onArchiveSiteVersionCancelClicked}
@@ -426,7 +426,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         message='Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'
       />
 
-      <MessageDialog
+      <ConfirmationDialog
         isOpen={isArchivingSite}
         onConfirmClicked={onArchiveSiteConfirmClicked}
         onCloseClicked={onArchiveSiteCancelClicked}

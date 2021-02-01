@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Changed
 - [MINOR] Update to use react v17 for all packages
 - [MINOR] Update card boxes to be full height wherever used
-- [MINOR] Updated `MessageDialog` to use `ModalWrapper`
+- [MINOR] Created `Dialog` component for console
 
 ### Removed
 
