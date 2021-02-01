@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { Button, Direction, PaddingSize, SingleLineInput, Stack } from '@kibalabs/ui-react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Button, Direction, PaddingSize, SingleLineInput, Stack, TextAlignment, Text, Alignment } from '@kibalabs/ui-react';
+import { Dialog } from './dialog';
 
 export interface ICreateNewVersionDialogProps {
   isOpen: boolean;
@@ -31,11 +28,11 @@ export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): Rea
 
   return (
     <Dialog
-      open={props.isOpen}
-      onClose={onCloseClicked}
+      isOpen={props.isOpen}
+      onCloseClicked={onCloseClicked}
     >
-      <DialogTitle>Create new version</DialogTitle>
-      <DialogContent>
+      <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+        <Text variant='header3' alignment={TextAlignment.Center}>Create new version</Text>
         <SingleLineInput
           name='name'
           label={newVersionName ? 'Name' : `Name (default: ${props.newVersionDefaultName})`}
@@ -43,16 +40,18 @@ export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): Rea
           value={newVersionName}
           onValueChanged={setNewVersionName}
         />
-      </DialogContent>
-      <DialogActions>
-        <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Default} paddingHorizontal={PaddingSize.Wide}>
-          <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
-          <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
-        </Stack>
-      </DialogActions>
-      <DialogActions>
-        <Button onClicked={onCloseClicked} text='Cancel' />
-      </DialogActions>
+        <Stack.Item gutterBefore={PaddingSize.Default}>
+          <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+            <Stack.Item growthFactor={1} shrinkFactor={1} />
+            <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
+            <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
+            <Stack.Item growthFactor={1} shrinkFactor={1} />
+          </Stack>
+        </Stack.Item>
+        <Stack.Item gutterBefore={PaddingSize.Default} alignment={Alignment.Center}>
+          <Button onClicked={onCloseClicked} text='Cancel' />
+        </Stack.Item>
+      </Stack>
     </Dialog>
   );
 };
