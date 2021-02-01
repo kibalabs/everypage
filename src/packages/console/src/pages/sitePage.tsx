@@ -20,7 +20,6 @@ export interface ISitePageProps {
 }
 
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
-  // const classes = useStyles();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
@@ -126,7 +125,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(true);
   };
 
-  const onCreateFromTemplateClicked = (): void => {
+  const onCreateFromTemplateClicked = (newVersionName: string): void => {
+    setNewVersionName(newVersionName);
     setIsNewVersionPopupShowing(false);
     setIsTemplateChooserPopupShowing(true);
   };
@@ -135,11 +135,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(false);
   };
 
-  const onNewVersionNameChanged = (value: string): void => {
-    setNewVersionName(value);
-  };
-
-  const onClonePrimaryClicked = (): void => {
+  const onClonePrimaryClicked = (newVersionName: string): void => {
     setIsNewVersionPopupShowing(false);
     setIsLoading(true);
     everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, newVersionName).then((): void => {
@@ -409,11 +405,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       <CreateNewVersionDialog
         isOpen={isNewVersionPopupShowing}
         newVersionDefaultName={newVersionDefaultName}
-        newVersionName={newVersionName}
         onCloseClicked={onNewVersionPopupCloseClicked}
         onClonePrimaryClicked={onClonePrimaryClicked}
         onCreateFromTemplateClicked={onCreateFromTemplateClicked}
-        onNewVersionNameChanged={onNewVersionNameChanged}
       />
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
@@ -423,15 +417,15 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         isOpen={archivingSiteVersionId !== null}
         onConfirmClicked={onArchiveSiteVersionConfirmClicked}
         onCloseClicked={onArchiveSiteVersionCancelClicked}
-        title={'Archive this version?'}
-        message={'Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
+        title='Archive this version?'
+        message='Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'
       />
       <MessageDialog
         isOpen={isArchivingSite}
         onConfirmClicked={onArchiveSiteConfirmClicked}
         onCloseClicked={onArchiveSiteCancelClicked}
-        title={'Archive this site?'}
-        message={'Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'}
+        title='Archive this site?'
+        message='Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'
       />
     </React.Fragment>
   );

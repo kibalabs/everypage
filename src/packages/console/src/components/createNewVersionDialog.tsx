@@ -8,26 +8,25 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export interface ICreateNewVersionDialogProps {
   isOpen: boolean;
-  newVersionName: string;
   newVersionDefaultName: string;
-  onClonePrimaryClicked: () => void;
   onCloseClicked: () => void;
-  onCreateFromTemplateClicked: () => void;
-  onNewVersionNameChanged: (value: string) => void;
+  onClonePrimaryClicked: (newVersionName: string) => void;
+  onCreateFromTemplateClicked: (newVersionName: string) => void;
 }
 
 export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): React.ReactElement => {
+  const [newVersionName, setNewVersionName] = React.useState<string | null>(null);
+
   const onCloseClicked = () => {
     props.onCloseClicked();
   };
-  const onNewVersionNameChanged = (value: string) => {
-    props.onNewVersionNameChanged(value);
-  };
+
   const onClonePrimaryClicked = () => {
-    props.onClonePrimaryClicked();
+    props.onClonePrimaryClicked(newVersionName);
   };
+
   const onCreateFromTemplateClicked = () => {
-    props.onCreateFromTemplateClicked();
+    props.onCreateFromTemplateClicked(newVersionName);
   };
 
   return (
@@ -39,10 +38,10 @@ export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): Rea
       <DialogContent>
         <SingleLineInput
           name='name'
-          label={props.newVersionName ? 'Name' : `Name (default: ${props.newVersionDefaultName})`}
+          label={newVersionName ? 'Name' : `Name (default: ${props.newVersionDefaultName})`}
           placeholderText={props.newVersionDefaultName}
-          value={props.newVersionName}
-          onValueChanged={onNewVersionNameChanged}
+          value={newVersionName}
+          onValueChanged={setNewVersionName}
         />
       </DialogContent>
       <DialogActions>

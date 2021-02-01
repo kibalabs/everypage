@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const startOverTitle = 'Are you sure?';
-const startOverMessage = 'Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!';
-
 export const CanvasPage = (): React.ReactElement => {
   const classes = useStyles();
   const { everypageClient } = useGlobals();
@@ -141,8 +138,8 @@ export const CanvasPage = (): React.ReactElement => {
       />
       <MessageDialog
         isOpen={isShowingStartOverAlert}
-        title={startOverTitle}
-        message={startOverMessage}
+        title='Are you sure?'
+        message='Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!'
         btnText='Start over anyway'
         onCloseClicked={onStartOverAlertCloseClicked}
         onConfirmClicked={onStartOverAlertConfirmClicked}
