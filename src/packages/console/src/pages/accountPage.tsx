@@ -316,7 +316,16 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
             )}
           </Container>
         </main>
-        {account && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={account} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
+
+        {account && (
+          <AccountUpgradeDialog
+            isOpen={isAccountUpgradePopupShowing}
+            account={account}
+            onCloseClicked={onAccountUpgradePopupCloseClicked}
+            onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
+          />
+        )}
+
         {newPlan && (
           <NewPlanDialog
             isUpgradeDialogLoading={isUpgradeDialogLoading}
