@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
-import { MessageDialog } from "../components/messageDialog";
+import { MessageDialog } from '../components/messageDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -139,7 +139,7 @@ export const CanvasPage = (): React.ReactElement => {
         isOpen={!siteContent}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
-      <MessageDialog 
+      <MessageDialog
         isOpen={isShowingStartOverAlert}
         title={startOverTitle}
         message={startOverMessage}
