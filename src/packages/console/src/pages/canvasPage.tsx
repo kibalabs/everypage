@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
-import { ConfirmationDialog } from '../components/messageDialog';
+import { ConfirmationDialog } from '../components/confirmationDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
