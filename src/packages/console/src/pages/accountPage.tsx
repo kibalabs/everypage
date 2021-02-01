@@ -317,17 +317,20 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           </Container>
         </main>
         {account && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={account} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-        {newPlan && <NewPlanDialog 
-          isUpgradeDialogLoading={isUpgradeDialogLoading}
-          newPlan={newPlan} currentPlan={currentPlan} 
-          upgradeCardError={upgradeCardError} 
-          upgradeDiscountCode={upgradeDiscountCode} 
-          upgradeDiscountCodeError={upgradeDiscountCodeError} 
-          onUpgradeDialogClosed={onUpgradeDialogClosed} 
-          onUpgradeDiscountCodeChanged={onUpgradeDiscountCodeChanged} 
-          upgradeError={upgradeError} 
-          onUpgradeDialogUpgradeClicked={onUpgradeDialogUpgradeClicked} 
-        />}
+        {newPlan && (
+          <NewPlanDialog 
+            isUpgradeDialogLoading={isUpgradeDialogLoading} 
+            newPlan={newPlan} 
+            currentPlan={currentPlan} 
+            upgradeCardError={upgradeCardError} 
+            upgradeDiscountCode={upgradeDiscountCode} 
+            upgradeDiscountCodeError={upgradeDiscountCodeError} 
+            onUpgradeDialogClosed={onUpgradeDialogClosed} 
+            onUpgradeDiscountCodeChanged={onUpgradeDiscountCodeChanged} 
+            upgradeError={upgradeError} 
+            onUpgradeDialogUpgradeClicked={onUpgradeDialogUpgradeClicked} 
+          />
+        )}
         <ToastContainer />
       </Elements>
     </div>
