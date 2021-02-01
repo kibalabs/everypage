@@ -53,7 +53,7 @@ export const PricingTiers1 = (props: IPricingTiers1Props): React.ReactElement =>
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 6, large: 4 }}>
               {props.categories.map((category: IPricingTiers1Category, index: number): React.ReactElement => (
-                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true}>
                     <Text alignment={TextAlignment.Center} variant='strong'>{category.name}</Text>
                     <Text alignment={TextAlignment.Center} variant='supersize'>{category.cost}</Text>

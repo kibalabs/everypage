@@ -49,7 +49,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.features?.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
-                <Box key={index} variant={boxVariant} isFullHeight={boxVariant !== 'card'}>
+                <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} paddingEnd={PaddingSize.Wide} shouldAddGutters={true}>
                     {feature.mediaUrl && <LazyMedia source={feature.mediaUrl} alternativeText={feature.title || `feature ${index} image`} />}
                     {!feature.mediaUrl && feature.iconId && <KibaIcon variant='extraLarge' iconId={feature.iconId} _color={theme.colors.brandPrimary} />}
