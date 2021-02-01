@@ -102,6 +102,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onArchiveClicked = (version: SiteVersion): void => {
+    console.log('here');
     setArchivingSiteVersionId(version.siteVersionId);
   };
 

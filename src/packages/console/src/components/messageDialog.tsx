@@ -1,62 +1,47 @@
 import React from 'react';
 
-import { Alignment, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Alignment, Button, Direction, PaddingSize, Stack, Text, Box, TextAlignment } from '@kibalabs/ui-react';
 import styled from 'styled-components';
+import { ISingleAnyChildProps, useEventListener } from '@kibalabs/core-react';
 
 export interface IMessageDialogProps {
   isOpen: boolean;
   title: string;
   message: string;
+  confirmButtonText?: string;
   onConfirmClicked: () => void;
   onCloseClicked: () => void;
-  btnText?: string;
 }
 
 export const MessageDialog = (props: IMessageDialogProps): React.ReactElement => {
+
+  const confirmButtonText = props.confirmButtonText || 'Confirm';
+
   return (
     <Modal isOpen={props.isOpen} onCloseClicked={props.onCloseClicked}>
-      <React.Fragment>
-        <DialogTitle>{props.title}</DialogTitle>
-        <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Wide} paddingBottom={PaddingSize.Wide} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-          <Text>{props.message}</Text>
-          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Start} paddingTop={PaddingSize.Default} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-            <Stack.Item growthFactor={1} shrinkFactor={1} />
-            <Button variant='primary' onClicked={props.onConfirmClicked} text={props.btnText} />
+      <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+        <Text variant='header3' alignment={TextAlignment.Center}>{props.title}</Text>
+        <Text alignment={TextAlignment.Center}>{props.message}</Text>
+        <Stack.Item gutterBefore={PaddingSize.Default}>
+          <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
             <Stack.Item growthFactor={1} shrinkFactor={1} />
             <Button variant='secondary' onClicked={props.onCloseClicked} text='Cancel' />
+            <Button variant='primary' onClicked={props.onConfirmClicked} text={confirmButtonText} />
             <Stack.Item growthFactor={1} shrinkFactor={1} />
           </Stack>
-        </Stack>
-      </React.Fragment>
+        </Stack.Item>
+      </Stack>
     </Modal>
   );
 };
 
 MessageDialog.defaultProps = {
-  btnText: 'Confirm',
 };
 
-interface IModalProps {
+interface IModalProps extends ISingleAnyChildProps {
   isOpen: boolean;
   onCloseClicked: () => void;
-  children: React.ReactChild;
 }
-
-/* Need help in styling the wrapper to use props (no idea on what should be done) */
-const StyledModalWrapper = styled.div`
-  min-width: 50px;
-  min-height: 100px;
-  max-width: 30%;
-  max-height: 70%;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  padding: 0.5rem 1rem;
-  background: #fff;
-  color: #000;
-  position: relative;
-  z-index: 10;
-  border-radius: 10px;
-`;
 
 const StyledBackdrop = styled.div`
   width: 100%;
@@ -66,43 +51,31 @@ const StyledBackdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  left: 0;
+  top: 0;
 `;
 
-// need to decide a transition to be applied on the modal
-const Modal = (props: IModalProps): React.ReactElement => {
+const Modal = (props: IModalProps): React.ReactElement | null => {
   const modalRef = React.useRef();
-  const { isOpen, onCloseClicked } = props;
-  const onBackdropClicked = (e) => {
-    if (modalRef.current === e.target) onCloseClicked();
+
+  const onBackdropClicked = (event: React.SyntheticEvent<HTMLDivElement>) => {
+    if (event.target === modalRef.current) {
+      props.onCloseClicked();
+    }
   };
 
-  const keyPress = React.useCallback(
-    (e) => {
-      // we can use props to trigger the event on different key
-      if (e.key === 'Escape' && isOpen) {
-        onCloseClicked();
-      }
-    },
-    [onCloseClicked, isOpen],
-  );
+  useEventListener(document, 'keydown', (event: Event): void => {
+    // NOTE(krishan711): this doesn't pass the dependencies in as it should
+    if (props.isOpen && event.key === 'Escape') {
+      props.onCloseClicked();
+    }
+  });
 
-  React.useEffect(() => {
-    document.addEventListener('keydown', keyPress);
-    return () => document.removeEventListener('keydown', keyPress);
-  }, [keyPress]);
-
-  return (
-    <>
-      {isOpen
-      && (
-        <StyledBackdrop ref={modalRef} onClick={onBackdropClicked}>
-          {/* It is possible to refactor the backdrop to a seperate component so we can use it in other components. */}
-          <StyledModalWrapper>
-            {/* modalwrapper can also be used to create spectific dialog boxes in ui-react. */}
-            {props.children}
-          </StyledModalWrapper>
-        </StyledBackdrop>
-      )}
-    </>
-  );
+  return props.isOpen ? (
+    <StyledBackdrop id='backdrop' ref={modalRef} onClick={onBackdropClicked}>
+      <Box variant='card' maxWidth='30%' maxHeight='70%'>
+        {props.children}
+      </Box>
+    </StyledBackdrop>
+  ) : null;
 };

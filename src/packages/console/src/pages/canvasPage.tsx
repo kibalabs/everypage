@@ -140,7 +140,7 @@ export const CanvasPage = (): React.ReactElement => {
         isOpen={isShowingStartOverAlert}
         title='Are you sure?'
         message='Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!'
-        btnText='Start over anyway'
+        confirmButtonText='Start over anyway'
         onCloseClicked={onStartOverAlertCloseClicked}
         onConfirmClicked={onStartOverAlertConfirmClicked}
       />
