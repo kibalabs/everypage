@@ -102,7 +102,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   };
 
   const onArchiveClicked = (version: SiteVersion): void => {
-    console.log('here');
     setArchivingSiteVersionId(version.siteVersionId);
   };
 
@@ -399,11 +398,13 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           )}
         </Stack>
       </ContainingView>
+
       <AccountUpgradeDomainDialog
         isOpen={isAccountUpgradePopupShowing}
         onCloseClicked={onAccountUpgradePopupCloseClicked}
         onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
       />
+
       <CreateNewVersionDialog
         isOpen={isNewVersionPopupShowing}
         newVersionDefaultName={newVersionDefaultName}
@@ -411,10 +412,12 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         onClonePrimaryClicked={onClonePrimaryClicked}
         onCreateFromTemplateClicked={onCreateFromTemplateClicked}
       />
+
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
+
       <MessageDialog
         isOpen={archivingSiteVersionId !== null}
         onConfirmClicked={onArchiveSiteVersionConfirmClicked}
@@ -422,6 +425,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         title='Archive this version?'
         message='Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'
       />
+
       <MessageDialog
         isOpen={isArchivingSite}
         onConfirmClicked={onArchiveSiteConfirmClicked}
