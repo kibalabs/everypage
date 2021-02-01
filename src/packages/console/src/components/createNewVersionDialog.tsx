@@ -10,8 +10,8 @@ export interface ICreateNewVersionDialogProps {
   isOpen: boolean;
   newVersionDefaultName: string;
   onCloseClicked: () => void;
-  onClonePrimaryClicked: (newVersionName: string) => void;
-  onCreateFromTemplateClicked: (newVersionName: string) => void;
+  onClonePrimaryClicked: (newVersionName?: string) => void;
+  onCreateFromTemplateClicked: (newVersionName?: string) => void;
 }
 
 export const CreateNewVersionDialog = (props: ICreateNewVersionDialogProps): React.ReactElement => {

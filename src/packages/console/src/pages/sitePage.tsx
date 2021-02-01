@@ -125,8 +125,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(true);
   };
 
-  const onCreateFromTemplateClicked = (newVersionName: string): void => {
-    setNewVersionName(newVersionName);
+  const onCreateFromTemplateClicked = (newVersionName?: string): void => {
+    // NOTE(krishan711): this is only used to store temporarily whilst the
+    setNewVersionName(newVersionName || null);
     setIsNewVersionPopupShowing(false);
     setIsTemplateChooserPopupShowing(true);
   };
