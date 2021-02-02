@@ -1,32 +1,16 @@
 import React from 'react';
 
-import { Button, Text } from '@kibalabs/ui-react';
-import Box from '@material-ui/core/Box';
+import { Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
 
+import { Dialog } from './dialog';
 import { IPlan } from '../consoleConfig';
 
-const useStyles = makeStyles((theme) => ({
-  upgradeDialogLoadingBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    margin: theme.spacing(2),
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}));
-
 export interface INewPlanDialogProps {
-  // isOpen: boolean;
   isUpgradeDialogLoading: boolean;
   newPlan: IPlan;
   currentPlan: IPlan;
@@ -47,21 +31,17 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
   };
 
   return (
-    <Dialog
-      open={true}
-      onClose={onCloseClicked}
-    >
-      <DialogTitle>{`${newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to ${newPlan.name}`}</DialogTitle>
-      <DialogContent>
+    <Dialog isOpen={true} onCloseClicked={onCloseClicked}>
+      <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+        <Text variant='header3' alignment={TextAlignment.Center}>{`${newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to ${newPlan.name}`}</Text>
+      <Stack direction={Direction.Vertical}>
         {newPlan.planIndex < currentPlan.planIndex && (
           <Text>
-                    If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
-            <br />
-            <br />
-                    If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
-            <br />
-            <br />
-                    If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
+            If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
+            <Spacing variant={PaddingSize.Default} />
+            If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
+            <Spacing variant={PaddingSize.Default} />
+            If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
           </Text>
         )}
         {newPlan.planIndex > currentPlan.planIndex && (
@@ -69,7 +49,7 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
             <Text>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Text>
             {currentPlan.code === 'core' ? (
               <React.Fragment>
-                <br />
+                <Spacing variant={PaddingSize.Narrow} />
                 <Text>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Text>
                 <TextField
                   variant='outlined'
@@ -108,15 +88,15 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
             {upgradeError && <Text variant='error'>{upgradeError}</Text>}
           </React.Fragment>
         )}
-      </DialogContent>
+      </Stack>
       {isLoading ? (
-        <Box className={classes.upgradeDialogLoadingBox}>
+        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} childAlignment={Alignment.Center} padding={PaddingSize.Wide}>
           <CircularProgress />
-        </Box>
+        </Stack>
       ) : (
         <ElementsConsumer>
           {(stripeProps) => (
-            <DialogActions>
+            <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
               {newPlan.planIndex < currentPlan.planIndex && (
                 <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='secondary' text='Downgrade' />
               )}
@@ -124,10 +104,11 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
               {newPlan.planIndex > currentPlan.planIndex && (
                 <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} text='Upgrade' />
               )}
-            </DialogActions>
+            </Stack>
           )}
         </ElementsConsumer>
       )}
+      </Stack>
     </Dialog>
   );
 };
