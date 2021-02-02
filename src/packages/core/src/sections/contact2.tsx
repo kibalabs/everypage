@@ -129,7 +129,6 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
                       </Stack>
                     )
             }
-            {/* <Stack.Item growthFactor={1} shrinkFactor={1}/> */}
           </Stack>
           <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
             <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
