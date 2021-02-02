@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
-
+import { Alignment, Button, Direction, PaddingSize, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
 
-import { Dialog } from './dialog';
 import { IPlan } from '../consoleConfig';
+import { Dialog } from './dialog';
 
 export interface INewPlanDialogProps {
   isUpgradeDialogLoading: boolean;
@@ -24,7 +23,6 @@ export interface INewPlanDialogProps {
 }
 
 export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement => {
-  const classes = useStyles();
   const { newPlan, currentPlan, isUpgradeDialogLoading: isLoading, upgradeCardError, upgradeDiscountCode, upgradeDiscountCodeError, onUpgradeDiscountCodeChanged, upgradeError, onUpgradeDialogUpgradeClicked } = props;
   const onCloseClicked = () => {
     props.onUpgradeDialogClosed();
@@ -34,80 +32,80 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
     <Dialog isOpen={true} onCloseClicked={onCloseClicked}>
       <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
         <Text variant='header3' alignment={TextAlignment.Center}>{`${newPlan.planIndex > currentPlan.planIndex ? 'Upgrade' : 'Downgrade'} to ${newPlan.name}`}</Text>
-      <Stack direction={Direction.Vertical}>
-        {newPlan.planIndex < currentPlan.planIndex && (
-          <Text>
+        <Stack direction={Direction.Vertical}>
+          {newPlan.planIndex < currentPlan.planIndex && (
+            <Text>
             If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
-            <Spacing variant={PaddingSize.Default} />
+              <Spacing variant={PaddingSize.Default} />
             If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
-            <Spacing variant={PaddingSize.Default} />
+              <Spacing variant={PaddingSize.Default} />
             If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
-          </Text>
-        )}
-        {newPlan.planIndex > currentPlan.planIndex && (
-          <React.Fragment>
-            <Text>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Text>
-            {currentPlan.code === 'core' ? (
-              <React.Fragment>
-                <Spacing variant={PaddingSize.Narrow} />
-                <Text>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Text>
-                <TextField
-                  variant='outlined'
-                  margin='normal'
-                  fullWidth
-                  label='Card Details'
-                  disabled={isLoading}
-                  InputLabelProps={{ shrink: true }}
-                  InputProps={{
-                    inputComponent: StripeInput,
-                    inputProps: {
-                      component: CardElement,
-                    },
-                  }}
-                  error={upgradeCardError !== undefined}
-                  helperText={upgradeCardError}
-                />
-                <Text variant='subtitle'>Secured by Stripe</Text>
-              </React.Fragment>
-            ) : (
-              <Text>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Text>
-            )}
-            <br />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              label='Discount Code (if you have one)'
-              disabled={isLoading}
-              InputLabelProps={{ shrink: true }}
-              value={upgradeDiscountCode}
-              onChange={onUpgradeDiscountCodeChanged}
-              error={upgradeDiscountCodeError !== undefined}
-              helperText={upgradeDiscountCodeError}
-            />
-            {upgradeError && <Text variant='error'>{upgradeError}</Text>}
-          </React.Fragment>
-        )}
-      </Stack>
-      {isLoading ? (
-        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} childAlignment={Alignment.Center} padding={PaddingSize.Wide}>
-          <CircularProgress />
-        </Stack>
-      ) : (
-        <ElementsConsumer>
-          {(stripeProps) => (
-            <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-              {newPlan.planIndex < currentPlan.planIndex && (
-                <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='secondary' text='Downgrade' />
-              )}
-              <Button onClicked={onCloseClicked} text='Cancel' />
-              {newPlan.planIndex > currentPlan.planIndex && (
-                <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} text='Upgrade' />
-              )}
-            </Stack>
+            </Text>
           )}
-        </ElementsConsumer>
-      )}
+          {newPlan.planIndex > currentPlan.planIndex && (
+            <React.Fragment>
+              <Text>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Text>
+              {currentPlan.code === 'core' ? (
+                <React.Fragment>
+                  <Spacing variant={PaddingSize.Narrow} />
+                  <Text>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Text>
+                  <TextField
+                    variant='outlined'
+                    margin='normal'
+                    fullWidth
+                    label='Card Details'
+                    disabled={isLoading}
+                    InputLabelProps={{ shrink: true }}
+                    InputProps={{
+                      inputComponent: StripeInput,
+                      inputProps: {
+                        component: CardElement,
+                      },
+                    }}
+                    error={upgradeCardError !== undefined}
+                    helperText={upgradeCardError}
+                  />
+                  <Text variant='subtitle'>Secured by Stripe</Text>
+                </React.Fragment>
+              ) : (
+                <Text>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Text>
+              )}
+              <br />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                label='Discount Code (if you have one)'
+                disabled={isLoading}
+                InputLabelProps={{ shrink: true }}
+                value={upgradeDiscountCode}
+                onChange={onUpgradeDiscountCodeChanged}
+                error={upgradeDiscountCodeError !== undefined}
+                helperText={upgradeDiscountCodeError}
+              />
+              {upgradeError && <Text variant='error'>{upgradeError}</Text>}
+            </React.Fragment>
+          )}
+        </Stack>
+        {isLoading ? (
+          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} childAlignment={Alignment.Center} padding={PaddingSize.Wide}>
+            <CircularProgress />
+          </Stack>
+        ) : (
+          <ElementsConsumer>
+            {(stripeProps) => (
+              <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                {newPlan.planIndex < currentPlan.planIndex && (
+                  <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='secondary' text='Downgrade' />
+                )}
+                <Button onClicked={onCloseClicked} text='Cancel' />
+                {newPlan.planIndex > currentPlan.planIndex && (
+                  <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} text='Upgrade' />
+                )}
+              </Stack>
+            )}
+          </ElementsConsumer>
+        )}
       </Stack>
     </Dialog>
   );
