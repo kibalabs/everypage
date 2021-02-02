@@ -218,7 +218,7 @@ export const CreateSitePage = (): React.ReactElement => {
             onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
           />
         )}
-        
+
         <TemplateChooserModal
           isOpen={isTemplateChooserOpen}
           onChooseTemplateClicked={onChooseTemplateClicked}

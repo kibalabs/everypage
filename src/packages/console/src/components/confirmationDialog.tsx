@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+
 import { Dialog } from './dialog';
 
 export interface IConfirmationDialogProps {

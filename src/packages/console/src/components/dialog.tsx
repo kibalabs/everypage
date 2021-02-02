@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ISingleAnyChildProps, useEventListener } from "@kibalabs/core-react";
+import { ISingleAnyChildProps, useEventListener } from '@kibalabs/core-react';
 import { Box } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
@@ -17,8 +17,8 @@ const StyledBackdrop = styled.div`
 `;
 
 interface IDialogProps extends ISingleAnyChildProps {
-isOpen: boolean;
-onCloseClicked: () => void;
+  isOpen: boolean;
+  onCloseClicked: () => void;
 }
 
 export const Dialog = (props: IDialogProps): React.ReactElement | null => {

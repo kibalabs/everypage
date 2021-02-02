@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Button, Direction, PaddingSize, SingleLineInput, Stack, TextAlignment, Text, Alignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, PaddingSize, SingleLineInput, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+
 import { Dialog } from './dialog';
 
 export interface ICreateNewVersionDialogProps {

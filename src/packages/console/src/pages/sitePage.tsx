@@ -7,8 +7,8 @@ import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, Pad
 import Helmet from 'react-helmet';
 
 import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
-import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { ConfirmationDialog } from '../components/confirmationDialog';
+import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { IPlan } from '../consoleConfig';
@@ -125,9 +125,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(true);
   };
 
-  const onCreateFromTemplateClicked = (newVersionName?: string): void => {
+  const onCreateFromTemplateClicked = (versionName?: string): void => {
     // NOTE(krishan711): this is only used to store temporarily whilst the
-    setNewVersionName(newVersionName || null);
+    setNewVersionName(versionName || null);
     setIsNewVersionPopupShowing(false);
     setIsTemplateChooserPopupShowing(true);
   };
@@ -136,10 +136,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(false);
   };
 
-  const onClonePrimaryClicked = (newVersionName: string): void => {
+  const onClonePrimaryClicked = (versionName: string): void => {
     setIsNewVersionPopupShowing(false);
     setIsLoading(true);
-    everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, newVersionName).then((): void => {
+    everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, versionName).then((): void => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
