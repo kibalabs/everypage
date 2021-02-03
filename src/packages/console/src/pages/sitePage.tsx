@@ -6,7 +6,6 @@ import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
-import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
 import { ConfirmationDialog } from '../components/confirmationDialog';
 import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -399,12 +398,6 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         </Stack>
       </ContainingView>
 
-      <AccountUpgradeDomainDialog
-        isOpen={isAccountUpgradePopupShowing}
-        onCloseClicked={onAccountUpgradePopupCloseClicked}
-        onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
-      />
-
       <CreateNewVersionDialog
         isOpen={isNewVersionPopupShowing}
         newVersionDefaultName={newVersionDefaultName}
@@ -416,6 +409,16 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
+      />
+
+      <ConfirmationDialog
+        isOpen={isAccountUpgradePopupShowing}
+        onCloseClicked={onAccountUpgradePopupCloseClicked}
+        onConfirmClicked={onAccountUpgradePopupUpgradeClicked}
+        title='You need to upgrade to set a custom domain'
+        message='To add a custom domain to your site, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!'
+        cancelButtonText='Maybe Later'
+        confirmButtonText='Manage Account'
       />
 
       <ConfirmationDialog
