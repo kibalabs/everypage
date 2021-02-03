@@ -1,11 +1,5 @@
 import React from 'react';
 
-// import Box from '@material-ui/core/Box';
-// import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogTitle from '@material-ui/core/DialogTitle';
-// import Text from '@material-ui/core/Text';
-
 import { Alignment, Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 
@@ -43,11 +37,11 @@ export const AccountUpgradeDialog = (props: IAccountUpgradeDialogProps): React.R
           <Text tag='p'>{`${plan.name} everypage accounts have a limit of ${plan.siteLimit} sites.`}</Text>
           <br />
           {plan.code === 'core' ? (
-            <Text tag='p'>{`To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just ${nextPlan.priceMonthly}/month!`}</Text>
+            <Text tag='p'>{`To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - it's only $${nextPlan.priceMonthly / 100}!`}</Text>
           ) : nextPlan ? (
             <Text tag='p'>To create more sites, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!</Text>
           ) : (
-            <Text tag='p'>Please email us at help@everypagehq.com and we&apos;ll sort something out for you.</Text>
+            <Text tag='p'>Please email us at help@everypagehq.com and we will sort something out for you.</Text>
           )}
           <br />
           <Text tag='p'>You can always reach us through the support chat on the bottom-right ↘️</Text>
@@ -56,7 +50,6 @@ export const AccountUpgradeDialog = (props: IAccountUpgradeDialogProps): React.R
           <Stack direction={Direction.Horizontal} paddingHorizontal={PaddingSize.Wide} paddingVertical={PaddingSize.Wide} contentAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
             {nextPlan && <Button variant='secondary' onClicked={onCloseClicked} text='Maybe later' />}
             {!nextPlan && <Button variant='secondary' onClicked={onCloseClicked} text='Cancel' />}
-            {nextPlan && <Stack.Item growthFactor={1} shrinkFactor={1} />}
             {nextPlan && <Button variant='primary' onClicked={onUpgradeClicked} text='Manage Account' />}
           </Stack>
         </Stack.Item>

@@ -35,20 +35,21 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
         <Stack direction={Direction.Vertical}>
           {newPlan.planIndex < currentPlan.planIndex && (
             <Text>
-            If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
+              If you downgrade we may have to remove some sites and other features from your existing sites to meet the new quotas 😢
               <Spacing variant={PaddingSize.Default} />
-            If we can help you get more value out of your current plan instead, just reach out to us, we&apos;re always open to feedback 👀
+              If we can help you get more value out of your current plan instead, just reach out to us, we are always open to feedback 👀
               <Spacing variant={PaddingSize.Default} />
-            If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
+              If you are sure you want to do this just click downgrade and we will email you to confirm next steps.
             </Text>
           )}
           {newPlan.planIndex > currentPlan.planIndex && (
             <React.Fragment>
-              <Text>We&apos;re so glad you&apos;re enjoying everypage. 🙌</Text>
+              <Text>We are so glad you are enjoying everypage 🙌</Text>
+              <Spacing />
               {currentPlan.code === 'core' ? (
                 <React.Fragment>
                   <Spacing variant={PaddingSize.Narrow} />
-                  <Text>Since you haven&apos; got a current subscription for this account, we&apos;ll need your credit card details to continue.</Text>
+                  <Text>Since you have not got a current subscription for this account, we will need your credit card details to continue.</Text>
                   <TextField
                     variant='outlined'
                     margin='normal'
@@ -65,10 +66,10 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
                     error={upgradeCardError !== undefined}
                     helperText={upgradeCardError}
                   />
-                  <Text variant='subtitle'>Secured by Stripe</Text>
+                  <Text variant='note'>Secured by Stripe</Text>
                 </React.Fragment>
               ) : (
-                <Text>When upgrading, you won&apos;t be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Text>
+                <Text>When upgrading, you will not be charged straight away - your next bill will just include a pro-rated amount to pay for the remaining time in this month, so you can start using your new powers immediately 🥳.</Text>
               )}
               <br />
               <TextField
@@ -94,13 +95,25 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
         ) : (
           <ElementsConsumer>
             {(stripeProps) => (
-              <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+              <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Center}>
                 {newPlan.planIndex < currentPlan.planIndex && (
-                  <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} variant='secondary' text='Downgrade' />
+                  <Button
+                    variant='tertiary'
+                    text='Downgrade'
+                    onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)}
+                  />
                 )}
-                <Button onClicked={onCloseClicked} text='Cancel' />
+                <Button
+                  variant={newPlan.planIndex < currentPlan.planIndex ? 'primary' : 'default'}
+                  text='Cancel'
+                  onClicked={onCloseClicked}
+                />
                 {newPlan.planIndex > currentPlan.planIndex && (
-                  <Button onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)} text='Upgrade' />
+                  <Button
+                    variant='primary'
+                    text='Upgrade'
+                    onClicked={(): Promise<void> => onUpgradeDialogUpgradeClicked(stripeProps.stripe, stripeProps.elements)}
+                  />
                 )}
               </Stack>
             )}
