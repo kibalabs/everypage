@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Alignment, Button, Direction, PaddingSize, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
