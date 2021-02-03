@@ -19,7 +19,12 @@ export const CanvasPreviewPage = (): React.ReactElement => {
       </Helmet>
       <Box height='100%'>
         <KibaFrame>
-          <IndexPage pageContent={siteContent} pageTheme={siteTheme} shouldIncludeHeadSection={false} shouldIncludeAttributionSection={false} />
+          <IndexPage
+            pageContent={siteContent}
+            pageTheme={siteTheme}
+            shouldIncludeHeadSection={false}
+            shouldIncludeAttributionSection={false}
+          />
         </KibaFrame>
       </Box>
     </React.Fragment>

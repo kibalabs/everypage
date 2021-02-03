@@ -3,15 +3,11 @@ import React from 'react';
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
+import { ConfirmationDialog } from '../components/confirmationDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -136,29 +132,20 @@ export const CanvasPage = (): React.ReactElement => {
           addAssetFiles={addAssetFiles}
         />
       )}
+
       <TemplateChooserModal
         isOpen={!siteContent}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
-      <Dialog
-        open={isShowingStartOverAlert}
-        onClose={onStartOverAlertCloseClicked}
-      >
-        <DialogTitle>Are you sure?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onStartOverAlertConfirmClicked} color='secondary' autoFocus>
-            Start over anyway
-          </Button>
-          <Button onClick={onStartOverAlertCloseClicked} color='primary'>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+
+      <ConfirmationDialog
+        isOpen={isShowingStartOverAlert}
+        title='Are you sure?'
+        message='Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!'
+        confirmButtonText='Start over anyway'
+        onCloseClicked={onStartOverAlertCloseClicked}
+        onConfirmClicked={onStartOverAlertConfirmClicked}
+      />
     </div>
   );
 };
