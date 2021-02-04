@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-
-import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text, LoadingSpinner } from '@kibalabs/ui-react';
-
+import { Alignment, Box, Button, Direction, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -64,28 +62,28 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
       onCloseClicked={() => false}
     >
       <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide}>
-      <Text variant='header5'>Choose a section</Text>
+        <Text variant='header5'>Choose a section</Text>
         {sectionCategories === null ? (
           <Text>Failed to load sections. Please try again later.</Text>
         ) : sectionCategories === undefined ? (
-            <LoadingSpinner />
+          <LoadingSpinner />
         ) : (
           <Stack direction={Direction.Horizontal} isFullWidth={false}>
             <Box maxWidth='300px'>
-            <List>
-              {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
-                return (
-                  <ListItem
-                    key={sectionCategory.sectionCategoryId}
-                    button={true}
-                    selected={selectedSectionCategoryId === sectionCategory.sectionCategoryId}
-                    onClick={(): void => onSectionCategoryClicked(sectionCategory)}
-                  >
-                    <ListItemText primary={sectionCategory.name} />
-                  </ListItem>
-                );
-              })}
-            </List>
+              <List>
+                {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
+                  return (
+                    <ListItem
+                      key={sectionCategory.sectionCategoryId}
+                      button={true}
+                      selected={selectedSectionCategoryId === sectionCategory.sectionCategoryId}
+                      onClick={(): void => onSectionCategoryClicked(sectionCategory)}
+                    >
+                      <ListItemText primary={sectionCategory.name} />
+                    </ListItem>
+                  );
+                })}
+              </List>
             </Box>
             {sections === null ? (
               <Text>Failed to load sections. Please try again later.</Text>
@@ -96,30 +94,30 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
                 {sections.map((section: Section): React.ReactElement => {
                   return (
                     <ListItem key={section.sectionId} divider={true}>
-                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                      <ListItemAvatar>
-                        <img width='100px' src={section.previewImageUrl} />
-                      </ListItemAvatar>
-                      <Box maxWidth='340px'>
-                        <ListItemText
-                          primary={section.name}
-                          secondary={section.description}
-                        />
-                        </Box>
-                          <Button
-                            variant='secondary'
-                            onClicked={(): void => onChooseSectionClicked(section)}
-                            text='Choose'
+                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                        <ListItemAvatar>
+                          <img width='100px' src={section.previewImageUrl} />
+                        </ListItemAvatar>
+                        <Box maxWidth='340px'>
+                          <ListItemText
+                            primary={section.name}
+                            secondary={section.description}
                           />
+                        </Box>
+                        <Button
+                          variant='secondary'
+                          onClicked={(): void => onChooseSectionClicked(section)}
+                          text='Choose'
+                        />
                       </Stack>
                     </ListItem>
                   );
                 })}
               </List>
             )}
-      </Stack>
-        )}
           </Stack>
-      </Dialog>
+        )}
+      </Stack>
+    </Dialog>
   );
 };
