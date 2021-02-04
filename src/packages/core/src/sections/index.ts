@@ -13,6 +13,7 @@ export * from './featureIcons2';
 export * from './featureMediaHalf1';
 export * from './faq1';
 export * from './footer1';
+export * from './footer2';
 export * from './meta';
 export * from './heroAppButtonsMediaHalf1';
 export * from './heroAppDownload1';
