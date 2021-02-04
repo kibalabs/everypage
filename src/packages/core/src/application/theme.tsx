@@ -23,9 +23,6 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       },
       sectionSubtitle: {
       },
-      light: {
-        color: '$colors.textLight25',
-      },
     },
     colors: {
       sectionBackground: 'rgba(0, 0, 0, 0)',
