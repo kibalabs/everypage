@@ -1,88 +1,16 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
+import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import Modal from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 import { Template, TemplateCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    position: 'absolute',
-    width: '85%',
-    maxWidth: '850px',
-    maxHeight: '85%',
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  modalContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '500px',
-    flexGrow: 0,
-    flexShrink: 1,
-  },
-  titleText: {
-    padding: theme.spacing(3),
-  },
-  loadingSpinner: {
-    margin: theme.spacing(3),
-  },
-  errorMessage: {
-    margin: theme.spacing(3),
-  },
-  categoryList: {
-    width: '300px',
-    overflow: 'auto',
-  },
-  templateList: {
-    minWidth: '300px',
-    flexGrow: 1,
-    flexShrink: 1,
-    overflow: 'auto',
-  },
-  templateImage: {
-    maxHeight: '100px',
-    marginRight: theme.spacing(2),
-    flexGrow: 1,
-  },
-  templateListItem: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-  },
-  templateContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-  },
-  templateButtons: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: theme.spacing(1),
-    width: '100%',
-    justifyContent: 'flex-end',
-  },
-  templateButton: {
-    margin: theme.spacing(0, 1),
-  },
-}));
+import { Dialog } from './dialog';
 
 export interface ITemplateChooserModalProps {
   isOpen: boolean;
@@ -90,7 +18,6 @@ export interface ITemplateChooserModalProps {
 }
 
 export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
   const [selectedTemplateCategoryId, setSelectedTemplateCategoryId] = React.useState<number | undefined>(undefined);
@@ -125,75 +52,76 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   };
 
   return (
-    <Modal
-      open={props.isOpen}
+    <Dialog
+      isOpen={props.isOpen}
+      maxWidth='75%'
+      onCloseClicked={() => false}
     >
-      <div className={classes.modal}>
-        <Typography variant='h5' className={classes.titleText}>Choose a template</Typography>
+      <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} paddingVertical={PaddingSize.Wide}>
+        <Text variant='header5'>Choose a template</Text>
         {templateCategories === null ? (
-          <Typography className={classes.errorMessage}>Failed to load templates. Please try again later.</Typography>
+          <Text>Failed to load templates. Please try again later.</Text>
         ) : templateCategories === undefined ? (
-          <CircularProgress className={classes.loadingSpinner} />
+          <CircularProgress />
         ) : (
-          <div className={classes.modalContent}>
-            <List className={classes.categoryList}>
-              {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
-                return (
-                  <ListItem
-                    key={templateCategory.templateCategoryId}
-                    button={true}
-                    selected={selectedTemplateCategoryId === templateCategory.templateCategoryId}
-                    onClick={(): void => onTemplateCategoryClicked(templateCategory)}
-                  >
-                    <ListItemText primary={templateCategory.name} />
-                  </ListItem>
-                );
-              })}
-            </List>
+          <Stack direction={Direction.Horizontal} isFullWidth={false}>
+            <Box maxWidth='300px'>
+              <List>
+                {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
+                  return (
+                    <ListItem
+                      key={templateCategory.templateCategoryId}
+                      button={true}
+                      selected={selectedTemplateCategoryId === templateCategory.templateCategoryId}
+                      onClick={(): void => onTemplateCategoryClicked(templateCategory)}
+                    >
+                      <ListItemText primary={templateCategory.name} />
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Box>
             {templates === null ? (
-              <Typography className={classes.errorMessage}>Failed to load templates. Please try again later.</Typography>
+              <Text>Failed to load templates. Please try again later.</Text>
             ) : templates === undefined ? (
-              <CircularProgress className={classes.loadingSpinner} />
+              <CircularProgress />
             ) : (
-              <List className={classes.templateList}>
+              <List>
                 {templates.map((template: Template): React.ReactElement => {
                   return (
-                    <ListItem key={template.templateId} className={classes.templateListItem} divider={true}>
-                      <ListItemAvatar>
-                        <img className={classes.templateImage} src={template.imageUrl} />
-                      </ListItemAvatar>
-                      <div className={classes.templateContent}>
-                        <ListItemText
-                          primary={template.name}
-                          secondary={template.description}
-                        />
-                        <div className={classes.templateButtons}>
+                    <ListItem key={template.templateId} divider={true}>
+                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                        <ListItemAvatar>
+                          <img width='100px' src={template.imageUrl} />
+                        </ListItemAvatar>
+                        <Box maxWidth='340px'>
+                          <ListItemText
+                            primary={template.name}
+                            secondary={template.description}
+                          />
+                        </Box>
+                        <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.End} childAlignment={Alignment.End}>
                           <Button
-                            color='primary'
-                            className={classes.templateButton}
-                            target='_blank'
-                            href={template.previewUrl}
-                          >
-                            Preview
-                          </Button>
+                            variant='primary'
+                            targetShouldOpenSameTab={false}
+                            target={template.previewUrl}
+                            text='Preview'
+                          />
                           <Button
-                            variant='outlined'
-                            color='primary'
-                            className={classes.templateButton}
-                            onClick={(): void => onChooseTemplateClicked(template)}
-                          >
-                            Choose
-                          </Button>
-                        </div>
-                      </div>
+                            variant='secondary'
+                            onClicked={(): void => onChooseTemplateClicked(template)}
+                            text='Choose'
+                          />
+                        </Stack>
+                      </Stack>
                     </ListItem>
                   );
                 })}
               </List>
             )}
-          </div>
+          </Stack>
         )}
-      </div>
-    </Modal>
+      </Stack>
+    </Dialog>
   );
 };
