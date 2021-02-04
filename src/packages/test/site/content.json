@@ -17,6 +17,10 @@
     {
       "type": "github-corner",
       "githubUrl": "https://github.com/kibalabs/everypage/"
+    },
+    {
+      "type": "everyview-analytics",
+      "applicationId": "5feb890e933442519b3e3af7a674656e"
     }
   ],
   "sections": [
