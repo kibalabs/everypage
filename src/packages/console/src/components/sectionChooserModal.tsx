@@ -1,88 +1,17 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
+import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text, LoadingSpinner } from '@kibalabs/ui-react';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import Modal from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 import { Section, SectionCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    position: 'absolute',
-    width: '85%',
-    maxWidth: '850px',
-    maxHeight: '85%',
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  modalContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '500px',
-    flexGrow: 0,
-    flexShrink: 1,
-  },
-  titleText: {
-    padding: theme.spacing(3),
-  },
-  loadingSpinner: {
-    margin: theme.spacing(3),
-  },
-  errorMessage: {
-    margin: theme.spacing(3),
-  },
-  categoryList: {
-    width: '300px',
-    overflow: 'auto',
-  },
-  sectionList: {
-    minWidth: '300px',
-    flexGrow: 1,
-    flexShrink: 1,
-    overflow: 'auto',
-  },
-  sectionImage: {
-    maxHeight: '100px',
-    marginRight: theme.spacing(2),
-    flexGrow: 1,
-  },
-  sectionListItem: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-  },
-  sectionContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-  },
-  sectionButtons: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: theme.spacing(1),
-    width: '100%',
-    justifyContent: 'flex-end',
-  },
-  sectionButton: {
-    margin: theme.spacing(0, 1),
-  },
-}));
+import { Dialog } from './dialog';
 
 const OTHER_SECTION_CATEGORY_ID = 1;
 
@@ -92,7 +21,6 @@ export interface ISectionChooserModalProps {
 }
 
 export const SectionChooserModal = (props: ISectionChooserModalProps): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [sectionCategories, setSectionCategories] = React.useState<SectionCategory[] | undefined>(undefined);
   const [selectedSectionCategoryId, setSelectedSectionCategoryId] = React.useState<number | undefined>(undefined);
@@ -129,18 +57,22 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
   };
 
   return (
-    <Modal
-      open={props.isOpen}
+    <Dialog
+      isOpen={props.isOpen}
+      maxWidth='75%'
+      maxHeight='75%'
+      onCloseClicked={() => false}
     >
-      <div className={classes.modal}>
-        <Typography variant='h5' className={classes.titleText}>Choose a section</Typography>
+      <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide}>
+      <Text variant='header5'>Choose a section</Text>
         {sectionCategories === null ? (
-          <Typography className={classes.errorMessage}>Failed to load sections. Please try again later.</Typography>
+          <Text>Failed to load sections. Please try again later.</Text>
         ) : sectionCategories === undefined ? (
-          <CircularProgress className={classes.loadingSpinner} />
+            <LoadingSpinner />
         ) : (
-          <div className={classes.modalContent}>
-            <List className={classes.categoryList}>
+          <Stack direction={Direction.Horizontal} isFullWidth={false}>
+            <Box maxWidth='300px'>
+            <List>
               {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
                 return (
                   <ListItem
@@ -154,42 +86,40 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
                 );
               })}
             </List>
+            </Box>
             {sections === null ? (
-              <Typography className={classes.errorMessage}>Failed to load sections. Please try again later.</Typography>
+              <Text>Failed to load sections. Please try again later.</Text>
             ) : sections === undefined ? (
-              <CircularProgress className={classes.loadingSpinner} />
+              <LoadingSpinner />
             ) : (
-              <List className={classes.sectionList}>
+              <List>
                 {sections.map((section: Section): React.ReactElement => {
                   return (
-                    <ListItem key={section.sectionId} className={classes.sectionListItem} divider={true}>
+                    <ListItem key={section.sectionId} divider={true}>
+                    <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                       <ListItemAvatar>
-                        <img className={classes.sectionImage} src={section.previewImageUrl} />
+                        <img width='100px' src={section.previewImageUrl} />
                       </ListItemAvatar>
-                      <div className={classes.sectionContent}>
+                      <Box maxWidth='340px'>
                         <ListItemText
                           primary={section.name}
                           secondary={section.description}
                         />
-                        <div className={classes.sectionButtons}>
+                        </Box>
                           <Button
-                            variant='outlined'
-                            color='primary'
-                            className={classes.sectionButton}
-                            onClick={(): void => onChooseSectionClicked(section)}
-                          >
-                            Choose
-                          </Button>
-                        </div>
-                      </div>
+                            variant='secondary'
+                            onClicked={(): void => onChooseSectionClicked(section)}
+                            text='Choose'
+                          />
+                      </Stack>
                     </ListItem>
                   );
                 })}
               </List>
             )}
-          </div>
+      </Stack>
         )}
-      </div>
-    </Modal>
+          </Stack>
+      </Dialog>
   );
 };
