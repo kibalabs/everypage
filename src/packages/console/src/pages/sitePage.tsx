@@ -4,14 +4,10 @@ import React from 'react';
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Helmet from 'react-helmet';
 
-import { AccountUpgradeDomainDialog } from '../components/accountUpgradeDomainDialog';
-import { MessageDialog } from '../components/messageDialog';
+import { ConfirmationDialog } from '../components/confirmationDialog';
+import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { IPlan } from '../consoleConfig';
@@ -23,7 +19,6 @@ export interface ISitePageProps {
 }
 
 export const SitePage = (props: ISitePageProps): React.ReactElement => {
-  // const classes = useStyles();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
@@ -129,7 +124,9 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(true);
   };
 
-  const onCreateFromTemplateClicked = (): void => {
+  const onCreateFromTemplateClicked = (versionName?: string): void => {
+    // NOTE(krishan711): this is only used to store temporarily whilst the
+    setNewVersionName(versionName || null);
     setIsNewVersionPopupShowing(false);
     setIsTemplateChooserPopupShowing(true);
   };
@@ -138,14 +135,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     setIsNewVersionPopupShowing(false);
   };
 
-  const onNewVersionNameChanged = (value: string): void => {
-    setNewVersionName(value);
-  };
-
-  const onClonePrimaryClicked = (): void => {
+  const onClonePrimaryClicked = (versionName: string): void => {
     setIsNewVersionPopupShowing(false);
     setIsLoading(true);
-    everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, newVersionName).then((): void => {
+    everypageClient.cloneSiteVersion(site.siteId, primaryVersionId, versionName).then((): void => {
       loadVersions();
       setIsLoading(false);
     }).catch((error: KibaException): void => {
@@ -404,50 +397,44 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
           )}
         </Stack>
       </ContainingView>
-      <AccountUpgradeDomainDialog
-        isOpen={isAccountUpgradePopupShowing}
-        onCloseClicked={onAccountUpgradePopupCloseClicked}
-        onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
+
+      <CreateNewVersionDialog
+        isOpen={isNewVersionPopupShowing}
+        newVersionDefaultName={newVersionDefaultName}
+        onCloseClicked={onNewVersionPopupCloseClicked}
+        onClonePrimaryClicked={onClonePrimaryClicked}
+        onCreateFromTemplateClicked={onCreateFromTemplateClicked}
       />
-      <Dialog
-        open={isNewVersionPopupShowing}
-        onClose={onNewVersionPopupCloseClicked}
-      >
-        <DialogTitle>Create new version</DialogTitle>
-        <DialogContent>
-          <SingleLineInput
-            name='name'
-            label={newVersionName ? 'Name' : `Name (default: ${newVersionDefaultName})`}
-            placeholderText={newVersionDefaultName}
-            value={newVersionName}
-            onValueChanged={onNewVersionNameChanged}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button variant='primary' onClicked={onCreateFromTemplateClicked} text='Choose Template' />
-          <Button variant='primary' onClicked={onClonePrimaryClicked} text='Clone Published' />
-        </DialogActions>
-        <DialogActions>
-          <Button onClicked={onNewVersionPopupCloseClicked} text='Cancel' />
-        </DialogActions>
-      </Dialog>
+
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
-      <MessageDialog
+
+      <ConfirmationDialog
+        isOpen={isAccountUpgradePopupShowing}
+        onCloseClicked={onAccountUpgradePopupCloseClicked}
+        onConfirmClicked={onAccountUpgradePopupUpgradeClicked}
+        title='You need to upgrade to set a custom domain'
+        message='To add a custom domain to your site, and gain access to an ever-growing list of more features, upgrade to a paid account which suits you - they start from just $5/month!'
+        cancelButtonText='Maybe Later'
+        confirmButtonText='Manage Account'
+      />
+
+      <ConfirmationDialog
         isOpen={archivingSiteVersionId !== null}
         onConfirmClicked={onArchiveSiteVersionConfirmClicked}
         onCloseClicked={onArchiveSiteVersionCancelClicked}
-        title={'Archive this version?'}
-        message={'Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'}
+        title='Archive this version?'
+        message='Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'
       />
-      <MessageDialog
+
+      <ConfirmationDialog
         isOpen={isArchivingSite}
         onConfirmClicked={onArchiveSiteConfirmClicked}
         onCloseClicked={onArchiveSiteCancelClicked}
-        title={'Archive this site?'}
-        message={'Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'}
+        title='Archive this site?'
+        message='Once you archive this site it will no longer work for your visitors. You will not be able to undo this yourself - if you want to retrieve it, you will need to contact us directly.'
       />
     </React.Fragment>
   );

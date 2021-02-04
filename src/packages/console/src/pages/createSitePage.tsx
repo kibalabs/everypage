@@ -209,8 +209,20 @@ export const CreateSitePage = (): React.ReactElement => {
           </Box>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
         </Stack>
-        {accounts && <AccountUpgradeDialog isOpen={isAccountUpgradePopupShowing} account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
-        <TemplateChooserModal isOpen={isTemplateChooserOpen} onChooseTemplateClicked={onChooseTemplateClicked} />
+
+        {accounts && (
+          <AccountUpgradeDialog
+            isOpen={isAccountUpgradePopupShowing}
+            account={accounts.filter((account: Account): boolean => account.accountId === selectedAccountId).shift()}
+            onCloseClicked={onAccountUpgradePopupCloseClicked}
+            onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
+          />
+        )}
+
+        <TemplateChooserModal
+          isOpen={isTemplateChooserOpen}
+          onChooseTemplateClicked={onChooseTemplateClicked}
+        />
       </ResponsiveContainingView>
     </React.Fragment>
   );

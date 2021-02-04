@@ -120,7 +120,15 @@ export const HomePage = (): React.ReactElement => {
           )}
         </Stack>
       </ContainingView>
-      {accountUpgradePopupAccount && <AccountUpgradeDialog isOpen={true} account={accountUpgradePopupAccount} onCloseClicked={onAccountUpgradePopupCloseClicked} onUpgradeClicked={onAccountUpgradePopupUpgradeClicked} />}
+
+      {accountUpgradePopupAccount && (
+        <AccountUpgradeDialog
+          isOpen={true}
+          account={accountUpgradePopupAccount}
+          onCloseClicked={onAccountUpgradePopupCloseClicked}
+          onUpgradeClicked={onAccountUpgradePopupUpgradeClicked}
+        />
+      )}
     </React.Fragment>
   );
 };
