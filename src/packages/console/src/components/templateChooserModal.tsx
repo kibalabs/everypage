@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Alignment, Box, Button, Direction, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -62,7 +61,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
         {templateCategories === null ? (
           <Text>Failed to load templates. Please try again later.</Text>
         ) : templateCategories === undefined ? (
-          <CircularProgress />
+          <LoadingSpinner />
         ) : (
           <Stack direction={Direction.Horizontal} isFullWidth={false}>
             <Box maxWidth='300px'>
@@ -84,7 +83,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
             {templates === null ? (
               <Text>Failed to load templates. Please try again later.</Text>
             ) : templates === undefined ? (
-              <CircularProgress />
+              <LoadingSpinner />
             ) : (
               <List>
                 {templates.map((template: Template): React.ReactElement => {
