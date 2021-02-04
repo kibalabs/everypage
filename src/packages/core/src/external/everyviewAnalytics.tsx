@@ -19,8 +19,8 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): null => {
     }
 
     // NOTE(krishan711): figerprintjs references window immediately: https://github.com/fingerprintjs/fingerprintjs/issues/602
-    import('@kibalabs/everyview-tracker').then(Everyview => {
-      const tracker = new Everyview.EveryviewTracker(props.applicationId);
+    import('@kibalabs/everyview-tracker').then((Everyview) => {
+      const tracker = new Everyview.EveryviewTracker(props.applicationId || '');
       tracker.trackApplicationOpen();
     });
   });
