@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 - [MINOR] Created `FeatureIcons1` section
 - [MINOR] Created `FeatureIcons2` section
+- [MINOR] Created `Footer2` section
 
 ### Changed
 - [MINOR] Update to use react v17 for all packages
