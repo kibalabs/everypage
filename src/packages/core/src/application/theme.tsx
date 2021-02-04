@@ -10,6 +10,24 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       paddingSectionTop: '5em',
       paddingSectionBottom: '5em',
     },
+    links: {
+      footerLink: {
+        normal: {
+          default: {
+            text: {
+              color: '$colors.brandPrimary',
+              'text-decoration': 'none',
+            },
+          },
+          hover: {
+            text: {
+              'text-decoration': 'underline',
+            },
+          },
+        },
+
+      },
+    },
     boxes: {
       iconHolder: {
         background: '$colors.brandPrimary',
@@ -22,6 +40,9 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       sectionTitle: {
       },
       sectionSubtitle: {
+      },
+      light: {
+        color: '$colors.textLight25',
       },
     },
     colors: {

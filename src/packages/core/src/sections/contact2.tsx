@@ -12,7 +12,8 @@ import { IFormProps } from '../model';
 interface IContact2Props extends ISectionProps, IFormProps {
   titleText?: string;
   subtitleText?: string;
-  address: Array<string>;
+  addressLine1: string;
+  addressLine2: string;
   countryCode: number;
   phoneNumber: number;
   email: string;
@@ -109,25 +110,29 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(Contact2.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10 }}>
         <Stack directionResponsive={{ base: Direction.Horizontal }}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <SectionTitleText text={props.titleText} />}
             {props.subtitleText && <Stack.Item><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            {props.address && props.address.map((ad, index) => <Text key={index} tag='p' variant='light'>{ad}</Text>)}
-            {props.phoneNumber
-                    && (
-                      <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                        <KibaIcon iconId='ion-call-outline' />
-                        <Text variant='light'>{`+ (${props.countryCode}) ${props.phoneNumber}`}</Text>
-                      </Stack>
-                    )
+            {props.addressLine1 && (
+              <Text variant='small-light'>
+                {props.addressLine1}
+                <br />
+                {props.addressLine2}
+              </Text>
+            )}
+            {props.phoneNumber && (
+              <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+                <KibaIcon _color='$colors.textLight25' iconId='ion-call-outline' />
+                <Text variant='light'>{`+ (${props.countryCode}) ${props.phoneNumber}`}</Text>
+              </Stack>
+            )
             }
-            {props.email
-                    && (
-                      <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                        <KibaIcon iconId='ion-mail-outline' />
-                        <Text variant='light'>{props.email}</Text>
-                      </Stack>
-                    )
+            {props.email && (
+              <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+                <KibaIcon _color='$colors.textLight25' iconId='ion-mail-outline' />
+                <Text variant='light'>{props.email}</Text>
+              </Stack>
+            )
             }
           </Stack>
           <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>

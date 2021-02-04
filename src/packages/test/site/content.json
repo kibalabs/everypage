@@ -584,6 +584,16 @@
       "inputButtonText": "Send"
     },
     {
+      "type": "contact-2",
+      "titleText": "Get started with us",
+      "subtitleText": "It's totally awesome!",
+      "addressLine1": "25 Victoria Court Unwin Way,",
+      "addressLine2": "Stanmore, United Kingdom, HA7 1FD",
+      "countryCode": 1,
+      "email": "support@kibalabs.com",
+      "phoneNumber": 123456789
+    },
+    {
       "type": "calendly-booking-1",
       "titleText":"Create your beautiful landing page in minutes",
       "subtitleText":"It's totally awesome!",
@@ -660,6 +670,81 @@
       "iosAppId": "1039710965",
       "logoImageUrl": "/assets/everypage-wordmark.svg",
       "macAppId": "1027457763"
+    },
+    {
+      "type": "footer-2",
+      "subtitleText": "Lorem ipsum dolor sit amet consect adipisicing elit.\nPossimus magnam veritatis in accusamus quisquam.",
+      "footerSections": [
+        {
+          "footerLinks": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        },
+        {
+          "footerLinks": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        },
+        {
+          "footerLinks": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        }
+      ],
+      "iconLinks": [
+        {
+          "iconId": "ion-logo-twitter",
+          "target": "https://twitter.com/"
+        },
+        {
+          "iconId": "ion-logo-linkedin",
+          "target": "https://linkedin.com/"
+        },
+        {
+          "iconId": "ion-logo-github",
+          "target": "https://github.com/"
+        },
+        {
+          "target": "https://www.kibalabs.com"
+        }
+      ],
+      "mainIcon": "ion-globe"
     }
   ]
 }
