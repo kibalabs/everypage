@@ -1,5 +1,4 @@
 import { useInitialization } from '@kibalabs/core-react';
-import { EveryviewTracker } from '@kibalabs/everyview-tracker';
 
 import { IWebsitePlugin } from '../model';
 
@@ -13,8 +12,17 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): null => {
       console.error('applicationId should be provided to EveryviewAnalytics');
       return;
     }
-    const tracker = new EveryviewTracker(props.applicationId);
-    tracker.trackApplicationOpen();
+
+    if (!window) {
+      console.warn('Could not set up EveryviewAnalytics since window is not set.');
+      return;
+    }
+
+    // NOTE(krishan711): figerprintjs references window immediately: https://github.com/fingerprintjs/fingerprintjs/issues/602
+    import('@kibalabs/everyview-tracker').then((Everyview) => {
+      const tracker = new Everyview.EveryviewTracker(props.applicationId || '');
+      tracker.trackApplicationOpen();
+    });
   });
 
   return null;
