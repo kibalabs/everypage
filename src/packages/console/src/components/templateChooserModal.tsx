@@ -79,7 +79,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                   );
                 })}
               </List>
-              </ResponsiveContainingView>
+            </ResponsiveContainingView>
             {templates === null ? (
               <Text>Failed to load templates. Please try again later.</Text>
             ) : templates === undefined ? (
