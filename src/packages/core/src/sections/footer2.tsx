@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, IconButton, KibaIcon, Link, MarkdownText, PaddingSize, Stack, Text, Image } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, Grid, IconButton, Image, KibaIcon, Link, MarkdownText, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 import { useWebsiteMeta } from '../util';
 
 interface IFooter2IconLink {
@@ -40,30 +41,38 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer2.displayName, props.className)}>
-      <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} paddingTop={PaddingSize.Wide3} paddingHorizontal={PaddingSize.Wide} shouldAddGutters={true} defaultGutter={PaddingSize.Wide4}>
-        <Stack childAlignment={Alignment.Start} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
-          {props.logoImageUrl && <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />}
-          <Stack.Item growthFactor={1} shrinkFactor={1} />
-          {props.subtitleText && <SectionSubtitleText text={props.subtitleText} />}
-          {props.iconLinks && (
-            <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isScrollableHorizontally={true}>
-              {props.iconLinks.map((iconLink: IFooter2IconLink, index: number): React.ReactElement => (
-                <IconButton key={index} target={iconLink.target} icon={<KibaIcon iconId={iconLink.iconId || 'ion-globe'} />} />
-              ))}
+      <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Wide3} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionBottom}>
+        <Grid contentAlignment={Alignment.Center}>
+          <Grid.Item sizeResponsive={{ base: 12, medium: 6 }}>
+            <Stack childAlignment={Alignment.Start} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
+              {props.logoImageUrl && <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />}
+              <Stack.Item growthFactor={1} shrinkFactor={1} />
+              {props.subtitleText && <SectionSubtitleText text={props.subtitleText} />}
+              {props.iconLinks && (
+                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isScrollableHorizontally={true}>
+                  {props.iconLinks.map((iconLink: IFooter2IconLink, index: number): React.ReactElement => (
+                    <IconButton key={index} target={iconLink.target} icon={<KibaIcon iconId={iconLink.iconId || 'ion-globe'} />} />
+                  ))}
+                </Stack>
+              )}
             </Stack>
-          )}
-          <MarkdownText source={copyrightText} />
-        </Stack>
-        <Stack.Item growthFactor={0.5} shrinkFactor={1} />
-        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Center} childAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide2}>
-          {props.linkSections && props.linkSections.map((section: IFooter2LinkSection, index: number): React.ReactElement => (
-            <Stack key={index} direction={Direction.Vertical} contentAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-              <Text variant='header6'>{section.sectionName}</Text>
-              {section.links && section.links.map((link: IFooter2Link, linkIndex: number): React.ReactElement => (
-                <Link key={linkIndex} variant='footerLink' target={link.target} text={link.label} />
+          </Grid.Item>
+          <Grid.Item sizeResponsive={{ base: 10, medium: 6 }}>
+            <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+              {props.linkSections && props.linkSections.map((section: IFooter2LinkSection, index: number): React.ReactElement => (
+                <Stack key={index} direction={Direction.Vertical} isFullWidth={false} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+                  <Text variant='header6'>{section.sectionName}</Text>
+                  {section.links && section.links.map((link: IFooter2Link, linkIndex: number): React.ReactElement => (
+                    <Link key={linkIndex} variant='footerLink' target={link.target} text={link.label} />
+                  ))}
+                </Stack>
               ))}
-            </Stack>
-          ))}
+            </EqualGrid>
+          </Grid.Item>
+        </Grid>
+        {/* Need to add a divider at top & bottom */}
+        <Stack contentAlignment={Alignment.Center} paddingHorizontal={PaddingSize.Wide3}>
+          <MarkdownText textAlignment={TextAlignment.Center} source={copyrightText} />
         </Stack>
       </Stack>
     </Section>
