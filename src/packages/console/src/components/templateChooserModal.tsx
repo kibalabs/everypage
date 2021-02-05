@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, LoadingSpinner, PaddingSize, ResponsiveContainingView, Stack, Text } from '@kibalabs/ui-react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
+// import ListItemText from '@material-ui/core/ListItemText';
 
 import { Template, TemplateCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -63,8 +63,8 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
         ) : templateCategories === undefined ? (
           <LoadingSpinner />
         ) : (
-          <Stack direction={Direction.Horizontal} isFullWidth={false}>
-            <Box maxWidth='300px'>
+          <Stack direction={Direction.Horizontal} isFullWidth={true}>
+            <ResponsiveContainingView size={2}>
               <List>
                 {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                   return (
@@ -74,12 +74,12 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                       selected={selectedTemplateCategoryId === templateCategory.templateCategoryId}
                       onClick={(): void => onTemplateCategoryClicked(templateCategory)}
                     >
-                      <ListItemText primary={templateCategory.name} />
+                      <Text>{templateCategory.name}</Text>
                     </ListItem>
                   );
                 })}
               </List>
-            </Box>
+              </ResponsiveContainingView>
             {templates === null ? (
               <Text>Failed to load templates. Please try again later.</Text>
             ) : templates === undefined ? (
@@ -89,16 +89,16 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 {templates.map((template: Template): React.ReactElement => {
                   return (
                     <ListItem key={template.templateId} divider={true}>
-                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+                      <Stack direction={Direction.Horizontal} isFullWidth={false} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
                         <ListItemAvatar>
                           <img width='100px' src={template.imageUrl} />
                         </ListItemAvatar>
-                        <Box maxWidth='340px'>
-                          <ListItemText
-                            primary={template.name}
-                            secondary={template.description}
-                          />
-                        </Box>
+                        <ResponsiveContainingView size={4}>
+                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                            <Text variant='header6'>{template.name}</Text>
+                            <Text variant='light'>{template.description}</Text>
+                          </Stack>
+                        </ResponsiveContainingView>
                         <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.End} childAlignment={Alignment.End}>
                           <Button
                             variant='primary'
