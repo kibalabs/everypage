@@ -44,7 +44,7 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
       <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Wide3} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionBottom}>
         <Grid childAlignment={Alignment.Center}>
           <Grid.Item sizeResponsive={{ base: 12, medium: 6 }}>
-            <Stack childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
+            <Stack childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
               {props.logoImageUrl && <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />}
               <Stack.Item growthFactor={1} shrinkFactor={1} />
               {props.subtitleText && <SectionSubtitleText text={props.subtitleText} />}
