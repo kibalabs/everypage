@@ -115,6 +115,10 @@ export const CreateSitePage = (): React.ReactElement => {
     setIsTemplateChooserOpen(true);
   };
 
+  const onTemplateChooserCloseClicked = (): void => {
+    setIsTemplateChooserOpen(false);
+  };
+
   const onChooseTemplateClicked = (clickedTemplate: Template) => {
     setTemplate(clickedTemplate);
     setIsTemplateChooserOpen(false);
@@ -222,6 +226,7 @@ export const CreateSitePage = (): React.ReactElement => {
         <TemplateChooserModal
           isOpen={isTemplateChooserOpen}
           onChooseTemplateClicked={onChooseTemplateClicked}
+          onCloseClicked={onTemplateChooserCloseClicked}
         />
       </ResponsiveContainingView>
     </React.Fragment>

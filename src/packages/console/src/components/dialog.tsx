@@ -34,8 +34,8 @@ export const Dialog = (props: IDialogProps): React.ReactElement | null => {
     }
   };
 
+  // NOTE(krishan711): this doesn't pass the dependencies in as it should
   useEventListener(document, 'keydown', (event: Event): void => {
-    // NOTE(krishan711): this doesn't pass the dependencies in as it should
     if (props.isOpen && event.key === 'Escape') {
       props.onCloseClicked();
     }

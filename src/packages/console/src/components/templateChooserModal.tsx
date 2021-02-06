@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, Image, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import ListItem from '@material-ui/core/ListItem';
 
 import { Template, TemplateCategory } from '../everypageClient';
@@ -10,7 +10,7 @@ import { Dialog } from './dialog';
 
 export interface ITemplateChooserModalProps {
   isOpen: boolean;
-  onCloseClicked: () => void;
+  onCloseClicked?: () => void;
   onChooseTemplateClicked: (template: Template) => void;
 }
 
@@ -51,7 +51,9 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   };
 
   const onCloseClicked = () => {
-    props.onCloseClicked();
+    if (props.onCloseClicked) {
+      props.onCloseClicked();
+    }
   };
 
   return (
@@ -62,7 +64,12 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
       onCloseClicked={onCloseClicked}
     >
       <Stack direction={Direction.Vertical} isFullWidth={true} shouldAddGutters={true}>
-        <Text variant='header3'>Choose a template</Text>
+        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Fill} childAlignment={Alignment.Center}>
+          <Text variant='header3'>Choose a template</Text>
+          {props.onCloseClicked && (
+            <IconButton icon={<KibaIcon iconId='ion-close' />} onClicked={onCloseClicked} />
+          )}
+        </Stack>
         <Stack.Item growthFactor={1} shrinkFactor={1}>
           <Grid shouldAddGutters={true} isFullHeight={true}>
             <Grid.Item size={3}>
