@@ -136,7 +136,7 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
                 </Stack>
               </ResponsiveTextAlignmentView>
             </Grid.Item>
-            <Grid.Item sizeResponsive={{ base: 8, medium: 7 }}>
+            <Grid.Item sizeResponsive={{ base: 10, medium: 7 }}>
               <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
                 <Stack direction={Direction.Vertical}>
                   <Form onFormSubmitted={onFormSubmitted} isLoading={isLoading}>
