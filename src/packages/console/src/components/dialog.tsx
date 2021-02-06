@@ -18,6 +18,8 @@ const StyledBackdrop = styled.div`
 
 interface IDialogProps extends ISingleAnyChildProps {
   isOpen: boolean;
+  maxHeight?: string;
+  maxWidth?: string;
   onCloseClicked: () => void;
   maxWidth?: string;
   maxHeight?: string;
@@ -25,6 +27,8 @@ interface IDialogProps extends ISingleAnyChildProps {
 
 export const Dialog = (props: IDialogProps): React.ReactElement | null => {
   const dialogRef = React.useRef();
+  const maxWidth = props.maxWidth || '400px';
+  const maxHeight = props.maxHeight || '400px';
 
   const onBackdropClicked = (event: React.SyntheticEvent<HTMLDivElement>) => {
     if (event.target === dialogRef.current) {
@@ -32,8 +36,8 @@ export const Dialog = (props: IDialogProps): React.ReactElement | null => {
     }
   };
 
+  // NOTE(krishan711): this doesn't pass the dependencies in as it should
   useEventListener(document, 'keydown', (event: Event): void => {
-    // NOTE(krishan711): this doesn't pass the dependencies in as it should
     if (props.isOpen && event.key === 'Escape') {
       props.onCloseClicked();
     }
@@ -41,7 +45,7 @@ export const Dialog = (props: IDialogProps): React.ReactElement | null => {
 
   return props.isOpen ? (
     <StyledBackdrop id='backdrop' ref={dialogRef} onClick={onBackdropClicked}>
-      <Box variant='card' width='90%' maxWidth={props.maxWidth || '400px'} maxHeight={props.maxHeight || '90%'} isScrollableVertically={true} isScrollableHorizontally={true}>
+      <Box variant='card' width='90%' maxWidth={maxWidth} maxHeight={maxHeight} isScrollableVertically={true} isScrollableHorizontally={true}>
         {props.children}
       </Box>
     </StyledBackdrop>
