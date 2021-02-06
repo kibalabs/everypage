@@ -3,7 +3,7 @@ import fs from 'fs';
 import http from 'http';
 import path from 'path';
 
-import { Command, program as commanderProgram } from 'commander';
+import { Command } from 'commander';
 import rimraf from 'rimraf';
 import serverHandler from 'serve-handler';
 
@@ -88,7 +88,7 @@ export const runFromProgram = async (command: string, params: ProgramParams): Pr
   rimraf.sync(buildDirectory);
 };
 
-export const createProgram = (version: string): typeof commanderProgram.Command => {
+export const createProgram = (version: string): Command => {
   const program = new Command('everypage-cli');
   program.version(version);
 
@@ -131,7 +131,7 @@ export const createProgram = (version: string): typeof commanderProgram.Command 
   //   .option('-p, --port <number>')
   //   .action((params) => runFromProgram('start', params));
 
-  return program;
+  return program as Command;
 };
 
 export const renderSite = render;

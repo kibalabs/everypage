@@ -6,6 +6,7 @@ export * from './attribution';
 export * from './buttons1';
 export * from './calendlyBooking1';
 export * from './contact1';
+export * from './contact2';
 export * from './featureBoxes1';
 export * from './featureBoxesMediaCenter1';
 export * from './featureIcons1';
