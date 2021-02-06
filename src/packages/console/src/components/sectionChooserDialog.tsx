@@ -10,13 +10,13 @@ import { Dialog } from './dialog';
 
 const OTHER_SECTION_CATEGORY_ID = 1;
 
-export interface ISectionChooserModalProps {
+export interface ISectionChooserDialogProps {
   isOpen: boolean;
   onCloseClicked?: () => void;
   onChooseSectionClicked: (section: Section) => void;
 }
 
-export const SectionChooserModal = (props: ISectionChooserModalProps): React.ReactElement => {
+export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [sectionCategories, setSectionCategories] = React.useState<SectionCategory[] | undefined>(undefined);
   const [selectedSectionCategoryId, setSelectedSectionCategoryId] = React.useState<number | undefined>(undefined);

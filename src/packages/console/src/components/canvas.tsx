@@ -12,7 +12,7 @@ import { ContentEditor } from './contentEditor';
 import { Dropzone, FilePreviewGrid } from './dropzone';
 import { JsonEditor } from './jsonEditor';
 import { KibaFrame } from './kibaFrame';
-import { SectionChooserModal } from './sectionChooserModal';
+import { SectionChooserDialog } from './sectionChooserDialog';
 
 const TAB_KEY_CONTENT = 'content';
 const TAB_KEY_THEME = 'theme';
@@ -150,6 +150,10 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setIsSectionChooserShowing(false);
   };
 
+  const onSectionChooserCloseClicked = (): void => {
+    setIsSectionChooserShowing(false);
+  };
+
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -190,13 +194,16 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
           </KibaFrame>
         </div>
       </div>
+
       {props.isEditorHidden && (
         <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
           <KibaIcon iconId='ion-brush' />
         </Fab>
       )}
-      <SectionChooserModal
+
+      <SectionChooserDialog
         isOpen={isSectionChooserShowing}
+        onCloseClicked={onSectionChooserCloseClicked}
         onChooseSectionClicked={onChooseSectionClicked}
       />
     </React.Fragment>
