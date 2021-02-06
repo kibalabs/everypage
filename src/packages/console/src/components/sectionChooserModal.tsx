@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import List from '@material-ui/core/List';
+import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import { Section, SectionCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -15,6 +12,7 @@ const OTHER_SECTION_CATEGORY_ID = 1;
 
 export interface ISectionChooserModalProps {
   isOpen: boolean;
+  onCloseClicked?: () => void;
   onChooseSectionClicked: (section: Section) => void;
 }
 
@@ -45,6 +43,12 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
     });
   }, [everypageClient, selectedSectionCategoryId]);
 
+  const onCloseClicked = () => {
+    if (props.onCloseClicked) {
+      props.onCloseClicked();
+    }
+  };
+
   const onSectionCategoryClicked = (sectionCategory: SectionCategory) => {
     setSections(undefined);
     setSelectedSectionCategoryId(sectionCategory.sectionCategoryId);
@@ -59,64 +63,69 @@ export const SectionChooserModal = (props: ISectionChooserModalProps): React.Rea
       isOpen={props.isOpen}
       maxWidth='75%'
       maxHeight='75%'
-      onCloseClicked={() => false}
+      onCloseClicked={onCloseClicked}
     >
-      <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide}>
-        <Text variant='header5'>Choose a section</Text>
-        {sectionCategories === null ? (
-          <Text>Failed to load sections. Please try again later.</Text>
-        ) : sectionCategories === undefined ? (
-          <LoadingSpinner />
-        ) : (
-          <Stack direction={Direction.Horizontal} isFullWidth={false}>
-            <Box maxWidth='300px'>
-              <List>
-                {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
-                  return (
-                    <ListItem
-                      key={sectionCategory.sectionCategoryId}
-                      button={true}
-                      selected={selectedSectionCategoryId === sectionCategory.sectionCategoryId}
-                      onClick={(): void => onSectionCategoryClicked(sectionCategory)}
-                    >
-                      <ListItemText primary={sectionCategory.name} />
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Box>
-            {sections === null ? (
-              <Text>Failed to load sections. Please try again later.</Text>
-            ) : sections === undefined ? (
-              <LoadingSpinner />
-            ) : (
-              <List>
-                {sections.map((section: Section): React.ReactElement => {
-                  return (
-                    <ListItem key={section.sectionId} divider={true}>
-                      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-                        <ListItemAvatar>
-                          <img width='100px' src={section.previewImageUrl} />
-                        </ListItemAvatar>
-                        <Box maxWidth='340px'>
-                          <ListItemText
-                            primary={section.name}
-                            secondary={section.description}
-                          />
-                        </Box>
-                        <Button
-                          variant='secondary'
-                          onClicked={(): void => onChooseSectionClicked(section)}
-                          text='Choose'
-                        />
-                      </Stack>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            )}
-          </Stack>
-        )}
+      <Stack direction={Direction.Vertical} isFullWidth={true} shouldAddGutters={true}>
+        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Fill} childAlignment={Alignment.Center}>
+          <Text variant='header3'>Choose a section</Text>
+          {props.onCloseClicked && (
+            <IconButton icon={<KibaIcon iconId='ion-close' />} onClicked={onCloseClicked} />
+          )}
+        </Stack>
+        <Stack.Item growthFactor={1} shrinkFactor={1}>
+          <Grid shouldAddGutters={true} isFullHeight={true}>
+            <Grid.Item size={3}>
+              {sectionCategories === null ? (
+                <Text>Failed to load sections. Please try again later.</Text>
+              ) : sectionCategories === undefined ? (
+                <LoadingSpinner />
+              ) : (
+                <Stack direction={Direction.Vertical} isScrollableVertically={true} isFullHeight={true}>
+                  {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
+                    return (
+                      <ListItem
+                        key={sectionCategory.sectionCategoryId}
+                        button={true}
+                        selected={selectedSectionCategoryId === sectionCategory.sectionCategoryId}
+                        onClick={(): void => onSectionCategoryClicked(sectionCategory)}
+                      >
+                        <Text>{sectionCategory.name}</Text>
+                      </ListItem>
+                    );
+                  })}
+                </Stack>
+              )}
+            </Grid.Item>
+            <Grid.Item size={9}>
+              {sections === null ? (
+                <Text>Failed to load sections. Please try again later.</Text>
+              ) : sections === undefined ? (
+                <LoadingSpinner />
+              ) : (
+                <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}>
+                  {sections.map((section: Section): React.ReactElement => (
+                    <Stack key={section.sectionId} childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                      <Box width='100px'>
+                        <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />
+                      </Box>
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                          <Text variant='header6'>{section.name}</Text>
+                          <Text variant='light'>{section.description}</Text>
+                        </Stack>
+                      </Stack.Item>
+                      <Button
+                        variant='secondary'
+                        onClicked={(): void => onChooseSectionClicked(section)}
+                        text='Choose'
+                      />
+                    </Stack>
+                  ))}
+                </Stack>
+              )}
+            </Grid.Item>
+          </Grid>
+        </Stack.Item>
       </Stack>
     </Dialog>
   );
