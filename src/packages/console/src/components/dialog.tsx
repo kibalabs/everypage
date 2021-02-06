@@ -21,8 +21,6 @@ interface IDialogProps extends ISingleAnyChildProps {
   maxHeight?: string;
   maxWidth?: string;
   onCloseClicked: () => void;
-  maxWidth?: string;
-  maxHeight?: string;
 }
 
 export const Dialog = (props: IDialogProps): React.ReactElement | null => {
