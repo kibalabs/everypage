@@ -262,6 +262,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
           )}
         </Stack>
       </ResponsiveContainingView>
+
       {account && (
         <AccountUpgradeDialog
           isOpen={isAccountUpgradePopupShowing}
