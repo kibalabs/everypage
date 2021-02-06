@@ -14,6 +14,8 @@ export interface ITemplateChooserModalProps {
   onChooseTemplateClicked: (template: Template) => void;
 }
 
+// TODO(krishan711): currently the whole dialog is scrollable but ideally the two lists scroll independently.
+// NOTE(krishan711): had some luck by setting display:flex on the outermost box (in dialog) for the above, but doesn't fix entirely
 export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
