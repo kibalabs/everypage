@@ -20,68 +20,11 @@ import { useGlobals } from '../globalsContext';
 const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 // const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
 
-/* const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    minHeight: '100%',
-  },
-  content: {
-    flexGrow: 1,
-    overflow: 'auto',
-    marginTop: theme.spacing(12),
-  },
-  paper: {
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    padding: theme.spacing(2, 4),
-    marginBottom: theme.spacing(4),
-  },
-  siteCardGrid: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
-  accountName: {
-    marginRight: theme.spacing(1),
-  },
-  accountType: {
-  },
-  paperTitle: {
-    fontWeight: 'bold',
-    display: 'inline',
-    marginRight: theme.spacing(4),
-  },
-  planBoxHolder: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  planBox: {
-    padding: theme.spacing(2, 4),
-    margin: theme.spacing(0, 2),
-    flexGrow: 1,
-  },
-  planBoxTitle: {
-    fontWeight: 'bold',
-  },
-  planPrice: {
-    fontWeight: 'bold',
-    fontSize: '3em',
-    marginTop: theme.spacing(2),
-  },
-  planButton: {
-    marginTop: theme.spacing(2),
-  },
-  planCurrentText: {
-    textAlign: 'center',
-    marginTop: theme.spacing(2),
-  },
-})); */
-
 export interface IAccountPageProps {
   accountId: string;
 }
 
 export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
-  // const classes = useStyles();
   const navigator = useNavigator();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
