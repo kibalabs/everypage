@@ -206,7 +206,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
               <Box variant='card'>
                 <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingHorizontal={PaddingSize.Wide} paddingBottom={PaddingSize.Default}>
                   <Text variant='header6'>Sites</Text>
-                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && <Button variant='secondary' onClicked={onCreateSiteClicked} text='Create site' />}
+                  {authManager.getHasJwtPermission(`acc-${account.accountId}-adm`) && (
+                    <Button variant='default' onClicked={onCreateSiteClicked} text='Create site' />
+                  )}
                   <Stack.Item growthFactor={1} shrinkFactor={1} />
                   <Text>{`${accountSites.length} sites`}</Text>
                 </Stack>
