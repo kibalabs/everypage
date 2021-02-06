@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Direction, ITheme, KibaIcon, Stack, TabBar, Button } from '@kibalabs/ui-react';
+import { Button, Direction, ITheme, KibaIcon, Stack, TabBar } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -163,7 +163,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
                   <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
                 </TabBar>
               </Stack.Item>
-              <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide'/>
+              <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' />
             </Stack>
             {selectedEditorTabKey === TAB_KEY_CONTENT && (
               <MaterialBox className={classes.editor} display={'flex'}>

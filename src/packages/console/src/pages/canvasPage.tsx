@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -12,36 +10,7 @@ import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  topBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    padding: theme.spacing(1, 2),
-    borderBottom: '1px #333 solid',
-    alignItems: 'center',
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  promptText: {
-    margin: theme.spacing(0, 2),
-  },
-  topBarSignInBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '250px',
-  },
-}));
-
 export const CanvasPage = (): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient } = useGlobals();
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
@@ -97,29 +66,28 @@ export const CanvasPage = (): React.ReactElement => {
   };
 
   return (
-    <div className={classes.root}>
+    <Stack direction={Direction.Vertical} isFullHeight={true}>
       <Helmet>
         <title>Canvas | Everypage Console</title>
       </Helmet>
-      <div className={classes.topBar}>
-        <Button
-          variant='outlined'
-          onClick={onStartOverClicked}
-        >
-          Start again
-        </Button>
-        <div className={classes.spacer} />
-        <div className={classes.topBarSignInBox}>
+      <Box variant='banner'>
+        <Stack direction={Direction.Horizontal} paddingHorizontal={PaddingSize.Wide} isFullWidth={true}>
           <Button
-            variant='contained'
-            color='primary'
-            href='/register'
-          >
-            Sign in to publish
-          </Button>
-          <Typography variant='caption' className={classes.promptText}>Our core package is totally free 🙌</Typography>
-        </div>
-      </div>
+            variant='secondary'
+            onClicked={onStartOverClicked}
+            text='Start again'
+          />
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Stack direction={Direction.Vertical} isFullWidth={false}>
+            <Button
+              variant='primary'
+              target='/register'
+              text='Sign in to publish'
+            />
+            <Text variant='note'>Our core package is totally free 🙌</Text>
+          </Stack>
+        </Stack>
+      </Box>
       {siteContent && (
         <Canvas
           siteContent={siteContent}
@@ -146,6 +114,6 @@ export const CanvasPage = (): React.ReactElement => {
         onCloseClicked={onStartOverAlertCloseClicked}
         onConfirmClicked={onStartOverAlertConfirmClicked}
       />
-    </div>
+    </Stack>
   );
 };
