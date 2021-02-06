@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, EqualGrid, Grid, IconButton, Image, KibaIcon, Link, MarkdownText, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, Grid, IconButton, Image, KibaIcon, Link, MarkdownText, PaddingSize, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText } from '../components';
@@ -42,9 +42,9 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer2.displayName, props.className)}>
       <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Wide3} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionBottom}>
-        <Grid contentAlignment={Alignment.Center}>
+        <Grid childAlignment={Alignment.Center}>
           <Grid.Item sizeResponsive={{ base: 12, medium: 6 }}>
-            <Stack childAlignment={Alignment.Start} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
+            <Stack childAlignmentResponsive={{base: Alignment.Center, medium: Alignment.Start}} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
               {props.logoImageUrl && <Image source={props.logoImageUrl} isFullWidth={true} alternativeText='logo' />}
               <Stack.Item growthFactor={1} shrinkFactor={1} />
               {props.subtitleText && <SectionSubtitleText text={props.subtitleText} />}
@@ -57,23 +57,27 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
               )}
             </Stack>
           </Grid.Item>
-          <Grid.Item sizeResponsive={{ base: 10, medium: 6 }}>
-            <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
-              {props.linkSections && props.linkSections.map((section: IFooter2LinkSection, index: number): React.ReactElement => (
-                <Stack key={index} direction={Direction.Vertical} isFullWidth={false} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                  <Text variant='header6'>{section.sectionName}</Text>
-                  {section.links && section.links.map((link: IFooter2Link, linkIndex: number): React.ReactElement => (
-                    <Link key={linkIndex} variant='footerLink' target={link.target} text={link.label} />
-                  ))}
-                </Stack>
-              ))}
-            </EqualGrid>
+          <Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />
+          <Grid.Item sizeResponsive={{ base: 10, medium: 5 }}>
+            <ResponsiveTextAlignmentView alignmentResponsive={{ base: TextAlignment.Center, medium: TextAlignment.Left }}>
+              <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} isFullHeight={false} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                {props.linkSections && props.linkSections.map((section: IFooter2LinkSection, index: number): React.ReactElement => (
+                  <Stack key={index} direction={Direction.Vertical} isFullWidth={false} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
+                    <Text variant='header6'>{section.sectionName}</Text>
+                    {section.links && section.links.map((link: IFooter2Link, linkIndex: number): React.ReactElement => (
+                      <Link key={linkIndex} variant='footerLink' target={link.target} text={link.label} />
+                    ))}
+                  </Stack>
+                ))}
+              </EqualGrid>
+            </ResponsiveTextAlignmentView>
           </Grid.Item>
         </Grid>
-        {/* Need to add a divider at top & bottom */}
-        <Stack contentAlignment={Alignment.Center} paddingHorizontal={PaddingSize.Wide3}>
-          <MarkdownText textAlignment={TextAlignment.Center} source={copyrightText} />
-        </Stack>
+        {copyrightText && (
+          <Stack.Item alignment={Alignment.Center} gutterBefore={PaddingSize.Wide2}>
+            <MarkdownText textAlignment={TextAlignment.Center} source={copyrightText} />
+          </Stack.Item>
+        )}
       </Stack>
     </Section>
   );
