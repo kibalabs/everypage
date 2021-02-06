@@ -36,6 +36,7 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
 
   const onDiscountCodeChanged = (value: string): void => {
     setDiscountCode(value);
+    setDiscountCodeError(null);
   }
 
   const onUpgradeClicked = async (): Promise<void> => {

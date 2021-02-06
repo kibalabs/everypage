@@ -31,11 +31,6 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const [accountSites, setAccountSites] = React.useState<Site[] | null | undefined>(undefined);
   const [isAccountUpgradePopupShowing, setIsAccountUpgradePopupShowing] = React.useState<boolean>(false);
   const [newPlan, setNewPlan] = React.useState<IPlan | undefined>(undefined);
-  // const [upgradeCardError, setUpgradeCardError] = React.useState<string | undefined>(undefined);
-  // const [upgradeError, setUpgradeError] = React.useState<string | undefined>(undefined);
-  // const [isUpgradeDialogLoading, setIsUpgradeDialogLoading] = React.useState<boolean>(false);
-  // const [upgradeDiscountCode, setUpgradeDiscountCode] = React.useState<string | undefined>(undefined);
-  // const [upgradeDiscountCodeError, setUpgradeDiscountCodeError] = React.useState<string | undefined>(undefined);
   const currentPlan = account ? consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift() : undefined;
   const nextPlan = currentPlan ? consoleConfig.plans[consoleConfig.plans.indexOf(currentPlan) + 1] : undefined;
 
@@ -69,10 +64,6 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const onCreateSiteClicked = (): void => {
     const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
     if (accountPlan && accountSites.length >= accountPlan.siteLimit) {
-      // setUpgradeError(undefined);
-      // setUpgradeCardError(undefined);
-      // setUpgradeDiscountCode('');
-      // setUpgradeDiscountCodeError(undefined);
       setIsAccountUpgradePopupShowing(true);
     } else {
       navigator.navigateTo(`/sites/create?accountId=${account.accountId}`);
@@ -147,35 +138,6 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       }
       return {isSuccessful: false, errorMessage: error.message};
     }
-    // return callPromise.then(async (stripeSubscription: StripeSubscription): Promise<IAccountUpgradeResult> => {
-    //   if (stripeSubscription.status === 'active' || stripeSubscription.status === 'canceled') {
-    //     toast.success('Moved to new plan');
-    //     loadAccount();
-    //     setNewPlan(undefined);
-    //     return {isSuccessful: true};
-    //   }
-    //   if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_action' && stripePaymentMethod) {
-    //     const result = await stripe.confirmCardPayment(stripeSubscription.latestInvoicePaymentActionSecret, { payment_method: stripePaymentMethod.paymentMethod.id });
-    //     if (result.error) {
-    //       return {isSuccessful: false, errorMessage: result.error.message};
-    //     }
-    //     toast.success(newPlan.planIndex > currentPlan.planIndex ? "Woo! you're upgraded 🚀" : 'Moved to new plan');
-    //     loadAccount();
-    //     setNewPlan(undefined);
-    //     return {isSuccessful: true};
-    //   }
-    //   if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_payment_method' && stripePaymentMethod) {
-    //     // TODO(krishan711): this is https://stripe.com/docs/billing/subscriptions/fixed-price?lang=python#manage-subscription-payment-failure, but not sure what to do with it!
-    //     return {isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.'};
-    //   }
-    //   return {isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.'};
-    // }).catch((error: KibaException): IAccountUpgradeResult => {
-    //   console.error('error', error);
-    //   if (error.message.includes('Coupon not found')) {
-    //     return {isSuccessful: false, discountCodeErrorMessage: 'This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘'};
-    //   }
-    //   return {isSuccessful: false, errorMessage: error.message};
-    // });
   };
 
   const onManageWithStripeClicked = (): void => {
@@ -286,15 +248,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
         <ElementsConsumer>
           {(elementsContext: {elements: StripeElements | null, stripe: Stripe | null}) => (
             <NewPlanDialog
-              // isLoading={isUpgradeDialogLoading}
               newPlan={newPlan}
               currentPlan={currentPlan}
-              // upgradeCardError={upgradeCardError}
-              // discountCode={upgradeDiscountCode}
-              // discountCodeError={upgradeDiscountCodeError}
-              // upgradeError={upgradeError}
               onCloseClicked={onUpgradeDialogClosed}
-              // onDiscountCodeChanged={onUpgradeDiscountCodeChanged}
               onUpgradeClicked={(discountCode: string): Promise<IAccountUpgradeResult> => onUpgradeDialogUpgradeClicked(discountCode, elementsContext.stripe, elementsContext.elements)}
             />
           )}
