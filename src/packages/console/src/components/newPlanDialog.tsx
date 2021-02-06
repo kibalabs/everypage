@@ -15,15 +15,9 @@ export interface IAccountUpgradeResult {
 }
 
 export interface INewPlanDialogProps {
-  // isLoading: boolean;
   newPlan: IPlan;
   currentPlan: IPlan;
-  // upgradeCardError: string;
-  // discountCode: string;
-  // discountCodeError: string;
-  // upgradeError: string;
   onCloseClicked: () => void;
-  // onDiscountCodeChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onUpgradeClicked: (discountCode: string) => Promise<IAccountUpgradeResult>;
 }
 
