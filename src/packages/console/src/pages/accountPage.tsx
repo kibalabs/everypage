@@ -214,10 +214,10 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                 </Stack>
                 <Grid contentAlignment={Alignment.Start} shouldAddGutters={true} paddingHorizontal={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                   {accountSites.map((site: Site, innerIndex: number) => (
-                      <Grid.Item sizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} key={innerIndex}>
-                        <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
-                      </Grid.Item>
-                    ))}
+                    <Grid.Item sizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} key={innerIndex}>
+                      <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
+                    </Grid.Item>
+                  ))}
                   {accountSites.length === 0 && (
                     <Grid.Item size={12}>
                       <Text variant='colored'>No sites yet. Create one now!</Text>
