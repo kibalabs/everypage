@@ -159,6 +159,10 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
     });
   };
 
+  const onTemplateChooserCloseClicked = (): void => {
+    setIsTemplateChooserPopupShowing(false);
+  };
+
   const onSetCustomDomainClicked = (): void => {
     const accountPlan = consoleConfig.plans.filter((plan: IPlan): boolean => plan.code === account.accountType).shift();
     if (!accountPlan.hasCustomDomain) {
@@ -409,6 +413,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
       <TemplateChooserModal
         isOpen={isTemplateChooserPopupShowing}
         onChooseTemplateClicked={onChooseTemplateClicked}
+        onCloseClicked={onTemplateChooserCloseClicked}
       />
 
       <ConfirmationDialog
