@@ -195,7 +195,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   </Text>
                   {nextPlan && (
                     <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Default}>
-                      <Button variant='small-secondary' onClicked={(): void => onChangePlanClicked(nextPlan)} text='Upgrade' />
+                      <Button variant='small-default' onClicked={(): void => onChangePlanClicked(nextPlan)} text='Upgrade' />
                       <Text variant='note'> to </Text>
                       <Text variant='note-bold'>{nextPlan.name}</Text>
                       <Text variant='note'>{` to ${nextPlan.highlightFeature} and more 🚀`}</Text>
