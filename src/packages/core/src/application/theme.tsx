@@ -35,6 +35,23 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
         brandPrimary: '#ffffff',
       },
     },
+    links: {
+      footerLink: {
+        normal: {
+          default: {
+            text: {
+              color: '$colors.brandPrimary',
+              'text-decoration': 'none',
+            },
+          },
+          hover: {
+            text: {
+              'text-decoration': 'underline',
+            },
+          },
+        },
+      },
+    },
   };
   const theme = buildTheme(mergeThemePartial(everypageTheme, pageTheme));
   return theme;
