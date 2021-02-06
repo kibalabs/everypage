@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -71,7 +71,7 @@ export const CanvasPage = (): React.ReactElement => {
         <title>Canvas | Everypage Console</title>
       </Helmet>
       <Box variant='banner'>
-        <Stack direction={Direction.Horizontal} paddingHorizontal={PaddingSize.Wide} isFullWidth={true}>
+        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} paddingHorizontal={PaddingSize.Wide} isFullWidth={true}>
           <Button
             variant='secondary'
             onClicked={onStartOverClicked}
