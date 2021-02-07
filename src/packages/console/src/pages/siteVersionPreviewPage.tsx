@@ -161,7 +161,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   }, [loadSiteVersionEntry, loadSiteVersionAssets, siteVersion]);
 
   // TODO(krishan711): im sure this can be done better than just every 5 seconds
-  useInterval(30, (): void => {
+  useInterval(5, (): void => {
     if (!site || !siteVersion || !siteVersionEntry) {
       return;
     }

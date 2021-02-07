@@ -89,6 +89,7 @@
           "value": "everypage"
         }
       ],
+      "formHeaders": [],
       "formTarget": "https://api.kiba.dev/v1/newsletter-subscriptions",
       "inputButtonText": "Subscribe",
       "inputName": "email",
@@ -405,6 +406,7 @@
       "subtitleText": "Join us to keep updated on our launch and upcoming features 🚀",
       "formAction": "POST",
       "formAdditionalInputs": [],
+      "formHeaders": [],
       "formTarget": "<target url>",
       "inputButtonText": "Subscribe",
       "inputName": "email",
@@ -585,7 +587,11 @@
       "type": "contact-1",
       "titleText": "Let's talk 📞",
       "subtitleText":"Share why your product is great",
-      "inputButtonText": "Send"
+      "inputButtonText": "Send",
+      "formAction": "POST",
+      "formAdditionalInputs": [],
+      "formHeaders": [],
+      "formTarget": "<target url>"
     },
     {
       "type": "calendly-booking-1",
@@ -664,6 +670,91 @@
       "iosAppId": "1039710965",
       "logoImageUrl": "/assets/everypage-wordmark.svg",
       "macAppId": "1027457763"
+    }, {
+      "type": "contact-2",
+      "titleText": "Get started with us",
+      "subtitleText": "It's totally awesome!",
+      "address": "25 Victoria Court Unwin Way\nStanmore, United Kingdom, HA7 1FD",
+      "email": "support@kibalabs.com",
+      "phoneNumber": "+44123456789",
+      "formAction": "POST",
+      "formAdditionalInputs": [],
+      "formHeaders": [],
+      "formTarget": "<target url>"
+    }, {
+      "type": "footer-2",
+      "subtitleText": "Lorem ipsum dolor sit amet consect adipisicing elit.\nPossimus magnam veritatis in accusamus quisquam.",
+      "linkSections": [
+        {
+          "links": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        },
+        {
+          "links": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        },
+        {
+          "links": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        }
+      ],
+      "iconLinks": [
+        {
+          "iconId": "ion-logo-twitter",
+          "target": "https://twitter.com/"
+        },
+        {
+          "iconId": "ion-logo-linkedin",
+          "target": "https://linkedin.com/"
+        },
+        {
+          "iconId": "ion-logo-github",
+          "target": "https://github.com/"
+        },
+        {
+          "target": "https://www.kibalabs.com"
+        }
+      ],
+      "logoImageUrl": "/assets/everypage-wordmark.svg"
     }
   ]
 }
