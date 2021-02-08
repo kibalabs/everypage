@@ -31,7 +31,7 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
   const onDiscountCodeChanged = (value: string): void => {
     setDiscountCode(value);
     setDiscountCodeError(null);
-  }
+  };
 
   const onUpgradeClicked = async (): Promise<void> => {
     setCardError(null);
@@ -39,7 +39,6 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
     setError(null);
     setIsLoading(true);
     const response = await props.onUpgradeClicked(discountCode);
-    console.log('response', response);
     if (!response.isSuccessful) {
       if (response.cardErrorMessage) {
         setCardError(response.cardErrorMessage);
@@ -52,7 +51,7 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
       }
     }
     setIsLoading(false);
-  }
+  };
 
   const onCloseClicked = () => {
     props.onCloseClicked();

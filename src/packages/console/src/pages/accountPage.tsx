@@ -2,16 +2,16 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, Spacing, PaddingSize, ResponsiveContainingView, Stack, Text, MarkdownText } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Grid, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
-import { loadStripe, PaymentIntent, Stripe, StripeElements, StripeError } from '@stripe/stripe-js';
+import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import Helmet from 'react-helmet';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';
-import { NewPlanDialog, IAccountUpgradeResult } from '../components/newPlanDialog';
+import { IAccountUpgradeResult, NewPlanDialog } from '../components/newPlanDialog';
 import { SiteCard } from '../components/siteCard';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, StripePortalSession, StripeSubscription } from '../everypageClient/resources';
@@ -92,7 +92,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   const onUpgradeDialogUpgradeClicked = async (discountCode: string | null, stripe: Stripe, elements: StripeElements): Promise<IAccountUpgradeResult> => {
     const stripeCardElement = elements.getElement(CardElement);
     if (newPlan.planIndex > currentPlan.planIndex && currentPlan.code === 'core' && !stripeCardElement) {
-      return {isSuccessful: false, cardErrorMessage: 'Please enter your card details'};
+      return { isSuccessful: false, cardErrorMessage: 'Please enter your card details' };
     }
     let callPromise: Promise<StripeSubscription>;
     let stripePaymentMethod = null;
@@ -102,7 +102,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
         card: stripeCardElement,
       });
       if (stripePaymentMethod.error) {
-        return {isSuccessful: false, cardErrorMessage: stripePaymentMethod.error.message};
+        return { isSuccessful: false, cardErrorMessage: stripePaymentMethod.error.message };
       }
       callPromise = everypageClient.createSubscriptionForAccount(account.accountId, newPlan.code, newPlan.priceCodeMonthly, stripePaymentMethod.paymentMethod.id, discountCode || undefined);
     } else {
@@ -114,29 +114,29 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
         toast.success('Moved to new plan');
         loadAccount();
         setNewPlan(undefined);
-        return {isSuccessful: true};
+        return { isSuccessful: true };
       }
       if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_action' && stripePaymentMethod) {
         const result = await stripe.confirmCardPayment(stripeSubscription.latestInvoicePaymentActionSecret, { payment_method: stripePaymentMethod.paymentMethod.id });
         if (result.error) {
-          return {isSuccessful: false, errorMessage: result.error.message};
+          return { isSuccessful: false, errorMessage: result.error.message };
         }
         toast.success(newPlan.planIndex > currentPlan.planIndex ? "Woo! you're upgraded 🚀" : 'Moved to new plan');
         loadAccount();
         setNewPlan(undefined);
-        return {isSuccessful: true};
+        return { isSuccessful: true };
       }
       if (stripeSubscription.status === 'incomplete' && stripeSubscription.latestInvoicePaymentStatus === 'requires_payment_method' && stripePaymentMethod) {
         // TODO(krishan711): this is https://stripe.com/docs/billing/subscriptions/fixed-price?lang=python#manage-subscription-payment-failure, but not sure what to do with it!
-        return {isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.'};
+        return { isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.' };
       }
-      return {isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.'};
+      return { isSuccessful: false, errorMessage: 'Something went wrong on our side. Please try use the "Manage with stripe" feature below.' };
     } catch (error: KibaException) {
       console.error('error', error);
       if (error.message.includes('Coupon not found')) {
-        return {isSuccessful: false, discountCodeErrorMessage: 'This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘'};
+        return { isSuccessful: false, discountCodeErrorMessage: 'This coupon is not valid anymore. If you really want one reach out to us on Twitter 😘' };
       }
-      return {isSuccessful: false, errorMessage: error.message};
+      return { isSuccessful: false, errorMessage: error.message };
     }
   };
 
