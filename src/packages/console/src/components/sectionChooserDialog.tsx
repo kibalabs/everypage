@@ -102,9 +102,9 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sections === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}>
+                <Stack direction={Direction.Vertical} isFullHeight={false} isFullWidth={true} isScrollableVertically={true}>
                   {sections.map((section: Section): React.ReactElement => (
-                    <Stack key={section.sectionId} childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                    <Stack key={section.sectionId} childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullHeight={false} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                       <Box width='100px'>
                         <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />
                       </Box>
