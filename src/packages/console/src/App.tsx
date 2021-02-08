@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LocalStorageClient, Requester } from '@kibalabs/core';
-import { Route, Router, useInitialization, useFavicon } from '@kibalabs/core-react';
+import { Route, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
 import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
