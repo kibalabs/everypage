@@ -111,31 +111,33 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
             </React.Fragment>
           )}
         </Stack>
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Center}>
-            {props.newPlan.planIndex < props.currentPlan.planIndex && (
+        <Stack direction={Direction.Horizontal} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Center}>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <React.Fragment>
+              {props.newPlan.planIndex < props.currentPlan.planIndex && (
+                <Button
+                  variant='tertiary'
+                  text='Downgrade'
+                  onClicked={onUpgradeClicked}
+                />
+              )}
               <Button
-                variant='tertiary'
-                text='Downgrade'
-                onClicked={onUpgradeClicked}
+                variant={props.newPlan.planIndex < props.currentPlan.planIndex ? 'primary' : 'default'}
+                text='Cancel'
+                onClicked={onCloseClicked}
               />
-            )}
-            <Button
-              variant={props.newPlan.planIndex < props.currentPlan.planIndex ? 'primary' : 'default'}
-              text='Cancel'
-              onClicked={onCloseClicked}
-            />
-            {props.newPlan.planIndex > props.currentPlan.planIndex && (
-              <Button
-                variant='primary'
-                text='Upgrade'
-                onClicked={onUpgradeClicked}
-              />
-            )}
-          </Stack>
-        )}
+              {props.newPlan.planIndex > props.currentPlan.planIndex && (
+                <Button
+                  variant='primary'
+                  text='Upgrade'
+                  onClicked={onUpgradeClicked}
+                />
+              )}
+            </React.Fragment>
+          )}
+        </Stack>
       </Stack>
     </Dialog>
   );
