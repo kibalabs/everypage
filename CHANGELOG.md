@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.8.3] - 2021-02-08
+
+### Added
 - [MINOR] Created `FeatureIcons1` section
 - [MINOR] Created `FeatureIcons2` section
 - [MINOR] Created `Contact2` section

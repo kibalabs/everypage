@@ -1,11 +1,11 @@
 {
   "name": "@kibalabs/everypage-cli",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Build everypage sites",
   "license": "AGPLV3",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+    "url": "https://github.com/kibalabs/everypage.git"
   },
   "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
@@ -26,7 +26,7 @@
     "@kibalabs/build": "0.6.4",
     "@kibalabs/core": "^0.5.3",
     "@kibalabs/core-react": "^0.6.0",
-    "@kibalabs/everypage": "0.8.2",
+    "@kibalabs/everypage": "0.8.3",
     "@kibalabs/ui-react": "^0.8.4",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",

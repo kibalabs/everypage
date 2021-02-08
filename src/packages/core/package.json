@@ -1,11 +1,11 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "The core sections and constructs for everypage",
   "license": "AGPLV3",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+    "url": "https://github.com/kibalabs/everypage.git"
   },
   "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
