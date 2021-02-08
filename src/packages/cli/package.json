@@ -5,7 +5,7 @@
   "license": "AGPLV3",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/kibalabs/everypage/everypage-app.git"
+    "url": "https://github.com/kibalabs/everypage.git"
   },
   "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
