@@ -86,7 +86,6 @@ interface ICanvasProps {
   addAssetFiles: (files: File[]) => Promise<void>;
   deleteAssetFile?: (fileKey: string) => Promise<void>;
   isEditorHidden: boolean;
-  onIsEditorHiddenUpdated: (isEditorHidden: boolean) => void;
 }
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
@@ -109,13 +108,9 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     props.addAssetFiles(files);
   };
 
-  const onHideEditorClicked = (): void => {
-    props.onIsEditorHiddenUpdated(true);
-  };
-
-  const onShowEditorClicked = (): void => {
-    props.onIsEditorHiddenUpdated(false);
-  };
+  // const onHideEditorClicked = (): void => {
+  //   props.onIsEditorHiddenUpdated(true);
+  // };
 
   const onEditorTabKeySelected = (tabKey: string) => {
     setSelectedEditorTabKey(tabKey);
@@ -167,7 +162,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
                   <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
                 </TabBar>
               </Stack.Item>
-              <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' />
+              {/* <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' /> */}
             </Stack>
             {selectedEditorTabKey === TAB_KEY_CONTENT && (
               <MaterialBox className={classes.editor} display={'flex'}>
@@ -194,12 +189,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
           </KibaFrame>
         </div>
       </div>
-
-      {props.isEditorHidden && (
-        <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
-          <KibaIcon iconId='ion-brush' />
-        </Fab>
-      )}
 
       <SectionChooserDialog
         isOpen={isSectionChooserShowing}

@@ -138,6 +138,10 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     setIsMetaHidden(!isMetaHidden);
   };
 
+  const onIsEditorShownToggled = (): void => {
+    setIsEditorHidden(!isEditorHidden);
+  };
+
   React.useEffect((): void => {
     loadSite();
   }, [loadSite, props.slug]);
@@ -200,6 +204,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 {isEditable && <Text variant='light'>{savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
                 {!isEditable && <Text variant='light'>{'view-only mode'}</Text>}
                 <Stack.Item growthFactor={1} shrinkFactor={1} />
+                <Checkbox text='Hide editor' isChecked={isEditorHidden} onToggled={onIsEditorShownToggled} />
                 <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled} />
               </Stack>
             </Box>
@@ -215,7 +220,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
                 addAssetFiles={addAssetFiles}
                 deleteAssetFile={deleteAssetFile}
                 isEditorHidden={isEditorHidden}
-                onIsEditorHiddenUpdated={setIsEditorHidden}
               />
             </Stack.Item>
           </React.Fragment>
