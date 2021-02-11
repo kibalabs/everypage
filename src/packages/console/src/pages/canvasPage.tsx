@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Checkbox, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { useObjectLocalStorageState } from '@kibalabs/core-react';
+import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -14,7 +14,6 @@ export const CanvasPage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
-  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
   // const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
@@ -37,10 +36,6 @@ export const CanvasPage = (): React.ReactElement => {
     }).catch((error: Error): void => {
       console.error('error', error);
     });
-  };
-
-  const onIsEditorShownToggled = () => {
-    setIsEditorHidden(!isEditorHidden);
   };
 
   const onStartOverClicked = (): void => {
@@ -82,9 +77,7 @@ export const CanvasPage = (): React.ReactElement => {
             text='Start again'
           />
           <Stack.Item growthFactor={1} shrinkFactor={1} />
-          <Stack.Item gutterAfter={PaddingSize.Wide2}>
-            <Checkbox text='Hide editor' isChecked={isEditorHidden} onToggled={onIsEditorShownToggled} />
-          </Stack.Item>
+          <Stack.Item gutterAfter={PaddingSize.Wide2} />
           <Stack direction={Direction.Vertical} isFullWidth={false}>
             <Button
               variant='primary'
@@ -97,11 +90,11 @@ export const CanvasPage = (): React.ReactElement => {
       </Box>
       {siteContent && (
         <Canvas
+          isEditable={false}
           siteContent={siteContent}
           onSiteContentUpdated={onSiteContentUpdated}
           siteTheme={siteTheme}
           onSiteThemeUpdated={onSiteThemeUpdated}
-          isEditorHidden={isEditorHidden}
           assetFileMap={assetFileMap}
           addAssetFiles={addAssetFiles}
         />

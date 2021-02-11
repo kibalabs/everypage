@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { KibaException } from '@kibalabs/core';
+import { useBooleanLocalStorageState } from '@kibalabs/core-react';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Direction, ITheme, Stack, TabBar } from '@kibalabs/ui-react';
+import { Alignment, Box, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -76,15 +78,18 @@ const useStyles = makeStyles((theme) => ({
 
 interface ICanvasProps {
   isEditable: boolean;
-  isMetaShown: boolean;
   siteContent: IWebsite;
+  siteVersionName?: string;
+  siteSlug?: string;
+  savingError?: KibaException;
+  isSiteContentChanged?: boolean;
+  isSiteThemeChanged?: boolean;
   onSiteContentUpdated: (siteContent: IWebsite) => void;
   siteTheme: ITheme;
   onSiteThemeUpdated: (siteTheme: ITheme) => void;
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
   deleteAssetFile?: (fileKey: string) => Promise<void>;
-  isEditorHidden: boolean;
 }
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
@@ -92,6 +97,8 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const [selectedEditorTabKey, setSelectedEditorTabKey] = React.useState<string>(TAB_KEY_CONTENT);
   const [isSectionChooserShowing, setIsSectionChooserShowing] = React.useState<boolean>(false);
   const [chosenSectionId, setChosenSectionId] = React.useState<string | undefined>(undefined);
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
 
   const onSiteContentUpdated = React.useCallback((siteContent: IWebsite): void => {
     const onSiteContentUpdatedFunc = props.onSiteContentUpdated;
@@ -107,9 +114,13 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     props.addAssetFiles(files);
   };
 
-  // const onHideEditorClicked = (): void => {
-  //   props.onIsEditorHiddenUpdated(true);
-  // };
+  const onIsMetaShownToggled = (): void => {
+    setIsMetaHidden(!isMetaHidden);
+  };
+
+  const onIsEditorShownToggled = (): void => {
+    setIsEditorHidden(!isEditorHidden);
+  };
 
   const onEditorTabKeySelected = (tabKey: string) => {
     setSelectedEditorTabKey(tabKey);
@@ -150,8 +161,19 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   return (
     <React.Fragment>
+      <Box variant='banner'>
+        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+          <Text variant='header5' tag='h4'>{props.siteSlug}</Text>
+          <Text>{` ${props.siteVersionName || 'Unnamed'}`}</Text>
+          {props.isEditable && <Text variant='light'>{props.savingError ? 'error saving!' : props.isSiteContentChanged || props.isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
+          {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Checkbox text='Hide editor' isChecked={isEditorHidden} onToggled={onIsEditorShownToggled} />
+          <Checkbox text='Hide metadata' isChecked={isMetaHidden} onToggled={onIsMetaShownToggled} />
+        </Stack>
+      </Box>
       <div className={classes.root}>
-        {!props.isEditorHidden && (
+        {!isEditorHidden && (
           <div className={classes.editorWrapper}>
             <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
               <Stack.Item growthFactor={1}>
@@ -181,10 +203,10 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             )}
           </div>
         )}
-        {!props.isEditorHidden && <div className={classes.verticalLine} />}
+        {!isEditorHidden && <div className={classes.verticalLine} />}
         <div className={classes.frameWrapper}>
           <KibaFrame selectedElementId={chosenSectionId}>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isMetaShown} shouldIncludeAttributionSection={true} />
+            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!isMetaHidden} shouldIncludeAttributionSection={true} />
           </KibaFrame>
         </div>
       </div>
@@ -201,4 +223,9 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 Canvas.defaultProps = {
   isEditable: true,
   isMetaShown: true,
+  siteVersionName: undefined,
+  siteSlug: undefined,
+  savingError: undefined,
+  isSiteContentChanged: false,
+  isSiteThemeChanged: false,
 };
