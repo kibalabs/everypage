@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Checkbox, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
@@ -37,6 +37,10 @@ export const CanvasPage = (): React.ReactElement => {
     }).catch((error: Error): void => {
       console.error('error', error);
     });
+  };
+
+  const onIsEditorShownToggled = () => {
+    setIsEditorHidden(!isEditorHidden);
   };
 
   const onStartOverClicked = (): void => {
@@ -78,6 +82,9 @@ export const CanvasPage = (): React.ReactElement => {
             text='Start again'
           />
           <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Stack.Item gutterAfter={PaddingSize.Wide2}>
+            <Checkbox text='Hide editor' isChecked={isEditorHidden} onToggled={onIsEditorShownToggled} />
+          </Stack.Item>
           <Stack direction={Direction.Vertical} isFullWidth={false}>
             <Button
               variant='primary'
@@ -95,7 +102,6 @@ export const CanvasPage = (): React.ReactElement => {
           siteTheme={siteTheme}
           onSiteThemeUpdated={onSiteThemeUpdated}
           isEditorHidden={isEditorHidden}
-          onIsEditorHiddenUpdated={setIsEditorHidden}
           assetFileMap={assetFileMap}
           addAssetFiles={addAssetFiles}
         />

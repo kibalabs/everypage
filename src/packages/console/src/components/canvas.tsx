@@ -2,9 +2,8 @@ import React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Button, Direction, ITheme, KibaIcon, Stack, TabBar } from '@kibalabs/ui-react';
+import { Direction, ITheme, Stack, TabBar } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Section } from '../everypageClient';
