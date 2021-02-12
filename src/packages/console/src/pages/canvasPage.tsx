@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useObjectLocalStorageState } from '@kibalabs/core-react';
+import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
 import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -16,6 +16,8 @@ export const CanvasPage = (): React.ReactElement => {
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   // const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
@@ -90,7 +92,12 @@ export const CanvasPage = (): React.ReactElement => {
       </Box>
       {siteContent && (
         <Canvas
-          isEditable={false}
+          isEditable={true}
+          isSaveRequired={false}
+          isEditorHidden={isEditorHidden}
+          isMetaHidden={isMetaHidden}
+          onIsMetaShownClicked={setIsMetaHidden}
+          onIsEditorShownClicked={setIsEditorHidden}
           siteContent={siteContent}
           onSiteContentUpdated={onSiteContentUpdated}
           siteTheme={siteTheme}

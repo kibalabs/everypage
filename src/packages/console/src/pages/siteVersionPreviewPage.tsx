@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
-import { useInterval } from '@kibalabs/core-react';
+import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
 import { IWebsite } from '@kibalabs/everypage';
 import { Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
@@ -27,6 +27,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   const getSiteUrl = React.useCallback((): string => {
@@ -190,11 +192,16 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
             <Stack.Item growthFactor={1} shrinkFactor={1}>
               <Canvas
                 isEditable={isEditable}
+                isSaveRequired={true}
                 siteVersionName={SiteVersion.name}
                 siteSlug={site.slug}
                 savingError={savingError}
                 isSiteContentChanged={isSiteContentChanged}
                 isSiteThemeChanged={isSiteThemeChanged}
+                isEditorHidden={isEditorHidden}
+                isMetaHidden={isMetaHidden}
+                onIsEditorShownClicked={setIsEditorHidden}
+                onIsMetaShownClicked={setIsMetaHidden}
                 siteContent={siteContent}
                 onSiteContentUpdated={onSiteContentUpdated}
                 siteTheme={siteTheme}
