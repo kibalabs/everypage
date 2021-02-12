@@ -141,12 +141,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   };
 
   const onIsEditorHiddenToogled = (): void => {
-    // if(props.isEditorHidden){
-    //   props.onIsEditorShownClicked(false);
-    // }
-    // else {
-    //   props.onIsEditorShownClicked(true);
-    // }
     props.onIsEditorShownClicked(!props.isEditorHidden);
   };
 
