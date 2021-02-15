@@ -168,7 +168,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             <Text variant='header5'>{props.title || ''}</Text>
             <Text variant='light'>{props.subtitle || ''}</Text>
             {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
-            <Button text={props.isEditorHidden ? 'Hide editor' : 'Show editor'} onClicked={onIsEditorHiddenToggled} />
+            <Button text={props.isEditorHidden ? 'Show editor' : 'Hide editor'} onClicked={onIsEditorHiddenToggled} />
             <Stack.Item growthFactor={1} shrinkFactor={1} />
             <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
           </Stack>
