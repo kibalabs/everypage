@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LocalStorageClient, Requester } from '@kibalabs/core';
-import { Route, Router, useInitialization } from '@kibalabs/core-react';
+import { Route, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
 import { buildTheme, resetCss, ThemeProvider } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
@@ -108,6 +108,7 @@ const theme = buildTheme({
 });
 
 export const App = hot((): React.ReactElement => {
+  useFavicon('/assets/favicon.svg');
   useInitialization((): void => {
     // eslint-disable-next-line no-console
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);

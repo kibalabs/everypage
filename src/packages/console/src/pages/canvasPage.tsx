@@ -14,10 +14,10 @@ export const CanvasPage = (): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
   const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
-  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
-  // const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = { ...assetFileMap };
@@ -55,14 +55,18 @@ export const CanvasPage = (): React.ReactElement => {
 
   const onSiteContentUpdated = (newSiteContent: Record<string, unknown>): void => {
     setSiteContent(newSiteContent);
-    // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
-    // setIsSiteContentChanged(true);
   };
 
   const onSiteThemeUpdated = (newSiteTheme: Record<string, unknown>): void => {
     setSiteTheme(newSiteTheme);
-    // NOTE(krishan711): why does this have to be here?! without it if a value is replaced in the json the cursor moves to the top of the editor!
-    // setIsSiteContentChanged(true);
+  };
+
+  const onIsEditorHiddenToggled = (): void => {
+    setIsEditorHidden(!isEditorHidden);
+  };
+
+  const onIsMetaHiddenToggled = (): void => {
+    setIsMetaHidden(!isMetaHidden);
   };
 
   return (
@@ -90,12 +94,15 @@ export const CanvasPage = (): React.ReactElement => {
       </Box>
       {siteContent && (
         <Canvas
+          isEditable={true}
+          isEditorHidden={isEditorHidden}
+          onIsEditorHiddenToggled={onIsEditorHiddenToggled}
+          isMetaHidden={isMetaHidden}
+          onIsMetaHiddenToggled={onIsMetaHiddenToggled}
           siteContent={siteContent}
           onSiteContentUpdated={onSiteContentUpdated}
           siteTheme={siteTheme}
           onSiteThemeUpdated={onSiteThemeUpdated}
-          isEditorHidden={isEditorHidden}
-          onIsEditorHiddenUpdated={setIsEditorHidden}
           assetFileMap={assetFileMap}
           addAssetFiles={addAssetFiles}
         />
