@@ -3,7 +3,7 @@ import React from 'react';
 import { KibaException } from '@kibalabs/core';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, Box, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    height: '100%',
+    flexGrow: 1,
     width: '100%',
   },
   frameWrapper: {
@@ -77,14 +77,13 @@ const useStyles = makeStyles((theme) => ({
 
 interface ICanvasProps {
   isEditable: boolean;
-  isSaveRequired: boolean;
+  title?: string;
+  subtitle?: string;
   siteContent: IWebsite;
   isEditorHidden: boolean;
+  onIsEditorHiddenToggled: () => void;
   isMetaHidden: boolean;
-  onIsMetaShownClicked: (value: boolean) => void;
-  onIsEditorShownClicked: (value: boolean) => void;
-  siteVersionName?: string;
-  siteSlug?: string;
+  onIsMetaHiddenToggled: () => void;
   savingError?: KibaException;
   isSiteContentChanged?: boolean;
   isSiteThemeChanged?: boolean;
@@ -140,12 +139,12 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     }
   };
 
-  const onIsEditorHiddenToogled = (): void => {
-    props.onIsEditorShownClicked(!props.isEditorHidden);
+  const onIsEditorHiddenToggled = (): void => {
+    props.onIsEditorHiddenToggled();
   };
 
-  const onIsMetaHiddenToogled = (): void => {
-    props.onIsMetaShownClicked(!props.isMetaHidden);
+  const onIsMetaHiddenToggled = (): void => {
+    props.onIsMetaHiddenToggled();
   };
 
   const onChooseSectionClicked = (section: Section): void => {
@@ -163,59 +162,56 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Box variant='banner'>
-        <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
-          {props.isSaveRequired ? (
-            <React.Fragment>
-              <Text variant='header5' tag='h4'>{props.siteSlug}</Text>
-              <Text>{` ${props.siteVersionName || 'Unnamed'}`}</Text>
-              {props.isEditable && <Text variant='light'>{props.savingError ? 'error saving!' : props.isSiteContentChanged || props.isSiteThemeChanged ? 'saving...' : 'saved'}</Text>}
-              {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
-            </React.Fragment>
-          ) : null}
-          <Stack.Item growthFactor={1} shrinkFactor={1} />
-          <Checkbox text='Hide editor' isChecked={props.isEditorHidden} onToggled={onIsEditorHiddenToogled} />
-          <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToogled} />
-        </Stack>
-      </Box>
-      <div className={classes.root}>
-        {!props.isEditorHidden && (
-          <div className={classes.editorWrapper}>
-            <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-              <Stack.Item growthFactor={1}>
-                <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
-                  <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
-                  <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
-                  <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
-                </TabBar>
-              </Stack.Item>
-              {/* <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' /> */}
-            </Stack>
-            {selectedEditorTabKey === TAB_KEY_CONTENT && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-              </MaterialBox>
-            )}
-            {selectedEditorTabKey === TAB_KEY_THEME && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-              </MaterialBox>
-            )}
-            {selectedEditorTabKey === TAB_KEY_MEDIA && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-                <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-              </MaterialBox>
-            )}
+      <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+        <Box variant='banner'>
+          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+            <Text variant='header5'>{props.title || ''}</Text>
+            <Text variant='light'>{props.subtitle || ''}</Text>
+            {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
+            <Button text={props.isEditorHidden ? 'Hide editor' : 'Show editor'} onClicked={onIsEditorHiddenToggled} />
+            <Stack.Item growthFactor={1} shrinkFactor={1} />
+            <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
+          </Stack>
+        </Box>
+        <div className={classes.root}>
+          {!props.isEditorHidden && (
+            <div className={classes.editorWrapper}>
+              <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
+                <Stack.Item growthFactor={1}>
+                  <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
+                    <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
+                    <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
+                    <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
+                  </TabBar>
+                </Stack.Item>
+                {/* <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' /> */}
+              </Stack>
+              {selectedEditorTabKey === TAB_KEY_CONTENT && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+                </MaterialBox>
+              )}
+              {selectedEditorTabKey === TAB_KEY_THEME && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+                </MaterialBox>
+              )}
+              {selectedEditorTabKey === TAB_KEY_MEDIA && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                  <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+                </MaterialBox>
+              )}
+            </div>
+          )}
+          {!props.isEditorHidden && <div className={classes.verticalLine} />}
+          <div className={classes.frameWrapper}>
+            <KibaFrame selectedElementId={chosenSectionId}>
+              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
+            </KibaFrame>
           </div>
-        )}
-        {!props.isEditorHidden && <div className={classes.verticalLine} />}
-        <div className={classes.frameWrapper}>
-          <KibaFrame selectedElementId={chosenSectionId}>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
-          </KibaFrame>
         </div>
-      </div>
+      </Stack>
 
       <SectionChooserDialog
         isOpen={isSectionChooserShowing}
@@ -227,11 +223,5 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 };
 
 Canvas.defaultProps = {
-  isEditable: true,
-  isMetaHidden: true,
-  siteVersionName: undefined,
-  siteSlug: undefined,
   savingError: undefined,
-  isSiteContentChanged: false,
-  isSiteThemeChanged: false,
 };

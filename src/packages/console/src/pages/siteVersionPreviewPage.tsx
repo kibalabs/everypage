@@ -173,6 +173,14 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
     }
   });
 
+  const onIsEditorHiddenToggled = (): void => {
+    setIsEditorHidden(!isEditorHidden);
+  };
+
+  const onIsMetaHiddenToggled = (): void => {
+    setIsMetaHidden(!isMetaHidden);
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -188,30 +196,24 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <Text>Loading...</Text>
         ) : (
-          <React.Fragment>
-            <Stack.Item growthFactor={1} shrinkFactor={1}>
-              <Canvas
-                isEditable={isEditable}
-                isSaveRequired={true}
-                siteVersionName={SiteVersion.name}
-                siteSlug={site.slug}
-                savingError={savingError}
-                isSiteContentChanged={isSiteContentChanged}
-                isSiteThemeChanged={isSiteThemeChanged}
-                isEditorHidden={isEditorHidden}
-                isMetaHidden={isMetaHidden}
-                onIsEditorShownClicked={setIsEditorHidden}
-                onIsMetaShownClicked={setIsMetaHidden}
-                siteContent={siteContent}
-                onSiteContentUpdated={onSiteContentUpdated}
-                siteTheme={siteTheme}
-                onSiteThemeUpdated={onSiteThemeUpdated}
-                assetFileMap={assetFileMap}
-                addAssetFiles={addAssetFiles}
-                deleteAssetFile={deleteAssetFile}
-              />
-            </Stack.Item>
-          </React.Fragment>
+          <Stack.Item growthFactor={1} shrinkFactor={1}>
+            <Canvas
+              isEditable={isEditable}
+              title={`${site.slug} (${siteVersion.name})`}
+              subtitle={savingError ? 'error saving!' : isSiteContentChanged || isSiteThemeChanged ? 'saving...' : 'saved'}
+              isEditorHidden={isEditorHidden}
+              onIsEditorHiddenToggled={onIsEditorHiddenToggled}
+              isMetaHidden={isMetaHidden}
+              onIsMetaHiddenToggled={onIsMetaHiddenToggled}
+              siteContent={siteContent}
+              onSiteContentUpdated={onSiteContentUpdated}
+              siteTheme={siteTheme}
+              onSiteThemeUpdated={onSiteThemeUpdated}
+              assetFileMap={assetFileMap}
+              addAssetFiles={addAssetFiles}
+              deleteAssetFile={deleteAssetFile}
+            />
+          </Stack.Item>
         )}
       </Stack>
     </React.Fragment>

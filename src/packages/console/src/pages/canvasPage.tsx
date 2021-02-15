@@ -66,6 +66,14 @@ export const CanvasPage = (): React.ReactElement => {
     // setIsSiteContentChanged(true);
   };
 
+  const onIsEditorHiddenToggled = (): void => {
+    setIsEditorHidden(!isEditorHidden);
+  };
+
+  const onIsMetaHiddenToggled = (): void => {
+    setIsMetaHidden(!isMetaHidden);
+  };
+
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
       <Helmet>
@@ -93,11 +101,10 @@ export const CanvasPage = (): React.ReactElement => {
       {siteContent && (
         <Canvas
           isEditable={true}
-          isSaveRequired={false}
           isEditorHidden={isEditorHidden}
+          onIsEditorHiddenToggled={onIsEditorHiddenToggled}
           isMetaHidden={isMetaHidden}
-          onIsMetaShownClicked={setIsMetaHidden}
-          onIsEditorShownClicked={setIsEditorHidden}
+          onIsMetaHiddenToggled={onIsMetaHiddenToggled}
           siteContent={siteContent}
           onSiteContentUpdated={onSiteContentUpdated}
           siteTheme={siteTheme}
