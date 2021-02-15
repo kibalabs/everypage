@@ -82,7 +82,6 @@ export const CanvasPage = (): React.ReactElement => {
             text='Start again'
           />
           <Stack.Item growthFactor={1} shrinkFactor={1} />
-          <Stack.Item gutterAfter={PaddingSize.Wide2} />
           <Stack direction={Direction.Vertical} isFullWidth={false}>
             <Button
               variant='primary'
