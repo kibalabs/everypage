@@ -173,16 +173,11 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
         <div className={classes.root}>
           {!props.isEditorHidden && (
             <div className={classes.editorWrapper}>
-              <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-                <Stack.Item growthFactor={1}>
-                  <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
-                    <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
-                    <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
-                    <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
-                  </TabBar>
-                </Stack.Item>
-                {/* <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' /> */}
-              </Stack>
+              <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
+                <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
+                <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
+                <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
+              </TabBar>
               {selectedEditorTabKey === TAB_KEY_CONTENT && (
                 <MaterialBox className={classes.editor} display={'flex'}>
                   <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
