@@ -79,14 +79,11 @@ interface ICanvasProps {
   isEditable: boolean;
   title?: string;
   subtitle?: string;
-  siteContent: IWebsite;
   isEditorHidden: boolean;
   onIsEditorHiddenToggled: () => void;
   isMetaHidden: boolean;
   onIsMetaHiddenToggled: () => void;
-  savingError?: KibaException;
-  isSiteContentChanged?: boolean;
-  isSiteThemeChanged?: boolean;
+  siteContent: IWebsite;
   onSiteContentUpdated: (siteContent: IWebsite) => void;
   siteTheme: ITheme;
   onSiteThemeUpdated: (siteTheme: ITheme) => void;
