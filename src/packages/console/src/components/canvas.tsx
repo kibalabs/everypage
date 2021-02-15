@@ -2,9 +2,8 @@ import React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Button, Direction, ITheme, KibaIcon, Stack, TabBar } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
 import MaterialBox from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Section } from '../everypageClient';
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
-    height: '100%',
+    flexGrow: 1,
     width: '100%',
   },
   frameWrapper: {
@@ -77,7 +76,12 @@ const useStyles = makeStyles((theme) => ({
 
 interface ICanvasProps {
   isEditable: boolean;
-  isMetaShown: boolean;
+  title?: string;
+  subtitle?: string;
+  isEditorHidden: boolean;
+  onIsEditorHiddenToggled: () => void;
+  isMetaHidden: boolean;
+  onIsMetaHiddenToggled: () => void;
   siteContent: IWebsite;
   onSiteContentUpdated: (siteContent: IWebsite) => void;
   siteTheme: ITheme;
@@ -85,8 +89,6 @@ interface ICanvasProps {
   assetFileMap: Record<string, string>;
   addAssetFiles: (files: File[]) => Promise<void>;
   deleteAssetFile?: (fileKey: string) => Promise<void>;
-  isEditorHidden: boolean;
-  onIsEditorHiddenUpdated: (isEditorHidden: boolean) => void;
 }
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
@@ -107,14 +109,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   const onAssetFilesChosen = (files: File[]): void => {
     props.addAssetFiles(files);
-  };
-
-  const onHideEditorClicked = (): void => {
-    props.onIsEditorHiddenUpdated(true);
-  };
-
-  const onShowEditorClicked = (): void => {
-    props.onIsEditorHiddenUpdated(false);
   };
 
   const onEditorTabKeySelected = (tabKey: string) => {
@@ -141,6 +135,14 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     }
   };
 
+  const onIsEditorHiddenToggled = (): void => {
+    props.onIsEditorHiddenToggled();
+  };
+
+  const onIsMetaHiddenToggled = (): void => {
+    props.onIsMetaHiddenToggled();
+  };
+
   const onChooseSectionClicked = (section: Section): void => {
     // TODO(krishan711): find a nicer way to create a deep clone
     const newContent = JSON.parse(JSON.stringify(props.siteContent));
@@ -156,50 +158,51 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        {!props.isEditorHidden && (
-          <div className={classes.editorWrapper}>
-            <Stack direction={Direction.Horizontal} shouldAddGutters={true}>
-              <Stack.Item growthFactor={1}>
-                <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
-                  <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
-                  <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
-                  <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
-                </TabBar>
-              </Stack.Item>
-              <Button variant='secondary' onClicked={onHideEditorClicked} text='Hide' />
-            </Stack>
-            {selectedEditorTabKey === TAB_KEY_CONTENT && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-              </MaterialBox>
-            )}
-            {selectedEditorTabKey === TAB_KEY_THEME && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-              </MaterialBox>
-            )}
-            {selectedEditorTabKey === TAB_KEY_MEDIA && (
-              <MaterialBox className={classes.editor} display={'flex'}>
-                {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-                <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-              </MaterialBox>
-            )}
+      <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+        <Box variant='banner'>
+          <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
+            <Text variant='header5'>{props.title || ''}</Text>
+            <Text variant='light'>{props.subtitle || ''}</Text>
+            {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
+            <Button text={props.isEditorHidden ? 'Show editor' : 'Hide editor'} onClicked={onIsEditorHiddenToggled} />
+            <Stack.Item growthFactor={1} shrinkFactor={1} />
+            <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
+          </Stack>
+        </Box>
+        <div className={classes.root}>
+          {!props.isEditorHidden && (
+            <div className={classes.editorWrapper}>
+              <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
+                <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
+                <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
+                <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
+              </TabBar>
+              {selectedEditorTabKey === TAB_KEY_CONTENT && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+                </MaterialBox>
+              )}
+              {selectedEditorTabKey === TAB_KEY_THEME && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+                </MaterialBox>
+              )}
+              {selectedEditorTabKey === TAB_KEY_MEDIA && (
+                <MaterialBox className={classes.editor} display={'flex'}>
+                  {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                  <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+                </MaterialBox>
+              )}
+            </div>
+          )}
+          {!props.isEditorHidden && <div className={classes.verticalLine} />}
+          <div className={classes.frameWrapper}>
+            <KibaFrame selectedElementId={chosenSectionId}>
+              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
+            </KibaFrame>
           </div>
-        )}
-        {!props.isEditorHidden && <div className={classes.verticalLine} />}
-        <div className={classes.frameWrapper}>
-          <KibaFrame selectedElementId={chosenSectionId}>
-            <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={props.isMetaShown} shouldIncludeAttributionSection={true} />
-          </KibaFrame>
         </div>
-      </div>
-
-      {props.isEditorHidden && (
-        <Fab color='primary' onClick={onShowEditorClicked} className={classes.fab}>
-          <KibaIcon iconId='ion-brush' />
-        </Fab>
-      )}
+      </Stack>
 
       <SectionChooserDialog
         isOpen={isSectionChooserShowing}
