@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { KibaException } from '@kibalabs/core';
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
 import { Alignment, Box, Button, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
