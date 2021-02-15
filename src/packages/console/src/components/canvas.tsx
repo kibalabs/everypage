@@ -223,5 +223,6 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 };
 
 Canvas.defaultProps = {
-  savingError: undefined,
+  isEditable: true,
+  isMetaShown: true,
 };
