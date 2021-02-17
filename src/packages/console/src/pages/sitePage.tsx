@@ -3,7 +3,7 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, MessageDialog, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, MessageDialog, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
