@@ -27,7 +27,7 @@
     "@kibalabs/core": "^0.5.3",
     "@kibalabs/core-react": "^0.6.0",
     "@kibalabs/everypage": "0.8.3",
-    "@kibalabs/ui-react": "^0.8.4",
+    "@kibalabs/ui-react": "file:/home/ubuntu/work/ui-react",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^7.0.0",

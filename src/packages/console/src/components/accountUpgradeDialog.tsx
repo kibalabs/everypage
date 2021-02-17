@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Alignment, Button, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Dialog, Direction, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 
 import { IPlan } from '../consoleConfig';
 import { Account } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
-import { Dialog } from './dialog';
 
 export interface IAccountUpgradeDialogProps {
   isOpen: boolean;

@@ -1,11 +1,10 @@
 import React from 'react';
 
-import { Alignment, Button, Direction, LoadingSpinner, PaddingSize, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Dialog, Direction, LoadingSpinner, PaddingSize, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import TextField from '@material-ui/core/TextField';
 import { CardElement } from '@stripe/react-stripe-js';
 
 import { IPlan } from '../consoleConfig';
-import { Dialog } from './dialog';
 
 export interface IAccountUpgradeResult {
   isSuccessful: boolean;
