@@ -3,10 +3,9 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, ContainingView, MessageDialog, Direction, InputType, Link, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
-import { ConfirmationDialog } from '../components/confirmationDialog';
 import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { NavigationBar } from '../components/navigationBar';
 import { TemplateChooserModal } from '../components/templateChooserModal';
@@ -416,7 +415,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         onCloseClicked={onTemplateChooserCloseClicked}
       />
 
-      <ConfirmationDialog
+      <MessageDialog
         isOpen={isAccountUpgradePopupShowing}
         onCloseClicked={onAccountUpgradePopupCloseClicked}
         onConfirmClicked={onAccountUpgradePopupUpgradeClicked}
@@ -426,7 +425,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         confirmButtonText='Manage Account'
       />
 
-      <ConfirmationDialog
+      <MessageDialog
         isOpen={archivingSiteVersionId !== null}
         onConfirmClicked={onArchiveSiteVersionConfirmClicked}
         onCloseClicked={onArchiveSiteVersionCancelClicked}
@@ -434,7 +433,7 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         message='Once you archive a version it will be unreachable through the console. If you want to retrieve it, you will need to contact us directly.'
       />
 
-      <ConfirmationDialog
+      <MessageDialog
         isOpen={isArchivingSite}
         onConfirmClicked={onArchiveSiteConfirmClicked}
         onCloseClicked={onArchiveSiteCancelClicked}
