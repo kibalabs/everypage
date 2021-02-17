@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import ListItem from '@material-ui/core/ListItem';
+import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+// import ListItem from '@material-ui/core/ListItem';
 
 import { Template, TemplateCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -19,13 +19,14 @@ export interface ITemplateChooserModalProps {
 export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
-  const [selectedTemplateCategoryId, setSelectedTemplateCategoryId] = React.useState<number | undefined>(undefined);
+  const [selectedTemplateCategoryId, setSelectedTemplateCategoryId] = React.useState<string | undefined>(undefined);
+  // const [selectedTemplateId, setSelectedTemplateId] = React.useState<string | undefined>(undefined);
   const [templates, setTemplates] = React.useState<Template[] | undefined>(undefined);
 
   useInitialization((): void => {
     everypageClient.listTemplateCategories().then((receivedTemplateCategories: TemplateCategory[]) => {
       setTemplateCategories(receivedTemplateCategories);
-      setSelectedTemplateCategoryId(receivedTemplateCategories[0].templateCategoryId);
+      setSelectedTemplateCategoryId(String(receivedTemplateCategories[0].templateCategoryId));
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplateCategories(null);
@@ -33,7 +34,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   });
 
   React.useEffect((): void => {
-    everypageClient.listTemplates(selectedTemplateCategoryId).then((receivedTemplates: Template[]) => {
+    everypageClient.listTemplates(parseInt(selectedTemplateCategoryId)).then((receivedTemplates: Template[]) => {
       setTemplates(receivedTemplates);
     }).catch((error: Error): void => {
       console.error('error', error);
@@ -41,9 +42,9 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
     });
   }, [everypageClient, selectedTemplateCategoryId]);
 
-  const onTemplateCategoryClicked = (templateCategory: TemplateCategory) => {
+  const onTemplateCategoryClicked = (templateCategoryId: string) => {
     setTemplates(undefined);
-    setSelectedTemplateCategoryId(templateCategory.templateCategoryId);
+    setSelectedTemplateCategoryId(templateCategoryId);
   };
 
   const onChooseTemplateClicked = (template: Template) => {
@@ -79,20 +80,18 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <LoadingSpinner />
               ) : (
                 // TODO(krishan711): this should be a list
-                <Stack direction={Direction.Vertical} isScrollableVertically={true} isFullHeight={true}>
+                <List onItemClicked={onTemplateCategoryClicked}>
                   {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                     return (
                       <ListItem
-                        key={templateCategory.templateCategoryId}
-                        button={true}
-                        selected={selectedTemplateCategoryId === templateCategory.templateCategoryId}
-                        onClick={(): void => onTemplateCategoryClicked(templateCategory)}
+                        itemKey={String(templateCategory.templateCategoryId)}
+                        isSelected={selectedTemplateCategoryId === String(templateCategory.templateCategoryId)}
                       >
                         <Text>{templateCategory.name}</Text>
                       </ListItem>
                     );
                   })}
-                </Stack>
+                </List>
               )}
             </Grid.Item>
             <Grid.Item size={9}>
@@ -102,35 +101,42 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <LoadingSpinner />
               ) : (
                 // TODO(krishan711): this should be a list
-                <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}>
+                <List>
+                  {/* <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}> */}
                   {templates.map((template: Template): React.ReactElement => (
                     // TODO(krishan711): this should be wrapped in a list item so the whole row is clickable and Choose button should be removed
-                    <Stack key={template.templateId} direction={Direction.Horizontal} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
-                      <Box width='100px'>
-                        <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
-                      </Box>
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
-                          <Text variant='header6'>{template.name}</Text>
-                          <Text variant='light'>{template.description}</Text>
+                    <ListItem
+                      itemKey={String(template.templateId)}
+                      // isSelected={selectedTemplateId == String(template.templateId)}
+                    >
+                      <Stack direction={Direction.Horizontal} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                        <Box width='100px'>
+                          <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
+                        </Box>
+                        <Stack.Item growthFactor={1} shrinkFactor={1}>
+                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                            <Text variant='header6'>{template.name}</Text>
+                            <Text variant='light'>{template.description}</Text>
+                          </Stack>
+                        </Stack.Item>
+                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
+                          <Button
+                            variant='primary'
+                            targetShouldOpenSameTab={false}
+                            target={template.previewUrl}
+                            text='Preview'
+                          />
+                          <Button
+                            variant='secondary'
+                            onClicked={(): void => onChooseTemplateClicked(template)}
+                            text='Choose'
+                          />
                         </Stack>
-                      </Stack.Item>
-                      <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
-                        <Button
-                          variant='primary'
-                          targetShouldOpenSameTab={false}
-                          target={template.previewUrl}
-                          text='Preview'
-                        />
-                        <Button
-                          variant='secondary'
-                          onClicked={(): void => onChooseTemplateClicked(template)}
-                          text='Choose'
-                        />
                       </Stack>
-                    </Stack>
+                    </ListItem>
                   ))}
-                </Stack>
+                  {/* </Stack> */}
+                </List>
               )}
             </Grid.Item>
           </Grid>
