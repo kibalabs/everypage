@@ -95,12 +95,10 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
               ) : templates.length === 0
                 ? <LoadingSpinner />
                 : (
-                // TODO(krishan711): this should be a list
                   <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
                     {templates.map((template: Template): React.ReactElement => (
-                    // TODO(krishan711): this should be wrapped in a list item so the whole row is clickable and Choose button should be removed
                       <ListItem itemKey={String(template.templateId)}>
-                        <Stack direction={Direction.Horizontal} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                        <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                           <Box width='100px'>
                             <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
                           </Box>
@@ -110,14 +108,12 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                               <Text variant='light'>{template.description}</Text>
                             </Stack>
                           </Stack.Item>
-                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
-                            <Button
-                              variant='primary'
-                              targetShouldOpenSameTab={false}
-                              target={template.previewUrl}
-                              text='Preview'
-                            />
-                          </Stack>
+                          <Button
+                            variant='primary'
+                            targetShouldOpenSameTab={false}
+                            target={template.previewUrl}
+                            text='Preview'
+                          />
                         </Stack>
                       </ListItem>
                     ))}
