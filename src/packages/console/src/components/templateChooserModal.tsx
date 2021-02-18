@@ -79,7 +79,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <List onItemClicked={onTemplateCategoryClicked}>
                   {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                     return (
-                      <ListItem itemKey={String(templateCategory.templateCategoryId)}>
+                      <ListItem key={templateCategory.templateCategoryId} itemKey={String(templateCategory.templateCategoryId)}>
                         <Text>{templateCategory.name}</Text>
                       </ListItem>
                     );
@@ -97,7 +97,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 : (
                   <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
                     {templates.map((template: Template): React.ReactElement => (
-                      <ListItem itemKey={String(template.templateId)}>
+                      <ListItem key={template.templateId} itemKey={String(template.templateId)}>
                         <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                           <Box width='100px'>
                             <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />

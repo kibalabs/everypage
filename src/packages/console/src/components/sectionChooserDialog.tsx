@@ -81,7 +81,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
                 <List onItemClicked={onSectionCategoryClicked} selectedItemKey={String(selectedSectionCategoryId)}>
                   {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
                     return (
-                      <ListItem itemKey={String(sectionCategory.sectionCategoryId)}>
+                      <ListItem key={sectionCategory.sectionCategoryId} itemKey={String(sectionCategory.sectionCategoryId)}>
                         <Text>{sectionCategory.name}</Text>
                       </ListItem>
                     );
@@ -97,7 +97,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : (
                 <List onItemClicked={onChooseSectionClicked}>
                   {sections.map((section: Section): React.ReactElement => (
-                    <ListItem itemKey={String(section.sectionId)}>
+                    <ListItem key={section.sectionId} itemKey={String(section.sectionId)}>
                       <Stack childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullHeight={false} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                         <Box width='100px'>
                           <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />
