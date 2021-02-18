@@ -18,7 +18,7 @@ export interface ISectionChooserDialogProps {
 export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [sectionCategories, setSectionCategories] = React.useState<SectionCategory[] | undefined>(undefined);
-  const [selectedSectionCategoryId, setSelectedSectionCategoryId] = React.useState<string | undefined>(undefined);
+  const [selectedSectionCategoryId, setSelectedSectionCategoryId] = React.useState<number | undefined>(undefined);
   const [sections, setSections] = React.useState<Section[] | undefined>(undefined);
 
   useInitialization((): void => {
@@ -26,7 +26,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
       const orderedSectionCategories = receivedSectionCategories.filter((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId !== OTHER_SECTION_CATEGORY_ID);
       orderedSectionCategories.push(receivedSectionCategories.find((sectionCategory: SectionCategory): boolean => sectionCategory.sectionCategoryId === OTHER_SECTION_CATEGORY_ID));
       setSectionCategories(orderedSectionCategories);
-      setSelectedSectionCategoryId(String(orderedSectionCategories[0].sectionCategoryId));
+      setSelectedSectionCategoryId(orderedSectionCategories[0].sectionCategoryId);
     }).catch((error: Error): void => {
       console.error('error', error);
       setSectionCategories(null);
@@ -34,7 +34,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
   });
 
   React.useEffect((): void => {
-    everypageClient.listSections(parseInt(selectedSectionCategoryId, 10)).then((receivedSections: Section[]) => {
+    everypageClient.listSections(selectedSectionCategoryId).then((receivedSections: Section[]) => {
       setSections(receivedSections);
     }).catch((error: Error): void => {
       console.error('error', error);
@@ -50,7 +50,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
 
   const onSectionCategoryClicked = (sectionCategoryId: string) => {
     setSections(undefined);
-    setSelectedSectionCategoryId(sectionCategoryId);
+    setSelectedSectionCategoryId(parseInt(sectionCategoryId, 10));
   };
 
   const onChooseSectionClicked = (itemKey: string) => {
@@ -80,7 +80,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sectionCategories === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <List onItemClicked={onSectionCategoryClicked} selectedItemKey={selectedSectionCategoryId}>
+                <List onItemClicked={onSectionCategoryClicked} selectedItemKey={String(selectedSectionCategoryId)}>
                   {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
                     return (
                       <ListItem itemKey={String(sectionCategory.sectionCategoryId)}>
@@ -97,12 +97,9 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sections === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <List onItemClicked={(itemKey: string): void => onChooseSectionClicked(itemKey)}>
+                <List onItemClicked={onChooseSectionClicked}>
                   {sections.map((section: Section): React.ReactElement => (
-                    <ListItem
-                      itemKey={String(section.sectionId)}
-                      // isSelected={selectedSectionId == String(section.sectionId)}
-                    >
+                    <ListItem itemKey={String(section.sectionId)}>
                       <Stack childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullHeight={false} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                         <Box width='100px'>
                           <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />

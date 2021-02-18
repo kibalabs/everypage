@@ -19,13 +19,13 @@ export interface ITemplateChooserModalProps {
 export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.ReactElement => {
   const { everypageClient } = useGlobals();
   const [templateCategories, setTemplateCategories] = React.useState<TemplateCategory[] | undefined>(undefined);
-  const [selectedTemplateCategoryId, setSelectedTemplateCategoryId] = React.useState<string | undefined>(undefined);
+  const [selectedTemplateCategoryId, setSelectedTemplateCategoryId] = React.useState<number | undefined>(undefined);
   const [templates, setTemplates] = React.useState<Template[] | undefined>(undefined);
 
   useInitialization((): void => {
     everypageClient.listTemplateCategories().then((receivedTemplateCategories: TemplateCategory[]) => {
       setTemplateCategories(receivedTemplateCategories);
-      setSelectedTemplateCategoryId(String(receivedTemplateCategories[0].templateCategoryId));
+      setSelectedTemplateCategoryId(receivedTemplateCategories[0].templateCategoryId);
     }).catch((error: Error): void => {
       console.error('error', error);
       setTemplateCategories(null);
@@ -33,7 +33,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   });
 
   React.useEffect((): void => {
-    everypageClient.listTemplates(parseInt(selectedTemplateCategoryId, 10)).then((receivedTemplates: Template[]) => {
+    everypageClient.listTemplates(selectedTemplateCategoryId).then((receivedTemplates: Template[]) => {
       setTemplates(receivedTemplates);
     }).catch((error: Error): void => {
       console.error('error', error);
@@ -43,7 +43,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
 
   const onTemplateCategoryClicked = (templateCategoryId: string) => {
     setTemplates(undefined);
-    setSelectedTemplateCategoryId(templateCategoryId);
+    setSelectedTemplateCategoryId(parseInt(templateCategoryId, 10));
   };
 
   const onChooseTemplateClicked = (itemKey: string) => {
@@ -79,8 +79,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
               ) : templateCategories === undefined ? (
                 <LoadingSpinner />
               ) : (
-                // TODO(krishan711): this should be a list
-                <List onItemClicked={onTemplateCategoryClicked} selectedItemKey={selectedTemplateCategoryId}>
+                <List onItemClicked={onTemplateCategoryClicked}>
                   {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                     return (
                       <ListItem itemKey={String(templateCategory.templateCategoryId)}>
