@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
 import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-// import ListItem from '@material-ui/core/ListItem';
 
 import { Template, TemplateCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
