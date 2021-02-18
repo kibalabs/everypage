@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Dialog, Direction, Grid, IconButton, Image, KibaIcon, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import ListItem from '@material-ui/core/ListItem';
+import { Alignment, Box, Dialog, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import { Section, SectionCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -48,13 +47,13 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
     }
   };
 
-  const onSectionCategoryClicked = (sectionCategory: SectionCategory) => {
-    setSections(undefined);
-    setSelectedSectionCategoryId(sectionCategory.sectionCategoryId);
+  const onSectionCategoryClicked = (sectionCategoryId: string) => {
+    setSelectedSectionCategoryId(parseInt(sectionCategoryId, 10));
   };
 
-  const onChooseSectionClicked = (section: Section) => {
-    props.onChooseSectionClicked(section);
+  const onChooseSectionClicked = (itemKey: string) => {
+    const selectedSection = sections.filter((section) => String(section.sectionId) === itemKey)[0];
+    props.onChooseSectionClicked(selectedSection);
   };
 
   return (
@@ -79,20 +78,15 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sectionCategories === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <Stack direction={Direction.Vertical} isScrollableVertically={true} isFullHeight={true}>
+                <List onItemClicked={onSectionCategoryClicked} selectedItemKey={String(selectedSectionCategoryId)}>
                   {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
                     return (
-                      <ListItem
-                        key={sectionCategory.sectionCategoryId}
-                        button={true}
-                        selected={selectedSectionCategoryId === sectionCategory.sectionCategoryId}
-                        onClick={(): void => onSectionCategoryClicked(sectionCategory)}
-                      >
+                      <ListItem key={sectionCategory.sectionCategoryId} itemKey={String(sectionCategory.sectionCategoryId)}>
                         <Text>{sectionCategory.name}</Text>
                       </ListItem>
                     );
                   })}
-                </Stack>
+                </List>
               )}
             </Grid.Item>
             <Grid.Item size={9}>
@@ -101,26 +95,23 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sections === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <Stack direction={Direction.Vertical} isFullHeight={false} isFullWidth={true} isScrollableVertically={true}>
+                <List onItemClicked={onChooseSectionClicked}>
                   {sections.map((section: Section): React.ReactElement => (
-                    <Stack key={section.sectionId} childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullHeight={false} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
-                      <Box width='100px'>
-                        <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />
-                      </Box>
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
-                          <Text variant='header6'>{section.name}</Text>
-                          <Text variant='light'>{section.description}</Text>
-                        </Stack>
-                      </Stack.Item>
-                      <Button
-                        variant='secondary'
-                        onClicked={(): void => onChooseSectionClicked(section)}
-                        text='Choose'
-                      />
-                    </Stack>
+                    <ListItem key={section.sectionId} itemKey={String(section.sectionId)}>
+                      <Stack childAlignment={Alignment.Center} direction={Direction.Horizontal} isFullHeight={false} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                        <Box width='100px'>
+                          <Image isFullWidth={true} source={section.previewImageUrl} alternativeText={`${section.name} preview image`} />
+                        </Box>
+                        <Stack.Item growthFactor={1} shrinkFactor={1}>
+                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                            <Text variant='header6'>{section.name}</Text>
+                            <Text variant='light'>{section.description}</Text>
+                          </Stack>
+                        </Stack.Item>
+                      </Stack>
+                    </ListItem>
                   ))}
-                </Stack>
+                </List>
               )}
             </Grid.Item>
           </Grid>
