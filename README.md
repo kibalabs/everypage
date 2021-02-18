@@ -1,4 +1,4 @@
-![everypage Logo](https://www.everypagehq.com/assets/everypage-wordmark.svg)
+![everypage Logo](https://www.everypagehq.com/assets/banner.png)
 
 everypage is a website creator built with react. With everypage's **declarative** system, users write in JSON, focussing on their content, and get a gorgeous website built with exceptional SEO and performance.
 
