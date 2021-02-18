@@ -48,7 +48,7 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   };
 
   const onChooseTemplateClicked = (itemKey: string) => {
-    const selectedTemplate = templates.filter(template => String(template.templateId) === itemKey)[0];
+    const selectedTemplate = templates.filter((template) => String(template.templateId) === itemKey)[0];
     props.onChooseTemplateClicked(selectedTemplate);
   };
 
@@ -97,37 +97,37 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <Text>Failed to load templates. Please try again later.</Text>
               ) : templates === undefined ? (
                 <LoadingSpinner />
-              ) : templates.length === 0 ? 
-              <LoadingSpinner /> 
-              : (
+              ) : templates.length === 0
+                ? <LoadingSpinner />
+                : (
                 // TODO(krishan711): this should be a list
-                <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
-                  {templates.map((template: Template): React.ReactElement => (
+                  <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
+                    {templates.map((template: Template): React.ReactElement => (
                     // TODO(krishan711): this should be wrapped in a list item so the whole row is clickable and Choose button should be removed
-                    <ListItem itemKey={String(template.templateId)}>
-                      <Stack direction={Direction.Horizontal} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
-                        <Box width='100px'>
-                          <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
-                        </Box>
-                        <Stack.Item growthFactor={1} shrinkFactor={1}>
-                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
-                            <Text variant='header6'>{template.name}</Text>
-                            <Text variant='light'>{template.description}</Text>
+                      <ListItem itemKey={String(template.templateId)}>
+                        <Stack direction={Direction.Horizontal} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                          <Box width='100px'>
+                            <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
+                          </Box>
+                          <Stack.Item growthFactor={1} shrinkFactor={1}>
+                            <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                              <Text variant='header6'>{template.name}</Text>
+                              <Text variant='light'>{template.description}</Text>
+                            </Stack>
+                          </Stack.Item>
+                          <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
+                            <Button
+                              variant='primary'
+                              targetShouldOpenSameTab={false}
+                              target={template.previewUrl}
+                              text='Preview'
+                            />
                           </Stack>
-                        </Stack.Item>
-                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
-                          <Button
-                            variant='primary'
-                            targetShouldOpenSameTab={false}
-                            target={template.previewUrl}
-                            text='Preview'
-                          />
                         </Stack>
-                      </Stack>
-                    </ListItem>
-                  ))}
-                </List>
-              )}
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
             </Grid.Item>
           </Grid>
         </Stack.Item>

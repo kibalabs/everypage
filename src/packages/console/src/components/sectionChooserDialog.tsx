@@ -56,7 +56,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
   };
 
   const onChooseSectionClicked = (itemKey: string) => {
-    const selectedSection = sections.filter(section => String(section.sectionId) === itemKey)[0];
+    const selectedSection = sections.filter((section) => String(section.sectionId) === itemKey)[0];
     props.onChooseSectionClicked(selectedSection);
   };
 
