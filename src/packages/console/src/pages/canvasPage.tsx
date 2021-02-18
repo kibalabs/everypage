@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, MessageDialog, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { Canvas } from '../components/canvas';
-import { ConfirmationDialog } from '../components/confirmationDialog';
 import { TemplateChooserModal } from '../components/templateChooserModal';
 import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -113,7 +112,7 @@ export const CanvasPage = (): React.ReactElement => {
         onChooseTemplateClicked={onChooseTemplateClicked}
       />
 
-      <ConfirmationDialog
+      <MessageDialog
         isOpen={isShowingStartOverAlert}
         title='Are you sure?'
         message='Starting over will clear all your current work. If you want to create more than one site at a time, please sign up - the core package is totally free and requires no credit card!'
