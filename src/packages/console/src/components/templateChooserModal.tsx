@@ -47,8 +47,9 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
     setSelectedTemplateCategoryId(templateCategoryId);
   };
 
-  const onChooseTemplateClicked = (template: Template) => {
-    props.onChooseTemplateClicked(template);
+  const onChooseTemplateClicked = (itemKey: string) => {
+    const selectedTemplate = templates.filter(template => String(template.templateId) === itemKey)[0];
+    props.onChooseTemplateClicked(selectedTemplate);
   };
 
   const onCloseClicked = () => {
@@ -80,13 +81,10 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <LoadingSpinner />
               ) : (
                 // TODO(krishan711): this should be a list
-                <List onItemClicked={onTemplateCategoryClicked}>
+                <List onItemClicked={onTemplateCategoryClicked} selectedItemKey={selectedTemplateCategoryId}>
                   {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                     return (
-                      <ListItem
-                        itemKey={String(templateCategory.templateCategoryId)}
-                        isSelected={selectedTemplateCategoryId === String(templateCategory.templateCategoryId)}
-                      >
+                      <ListItem itemKey={String(templateCategory.templateCategoryId)}>
                         <Text>{templateCategory.name}</Text>
                       </ListItem>
                     );
@@ -99,16 +97,14 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <Text>Failed to load templates. Please try again later.</Text>
               ) : templates === undefined ? (
                 <LoadingSpinner />
-              ) : (
+              ) : templates.length === 0 ? 
+              <LoadingSpinner /> 
+              : (
                 // TODO(krishan711): this should be a list
-                <List>
-                  {/* <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}> */}
+                <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
                   {templates.map((template: Template): React.ReactElement => (
                     // TODO(krishan711): this should be wrapped in a list item so the whole row is clickable and Choose button should be removed
-                    <ListItem
-                      itemKey={String(template.templateId)}
-                      // isSelected={selectedTemplateId == String(template.templateId)}
-                    >
+                    <ListItem itemKey={String(template.templateId)}>
                       <Stack direction={Direction.Horizontal} isFullWidth={true} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
                         <Box width='100px'>
                           <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
@@ -126,16 +122,10 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                             target={template.previewUrl}
                             text='Preview'
                           />
-                          <Button
-                            variant='secondary'
-                            onClicked={(): void => onChooseTemplateClicked(template)}
-                            text='Choose'
-                          />
                         </Stack>
                       </Stack>
                     </ListItem>
                   ))}
-                  {/* </Stack> */}
                 </List>
               )}
             </Grid.Item>

@@ -55,8 +55,9 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
     setSelectedSectionCategoryId(sectionCategoryId);
   };
 
-  const onChooseSectionClicked = (section: Section) => {
-    props.onChooseSectionClicked(section);
+  const onChooseSectionClicked = (itemKey: string) => {
+    const selectedSection = sections.filter(section => String(section.sectionId) === itemKey)[0];
+    props.onChooseSectionClicked(selectedSection);
   };
 
   return (
@@ -81,13 +82,10 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sectionCategories === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <List onItemClicked={onSectionCategoryClicked}>
+                <List onItemClicked={onSectionCategoryClicked} selectedItemKey={selectedSectionCategoryId}>
                   {sectionCategories.map((sectionCategory: SectionCategory): React.ReactElement => {
                     return (
-                      <ListItem
-                        itemKey={String(sectionCategory.sectionCategoryId)}
-                        isSelected={selectedSectionCategoryId === String(sectionCategory.sectionCategoryId)}
-                      >
+                      <ListItem itemKey={String(sectionCategory.sectionCategoryId)}>
                         <Text>{sectionCategory.name}</Text>
                       </ListItem>
                     );
@@ -101,8 +99,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
               ) : sections === undefined ? (
                 <LoadingSpinner />
               ) : (
-                <List>
-                  {/* <Stack direction={Direction.Vertical} isFullHeight={false} isFullWidth={true} isScrollableVertically={true}> */}
+                <List onItemClicked={(itemKey: string): void => onChooseSectionClicked(itemKey)}>
                   {sections.map((section: Section): React.ReactElement => (
                     <ListItem
                       itemKey={String(section.sectionId)}
@@ -118,15 +115,9 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
                             <Text variant='light'>{section.description}</Text>
                           </Stack>
                         </Stack.Item>
-                        <Button
-                          variant='secondary'
-                          onClicked={(): void => onChooseSectionClicked(section)}
-                          text='Choose'
-                        />
                       </Stack>
                     </ListItem>
                   ))}
-                  {/* </Stack> */}
                 </List>
               )}
             </Grid.Item>
