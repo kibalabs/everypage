@@ -42,7 +42,6 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
   }, [everypageClient, selectedTemplateCategoryId]);
 
   const onTemplateCategoryClicked = (templateCategoryId: string) => {
-    setTemplates(undefined);
     setSelectedTemplateCategoryId(parseInt(templateCategoryId, 10));
   };
 

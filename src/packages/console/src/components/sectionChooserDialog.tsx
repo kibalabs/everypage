@@ -49,7 +49,6 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
   };
 
   const onSectionCategoryClicked = (sectionCategoryId: string) => {
-    setSections(undefined);
     setSelectedSectionCategoryId(parseInt(sectionCategoryId, 10));
   };
 
