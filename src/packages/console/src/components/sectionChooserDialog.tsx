@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-// import ListItem from '@material-ui/core/ListItem';
+import { Alignment, Box, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import { Section, SectionCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
@@ -20,7 +19,6 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
   const { everypageClient } = useGlobals();
   const [sectionCategories, setSectionCategories] = React.useState<SectionCategory[] | undefined>(undefined);
   const [selectedSectionCategoryId, setSelectedSectionCategoryId] = React.useState<string | undefined>(undefined);
-  // const [selectedSectionId, setSelectedSectionId] = React.useState<string | undefined>(undefined);
   const [sections, setSections] = React.useState<Section[] | undefined>(undefined);
 
   useInitialization((): void => {
@@ -36,7 +34,7 @@ export const SectionChooserDialog = (props: ISectionChooserDialogProps): React.R
   });
 
   React.useEffect((): void => {
-    everypageClient.listSections(parseInt(selectedSectionCategoryId)).then((receivedSections: Section[]) => {
+    everypageClient.listSections(parseInt(selectedSectionCategoryId, 10)).then((receivedSections: Section[]) => {
       setSections(receivedSections);
     }).catch((error: Error): void => {
       console.error('error', error);
