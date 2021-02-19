@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, IconButton, Image, KibaIcon, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import ListItem from '@material-ui/core/ListItem';
+import { Alignment, Box, Button, Dialog, Direction, Grid, IconButton, Image, KibaIcon, List, ListItem, LoadingSpinner, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import { Template, TemplateCategory } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
-import { Dialog } from './dialog';
 
 export interface ITemplateChooserModalProps {
   isOpen: boolean;
@@ -41,13 +39,13 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
     });
   }, [everypageClient, selectedTemplateCategoryId]);
 
-  const onTemplateCategoryClicked = (templateCategory: TemplateCategory) => {
-    setTemplates(undefined);
-    setSelectedTemplateCategoryId(templateCategory.templateCategoryId);
+  const onTemplateCategoryClicked = (templateCategoryId: string) => {
+    setSelectedTemplateCategoryId(parseInt(templateCategoryId, 10));
   };
 
-  const onChooseTemplateClicked = (template: Template) => {
-    props.onChooseTemplateClicked(template);
+  const onChooseTemplateClicked = (itemKey: string) => {
+    const selectedTemplate = templates.filter((template) => String(template.templateId) === itemKey)[0];
+    props.onChooseTemplateClicked(selectedTemplate);
   };
 
   const onCloseClicked = () => {
@@ -78,21 +76,15 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
               ) : templateCategories === undefined ? (
                 <LoadingSpinner />
               ) : (
-                // TODO(krishan711): this should be a list
-                <Stack direction={Direction.Vertical} isScrollableVertically={true} isFullHeight={true}>
+                <List onItemClicked={onTemplateCategoryClicked}>
                   {templateCategories.map((templateCategory: TemplateCategory): React.ReactElement => {
                     return (
-                      <ListItem
-                        key={templateCategory.templateCategoryId}
-                        button={true}
-                        selected={selectedTemplateCategoryId === templateCategory.templateCategoryId}
-                        onClick={(): void => onTemplateCategoryClicked(templateCategory)}
-                      >
+                      <ListItem key={templateCategory.templateCategoryId} itemKey={String(templateCategory.templateCategoryId)}>
                         <Text>{templateCategory.name}</Text>
                       </ListItem>
                     );
                   })}
-                </Stack>
+                </List>
               )}
             </Grid.Item>
             <Grid.Item size={9}>
@@ -100,38 +92,33 @@ export const TemplateChooserModal = (props: ITemplateChooserModalProps): React.R
                 <Text>Failed to load templates. Please try again later.</Text>
               ) : templates === undefined ? (
                 <LoadingSpinner />
-              ) : (
-                // TODO(krishan711): this should be a list
-                <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true} isScrollableVertically={true}>
-                  {templates.map((template: Template): React.ReactElement => (
-                    // TODO(krishan711): this should be wrapped in a list item so the whole row is clickable and Choose button should be removed
-                    <Stack key={template.templateId} direction={Direction.Horizontal} isFullWidth={false} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
-                      <Box width='100px'>
-                        <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
-                      </Box>
-                      <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
-                          <Text variant='header6'>{template.name}</Text>
-                          <Text variant='light'>{template.description}</Text>
+              ) : templates.length === 0
+                ? <LoadingSpinner />
+                : (
+                  <List onItemClicked={(itemKey: string): void => onChooseTemplateClicked(itemKey)}>
+                    {templates.map((template: Template): React.ReactElement => (
+                      <ListItem key={template.templateId} itemKey={String(template.templateId)}>
+                        <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
+                          <Box width='100px'>
+                            <Image isFullWidth={true} source={template.imageUrl} alternativeText={`${template.name} preview image`} />
+                          </Box>
+                          <Stack.Item growthFactor={1} shrinkFactor={1}>
+                            <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Default} contentAlignment={Alignment.Start}>
+                              <Text variant='header6'>{template.name}</Text>
+                              <Text variant='light'>{template.description}</Text>
+                            </Stack>
+                          </Stack.Item>
+                          <Button
+                            variant='primary'
+                            targetShouldOpenSameTab={false}
+                            target={template.previewUrl}
+                            text='Preview'
+                          />
                         </Stack>
-                      </Stack.Item>
-                      <Stack direction={Direction.Vertical} shouldAddGutters={true} defaultGutter={PaddingSize.Wide} contentAlignment={Alignment.Start}>
-                        <Button
-                          variant='primary'
-                          targetShouldOpenSameTab={false}
-                          target={template.previewUrl}
-                          text='Preview'
-                        />
-                        <Button
-                          variant='secondary'
-                          onClicked={(): void => onChooseTemplateClicked(template)}
-                          text='Choose'
-                        />
-                      </Stack>
-                    </Stack>
-                  ))}
-                </Stack>
-              )}
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
             </Grid.Item>
           </Grid>
         </Stack.Item>

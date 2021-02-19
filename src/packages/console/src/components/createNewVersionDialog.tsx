@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Alignment, Button, Direction, PaddingSize, SingleLineInput, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
-
-import { Dialog } from './dialog';
+import { Alignment, Button, Dialog, Direction, PaddingSize, SingleLineInput, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 export interface ICreateNewVersionDialogProps {
   isOpen: boolean;
