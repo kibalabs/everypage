@@ -69,7 +69,7 @@ export const NavBar1 = (props: INavBar1Props): React.ReactElement => {
             <Stack direction={Direction.Vertical} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide2} paddingEnd={PaddingSize.Wide2}>
               {props.buttons && props.buttons.map((button: INavBar1Button, index: number): React.ReactElement | null => {
                 return (!button.display || button.display === 'default' || button.display === 'overflow') ? (
-                  <Button key={index} text={button.text} target={button.target} variant={button.variant || button.mode} />
+                  <Button key={index} text={button.text} target={button.target} variant={button.variant || button.mode} onClicked={onMenuClicked} />
                 ) : null;
               })}
             </Stack>
