@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 
 ### Changed
-
+- [MINOR] Added remove section button in `siteSectionCard` in console
 ### Removed
 
 ## [0.8.4] - 2021-03-08
