@@ -107,8 +107,14 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   }, [props.onSiteContentUpdated]);
 
   const onDeleteSectionClicked = React.useCallback((sectionIndex: number): void => {
-    console.error(`deleting sections is not implemented yet: ${sectionIndex}`);
-  }, []);
+    if (sectionIndex === siteContentRef.current.length - 1) {
+      return;
+    }
+    const onSiteContentUpdated = props.onSiteContentUpdated;
+    const sectionsCopy = [...siteContentRef.current.sections];
+    sectionsCopy.splice(sectionIndex, 1);
+    onSiteContentUpdated({ ...siteContentRef.current, sections: sectionsCopy });
+  }, [props.onSiteContentUpdated]);
 
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
