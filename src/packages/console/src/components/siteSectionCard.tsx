@@ -45,6 +45,10 @@ export const SiteSectionCard = React.memo((props: ISiteSectionCardProps): React.
     props.onMoveUpClicked(props.cardIndex);
   };
 
+  const onDeleteClicked = (): void => {
+    props.onDeleteClicked(props.cardIndex);
+  };
+
   const onMoveDownClicked = (): void => {
     props.onMoveDownClicked(props.cardIndex);
   };
@@ -67,11 +71,11 @@ export const SiteSectionCard = React.memo((props: ISiteSectionCardProps): React.
             icon={<KibaIcon iconId='ion-arrow-down' variant='small' />}
             onClicked={onMoveDownClicked}
           />
-          {/* <IconButton
+          <IconButton
             variant='small-passive'
             icon={<KibaIcon iconId='ion-trash' variant='small' />}
-            onClicked={props.onDeleteClicked}
-          /> */}
+            onClicked={onDeleteClicked}
+          />
         </Stack>
       </Stack>
     </Box>
