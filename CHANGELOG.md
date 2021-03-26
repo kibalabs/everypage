@@ -13,11 +13,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Removed
 
+## [0.8.5] - 2021-03-10
+
+### Added
+
+### Changed
+- [MINOR] Update `Navbar1` to close when an item is clicked
+
+### Removed
+
 ## [0.8.4] - 2021-03-08
 
 ### Added
 
 ### Changed
+- [MINOR] Console changes only
 
 ### Removed
 
