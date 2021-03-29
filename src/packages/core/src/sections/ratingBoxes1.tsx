@@ -38,6 +38,7 @@ export const RatingBoxes1 = (props: IRatingBoxes1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+            <Spacing variant={PaddingSize.Wide}/>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }}>
               {props.boxes.map((box: IRatingBoxes1Box, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={true}>
@@ -45,15 +46,15 @@ export const RatingBoxes1 = (props: IRatingBoxes1Props): React.ReactElement => {
                     <Stack direction={Direction.Horizontal} >
                     {[...Array(box.totalStars)].map((e , i) => {
                       if(i <= Math.floor(box.value) - 1){
-                        return <KibaIcon _color={box.fillColor} iconId='ion-star'/>
+                        return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star'/>
                       }else if(i == Math.floor(box.value) && box.value != Math.floor(box.value)){
-                        return <KibaIcon _color={box.fillColor} iconId='ion-star-half-outline'/>
+                        return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star-half-outline'/>
                       }
-                      return <KibaIcon _color={box.fillColor} iconId='ion-star-outline'/>
+                      return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star-outline'/>
                     })}
                     </Stack>
-                    <Spacing direction={Direction.Vertical} variant='narrow' />
-                    <MarkdownText textAlignment={TextAlignment.Center} source={box.name} />
+                    <Spacing direction={Direction.Vertical} variant={PaddingSize.Wide} />
+                    <MarkdownText textVariant='bold' textAlignment={TextAlignment.Center} source={box.name} />
                   </Stack>
                 </Box>
               ))}
