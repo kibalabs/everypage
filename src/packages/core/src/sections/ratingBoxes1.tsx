@@ -6,7 +6,7 @@ import { EverypagePaddingSize } from '../internal';
 
 import { getClassName } from '@kibalabs/core';
 import { MissingPropError, warnDeprecated } from '@kibalabs/core-react';
-import { Alignment, Box, Direction, EqualGrid, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Box, Direction, EqualGrid, Icon, KibaIcon, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 interface IRatingBoxes1Box {
   value: number;
@@ -22,6 +22,21 @@ interface IRatingBoxes1Props extends ISectionProps {
   boxVariant?: string;
   boxes: IRatingBoxes1Box[];
 };
+
+const starSvgContent = `<svg viewBox="0 0 200 100" style={{ fill: 'gold' , stroke: 'gold'}}>
+<defs>
+<polygon id="star" points="100,0 131,66 200,76 150,128 162,200 100,166 38,200 50,128 0,76 69,66 "/>
+  <clipPath id="stars">
+    <use xlinkHref="#star"/>
+    <use xlinkHref="#star" x="20%"/>
+    <use xlinkHref="#star" x="40%"/>
+    <use xlinkHref="#star" x="60%"/>
+    <use xlinkHref="#star" x="80%"/>
+  </clipPath>
+</defs>
+<rect style={{ fill: 'gold' , stroke: 'gold'}} clip-path="url(#stars)"></rect>
+<rect width="72%" height='100%' style={{ fill: 'gold' , stroke: 'gold'}} clip-path="url(#stars)"></rect>
+</svg>`;
 
 export const RatingBoxes1 = (props: IRatingBoxes1Props): React.ReactElement => {
 
@@ -44,14 +59,16 @@ export const RatingBoxes1 = (props: IRatingBoxes1Props): React.ReactElement => {
                 <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} isFullWidth={true}>
                     <Stack direction={Direction.Horizontal} >
-                    {[...Array(box.totalStars)].map((e , i) => {
+                    {/* {[...Array(box.totalStars)].map((e , i) => {
                       if(i <= Math.floor(box.value) - 1){
                         return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star'/>
                       }else if(i == Math.floor(box.value) && box.value != Math.floor(box.value)){
                         return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star-half-outline'/>
                       }
                       return <KibaIcon variant='large' _color={box.fillColor || 'gold'} iconId='ion-star-outline'/>
-                    })}
+                    })} */}
+                    <Icon svgContent={starSvgContent} _color={box.fillColor || 'gold'}  />
+                    {/* {starSvgContent} */}
                     </Stack>
                     <Spacing direction={Direction.Vertical} variant={PaddingSize.Wide} />
                     <MarkdownText textVariant='bold' textAlignment={TextAlignment.Center} source={box.name} />
