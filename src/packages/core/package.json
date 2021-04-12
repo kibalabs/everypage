@@ -23,7 +23,7 @@
   "sideEffects": false,
   "dependencies": {
     "@kibalabs/core": "^0.5.3",
-    "@kibalabs/core-react": "^0.6.0"
+    "@kibalabs/core-react": "^0.6.1-next.0"
   },
   "devDependencies": {
     "@kibalabs/build": "0.6.4",
