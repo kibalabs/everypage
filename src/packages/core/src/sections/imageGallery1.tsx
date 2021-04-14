@@ -9,14 +9,14 @@ import { EverypagePaddingSize } from '../internal';
 
 interface IImageGallery1Image {
   mediaUrl: string;
-  alternativeText?: string;
-  imageCaption?: string;
+  title?: string;
 }
 
 interface IImageGallery1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
   imageSizes?: ResponsiveField<number>;
+  shouldShowImageCaptions?: boolean;
   images?: IImageGallery1Image[];
 }
 
@@ -38,8 +38,8 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.images?.map((image: IImageGallery1Image, index: number): React.ReactElement => (
                 <Stack key={index} direction={Direction.Vertical} shouldAddGutters={true}>
-                  <LazyMedia source={image.mediaUrl} alternativeText={image.alternativeText || `image ${index}`} />
-                  {image.imageCaption && <MarkdownText source={image.imageCaption} />}
+                  <LazyMedia source={image.mediaUrl} alternativeText={image.title || `image ${index}`} />
+                  {image.title && <MarkdownText source={image.title} />}
                 </Stack>
               ))}
             </EqualGrid>
