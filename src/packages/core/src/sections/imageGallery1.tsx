@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, EqualGrid, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
@@ -9,7 +9,8 @@ import { EverypagePaddingSize } from '../internal';
 
 interface IImageGallery1Image {
   mediaUrl: string;
-  title?: string;
+  altText?: string;
+  imgTitle?: string;
 }
 
 interface IImageGallery1Props extends ISectionProps {
@@ -36,7 +37,10 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.images?.map((image: IImageGallery1Image, index: number): React.ReactElement => (
-                <LazyMedia key={index} source={image.mediaUrl} alternativeText={image.title || `image ${index}`} />
+                <Stack direction={Direction.Vertical} shouldAddGutters={true} >
+                  <LazyMedia key={index} source={image.mediaUrl} alternativeText={image.altText || `image ${index}`} />
+                  {image.imgTitle && <MarkdownText source={image.imgTitle} />}
+                </Stack>
               ))}
             </EqualGrid>
           </Stack>
