@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@kibalabs/core": "^0.5.3",
-    "@kibalabs/core-react": "^0.6.0",
+    "@kibalabs/core-react": "^0.6.1-next.0",
     "@kibalabs/everypage": "0.8.5",
     "@kibalabs/everyview-tracker": "^0.2.4",
     "@kibalabs/ui-react": "^0.8.5-next.3",

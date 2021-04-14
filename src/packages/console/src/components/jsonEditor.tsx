@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
+import { useDebouncedCallback } from '@kibalabs/core-react';
 import JSONEditor, { NodeName } from 'jsoneditor';
 import styled from 'styled-components';
 import 'jsoneditor/dist/jsoneditor.css';
@@ -25,31 +26,6 @@ const StyledJsonEditor = styled.div`
     background-color: #333333;
   }
 `;
-
-const useDebouncedCallback = (delayMillis = 30000): [(callback: (() => void)) => void, () => void] => {
-  const timeoutRef = React.useRef<number>(null);
-  const callbackRef = React.useRef<() => void>(null);
-
-  const clearCallback = React.useCallback((): void => {
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-      callbackRef.current = null;
-    }
-  }, []);
-
-  const setCallback = React.useCallback((callback: (() => void)): void => {
-    clearCallback();
-    callbackRef.current = callback;
-    timeoutRef.current = setTimeout((): void => {
-      callbackRef.current();
-      timeoutRef.current = null;
-      callbackRef.current = null;
-    }, delayMillis);
-  }, [delayMillis, clearCallback]);
-
-  return [setCallback, clearCallback];
-};
 
 export const JsonEditor = (props: IJsonEditorProps): React.ReactElement => {
   const editorRef = React.useRef<HTMLDivElement | null>(null);
