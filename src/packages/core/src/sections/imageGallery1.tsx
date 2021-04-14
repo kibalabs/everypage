@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, EqualGrid, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Direction, EqualGrid, MarkdownText, PaddingSize, ResponsiveContainingView, ResponsiveField, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
@@ -37,8 +37,8 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.images?.map((image: IImageGallery1Image, index: number): React.ReactElement => (
-                <Stack direction={Direction.Vertical} shouldAddGutters={true} >
-                  <LazyMedia key={index} source={image.mediaUrl} alternativeText={image.altText || `image ${index}`} />
+                <Stack key={index} direction={Direction.Vertical} shouldAddGutters={true}>
+                  <LazyMedia source={image.mediaUrl} alternativeText={image.altText || `image ${index}`} />
                   {image.imgTitle && <MarkdownText source={image.imgTitle} />}
                 </Stack>
               ))}
