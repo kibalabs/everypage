@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Changed
 - [MINOR] Update `Navbar1` to close when an item is clicked
-- [MINOR] Update `ImageGallery1` section to have image caption
+- [MINOR] Added `shouldShowImageCaptions` to `ImageGallery1` to allow showing captions below images
 
 ### Removed
 
