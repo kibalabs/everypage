@@ -39,7 +39,7 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
               {props.images?.map((image: IImageGallery1Image, index: number): React.ReactElement => (
                 <Stack key={index} direction={Direction.Vertical} shouldAddGutters={true}>
                   <LazyMedia source={image.mediaUrl} alternativeText={image.title || `image ${index}`} />
-                  {image.title && <MarkdownText source={image.title} />}
+                  {props.shouldShowImageCaptions && image.title && <MarkdownText source={image.title} />}
                 </Stack>
               ))}
             </EqualGrid>
