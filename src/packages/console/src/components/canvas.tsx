@@ -96,6 +96,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   const [selectedEditorTabKey, setSelectedEditorTabKey] = React.useState<string>(TAB_KEY_CONTENT);
   const [isSectionChooserShowing, setIsSectionChooserShowing] = React.useState<boolean>(false);
   const [chosenSectionId, setChosenSectionId] = React.useState<string | undefined>(undefined);
+  const [uploadFilesError, setUploadFilesError] = React.useState<string>('');
 
   const onSiteContentUpdated = React.useCallback((siteContent: IWebsite): void => {
     const onSiteContentUpdatedFunc = props.onSiteContentUpdated;
@@ -108,6 +109,29 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
   }, [props.onSiteThemeUpdated]);
 
   const onAssetFilesChosen = (files: File[]): void => {
+    setUploadFilesError('');
+    const largeFiles = [];
+    const MAX_FILE_SIZE = 5;
+
+    files.forEach((file: File): void => {
+      if (file.size / 1024 / 1024 > MAX_FILE_SIZE) {
+        console.warn(`${file.name} was not uploaded successfully. Max file size supported is 5MB.`);
+        largeFiles.push(file.name);
+      }
+    });
+
+    let errorMessage = '';
+    largeFiles.forEach((file: string): void => {
+      errorMessage += `${file} `;
+    });
+    if (errorMessage.length > 0) {
+      errorMessage += largeFiles.length > 1 ? 'were ' : 'was ';
+      errorMessage += 'not uploaded successfully. Max file size supported is 5MB.';
+    }
+    setUploadFilesError(errorMessage);
+    setTimeout(() => {
+      setUploadFilesError('');
+    }, 6000);
     props.addAssetFiles(files);
   };
 
@@ -190,6 +214,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
               {selectedEditorTabKey === TAB_KEY_MEDIA && (
                 <MaterialBox className={classes.editor} display={'flex'}>
                   {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                  {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
                   <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
                 </MaterialBox>
               )}
