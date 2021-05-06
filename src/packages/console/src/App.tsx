@@ -108,7 +108,7 @@ const theme = buildTheme({
       'border-radius': '0',
     },
     unpadded: {
-      padding: `${defaultTheme.dimensions.paddingNarrow}`,
+      padding: '0px',
     },
   },
 });

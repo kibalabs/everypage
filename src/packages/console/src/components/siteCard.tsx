@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { BackgroundView, Box, Direction, Image, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import { BackgroundView, Box, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import { Site } from '../everypageClient/resources';
 
@@ -13,7 +12,6 @@ interface ISiteCardProps {
 }
 
 export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
-
   const onSiteClicked = (): void => {
     props.onSiteClicked(props.site);
   };
@@ -21,23 +19,25 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
   return (
     <BackgroundView color={!props.isEnabled && '#eee'}>
       <Box variant='card-unpadded'>
-        <CardActionArea style={{ width: '100%' }} onClick={onSiteClicked} disabled={!props.isEnabled}>
-          <Image
-            isFullHeight={false}
-            source={`https://${props.site.slug}.evrpg.com/screenshot-preview.png`}
-            alternativeText={props.site.name}
-          />
-          <Box variant='padded' isFullWidth={true}>
-            <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide1}>
-              <Text tag='h6' variant='bold'>
-                {props.site.name}
-              </Text>
-              <Text variant='light'>
-                {props.site.slug}
-              </Text>
-            </Stack>
-          </Box>
-        </CardActionArea>
+        <LinkBase onClicked={onSiteClicked} isEnabled={props.isEnabled} isFullWidth={true}>
+          <Stack direction={Direction.Vertical}>
+            <Image
+              isFullHeight={false}
+              source={`https://${props.site.slug}.evrpg.com/screenshot-preview.png`}
+              alternativeText={props.site.name}
+            />
+            <Box variant='padded' isFullWidth={true}>
+              <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Default} paddingVertical={PaddingSize.Wide1}>
+                <Text tag='h6' variant='bold'>
+                  {props.site.name}
+                </Text>
+                <Text variant='light'>
+                  {props.site.slug}
+                </Text>
+              </Stack>
+            </Box>
+          </Stack>
+        </LinkBase>
       </Box>
     </BackgroundView>
   );
