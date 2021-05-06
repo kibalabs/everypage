@@ -95,6 +95,9 @@ const theme = buildTheme({
     light: {
       color: '$colors.textLight25',
     },
+    error: {
+      color: '$colors.error',
+    },
   },
   boxes: {
     banner: {
