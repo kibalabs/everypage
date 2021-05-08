@@ -2,19 +2,14 @@ import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Box, Image } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 
 import { useGlobals } from '../globalsContext';
 
 const useStyles = makeStyles((theme) => ({
-  toolbar: {
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -24,14 +19,6 @@ const useStyles = makeStyles((theme) => ({
   },
   alertBar: {
     backgroundColor: '#ffdd7e',
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  navButton: {
-    marginLeft: '10px',
-    borderColor: 'white',
-    color: 'white',
   },
 }));
 
@@ -72,51 +59,48 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   return (
     <AppBar position='absolute' className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <ButtonBase href={'/'}>
-          <Box height={'30px'}>
+        <LinkBase target='/'>
+          <Box height='30px'>
             <Image
-              source={'/assets/everypage-wordmark-dark.svg'}
-              alternativeText={'Home'}
+              source='/assets/everypage-wordmark-dark.svg'
+              alternativeText='Home'
               isFullWidth={false}
-              fitType={'scale'}
+              fitType='scale'
             />
           </Box>
-        </ButtonBase>
+        </LinkBase>
         <div className={classes.spacer} />
         <Button
-          variant='outlined'
-          onClick={onLogoutClicked}
-        >
-          Log out
-        </Button>
+          variant='navButton-logoutButton'
+          onClicked={onLogoutClicked}
+          text='Log out'
+        />
         <Button
-          className={classes.navButton}
-          variant='outlined'
-          href='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
-          target='_blank'
-        >
-          Tutorials
-        </Button>
+          variant='navButton'
+          target='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
+          targetShouldOpenSameTab={false}
+          text='Tutorials'
+        />
       </Toolbar>
       {!hasVerifiedEmail && (
         <Toolbar className={classes.alertBar}>
-          <Typography color='textPrimary'>
-            You need to verify your account before you can create and edit sites. Please check your email.
-          </Typography>
-          <div className={classes.spacer} />
-          {!verificationSent && (
-            <Button
-              variant='outlined'
-              onClick={onResendVerificationClicked}
-            >
-              Resend Verification
-            </Button>
-          )}
-          {verificationSent && (
-            <Typography color='textPrimary'>
+          <Stack direction={Direction.Horizontal} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
+            <Text variant='colored'>
+              You need to verify your account before you can create and edit sites. Please check your email.
+            </Text>
+            {!verificationSent && (
+              <Button
+                variant='secondary'
+                onClicked={onResendVerificationClicked}
+                text='Resend Verification'
+              />
+            )}
+            {verificationSent && (
+              <Text variant='colored'>
               Email sent.
-            </Typography>
-          )}
+              </Text>
+            )}
+          </Stack>
         </Toolbar>
       )}
     </AppBar>
