@@ -3,31 +3,15 @@ import React from 'react';
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
 import { Alignment, BackgroundView, Box, Button, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  alertBar: {
-    backgroundColor: '#ffdd7e',
-  },
-}));
 
 interface IStyledNavBarProps {
   color?: string;
 }
 
 const StyledNavBar = styled.div<IStyledNavBarProps>`
-  padding: 1em;
   width: 100%;
   box-sizing: border-box; // Prevent padding issue with the Modal and fixed positioned AppBar.
   flex-shrink: 0;
@@ -54,7 +38,6 @@ const StyledNavBar = styled.div<IStyledNavBarProps>`
 
 // TODO(krishan711): this wont need memo once its moved out of each page and to the "App" level
 export const NavigationBar = React.memo((): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
   const navigator = useNavigator();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
@@ -89,7 +72,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   return (
     <StyledNavBar className='absolute'>
       {/* <AppBar position='absolute' className={classes.appBar}> */}
-      <Stack direction={Direction.Horizontal}>
+      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
         <LinkBase target='/'>
           <Box height='30px'>
             <Image
@@ -113,9 +96,9 @@ export const NavigationBar = React.memo((): React.ReactElement => {
           text='Tutorials'
         />
       </Stack>
-      {hasVerifiedEmail && (
+      {!hasVerifiedEmail && (
         <BackgroundView color='#ffdd7e'>
-          <Stack direction={Direction.Horizontal} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
+          <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
             <Text variant='colored'>
               You need to verify your account before you can create and edit sites. Please check your email.
             </Text>
@@ -132,7 +115,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
               </Text>
             )}
           </Stack>
-          </BackgroundView>
+        </BackgroundView>
       )}
     </StyledNavBar>
   );
