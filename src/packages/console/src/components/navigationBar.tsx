@@ -2,10 +2,10 @@ import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import AppBar from '@material-ui/core/AppBar';
+import { Alignment, BackgroundView, Box, Button, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
 
@@ -21,6 +21,36 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ffdd7e',
   },
 }));
+
+interface IStyledNavBarProps {
+  color?: string;
+}
+
+const StyledNavBar = styled.div<IStyledNavBarProps>`
+  padding: 1em;
+  width: 100%;
+  box-sizing: border-box; // Prevent padding issue with the Modal and fixed positioned AppBar.
+  flex-shrink: 0;
+  background: ${(props: IStyledNavBarProps): string => (props.color ? props.color : '#1976d2')};
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+
+  &.sticky{
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    left: auto;
+    right: 0;
+  }
+
+  &.absolute{
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: auto;
+    right: 0;
+  }
+`;
+
 
 // TODO(krishan711): this wont need memo once its moved out of each page and to the "App" level
 export const NavigationBar = React.memo((): React.ReactElement => {
@@ -57,8 +87,9 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   });
 
   return (
-    <AppBar position='absolute' className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
+    <StyledNavBar className='absolute'>
+      {/* <AppBar position='absolute' className={classes.appBar}> */}
+      <Stack direction={Direction.Horizontal}>
         <LinkBase target='/'>
           <Box height='30px'>
             <Image
@@ -69,7 +100,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
             />
           </Box>
         </LinkBase>
-        <div className={classes.spacer} />
+        <Stack.Item growthFactor={1} shrinkFactor={1} />
         <Button
           variant='navButton-logoutButton'
           onClicked={onLogoutClicked}
@@ -81,9 +112,9 @@ export const NavigationBar = React.memo((): React.ReactElement => {
           targetShouldOpenSameTab={false}
           text='Tutorials'
         />
-      </Toolbar>
-      {!hasVerifiedEmail && (
-        <Toolbar className={classes.alertBar}>
+      </Stack>
+      {hasVerifiedEmail && (
+        <BackgroundView color='#ffdd7e'>
           <Stack direction={Direction.Horizontal} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
             <Text variant='colored'>
               You need to verify your account before you can create and edit sites. Please check your email.
@@ -101,9 +132,9 @@ export const NavigationBar = React.memo((): React.ReactElement => {
               </Text>
             )}
           </Stack>
-        </Toolbar>
+          </BackgroundView>
       )}
-    </AppBar>
+    </StyledNavBar>
   );
 }, deepCompare);
 
