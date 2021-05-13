@@ -107,6 +107,9 @@ const theme = buildTheme({
       'border-color': '$colors.backgroundDark25',
       'border-radius': '0',
     },
+    unpadded: {
+      padding: '0px',
+    },
   },
 });
 
