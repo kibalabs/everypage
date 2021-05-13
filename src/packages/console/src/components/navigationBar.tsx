@@ -97,7 +97,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
         />
       </Stack>
       {!hasVerifiedEmail && (
-        <BackgroundView color='#ffdd7e'>
+        <BackgroundView color='$colors.banner'>
           <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
             <Text variant='colored'>
               You need to verify your account before you can create and edit sites. Please check your email.
