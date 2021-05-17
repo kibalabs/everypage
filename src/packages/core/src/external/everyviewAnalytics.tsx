@@ -19,7 +19,7 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): null => {
     }
 
     // NOTE(krishan711): figerprintjs references window immediately: https://github.com/fingerprintjs/fingerprintjs/issues/602
-    // eslint-disable-next-line
+    // eslint-disable-next-line import/no-extraneous-dependencies
     import('@kibalabs/everyview-tracker').then((Everyview) => {
       const tracker = new Everyview.EveryviewTracker(props.applicationId || '');
       tracker.trackApplicationOpen();
