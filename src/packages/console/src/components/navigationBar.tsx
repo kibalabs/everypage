@@ -2,42 +2,42 @@ import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Box, Image } from '@kibalabs/ui-react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import { makeStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { Alignment, BackgroundView, Box, Button, ColorSettingView, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
 
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  alertBar: {
-    backgroundColor: '#ffdd7e',
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  navButton: {
-    marginLeft: '10px',
-    borderColor: 'white',
-    color: 'white',
-  },
-}));
+interface IStyledNavBarProps {
+  color?: string;
+}
+
+const StyledNavBar = styled.div<IStyledNavBarProps>`
+  width: 100%;
+  box-sizing: border-box; // Prevent padding issue with the Modal and fixed positioned AppBar.
+  flex-shrink: 0;
+  background: ${(props: IStyledNavBarProps): string => (props.color ? props.color : '#1976d2')};
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+
+  &.sticky{
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    left: auto;
+    right: 0;
+  }
+
+  &.absolute{
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: auto;
+    right: 0;
+  }
+`;
+
 
 // TODO(krishan711): this wont need memo once its moved out of each page and to the "App" level
 export const NavigationBar = React.memo((): React.ReactElement => {
-  const classes = useStyles();
   const { everypageClient, authManager } = useGlobals();
   const navigator = useNavigator();
   const [verificationSent, setVerificationSent] = React.useState<boolean>(false);
@@ -70,56 +70,51 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   });
 
   return (
-    <AppBar position='absolute' className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <ButtonBase href={'/'}>
-          <Box height={'30px'}>
-            <Image
-              source={'/assets/everypage-wordmark-dark.svg'}
-              alternativeText={'Home'}
-              isFullWidth={false}
-              fitType={'scale'}
-            />
-          </Box>
-        </ButtonBase>
-        <div className={classes.spacer} />
-        <Button
-          variant='outlined'
-          onClick={onLogoutClicked}
-        >
-          Log out
-        </Button>
-        <Button
-          className={classes.navButton}
-          variant='outlined'
-          href='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
-          target='_blank'
-        >
-          Tutorials
-        </Button>
-      </Toolbar>
-      {!hasVerifiedEmail && (
-        <Toolbar className={classes.alertBar}>
-          <Typography color='textPrimary'>
-            You need to verify your account before you can create and edit sites. Please check your email.
-          </Typography>
-          <div className={classes.spacer} />
-          {!verificationSent && (
-            <Button
-              variant='outlined'
-              onClick={onResendVerificationClicked}
-            >
-              Resend Verification
-            </Button>
-          )}
-          {verificationSent && (
-            <Typography color='textPrimary'>
-              Email sent.
-            </Typography>
-          )}
-        </Toolbar>
-      )}
-    </AppBar>
+    <ColorSettingView variant='branded'>
+      <StyledNavBar className='absolute'>
+        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
+          <LinkBase target='/'>
+            <Box height='30px'>
+              <Image
+                source='/assets/everypage-wordmark-dark.svg'
+                alternativeText='Home'
+                isFullWidth={false}
+                fitType='scale'
+              />
+            </Box>
+          </LinkBase>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Button
+            variant='secondary'
+            target='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
+            targetShouldOpenSameTab={false}
+            text='Tutorials'
+          />
+          <Button
+            variant='tertiary'
+            onClicked={onLogoutClicked}
+            text='Log out'
+          />
+        </Stack>
+        {!hasVerifiedEmail && (
+          <BackgroundView color='$colors.banner'>
+            <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
+              <Text variant='colored'>You need to verify your account before you can create and edit sites. Please check your email.</Text>
+              {!verificationSent && (
+                <Button
+                  variant='secondary'
+                  onClicked={onResendVerificationClicked}
+                  text='Resend Verification'
+                />
+              )}
+              {verificationSent && (
+                <Text variant='colored'>Email sent.</Text>
+              )}
+            </Stack>
+          </BackgroundView>
+        )}
+      </StyledNavBar>
+    </ColorSettingView>
   );
 }, deepCompare);
 
