@@ -99,9 +99,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
         {!hasVerifiedEmail && (
           <BackgroundView color='$colors.banner'>
             <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
-              <Text variant='colored'>
-                You need to verify your account before you can create and edit sites. Please check your email.
-              </Text>
+              <Text variant='colored'>You need to verify your account before you can create and edit sites. Please check your email.</Text>
               {!verificationSent && (
                 <Button
                   variant='secondary'
@@ -110,9 +108,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
                 />
               )}
               {verificationSent && (
-                <Text variant='colored'>
-                Email sent.
-                </Text>
+                <Text variant='colored'>Email sent.</Text>
               )}
             </Stack>
           </BackgroundView>

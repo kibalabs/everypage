@@ -51,7 +51,7 @@ const theme = buildTheme({
     branded: {
       background: '#4b6cb7',
       brandPrimary: '#ffffff',
-    }
+    },
   },
   buttons: {
     default: {
