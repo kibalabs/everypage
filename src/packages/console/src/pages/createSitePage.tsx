@@ -143,7 +143,8 @@ export const CreateSitePage = (): React.ReactElement => {
                       selectedItemKey={String(selectedAccountId)}
                       inputWrapperVariant={selectedAccountIdError && 'error'}
                       messageText={selectedAccountIdError} onItemClicked={onAccountSelected}
-                      options={accounts?.map((account: Account) => ({ itemKey: String(account.accountId),
+                      options={accounts?.map((account: Account) => ({
+                        itemKey: String(account.accountId),
                         text: account.name,
                         textVariant: 'selectItemText' }))
                       || []}
