@@ -3,7 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useIntegerUrlQueryState, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Form, IconButton, InputType, KibaIcon, OptionSelect, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Form, IconButton, InputType, IOption, KibaIcon, OptionSelect, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
@@ -143,11 +143,10 @@ export const CreateSitePage = (): React.ReactElement => {
                       selectedItemKey={String(selectedAccountId)}
                       inputWrapperVariant={selectedAccountIdError && 'error'}
                       messageText={selectedAccountIdError} onItemClicked={onAccountSelected}
-                      options={accounts?.map((account: Account) => (
+                      options={(accounts || []).map((account: Account): IOption => (
                         { itemKey: String(account.accountId),
                           text: account.name,
-                          textVariant: 'selectItemText' }))
-                      || []}
+                          textVariant: 'selectItemText' }))}
                     />
                     <SingleLineInput
                       id='slug'
