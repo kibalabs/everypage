@@ -47,6 +47,12 @@ const theme = buildTheme({
     brandSecondary: '#182848',
     banner: '#ffdd7e',
   },
+  alternateColors: {
+    branded: {
+      background: '#4b6cb7',
+      brandPrimary: '#ffffff',
+    }
+  },
   buttons: {
     default: {
       normal: {
@@ -65,45 +71,6 @@ const theme = buildTheme({
         default: {
           background: {
             padding: `${defaultTheme.dimensions.padding} ${defaultTheme.dimensions.paddingWide}`,
-          },
-        },
-      },
-    },
-    navButton: {
-      normal: {
-        default: {
-          background: {
-            margin: '0px 0px 0px 10px',
-            'border-color': 'white',
-            'border-radius': '5px',
-            'border-width': '1px',
-          },
-          text: {
-            color: 'white',
-            'font-weight': '300',
-            'text-transform': 'uppercase',
-          },
-        },
-        hover: {
-          background: {
-            'background-color': '$colors.brandPrimaryClear10',
-          },
-        },
-      },
-    },
-    logoutButton: {
-      normal: {
-        default: {
-          background: {
-            'border-color': '$colors.brandSecondaryDark20',
-          },
-          text: {
-            color: '$colors.brandSecondaryDark20',
-          },
-        },
-        hover: {
-          background: {
-            'background-color': '$colors.brandPrimaryDark10',
           },
         },
       },

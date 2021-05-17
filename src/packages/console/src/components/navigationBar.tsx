@@ -2,7 +2,7 @@ import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, BackgroundView, Box, Button, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Box, Button, ColorSettingView, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
@@ -70,54 +70,55 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   });
 
   return (
-    <StyledNavBar className='absolute'>
-      {/* <AppBar position='absolute' className={classes.appBar}> */}
-      <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
-        <LinkBase target='/'>
-          <Box height='30px'>
-            <Image
-              source='/assets/everypage-wordmark-dark.svg'
-              alternativeText='Home'
-              isFullWidth={false}
-              fitType='scale'
-            />
-          </Box>
-        </LinkBase>
-        <Stack.Item growthFactor={1} shrinkFactor={1} />
-        <Button
-          variant='navButton-logoutButton'
-          onClicked={onLogoutClicked}
-          text='Log out'
-        />
-        <Button
-          variant='navButton'
-          target='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
-          targetShouldOpenSameTab={false}
-          text='Tutorials'
-        />
-      </Stack>
-      {!hasVerifiedEmail && (
-        <BackgroundView color='$colors.banner'>
-          <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
-            <Text variant='colored'>
-              You need to verify your account before you can create and edit sites. Please check your email.
-            </Text>
-            {!verificationSent && (
-              <Button
-                variant='secondary'
-                onClicked={onResendVerificationClicked}
-                text='Resend Verification'
+    <ColorSettingView variant='branded'>
+      <StyledNavBar className='absolute'>
+        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
+          <LinkBase target='/'>
+            <Box height='30px'>
+              <Image
+                source='/assets/everypage-wordmark-dark.svg'
+                alternativeText='Home'
+                isFullWidth={false}
+                fitType='scale'
               />
-            )}
-            {verificationSent && (
+            </Box>
+          </LinkBase>
+          <Stack.Item growthFactor={1} shrinkFactor={1} />
+          <Button
+            variant='secondary'
+            target='https://www.notion.so/kibalabs/everypage-learning-12109edaac1e4d5eb08672cadaa2fc26'
+            targetShouldOpenSameTab={false}
+            text='Tutorials'
+          />
+          <Button
+            variant='tertiary'
+            onClicked={onLogoutClicked}
+            text='Log out'
+          />
+        </Stack>
+        {!hasVerifiedEmail && (
+          <BackgroundView color='$colors.banner'>
+            <Stack direction={Direction.Horizontal} padding={PaddingSize.Wide} defaultGutter={PaddingSize.Wide} shouldAddGutters={true} childAlignment={Alignment.Center}>
               <Text variant='colored'>
-              Email sent.
+                You need to verify your account before you can create and edit sites. Please check your email.
               </Text>
-            )}
-          </Stack>
-        </BackgroundView>
-      )}
-    </StyledNavBar>
+              {!verificationSent && (
+                <Button
+                  variant='secondary'
+                  onClicked={onResendVerificationClicked}
+                  text='Resend Verification'
+                />
+              )}
+              {verificationSent && (
+                <Text variant='colored'>
+                Email sent.
+                </Text>
+              )}
+            </Stack>
+          </BackgroundView>
+        )}
+      </StyledNavBar>
+    </ColorSettingView>
   );
 }, deepCompare);
 
