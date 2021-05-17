@@ -139,7 +139,15 @@ export const CreateSitePage = (): React.ReactElement => {
               ) : (
                 <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
                   <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true} defaultGutter={PaddingSize.Wide}>
-                    <OptionSelect selectedItemKey={String(selectedAccountId)} inputWrapperVariant={selectedAccountIdError && 'error'} messageText={selectedAccountIdError} onItemClicked={onAccountSelected} options={accounts?.map((account: Account) => ({ itemKey: String(account.accountId), text: account.name, textVariant: 'selectItemText' })) || []} />
+                    <OptionSelect
+                      selectedItemKey={String(selectedAccountId)}
+                      inputWrapperVariant={selectedAccountIdError && 'error'}
+                      messageText={selectedAccountIdError} onItemClicked={onAccountSelected}
+                      options={accounts?.map((account: Account) => ({ itemKey: String(account.accountId),
+                        text: account.name,
+                        textVariant: 'selectItemText' }))
+                      || []}
+                    />
                     <SingleLineInput
                       id='slug'
                       label='Site slug'
