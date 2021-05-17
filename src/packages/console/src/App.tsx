@@ -105,6 +105,9 @@ const theme = buildTheme({
     error: {
       color: '$colors.error',
     },
+    selectItemText: {
+      "font-size": '14px'
+    }
   },
   boxes: {
     banner: {
