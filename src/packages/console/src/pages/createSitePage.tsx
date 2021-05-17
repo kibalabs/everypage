@@ -3,11 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useIntegerUrlQueryState, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Form, IconButton, InputType, KibaIcon, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import { Alignment, Box, Button, Direction, Form, IconButton, InputType, IOption, KibaIcon, OptionSelect, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
@@ -99,8 +95,8 @@ export const CreateSitePage = (): React.ReactElement => {
     setNameError(undefined);
   };
 
-  const onAccountSelected = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setSelectedAccountId(event.target.value);
+  const onAccountSelected = (itemKey: string): void => {
+    setSelectedAccountId(parseInt(itemKey, 10));
   };
 
   const onAccountUpgradePopupCloseClicked = (): void => {
@@ -143,26 +139,16 @@ export const CreateSitePage = (): React.ReactElement => {
               ) : (
                 <Form isLoading={isLoading || accounts === undefined} onFormSubmitted={onCreateSiteClicked}>
                   <Stack direction={Direction.Vertical} shouldAddGutters={true} isFullWidth={true} defaultGutter={PaddingSize.Wide}>
-                    <FormControl
-                      variant='outlined'
-                      margin='normal'
-                      required
-                      fullWidth
-                    >
-                      <InputLabel id='account-select-label'>Account</InputLabel>
-                      <Select
-                        labelId='account-select-label'
-                        value={selectedAccountId}
-                        onChange={onAccountSelected}
-                        error={selectedAccountIdError !== undefined}
-                        label='Account'
-                        // helperText={selectedAccountIdError}
-                      >
-                        {accounts?.map((account: Account, index: number): React.ReactElement => (
-                          <MenuItem key={index} value={account.accountId}>{account.name}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
+                    <OptionSelect
+                      selectedItemKey={String(selectedAccountId)}
+                      inputWrapperVariant={selectedAccountIdError && 'error'}
+                      messageText={selectedAccountIdError} onItemClicked={onAccountSelected}
+                      options={(accounts || []).map((account: Account): IOption => ({
+                        itemKey: String(account.accountId),
+                        text: account.name,
+                        textVariant: 'selectItemText',
+                      }))}
+                    />
                     <SingleLineInput
                       id='slug'
                       label='Site slug'
