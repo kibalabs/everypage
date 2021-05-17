@@ -108,8 +108,8 @@ export const HomePage = (): React.ReactElement => {
                 </Stack>
                 <Spacing variant={PaddingSize.Wide} />
                 <EqualGrid childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} contentAlignment={Alignment.Start} shouldAddGutters={true}>
-                  {accountSites[account.accountId].map((site: Site, innerIndex: number) => (
-                    <SiteCard key={innerIndex} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
+                  {accountSites[account.accountId].map((site: Site) => (
+                    <SiteCard key={site.siteId} site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                   ))}
                 </EqualGrid>
                 {accountSites[account.accountId].length === 0 && (

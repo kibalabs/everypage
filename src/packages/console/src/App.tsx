@@ -45,6 +45,13 @@ const theme = buildTheme({
   colors: {
     brandPrimary: '#4b6cb7',
     brandSecondary: '#182848',
+    banner: '#ffdd7e',
+  },
+  alternateColors: {
+    branded: {
+      background: '#4b6cb7',
+      brandPrimary: '#ffffff',
+    },
   },
   buttons: {
     default: {
