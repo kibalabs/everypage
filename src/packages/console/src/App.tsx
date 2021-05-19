@@ -95,6 +95,17 @@ const theme = buildTheme({
       },
     },
   },
+  inputWrappers: {
+    stripeField: {
+      normal: {
+        default: {
+          background: {
+            padding: `${defaultTheme.dimensions.paddingWide} ${defaultTheme.dimensions.paddingWide}`,
+          },
+        },
+      },
+    },
+  },
   texts: {
     default: {
       'font-size': '16px',
@@ -107,6 +118,9 @@ const theme = buildTheme({
     },
     selectItemText: {
       'font-size': '0.875rem',
+    },
+    singleLine: {
+      'white-space': 'pre',
     },
   },
   boxes: {

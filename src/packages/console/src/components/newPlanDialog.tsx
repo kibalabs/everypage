@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Alignment, Button, Dialog, Direction, LoadingSpinner, PaddingSize, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
-import TextField from '@material-ui/core/TextField';
+import { Alignment, Button, Dialog, Direction, InputWrapper, LoadingSpinner, PaddingSize, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import { CardElement } from '@stripe/react-stripe-js';
 
 import { IPlan } from '../consoleConfig';
@@ -84,22 +83,9 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
               {props.currentPlan.code === 'core' ? (
                 <React.Fragment>
                   <Stack.Item gutterAfter={PaddingSize.None}>
-                    <TextField
-                      variant='outlined'
-                      margin='normal'
-                      fullWidth
-                      label='Card Details'
-                      disabled={isLoading}
-                      InputLabelProps={{ shrink: true }}
-                      InputProps={{
-                        inputComponent: StripeInput,
-                        inputProps: {
-                          component: CardElement,
-                        },
-                      }}
-                      error={cardError != null}
-                      helperText={cardError}
-                    />
+                    <InputWrapper variant={`stripeField-${cardError && 'error'}`} messageText={cardError} isEnabled={!isLoading}>
+                      <CardElement />
+                    </InputWrapper>
                   </Stack.Item>
                   <Text variant='note'>Secured by Stripe</Text>
                 </React.Fragment>
@@ -141,24 +127,3 @@ export const NewPlanDialog = (props: INewPlanDialogProps): React.ReactElement =>
     </Dialog>
   );
 };
-
-interface StripeInputProps {
-  component: React.Component;
-  inputRef: React.Ref<HTMLInputElement>;
-}
-
-const StripeInput = (props: StripeInputProps): React.ReactElement => {
-  const elementRef = React.useRef();
-  React.useImperativeHandle(props.inputRef, () => ({
-    focus: () => elementRef.current.focus,
-  }));
-  return (
-    <props.component
-      // eslint-disable-next-line no-return-assign
-      onReady={(element) => (elementRef.current = element)}
-      {...props}
-    />
-  );
-};
-
-export default StripeInput;
