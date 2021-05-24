@@ -215,7 +215,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
                             <Text variant='header5'>{plan.name}</Text>
                             <Spacing variant={PaddingSize.Wide} />
-                            <Text variant='light'>{plan.highlightFeature.toUpperCase()}</Text>
+                            <Text variant='light-singleLine'>{plan.highlightFeature.toUpperCase()}</Text>
                             <Spacing variant={PaddingSize.Wide2} />
                             <Text variant='bold-branded'>{`$${plan.priceMonthly / 100}`}</Text>
                             <Text variant='light'>per month</Text>

@@ -2,9 +2,7 @@ import React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, Box, Button, Checkbox, Direction, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
-import MaterialBox from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
+import { Alignment, BackgroundView, Box, Button, Checkbox, Direction, Divider, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { Section } from '../everypageClient';
 import { ContentEditor } from './contentEditor';
@@ -16,63 +14,6 @@ import { SectionChooserDialog } from './sectionChooserDialog';
 const TAB_KEY_CONTENT = 'content';
 const TAB_KEY_THEME = 'theme';
 const TAB_KEY_MEDIA = 'media';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-    width: '100%',
-  },
-  frameWrapper: {
-    flexGrow: 1,
-    flexShrink: 1,
-  },
-  editorWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    width: '500px',
-    backgroundColor: 'white',
-  },
-  editor: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexDirection: 'column',
-    overflow: 'hidden',
-    // for safari flex fix (https://github.com/philipwalton/flexbugs/issues/197)
-    height: 0,
-  },
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    left: theme.spacing(2),
-  },
-  buttonBar: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-  },
-  buttonBar2: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    padding: theme.spacing(1),
-  },
-  buttonSelected: {
-    backgroundColor: '#111111',
-  },
-  verticalLine: {
-    backgroundColor: '#333333',
-    width: '1px',
-    height: '100%',
-  },
-}));
 
 interface ICanvasProps {
   isEditable: boolean;
@@ -92,7 +33,6 @@ interface ICanvasProps {
 }
 
 export const Canvas = (props: ICanvasProps): React.ReactElement => {
-  const classes = useStyles();
   const [selectedEditorTabKey, setSelectedEditorTabKey] = React.useState<string>(TAB_KEY_CONTENT);
   const [isSectionChooserShowing, setIsSectionChooserShowing] = React.useState<boolean>(false);
   const [chosenSectionId, setChosenSectionId] = React.useState<string | undefined>(undefined);
@@ -193,40 +133,44 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
           </Stack>
         </Box>
-        <div className={classes.root}>
+        <Stack direction={Direction.Horizontal} isFullHeight={true}>
           {!props.isEditorHidden && (
-            <div className={classes.editorWrapper}>
-              <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
-                <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
-                <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
-                <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
-              </TabBar>
-              {selectedEditorTabKey === TAB_KEY_CONTENT && (
-                <MaterialBox className={classes.editor} display={'flex'}>
-                  <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-                </MaterialBox>
-              )}
-              {selectedEditorTabKey === TAB_KEY_THEME && (
-                <MaterialBox className={classes.editor} display={'flex'}>
-                  <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-                </MaterialBox>
-              )}
-              {selectedEditorTabKey === TAB_KEY_MEDIA && (
-                <MaterialBox className={classes.editor} display={'flex'}>
-                  {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-                  {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
-                  <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-                </MaterialBox>
-              )}
-            </div>
+            <BackgroundView color='white'>
+              <Box width='500px' height='100%'>
+                <Stack direction={Direction.Vertical} isFullHeight={true}>
+                  <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
+                    <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
+                    <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
+                    <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
+                  </TabBar>
+                  {selectedEditorTabKey === TAB_KEY_CONTENT && (
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+                    </Stack.Item>
+                  )}
+                  {selectedEditorTabKey === TAB_KEY_THEME && (
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+                    </Stack.Item>
+                  )}
+                  {selectedEditorTabKey === TAB_KEY_MEDIA && (
+                    <Stack.Item growthFactor={1} shrinkFactor={1}>
+                      {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                      {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
+                      <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+                    </Stack.Item>
+                  )}
+                </Stack>
+              </Box>
+            </BackgroundView>
           )}
-          {!props.isEditorHidden && <div className={classes.verticalLine} />}
-          <div className={classes.frameWrapper}>
+          {!props.isEditorHidden && <Divider orientation='vertical' />}
+          <Stack.Item growthFactor={1} shrinkFactor={1}>
             <KibaFrame selectedElementId={chosenSectionId}>
               <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
             </KibaFrame>
-          </div>
-        </div>
+          </Stack.Item>
+        </Stack>
       </Stack>
 
       <SectionChooserDialog
