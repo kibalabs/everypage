@@ -19,6 +19,7 @@ interface ICanvasProps {
   isEditable: boolean;
   title?: string;
   subtitle?: string;
+  className?: string;
   isEditorHidden: boolean;
   onIsEditorHiddenToggled: () => void;
   isMetaHidden: boolean;
@@ -122,7 +123,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
+      <Stack className={props.className} direction={Direction.Vertical}>
         <Box variant='banner'>
           <Stack direction={Direction.Horizontal} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>
             <Text variant='header5'>{props.title || ''}</Text>
@@ -133,44 +134,46 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
           </Stack>
         </Box>
-        <Stack direction={Direction.Horizontal} isFullHeight={true}>
-          {!props.isEditorHidden && (
-            <BackgroundView color='white'>
-              <Box width='500px' height='100%'>
-                <Stack direction={Direction.Vertical} isFullHeight={true}>
-                  <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
-                    <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
-                    <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
-                    <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
-                  </TabBar>
-                  {selectedEditorTabKey === TAB_KEY_CONTENT && (
-                    <Stack.Item growthFactor={1} shrinkFactor={1}>
-                      <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
-                    </Stack.Item>
-                  )}
-                  {selectedEditorTabKey === TAB_KEY_THEME && (
-                    <Stack.Item growthFactor={1} shrinkFactor={1}>
-                      <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
-                    </Stack.Item>
-                  )}
-                  {selectedEditorTabKey === TAB_KEY_MEDIA && (
-                    <Stack.Item growthFactor={1} shrinkFactor={1}>
-                      {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
-                      {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
-                      <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
-                    </Stack.Item>
-                  )}
-                </Stack>
-              </Box>
-            </BackgroundView>
-          )}
-          {!props.isEditorHidden && <Divider orientation='vertical' />}
-          <Stack.Item growthFactor={1} shrinkFactor={1}>
-            <KibaFrame selectedElementId={chosenSectionId}>
-              <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
-            </KibaFrame>
-          </Stack.Item>
-        </Stack>
+        <Stack.Item growthFactor={1} shrinkFactor={1}>
+          <Stack direction={Direction.Horizontal} isFullHeight={true}>
+            {!props.isEditorHidden && (
+              <BackgroundView color='white'>
+                <Box width='500px' height='100%'>
+                  <Stack direction={Direction.Vertical} isFullHeight={true}>
+                    <TabBar selectedTabKey={selectedEditorTabKey} onTabKeySelected={onEditorTabKeySelected}>
+                      <TabBar.Item tabKey={TAB_KEY_CONTENT} text='Content' isExpandable={true} />
+                      <TabBar.Item tabKey={TAB_KEY_THEME} text='Theme' isExpandable={true} />
+                      <TabBar.Item tabKey={TAB_KEY_MEDIA} text='Media' isExpandable={true} />
+                    </TabBar>
+                    {selectedEditorTabKey === TAB_KEY_CONTENT && (
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        <ContentEditor isEditable={props.isEditable} siteContent={props.siteContent} onAddSectionClicked={onAddSectionClicked} onSiteContentUpdated={onSiteContentUpdated} onNavigationChanged={onNavigationChanged} />
+                      </Stack.Item>
+                    )}
+                    {selectedEditorTabKey === TAB_KEY_THEME && (
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        <JsonEditor isEditable={props.isEditable} name='theme' json={props.siteTheme} onJsonUpdated={onSiteThemeUpdated} />
+                      </Stack.Item>
+                    )}
+                    {selectedEditorTabKey === TAB_KEY_MEDIA && (
+                      <Stack.Item growthFactor={1} shrinkFactor={1}>
+                        {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                        {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
+                        <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
+                      </Stack.Item>
+                    )}
+                  </Stack>
+                </Box>
+              </BackgroundView>
+            )}
+            {!props.isEditorHidden && <Divider orientation='vertical' />}
+            <Stack.Item growthFactor={1} shrinkFactor={1}>
+              <KibaFrame selectedElementId={chosenSectionId}>
+                <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
+              </KibaFrame>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
       </Stack>
 
       <SectionChooserDialog

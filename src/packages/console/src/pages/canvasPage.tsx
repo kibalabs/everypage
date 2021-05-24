@@ -91,21 +91,23 @@ export const CanvasPage = (): React.ReactElement => {
           </Stack>
         </Stack>
       </Box>
-      {siteContent && (
-        <Canvas
-          isEditable={true}
-          isEditorHidden={isEditorHidden}
-          onIsEditorHiddenToggled={onIsEditorHiddenToggled}
-          isMetaHidden={isMetaHidden}
-          onIsMetaHiddenToggled={onIsMetaHiddenToggled}
-          siteContent={siteContent}
-          onSiteContentUpdated={onSiteContentUpdated}
-          siteTheme={siteTheme}
-          onSiteThemeUpdated={onSiteThemeUpdated}
-          assetFileMap={assetFileMap}
-          addAssetFiles={addAssetFiles}
-        />
-      )}
+      <Stack.Item growthFactor={1} shrinkFactor={1}>
+        {siteContent && (
+          <Canvas
+            isEditable={true}
+            isEditorHidden={isEditorHidden}
+            onIsEditorHiddenToggled={onIsEditorHiddenToggled}
+            isMetaHidden={isMetaHidden}
+            onIsMetaHiddenToggled={onIsMetaHiddenToggled}
+            siteContent={siteContent}
+            onSiteContentUpdated={onSiteContentUpdated}
+            siteTheme={siteTheme}
+            onSiteThemeUpdated={onSiteThemeUpdated}
+            assetFileMap={assetFileMap}
+            addAssetFiles={addAssetFiles}
+          />
+        )}
+      </Stack.Item>
 
       <TemplateChooserModal
         isOpen={!siteContent}

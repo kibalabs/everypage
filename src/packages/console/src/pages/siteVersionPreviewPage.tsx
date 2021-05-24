@@ -189,7 +189,6 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <NavigationBar />
         <Spacing variant={PaddingSize.Narrow} />
-        <Spacing variant={PaddingSize.Wide1} />
         <Spacing variant={PaddingSize.Wide3} />
         {site === null || siteVersion === null || siteVersionEntry === null ? (
           <Text>Error loading site version. Please go back and try again...</Text>

@@ -5,6 +5,7 @@ import { LocalStorageClient } from '@kibalabs/core';
 import { AuthManager } from './authManager';
 import { IConsoleConfig } from './consoleConfig';
 import { EverypageClient } from './everypageClient';
+import { IMultiAnyChildProps } from '@kibalabs/core-react';
 
 
 export interface IGlobals {
@@ -16,9 +17,8 @@ export interface IGlobals {
 
 export const GlobalsContext = React.createContext<IGlobals | null>(null);
 
-interface IGlobalsProviderProps {
+interface IGlobalsProviderProps extends IMultiAnyChildProps {
   globals: IGlobals;
-  children: React.ReactChild;
 }
 
 export const GlobalsProvider = (props: IGlobalsProviderProps): React.ReactElement => (

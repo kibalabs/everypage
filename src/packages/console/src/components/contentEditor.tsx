@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
 import { getMetaFromWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, BackgroundView, Button, Direction, HidingView, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Box, Button, Direction, HidingView, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { JsonEditor } from './jsonEditor';
 import { SiteMetaCard } from './siteMetaCard';
@@ -15,6 +15,7 @@ const TAB_KEY_JSON = 'json';
 interface IContentEditorProps {
   isEditable: boolean;
   siteContent: IWebsite;
+  className?: string;
   onAddSectionClicked: () => void;
   onNavigationChanged: (path: string) => void;
   onSiteContentUpdated: (siteContent: IWebsite) => void;
@@ -117,11 +118,11 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   }, [props.onSiteContentUpdated]);
 
   return (
-    <Stack direction={Direction.Vertical} isFullHeight={true}>
+    <Stack id='content-editor' className={props.className} direction={Direction.Vertical}>
       <HidingView isHidden={currentPath === undefined}>
         <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
           <Button text='Back' onClicked={onBackClicked} iconLeft={<KibaIcon iconId='ion-arrow-back' />} />
-          <Stack.Item growthFactor={1}>
+          <Stack.Item growthFactor={1} shrinkFactor={1}>
             <Text>{currentPath}</Text>
           </Stack.Item>
         </Stack>
@@ -135,6 +136,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
       <Stack.Item growthFactor={1} shrinkFactor={1}>
         <HidingView isHidden={selectedTypeTabKey !== TAB_KEY_FORM || currentPath !== undefined}>
           <BackgroundView color='$colors.background'>
+            <Box isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Vertical} isScrollableVertically={true} paddingHorizontal={PaddingSize.Wide} shouldAddGutters={true}>
               <Spacing variant={PaddingSize.Wide} />
               {/* {currentPath && currentPath === 'metadata' && (
@@ -176,19 +178,18 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
                   />
                 </LinkBase>
               ))}
-              {/* </React.Fragment>
-              )} */}
-              <Stack.Item growthFactor={1}>
+              <Stack.Item growthFactor={1} shrinkFactor={1}>
                 <Spacing variant={PaddingSize.Wide} />
               </Stack.Item>
             </Stack>
+            </Box>
           </BackgroundView>
         </HidingView>
       </Stack.Item>
       <HidingView isHidden={currentPath !== undefined || selectedTypeTabKey !== TAB_KEY_JSON || !props.isEditable}>
         <Button text='Add section' onClicked={props.onAddSectionClicked} />
       </HidingView>
-      <Stack.Item growthFactor={1}>
+      <Stack.Item growthFactor={1} shrinkFactor={1}>
         {(selectedTypeTabKey === TAB_KEY_JSON || currentPath !== undefined) && (
           <JsonEditor isEditable={props.isEditable} name='site' json={getJsonFromPath()} onJsonUpdated={onJsonUpdated} />
         )}
