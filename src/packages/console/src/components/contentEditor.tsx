@@ -136,7 +136,6 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
       <Stack.Item growthFactor={1} shrinkFactor={1}>
         <HidingView isHidden={selectedTypeTabKey !== TAB_KEY_FORM || currentPath !== undefined}>
           <BackgroundView color='$colors.background'>
-            <Box isFullHeight={true} isFullWidth={true}>
             <Stack direction={Direction.Vertical} isScrollableVertically={true} paddingHorizontal={PaddingSize.Wide} shouldAddGutters={true}>
               <Spacing variant={PaddingSize.Wide} />
               {/* {currentPath && currentPath === 'metadata' && (
@@ -182,7 +181,6 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
                 <Spacing variant={PaddingSize.Wide} />
               </Stack.Item>
             </Stack>
-            </Box>
           </BackgroundView>
         </HidingView>
       </Stack.Item>
