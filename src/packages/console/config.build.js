@@ -3,7 +3,6 @@ const path = require('path');
 
 // NOTE(krishan711): this sucks! Find another way to use local libraries with lerna monorepos without this mess
 const nodeModulesDirectory = path.join(__dirname, '..', '..', './node_modules');
-const localNodeModulesDirectory = path.join(__dirname, './node_modules');
 
 module.exports = (config) => {
   config.shouldAliasModules = false;
@@ -18,7 +17,6 @@ module.exports = (config) => {
       '@kibalabs/core': path.resolve(nodeModulesDirectory, '@kibalabs/core'),
       '@kibalabs/core-react': path.resolve(nodeModulesDirectory, '@kibalabs/core-react'),
       '@kibalabs/ui-react': path.resolve(nodeModulesDirectory, '@kibalabs/ui-react'),
-      '@kibalabs/everypage': path.resolve(localNodeModulesDirectory, '@kibalabs/everypage'),
     };
     return webpackConfig;
   };
