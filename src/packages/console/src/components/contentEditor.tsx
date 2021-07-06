@@ -53,7 +53,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
 
   const getJsonFromPath = (): Record<string, unknown> => {
     if (currentPath && currentPath === 'metadata') {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line unused-imports/no-unused-vars
       const { sections, plugins, ...metadata } = props.siteContent;
       return metadata;
     }

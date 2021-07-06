@@ -73,7 +73,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     makeJsWebpackConfig({ polyfill: true, react: true }),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({ dev: false, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory: outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
+    makeReactAppWebpackConfig({ dev: false, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
     {
       performance: {
         hints: false,
