@@ -1,4 +1,4 @@
-<!--- Title format: [Feature | Fix | Task#] - <summary of your changes> -->
+<!--- Title format: [Feature | Fix | Task#]: <summary of your changes> -->
 
 ## Description
 
