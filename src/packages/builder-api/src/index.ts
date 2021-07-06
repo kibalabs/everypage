@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 
 import { renderSite } from '@kibalabs/everypage-cli';
-import archiver from 'archiver';
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import rimraf from 'rimraf';
+import archiver from 'archiver';
 
 const app = express();
 const port = 5000;

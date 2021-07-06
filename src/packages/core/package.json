@@ -9,9 +9,9 @@
   },
   "bugs": "https://github.com/kibalabs/everypage/issues",
   "scripts": {
-    "build": "build-react-component",
-    "start": "build-react-component --start",
-    "start-dev": "build-react-component --start --dev",
+    "build": "build-react-component --config-modifier ./config.build.js",
+    "start": "build-react-component --config-modifier ./config.build.js --start",
+    "start-dev": "build-react-component --config-modifier ./config.build.js --start --dev",
     "pack": "npm pack",
     "publish": "kiba-publish"
   },
@@ -22,26 +22,26 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "dependencies": {
-    "@kibalabs/core": "^0.5.3",
-    "@kibalabs/core-react": "^0.6.1-next.0"
+    "@kibalabs/core": "^0.5.4-next.1",
+    "@kibalabs/core-react": "0.6.1-next.4"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.6.4",
+    "@kibalabs/build": "0.6.5-next.10",
     "@kibalabs/everyview-tracker": "0.2.4",
-    "@kibalabs/ui-react": "^0.8.5-next.28",
+    "@kibalabs/ui-react": "0.8.5-next.31",
     "@types/react": "17.0.1",
     "@types/react-dom": "17.0.0",
     "@types/styled-components": "5.1.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-ga": "3.0.0",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.3.0"
   },
   "peerDependencies": {
-    "@kibalabs/ui-react": "^0.8.5-next.28",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0",
-    "styled-components": "^5.2.0"
+    "@kibalabs/ui-react": "0.8.5-next.31",
+    "react": "^16.9.0 || ^17.0.0",
+    "react-dom": "^16.9.0 || ^17.0.0",
+    "styled-components": "^5.3.0"
   },
   "optionalDependencies": {
     "@kibalabs/everyview-tracker": "^0.2.4",

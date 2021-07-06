@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IndexPage, replaceAssetPaths } from '@kibalabs/everypage';
 import { IWebsite } from '@kibalabs/everypage/src/model/website';
-import { Alignment, BackgroundView, Box, Button, Checkbox, Direction, Divider, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Box, Button, Switch, Checkbox, Direction, Divider, ITheme, PaddingSize, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { Section } from '../everypageClient';
 import { ContentEditor } from './contentEditor';
@@ -130,7 +130,9 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             {!props.isEditable && <Text variant='light'>{'view-only mode'}</Text>}
             <Button text={props.isEditorHidden ? 'Show editor' : 'Hide editor'} onClicked={onIsEditorHiddenToggled} />
             <Stack.Item growthFactor={1} shrinkFactor={1} />
-            <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
+            <Text>Show Metadata</Text>
+            <Switch isChecked={!props.isMetaHidden} onToggled={onIsMetaHiddenToggled} />
+            {/* <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} /> */}
           </Stack>
         </Box>
         <Stack direction={Direction.Horizontal} isFullHeight={true}>
