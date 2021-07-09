@@ -279,7 +279,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
         <title>{`${site ? site.name : 'Site page'} | Everypage Console`}</title>
       </Helmet>
       <ContainingView>
-        <Stack direction={Direction.Vertical} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
+        <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
+          <Spacing variant={PaddingSize.Wide3} />
           {site === null ? (
             <Text>Site not found</Text>
           ) : isLoading || site === undefined || versions === undefined || primaryVersionId === undefined || account === undefined ? (

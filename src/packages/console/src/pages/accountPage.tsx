@@ -2,7 +2,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Grid, IGridItemProps, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
 import Helmet from 'react-helmet';
@@ -155,9 +155,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
       <Helmet>
         <title>{`${account ? account.name : 'Account page'} | Everypage Console`}</title>
       </Helmet>
-
       <ResponsiveContainingView size={12}>
-        <Stack direction={Direction.Vertical} isFullWidth={true} paddingTop={PaddingSize.Wide4} paddingBottom={PaddingSize.Wide2} isScrollableHorizontally={false}>
+        <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
+          <Spacing variant={PaddingSize.Wide3} />
           {account === undefined || accountSites === undefined ? (
             <Text tag='p'>loading...</Text>
           ) : account === null || accountSites === null ? (
@@ -186,7 +186,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                   <Text>{`${accountSites.length} sites`}</Text>
                 </Stack>
                 <Grid contentAlignment={Alignment.Start} shouldAddGutters={true} paddingHorizontal={PaddingSize.Wide} paddingVertical={PaddingSize.Wide}>
-                  {accountSites.map((site: Site, innerIndex: number) => (
+                  {accountSites.map((site: Site, innerIndex: number): React.ReactElement<IGridItemProps> => (
                     <Grid.Item sizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }} key={innerIndex}>
                       <SiteCard site={site} onSiteClicked={onSiteClicked} isEnabled={authManager.getHasJwtPermission(`st-${site.siteId}-vw`)} />
                     </Grid.Item>
@@ -215,7 +215,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
                           <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start}>
                             <Text variant='header5'>{plan.name}</Text>
                             <Spacing variant={PaddingSize.Wide} />
-                            <Text variant='light-singleLine'>{plan.highlightFeature.toUpperCase()}</Text>
+                            <Text variant='light'>{plan.highlightFeature}</Text>
                             <Spacing variant={PaddingSize.Wide2} />
                             <Text variant='bold-branded'>{`$${plan.priceMonthly / 100}`}</Text>
                             <Text variant='light'>per month</Text>

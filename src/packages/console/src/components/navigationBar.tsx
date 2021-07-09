@@ -18,7 +18,7 @@ const StyledNavBar = styled.div<IStyledNavBarProps>`
   background: ${(props: IStyledNavBarProps): string => (props.color ? props.color : '#1976d2')};
   box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 
-  &.sticky{
+  &.sticky {
     position: sticky;
     z-index: 999;
     top: 0;
@@ -26,8 +26,8 @@ const StyledNavBar = styled.div<IStyledNavBarProps>`
     right: 0;
   }
 
-  &.absolute{
-    position: absolute;
+  &.fixed {
+    position: fixed;
     z-index: 999;
     top: 0;
     left: auto;
@@ -71,7 +71,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
 
   return (
     <ColorSettingView variant='branded'>
-      <StyledNavBar className='absolute'>
+      <StyledNavBar className='fixed'>
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
           <LinkBase target='/'>
             <Box height='30px'>

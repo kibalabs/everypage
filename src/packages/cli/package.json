@@ -27,7 +27,7 @@
     "@kibalabs/core": "^0.5.4",
     "@kibalabs/core-react": "^0.6.1",
     "@kibalabs/everypage": "0.8.5",
-    "@kibalabs/ui-react": "^0.9.0",
+    "@kibalabs/ui-react": "^0.9.1",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^7.0.0",

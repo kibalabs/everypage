@@ -32,7 +32,7 @@ export const consoleConfig: IConsoleConfig = {
     hasCustomDomain: false,
     hasNoBranding: false,
     isPurchasable: true,
-    highlightFeature: 'get your pages published',
+    highlightFeature: 'Get your pages published',
     features: [
     ],
   }, {
@@ -47,7 +47,7 @@ export const consoleConfig: IConsoleConfig = {
     hasCustomDomain: true,
     hasNoBranding: false,
     isPurchasable: true,
-    highlightFeature: 'host pages on your own domain',
+    highlightFeature: 'Host pages on your own domain',
     features: [
     ],
   }, {
@@ -62,7 +62,7 @@ export const consoleConfig: IConsoleConfig = {
     hasCustomDomain: true,
     hasNoBranding: true,
     isPurchasable: true,
-    highlightFeature: 'remove everypage branding',
+    highlightFeature: 'Remove everypage branding',
     features: [
     ],
   // }, {

@@ -91,7 +91,8 @@ export const HomePage = (): React.ReactElement => {
         <title>Home | Everypage Console</title>
       </Helmet>
       <ContainingView>
-        <Stack direction={Direction.Vertical} padding={PaddingSize.Default} paddingTop={PaddingSize.Wide4} shouldAddGutters={true}>
+        <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
+          <Spacing variant={PaddingSize.Wide3} />
           {accounts === undefined || accountSites === undefined ? (
             <Text>loading...</Text>
           ) : accounts === null || accountSites === null ? (
