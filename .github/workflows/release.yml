@@ -54,17 +54,17 @@ jobs:
             git clone --depth 1 $REPOSITORY_URL $RUNNABLE_DIRECTORY
             cd $RUNNABLE_DIRECTORY
             ./run.sh
-  # create-release:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v2
-  #     - name: Create Release
-  #       uses: actions/create-release@v1
-  #       with:
-  #         tag_name: ${{ github.ref }}
-  #         release_name: Release ${{ github.ref }}
-  #         draft: false
-  #         prerelease: false
+  create-release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Create Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
