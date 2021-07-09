@@ -1,10 +1,7 @@
 name: Release
-# on:
-#   push:
-#     tags: [ 'v*' ]
 on:
-  pull_request:
-    branches: [ main ]
+  push:
+    tags: [ 'v*' ]
 jobs:
   deploy-all:
     runs-on: ubuntu-latest
@@ -27,6 +24,7 @@ jobs:
     - name: Build docker image
       run: docker build --target build --tag packages .
     - name: Publish packages to npm
+      # NOTE(krishan711): Not sure why the || true is needed here, it really shouldn't be
       run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages /bin/bash -c "npm run publish || true"
     - name: Build console docker image
       run: docker build --target console --tag $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE .
