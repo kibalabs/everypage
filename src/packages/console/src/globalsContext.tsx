@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { LocalStorageClient } from '@kibalabs/core';
+import { IMultiAnyChildProps } from '@kibalabs/core-react';
 
 import { AuthManager } from './authManager';
 import { IConsoleConfig } from './consoleConfig';
 import { EverypageClient } from './everypageClient';
-import { IMultiAnyChildProps } from '@kibalabs/core-react';
 
 
 export interface IGlobals {

@@ -1,4 +1,4 @@
-import { buildTheme } from "@kibalabs/ui-react";
+import { buildTheme } from '@kibalabs/ui-react';
 
 const defaultTheme = buildTheme();
 export const consoleTheme = buildTheme({
