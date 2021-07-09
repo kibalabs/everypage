@@ -1,4 +1,4 @@
-FROM node:12.16.1-stretch as build
+FROM node:16.4.1-stretch as build
 
 WORKDIR /app
 
@@ -33,7 +33,7 @@ EXPOSE 80
 CMD ["./start.sh"]
 
 # Builder API
-FROM node:12.16.1-stretch as builder-api
+FROM node:16.4.1-stretch as builder-api
 
 WORKDIR /app
 COPY --from=build /app/everypage-cli.tgz .

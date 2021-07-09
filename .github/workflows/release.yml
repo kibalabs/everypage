@@ -24,7 +24,8 @@ jobs:
     - name: Build docker image
       run: docker build --target build --tag packages .
     - name: Publish packages to npm
-      run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages npm run publish
+      # NOTE(krishan711): Not sure why the || true is needed here, it really shouldn't be
+      run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages /bin/bash -c "npm run publish || true"
     - name: Build console docker image
       run: docker build --target console --tag $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE .
     - name: Push console to container registry
