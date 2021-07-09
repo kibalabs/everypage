@@ -195,7 +195,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
         ) : siteContent === undefined || siteTheme === undefined || assetFileMap === undefined ? (
           <Text>Loading...</Text>
         ) : (
-          <Stack.Item growthFactor={1} shrinkFactor={1}>
+          <Stack.Item growthFactor={1} shrinkFactor={1} shouldShrinkBelowContentSize={true}>
             <Canvas
               isEditable={isEditable}
               title={`${site.slug} (${siteVersion.name})`}

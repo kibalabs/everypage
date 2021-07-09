@@ -91,7 +91,7 @@ export const CanvasPage = (): React.ReactElement => {
           </Stack>
         </Stack>
       </Box>
-      <Stack.Item growthFactor={1} shrinkFactor={1}>
+      <Stack.Item growthFactor={1} shrinkFactor={1} shouldShrinkBelowContentSize={true}>
         {siteContent && (
           <Canvas
             isEditable={true}

@@ -118,7 +118,7 @@ export const ContentEditor = (props: IContentEditorProps): React.ReactElement =>
   }, [props.onSiteContentUpdated]);
 
   return (
-    <Stack id='content-editor' className={props.className} direction={Direction.Vertical}>
+    <Stack id='content-editor' className={props.className} direction={Direction.Vertical} isFullHeight={true} isScrollableVertically={true}>
       <HidingView isHidden={currentPath === undefined}>
         <Stack direction={Direction.Horizontal} isFullWidth={true} childAlignment={Alignment.Center} shouldAddGutters={true}>
           <Button text='Back' onClicked={onBackClicked} iconLeft={<KibaIcon iconId='ion-arrow-back' />} />

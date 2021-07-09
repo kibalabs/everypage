@@ -3,13 +3,10 @@ import React from 'react';
 import { LocalStorageClient, Requester } from '@kibalabs/core';
 import { Route, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
-import { buildTheme, KibaApp, resetCss, ThemeProvider } from '@kibalabs/ui-react';
+import { KibaApp } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { hot } from 'react-hot-loader/root';
 
 import { AuthManager } from './authManager';
-import { GlobalCss } from './components/globalCss';
 import { consoleConfig } from './consoleConfig';
 import { EverypageClient } from './everypageClient/everypageClient';
 import { GlobalsProvider } from './globalsContext';
@@ -26,7 +23,7 @@ import { RegisterPage } from './pages/registerPage';
 import { SitePage } from './pages/sitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
 import { VerifyEmailPage } from './pages/verifyEmailPage';
-import { consoleTheme } from '../theme';
+import { consoleTheme } from './theme';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester();
@@ -41,7 +38,7 @@ const globals = {
   consoleConfig,
 };
 
-export const App = hot((): React.ReactElement => {
+export const App = (): React.ReactElement => {
   useFavicon('/assets/favicon.svg');
   useInitialization((): void => {
     // eslint-disable-next-line no-console
@@ -75,4 +72,4 @@ export const App = hot((): React.ReactElement => {
       </GlobalsProvider>
     </KibaApp>
   );
-});
+};

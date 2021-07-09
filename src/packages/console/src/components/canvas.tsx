@@ -136,7 +136,7 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             {/* <Checkbox text='Hide metadata' isChecked={props.isMetaHidden} onToggled={onIsMetaHiddenToggled} /> */}
           </Stack>
         </Box>
-        <Stack.Item growthFactor={1} shrinkFactor={1}>
+        <Stack.Item growthFactor={1} shrinkFactor={1} shouldShrinkBelowContentSize={true}>
           <Stack direction={Direction.Horizontal} isFullHeight={true}>
             {!props.isEditorHidden && (
               <BackgroundView color='white'>
