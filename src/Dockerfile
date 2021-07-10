@@ -22,15 +22,8 @@ RUN mv packages/cli/kibalabs-everypage-cli-*.tgz everypage-cli.tgz
 RUN mv packages/core/kibalabs-everypage-*.tgz everypage.tgz
 
 # Console
-FROM nginx:1.17.10 as console
-
-WORKDIR /app
-COPY packages/console/nginx.conf .
-COPY packages/console/start.sh .
+FROM ghcr.io/kibalabs/app-serve:latest as console
 COPY --from=build /app/packages/console/dist /usr/share/nginx/html
-
-EXPOSE 80
-CMD ["./start.sh"]
 
 # Builder API
 FROM node:16.4.1-stretch as builder-api
