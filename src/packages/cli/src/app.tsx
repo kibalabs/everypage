@@ -29,9 +29,16 @@ export const App = (props: IAppProps): React.ReactElement => {
   return (
     <Router staticPath={props.staticPath}>
       {siteData.routes.map((routeData: RouteData): React.ReactElement<IRouteProps> => (
-        <Route key={routeData.path} path={routeData.path} pageElement={<IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} />} />
+        <Route
+          key={routeData.path}
+          path={routeData.path}
+          pageElement={<IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} />}
+        />
       ))}
-      <Route default={true} pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />} />
+      <Route
+        default={true}
+        pageElement={<IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} />}
+      />
     </Router>
   );
 };

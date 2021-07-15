@@ -23,11 +23,11 @@
   "sideEffects": false,
   "dependencies": {
     "@kibalabs/core": "^0.5.4",
-    "@kibalabs/core-react": "^0.6.1"
+    "@kibalabs/core-react": "^0.6.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.7.0",
-    "@kibalabs/everyview-tracker": "0.2.4",
+    "@kibalabs/build": "0.7.1",
+    "@kibalabs/everyview-tracker": "0.2.5",
     "@kibalabs/ui-react": "^0.9.1",
     "@types/react": "17.0.1",
     "@types/react-dom": "17.0.0",
@@ -44,7 +44,7 @@
     "styled-components": "^5.3.0"
   },
   "optionalDependencies": {
-    "@kibalabs/everyview-tracker": "^0.2.4",
+    "@kibalabs/everyview-tracker": "^0.2.5",
     "react-ga": "^3.0.0"
   }
 }
