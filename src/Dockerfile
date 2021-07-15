@@ -21,9 +21,9 @@ RUN npm run pack
 RUN mv packages/cli/kibalabs-everypage-cli-*.tgz everypage-cli.tgz
 RUN mv packages/core/kibalabs-everypage-*.tgz everypage.tgz
 
-# Stage 2: Serve with nginx
+# Console
 FROM ghcr.io/kibalabs/app-serve:latest as console
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/packages/console/dist /usr/share/nginx/html
 
 # Builder API
 FROM node:16.4.1-stretch as builder-api
