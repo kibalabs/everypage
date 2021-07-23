@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { deepCompare } from '@kibalabs/core';
-import { IWebsiteSection } from '@kibalabs/everypage/src/model/website';
+import { deepCompare, IWebsiteSection } from '@kibalabs/core';
 import { Alignment, Box, Direction, IconButton, KibaIcon, Stack, Text } from '@kibalabs/ui-react';
 
 interface ISectionCardSectionProps {
