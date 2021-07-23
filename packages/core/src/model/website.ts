@@ -18,6 +18,18 @@ export interface IWebsiteMeta {
   macAppId?: string;
 }
 
+export interface IWebsiteSection {
+  type: string;
+  id?: string;
+  className?: string;
+  background?: IBackgroundConfig;
+  shouldStickToTop?: boolean;
+  isFullHeight?: boolean;
+  isInverse?: boolean;
+  colorVariant?: string;
+  [key: string]: unknown;
+}
+
 export interface IWebsite extends IWebsiteMeta {
   buildHash: string;
   siteHost: string;
@@ -29,18 +41,6 @@ export interface IWebsite extends IWebsiteMeta {
 
 export interface IWebsitePlugin {
   type: string;
-  [key: string]: unknown;
-}
-
-export interface IWebsiteSection {
-  type: string;
-  id?: string;
-  className?: string;
-  background?: IBackgroundConfig;
-  shouldStickToTop?: boolean;
-  isFullHeight?: boolean;
-  isInverse?: boolean;
-  colorVariant?: string;
   [key: string]: unknown;
 }
 
