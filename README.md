@@ -17,7 +17,6 @@ This project is a lerna monorepo. If you look in `src/packages/`, you will see t
 ## Contribute
 
 1. Ensure you have installed `node` and `npm`.
-1. cd into `src/`.
 1. Run `npm install` to install lerna (read more about lerna [here](https://github.com/lerna/lerna)).
 1. Run `npm run bootstrap` to install all the dependencies used by all the packages.
 1. Run `npm run start-console`. This will start the everypage console on your local machine.
