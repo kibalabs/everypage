@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IWebsite, IWebsitePlugin, IWebsiteSection, getMetaFromWebsite } from '@kibalabs/everypage';
+import { getMetaFromWebsite, IWebsite, IWebsitePlugin, IWebsiteSection } from '@kibalabs/everypage';
 import { Alignment, BackgroundView, Button, Direction, HidingView, KibaIcon, LinkBase, PaddingSize, Spacing, Stack, TabBar, Text } from '@kibalabs/ui-react';
 
 import { JsonEditor } from './jsonEditor';

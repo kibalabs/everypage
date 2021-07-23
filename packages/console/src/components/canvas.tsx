@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IndexPage, replaceAssetPaths, IWebsite } from '@kibalabs/everypage';
+import { IndexPage, IWebsite, replaceAssetPaths } from '@kibalabs/everypage';
 import { Alignment, BackgroundView, Box, Button, Direction, Divider, ITheme, PaddingSize, Stack, Switch, TabBar, Text } from '@kibalabs/ui-react';
 
 import { Section } from '../everypageClient';
