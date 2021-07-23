@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "The core sections and constructs for everypage",
   "license": "AGPLV3",
   "repository": {
@@ -23,10 +23,10 @@
   "sideEffects": false,
   "dependencies": {
     "@kibalabs/core": "^0.5.5",
-    "@kibalabs/core-react": "^0.6.1"
+    "@kibalabs/core-react": "^0.6.2"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.7.0",
+    "@kibalabs/build": "0.7.1",
     "@kibalabs/everyview-tracker": "0.2.5",
     "@kibalabs/ui-react": "^0.9.1",
     "@types/react": "17.0.1",

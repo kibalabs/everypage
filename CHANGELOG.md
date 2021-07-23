@@ -13,32 +13,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Removed
 
-## [0.9.0] - 2021-07-09
-
-### Added
+## [0.9.1] - 2021-07-15
 
 ### Changed
+- [MINOR] Updated everyview-tracker to re-enable anonymous tracking
 
-### Removed
+## [0.9.0] - 2021-07-09
+
+### Changed
+- [MINOR] Console changes only
 
 ## [0.8.5] - 2021-03-10
-
-### Added
 
 ### Changed
 - [MINOR] Update `Navbar1` to close when an item is clicked
 - [MINOR] Added `shouldShowImageCaptions` to `ImageGallery1` to allow showing captions below images
 
-### Removed
-
 ## [0.8.4] - 2021-03-08
-
-### Added
 
 ### Changed
 - [MINOR] Console changes only
-
-### Removed
 
 ## [0.8.3] - 2021-02-08
 
@@ -53,8 +47,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - [MINOR] Update card boxes to be full height wherever used
 - [MINOR] Created `Dialog` component for console
 
-### Removed
-
 ## [0.8.2] - 2021-01-20
 
 ### Added
@@ -63,8 +55,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Changed
 - [MINOR] [Console] Optimized the Canvas experience
-
-### Removed
 
 ## [0.8.1] - 2021-01-07
 
@@ -75,17 +65,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - [MINOR] Updated all code to pass linting check
 - [MINOR] Updated all code to pass typing check
 
-### Removed
-
 ## [0.8.0] - 2021-01-03
-
-### Added
 
 ### Changed
 - [MAJOR] Updated main repo to be published at @kibalabs/everypage-cli
 - [MAJOR] Updated core repo to be published at @kibalabs/everypage
-
-### Remove
 
 ## [0.7.6] - 2021-01-02
 

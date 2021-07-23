@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-cli",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Build everypage sites",
   "license": "AGPLV3",
   "repository": {
@@ -23,10 +23,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@kibalabs/build": "0.7.0",
+    "@kibalabs/build": "0.7.1",
     "@kibalabs/core": "^0.5.5",
-    "@kibalabs/core-react": "^0.6.1",
-    "@kibalabs/everypage": "0.9.0",
+    "@kibalabs/core-react": "^0.6.2",
+    "@kibalabs/everypage": "0.9.1",
     "@kibalabs/ui-react": "^0.9.1",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
