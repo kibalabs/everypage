@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocalStorageClient, Requester } from '@kibalabs/core';
+import { KibaException, LocalStorageClient, Requester } from '@kibalabs/core';
 import { Route, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
 import { KibaApp } from '@kibalabs/ui-react';
@@ -38,13 +38,25 @@ const globals = {
   consoleConfig,
 };
 
+declare global {
+  export interface Window {
+    KRT_VERSION?: string;
+  }
+}
+
 export const App = (): React.ReactElement => {
   useFavicon('/assets/favicon.svg');
   useInitialization((): void => {
     // eslint-disable-next-line no-console
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
-      everypageClient.refreshToken();
+      everypageClient.refreshToken().catch((error: KibaException): void => {
+        if (error.message.includes('TOKEN_PAST_LAST_REFRESH_DATE')) {
+          authManager.logout().then((): void => {
+            window.location.reload();
+          });
+        }
+      });
     }
   });
 
