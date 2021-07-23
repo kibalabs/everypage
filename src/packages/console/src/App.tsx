@@ -51,9 +51,9 @@ export const App = (): React.ReactElement => {
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refreshToken().catch((error: KibaException): void => {
-        if (error.message.includes("TOKEN_PAST_LAST_REFRESH_DATE")) {
+        if (error.message.includes('TOKEN_PAST_LAST_REFRESH_DATE')) {
           authManager.logout().then((): void => {
-            location.reload();
+            window.location.reload();
           });
         }
       });
