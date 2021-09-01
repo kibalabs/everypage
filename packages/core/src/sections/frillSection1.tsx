@@ -7,8 +7,6 @@ import { Direction, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignme
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
-import { Head } from '../util';
-import { useInitialization } from '@kibalabs/core-react';
 
 interface IFrillWidget1Props extends ISectionProps {
   titleText?: string;
@@ -23,7 +21,7 @@ export const FrillWidget1 = (props: IFrillWidget1Props): React.ReactElement => {
         <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
           {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
           {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-          <FrillEmbed widgetKey={props.frillKey || "11153d6c-cf12-4e26-ae28-4cda8848abf7"} />
+          <FrillEmbed widgetKey={props.frillKey} />
         </Stack>
       </ResponsiveTextAlignmentView>
     </ResponsiveContainingView>
@@ -88,10 +86,19 @@ const StyledFrillEmbed = styled.div<IStyledFrillEmbed>`
 const FrillEmbed = (props: IFrillEmbedProps): React.ReactElement => {
   const url = `https://widget.frill.co/v2/widget.js`;
   const widgetRef = React.useRef<HTMLDivElement>(null);
+  const [widgetExists, setWidgetExists] = React.useState(false);
 
-  useInitialization(() => {
+  React.useEffect(() => {
+    if (!widgetExists){
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.defer = true
+      document.head.append(script)
+      setWidgetExists(true)
+    }
 
-    if(!props.widgetKey){
+    if (!props.widgetKey) {
       console.error('widgetKey should be provided to Frill');
       return;
     }
@@ -109,34 +116,27 @@ const FrillEmbed = (props: IFrillEmbedProps): React.ReactElement => {
 
     window.Frill_Config = window.Frill_Config || [];
     window.Frill_Config.push(config);
-
-    if ('Frill' in window) {
-      widget = window.Frill.widget(config);
-      console.log("Frill found")
-    }else{
-      console.log("Frill not found")
-    }
-
+    
+    setTimeout(() => {
+      if ('Frill' in window) {
+        widget = window.Frill.widget(config);
+      }
+    }, 5000);
+    
+    console.log('it run multiple times')
     return () => {
       widget?.destroy();
       window.Frill_Config = window.Frill_Config.filter((c) => c !== config);
     };
-  });
+  }, []);
 
   return (
     <React.Fragment>
-      <StyledFrillEmbed
-        ref={widgetRef}
-        className={getClassName(FrillEmbed.displayName, 'frill-inline-widget')}
-        data-url={url}
-      />
-      <Head>
-        {/* NOTE(krishan711): async and defer to ensure it happens as late as possible */}
-        <script async={true} defer={true} src={url} />
-      </Head>
+      <div ref={widgetRef} style={{ width: '100%' , height: '460px'}}/>
     </React.Fragment>
   );
 };
+
 FrillEmbed.displayName = 'FrillEmbed';
 FrillEmbed.defaultProps = {
 };
