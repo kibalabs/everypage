@@ -64,7 +64,7 @@ export const App = (): React.ReactElement => {
     <KibaApp theme={consoleTheme}>
       <GlobalsProvider globals={globals}>
         <Helmet>
-          <title>Everypage Console</title>
+          <title>Everypage Console 2</title>
         </Helmet>
         {process.env.NODE_ENV === 'production' && <TawkToChat accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
         <Router authManager={authManager}>
