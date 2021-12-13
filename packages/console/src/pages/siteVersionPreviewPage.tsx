@@ -17,7 +17,7 @@ export interface ISiteVersionPreviewPageProps {
 }
 
 export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): React.ReactElement => {
-  const { everypageClient } = useGlobals();
+  const { everypageClient, localStorageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
   const [siteVersionEntry, setSiteVersionEntry] = React.useState<SiteVersionEntry | null | undefined>(undefined);
@@ -27,8 +27,8 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const [isSiteContentChanged, setIsSiteContentChanged] = React.useState<boolean>(false);
   const [isSiteThemeChanged, setIsSiteThemeChanged] = React.useState<boolean>(false);
   const [savingError, setSavingError] = React.useState<KibaException | null>(null);
-  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
-  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden', localStorageClient);
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden', localStorageClient);
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   const getSiteUrl = React.useCallback((): string => {

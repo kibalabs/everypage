@@ -10,13 +10,13 @@ import { SiteVersionEntry, Template } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
 
 export const CanvasPage = (): React.ReactElement => {
-  const { everypageClient } = useGlobals();
-  const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent');
-  const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme');
+  const { everypageClient, localStorageClient } = useGlobals();
+  const [siteContent, setSiteContent] = useObjectLocalStorageState('siteContent', localStorageClient);
+  const [siteTheme, setSiteTheme] = useObjectLocalStorageState('siteTheme', localStorageClient);
   const [assetFileMap, setAssetFileMap] = React.useState<Record<string, string>>({});
   const [isShowingStartOverAlert, setIsShowingStartOverAlert] = React.useState<boolean>(false);
-  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden');
-  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden');
+  const [isEditorHidden, setIsEditorHidden] = useBooleanLocalStorageState('isEditorHidden', localStorageClient);
+  const [isMetaHidden, setIsMetaHidden] = useBooleanLocalStorageState('isMetaHidden', localStorageClient);
 
   const addAssetFiles = (files: File[]): Promise<void> => {
     const newAssetFileMap = { ...assetFileMap };

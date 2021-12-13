@@ -2,11 +2,10 @@
   "name": "everypage",
   "private": true,
   "scripts": {
-    "postinstall": "npm run bootstrap",
-    "bootstrap": "lerna bootstrap --hoist",
-    "bootstrap-ci": "lerna bootstrap --hoist --ci",
-    "start": "lerna run start --stream --parallel",
-    "start-console": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-console --include-dependencies",
+    "start-console": "npm run start-dev --workspace=@kibalabs/everypage-console",
+    "lint": "lint",
+    "lint-fix": "lint --fix",
+    "type-check": "type-check --directory './packages/**/src'",
     "start-builder-api": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-builder-api --include-dependencies",
     "build": "lerna run build --stream",
     "build-test": "lerna run build --stream --scope @kibalabs/everypage-test --include-dependencies",
@@ -17,12 +16,13 @@
     "publish": "lerna publish from-package --no-verify-access --yes",
     "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
     "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;",
-    "lint": "lint",
-    "lint-fix": "lint --fix",
-    "type-check": "type-check --directory './packages/**/src'",
     "pack": "lerna run pack"
   },
-  "devDependencies": {
-    "lerna": "4.0.0"
-  }
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/builder-api",
+    "packages/console",
+    "packages/test"
+  ]
 }
