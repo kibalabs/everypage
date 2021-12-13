@@ -46,6 +46,7 @@ declare global {
 
 export const App = (): React.ReactElement => {
   useFavicon('/assets/favicon.svg');
+
   useInitialization((): void => {
     // eslint-disable-next-line no-console
     console.log(`Running everypage console version: ${window.KRT_VERSION}`);

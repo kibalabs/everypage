@@ -2,18 +2,18 @@
   "name": "everypage",
   "private": true,
   "scripts": {
-    "lint": "lint",
-    "lint-fix": "lint --fix",
-    "type-check": "type-check --directory './packages/**/src'",
-    "start-console": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-console",
-    "start-builder-api": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-builder-api",
     "build": "npm run build --workspaces",
     "build-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test",
     "build-test-nohash": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli && npm run build-nohash --workspace=@kibalabs/everypage-test",
+    "start-console": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-console",
+    "start-builder-api": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-builder-api",
     "serve-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run serve --workspace=@kibalabs/everypage-test",
     "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run publish --workspace=@kibalabs/everypage-test",
     "pack": "npm run pack --workspaces --if-present",
-    "publish": "npm run publish --workspaces --if-present"
+    "publish": "npm run publish --workspaces --if-present",
+    "lint": "lint",
+    "lint-fix": "lint --fix",
+    "type-check": "type-check --directory './packages/**/src'"
   },
   "workspaces": [
     "packages/core",
