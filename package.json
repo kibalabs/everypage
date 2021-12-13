@@ -13,9 +13,7 @@
     "serve-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run serve --workspace=@kibalabs/everypage-test",
     "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run publish --workspace=@kibalabs/everypage-test",
     "pack": "npm run pack --workspaces --if-present",
-    "//": "NOTE(krishan711): no-verify-access below is because lerna doesn't support automation tokens: https://github.com/lerna/lerna/issues/2788",
-    "publish": "npm run pack --workspaces --if-present",
-    "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes"
+    "publish": "npm run publish --workspaces --if-present"
   },
   "workspaces": [
     "packages/core",
