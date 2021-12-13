@@ -2,7 +2,7 @@ import React from 'react';
 
 import { KibaResponse, Requester, RestMethod } from '@kibalabs/core';
 import { useInitialization } from '@kibalabs/core-react';
-import { Alignment, Box, LoadingSpinner, PaddingSize, Spacing, Stack, Text, Link } from '@kibalabs/ui-react';
+import { Alignment, Box, Link, LoadingSpinner, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 import { LazyImage } from '../components';
 
