@@ -55,10 +55,10 @@ app.post('/v1/sites/generate', async (request: Request, response: Response): Pro
   try {
     await renderSite(siteDirectory, undefined, buildHash, siteHost, shouldHideAttribution, buildDirectory, outputDirectory);
     rimraf.sync(buildDirectory);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error building site', error);
     rimraf.sync(outputDirectory);
-    return response.status(500).json({ message: error.message });
+    return response.status(500).json({ message: (error as Error).message });
   }
 
   const archive = archiver('zip');

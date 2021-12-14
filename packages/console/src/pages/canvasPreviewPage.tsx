@@ -7,10 +7,12 @@ import { Box } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
 import { KibaFrame } from '../components/kibaFrame';
+import { useGlobals } from '../globalsContext';
 
 export const CanvasPreviewPage = (): React.ReactElement => {
-  const [siteContent] = useObjectLocalStorageState('siteContent');
-  const [siteTheme] = useObjectLocalStorageState('siteTheme');
+  const { localStorageClient } = useGlobals();
+  const [siteContent] = useObjectLocalStorageState('siteContent', localStorageClient);
+  const [siteTheme] = useObjectLocalStorageState('siteTheme', localStorageClient);
 
   return (
     <React.Fragment>

@@ -2,27 +2,24 @@
   "name": "everypage",
   "private": true,
   "scripts": {
-    "postinstall": "npm run bootstrap",
-    "bootstrap": "lerna bootstrap --hoist",
-    "bootstrap-ci": "lerna bootstrap --hoist --ci",
-    "start": "lerna run start --stream --parallel",
-    "start-console": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-console --include-dependencies",
-    "start-builder-api": "lerna run start-dev --stream --parallel --scope @kibalabs/everypage-builder-api --include-dependencies",
-    "build": "lerna run build --stream",
-    "build-test": "lerna run build --stream --scope @kibalabs/everypage-test --include-dependencies",
-    "build-test-nohash": "lerna run build --stream --scope @kibalabs/everypage-cli --include-dependencies && lerna run build-nohash --stream --scope @kibalabs/everypage-test",
-    "serve-test": "lerna run build --stream --scope @kibalabs/everypage-cli --include-dependencies && lerna run serve --stream --scope @kibalabs/everypage-test",
-    "publish-test": "lerna run publish --stream --scope @kibalabs/everypage-test",
-    "//": "NOTE(krishan711): no-verify-access below is because lerna doesn't support automation tokens: https://github.com/lerna/lerna/issues/2788",
-    "publish": "lerna publish from-package --no-verify-access --yes",
-    "version": "lerna version --exact --no-changelog --no-git-tag-version --no-push --yes",
-    "clean": "find . -type d -name node_modules -exec rm -rf '{}' \\;; find . -type d -name dist -exec rm -rf '{}' \\;; find . -type f -name package-lock.json -exec rm '{}' \\;",
+    "build": "npm run build --workspaces",
+    "build-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test",
+    "build-test-nohash": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli && npm run build-nohash --workspace=@kibalabs/everypage-test",
+    "start-console": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-console",
+    "start-builder-api": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-builder-api",
+    "serve-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run serve --workspace=@kibalabs/everypage-test",
+    "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run publish --workspace=@kibalabs/everypage-test",
+    "pack": "npm run pack --workspaces --if-present",
+    "publish": "npm run publish --workspaces --if-present",
     "lint": "lint",
     "lint-fix": "lint --fix",
-    "type-check": "type-check --directory './packages/**/src'",
-    "pack": "lerna run pack"
+    "type-check": "type-check --directory './packages/**/src'"
   },
-  "devDependencies": {
-    "lerna": "4.0.0"
-  }
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/builder-api",
+    "packages/console",
+    "packages/test"
+  ]
 }
