@@ -31,7 +31,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
             <Grid.Item sizeResponsive={{ base: 10, medium: 4 }}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
-                {props.features?.slice(0, Math.floor(props.features?.length / 2)).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
+                {props.features?.slice(0, Math.floor((props.features?.length || 0) / 2)).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Right }}>
                       <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} isFullWidth={true}>
@@ -62,7 +62,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
             </Grid.Item>
             <Grid.Item sizeResponsive={{ base: 10, medium: 4 }}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>
-                {props.features?.slice(Math.ceil(props.features?.length / 2), props.features?.length).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
+                {props.features?.slice(Math.ceil((props.features?.length || 0) / 2), props.features?.length).map((feature: FeatureMediaCenter1Feature, index: number): React.ReactElement => (
                   <Stack.Item key={index} gutterAfter={PaddingSize.Wide}>
                     <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
                       <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} isFullWidth={true}>
