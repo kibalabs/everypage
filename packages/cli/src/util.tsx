@@ -69,7 +69,7 @@ export const loadThemeFromFileSync = (filePath: string, parentTheme?: ITheme): I
   return content;
 };
 
-export const loadPathsFromDirectory = (directory: string, urlPath = '', buildHash?: string, parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
+export const loadPathsFromDirectory = (directory: string, urlPath: string, buildHash?: string, parentContent?: IWebsite, parentTheme?: ITheme): IPage[] => {
   const content = loadContentFromFileSync(path.join(directory, 'content.json'), buildHash, parentContent);
   const theme = loadThemeFromFileSync(path.join(directory, 'theme.json'), parentTheme);
   const output: IPage[] = [{ path: `${urlPath}/`, filename: `${urlPath}/index.html`, theme, content }];
