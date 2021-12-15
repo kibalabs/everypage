@@ -11,8 +11,8 @@ module.exports = (config) => {
     webpackConfig.resolve = webpackConfig.resolve || {};
     webpackConfig.resolve.alias = {
       ...(webpackConfig.resolve.alias || {}),
-      react: path.resolve(nodeModulesDirectory, 'react'),
-      'react-dom': path.resolve(nodeModulesDirectory, '@hot-loader/react-dom'),
+      'react': path.resolve(nodeModulesDirectory, 'react'),
+      'react-dom': path.resolve(nodeModulesDirectory, 'react-dom'),
       'styled-components': path.resolve(nodeModulesDirectory, 'styled-components'),
       '@kibalabs/core': path.resolve(nodeModulesDirectory, '@kibalabs/core'),
       '@kibalabs/core-react': path.resolve(nodeModulesDirectory, '@kibalabs/core-react'),
