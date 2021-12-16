@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
-import { useBooleanLocalStorageState, useInterval, useRouteParams } from '@kibalabs/core-react';
+import { useBooleanLocalStorageState, useInterval, useStringRouteParam } from '@kibalabs/core-react';
 import { IWebsite } from '@kibalabs/everypage';
 import { Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
@@ -12,9 +12,8 @@ import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from 
 import { useGlobals } from '../globalsContext';
 
 export const SiteVersionPreviewPage = (): React.ReactElement => {
-  const routeParams = useRouteParams();
-  const slug = routeParams.slug as string;
-  const siteVersionId = routeParams.siteVersionId as string;
+  const slug = useStringRouteParam('slug');
+  const siteVersionId = useStringRouteParam('siteVersionId');
 
   const { everypageClient, localStorageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
