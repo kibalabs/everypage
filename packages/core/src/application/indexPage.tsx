@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ITheme, KibaApp } from '@kibalabs/ui-react';
+import { IHeadRootProviderProps, ITheme, KibaApp } from '@kibalabs/ui-react';
 
 import { buildEverypageTheme, SectionHolder } from '.';
 import { IWebsite, IWebsiteSection } from '../model';
@@ -10,7 +10,7 @@ import { HeadContent } from './headContent';
 import { PluginRenderer } from './pluginRenderer';
 import { SectionRenderer } from './sectionRenderer';
 
-export interface IIndexPageProps {
+export interface IIndexPageProps extends IHeadRootProviderProps {
   pageContent: IWebsite;
   pageTheme: ITheme;
   shouldIncludeHeadSection: boolean;
@@ -19,10 +19,11 @@ export interface IIndexPageProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
+  console.log('IndexPage', setHead)
   const resolvedPageTheme = React.useMemo((): ITheme => buildEverypageTheme(props.pageTheme), [props.pageTheme]);
   return (
     <WebsiteProvider website={props.pageContent}>
-      <KibaApp isRehydrating={props.isRehydrating} theme={resolvedPageTheme}>
+      <KibaApp isRehydrating={props.isRehydrating} theme={resolvedPageTheme} setHead={props.setHead}>
         <HeadContent />
         {props.pageContent.plugins && <PluginRenderer plugins={props.pageContent.plugins} />}
         <SectionHolder background={props.pageContent.background}>

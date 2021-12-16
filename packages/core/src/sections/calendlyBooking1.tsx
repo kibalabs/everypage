@@ -1,13 +1,12 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Direction, Link, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
+import { Direction, Head, Link, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
-import { Head } from '../util';
 
 interface ICalendlyBooking1Props extends ISectionProps {
   titleText?: string;

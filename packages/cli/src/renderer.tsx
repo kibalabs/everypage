@@ -18,7 +18,8 @@ import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
-import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
+import { IWebsite } from '@kibalabs/everypage';
+import { IHead, IHeadTag } from '@kibalabs/ui-react';
 import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import ReactDOMServer from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
@@ -89,28 +90,47 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     // @ts-ignore
     // eslint-disable-next-line no-undef
-    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
+    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).App;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
-      const headElements: Element[] = [];
+      let head: IHead | null = null;
+      const setHead = (newHead: IHead): void => { head = newHead; };
       const styledComponentsSheet = new ServerStyleSheet();
       const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
-            <HeadRootProvider root={<ChildCapture headElements={headElements} />}>
-              <App staticPath={page.path} />
-            </HeadRootProvider>
+            <App staticPath={page.path} setHead={setHead} />
           </StyleSheetManager>
         </ChunkExtractorManager>,
       );
       const assetPrefix = buildHash ? `/${buildHash}` : '';
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
-          {headElements}
+          {head.title && (
+            React.createElement(head.title.type, { ...head.title.attributes, 'ui-react-head': head.title.headId }, head.title.content)
+          )}
+          {head.base && (
+            React.createElement(head.base.type, { ...head.base.attributes, 'ui-react-head': head.base.headId }, head.base.content)
+          )}
+          {head.links.forEach((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
+          {head.metas.forEach((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
+          {head.styles.forEach((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
+          {head.scripts.forEach((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
+          {head.noscripts.forEach((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
           {/* @ts-ignore */}
           {extractor.getPreAssets().map((preAsset: Chunk): React.ReactElement => (
-            <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
+            <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`/${preAsset.filename}`} />
           ))}
           {styledComponentsSheet.getStyleElement()}
         </head>,
@@ -128,9 +148,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         <html lang="en">
           ${headString}
           <body>
-            <div id="root">
-              ${bodyString}
-            </div>
+            <div id="root">${bodyString}</div>
             ${bodyScriptsString}
           </body>
         </html>

@@ -3,8 +3,7 @@ import React from 'react';
 
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
 import { IndexPage } from '@kibalabs/everypage';
-import { Box } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Box, Head } from '@kibalabs/ui-react';
 
 import { KibaFrame } from '../components/kibaFrame';
 import { useGlobals } from '../globalsContext';
@@ -16,9 +15,9 @@ export const CanvasPreviewPage = (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Helmet>
+      <Head>
         <title>Canvas Preview | Everypage Console</title>
-      </Helmet>
+      </Head>
       <Box height='100%'>
         <KibaFrame>
           <IndexPage

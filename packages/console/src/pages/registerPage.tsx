@@ -2,8 +2,7 @@ import React from 'react';
 
 import { isValidEmail } from '@kibalabs/core';
 import { useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Checkbox, Direction, Form, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Alignment, Box, Button, Checkbox, Direction, Form, Head, InputType, Link, PaddingSize, ResponsiveContainingView, SingleLineInput, Spacing, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { useGlobals } from '../globalsContext';
 
@@ -79,9 +78,9 @@ export const RegisterPage = (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Helmet>
+      <Head>
         <title>Register | Everypage Console</title>
-      </Helmet>
+      </Head>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 8, medium: 6, large: 5 }}>
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>
           <Stack.Item growthFactor={1} shrinkFactor={1} />

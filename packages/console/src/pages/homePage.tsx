@@ -3,8 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Alignment, Box, Button, ContainingView, Direction, EqualGrid, Head, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -87,9 +86,9 @@ export const HomePage = (): React.ReactElement => {
   return (
     <React.Fragment>
       <NavigationBar />
-      <Helmet>
+      <Head>
         <title>Home | Everypage Console</title>
-      </Helmet>
+      </Head>
       <ContainingView>
         <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
           <Spacing variant={PaddingSize.Wide3} />

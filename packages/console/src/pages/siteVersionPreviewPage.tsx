@@ -3,8 +3,7 @@ import React from 'react';
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
 import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
 import { IWebsite } from '@kibalabs/everypage';
-import { Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Direction, Head, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 import { Canvas } from '../components/canvas';
 import { NavigationBar } from '../components/navigationBar';
@@ -183,9 +182,9 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   return (
     <React.Fragment>
-      <Helmet>
+      <Head>
         <title>{`${site ? site.name : 'Site page'} | Preview ${siteVersion ? siteVersion.name : ''} | Everypage Console`}</title>
-      </Helmet>
+      </Head>
       <Stack direction={Direction.Vertical} isFullHeight={true} isFullWidth={true}>
         <NavigationBar />
         <Spacing variant={PaddingSize.Narrow} />

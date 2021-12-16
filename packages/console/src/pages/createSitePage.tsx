@@ -3,8 +3,7 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useIntegerUrlQueryState, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Form, IconButton, InputType, IOption, KibaIcon, OptionSelect, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Alignment, Box, Button, Direction, Form, Head, IconButton, InputType, IOption, KibaIcon, OptionSelect, PaddingSize, ResponsiveContainingView, SingleLineInput, Stack, Text } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { AccountUpgradeDialog } from '../components/accountUpgradeDialog';
@@ -122,9 +121,9 @@ export const CreateSitePage = (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <Helmet>
+      <Head>
         <title>Create Site | Everypage Console</title>
-      </Helmet>
+      </Head>
       <ResponsiveContainingView size={12} sizeResponsive={{ small: 12, medium: 8, large: 5 }}>
         <NavigationBar />
         <Stack direction={Direction.Vertical} paddingVertical={PaddingSize.Wide2} isFullHeight={true}>

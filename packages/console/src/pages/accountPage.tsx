@@ -2,10 +2,9 @@ import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, Grid, IGridItemProps, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, Box, Button, Direction, Grid, Head, IGridItemProps, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
-import Helmet from 'react-helmet';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -152,9 +151,9 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   return (
     <Elements stripe={stripePromise}>
       <NavigationBar />
-      <Helmet>
+      <Head>
         <title>{`${account ? account.name : 'Account page'} | Everypage Console`}</title>
-      </Helmet>
+      </Head>
       <ResponsiveContainingView size={12}>
         <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
           <Spacing variant={PaddingSize.Wide3} />
