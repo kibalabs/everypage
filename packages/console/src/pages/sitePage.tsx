@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { dateToString, KibaException } from '@kibalabs/core';
-import { useInitialization, useNavigator } from '@kibalabs/core-react';
+import { useInitialization, useNavigator, useStringRouteParam } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, MessageDialog, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -13,11 +13,8 @@ import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
 
-export interface ISitePageProps {
-  slug: string;
-}
-
-export const SitePage = (props: ISitePageProps): React.ReactElement => {
+export const SitePage = (): React.ReactElement => {
+  const slug = useStringRouteParam('slug');
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
@@ -48,13 +45,13 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
   }, [everypageClient, site]);
 
   const loadSite = React.useCallback((): void => {
-    everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+    everypageClient.getSiteBySlug(slug).then((receivedSite: Site) => {
       setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
     });
-  }, [everypageClient, props.slug]);
+  }, [everypageClient, slug]);
 
   const loadVersions = React.useCallback((): void => {
     everypageClient.listSiteVersions(site.siteId).then((siteVersions: SiteVersion[]) => {
@@ -382,8 +379,8 @@ export const SitePage = (props: ISitePageProps): React.ReactElement => {
                           <Text variant='default'>{version.name || 'Unnamed'}</Text>
                           {version.siteVersionId === primaryVersionId && <Text variant='note-small'>(PUBLISHED)</Text>}
                           {version.isPublishing && <Text variant='header6-note' tag='span'>Publishing</Text>}
-                          {version.publishDate && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='View' />}
-                          {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button target={`/sites/${props.slug}/preview/${version.siteVersionId}`} text='Edit' />}
+                          {version.publishDate && <Button target={`/sites/${slug}/preview/${version.siteVersionId}`} text='View' />}
+                          {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button target={`/sites/${slug}/preview/${version.siteVersionId}`} text='Edit' />}
                           {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && !version.publishDate && !version.isPublishing && <Button isEnabled={!site.isPublishing} onClicked={() => onSetPrimaryClicked(version)} text='Publish' />}
                           {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && version.siteVersionId !== primaryVersionId && <Button isEnabled={!site.isPublishing} onClicked={() => onArchiveClicked(version)} text='Archive' />}
                         </Stack>

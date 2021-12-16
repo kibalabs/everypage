@@ -89,7 +89,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     // NOTE(krishan711): this ensures the require is not executed at build time (only during runtime)
     // @ts-ignore
     // eslint-disable-next-line no-undef
-    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).default;
+    const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).App;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
       const headElements: Element[] = [];
