@@ -15,7 +15,7 @@ import { useGlobals } from '../globalsContext';
 
 export const SitePage = (): React.ReactElement => {
   const routeParams = useRouteParams();
-  const slug = routeParams.accountId as string;
+  const slug = routeParams.slug as string;
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);

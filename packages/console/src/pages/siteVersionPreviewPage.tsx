@@ -13,8 +13,8 @@ import { useGlobals } from '../globalsContext';
 
 export const SiteVersionPreviewPage = (): React.ReactElement => {
   const routeParams = useRouteParams();
-  const slug = routeParams.accountId as string;
-  const siteVersionId = routeParams.accountId as string;
+  const slug = routeParams.slug as string;
+  const siteVersionId = routeParams.siteVersionId as string;
 
   const { everypageClient, localStorageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
