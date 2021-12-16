@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
-import { useInitialization, useNavigator } from '@kibalabs/core-react';
+import { useInitialization, useNavigator, useStringRouteParam } from '@kibalabs/core-react';
 import { Alignment, Box, Button, Direction, Grid, Head, IGridItemProps, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
@@ -19,11 +19,8 @@ import { useGlobals } from '../globalsContext';
 const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 // const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
 
-export interface IAccountPageProps {
-  accountId: string;
-}
-
-export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
+export const AccountPage = (): React.ReactElement => {
+  const accountId = useStringRouteParam('accountId');
   const navigator = useNavigator();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);
@@ -39,7 +36,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   });
 
   const loadAccount = (): void => {
-    everypageClient.getAccount(Number(props.accountId)).then((receivedAccount: Account) => {
+    everypageClient.getAccount(Number(accountId)).then((receivedAccount: Account) => {
       setAccount(receivedAccount);
     }).catch((error: KibaException): void => {
       console.error('error', error);
@@ -48,7 +45,7 @@ export const AccountPage = (props: IAccountPageProps): React.ReactElement => {
   };
 
   const loadAccountSites = (): void => {
-    everypageClient.retrieveSitesForAccount(Number(props.accountId)).then((sites: Site[]): void => {
+    everypageClient.retrieveSitesForAccount(Number(accountId)).then((sites: Site[]): void => {
       setAccountSites(sites);
     }).catch((error: KibaException): void => {
       console.error('error', error);

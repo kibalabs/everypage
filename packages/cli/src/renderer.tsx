@@ -107,25 +107,25 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const assetPrefix = buildHash ? `/${buildHash}` : '';
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
-          {head.title && (
+          {head?.title && (
             React.createElement(head.title.type, { ...head.title.attributes, 'ui-react-head': head.title.headId }, head.title.content)
           )}
-          {head.base && (
+          {head?.base && (
             React.createElement(head.base.type, { ...head.base.attributes, 'ui-react-head': head.base.headId }, head.base.content)
           )}
-          {head.links.forEach((tag: IHeadTag): React.ReactElement => (
+          {head?.links.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
-          {head.metas.forEach((tag: IHeadTag): React.ReactElement => (
+          {head?.metas.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
-          {head.styles.forEach((tag: IHeadTag): React.ReactElement => (
+          {head?.styles.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
-          {head.scripts.forEach((tag: IHeadTag): React.ReactElement => (
+          {head?.scripts.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
-          {head.noscripts.forEach((tag: IHeadTag): React.ReactElement => (
+          {head?.noscripts.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
           {/* @ts-ignore */}

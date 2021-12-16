@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useObjectLocalStorageState } from '@kibalabs/core-react';
 import { IndexPage } from '@kibalabs/everypage';
-import { Box, Head } from '@kibalabs/ui-react';
+import { Box, Head, IHead } from '@kibalabs/ui-react';
 
 import { KibaFrame } from '../components/kibaFrame';
 import { useGlobals } from '../globalsContext';
@@ -13,14 +13,20 @@ export const CanvasPreviewPage = (): React.ReactElement => {
   const [siteContent] = useObjectLocalStorageState('siteContent', localStorageClient);
   const [siteTheme] = useObjectLocalStorageState('siteTheme', localStorageClient);
 
+  const headRef = React.useRef<IHead | null>(null);
+  const setHead = React.useCallback((newHead: IHead): void => {
+    headRef.current = newHead;
+  }, [headRef]);
+
   return (
     <React.Fragment>
       <Head>
         <title>Canvas Preview | Everypage Console</title>
       </Head>
       <Box height='100%'>
-        <KibaFrame>
+        <KibaFrame head={headRef.current}>
           <IndexPage
+            setHead={setHead}
             pageContent={siteContent}
             pageTheme={siteTheme}
             shouldIncludeHeadSection={false}

@@ -19,7 +19,6 @@ export interface IIndexPageProps extends IHeadRootProviderProps {
 }
 
 export const IndexPage = (props: IIndexPageProps): React.ReactElement => {
-  console.log('IndexPage', setHead)
   const resolvedPageTheme = React.useMemo((): ITheme => buildEverypageTheme(props.pageTheme), [props.pageTheme]);
   return (
     <WebsiteProvider website={props.pageContent}>
