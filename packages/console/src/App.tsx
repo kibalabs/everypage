@@ -77,7 +77,7 @@ export const App = (): React.ReactElement => {
   ];
 
   return (
-    <KibaApp theme={consoleTheme}>
+    <KibaApp theme={consoleTheme} isFullPageApp={true}>
       <GlobalsProvider globals={globals}>
         <Helmet>
           <title>Everypage Console</title>

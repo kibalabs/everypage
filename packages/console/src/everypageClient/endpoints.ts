@@ -23,8 +23,7 @@ export class LoginUserRequest extends RequestData {
 
 export class LoginUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): LoginUserResponse => {
-    return new LoginUserResponse(
-    );
+    return new LoginUserResponse();
   }
 }
 
@@ -37,8 +36,7 @@ export class LogoutUserRequest extends RequestData {
 
 export class LogoutUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): LogoutUserResponse => {
-    return new LogoutUserResponse(
-    );
+    return new LogoutUserResponse();
   }
 }
 
@@ -71,8 +69,7 @@ export class CreateUserRequest extends RequestData {
 
 export class CreateUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): CreateUserResponse => {
-    return new CreateUserResponse(
-    );
+    return new CreateUserResponse();
   }
 }
 
@@ -85,8 +82,7 @@ export class RefreshTokenRequest extends RequestData {
 
 export class RefreshTokenResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): RefreshTokenResponse => {
-    return new RefreshTokenResponse(
-    );
+    return new RefreshTokenResponse();
   }
 }
 
@@ -99,8 +95,7 @@ export class SendEmailVerificationForUserRequest extends RequestData {
 
 export class SendEmailVerificationForUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): SendEmailVerificationForUserResponse => {
-    return new SendEmailVerificationForUserResponse(
-    );
+    return new SendEmailVerificationForUserResponse();
   }
 }
 
@@ -411,8 +406,7 @@ export class DeleteSiteVersionAssetsResponse extends ResponseData {
   }
 
   public static fromObject = (obj: Record<string, unknown>): DeleteSiteVersionAssetsResponse => {
-    return new DeleteSiteVersionAssetsResponse(
-    );
+    return new DeleteSiteVersionAssetsResponse();
   }
 }
 
@@ -434,8 +428,7 @@ export class PromoteSiteVersionResponse extends ResponseData {
   }
 
   public static fromObject = (obj: Record<string, unknown>): PromoteSiteVersionResponse => {
-    return new PromoteSiteVersionResponse(
-    );
+    return new PromoteSiteVersionResponse();
   }
 }
 
