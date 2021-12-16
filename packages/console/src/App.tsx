@@ -72,7 +72,7 @@ export const App = (): React.ReactElement => {
     { path: '/register', page: RegisterPage, redirectIfAuth: '/' },
     { path: '/verify-email', page: VerifyEmailPage, redirectIfNoAuth: '/' },
     { path: '/start', page: EmptyPage, redirectIfAuth: '/', redirectIfNoAuth: '/canvas' },
-    { default: true, page: NotFoundPage },
+    { path: '*', page: NotFoundPage },
   ];
 
   return (

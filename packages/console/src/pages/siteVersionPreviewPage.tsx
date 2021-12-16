@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException, KibaResponse, Requester } from '@kibalabs/core';
-import { useBooleanLocalStorageState, useInterval } from '@kibalabs/core-react';
+import { useBooleanLocalStorageState, useInterval, useRouteParams } from '@kibalabs/core-react';
 import { IWebsite } from '@kibalabs/everypage';
 import { Direction, ITheme, PaddingSize, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
@@ -11,12 +11,11 @@ import { NavigationBar } from '../components/navigationBar';
 import { AssetFile, PresignedUpload, Site, SiteVersion, SiteVersionEntry } from '../everypageClient';
 import { useGlobals } from '../globalsContext';
 
-export interface ISiteVersionPreviewPageProps {
-  slug: string;
-  siteVersionId: string;
-}
+export const SiteVersionPreviewPage = (): React.ReactElement => {
+  const routeParams = useRouteParams();
+  const slug = routeParams.accountId as string;
+  const siteVersionId = routeParams.accountId as string;
 
-export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): React.ReactElement => {
   const { everypageClient, localStorageClient } = useGlobals();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
   const [siteVersion, setSiteVersion] = React.useState<SiteVersion | null | undefined>(undefined);
@@ -32,37 +31,37 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
   const isEditable = siteVersion && !siteVersion.publishDate && !siteVersion.archiveDate;
 
   const getSiteUrl = React.useCallback((): string => {
-    return `https://${props.slug}.evrpg.com`;
-  }, [props.slug]);
+    return `https://${slug}.evrpg.com`;
+  }, [slug]);
 
   const loadSite = React.useCallback((): void => {
-    everypageClient.getSiteBySlug(props.slug).then((receivedSite: Site) => {
+    everypageClient.getSiteBySlug(slug).then((receivedSite: Site) => {
       setSite(receivedSite);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSite(null);
     });
-  }, [everypageClient, props.slug]);
+  }, [everypageClient, slug]);
 
   const loadSiteVersion = React.useCallback((): void => {
     if (!site.siteId) {
       setSiteVersion(undefined);
       return;
     }
-    everypageClient.getSiteVersion(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersion: SiteVersion) => {
+    everypageClient.getSiteVersion(site.siteId, Number(siteVersionId)).then((receivedSiteVersion: SiteVersion) => {
       setSiteVersion(receivedSiteVersion);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setSiteVersion(null);
     });
-  }, [everypageClient, props.siteVersionId, site]);
+  }, [everypageClient, siteVersionId, site]);
 
   const loadSiteVersionEntry = React.useCallback((): void => {
     if (!site.siteId) {
       setSiteVersionEntry(undefined);
       return;
     }
-    everypageClient.getSiteVersionEntry(site.siteId, Number(props.siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
+    everypageClient.getSiteVersionEntry(site.siteId, Number(siteVersionId)).then((receivedSiteVersionEntry: SiteVersionEntry) => {
       setSiteVersionEntry(receivedSiteVersionEntry);
       setSiteContent(receivedSiteVersionEntry.siteContent as unknown as IWebsite);
       setSiteTheme(receivedSiteVersionEntry.siteTheme as unknown as ITheme);
@@ -70,14 +69,14 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       console.error('error', error);
       setSiteVersionEntry(null);
     });
-  }, [everypageClient, props.siteVersionId, site]);
+  }, [everypageClient, siteVersionId, site]);
 
   const loadSiteVersionAssets = React.useCallback((): void => {
     if (!site.siteId) {
       setAssetFileMap(undefined);
       return;
     }
-    everypageClient.listSiteVersionAssets(site.siteId, Number(props.siteVersionId)).then((assetFiles: AssetFile[]) => {
+    everypageClient.listSiteVersionAssets(site.siteId, Number(siteVersionId)).then((assetFiles: AssetFile[]) => {
       setAssetFileMap(assetFiles.reduce((currentMap: Record<string, string>, assetFile: AssetFile): Record<string, string> => {
         // eslint-disable-next-line no-param-reassign
         currentMap[assetFile.path] = `${getSiteUrl()}/${siteVersion.buildHash}${assetFile.path}`;
@@ -87,7 +86,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
       console.error('error', error);
       setAssetFileMap(undefined);
     });
-  }, [everypageClient, getSiteUrl, props.siteVersionId, site, siteVersion]);
+  }, [everypageClient, getSiteUrl, siteVersionId, site, siteVersion]);
 
   const onSiteContentUpdated = React.useCallback((newSiteContent: IWebsite): void => {
     setSiteContent(newSiteContent as unknown as IWebsite);
@@ -136,7 +135,7 @@ export const SiteVersionPreviewPage = (props: ISiteVersionPreviewPageProps): Rea
 
   React.useEffect((): void => {
     loadSite();
-  }, [loadSite, props.slug]);
+  }, [loadSite, slug]);
 
   React.useEffect((): void => {
     if (site) {
