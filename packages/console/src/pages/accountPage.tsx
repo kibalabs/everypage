@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { KibaException } from '@kibalabs/core';
-import { useInitialization, useNavigator, useRouteParams } from '@kibalabs/core-react';
+import { useInitialization, useNavigator, useStringRouteParam } from '@kibalabs/core-react';
 import { Alignment, Box, Button, Direction, Grid, IGridItemProps, MarkdownText, PaddingSize, ResponsiveContainingView, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe, Stripe, StripeElements } from '@stripe/stripe-js';
@@ -21,8 +21,7 @@ const stripePromise = loadStripe('pk_live_74pJIhvxX0m61Ub6NDjFiFBy00Q8aDg61J');
 // const stripePromise = loadStripe('pk_test_51GqarKBhdc2gIBl2s6qZ2AUFhlRXQOE0l7y4dnUC5YUoKdLSpobrz3h4hFC3PJduu91lTvWJrPW6YwdrCzxExljh00YB1xWyma');
 
 export const AccountPage = (): React.ReactElement => {
-  const routeParams = useRouteParams();
-  const accountId = routeParams.accountId as string;
+  const accountId = useStringRouteParam('accountId');
   const navigator = useNavigator();
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const [account, setAccount] = React.useState<Account | null | undefined>(undefined);

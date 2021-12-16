@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import { dateToString, KibaException } from '@kibalabs/core';
-import { useInitialization, useNavigator, useRouteParams } from '@kibalabs/core-react';
+import { useInitialization, useNavigator, useStringRouteParam } from '@kibalabs/core-react';
 import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, MessageDialog, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 import Helmet from 'react-helmet';
 
@@ -14,8 +14,7 @@ import { Account, Site, SiteVersion, Template } from '../everypageClient/resourc
 import { useGlobals } from '../globalsContext';
 
 export const SitePage = (): React.ReactElement => {
-  const routeParams = useRouteParams();
-  const slug = routeParams.slug as string;
+  const slug = useStringRouteParam('slug');
   const { everypageClient, authManager, consoleConfig } = useGlobals();
   const navigator = useNavigator();
   const [site, setSite] = React.useState<Site | null | undefined>(undefined);
