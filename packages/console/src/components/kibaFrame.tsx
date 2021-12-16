@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { ErrorBoundary, ISingleAnyChildProps } from '@kibalabs/core-react';
-import { HeadRootProvider } from '@kibalabs/everypage';
+import { IHead, renderHead } from '@kibalabs/ui-react';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
 import { StyleSheetManager } from 'styled-components';
 
 interface IKibaFrameInnerProps extends ISingleAnyChildProps {
-  document: HTMLDocument;
+  head: IHead;
+  document: Document;
   selectedElementId?: string;
 }
 
@@ -40,12 +41,19 @@ const KibaFrameInner = (props: IKibaFrameInnerProps): React.ReactElement => {
     props.document.head.appendChild(script3);
   }, [props.document]);
 
+  React.useEffect((): void => {
+    if (props.head) {
+      renderHead(props.head, props.document);
+    }
+  }, [props.document, props.head]);
+
   return (
     <React.Fragment>{ props.children }</React.Fragment>
   );
 };
 
 interface IKibaFrameProps extends ISingleAnyChildProps {
+  head: IHead;
   selectedElementId?: string;
 }
 
@@ -54,15 +62,13 @@ export const KibaFrame = (props: IKibaFrameProps): React.ReactElement => {
     <Frame style={{ height: '100%', width: '100%' }}>
       <FrameContextConsumer>
         { (frameContext) => (
-          <HeadRootProvider root={frameContext.document.head}>
-            <KibaFrameInner document={frameContext.document} selectedElementId={props.selectedElementId}>
-              <StyleSheetManager target={frameContext.document.head}>
-                <ErrorBoundary>
-                  { props.children }
-                </ErrorBoundary>
-              </StyleSheetManager>
-            </KibaFrameInner>
-          </HeadRootProvider>
+          <KibaFrameInner head={props.head} document={frameContext.document} selectedElementId={props.selectedElementId}>
+            <StyleSheetManager target={frameContext.document.head}>
+              <ErrorBoundary>
+                { props.children }
+              </ErrorBoundary>
+            </StyleSheetManager>
+          </KibaFrameInner>
         )}
       </FrameContextConsumer>
     </Frame>

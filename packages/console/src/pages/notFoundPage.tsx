@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Helmet from 'react-helmet';
+import { Head } from '@kibalabs/ui-react';
 
 export const NotFoundPage = (): React.ReactElement => {
   return (
     <React.Fragment>
-      <Helmet>
+      <Head>
         <title>Not Found | Everypage Console</title>
-      </Helmet>
+      </Head>
       <div>Not Found</div>
     </React.Fragment>
   );

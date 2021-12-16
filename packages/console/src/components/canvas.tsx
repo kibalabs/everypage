@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IndexPage, IWebsite, replaceAssetPaths } from '@kibalabs/everypage';
-import { Alignment, BackgroundView, Box, Button, Direction, Divider, ITheme, PaddingSize, Stack, Switch, TabBar, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Box, Button, Direction, Divider, IHead, ITheme, PaddingSize, Stack, Switch, TabBar, Text } from '@kibalabs/ui-react';
 
 import { Section } from '../everypageClient';
 import { ContentEditor } from './contentEditor';
@@ -120,6 +120,11 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
     setIsSectionChooserShowing(false);
   };
 
+  const headRef = React.useRef<IHead | null>(null);
+  const setHead = React.useCallback((newHead: IHead): void => {
+    headRef.current = newHead;
+  }, [headRef]);
+
   return (
     <React.Fragment>
       <Stack className={props.className} direction={Direction.Vertical}>
@@ -169,14 +174,19 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
             )}
             {!props.isEditorHidden && <Divider orientation='vertical' />}
             <Stack.Item growthFactor={1} shrinkFactor={1}>
-              <KibaFrame selectedElementId={chosenSectionId}>
-                <IndexPage pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)} pageTheme={props.siteTheme} shouldIncludeHeadSection={!props.isMetaHidden} shouldIncludeAttributionSection={true} />
+              <KibaFrame head={headRef.current} selectedElementId={chosenSectionId}>
+                <IndexPage
+                  setHead={setHead}
+                  pageContent={replaceAssetPaths(props.siteContent, props.assetFileMap)}
+                  pageTheme={props.siteTheme}
+                  shouldIncludeHeadSection={!props.isMetaHidden}
+                  shouldIncludeAttributionSection={true}
+                />
               </KibaFrame>
             </Stack.Item>
           </Stack>
         </Stack.Item>
       </Stack>
-
       <SectionChooserDialog
         isOpen={isSectionChooserShowing}
         onCloseClicked={onSectionChooserCloseClicked}

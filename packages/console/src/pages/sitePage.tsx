@@ -3,8 +3,7 @@ import React from 'react';
 
 import { dateToString, KibaException } from '@kibalabs/core';
 import { useInitialization, useNavigator, useStringRouteParam } from '@kibalabs/core-react';
-import { Alignment, Box, Button, ContainingView, Direction, InputType, Link, MessageDialog, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Alignment, Box, Button, ContainingView, Direction, Head, InputType, Link, MessageDialog, PaddingSize, SingleLineInput, Spacing, Stack, Text } from '@kibalabs/ui-react';
 
 import { CreateNewVersionDialog } from '../components/createNewVersionDialog';
 import { NavigationBar } from '../components/navigationBar';
@@ -272,9 +271,9 @@ export const SitePage = (): React.ReactElement => {
   return (
     <React.Fragment>
       <NavigationBar />
-      <Helmet>
+      <Head>
         <title>{`${site ? site.name : 'Site page'} | Everypage Console`}</title>
-      </Helmet>
+      </Head>
       <ContainingView>
         <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
           <Spacing variant={PaddingSize.Wide3} />

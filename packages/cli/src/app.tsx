@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 import { IRoute, Router } from '@kibalabs/core-react';
 import { IndexPage, IWebsite } from '@kibalabs/everypage';
-import { ITheme } from '@kibalabs/ui-react';
+import { IHeadRootProviderProps, ITheme } from '@kibalabs/ui-react';
 
 export interface RouteData {
   path: string;
@@ -18,7 +18,7 @@ export interface SiteData {
   notFoundPageTheme: ITheme;
 }
 
-export interface IAppProps {
+export interface IAppProps extends IHeadRootProviderProps {
   staticPath?: string;
 }
 
@@ -27,9 +27,9 @@ const siteData: SiteData = __non_webpack_require__('./siteData.json');
 
 export const App = (props: IAppProps): React.ReactElement => {
   const routes: IRoute[] = siteData.routes.map((routeData: RouteData): IRoute => {
-    return { path: routeData.path, pageElement: <IndexPage isRehydrating={true} pageContent={routeData.content} pageTheme={routeData.theme} /> };
+    return { path: routeData.path, pageElement: <IndexPage isRehydrating={true} setHead={props.setHead} pageContent={routeData.content} pageTheme={routeData.theme} /> };
   });
-  routes.push({ path: '*', pageElement: <IndexPage isRehydrating={true} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} /> });
+  routes.push({ path: '*', pageElement: <IndexPage isRehydrating={true} setHead={props.setHead} pageContent={siteData.notFoundPageContent} pageTheme={siteData.notFoundPageTheme} /> });
   return (
     <Router staticPath={props.staticPath} routes={routes} />
   );

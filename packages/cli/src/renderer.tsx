@@ -18,7 +18,8 @@ import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
 import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
-import { ChildCapture, HeadRootProvider, IWebsite } from '@kibalabs/everypage';
+import { IWebsite } from '@kibalabs/everypage';
+import { IHead, IHeadTag } from '@kibalabs/ui-react';
 import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import ReactDOMServer from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
@@ -92,25 +93,34 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).App;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
-      const headElements: Element[] = [];
+      let pageHead: IHead = { headId: '', base: null, title: null, links: [], metas: [], styles: [], scripts: [], noscripts: [] };
+      const setHead = (newHead: IHead): void => { pageHead = newHead; };
       const styledComponentsSheet = new ServerStyleSheet();
       const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
-            <HeadRootProvider root={<ChildCapture headElements={headElements} />}>
-              <App staticPath={page.path} />
-            </HeadRootProvider>
+            <App staticPath={page.path} setHead={setHead} />
           </StyleSheetManager>
         </ChunkExtractorManager>,
       );
       const assetPrefix = buildHash ? `/${buildHash}` : '';
+      const tags: IHeadTag[] = [
+        ...(pageHead.title ? [pageHead.title] : []),
+        ...(pageHead.base ? [pageHead.base] : []),
+        ...pageHead.links,
+        ...pageHead.metas,
+        ...pageHead.styles,
+        ...pageHead.scripts,
+      ];
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
-          {headElements}
+          {tags.map((tag: IHeadTag): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          ))}
           {/* @ts-ignore */}
           {extractor.getPreAssets().map((preAsset: Chunk): React.ReactElement => (
-            <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`${assetPrefix}/${preAsset.filename}`} />
+            <link key={preAsset.filename} data-chunk={preAsset.chunk} rel={preAsset.linkType} as={preAsset.scriptType} href={`/${preAsset.filename}`} />
           ))}
           {styledComponentsSheet.getStyleElement()}
         </head>,
@@ -128,9 +138,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         <html lang="en">
           ${headString}
           <body>
-            <div id="root">
-              ${bodyString}
-            </div>
+            <div id="root">${bodyString}</div>
             ${bodyScriptsString}
           </body>
         </html>

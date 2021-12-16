@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { useBooleanLocalStorageState, useObjectLocalStorageState } from '@kibalabs/core-react';
-import { Alignment, Box, Button, Direction, MessageDialog, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Alignment, Box, Button, Direction, Head, MessageDialog, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 
 import { Canvas } from '../components/canvas';
 import { TemplateChooserModal } from '../components/templateChooserModal';
@@ -70,9 +69,9 @@ export const CanvasPage = (): React.ReactElement => {
 
   return (
     <Stack direction={Direction.Vertical} isFullHeight={true}>
-      <Helmet>
+      <Head>
         <title>Canvas | Everypage Console</title>
-      </Helmet>
+      </Head>
       <Box variant='banner'>
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} paddingHorizontal={PaddingSize.Wide} isFullWidth={true}>
           <Button

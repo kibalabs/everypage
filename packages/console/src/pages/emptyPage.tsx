@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Helmet from 'react-helmet';
+import { Head } from '@kibalabs/ui-react';
 
 export const EmptyPage = (): React.ReactElement => {
   return (
     <div>
-      <Helmet>
+      <Head>
         <title>... | Everypage Console</title>
-      </Helmet>
+      </Head>
     </div>
   );
 };

@@ -3,8 +3,7 @@ import React from 'react';
 import { KibaException, LocalStorageClient, Requester } from '@kibalabs/core';
 import { IRoute, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
-import { KibaApp } from '@kibalabs/ui-react';
-import Helmet from 'react-helmet';
+import { Head, KibaApp } from '@kibalabs/ui-react';
 
 import { AuthManager } from './authManager';
 import { consoleConfig } from './consoleConfig';
@@ -79,9 +78,9 @@ export const App = (): React.ReactElement => {
   return (
     <KibaApp theme={consoleTheme} isFullPageApp={true}>
       <GlobalsProvider globals={globals}>
-        <Helmet>
+        <Head>
           <title>Everypage Console</title>
-        </Helmet>
+        </Head>
         {process.env.NODE_ENV === 'production' && <TawkToChat accountId='5eb2856d81d25c0e584943a6' widgetId='1e7l85vs0' />}
         <Router authManager={authManager} routes={routes} />
       </GlobalsProvider>
