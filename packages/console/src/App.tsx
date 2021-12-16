@@ -60,6 +60,7 @@ export const App = (): React.ReactElement => {
       });
     }
   });
+
   const routes: IRoute[] = [
     { path: '/canvas', page: CanvasPage },
     { path: '/canvas-preview', page: CanvasPreviewPage },
