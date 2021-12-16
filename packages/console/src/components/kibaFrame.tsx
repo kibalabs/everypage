@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { ErrorBoundary, ISingleAnyChildProps } from '@kibalabs/core-react';
+import { IHead, renderHead } from '@kibalabs/ui-react';
 import Frame, { FrameContextConsumer } from 'react-frame-component';
 import { StyleSheetManager } from 'styled-components';
-import { IHead, renderHead } from '@kibalabs/ui-react';
 
 interface IKibaFrameInnerProps extends ISingleAnyChildProps {
   head: IHead;

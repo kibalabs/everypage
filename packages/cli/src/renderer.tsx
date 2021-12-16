@@ -93,8 +93,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
     const App = __non_webpack_require__(path.resolve(outputDirectoryNode, 'index.js')).App;
     pages.concat(page404).forEach((page: IPage): void => {
       console.log(`EP: rendering page ${page.path} to ${page.filename}`);
-      let head: IHead | null = null;
-      const setHead = (newHead: IHead): void => { head = newHead; };
+      let pageHead: IHead = { headId: '', base: null, title: null, links: [], metas: [], styles: [], scripts: [], noscripts: [] };
+      const setHead = (newHead: IHead): void => { pageHead = newHead; };
       const styledComponentsSheet = new ServerStyleSheet();
       const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
@@ -105,27 +105,17 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
         </ChunkExtractorManager>,
       );
       const assetPrefix = buildHash ? `/${buildHash}` : '';
+      const tags: IHeadTag[] = [
+        ...(pageHead.title ? [pageHead.title] : []),
+        ...(pageHead.base ? [pageHead.base] : []),
+        ...pageHead.links,
+        ...pageHead.metas,
+        ...pageHead.styles,
+        ...pageHead.scripts,
+      ];
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
-          {head?.title && (
-            React.createElement(head.title.type, { ...head.title.attributes, 'ui-react-head': head.title.headId }, head.title.content)
-          )}
-          {head?.base && (
-            React.createElement(head.base.type, { ...head.base.attributes, 'ui-react-head': head.base.headId }, head.base.content)
-          )}
-          {head?.links.map((tag: IHeadTag): React.ReactElement => (
-            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
-          ))}
-          {head?.metas.map((tag: IHeadTag): React.ReactElement => (
-            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
-          ))}
-          {head?.styles.map((tag: IHeadTag): React.ReactElement => (
-            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
-          ))}
-          {head?.scripts.map((tag: IHeadTag): React.ReactElement => (
-            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
-          ))}
-          {head?.noscripts.map((tag: IHeadTag): React.ReactElement => (
+          {tags.map((tag: IHeadTag): React.ReactElement => (
             React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
           ))}
           {/* @ts-ignore */}
