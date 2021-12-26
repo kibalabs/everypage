@@ -85,10 +85,10 @@ export const HomePage = (): React.ReactElement => {
 
   return (
     <React.Fragment>
-      <NavigationBar />
       <Head>
         <title>Home | Everypage Console</title>
       </Head>
+      <NavigationBar />
       <ContainingView>
         <Stack direction={Direction.Vertical} padding={PaddingSize.Default} shouldAddGutters={true}>
           <Spacing variant={PaddingSize.Wide3} />

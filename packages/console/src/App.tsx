@@ -63,7 +63,7 @@ export const App = (): React.ReactElement => {
   const routes: IRoute[] = [
     { path: '/canvas', page: CanvasPage },
     { path: '/canvas-preview', page: CanvasPreviewPage },
-    { path: '/', page: HomePage },
+    { path: '/', page: HomePage, redirectIfNoAuth: '/login' },
     { path: '/accounts/:accountId', page: AccountPage, redirectIfNoAuth: '/login' },
     { path: '/sites/create', page: CreateSitePage, redirectIfNoAuth: '/login' },
     { path: '/sites/:slug', page: SitePage, redirectIfNoAuth: '/login' },

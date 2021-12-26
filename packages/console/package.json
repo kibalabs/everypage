@@ -8,11 +8,11 @@
     "start-dev": "build-react-app --config-modifier ./config.build.js --start --dev"
   },
   "dependencies": {
-    "@kibalabs/core": "^0.5.6",
-    "@kibalabs/core-react": "^0.7.1-next.2",
+    "@kibalabs/core": "^0.5.7",
+    "@kibalabs/core-react": "^0.8.0",
     "@kibalabs/everypage": "0.9.2",
     "@kibalabs/everyview-tracker": "^0.2.5",
-    "@kibalabs/ui-react": "^0.9.6-next.6",
+    "@kibalabs/ui-react": "^0.9.6",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.7.0",
     "jsoneditor": "^9.0.3",
@@ -24,7 +24,7 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "@kibalabs/build": "0.8.2-next.1",
+    "@kibalabs/build": "0.8.2",
     "@types/jsoneditor": "8.6.0",
     "@types/node": "14.0.13",
     "@types/react": "17.0.1",
