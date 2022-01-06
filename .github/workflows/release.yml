@@ -1,7 +1,9 @@
 name: Release
 on:
-  pull_request:
+  push:
     tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
 jobs:
   deploy-all:
     runs-on: ubuntu-latest
