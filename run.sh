@@ -7,9 +7,7 @@ dockerImageName="ghcr.io/kibalabs/everypage-console"
 dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
-varsFile=~/.${name}.vars
 
-touch ${varsFile}
 docker pull ${dockerImage}
 docker stop ${name} && docker rm ${name} || true
 docker run \
@@ -21,20 +19,19 @@ docker run \
     --env VERSION=$version \
     --env VIRTUAL_HOST=$url \
     --env LETSENCRYPT_HOST=$url \
-    --env-file ${varsFile} \
+    --env-file ~/.${name}.vars \
     ${dockerImage}
 
 name="everypage-api-builder"
-url="builder-api.everypagehq.com"
+network="everypage-network"
 dockerImageName="ghcr.io/kibalabs/everypage-builder-api"
 dockerTag="latest"
 dockerImage="${dockerImageName}:${dockerTag}"
 version="$(git rev-list --count HEAD)"
-varsFile=~/.${name}.vars
 
-touch ${varsFile}
 docker pull ${dockerImage}
 docker stop ${name} && docker rm ${name} || true
+docker network create ${network} || true
 docker run \
     --name ${name} \
     --detach \
@@ -42,9 +39,8 @@ docker run \
     --restart on-failure \
     --memory=768m \
     --cpus=$(echo "scale=2 ; $(grep -c ^processor /proc/cpuinfo) / 1.5" | bc) \
+    --net=${network}
     --env NAME=$name \
     --env VERSION=$version \
-    --env VIRTUAL_HOST=$url \
-    --env LETSENCRYPT_HOST=$url \
-    --env-file ${varsFile} \
+    --env-file ~/.${name}.vars \
     ${dockerImage}
