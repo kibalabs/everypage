@@ -13,7 +13,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Login to GitHub container registry
-        run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
       - name: Create .npmrc file
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
       - name: Build docker image
