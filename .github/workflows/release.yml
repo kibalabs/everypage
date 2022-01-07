@@ -86,7 +86,7 @@ jobs:
                 --publish-all \
                 --restart unless-stopped \
                 --memory 768m \
-                --cpus $(echo "scale=2 ; $(grep -c ^processor /proc/cpuinfo) / 1.5" | bc) \
+                --cpus 1.0 \
                 --net ${NETWORK} \
                 --env NAME=${NAME} \
                 --env-file ~/.${NAME}.vars \
