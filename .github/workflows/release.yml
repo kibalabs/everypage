@@ -1,42 +1,40 @@
 name: Release
 on:
   push:
-    tags: [ 'v*' ]
+    tags: ["v*"]
 jobs:
   deploy-all:
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      DOCKER_IMAGE_CONSOLE: ghcr.io/${{ github.repository }}-console
-      DOCKER_TAG_CONSOLE: latest
-      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api
-      DOCKER_TAG_BUILDER_API: latest
+      DOCKER_IMAGE_CONSOLE: ghcr.io/${{ github.repository }}-console:latest
+      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api:latest
     steps:
-    - name: Check out the repo
-      uses: actions/checkout@v2
-    - name: Login to GitHub container registry
-      run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
-    - name: Create .npmrc file
-      run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-    - name: Build docker image
-      run: docker build --target build --tag packages .
-    - name: Publish packages to npm
-      # NOTE(krishan711): Not sure why the || true is needed here, it really shouldn't be
-      run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages /bin/bash -c "npm run publish || true"
-    - name: Build console docker image
-      run: docker build --target console --tag $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE .
-    - name: Push console to container registry
-      run: docker push $DOCKER_IMAGE_CONSOLE:$DOCKER_TAG_CONSOLE
-    - name: Build builder-api docker image
-      run: docker build --target builder-api --tag $DOCKER_IMAGE_BUILDER_API:$DOCKER_TAG_BUILDER_API .
-    - name: Push builder-api to container registry
-      run: docker push $DOCKER_IMAGE_BUILDER_API:$DOCKER_TAG_BUILDER_API
-  run-all:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Login to GitHub container registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+      - name: Create .npmrc file
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - name: Build docker image
+        run: docker build --target build --tag packages .
+      - name: Publish packages to npm
+        # NOTE(krishan711): Not sure why the || true is needed here, it really shouldn't be
+        run: docker run -v $(pwd)/.npmrc:/root/.npmrc packages /bin/bash -c "npm run publish || true"
+      - name: Build console docker image
+        run: docker build --target console --tag $DOCKER_IMAGE_CONSOLE .
+      - name: Push console to container registry
+        run: docker push $DOCKER_IMAGE_CONSOLE
+      - name: Build builder-api docker image
+        run: docker build --target builder-api --tag $DOCKER_IMAGE_BUILDER_API .
+      - name: Push builder-api to container registry
+        run: docker push $DOCKER_IMAGE_BUILDER_API
+  run-console:
     needs: deploy-all
     runs-on: ubuntu-latest
     env:
-      RUNNABLE_DIRECTORY: deployments/${{ github.repository }}/${{ github.sha }}
-      REPOSITORY_URL: git@github.com:${{ github.repository }}
+      NAME: everypage-console
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}-console:latest
     steps:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
@@ -45,13 +43,54 @@ jobs:
           username: ${{ secrets.APIBOX_USER }}
           key: ${{ secrets.APIBOX_SSH_KEY }}
           port: ${{ secrets.APIBOX_PORT }}
-          envs: REPOSITORY_URL,RUNNABLE_DIRECTORY
+          envs: DOCKER_IMAGE,NAME
           script_stop: true
           script: |
-            rm -rf $RUNNABLE_DIRECTORY
-            git clone --depth 1 $REPOSITORY_URL $RUNNABLE_DIRECTORY
-            cd $RUNNABLE_DIRECTORY
-            ./run.sh
+            url="console.everypagehq.com"
+            docker pull ${DOCKER_IMAGE}
+            docker stop ${NAME} && docker rm ${NAME} || true
+            docker run \
+                --name ${NAME} \
+                --detach \
+                --publish-all \
+                --restart unless-stopped \
+                --env NAME=${NAME} \
+                --env VIRTUAL_HOST=${url} \
+                --env LETSENCRYPT_HOST=${url} \
+                --env-file ~/.${NAME}.vars \
+                ${DOCKER_IMAGE}
+  run-builder-api:
+    needs: deploy-all
+    runs-on: ubuntu-latest
+    env:
+      NAME: everypage-builder-api
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}-builder-api:latest
+      NETWORK: everypage-network
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.WORKERBOX_URL }}
+          username: ${{ secrets.WORKERBOX_USER }}
+          key: ${{ secrets.WORKERBOX_SSH_KEY }}
+          port: ${{ secrets.WORKERBOX_PORT }}
+          envs: DOCKER_IMAGE,NAME,NETWORK
+          script_stop: true
+          script: |
+            docker network create ${NETWORK} || true
+            docker pull ${DOCKER_IMAGE}
+            docker stop ${NAME} && docker rm ${NAME} || true
+            docker run \
+                --name ${NAME} \
+                --detach \
+                --publish-all \
+                --restart unless-stopped \
+                --memory 768m \
+                --cpus 1.0 \
+                --net ${NETWORK} \
+                --env NAME=${NAME} \
+                --env-file ~/.${NAME}.vars \
+                ${DOCKER_IMAGE}
   create-release:
     runs-on: ubuntu-latest
     env:

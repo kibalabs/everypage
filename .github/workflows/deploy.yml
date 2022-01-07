@@ -1,20 +1,20 @@
 name: Deploy
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   deploy-package-next:
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-    - name: Check out the repo
-      uses: actions/checkout@v2
-      with:
-        # NOTE(krishan711): need full history to calculate difference
-        fetch-depth: 0
-    - name: Build docker image
-      run: docker build --tag package .
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          # NOTE(krishan711): need full history to calculate difference
+          fetch-depth: 0
+      - name: Build docker image
+        run: docker build --tag package .
     # - name: Calculate commit count since last tag
     #   id: vars
     #   run: echo ::set-output name=commit_count::$(git rev-list $(git describe --tags --abbrev=0)..HEAD --count)
