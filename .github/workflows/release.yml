@@ -2,8 +2,6 @@ name: Release
 on:
   push:
     tags: [ 'v*' ]
-  pull_request:
-    branches: [ main ]
 jobs:
   deploy-all:
     runs-on: ubuntu-latest
@@ -93,17 +91,17 @@ jobs:
                 --env NAME=${NAME} \
                 --env-file ~/.${NAME}.vars \
                 ${DOCKER_IMAGE}
-  # create-release:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v2
-  #     - name: Create Release
-  #       uses: actions/create-release@v1
-  #       with:
-  #         tag_name: ${{ github.ref }}
-  #         release_name: Release ${{ github.ref }}
-  #         draft: false
-  #         prerelease: false
+  create-release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Create Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
