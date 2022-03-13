@@ -68,6 +68,22 @@
       "logoImageUrl": null
     },
     {
+      "type": "hero-buttons-media-half-1",
+      "titleText": "Create your beautiful landing page in minutes",
+      "subtitleText": "Our easy to use landing page builder drives you to focus on your copy, and generates your page with exceptional performance, SEO and accessibility built in.",
+      "buttons": [
+        {
+          "iconIdRight": "ion-checkmark-circle-outline",
+          "variant": "primary",
+          "target": "https://console.everypagehq.com/register",
+          "text": "Subscribe"
+        }
+      ],
+      "leftMediaUrl": null,
+      "logoImageUrl": null,
+      "rightMediaUrl": "https://via.placeholder.com/250x500"
+    },
+    {
       "type": "hero-app-download-media-half-1",
       "titleText": "Insert catchy header",
       "subtitleText": "Share why your product is great",
@@ -755,6 +771,62 @@
         }
       ],
       "logoImageUrl": "/assets/everypage-wordmark.svg"
+    }, {
+      "type": "footer-3",
+      "subtitleText": "Lorem ipsum dolor sit amet consect adipisicing elit.\nPossimus magnam veritatis in accusamus quisquam.",
+      "linkSections": [
+        {
+          "links": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        },
+        {
+          "links": [
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            },
+            {
+              "label": "Pricing",
+              "target": "#price"
+            }
+          ],
+          "sectionName": "Support"
+        }
+      ],
+      "iconLinks": [
+        {
+          "iconId": "ion-logo-twitter",
+          "target": "https://twitter.com/"
+        },
+        {
+          "iconId": "ion-logo-linkedin",
+          "target": "https://linkedin.com/"
+        },
+        {
+          "iconId": "ion-logo-github",
+          "target": "https://github.com/"
+        },
+        {
+          "target": "https://www.kibalabs.com"
+        }
+      ]
     }
   ]
 }
