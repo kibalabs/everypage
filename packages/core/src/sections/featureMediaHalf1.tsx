@@ -47,9 +47,9 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
               {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
               {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
               {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
-              {props.buttons?.length > 0 && (
+              {props.buttons && props.buttons.length > 0 && (
                 <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true}>
-                  {props.buttons?.map((button: IFeatureMediaHalf1Button, index: number): React.ReactElement => (
+                  {props.buttons.map((button: IFeatureMediaHalf1Button, index: number): React.ReactElement => (
                     <Button
                       key={index}
                       text={button.text}

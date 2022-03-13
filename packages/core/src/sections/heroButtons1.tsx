@@ -33,9 +33,9 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            {props.buttons.length > 0 && (
+            {props.buttons && props.buttons.length > 0 && (
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
-                {props.buttons?.map((button: IHeroButtons1Button, index: number): React.ReactElement => (
+                {props.buttons.map((button: IHeroButtons1Button, index: number): React.ReactElement => (
                   <Button
                     key={index}
                     text={button.text}
