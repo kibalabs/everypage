@@ -1,4 +1,5 @@
 export * from './heroLogo';
+export * from './heroSectionSubtitleText';
 export * from './heroSectionTitleText';
 export * from './lazyImage';
 export * from './lazyMedia';

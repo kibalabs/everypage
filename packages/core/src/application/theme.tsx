@@ -19,6 +19,8 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
     texts: {
       heroSectionTitle: {
       },
+      heroSectionSubtitle: {
+      },
       sectionTitle: {
       },
       sectionSubtitle: {
