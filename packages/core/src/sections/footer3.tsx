@@ -65,4 +65,4 @@ export const Footer3 = (props: IFooter3Props): React.ReactElement => {
     </Section>
   );
 };
-Footer3.displayName = 'footer-1';
+Footer3.displayName = 'footer-3';
