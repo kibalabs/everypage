@@ -1,11 +1,20 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Direction, Grid, MarkdownText, PaddingSize, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, Grid, KibaIcon, MarkdownText, PaddingSize, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
+
+interface IFeatureMediaHalf1Button {
+  text: string;
+  target: string;
+  mode?: string;
+  variant?: string;
+  iconIdRight?: string;
+  iconIdLeft?: string;
+}
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IFeatureMediaHalf1Props extends ISectionProps {
@@ -14,6 +23,7 @@ interface IFeatureMediaHalf1Props extends ISectionProps {
   bodyText?: string;
   leftMediaUrl?: string;
   rightMediaUrl?: string;
+  buttons?: IFeatureMediaHalf1Button[];
 }
 
 export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactElement => {
@@ -37,6 +47,20 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
               {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
               {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
               {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
+              {props.buttons && props.buttons.length > 0 && (
+                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true}>
+                  {props.buttons.map((button: IFeatureMediaHalf1Button, index: number): React.ReactElement => (
+                    <Button
+                      key={index}
+                      text={button.text}
+                      variant={button.variant || button.mode}
+                      target={button.target}
+                      iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                      iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                    />
+                  ))}
+                </Stack>
+              )}
             </Stack>
           </ResponsiveTextAlignmentView>
         </Grid.Item>
