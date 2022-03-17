@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-console",
-  "version": "0.9.3",
+  "version": "0.9.4-next.3",
   "private": true,
   "scripts": {
     "build": "build-react-app --config-modifier ./config.build.js",
