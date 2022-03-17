@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-builder-api",
-  "version": "0.9.4-next.3",
+  "version": "0.9.3",
   "private": true,
   "scripts": {
     "build": "build-server --config-modifier ./config.build.js",
