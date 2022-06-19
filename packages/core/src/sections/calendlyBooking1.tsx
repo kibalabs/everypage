@@ -46,11 +46,11 @@ interface IStyledCalendlyEmbedProps {
 }
 
 const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
-  height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '600px' : '950px')};
+  height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '600px' : '1000px')};
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   @media (min-width: 827px) {
-    height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '700px' : '1050px')};
+    height: ${(props: IStyledCalendlyEmbedProps): string => (props.shouldHideEventType ? '700px' : '1100px')};
     margin-top: -66px;
     margin-bottom: -30px;
     box-shadow: none;
@@ -62,7 +62,7 @@ const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
 `;
 
 const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
-  const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}`;
+  const url = `https://calendly.com/${props.username}/${props.calendarId}?hide_event_type_details=${props.shouldHideEventType ? 1 : 0}&hide_gdpr_banner=1`;
 
   return (
     <React.Fragment>
