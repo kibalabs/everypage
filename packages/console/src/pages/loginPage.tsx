@@ -16,7 +16,6 @@ export const LoginPage = (): React.ReactElement => {
   const [password, setPassword] = React.useState<string>('');
   const [passwordError, setPasswordError] = React.useState<string | undefined>(undefined);
 
-
   const onLoginClicked = (): void => {
     setEmailError(undefined);
     setPasswordError(undefined);

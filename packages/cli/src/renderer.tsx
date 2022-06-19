@@ -115,8 +115,8 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       ];
       const headString = ReactDOMServer.renderToStaticMarkup(
         <head>
-          {tags.map((tag: IHeadTag): React.ReactElement => (
-            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId }, tag.content)
+          {tags.map((tag: IHeadTag, index: number): React.ReactElement => (
+            React.createElement(tag.type, { ...tag.attributes, 'ui-react-head': tag.headId, key: index }, tag.content)
           ))}
           {/* @ts-ignore */}
           {extractor.getPreAssets().map((preAsset: Chunk): React.ReactElement => (

@@ -8,7 +8,7 @@ export interface IFormHeader {
 export interface IFormInput {
   name: string;
   type: InputType;
-  value: string;
+  value: string | null;
 }
 
 export enum FormAction {

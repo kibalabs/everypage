@@ -15,6 +15,7 @@ interface IContact1Props extends ISectionProps, IFormProps {
   // TODO(krishan711): think about how the other input fields should be customized.
   inputButtonText?: string;
   inputSuccessMessageText?: string;
+  isPhoneNumberOptional?: boolean;
 }
 
 export const Contact1 = (props: IContact1Props): React.ReactElement => {
@@ -72,7 +73,7 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
       setErrorMessage(emailValidationResult.errorMessage || 'Email is not valid.');
       return;
     }
-    if (!phoneNumber) {
+    if (!props.isPhoneNumberOptional && !phoneNumber) {
       setPhoneNumberError('Please enter your phone number');
       return;
     }
