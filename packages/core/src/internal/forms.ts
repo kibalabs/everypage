@@ -8,8 +8,8 @@ export interface IFormSubmissionResult {
   responseMessage: string;
 }
 
-const inputsToParams = (inputs: IFormInput[]): Record<string, string> => {
-  return inputs.reduce((previousValue: Record<string, string>, input: IFormInput): Record<string, string> => {
+const inputsToParams = (inputs: IFormInput[]): Record<string, string | null> => {
+  return inputs.reduce((previousValue: Record<string, string | null>, input: IFormInput): Record<string, string | null> => {
     // eslint-disable-next-line no-param-reassign
     previousValue[input.name] = input.value;
     return previousValue;
@@ -20,9 +20,9 @@ const paramToQueryStringParam = (key: string, value: string): string => {
   return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 };
 
-const paramsToQueryString = (params: Record<string, string>): string => {
-  return Object.keys(params).map((key: string): string => {
-    return paramToQueryStringParam(key, params[key]);
+const paramsToQueryString = (params: Record<string, string | null>): string => {
+  return Object.keys(params).filter((key: string): boolean => params[key] != null).map((key: string): string => {
+    return paramToQueryStringParam(key, params[key] as string);
   }).join('&');
 };
 
