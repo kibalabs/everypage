@@ -11,7 +11,8 @@
   "scripts": {
     "build": "build-react-component --config-modifier ./config.build.js",
     "pack": "npm pack",
-    "publish": "kiba-publish"
+    "publish": "kiba-publish",
+    "publish-next": "kiba-publish --next"
   },
   "bin": {
     "everypage": "bin/everypage.js"

@@ -13,7 +13,8 @@
     "start": "build-react-component --config-modifier ./config.build.js --start",
     "start-dev": "build-react-component --config-modifier ./config.build.js --start --dev",
     "pack": "npm pack",
-    "publish": "kiba-publish"
+    "publish": "kiba-publish",
+    "publish-next": "kiba-publish --next"
   },
   "files": [
     "dist/*"

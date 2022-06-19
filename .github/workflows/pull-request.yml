@@ -37,7 +37,7 @@ jobs:
       - name: Build builder-api docker image
         uses: docker/build-push-action@v2
         with:
-          context: app
+          context: .
           cache-from: type=gha,scope=builder-api
           cache-to: type=gha,mode=max,scope=builder-api
           tags: ${{ env.DOCKER_IMAGE }}
