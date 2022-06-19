@@ -15,35 +15,31 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v2
         with:
-          context: app
+          context: .
           load: true
           cache-from: type=gha,scope=app
           cache-to: type=gha,mode=max,scope=app
       - name: Build testable docker image
         uses: docker/build-push-action@v2
         with:
-          context: app
+          context: .
           load: true
           cache-from: type=gha,scope=app
           cache-to: type=gha,mode=max,scope=app
-          tags: ${{ env.DOCKER_IMAGE }}
           target: build
       - name: Build console docker image
         uses: docker/build-push-action@v2
         with:
-          context: app
-          load: true
-          cache-from: type=gha,scope=app-console
-          cache-to: type=gha,mode=max,scope=app-console
-          tags: ${{ env.DOCKER_IMAGE }}
+          context: .
+          cache-from: type=gha,scope=console
+          cache-to: type=gha,mode=max,scope=console
           target: console
       - name: Build builder-api docker image
         uses: docker/build-push-action@v2
         with:
           context: app
-          load: true
-          cache-from: type=gha,scope=app-builder-api
-          cache-to: type=gha,mode=max,scope=app-builder-api
+          cache-from: type=gha,scope=builder-api
+          cache-to: type=gha,mode=max,scope=builder-api
           tags: ${{ env.DOCKER_IMAGE }}
           target: builder-api
       - name: Run linting
