@@ -17,8 +17,8 @@ jobs:
         with:
           context: .
           load: true
-          cache-from: type=gha,scope=app
-          cache-to: type=gha,mode=max,scope=app
+          cache-from: type=gha,scope=app-all
+          cache-to: type=gha,mode=max,scope=app-all
       - name: Build testable docker image
         uses: docker/build-push-action@v2
         with:
