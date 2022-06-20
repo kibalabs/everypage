@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Added
 - [MINOR] Add `isPhoneNumberOptional` to `Contact1` and `Contact2`
+- [MINOR] Add `shouldUseGeneratedFavicons` to `IWebsite` to allow direct favicon usage
 
 ### Changed
 - [MINOR] Update `Calendly1` to hide cookie banner
