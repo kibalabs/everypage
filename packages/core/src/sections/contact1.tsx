@@ -78,7 +78,7 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
       return;
     }
     if (!message) {
-      setEmailError('Please enter a message');
+      setMessageError('Please enter a message');
       return;
     }
     setIsLoading(true);

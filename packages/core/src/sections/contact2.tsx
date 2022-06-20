@@ -82,7 +82,7 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
       return;
     }
     if (!message) {
-      setEmailError('Please enter a message');
+      setMessageError('Please enter a message');
       return;
     }
     setIsLoading(true);

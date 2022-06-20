@@ -22,7 +22,9 @@ export const EveryviewAnalytics = (props: IEveryviewAnalyticsProp): null => {
     // eslint-disable-next-line import/no-extraneous-dependencies
     import('@kibalabs/everyview-tracker').then((Everyview) => {
       const tracker = new Everyview.EveryviewTracker(props.applicationId || '');
-      tracker.trackApplicationOpen();
+      tracker.initialize().then((): void => {
+        tracker.trackApplicationOpen();
+      });
     });
   });
 
