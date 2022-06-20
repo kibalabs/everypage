@@ -8,10 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
-- [MINOR] Add `isPhoneNumberOptional` to `Contact1` and `Contact2`
+- [MINOR] Added `isPhoneNumberOptional` to `Contact1` and `Contact2`
+- [MINOR] Added `shouldUseGeneratedFavicons` to `IWebsite` to allow direct favicon usage
+- [MINOR] Added `bodyText` to `Buttons1`
 
 ### Changed
-- [MINOR] Update `Calendly1` to hide cookie banner
+- [MINOR] Updated `Calendly1` to hide cookie banner
 
 ### Removed
 

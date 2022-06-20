@@ -33,6 +33,7 @@ export interface IWebsiteSection {
 export interface IWebsite extends IWebsiteMeta {
   buildHash: string;
   siteHost: string;
+  shouldUseGeneratedFavicons?: boolean;
   shouldHideAttribution?: boolean;
   plugins?: IWebsitePlugin[];
   sections?: IWebsiteSection[];
