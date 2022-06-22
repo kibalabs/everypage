@@ -88,7 +88,7 @@ export class Jwt {
   public static fromString = (jwtString: string): Jwt => {
     const jwtParts = jwtString.split('.');
     return new Jwt(JSON.parse(atob(jwtParts[0])), JSON.parse(atob(jwtParts[1])));
-  }
+  };
 }
 
 
@@ -105,25 +105,25 @@ export class AuthManager implements IRouterAuthManager {
 
   public getIsUserLoggedIn = (): boolean => {
     return this.getJwtString() !== null;
-  }
+  };
 
   public getJwt = (): Jwt | null => {
     const jwtString = this.getJwtString();
     return jwtString ? Jwt.fromString(jwtString) : null;
-  }
+  };
 
   public getHasJwtPermission = (name: string): boolean => {
     const jwtString = this.getJwtString();
     return jwtString ? Jwt.fromString(jwtString).scopes.indexOf(name) !== -1 : false;
-  }
+  };
 
   public getJwtString = (): string | null => {
     return this.localStorageClient.getValue(this.jwtStorageKey);
-  }
+  };
 
   public setJwtString = (jwt: string): void => {
     this.localStorageClient.setValue(this.jwtStorageKey, jwt);
-  }
+  };
 
   public logout = (): Promise<void> => {
     return this.everypageClient.logoutUser().then((): void => {
@@ -132,5 +132,5 @@ export class AuthManager implements IRouterAuthManager {
       console.error(`error logging out: ${error}`);
       this.localStorageClient.clear();
     });
-  }
+  };
 }

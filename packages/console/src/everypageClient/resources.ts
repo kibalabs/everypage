@@ -17,7 +17,7 @@ export class Account {
       String(obj.accountType),
       String(obj.name),
     );
-  }
+  };
 }
 
 export class StripeSubscription {
@@ -40,7 +40,7 @@ export class StripeSubscription {
       String(obj.latestInvoicePaymentStatus),
       String(obj.latestInvoicePaymentActionSecret),
     );
-  }
+  };
 }
 
 export class StripePortalSession {
@@ -57,7 +57,7 @@ export class StripePortalSession {
       String(obj.portalSessionId),
       String(obj.url),
     );
-  }
+  };
 }
 
 export class Site {
@@ -92,7 +92,7 @@ export class Site {
       obj.customDomain ? String(obj.customDomain) : null,
       obj.customDomainStatus ? String(obj.customDomainStatus) : null,
     );
-  }
+  };
 }
 
 export class SiteVersion {
@@ -127,7 +127,7 @@ export class SiteVersion {
       obj.archiveDate ? dateFromString(obj.archiveDate as string) : null,
       dateFromString(obj.lastUpdateDate as string),
     );
-  }
+  };
 }
 
 export class SiteVersionEntry {
@@ -150,7 +150,7 @@ export class SiteVersionEntry {
       obj.siteContent as Record<string, unknown>,
       obj.siteTheme as Record<string, unknown>,
     );
-  }
+  };
 }
 
 export class PresignedUpload {
@@ -167,7 +167,7 @@ export class PresignedUpload {
       String(obj.url),
       obj.params as Record<string, string>,
     );
-  }
+  };
 }
 
 export class AssetFile {
@@ -181,7 +181,7 @@ export class AssetFile {
     return new AssetFile(
       String(obj.path),
     );
-  }
+  };
 }
 
 export class TemplateCategory {
@@ -198,7 +198,7 @@ export class TemplateCategory {
       Number(obj.templateCategoryId),
       String(obj.name),
     );
-  }
+  };
 }
 
 export class Template {
@@ -230,7 +230,7 @@ export class Template {
       String(obj.imageUrl),
       String(obj.previewUrl),
     );
-  }
+  };
 }
 
 export class SectionCategory {
@@ -247,7 +247,7 @@ export class SectionCategory {
       Number(obj.sectionCategoryId),
       String(obj.name),
     );
-  }
+  };
 }
 
 export class Section {
@@ -279,7 +279,7 @@ export class Section {
       obj.content as Record<string, unknown>,
       String(obj.previewImageUrl),
     );
-  }
+  };
 }
 
 export class IosApp {
@@ -308,7 +308,7 @@ export class IosApp {
       String(obj.iconImageUrl),
       String(obj.storeUrl),
     );
-  }
+  };
 }
 
 export class AndroidApp {
@@ -340,5 +340,5 @@ export class AndroidApp {
       String(obj.iconImageUrl),
       String(obj.storeUrl),
     );
-  }
+  };
 }

@@ -15,9 +15,9 @@ import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
 // @ts-ignore
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 // @ts-ignore
+import makeModuleWebpackConfig from '@kibalabs/build/scripts/module/module.webpack';
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
-import makeModuleWebpackConfig from '@kibalabs/build/scripts/module/module.webpack';
 import { IWebsite } from '@kibalabs/everypage';
 import { IHead, IHeadTag } from '@kibalabs/ui-react';
 import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
