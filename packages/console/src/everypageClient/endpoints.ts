@@ -18,26 +18,26 @@ export class LoginUserRequest extends RequestData {
       email: this.email,
       password: this.password,
     };
-  }
+  };
 }
 
 export class LoginUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): LoginUserResponse => {
     return new LoginUserResponse();
-  }
+  };
 }
 
 export class LogoutUserRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class LogoutUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): LogoutUserResponse => {
     return new LogoutUserResponse();
-  }
+  };
 }
 
 export class CreateUserRequest extends RequestData {
@@ -64,46 +64,46 @@ export class CreateUserRequest extends RequestData {
       password: this.password,
       shouldJoinNewsletter: this.shouldJoinNewsletter !== undefined ? this.shouldJoinNewsletter : null,
     };
-  }
+  };
 }
 
 export class CreateUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): CreateUserResponse => {
     return new CreateUserResponse();
-  }
+  };
 }
 
 export class RefreshTokenRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class RefreshTokenResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): RefreshTokenResponse => {
     return new RefreshTokenResponse();
-  }
+  };
 }
 
 export class SendEmailVerificationForUserRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class SendEmailVerificationForUserResponse extends ResponseData {
   public static fromObject = (obj: Record<string, unknown>): SendEmailVerificationForUserResponse => {
     return new SendEmailVerificationForUserResponse();
-  }
+  };
 }
 
 export class RetrieveAccountsRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class RetrieveAccountsResponse extends ResponseData {
@@ -118,14 +118,14 @@ export class RetrieveAccountsResponse extends ResponseData {
     return new RetrieveAccountsResponse(
       (obj.accounts as Record<string, unknown>[]).map((account: Record<string, unknown>): Resources.Account => Resources.Account.fromObject(account)),
     );
-  }
+  };
 }
 
 export class GetAccountRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetAccountResponse extends ResponseData {
@@ -140,7 +140,7 @@ export class GetAccountResponse extends ResponseData {
     return new GetAccountResponse(
       Resources.Account.fromObject(obj.account as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class CreateSubscriptionForAccountRequest extends RequestData {
@@ -164,7 +164,7 @@ export class CreateSubscriptionForAccountRequest extends RequestData {
       stripePaymentMethodId: this.stripePaymentMethodId,
       couponCode: this.couponCode,
     };
-  }
+  };
 }
 
 export class CreateSubscriptionForAccountResponse extends ResponseData {
@@ -179,7 +179,7 @@ export class CreateSubscriptionForAccountResponse extends ResponseData {
     return new CreateSubscriptionForAccountResponse(
       Resources.StripeSubscription.fromObject(obj.stripeSubscription as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ChangeSubscriptionForAccountRequest extends RequestData {
@@ -200,7 +200,7 @@ export class ChangeSubscriptionForAccountRequest extends RequestData {
       priceCode: this.priceCode,
       couponCode: this.couponCode,
     };
-  }
+  };
 }
 
 export class ChangeSubscriptionForAccountResponse extends ResponseData {
@@ -215,13 +215,13 @@ export class ChangeSubscriptionForAccountResponse extends ResponseData {
     return new ChangeSubscriptionForAccountResponse(
       Resources.StripeSubscription.fromObject(obj.stripeSubscription as Record<string, unknown>),
     );
-  }
+  };
 }
 export class CreatePortalSessionForAccountRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class CreatePortalSessionForAccountResponse extends ResponseData {
@@ -236,15 +236,15 @@ export class CreatePortalSessionForAccountResponse extends ResponseData {
     return new CreatePortalSessionForAccountResponse(
       Resources.StripePortalSession.fromObject(obj.stripePortalSession as Record<string, unknown>),
     );
-  }
+  };
 }
 
 
 export class RetrieveSitesForAccountRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class RetrieveSitesForAccountResponse extends ResponseData {
@@ -259,7 +259,7 @@ export class RetrieveSitesForAccountResponse extends ResponseData {
     return new RetrieveSitesForAccountResponse(
       (obj.sites as Record<string, unknown>[]).map((site: Record<string, unknown>): Resources.Site => Resources.Site.fromObject(site as Record<string, unknown>)),
     );
-  }
+  };
 }
 
 
@@ -284,7 +284,7 @@ export class CreateSiteRequest extends RequestData {
       name: this.name,
       templateId: this.templateId,
     };
-  }
+  };
 }
 
 export class CreateSiteResponse extends ResponseData {
@@ -299,7 +299,7 @@ export class CreateSiteResponse extends ResponseData {
     return new CreateSiteResponse(
       Resources.Site.fromObject(obj.site as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class CreateSiteVersionRequest extends RequestData {
@@ -323,7 +323,7 @@ export class CreateSiteVersionRequest extends RequestData {
       name: this.name,
       templateId: this.templateId,
     };
-  }
+  };
 }
 
 export class CreateSiteVersionResponse extends ResponseData {
@@ -338,14 +338,14 @@ export class CreateSiteVersionResponse extends ResponseData {
     return new CreateSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class RetrieveNextVersionNameRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class RetrieveNextVersionNameResponse extends ResponseData {
@@ -360,7 +360,7 @@ export class RetrieveNextVersionNameResponse extends ResponseData {
     return new RetrieveNextVersionNameResponse(
       String(obj.nextVersionName),
     );
-  }
+  };
 }
 
 export class ListSiteVersionAssetsRequest extends RequestData {
@@ -368,10 +368,10 @@ export class ListSiteVersionAssetsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ListSiteVersionAssetsResponse extends ResponseData {
@@ -386,7 +386,7 @@ export class ListSiteVersionAssetsResponse extends ResponseData {
     return new ListSiteVersionAssetsResponse(
       (obj.assetFiles as Record<string, unknown>[]).map((siteVersion: Record<string, unknown>): Resources.AssetFile => Resources.AssetFile.fromObject(siteVersion)),
     );
-  }
+  };
 }
 
 export class DeleteSiteVersionAssetsRequest extends RequestData {
@@ -394,10 +394,10 @@ export class DeleteSiteVersionAssetsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class DeleteSiteVersionAssetsResponse extends ResponseData {
@@ -407,7 +407,7 @@ export class DeleteSiteVersionAssetsResponse extends ResponseData {
 
   public static fromObject = (obj: Record<string, unknown>): DeleteSiteVersionAssetsResponse => {
     return new DeleteSiteVersionAssetsResponse();
-  }
+  };
 }
 
 
@@ -416,10 +416,10 @@ export class PromoteSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class PromoteSiteVersionResponse extends ResponseData {
@@ -429,7 +429,7 @@ export class PromoteSiteVersionResponse extends ResponseData {
 
   public static fromObject = (obj: Record<string, unknown>): PromoteSiteVersionResponse => {
     return new PromoteSiteVersionResponse();
-  }
+  };
 }
 
 export class CloneSiteVersionRequest extends RequestData {
@@ -444,7 +444,7 @@ export class CloneSiteVersionRequest extends RequestData {
     return {
       name: this.name,
     };
-  }
+  };
 }
 
 export class CloneSiteVersionResponse extends ResponseData {
@@ -459,7 +459,7 @@ export class CloneSiteVersionResponse extends ResponseData {
     return new CloneSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ArchiveSiteVersionRequest extends RequestData {
@@ -467,10 +467,10 @@ export class ArchiveSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ArchiveSiteVersionResponse extends ResponseData {
@@ -485,7 +485,7 @@ export class ArchiveSiteVersionResponse extends ResponseData {
     return new ArchiveSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GenerateAssetUploadForSiteVersionRequest extends RequestData {
@@ -493,10 +493,10 @@ export class GenerateAssetUploadForSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GenerateAssetUploadForSiteVersionResponse extends ResponseData {
@@ -511,7 +511,7 @@ export class GenerateAssetUploadForSiteVersionResponse extends ResponseData {
     return new GenerateAssetUploadForSiteVersionResponse(
       Resources.PresignedUpload.fromObject(obj.presignedUpload as Record<string, unknown>),
     );
-  }
+  };
 }
 
 
@@ -520,10 +520,10 @@ export class GetSiteRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSiteResponse extends ResponseData {
@@ -538,7 +538,7 @@ export class GetSiteResponse extends ResponseData {
     return new GetSiteResponse(
       Resources.Site.fromObject(obj.site as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class UpdateDomainForSiteRequest extends RequestData {
@@ -553,7 +553,7 @@ export class UpdateDomainForSiteRequest extends RequestData {
     return {
       customDomain: this.customDomain,
     };
-  }
+  };
 }
 
 export class UpdateDomainForSiteResponse extends ResponseData {
@@ -568,7 +568,7 @@ export class UpdateDomainForSiteResponse extends ResponseData {
     return new UpdateDomainForSiteResponse(
       Resources.Site.fromObject(obj.site as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ArchiveSiteRequest extends RequestData {
@@ -576,10 +576,10 @@ export class ArchiveSiteRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ArchiveSiteResponse extends ResponseData {
@@ -594,7 +594,7 @@ export class ArchiveSiteResponse extends ResponseData {
     return new GetSiteResponse(
       Resources.Site.fromObject(obj.site as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetSiteBySlugRequest extends RequestData {
@@ -602,10 +602,10 @@ export class GetSiteBySlugRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSiteBySlugResponse extends ResponseData {
@@ -620,7 +620,7 @@ export class GetSiteBySlugResponse extends ResponseData {
     return new GetSiteBySlugResponse(
       Resources.Site.fromObject(obj.site as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ListSiteVersionsRequest extends RequestData {
@@ -628,10 +628,10 @@ export class ListSiteVersionsRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ListSiteVersionsResponse extends ResponseData {
@@ -646,7 +646,7 @@ export class ListSiteVersionsResponse extends ResponseData {
     return new ListSiteVersionsResponse(
       (obj.siteVersions as Record<string, unknown>[]).map((siteVersion: Record<string, unknown>): Resources.SiteVersion => Resources.SiteVersion.fromObject(siteVersion)),
     );
-  }
+  };
 }
 
 export class GetSitePrimaryVersionRequest extends RequestData {
@@ -654,10 +654,10 @@ export class GetSitePrimaryVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSitePrimaryVersionResponse extends ResponseData {
@@ -672,7 +672,7 @@ export class GetSitePrimaryVersionResponse extends ResponseData {
     return new GetSitePrimaryVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion as Record<string, unknown>),
     );
-  }
+  };
 }
 
 
@@ -681,10 +681,10 @@ export class GetSiteVersionRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSiteVersionResponse extends ResponseData {
@@ -699,7 +699,7 @@ export class GetSiteVersionResponse extends ResponseData {
     return new GetSiteVersionResponse(
       Resources.SiteVersion.fromObject(obj.siteVersion as Record<string, unknown>),
     );
-  }
+  };
 }
 
 
@@ -708,10 +708,10 @@ export class GetSiteVersionEntryRequest extends RequestData {
     super();
   }
 
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSiteVersionEntryResponse extends ResponseData {
@@ -726,7 +726,7 @@ export class GetSiteVersionEntryResponse extends ResponseData {
     return new GetSiteVersionEntryResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class UpdateSiteVersionEntryRequest extends RequestData {
@@ -744,7 +744,7 @@ export class UpdateSiteVersionEntryRequest extends RequestData {
       siteContent: this.siteContent,
       siteTheme: this.siteTheme,
     };
-  }
+  };
 }
 
 export class UpdateSiteVersionEntryResponse extends ResponseData {
@@ -759,14 +759,14 @@ export class UpdateSiteVersionEntryResponse extends ResponseData {
     return new UpdateSiteVersionEntryResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ListTemplateCategoriesRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ListTemplateCategoriesResponse extends ResponseData {
@@ -781,7 +781,7 @@ export class ListTemplateCategoriesResponse extends ResponseData {
     return new ListTemplateCategoriesResponse(
       (obj.templateCategories as Record<string, unknown>[]).map((templateCategory: Record<string, unknown>): Resources.TemplateCategory => Resources.TemplateCategory.fromObject(templateCategory)),
     );
-  }
+  };
 }
 
 export class CreateTemplateCategoryRequest extends RequestData {
@@ -796,7 +796,7 @@ export class CreateTemplateCategoryRequest extends RequestData {
     return {
       name: this.name,
     };
-  }
+  };
 }
 
 export class CreateTemplateCategoryResponse extends ResponseData {
@@ -811,14 +811,14 @@ export class CreateTemplateCategoryResponse extends ResponseData {
     return new CreateTemplateCategoryResponse(
       Resources.TemplateCategory.fromObject(obj.templateCategory as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetTemplateCategoryRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetTemplateCategoryResponse extends ResponseData {
@@ -833,7 +833,7 @@ export class GetTemplateCategoryResponse extends ResponseData {
     return new GetTemplateCategoryResponse(
       Resources.TemplateCategory.fromObject(obj.templateCategory as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ListTemplatesRequest extends RequestData {
@@ -848,7 +848,7 @@ export class ListTemplatesRequest extends RequestData {
     return {
       templateCategoryId: this.templateCategoryId,
     };
-  }
+  };
 }
 
 export class ListTemplatesResponse extends ResponseData {
@@ -863,7 +863,7 @@ export class ListTemplatesResponse extends ResponseData {
     return new ListTemplatesResponse(
       (obj.templates as Record<string, unknown>[]).map((template: Record<string, unknown>): Resources.Template => Resources.Template.fromObject(template)),
     );
-  }
+  };
 }
 
 export class CreateTemplateRequest extends RequestData {
@@ -887,7 +887,7 @@ export class CreateTemplateRequest extends RequestData {
       siteId: this.siteId,
       templateCategoryId: this.templateCategoryId,
     };
-  }
+  };
 }
 
 export class CreateTemplateResponse extends ResponseData {
@@ -902,14 +902,14 @@ export class CreateTemplateResponse extends ResponseData {
     return new CreateTemplateResponse(
       Resources.Template.fromObject(obj.template as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetTemplateRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetTemplateResponse extends ResponseData {
@@ -924,14 +924,14 @@ export class GetTemplateResponse extends ResponseData {
     return new GetTemplateResponse(
       Resources.Template.fromObject(obj.template as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetSiteVersionEntryForTemplateRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
@@ -946,14 +946,14 @@ export class GetSiteVersionEntryForTemplateResponse extends ResponseData {
     return new GetSiteVersionEntryForTemplateResponse(
       Resources.SiteVersionEntry.fromObject(obj.siteVersionEntry as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ListSectionCategoriesRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class ListSectionCategoriesResponse extends ResponseData {
@@ -968,7 +968,7 @@ export class ListSectionCategoriesResponse extends ResponseData {
     return new ListSectionCategoriesResponse(
       (obj.sectionCategories as Record<string, unknown>[]).map((sectionCategory: Record<string, unknown>): Resources.SectionCategory => Resources.SectionCategory.fromObject(sectionCategory)),
     );
-  }
+  };
 }
 
 export class CreateSectionCategoryRequest extends RequestData {
@@ -983,7 +983,7 @@ export class CreateSectionCategoryRequest extends RequestData {
     return {
       name: this.name,
     };
-  }
+  };
 }
 
 export class CreateSectionCategoryResponse extends ResponseData {
@@ -998,14 +998,14 @@ export class CreateSectionCategoryResponse extends ResponseData {
     return new CreateSectionCategoryResponse(
       Resources.SectionCategory.fromObject(obj.sectionCategory as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetSectionCategoryRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSectionCategoryResponse extends ResponseData {
@@ -1020,7 +1020,7 @@ export class GetSectionCategoryResponse extends ResponseData {
     return new GetSectionCategoryResponse(
       Resources.SectionCategory.fromObject(obj.sectionCategory as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class ListSectionsRequest extends RequestData {
@@ -1035,7 +1035,7 @@ export class ListSectionsRequest extends RequestData {
     return {
       sectionCategoryId: this.sectionCategoryId,
     };
-  }
+  };
 }
 
 export class ListSectionsResponse extends ResponseData {
@@ -1050,7 +1050,7 @@ export class ListSectionsResponse extends ResponseData {
     return new ListSectionsResponse(
       (obj.sections as Record<string, unknown>[]).map((section: Record<string, unknown>): Resources.Section => Resources.Section.fromObject(section)),
     );
-  }
+  };
 }
 
 export class CreateSectionRequest extends RequestData {
@@ -1080,7 +1080,7 @@ export class CreateSectionRequest extends RequestData {
       previewImageUrl: this.previewImageUrl,
       content: this.content,
     };
-  }
+  };
 }
 
 export class CreateSectionResponse extends ResponseData {
@@ -1095,14 +1095,14 @@ export class CreateSectionResponse extends ResponseData {
     return new CreateSectionResponse(
       Resources.Section.fromObject(obj.section as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetSectionRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetSectionResponse extends ResponseData {
@@ -1117,14 +1117,14 @@ export class GetSectionResponse extends ResponseData {
     return new GetSectionResponse(
       Resources.Section.fromObject(obj.section as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetIosAppRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetIosAppResponse extends ResponseData {
@@ -1139,14 +1139,14 @@ export class GetIosAppResponse extends ResponseData {
     return new GetIosAppResponse(
       Resources.IosApp.fromObject(obj.iosApp as Record<string, unknown>),
     );
-  }
+  };
 }
 
 export class GetAndroidAppRequest extends RequestData {
-  public toObject = (): Record<string, unknown> => {
-    return {
-    };
-  }
+  // public toObject = (): Record<string, unknown> => {
+  //   return {
+  //   };
+  // };
 }
 
 export class GetAndroidAppResponse extends ResponseData {
@@ -1161,5 +1161,5 @@ export class GetAndroidAppResponse extends ResponseData {
     return new GetAndroidAppResponse(
       Resources.AndroidApp.fromObject(obj.androidApp as Record<string, unknown>),
     );
-  }
+  };
 }

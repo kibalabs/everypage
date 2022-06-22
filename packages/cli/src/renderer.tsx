@@ -15,9 +15,10 @@ import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
 // @ts-ignore
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 // @ts-ignore
+import makeModuleWebpackConfig from '@kibalabs/build/scripts/module/module.webpack';
+// @ts-ignore
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
-import makeReactComponentWebpackConfig from '@kibalabs/build/scripts/react-component/component.webpack';
 import { IWebsite } from '@kibalabs/everypage';
 import { IHead, IHeadTag } from '@kibalabs/ui-react';
 import { Chunk, ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
@@ -59,27 +60,23 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   if (assetsDirectory) {
     await copyDirectorySync(assetsDirectory, path.join(buildDirectory, './public/assets'));
   }
+  const packageFilePath = path.join(process.cwd(), './package.json');
 
   // NOTE(krishan711): this is weird but needed to work both locally (with lerna) and on the builder-api
   const nodeModulesPaths = findAncestorSibling('node_modules');
   const nodeWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({ name: 'everypage-site-node', dev: false, analyze: false, shouldAliasModules: false }),
-    makeJsWebpackConfig({ polyfill: false, react: true }),
+    makeCommonWebpackConfig({ name: 'site-node', packageFilePath, shouldAliasModules: false }),
+    makeJsWebpackConfig({ packageFilePath, polyfill: false, react: true }),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactComponentWebpackConfig({ dev: false, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths }),
+    makeModuleWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths }),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({ name: 'everypage-site', dev: false, analyze: false, shouldAliasModules: false }),
-    makeJsWebpackConfig({ polyfill: true, react: true }),
+    makeCommonWebpackConfig({ name: 'site', packageFilePath, shouldAliasModules: false }),
+    makeJsWebpackConfig({ packageFilePath, polyfill: true, react: true }),
     makeImagesWebpackConfig(),
     makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({ dev: false, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
-    {
-      performance: {
-        hints: false,
-      },
-    },
+    makeReactAppWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
   );
   console.log('EP: generating node output');
   return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<Record<string, unknown>> => {

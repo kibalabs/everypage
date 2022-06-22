@@ -13,6 +13,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Login to GitHub container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Build docker image
@@ -27,7 +33,7 @@ jobs:
       - name: Create .npmrc file
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
       - name: Publish package to npm
-        run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE npm publish
+        run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish"
       - name: Build and push console docker image
         uses: docker/build-push-action@v2
         with:

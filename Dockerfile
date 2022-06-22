@@ -1,4 +1,4 @@
-FROM node:16.4.1-stretch as build
+FROM node:18.4.0-bullseye as build
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ FROM ghcr.io/kibalabs/app-serve:latest as console
 COPY --from=build /app/packages/console/dist /usr/share/nginx/html
 
 # Builder API
-FROM node:16.4.1-stretch as builder-api
+FROM node:18.4.0-bullseye as builder-api
 
 WORKDIR /app
 COPY --from=build /app/everypage-cli.tgz .
