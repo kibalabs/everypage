@@ -827,6 +827,39 @@
           "target": "https://www.kibalabs.com"
         }
       ]
+    },
+    {
+      "type": "TeamBoxes-boxes-1",
+      "titleText": "Checkout out awesome team 🤩",
+      "subtitleText": "from around the world",
+      "boxVariant": "card",
+      "boxes": [
+        {
+          "name": "Shola",
+          "image": "/assets/avatar1.png",
+          "summaryText": "CEO",
+          "bodyText": "I love building products",
+          "twitter": "https://twitter.com/kibalabs"
+        },
+        {
+          "name": "june",
+          "image": "/assets/avatar1.png",
+          "summaryText": "I bake during my free time",
+          "bodyText": "I bake during my free time",
+          "twitter": "https://twitter.com/kibalabs"
+        },
+        {
+          "name": "Barakat",
+          "image": "assets/avatar1.png",
+          "summaryText": "Front-end",
+          "bodyText": "nature is beautiful",
+          "twitter": "https://twitter.com/kibalabs"
+        },
+        {
+          "author": "Krishan Patel",
+          "text": "OMFG this is the best thing ever!!!"
+        }
+      ]
     }
   ]
 }
