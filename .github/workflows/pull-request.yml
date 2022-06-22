@@ -6,7 +6,7 @@ jobs:
   build-all:
     runs-on: ubuntu-latest
     env:
-      DOCKER_IMAGE: everypage-all-build
+      DOCKER_IMAGE: all-build
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
