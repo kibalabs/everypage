@@ -1,39 +1,46 @@
 name: Release
 on:
-  push:
-    tags: ["v*"]
+  pull_request:
+    # tags: ["v*"]
 jobs:
-  deploy-all:
+  # deploy-package:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     DOCKER_IMAGE: ghcr.io/${{ github.repository }}:latest
+  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v2
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v1
+  #     - name: Build docker image
+  #       uses: docker/build-push-action@v2
+  #       with:
+  #         context: .
+  #         load: true
+  #         cache-from: type=gha,scope=package
+  #         cache-to: type=gha,mode=max,scope=package
+  #         tags: ${{ env.DOCKER_IMAGE }}
+  #         target: build
+  #     - name: Create .npmrc file
+  #       run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+  #     - name: Publish package to npm
+  #       run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish"
+  deploy-console:
     runs-on: ubuntu-latest
     env:
-      DOCKER_IMAGE: ghcr.io/${{ github.repository }}:latest
       DOCKER_IMAGE_CONSOLE: ghcr.io/${{ github.repository }}-console:latest
-      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api:latest
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Login to GitHub container registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Build docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          cache-from: type=gha,scope=package
-          cache-to: type=gha,mode=max,scope=package
-          tags: ${{ env.DOCKER_IMAGE }}
-          target: build
-      - name: Create .npmrc file
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-      - name: Publish package to npm
-        run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish"
       - name: Build and push console docker image
         uses: docker/build-push-action@v2
         with:
@@ -43,6 +50,21 @@ jobs:
           cache-to: type=gha,mode=max,scope=console
           tags: ${{ env.DOCKER_IMAGE_CONSOLE }}
           target: console
+  deploy-builder-api:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api:latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push builder-api docker image
         uses: docker/build-push-action@v2
         with:
@@ -53,7 +75,7 @@ jobs:
           tags: ${{ env.DOCKER_IMAGE_BUILDER_API }}
           target: builder-api
   run-console:
-    needs: deploy-all
+    needs: deploy-console
     runs-on: ubuntu-latest
     env:
       NAME: everypage-console
@@ -83,7 +105,7 @@ jobs:
                 --env-file ~/.${NAME}.vars \
                 ${DOCKER_IMAGE}
   run-builder-api:
-    needs: deploy-all
+    needs: deploy-builder-api
     runs-on: ubuntu-latest
     env:
       NAME: everypage-builder-api
