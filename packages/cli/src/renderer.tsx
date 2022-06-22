@@ -16,6 +16,7 @@ import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 // @ts-ignore
 import makeModuleWebpackConfig from '@kibalabs/build/scripts/module/module.webpack';
+// @ts-ignore
 import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
 import { IWebsite } from '@kibalabs/everypage';
