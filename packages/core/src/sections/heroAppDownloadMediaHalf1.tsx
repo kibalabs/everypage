@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { Alignment, AppDownloadButton, Button, Direction, Grid, KibaIcon, Media, PaddingSize, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
-import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText, SectionSubtitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 import { useWebsite } from '../util';
 
@@ -51,7 +51,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
               <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }}>
                 {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
                 {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
-                {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+                {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
                 {appButtonVariant === 'custom' ? (
                   <Stack directionResponsive={{ base: Direction.Vertical, medium: Direction.Horizontal }} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true}>
                     {iosAppId && <Stack.Item growthFactor={1} shrinkFactor={1}><Button variant='primary' iconLeft={<KibaIcon variant='large' iconId='ion-logo-apple' />} iconGutter={PaddingSize.Wide} target={`https://apps.apple.com/app/id${iosAppId}`} text='Download for iOS' /></Stack.Item>}
