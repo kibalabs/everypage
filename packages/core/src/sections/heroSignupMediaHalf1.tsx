@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { Alignment, Button, Direction, Form, Grid, InputType, Media, PaddingSize, ResponsiveHidingView, ResponsiveTextAlignmentView, ScreenSize, SingleLineInput, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
-import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText } from '../components';
 import { EverypagePaddingSize, submitForm, validateInput } from '../internal';
 import { defaultFormProps, IFormProps } from '../model';
 

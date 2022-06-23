@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { Alignment, AppDownloadButton, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
-import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText } from '../components';
 import { EverypagePaddingSize } from '../internal';
 import { useWebsite } from '../util';
 
