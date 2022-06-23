@@ -13,6 +13,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Removed
 
+## [0.9.6] - 2022-06-23
+
+### Changed
+- [MINOR] Update all Hero components to use `HeroSubtitleText` where needed
+
 ## [0.9.5] - 2022-06-22
 
 ### Added
