@@ -844,20 +844,24 @@
         {
           "name": "june",
           "image": "/assets/avatar1.png",
-          "summaryText": "I bake during my free time",
+          "summaryText": "Head of customer success",
           "bodyText": "I bake during my free time",
-          "twitter": "https://twitter.com/kibalabs"
+          "twitter": "@june",
+          "linkedin": "June "
         },
         {
           "name": "Barakat",
-          "image": "assets/avatar1.png",
-          "summaryText": "Front-end",
+          "image": "/assets/avatar1.png",
+          "summaryText": "Front-end Engineer",
           "bodyText": "nature is beautiful",
-          "twitter": "https://twitter.com/kibalabs"
+          "twitter": "@ajadiAbeeola"
         },
         {
-          "author": "Krishan Patel",
-          "text": "OMFG this is the best thing ever!!!"
+          "name": "Joy",
+          "image": "assets/avatar1.png",
+          "summaryText": "Back-end Engineer",
+          "bodyText": "everyone should travel",
+          "twitter": "@joy"
         }
       ]
     }
