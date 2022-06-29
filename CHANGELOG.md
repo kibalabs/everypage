@@ -8,11 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
-- [MINOR] Added `TeamBoxes1`
 
 ### Changed
 
 ### Removed
+
+## [0.9.7] - 2022-06-29
+
+### Added
+- [MINOR] Added `TeamBoxes1`
 
 ## [0.9.6] - 2022-06-23
 
