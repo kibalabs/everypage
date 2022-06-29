@@ -26,6 +26,8 @@ const paramsToQueryString = (params: Record<string, string | null>): string => {
   }).join('&');
 };
 
+const requester = new Requester(undefined, undefined, false);
+
 export const submitForm = async (inputs: IFormInput[], action: FormAction, target: string, headers?: IFormHeader[]): Promise<IFormSubmissionResult> => {
   const params = inputsToParams(inputs);
   // TODO(krishan711): lowercase-ing should really happen in some kind of header container
@@ -40,13 +42,13 @@ export const submitForm = async (inputs: IFormInput[], action: FormAction, targe
     window.open(`${target}?${paramsToQueryString(params)}`, '_blank');
     return { isSuccessful: true, responseMessage: '' };
   } if (action === FormAction.Get) {
-    return new Requester().makeRequest(RestMethod.GET, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
+    return requester.makeRequest(RestMethod.GET, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
       return { isSuccessful: true, responseMessage: response.content };
     }).catch((error: Error): IFormSubmissionResult => {
       return { isSuccessful: false, responseMessage: error.message };
     });
   } if (action === FormAction.Post) {
-    return new Requester().makeRequest(RestMethod.POST, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
+    return requester.makeRequest(RestMethod.POST, target, params, allHeaders).then((response: KibaResponse): IFormSubmissionResult => {
       return { isSuccessful: true, responseMessage: response.content };
     }).catch((error: Error): IFormSubmissionResult => {
       return { isSuccessful: false, responseMessage: error.message };

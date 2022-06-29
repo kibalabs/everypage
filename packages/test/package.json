@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "private": true,
   "description": "",
   "scripts": {
@@ -10,7 +10,7 @@
     "push": "aws --profile kiba s3 cp --recursive ./dist/ s3://public.kiba.dev/"
   },
   "dependencies": {
-    "@kibalabs/everypage": "0.9.5",
-    "@kibalabs/everypage-cli": "0.9.5"
+    "@kibalabs/everypage": "^0.9.6",
+    "@kibalabs/everypage-cli": "^0.9.6"
   }
 }

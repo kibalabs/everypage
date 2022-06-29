@@ -4,7 +4,7 @@ import { getClassName } from '@kibalabs/core';
 import { Alignment, Button, Direction, Form, InputType, PaddingSize, ResponsiveContainingView, ResponsiveHidingView, ResponsiveTextAlignmentView, ScreenSize, SingleLineInput, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
-import { HeroLogo, HeroSectionTitleText, SectionSubtitleText } from '../components';
+import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText } from '../components';
 import { EverypagePaddingSize, submitForm, validateInput } from '../internal';
 import { defaultFormProps, IFormProps } from '../model';
 
@@ -61,7 +61,7 @@ export const HeroSignup1 = (props: IHeroSignup1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <Form onFormSubmitted={onFormSubmitted}>
               <React.Fragment>
                 <ResponsiveHidingView hiddenBelow={ScreenSize.Small}>
