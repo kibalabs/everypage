@@ -52,10 +52,10 @@ export const TeamBoxes1 = (props: ITeamBoxes1Props): React.ReactElement => {
                     <Spacing variant={PaddingSize.Wide} />
                     <Text variant='header4'>{box.name}</Text>
                     {box.summaryText && (
-                      <MarkdownText textVariant='bold' textAlignment={TextAlignment.Left} source={box.summaryText} />
+                      <MarkdownText textVariant='bold' textAlignment={TextAlignment.Center} source={box.summaryText} />
                     )}
                     {box.bodyText && (
-                      <MarkdownText textAlignment={TextAlignment.Left} source={box.bodyText} />
+                      <MarkdownText textAlignment={TextAlignment.Center} source={box.bodyText} />
                     )}
                     {box.iconButtons && (
                       <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} shouldWrapItems={true}>
