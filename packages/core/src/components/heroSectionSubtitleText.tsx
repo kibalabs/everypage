@@ -24,4 +24,4 @@ export const HeroSectionSubtitleText = (props: IHeroSectionSubtitleTextProps): R
 HeroSectionSubtitleText.defaultProps = {
   className: '',
 };
-HeroSectionSubtitleText.displayName = 'hero-section-title';
+HeroSectionSubtitleText.displayName = 'hero-section-subtitle';

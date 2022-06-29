@@ -39,3 +39,4 @@ export * from './testimonialAvatars1';
 export * from './testimonialBoxes1';
 export * from './testimonialSlides1';
 export * from './video1';
+export * from './teamBoxes1';

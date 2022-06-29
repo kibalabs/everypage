@@ -13,7 +13,7 @@
     "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run push --workspace=@kibalabs/everypage-test",
     "pack": "npm run pack --workspaces --if-present",
     "publish": "npm run publish --workspaces --if-present",
-    "publish-next": "npm run publish-next --workspaces --if-present",
+    "publish-next": "kiba-publish --next",
     "lint": "lint",
     "lint-fix": "lint --fix",
     "type-check": "type-check --directory './packages/**/src'"

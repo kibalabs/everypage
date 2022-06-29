@@ -12,5 +12,25 @@
     "default": {
       "font-family": "Montserrat, Arial"
     }
+  },
+  "iconButtons": {
+    "twitter": {
+      "normal": {
+        "default": {
+          "text": {
+            "color": "#1DA1F2"
+          }
+        }
+      }
+    },
+    "email": {
+      "normal": {
+        "default": {
+          "text": {
+            "color": "#bfa333"
+          }
+        }
+      }
+    }
   }
 }
