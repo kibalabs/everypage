@@ -829,35 +829,52 @@
       ]
     },
     {
-      "type": "TeamBoxes-boxes-1",
+      "type": "team-boxes-1",
       "titleText": "Checkout out awesome team 🤩",
       "subtitleText": "from around the world",
       "boxVariant": "card",
       "boxes": [
         {
           "name": "Shola",
-          "image": "/assets/avatar1.png",
+          "imageUrl": "/assets/avatar1.png",
           "summaryText": "CEO",
           "bodyText": "I love building products",
-          "twitter": "https://twitter.com/kibalabs"
+          "iconButtons": [
+            {
+              "iconId": "ion-logo-twitter",
+              "target": "https://twitter.com/kibalabs",
+              "variant": "twitter"
+            },
+            {
+              "iconId": "ion-mail",
+              "target": "mailto:website@kibalabs.com?Subject=Hey%20there%2C%20I%20saw%20your%20awesome%20website%21",
+              "variant": "email"
+            }
+          ]
         },
         {
-          "name": "june",
-          "image": "/assets/avatar1.png",
+          "name": "June",
+          "imageUrl": "/assets/avatar2.png",
           "summaryText": "I bake during my free time",
           "bodyText": "I bake during my free time",
-          "twitter": "https://twitter.com/kibalabs"
+          "iconButtons": [
+            {
+              "iconId": "ion-logo-twitter",
+              "target": "https://twitter.com/kibalabs",
+              "variant": "twitter"
+            }
+          ]
         },
         {
           "name": "Barakat",
-          "image": "assets/avatar1.png",
+          "imageUrl": "/assets/feature1.png",
           "summaryText": "Front-end",
           "bodyText": "nature is beautiful",
           "twitter": "https://twitter.com/kibalabs"
         },
         {
-          "author": "Krishan Patel",
-          "text": "OMFG this is the best thing ever!!!"
+          "name": "Krishan Patel",
+          "bodyText": "OMFG this is the best thing ever!!!"
         }
       ]
     }
