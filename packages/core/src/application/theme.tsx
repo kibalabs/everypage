@@ -25,6 +25,9 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
       },
       sectionSubtitle: {
       },
+      highlight: {
+        color: '$colors.brandPrimary',
+      },
     },
     colors: {
       sectionBackground: 'rgba(0, 0, 0, 0)',

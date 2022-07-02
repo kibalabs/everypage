@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, Grid, KibaIcon, MarkdownText, PaddingSize, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, Grid, KibaIcon, MarkdownText, PaddingSize, ResponsiveTextAlignmentView, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { LazyMedia, SectionSubtitleText, SectionTitleText } from '../components';
@@ -18,6 +18,7 @@ interface IFeatureMediaHalf1Button {
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
 interface IFeatureMediaHalf1Props extends ISectionProps {
+  highlightText?: string;
   titleText?: string;
   subtitleText?: string;
   bodyText?: string;
@@ -44,6 +45,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
         <Grid.Item sizeResponsive={{ base: 10, medium: 5 }}>
           <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
             <Stack direction={Direction.Vertical}>
+              {props.highlightText && <Stack.Item gutterAfter={PaddingSize.Narrow}><Text className='highlight' variant='note-bold-highlight'>{props.highlightText}</Text></Stack.Item>}
               {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
               {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
               {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
