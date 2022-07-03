@@ -19,7 +19,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
   let socialCardImageUrl = website.socialCardImageUrl;
   if (socialCardImageUrl && socialCardImageUrl.startsWith('/')) {
     // NOTE(krishan711): Twitter doesn't support relative urls
-    socialCardImageUrl = `https://${website.siteHost}/${assetPrefix}${socialCardImageUrl}`;
+    socialCardImageUrl = `https://${website.siteHost}${assetPrefix}${socialCardImageUrl}`;
   }
   let faviconImageUrl = website.faviconImageUrl;
   if (faviconImageUrl && faviconImageUrl.startsWith('/')) {
