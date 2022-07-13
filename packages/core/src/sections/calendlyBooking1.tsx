@@ -84,9 +84,8 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
     background_color: colors.background.replace('#', ''),
     text_color: colors.text.replace('#', ''),
     primary_color: colors.brandPrimary.replace('#', ''),
-  }
+  };
   const url = `https://calendly.com/${props.username}/${props.calendarId}?${new URLSearchParams(queryParams).toString()}`;
-  console.log('url', url);
   const embedHeight = props.embedHeight ? props.embedHeight : props.shouldHideEventType ? '700px' : '1100px';
   const embedHeightMobile = props.embedHeightMobile ? props.embedHeightMobile : props.shouldHideEventType ? '600px' : '1000px';
 
