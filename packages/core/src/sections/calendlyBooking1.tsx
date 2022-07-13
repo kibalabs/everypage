@@ -26,7 +26,7 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.None}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <CalendlyEmbed
               username={props.username}
               calendarId={props.calendarId}
@@ -60,14 +60,14 @@ interface IStyledCalendlyEmbedProps {
 }
 
 const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
-  z-index: -1;
   height: ${(props: IStyledCalendlyEmbedProps): string => props.embedHeightMobile};
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   @media (min-width: 827px) {
     height: ${(props: IStyledCalendlyEmbedProps): string => props.embedHeight};
     margin-bottom: -30px;
-    margin-top: -66px;
+    /* NOTE(krishan711): this can't be enabled otherwise the background covers anything above */
+    /* margin-top: -66px; */
     box-shadow: none;
   }
 
