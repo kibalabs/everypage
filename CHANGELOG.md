@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - [MINOR] Added `highlightText` to `FeatureMediaHalf1`
 - [MINOR] Update `CalendlyBooking1` to use colors correctly cos background is no longer transparent
 - [MINOR] Added `bodyText` to `FeatureBoxes1`
+- [MINOR] Added `autoplaySeconds` to `TestimonialSlides1`
 
 ### Removed
 
