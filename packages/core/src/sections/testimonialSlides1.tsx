@@ -18,6 +18,7 @@ interface ITestimonialSlides1Slide {
 interface ITestimonialSlides1Props extends ISectionProps {
   titleText?: string;
   subtitleText?: string;
+  autoplaySeconds?: number;
   slides?: ITestimonialSlides1Slide[];
 }
 
@@ -39,7 +40,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
           <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex}>
+            <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} autoplaySeconds={props.autoplaySeconds}>
               {props.slides.map((slide: ITestimonialSlides1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded'>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
