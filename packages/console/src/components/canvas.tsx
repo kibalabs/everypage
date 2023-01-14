@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { IndexPage, IWebsite, replaceAssetPaths } from '@kibalabs/everypage';
-import { Alignment, BackgroundView, Box, Button, Direction, Divider, IHead, ITheme, PaddingSize, Stack, Switch, TabBar, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Box, Button, Direction, Divider, IHead, ITheme, KibaIcon, PaddingSize, Spacing, Stack, Switch, TabBar, Text } from '@kibalabs/ui-react';
+import { Dropzone } from '@kibalabs/ui-react-dropzone';
 
-import { Section } from '../everypageClient';
 import { ContentEditor } from './contentEditor';
-import { Dropzone, FilePreviewGrid } from './dropzone';
+import { FilePreviewGrid } from './dropzone';
 import { JsonEditor } from './jsonEditor';
 import { KibaFrame } from './kibaFrame';
 import { SectionChooserDialog } from './sectionChooserDialog';
+import { Section } from '../everypageClient';
 
 const TAB_KEY_CONTENT = 'content';
 const TAB_KEY_THEME = 'theme';
@@ -163,7 +164,16 @@ export const Canvas = (props: ICanvasProps): React.ReactElement => {
                     )}
                     {selectedEditorTabKey === TAB_KEY_MEDIA && (
                       <Stack.Item growthFactor={1} shrinkFactor={1}>
-                        {props.isEditable && <Dropzone onFilesChosen={onAssetFilesChosen} />}
+                        {props.isEditable && (
+                          <Dropzone onFilesChosen={onAssetFilesChosen} isFullWidth={true} isFullHeight={false}>
+                            <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
+                              <Spacing />
+                              <KibaIcon iconId='ion-cloud-upload-outline' />
+                              <Text variant='note'>Drag and drop some files here, or click to select files</Text>
+                              <Spacing />
+                            </Stack>
+                          </Dropzone>
+                        )}
                         {uploadFilesError && <Text variant='note-error'>{uploadFilesError}</Text>}
                         <FilePreviewGrid fileMap={props.assetFileMap} onDeleteClicked={props.deleteAssetFile} />
                       </Stack.Item>

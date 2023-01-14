@@ -10,7 +10,7 @@
     "start-console": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-console",
     "start-builder-api": "npm run start-dev --workspace=@kibalabs/everypage & npm run start-dev --workspace=@kibalabs/everypage-builder-api",
     "serve-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run serve --workspace=@kibalabs/everypage-test",
-    "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run push --workspace=@kibalabs/everypage-test",
+    "publish-test": "npm run build --workspace=@kibalabs/everypage --workspace=@kibalabs/everypage-cli --workspace=@kibalabs/everypage-test && npm run push --workspace=@kibalabs/everypage-test && npm run open --workspace=@kibalabs/everypage-test",
     "pack": "npm run pack --workspaces --if-present",
     "publish": "npm run publish --workspaces --if-present",
     "publish-next": "kiba-publish --next",

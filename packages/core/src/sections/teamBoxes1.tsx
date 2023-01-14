@@ -17,7 +17,7 @@ interface ITeamBoxes1IconButton {
 
 interface ITeamBoxes1 {
   name: string
-  imageUrl: string
+  imageUrl?: string
   summaryText?: string
   bodyText?: string
   iconButtons?: ITeamBoxes1IconButton[];
@@ -48,7 +48,7 @@ export const TeamBoxes1 = (props: ITeamBoxes1Props): React.ReactElement => {
               {props.boxes.map((box: ITeamBoxes1, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={true}>
                   <Stack direction={Direction.Vertical} contentAlignment={Alignment.Start} childAlignment={Alignment.Center} isFullWidth={true} isFullHeight={true} paddingStart={PaddingSize.Wide} shouldAddGutters={true}>
-                    <LazyImage source={box.imageUrl} alternativeText={box.name || `team member ${box.name} imageUrl`} fitType='crop' />
+                    {box.imageUrl && (<LazyImage source={box.imageUrl} alternativeText={box.name || `team member ${box.name} imageUrl`} fitType='crop' />)}
                     <Spacing variant={PaddingSize.Wide} />
                     <Text variant='header4'>{box.name}</Text>
                     {box.summaryText && (

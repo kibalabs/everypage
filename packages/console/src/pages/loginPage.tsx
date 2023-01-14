@@ -31,6 +31,7 @@ export const LoginPage = (): React.ReactElement => {
     everypageClient.loginUser(email, password).then((): void => {
       navigator.navigateTo(authManager.getJwt().hasVerifiedEmail ? '/' : '/verify-email', true);
     }).catch((error: Error): void => {
+      console.error(error);
       if (error.message.includes('NotFoundException')) {
         setEmailError('No user found with this email');
       } else if (error.message.includes('INCORRECT_PASSWORD')) {

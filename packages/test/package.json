@@ -7,7 +7,8 @@
     "build": "everypage build --clean --directory ./site --output-directory ./dist --build-hash testing123 --site-host test.evrpg.com && cp -R ./dist ./disttemp && mv ./disttemp ./dist/testing123",
     "build-nohash": "everypage build --clean --directory ./site --output-directory ./dist --site-host test.evrpg.com",
     "serve": "everypage serve --clean --directory ./site --output-directory ./dist --build-hash testing123 --site-host test.evrpg.com",
-    "push": "aws --profile kiba s3 cp --recursive ./dist/ s3://public.kiba.dev/"
+    "push": "aws --profile kiba s3 cp --recursive ./dist/ s3://public.kiba.dev/",
+    "open": "open https://s3.eu-west-1.amazonaws.com/public.kiba.dev/index.html"
   },
   "dependencies": {
     "@kibalabs/everypage": "0.9.8",
