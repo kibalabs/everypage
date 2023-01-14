@@ -1,6 +1,26 @@
-import { buildTheme } from '@kibalabs/ui-react';
+import { RecursivePartial } from '@kibalabs/core';
+import { buildTheme, ITextTheme, ThemeMap } from '@kibalabs/ui-react';
+import { buildDropzoneThemes } from '@kibalabs/ui-react-dropzone';
 
 const defaultTheme = buildTheme();
+const textThemes: RecursivePartial<ThemeMap<ITextTheme>> = {
+  default: {
+    'font-size': '16px',
+    'font-family': 'Montserrat, sans-serif',
+  },
+  light: {
+    color: '$colors.textLight25',
+  },
+  error: {
+    color: '$colors.error',
+  },
+  selectItemText: {
+    'font-size': '0.875rem',
+  },
+  singleLine: {
+    'white-space': 'pre',
+  },
+};
 export const consoleTheme = buildTheme({
   colors: {
     brandPrimary: '#4b6cb7',
@@ -67,24 +87,7 @@ export const consoleTheme = buildTheme({
       },
     },
   },
-  texts: {
-    default: {
-      'font-size': '16px',
-      'font-family': 'Montserrat, sans-serif',
-    },
-    light: {
-      color: '$colors.textLight25',
-    },
-    error: {
-      color: '$colors.error',
-    },
-    selectItemText: {
-      'font-size': '0.875rem',
-    },
-    singleLine: {
-      'white-space': 'pre',
-    },
-  },
+  texts: textThemes,
   boxes: {
     banner: {
       'background-color': 'white',
@@ -97,4 +100,5 @@ export const consoleTheme = buildTheme({
       padding: '0px',
     },
   },
+  dropzones: buildDropzoneThemes(defaultTheme.colors, defaultTheme.dimensions, textThemes, defaultTheme.boxes),
 });

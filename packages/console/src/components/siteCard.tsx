@@ -18,22 +18,18 @@ export const SiteCard = (props: ISiteCardProps): React.ReactElement => {
 
   return (
     <BackgroundView color={!props.isEnabled && '#eee'}>
-      <Box variant='card-unpadded'>
+      <Box variant='card-unpadded' shouldClipContent={true}>
         <LinkBase onClicked={onSiteClicked} isEnabled={props.isEnabled} isFullWidth={true}>
-          <Stack direction={Direction.Vertical}>
+          <Stack direction={Direction.Vertical} isFullWidth={true}>
             <Image
-              isFullHeight={false}
+              maxHeight='200px'
               source={`https://${props.site.slug}.evrpg.com/screenshot-preview.png`}
               alternativeText={props.site.name}
             />
             <Box variant='padded' isFullWidth={true}>
               <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Default} paddingVertical={PaddingSize.Wide1}>
-                <Text tag='h6' variant='bold'>
-                  {props.site.name}
-                </Text>
-                <Text variant='light'>
-                  {props.site.slug}
-                </Text>
+                <Text tag='h6' variant='bold'>{props.site.name}</Text>
+                <Text variant='light'>{props.site.slug}</Text>
               </Stack>
             </Box>
           </Stack>

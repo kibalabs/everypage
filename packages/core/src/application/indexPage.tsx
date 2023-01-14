@@ -3,12 +3,12 @@ import React from 'react';
 import { IHeadRootProviderProps, ITheme, KibaApp } from '@kibalabs/ui-react';
 
 import { buildEverypageTheme, SectionHolder } from '.';
-import { IWebsite, IWebsiteSection } from '../model';
-import { ISectionProps } from '../sections';
-import { WebsiteProvider } from '../util';
 import { HeadContent } from './headContent';
 import { PluginRenderer } from './pluginRenderer';
 import { SectionRenderer } from './sectionRenderer';
+import { IWebsite, IWebsiteSection } from '../model';
+import { ISectionProps } from '../sections';
+import { WebsiteProvider } from '../util';
 
 export interface IIndexPageProps extends IHeadRootProviderProps {
   pageContent: IWebsite;

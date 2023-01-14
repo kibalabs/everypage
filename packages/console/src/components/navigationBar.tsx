@@ -2,7 +2,7 @@ import React from 'react';
 
 import { deepCompare } from '@kibalabs/core';
 import { useInitialization, useNavigator } from '@kibalabs/core-react';
-import { Alignment, BackgroundView, Box, Button, ColorSettingView, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
+import { Alignment, BackgroundView, Button, ColorSettingView, Direction, Image, LinkBase, PaddingSize, Stack, Text } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
@@ -55,7 +55,8 @@ export const NavigationBar = React.memo((): React.ReactElement => {
     });
   };
 
-  useInitialization((): void | (() => void) => {
+  // eslint-disable-next-line consistent-return
+  useInitialization((): ((() => void) | void) => {
     setHasVerifiedEmail(authManager.getJwt().hasVerifiedEmail);
     if (!authManager.getJwt().hasVerifiedEmail) {
       const intervalId = setInterval((): void => {
@@ -66,7 +67,6 @@ export const NavigationBar = React.memo((): React.ReactElement => {
       }, 1000);
       return (): void => clearInterval(intervalId);
     }
-    return null;
   });
 
   return (
@@ -74,14 +74,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
       <StyledNavBar className='fixed'>
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
           <LinkBase target='/'>
-            <Box height='30px'>
-              <Image
-                source='/assets/everypage-wordmark-dark.svg'
-                alternativeText='Home'
-                isFullWidth={false}
-                fitType='scale'
-              />
-            </Box>
+            <Image height='30px' source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
           </LinkBase>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Button

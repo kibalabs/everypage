@@ -245,7 +245,8 @@ export const SitePage = (): React.ReactElement => {
     loadSite();
   });
 
-  React.useEffect((): React.EffectCallback => {
+  // eslint-disable-next-line consistent-return
+  React.useEffect((): ((() => void) | void) => {
     if (site) {
       loadAccount();
       loadVersions();
@@ -262,10 +263,11 @@ export const SitePage = (): React.ReactElement => {
             }
           });
         }, 5000);
-        return (): void => clearInterval(intervalId);
+        return (): void => {
+          clearInterval(intervalId);
+        };
       }
     }
-    return null;
   }, [everypageClient, site, loadAccount, loadNewVersionDefaultName, loadPrimaryVersion, loadSite, loadVersions]);
 
   return (

@@ -8,7 +8,7 @@ import { Head, KibaApp } from '@kibalabs/ui-react';
 import { AuthManager } from './authManager';
 import { consoleConfig } from './consoleConfig';
 import { EverypageClient } from './everypageClient/everypageClient';
-import { GlobalsProvider } from './globalsContext';
+import { GlobalsProvider, IGlobals } from './globalsContext';
 import { JwtRequestModifier } from './jwtRequestModifier';
 import { AccountPage } from './pages/accountPage';
 import { CanvasPage } from './pages/canvasPage';
@@ -25,7 +25,7 @@ import { VerifyEmailPage } from './pages/verifyEmailPage';
 import { consoleTheme } from './theme';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
-const requester = new Requester();
+const requester = new Requester(undefined, undefined, false);
 const everypageClient = new EverypageClient(requester);
 const authManager = new AuthManager(localStorageClient, 'ep-console-jwt', everypageClient);
 requester.addModifier(new JwtRequestModifier(authManager));
@@ -60,7 +60,7 @@ export const App = (): React.ReactElement => {
     }
   });
 
-  const routes: IRoute[] = [
+  const routes: IRoute<IGlobals>[] = [
     { path: '/canvas', page: CanvasPage },
     { path: '/canvas-preview', page: CanvasPreviewPage },
     { path: '/', page: HomePage, redirectIfNoAuth: '/login' },
