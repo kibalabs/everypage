@@ -1,13 +1,13 @@
-import { RecursivePartial } from '@kibalabs/core';
-import { buildTheme, ITextTheme, ThemeMap } from '@kibalabs/ui-react';
+import { buildTheme, ITextTheme, mergeTheme, ThemeMap } from '@kibalabs/ui-react';
 import { buildDropzoneThemes } from '@kibalabs/ui-react-dropzone';
 
 const defaultTheme = buildTheme();
-const textThemes: RecursivePartial<ThemeMap<ITextTheme>> = {
-  default: {
+const textThemes: ThemeMap<ITextTheme> = {
+  ...defaultTheme.texts,
+  default: mergeTheme(defaultTheme.texts.default, {
     'font-size': '16px',
     'font-family': 'Montserrat, sans-serif',
-  },
+  }),
   light: {
     color: '$colors.textLight25',
   },

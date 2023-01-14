@@ -95,6 +95,7 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
       const styledComponentsSheet = new ServerStyleSheet();
       const extractor = new ChunkExtractor({ stats: webpackBuildStats });
       const bodyString = ReactDOMServer.renderToString(
+        // @ts-ignore
         <ChunkExtractorManager extractor={extractor}>
           <StyleSheetManager sheet={styledComponentsSheet.instance}>
             <App staticPath={page.path} setHead={setHead} />
