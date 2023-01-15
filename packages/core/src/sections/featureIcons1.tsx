@@ -35,7 +35,7 @@ export const FeatureIcons1 = (props: IFeatureIcons1Props): React.ReactElement =>
     <Section {...props as ISectionProps} className={getClassName(FeatureIcons1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, extraLarge: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid contentAlignment={Alignment.Start} shouldAddGutters={true} childSizeResponsive={sizes}>
@@ -61,4 +61,7 @@ export const FeatureIcons1 = (props: IFeatureIcons1Props): React.ReactElement =>
 };
 
 FeatureIcons1.displayName = 'feature-icons-1';
-FeatureIcons1.defaultProps = {};
+FeatureIcons1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
+};

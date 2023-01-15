@@ -41,7 +41,7 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer2.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingHorizontal={PaddingSize.Wide3} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionBottom}>
+      <Stack direction={Direction.Vertical}>
         <Grid childAlignment={Alignment.Center}>
           <Grid.Item sizeResponsive={{ base: 12, medium: 6 }}>
             <Stack childAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }} shouldAddGutters={true} paddingStart={PaddingSize.Default} paddingEnd={PaddingSize.Wide2}>
@@ -83,3 +83,8 @@ export const Footer2 = (props: IFooter2Props): React.ReactElement => {
   );
 };
 Footer2.displayName = 'footer-2';
+Footer2.defaultProps = {
+  paddingHorizontal: PaddingSize.Wide3,
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
+};

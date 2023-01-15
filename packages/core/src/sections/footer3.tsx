@@ -39,7 +39,7 @@ export const Footer3 = (props: IFooter3Props): React.ReactElement => {
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer3.displayName, props.className)}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide2} paddingEnd={PaddingSize.Wide2}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
         <ResponsiveTextAlignmentView alignmentResponsive={{ base: TextAlignment.Center, medium: TextAlignment.Left }}>
           <EqualGrid childSizeResponsive={{ base: 12, small: 6 }} isFullHeight={false} contentAlignment={Alignment.Start} shouldAddGutters={true}>
             {props.linkSections && props.linkSections.map((section: IFooter3LinkSection, index: number): React.ReactElement => (
@@ -66,3 +66,7 @@ export const Footer3 = (props: IFooter3Props): React.ReactElement => {
   );
 };
 Footer3.displayName = 'footer-3';
+Footer3.defaultProps = {
+  paddingTop: PaddingSize.Wide2,
+  paddingBottom: PaddingSize.Wide2,
+};

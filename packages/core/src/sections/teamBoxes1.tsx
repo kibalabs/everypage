@@ -41,7 +41,7 @@ export const TeamBoxes1 = (props: ITeamBoxes1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(TeamBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 12, medium: 6, large: 4 }}>
@@ -77,4 +77,6 @@ export const TeamBoxes1 = (props: ITeamBoxes1Props): React.ReactElement => {
 TeamBoxes1.displayName = 'team-boxes-1';
 TeamBoxes1.defaultProps = {
   boxVariant: 'bordered',
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

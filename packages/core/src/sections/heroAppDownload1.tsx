@@ -34,7 +34,7 @@ export const HeroAppDownload1 = (props: IHeroAppDownload1Props): React.ReactElem
     <Section {...props as ISectionProps} className={getClassName(HeroAppDownload1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
+          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
@@ -61,4 +61,6 @@ export const HeroAppDownload1 = (props: IHeroAppDownload1Props): React.ReactElem
 };
 HeroAppDownload1.displayName = 'hero-app-download-1';
 HeroAppDownload1.defaultProps = {
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: EverypagePaddingSize.HeroBottom,
 };

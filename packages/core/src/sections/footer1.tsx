@@ -28,7 +28,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   const copyrightText = (props.copyrightText !== undefined && props.copyrightText !== null) ? props.copyrightText : `© ${new Date().getFullYear()} ${companyText}`;
   return (
     <Section {...props as ISectionProps} className={getClassName(Footer1.displayName, props.className)}>
-      <Stack childAlignment={Alignment.Center} shouldAddGutters={true} paddingStart={PaddingSize.Wide2} paddingEnd={PaddingSize.Wide2}>
+      <Stack childAlignment={Alignment.Center} shouldAddGutters={true}>
         {props.iconLinks && (
           <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} shouldAddGutters={true} isScrollableHorizontally={true}>
             {props.iconLinks.map((iconLink: IFooter1IconLink, index: number): React.ReactElement => (
@@ -43,3 +43,7 @@ export const Footer1 = (props: IFooter1Props): React.ReactElement => {
   );
 };
 Footer1.displayName = 'footer-1';
+Footer1.defaultProps = {
+  paddingTop: PaddingSize.Wide2,
+  paddingBottom: PaddingSize.Wide2,
+};

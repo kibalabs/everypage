@@ -37,7 +37,7 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroAppDownloadMediaHalf1.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
+      <Stack direction={Direction.Vertical}>
         <Grid childAlignment={Alignment.Center}>
           { props.leftMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
           { props.leftMediaUrl && (
@@ -92,4 +92,6 @@ export const HeroAppDownloadMediaHalf1 = (props: IHeroAppDownloadMediaHalf1Props
 };
 HeroAppDownloadMediaHalf1.displayName = 'hero-app-download-media-half-1';
 HeroAppDownloadMediaHalf1.defaultProps = {
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: EverypagePaddingSize.HeroBottom,
 };

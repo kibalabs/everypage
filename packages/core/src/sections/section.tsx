@@ -2,12 +2,12 @@ import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
 import { ISingleAnyChildProps } from '@kibalabs/core-react';
-import { BackgroundView, ColorSettingView, ContainingView } from '@kibalabs/ui-react';
+import { BackgroundView, ColorSettingView, ContainingView, IPaddingViewProps, PaddingView } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 import { IWebsiteSection } from '../model/website';
 
-export interface ISectionProps extends IWebsiteSection {
+export interface ISectionProps extends IWebsiteSection, IPaddingViewProps {
 }
 
 export interface IInternalSectionProps extends ISectionProps, ISingleAnyChildProps {
@@ -43,14 +43,16 @@ export const Section = (props: IInternalSectionProps): React.ReactElement => {
       { ...props.background || { color: '$colors.sectionBackground' }}
     >
       <ColorSettingView variant={props.isInverse ? 'inverse' : props.colorVariant}>
-        <StyledSection
-          id={props.id}
-          className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky', props.isFullHeight && 'fullHeight')}
-        >
-          <ContainingView>
-            { props.children }
-          </ContainingView>
-        </StyledSection>
+        <PaddingView {...props as IPaddingViewProps}>
+          <StyledSection
+            id={props.id}
+            className={getClassName(StyledSection.displayName, props.shouldStickToTop && 'sticky', props.isFullHeight && 'fullHeight')}
+          >
+            <ContainingView>
+              { props.children }
+            </ContainingView>
+          </StyledSection>
+        </PaddingView>
       </ColorSettingView>
     </BackgroundView>
   );

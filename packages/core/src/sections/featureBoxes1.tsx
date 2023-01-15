@@ -45,7 +45,7 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, extraLarge: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
@@ -72,4 +72,6 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
 FeatureBoxes1.displayName = 'feature-boxes-1';
 FeatureBoxes1.defaultProps = {
   boxVariant: 'bordered',
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

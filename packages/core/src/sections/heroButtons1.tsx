@@ -29,7 +29,7 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(HeroButtons1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
+          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
@@ -56,4 +56,6 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
 HeroButtons1.displayName = 'hero-buttons-1';
 HeroButtons1.defaultProps = {
   shouldLogoGrow: true,
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: EverypagePaddingSize.HeroBottom,
 };

@@ -106,7 +106,7 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(Contact1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <Form onFormSubmitted={onFormSubmitted} isLoading={isLoading}>
@@ -169,4 +169,6 @@ export const Contact1 = (props: IContact1Props): React.ReactElement => {
 };
 Contact1.displayName = 'contact-1';
 Contact1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

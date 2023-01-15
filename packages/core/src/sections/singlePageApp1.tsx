@@ -46,7 +46,7 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
     <Section {...props as ISectionProps} className={getClassName(SinglePageApp1.displayName, props.className)} isFullHeight={true}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} paddingStart={EverypagePaddingSize.HeroTop}>
+          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             <Stack.Item growthFactor={1} shrinkFactor={1} gutterAfter={PaddingSize.Wide} />
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
@@ -81,4 +81,6 @@ export const SinglePageApp1 = (props: ISinglePageApp1Props): React.ReactElement 
 };
 SinglePageApp1.displayName = 'single-page-app-1';
 SinglePageApp1.defaultProps = {
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: PaddingSize.None,
 };
