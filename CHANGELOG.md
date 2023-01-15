@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Changed
 - [MINOR] Moved padding props to `Section`
 - [MINOR] Add `shouldRemoveCenterPadding` to `HeroButtonsMediaHalf1`
+- [MINOR] Updated `TestimonialSlides1` to not show paging and buttons if there is only one testimonial
 
 ### Removed
 

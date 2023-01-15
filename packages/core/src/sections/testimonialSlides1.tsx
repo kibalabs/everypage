@@ -40,7 +40,7 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
           <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} autoplaySeconds={props.autoplaySeconds}>
+            <Carousel onIndexChanged={onSlideIndexChanged} initialIndex={slideIndex} autoplaySeconds={props.autoplaySeconds} shouldShowButtons={props.slides.length > 1}>
               {props.slides.map((slide: ITestimonialSlides1Slide, index: number): React.ReactElement => (
                 <Box key={index} variant='padded'>
                   <Stack direction={Direction.Vertical} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
@@ -60,7 +60,11 @@ export const TestimonialSlides1 = (props: ITestimonialSlides1Props): React.React
                 </Box>
               ))}
             </Carousel>
-            <Stack.Item gutterBefore={PaddingSize.Wide}><LinePager variant='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked} /></Stack.Item>
+            {props.slides.length > 1 && (
+              <Stack.Item gutterBefore={PaddingSize.Wide}>
+                <LinePager variant='small' pageCount={props.slides.length} activePageIndex={slideIndex} onPageClicked={onPageClicked} />
+              </Stack.Item>
+            )}
           </Stack>
         </ResponsiveTextAlignmentView>
       </ResponsiveContainingView>
