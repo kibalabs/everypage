@@ -23,65 +23,63 @@ interface IHeroButtonsMediaHalf1Props extends ISectionProps {
   leftMediaUrl?: string;
   rightMediaUrl?: string;
   buttons?: IHeroButtonsMediaHalf1Button[];
+  shouldRemoveCenterPadding?: boolean;
 }
 
 export const HeroButtonsMediaHalf1 = (props: IHeroButtonsMediaHalf1Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(HeroButtonsMediaHalf1.displayName, props.className)}>
-      <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
-        <Grid childAlignment={Alignment.Center}>
-          { props.leftMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
-          { props.leftMediaUrl && (
-            <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-          <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
-          <Grid.Item sizeResponsive={{ base: 8, medium: 5 }}>
-            <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
-              <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }}>
-                {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
-                {props.titleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
-                {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-                {props.buttons && props.buttons.length > 0 && (
-                  <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start} shouldAddGutters={true}>
-                    {props.buttons.map((button: IHeroButtonsMediaHalf1Button, index: number): React.ReactElement => (
-                      <Button
-                        key={index}
-                        text={button.text}
-                        variant={button.variant || button.mode}
-                        target={button.target}
-                        iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
-                        iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
-                      />
-                    ))}
-                  </Stack>
-                )}
-              </Stack>
-            </ResponsiveTextAlignmentView>
+      <Grid childAlignment={Alignment.Center}>
+        <Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />
+        { props.leftMediaUrl && (
+          <Grid.Item sizeResponsive={{ base: 0, medium: props.shouldRemoveCenterPadding ? 5 : 4 }}>
+            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           </Grid.Item>
-          <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
-          { props.rightMediaUrl && (
-            <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
+        )}
+        <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 0 : 2, medium: props.shouldRemoveCenterPadding ? 0 : 1 }} />
+        <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 10 : 8, medium: 5 }}>
+          <ResponsiveTextAlignmentView alignment={TextAlignment.Center} alignmentResponsive={{ medium: TextAlignment.Left }}>
+            <Stack direction={Direction.Vertical} paddingEnd={PaddingSize.Wide3} contentAlignmentResponsive={{ base: Alignment.Center, medium: Alignment.Start }}>
+              {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
+              {props.titleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
+              {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+              {props.buttons && props.buttons.length > 0 && (
+                <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start} shouldAddGutters={true}>
+                  {props.buttons.map((button: IHeroButtonsMediaHalf1Button, index: number): React.ReactElement => (
+                    <Button
+                      key={index}
+                      text={button.text}
+                      variant={button.variant || button.mode}
+                      target={button.target}
+                      iconLeft={button.iconIdLeft ? <KibaIcon iconId={button.iconIdLeft} /> : undefined}
+                      iconRight={button.iconIdRight ? <KibaIcon iconId={button.iconIdRight} /> : undefined}
+                    />
+                  ))}
+                </Stack>
+              )}
+            </Stack>
+          </ResponsiveTextAlignmentView>
+        </Grid.Item>
+        <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 0 : 2, medium: props.shouldRemoveCenterPadding ? 0 : 1 }} />
+        { props.rightMediaUrl && (
+          <Grid.Item sizeResponsive={{ base: 0, medium: props.shouldRemoveCenterPadding ? 5 : 4 }}>
+            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+          </Grid.Item>
+        )}
+        <Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />
+        <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 10 : 8, medium: 0 }}>
+          { props.leftMediaUrl ? (
+            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+          ) : props.rightMediaUrl && (
+            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           )}
-          { props.rightMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
-          { props.leftMediaUrl && (
-            <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
-              <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-          { props.rightMediaUrl && (
-            <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
-              <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
-            </Grid.Item>
-          )}
-        </Grid>
-      </Stack>
+        </Grid.Item>
+      </Grid>
     </Section>
   );
 };
 HeroButtonsMediaHalf1.displayName = 'hero-buttons-media-half-1';
 HeroButtonsMediaHalf1.defaultProps = {
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: EverypagePaddingSize.HeroBottom,
 };

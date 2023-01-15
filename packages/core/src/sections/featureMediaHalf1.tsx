@@ -34,7 +34,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
 
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaHalf1.displayName, props.className)}>
-      <Grid childAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionTop}>
+      <Grid childAlignment={Alignment.Center} shouldAddGutters={true}>
         {props.leftMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
         {props.leftMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
@@ -88,3 +88,7 @@ export const FeatureMediaHalf1 = (props: IFeatureMediaHalf1Props): React.ReactEl
   );
 };
 FeatureMediaHalf1.displayName = 'feature-media-half-1';
+FeatureMediaHalf1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
+};

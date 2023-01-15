@@ -21,7 +21,7 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(Video1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             {props.videoUrl && <Video isLazyLoadable={true} source={props.videoUrl} alternativeText={`${props.titleText || ''} video`} />}
@@ -34,4 +34,6 @@ export const Video1 = (props: IVideo1Props): React.ReactElement => {
 };
 Video1.displayName = 'video-1';
 Video1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

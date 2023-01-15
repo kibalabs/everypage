@@ -25,7 +25,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureMediaCenter1.displayName, props.className)}>
       <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-        <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+        <Stack direction={Direction.Vertical}>
           {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
           {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
           <Grid childAlignment={Alignment.Fill} shouldAddGutters={true}>
@@ -95,3 +95,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
   );
 };
 FeatureMediaCenter1.displayName = 'feature-media-center-1';
+FeatureMediaCenter1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
+};

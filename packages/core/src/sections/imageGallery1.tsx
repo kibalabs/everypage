@@ -32,7 +32,7 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
     <Section {...props as ISectionProps} className={getClassName(ImageGallery1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, extraLarge: 8 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
@@ -51,4 +51,6 @@ export const ImageGallery1 = (props: IImageGallery1Props): React.ReactElement =>
 };
 ImageGallery1.displayName = 'image-gallery-1';
 ImageGallery1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

@@ -5,6 +5,7 @@ import { Alignment, AppDownloadButton, Button, Direction, KibaIcon, PaddingSize,
 
 import { ISectionProps, Section } from '.';
 import { SectionSubtitleText, SectionTitleText } from '../components';
+import { EverypagePaddingSize } from '../internal';
 import { useWebsite } from '../util';
 
 // TODO(krishan711): These have to be optional because components don't declare them specifically. How can it be fixed?
@@ -32,7 +33,7 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
     <Section {...props as ISectionProps} className={getClassName(AppDownload1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={PaddingSize.Wide4} paddingEnd={PaddingSize.Wide4}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             {appButtonVariant === 'custom' ? (
@@ -56,4 +57,6 @@ export const AppDownload1 = (props: IAppDownload1Props): React.ReactElement => {
 };
 AppDownload1.displayName = 'app-download-1';
 AppDownload1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

@@ -108,7 +108,7 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
   return (
     <Section {...props as ISectionProps} className={getClassName(Contact2.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10 }}>
-        <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+        <Stack direction={Direction.Vertical}>
           <Grid childAlignment={Alignment.Center} shouldAddGutters={true} paddingTop={EverypagePaddingSize.SectionTop} paddingBottom={EverypagePaddingSize.SectionTop}>
             <Grid.Item sizeResponsive={{ base: 12, medium: 5 }}>
               <ResponsiveTextAlignmentView alignmentResponsive={{ base: TextAlignment.Center, medium: TextAlignment.Left }}>
@@ -203,4 +203,6 @@ export const Contact2 = (props: IContact2Props): React.ReactElement => {
 };
 Contact2.displayName = 'contact-2';
 Contact2.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

@@ -32,7 +32,7 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
     <Section {...props as ISectionProps} className={getClassName(StatisticBoxes1.displayName, props.className)}>
       <ResponsiveContainingView size={10}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.SectionTop} paddingEnd={EverypagePaddingSize.SectionBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={{ base: 12, small: 6, medium: 4, large: 3 }}>
@@ -55,4 +55,6 @@ export const StatisticBoxes1 = (props: IStatisticBoxes1Props): React.ReactElemen
 StatisticBoxes1.displayName = 'statistic-boxes-1';
 StatisticBoxes1.defaultProps = {
   boxVariant: 'default',
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };

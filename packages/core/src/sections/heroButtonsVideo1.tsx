@@ -34,7 +34,7 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
     <Section {...props as ISectionProps} className={getClassName(HeroButtonsVideo1.displayName, props.className)}>
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical} paddingStart={EverypagePaddingSize.HeroTop} paddingEnd={EverypagePaddingSize.HeroBottom}>
+          <Stack direction={Direction.Vertical}>
             {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide3}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
@@ -66,4 +66,6 @@ export const HeroButtonsVideo1 = (props: IHeroButtonsVideo1Props): React.ReactEl
 };
 HeroButtonsVideo1.displayName = 'hero-buttons-video-1';
 HeroButtonsVideo1.defaultProps = {
+  paddingTop: EverypagePaddingSize.HeroTop,
+  paddingBottom: EverypagePaddingSize.HeroBottom,
 };
