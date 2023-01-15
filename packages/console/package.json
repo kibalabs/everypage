@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-console",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "private": true,
   "scripts": {
     "build": "build-react-app --config-modifier ./config.build.js",
@@ -10,7 +10,7 @@
   "dependencies": {
     "@kibalabs/core": "^0.5.10",
     "@kibalabs/core-react": "^0.9.3",
-    "@kibalabs/everypage": "0.9.8",
+    "@kibalabs/everypage": "0.9.9",
     "@kibalabs/everyview-tracker": "^0.4.1",
     "@kibalabs/ui-react": "^0.10.0",
     "@kibalabs/ui-react-dropzone": "0.1.1",

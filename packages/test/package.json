@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-test",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "private": true,
   "description": "",
   "scripts": {
@@ -11,7 +11,6 @@
     "open": "open https://s3.eu-west-1.amazonaws.com/public.kiba.dev/index.html"
   },
   "dependencies": {
-    "@kibalabs/everypage": "0.9.8",
-    "@kibalabs/everypage-cli": "0.9.8"
+    "@kibalabs/everypage-cli": "0.9.9"
   }
 }
