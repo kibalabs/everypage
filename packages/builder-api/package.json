@@ -2,15 +2,19 @@
   "name": "@kibalabs/everypage-builder-api",
   "version": "0.9.9",
   "private": true,
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/*"
+  ],
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "build": "build-server --config-modifier ./config.build.js",
     "start": "build-server --config-modifier ./config.build.js --start",
     "start-dev": "build-server --config-modifier ./config.build.js --start --dev"
   },
-  "main": "dist/index.js",
-  "files": [
-    "dist/*"
-  ],
   "dependencies": {
     "@kibalabs/everypage-cli": "0.9.9",
     "@kibalabs/everyview-tracker": "^0.4.1",

@@ -2,11 +2,14 @@ import React from 'react';
 
 import { Alignment, Link, PaddingSize, Stack, Text, TextAlignment } from '@kibalabs/ui-react';
 
-import { Section } from '.';
+import { ISectionProps, Section } from '.';
 
-export const Attribution = (): React.ReactElement => {
+interface IAttribution extends ISectionProps {
+}
+
+export const Attribution = (props: IAttribution): React.ReactElement => {
   return (
-    <Section type={Attribution.displayName} colorVariant='everypageAttribution'>
+    <Section {...props as ISectionProps} type={Attribution.displayName} colorVariant='everypageAttribution'>
       <Stack childAlignment={Alignment.Center} isFullWidth={true}>
         <Text alignment={TextAlignment.Center}>
           {'Made with '}

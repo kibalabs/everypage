@@ -58,7 +58,7 @@ export const FeatureMediaCenter1 = (props: IFeatureMediaCenter1Props): React.Rea
               </Stack>
             </Grid.Item>
             <Grid.Item sizeResponsive={{ base: 8, medium: 4 }} alignment={Alignment.Center}>
-              {props.mediaUrl && <Media isCenteredHorizontally={true} source={props.mediaUrl} alternativeText={'hero-media'} />}
+              {props.mediaUrl && <Media maxWidth='100%' isCenteredHorizontally={true} source={props.mediaUrl} alternativeText={'hero-media'} />}
             </Grid.Item>
             <Grid.Item sizeResponsive={{ base: 10, medium: 4 }}>
               <Stack direction={Direction.Vertical} contentAlignment={Alignment.Fill} isFullHeight={true}>

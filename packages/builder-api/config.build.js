@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 module.exports = (config) => {
+// export default (config) => {
   config.shouldAliasModules = false;
   config.webpackConfigModifier = (webpackConfig) => {
     webpackConfig.externals = webpackConfig.externals || {};

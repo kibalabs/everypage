@@ -12,7 +12,7 @@
     "@kibalabs/core-react": "^0.9.3",
     "@kibalabs/everypage": "0.9.9",
     "@kibalabs/everyview-tracker": "^0.4.1",
-    "@kibalabs/ui-react": "^0.10.0",
+    "@kibalabs/ui-react": "0.10.1-next.4",
     "@kibalabs/ui-react-dropzone": "0.1.1",
     "@stripe/react-stripe-js": "^1.16.3",
     "@stripe/stripe-js": "^1.46.0",
