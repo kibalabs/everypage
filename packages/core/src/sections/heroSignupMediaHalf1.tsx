@@ -62,7 +62,7 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
         { !!props.leftMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
         { !!props.leftMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
-            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
           </Grid.Item>
         )}
         <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
@@ -125,18 +125,18 @@ export const HeroSignupMediaHalf1 = (props: IHeroSignupMediaHalf1Props): React.R
         <Grid.Item sizeResponsive={{ base: 2, medium: 1 }} />
         { props.rightMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 0, medium: 4 }}>
-            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
           </Grid.Item>
         )}
         { props.rightMediaUrl && (<Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />) }
         { props.leftMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
-            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} />
           </Grid.Item>
         )}
         { props.rightMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 8, medium: 0 }}>
-            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} />
           </Grid.Item>
         )}
       </Grid>

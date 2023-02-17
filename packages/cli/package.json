@@ -8,26 +8,30 @@
     "url": "https://github.com/kibalabs/everypage.git"
   },
   "bugs": "https://github.com/kibalabs/everypage/issues",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "bin/*",
+    "dist/*"
+  ],
+  "bin": {
+    "everypage": "bin/everypage.js"
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "build": "build-react-component --config-modifier ./config.build.js",
     "pack": "npm pack",
     "publish": "kiba-publish"
   },
-  "bin": {
-    "everypage": "bin/everypage.js"
-  },
-  "files": [
-    "bin/*",
-    "dist/*"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "dependencies": {
     "@kibalabs/build": "0.10.0",
     "@kibalabs/core": "^0.5.10",
     "@kibalabs/core-react": "^0.9.3",
     "@kibalabs/everypage": "0.9.9",
-    "@kibalabs/ui-react": "^0.10.0",
+    "@kibalabs/ui-react": "0.10.1-next.4",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^10.0.0",

@@ -33,7 +33,7 @@ export const HeroButtonsMediaHalf1 = (props: IHeroButtonsMediaHalf1Props): React
         <Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />
         { props.leftMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 0, medium: props.shouldRemoveCenterPadding ? 5 : 4 }}>
-            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           </Grid.Item>
         )}
         <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 0 : 2, medium: props.shouldRemoveCenterPadding ? 0 : 1 }} />
@@ -63,15 +63,15 @@ export const HeroButtonsMediaHalf1 = (props: IHeroButtonsMediaHalf1Props): React
         <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 0 : 2, medium: props.shouldRemoveCenterPadding ? 0 : 1 }} />
         { props.rightMediaUrl && (
           <Grid.Item sizeResponsive={{ base: 0, medium: props.shouldRemoveCenterPadding ? 5 : 4 }}>
-            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           </Grid.Item>
         )}
         <Grid.Item sizeResponsive={{ base: 0, medium: 1 }} />
         <Grid.Item sizeResponsive={{ base: props.shouldRemoveCenterPadding ? 10 : 8, medium: 0 }}>
           { props.leftMediaUrl ? (
-            <Media isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.leftMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           ) : props.rightMediaUrl && (
-            <Media isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
+            <Media maxWidth='100%' isCenteredHorizontally={true} source={props.rightMediaUrl} alternativeText={'hero-media'} isFullHeight={true} isFullWidth={true} />
           )}
         </Grid.Item>
       </Grid>
