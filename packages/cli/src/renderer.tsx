@@ -5,19 +5,19 @@ import path from 'path';
 import React from 'react';
 
 // @ts-ignore
-import makeCommonWebpackConfig from '@kibalabs/build/scripts/common/common.webpack';
+import { buildCommonWebpackConfig } from '@kibalabs/build/scripts/common/common.webpack';
 // @ts-ignore
-import makeCssWebpackConfig from '@kibalabs/build/scripts/common/css.webpack';
+import { buildCssWebpackConfig } from '@kibalabs/build/scripts/common/css.webpack';
 // @ts-ignore
-import makeImagesWebpackConfig from '@kibalabs/build/scripts/common/images.webpack';
+import { buildImagesWebpackConfig } from '@kibalabs/build/scripts/common/images.webpack';
 // @ts-ignore
-import makeJsWebpackConfig from '@kibalabs/build/scripts/common/js.webpack';
+import { buildJsWebpackConfig } from '@kibalabs/build/scripts/common/js.webpack';
 // @ts-ignore
 import { createAndRunCompiler } from '@kibalabs/build/scripts/common/webpackUtil';
 // @ts-ignore
-import makeModuleWebpackConfig from '@kibalabs/build/scripts/module/module.webpack';
+import { buildModuleWebpackConfig } from '@kibalabs/build/scripts/module/module.webpack';
 // @ts-ignore
-import makeReactAppWebpackConfig from '@kibalabs/build/scripts/react-app/app.webpack';
+import { buildReactAppWebpackConfig } from '@kibalabs/build/scripts/react-app/app.webpack';
 // @ts-ignore
 import { IWebsite } from '@kibalabs/everypage';
 import { IHead, IHeadTag } from '@kibalabs/ui-react';
@@ -65,18 +65,18 @@ export const render = async (siteDirectoryPath?: string, assetsDirectoryPath?: s
   // NOTE(krishan711): this is weird but needed to work both locally (with lerna) and on the builder-api
   const nodeModulesPaths = findAncestorSibling('node_modules');
   const nodeWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({ name: 'site-node', packageFilePath, shouldAliasModules: false }),
-    makeJsWebpackConfig({ packageFilePath, polyfill: false, react: true }),
-    makeImagesWebpackConfig(),
-    makeCssWebpackConfig(),
-    makeModuleWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths }),
+    buildCommonWebpackConfig({ name: 'site-node', packageFilePath, shouldAliasModules: false }),
+    buildJsWebpackConfig({ packageFilePath, polyfill: false, react: true }),
+    buildImagesWebpackConfig(),
+    buildCssWebpackConfig(),
+    buildModuleWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory: outputDirectoryNode, addHtmlOutput: false, addRuntimeConfig: false, excludeAllNodeModules: true, nodeModulesPaths }),
   );
   const webWebpackConfig = webpackMerge(
-    makeCommonWebpackConfig({ name: 'site', packageFilePath, shouldAliasModules: false }),
-    makeJsWebpackConfig({ packageFilePath, polyfill: true, react: true }),
-    makeImagesWebpackConfig(),
-    makeCssWebpackConfig(),
-    makeReactAppWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
+    buildCommonWebpackConfig({ name: 'site', packageFilePath, shouldAliasModules: false }),
+    buildJsWebpackConfig({ packageFilePath, polyfill: true, react: true }),
+    buildImagesWebpackConfig(),
+    buildCssWebpackConfig(),
+    buildReactAppWebpackConfig({ packageFilePath, entryFilePath: path.join(buildDirectory, './index.js'), outputDirectory, addHtmlOutput: false, addRuntimeConfig: false, publicDirectory: path.join(buildDirectory, './public') }),
   );
   console.log('EP: generating node output');
   return createAndRunCompiler(nodeWebpackConfig).then(async (): Promise<Record<string, unknown>> => {

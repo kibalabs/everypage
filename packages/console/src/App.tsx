@@ -3,7 +3,8 @@ import React from 'react';
 import { KibaException, LocalStorageClient, Requester } from '@kibalabs/core';
 import { IRoute, Router, useFavicon, useInitialization } from '@kibalabs/core-react';
 import { TawkToChat } from '@kibalabs/everypage';
-import { Head, KibaApp } from '@kibalabs/ui-react';
+import { ComponentDefinition, Head, KibaApp } from '@kibalabs/ui-react';
+import { Dropzone, DropzoneThemedStyle } from '@kibalabs/ui-react-dropzone';
 
 import { AuthManager } from './authManager';
 import { consoleConfig } from './consoleConfig';
@@ -22,13 +23,14 @@ import { RegisterPage } from './pages/registerPage';
 import { SitePage } from './pages/sitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
 import { VerifyEmailPage } from './pages/verifyEmailPage';
-import { consoleTheme } from './theme';
+import { buildAppTheme } from './theme';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester(undefined, undefined, false);
 const everypageClient = new EverypageClient(requester);
 const authManager = new AuthManager(localStorageClient, 'ep-console-jwt', everypageClient);
 requester.addModifier(new JwtRequestModifier(authManager));
+const theme = buildAppTheme();
 
 const globals = {
   everypageClient,
@@ -42,6 +44,13 @@ declare global {
     KRT_VERSION?: string;
   }
 }
+
+// @ts-expect-error
+const extraComponentDefinitions: ComponentDefinition[] = [{
+  component: Dropzone,
+  themeMap: theme.dropzones,
+  themeCssFunction: DropzoneThemedStyle,
+}];
 
 export const App = (): React.ReactElement => {
   useFavicon('/assets/favicon.svg');
@@ -76,7 +85,7 @@ export const App = (): React.ReactElement => {
   ];
 
   return (
-    <KibaApp theme={consoleTheme} isFullPageApp={true}>
+    <KibaApp theme={theme} isFullPageApp={true} extraComponentDefinitions={extraComponentDefinitions}>
       <GlobalsProvider globals={globals}>
         <Head>
           <title>Everypage Console</title>
