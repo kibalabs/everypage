@@ -16,7 +16,6 @@ export interface IWebsiteMeta {
   iosAppId?: string;
   androidAppId?: string;
   macAppId?: string;
-  baseUrl?: string;
 }
 
 export interface IWebsiteSection {
