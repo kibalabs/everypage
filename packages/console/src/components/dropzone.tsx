@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Media } from '@kibalabs/ui-react';
 import styled from 'styled-components';
 
 // TODO(krishan711): move this to ui-react-dropzone
@@ -21,17 +22,6 @@ const Thumb = styled.div`
   position: relative;
 `;
 
-const ThumbImageHolder = styled.div`
-  height: 100%;
-  width: 100%;
-`;
-
-const ThumbImage = styled.img`
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-`;
-
 const ThumbSubtitle = styled.span`
   font-size: 0.8em;
   background-color: rgba(0,0,0,0.5);
@@ -39,7 +29,7 @@ const ThumbSubtitle = styled.span`
   color: white;
   position: absolute;
   bottom: 0;
-  padding: 10px 20px;
+  padding: 5px 10px;
   word-wrap: break-word;
 `;
 
@@ -79,11 +69,11 @@ export const FilePreviewGrid = (props: IFilePreviewGridProps): React.ReactElemen
     <ThumbsContainer>
       {Object.keys(props.fileMap).map((filePath: string): React.ReactElement => (
         <Thumb key={filePath}>
-          <ThumbImageHolder>
-            <ThumbImage src={props.fileMap[filePath]} />
-          </ThumbImageHolder>
+          <Media source={props.fileMap[filePath]} alternativeText={''} isFullHeight={true} isFullWidth={true} fitType={'contain'} />
           <ThumbSubtitle>{filePath}</ThumbSubtitle>
-          {props.onDeleteClicked && <ThumbDeleteButton onClick={(): void => props.onDeleteClicked(filePath)} />}
+          {props.onDeleteClicked != null && (
+            <ThumbDeleteButton onClick={(): void => props.onDeleteClicked(filePath)} />
+          )}
         </Thumb>
       ))}
     </ThumbsContainer>
