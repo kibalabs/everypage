@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Head, ITheme, mergeTheme, useTheme } from '@kibalabs/ui-react';
 
-import { IWebsite } from '../model';
+import { IMetaTag, IWebsite } from '../model';
 import { useWebsite } from '../util';
 
 export interface IHeadContentProps {
@@ -75,6 +75,9 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { website.iosAppId && <meta name='twitter:app:id:iphone' content={website.iosAppId} /> }
       { website.iosAppId && <meta name='twitter:app:id:ipad' content={website.iosAppId} /> }
       { website.androidAppId && <meta name='twitter:app:id:googleplay' content={website.androidAppId} /> }
+
+      {/* Additional meta */}
+      { website.additionalMetaTags?.map((tag: IMetaTag, index: number): React.ReactElement => React.createElement(tag.tagName, { key: index, ...tag.attributes }))}
 
       {/* Android */}
       <meta name='theme-color' content={String(theme.colors.brandPrimary)} />

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
+- [MINOR] Added `additionalMetaTags` to global params to allow setting arbitrary tags on head
 
 ### Changed
 

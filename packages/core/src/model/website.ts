@@ -1,5 +1,10 @@
 import { IBackgroundConfig } from '@kibalabs/ui-react';
 
+export interface IMetaTag {
+  tagName: string;
+  attributes: Record<string, string>;
+}
+
 export interface IWebsiteMeta {
   name: string;
   tagline: string;
@@ -16,6 +21,7 @@ export interface IWebsiteMeta {
   iosAppId?: string;
   androidAppId?: string;
   macAppId?: string;
+  additionalMetaTags?: IMetaTag[];
 }
 
 export interface IWebsiteSection {
