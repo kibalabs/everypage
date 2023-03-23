@@ -77,7 +77,7 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
       { website.androidAppId && <meta name='twitter:app:id:googleplay' content={website.androidAppId} /> }
 
       {/* Additional meta */}
-      { website.additionalMetaTags?.map((tag: IMetaTag, index: number): React.ReactElement => React.createElement(tag.tagName, {key: index, ...tag.attributes}))}
+      { website.additionalMetaTags?.map((tag: IMetaTag, index: number): React.ReactElement => React.createElement(tag.tagName, { key: index, ...tag.attributes }))}
 
       {/* Android */}
       <meta name='theme-color' content={String(theme.colors.brandPrimary)} />
