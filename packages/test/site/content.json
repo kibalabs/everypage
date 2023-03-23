@@ -1,11 +1,18 @@
 {
   "name": "test page",
   "tagline": "This page contains one of each type of component",
-  "description": ":upside_down_face:",
+  "description": "what a cool page. really. it has one of everything. like, how is that even possible?? :upside_down_face:",
   "keywords": [
     "developer tools",
     "docs"
   ],
+  "additionalMetaTags": [{
+    "tagName": "meta",
+    "attributes": {
+      "name": "hello",
+      "content": "world"
+    }
+  }],
   "company": "Kiba Labs",
   "companyUrl": "https://www.kibalabs.com",
   "socialCardImageUrl": "/assets/banner.png",
