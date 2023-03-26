@@ -3,6 +3,7 @@ import { buildTheme, ITheme, mergeThemePartial } from '@kibalabs/ui-react';
 
 
 export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme => {
+  console.log('pageTheme', pageTheme);
   const everypageTheme: RecursivePartial<ITheme> = {
     dimensions: {
       paddingHeroTop: '7em',
@@ -59,5 +60,6 @@ export const buildEverypageTheme = (pageTheme: RecursivePartial<ITheme>): ITheme
     },
   };
   const theme = buildTheme(mergeThemePartial(everypageTheme, pageTheme));
+  console.log('theme.alternateColors', theme.alternateColors);
   return theme;
 };

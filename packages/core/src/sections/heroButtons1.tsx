@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, IImageProps, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText } from '../components';
@@ -18,7 +18,7 @@ interface IHeroButtons1Button {
 
 interface IHeroButtons1Props extends ISectionProps {
   logoImageUrl?: string;
-  shouldLogoGrow?: boolean;
+  logoImage?: IImageProps;
   titleText?: string;
   subtitleText?: string;
   buttons?: IHeroButtons1Button[];
@@ -30,7 +30,8 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
       <ResponsiveContainingView sizeResponsive={{ base: 10, small: 8, large: 6 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
-            {props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
+            {props.logoImage && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo {...props.logoImage} /></Stack.Item>}
+            {!props.logoImage && props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
             {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
             {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
             {props.buttons && props.buttons.length > 0 && (
