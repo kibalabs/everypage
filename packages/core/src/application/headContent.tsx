@@ -17,12 +17,12 @@ export const HeadContent = (props: IHeadContentProps): React.ReactElement => {
   const title = website.title || `${website.name} - ${website.tagline}`;
   const assetPrefix = website.buildHash ? `/${website.buildHash}` : '';
   let socialCardImageUrl = website.socialCardImageUrl;
-  if (socialCardImageUrl && socialCardImageUrl.startsWith('/')) {
+  if (socialCardImageUrl && socialCardImageUrl.startsWith('/assets/')) {
     // NOTE(krishan711): Twitter doesn't support relative urls
     socialCardImageUrl = `https://${website.siteHost}${assetPrefix}${socialCardImageUrl}`;
   }
   let faviconImageUrl = website.faviconImageUrl;
-  if (faviconImageUrl && faviconImageUrl.startsWith('/')) {
+  if (faviconImageUrl && faviconImageUrl.startsWith('/assets/')) {
     faviconImageUrl = `${assetPrefix}${faviconImageUrl}`;
   }
 
