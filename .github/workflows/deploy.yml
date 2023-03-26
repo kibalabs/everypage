@@ -1,39 +1,39 @@
 name: Deploy
 on:
-  pull_request:
+  push:
     branches: [main]
   workflow_dispatch:
 jobs:
-  # deploy-package-next:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     DOCKER_IMAGE: package
-  #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v2
-  #       with:
-  #         # NOTE(krishan711): need full history to calculate difference
-  #         fetch-depth: 0
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v1
-  #     - name: Build docker image
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         context: .
-  #         load: true
-  #         cache-from: type=gha,scope=package
-  #         cache-to: type=gha,mode=max,scope=package
-  #         tags: ${{ env.DOCKER_IMAGE }}
-  #         target: build
-  #     - name: Calculate commit count since last tag
-  #       id: vars
-  #       run: echo ::set-output name=commit_count::$(git rev-list $(git describe --tags --abbrev=0)..HEAD --count)
-  #     - name: Create .npmrc file
-  #       run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-  #     - name: Publish next package to npm
-  #       if: steps.vars.outputs.commit_count != '0'
-  #       run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish-next -- --next-version ${{ steps.vars.outputs.commit_count }}"
+  deploy-package-next:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: package
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          # NOTE(krishan711): need full history to calculate difference
+          fetch-depth: 0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          cache-from: type=gha,scope=package
+          cache-to: type=gha,mode=max,scope=package
+          tags: ${{ env.DOCKER_IMAGE }}
+          target: build
+      - name: Calculate commit count since last tag
+        id: vars
+        run: echo ::set-output name=commit_count::$(git rev-list $(git describe --tags --abbrev=0)..HEAD --count)
+      - name: Create .npmrc file
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - name: Publish next package to npm
+        if: steps.vars.outputs.commit_count != '0'
+        run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish-next -- --next-version ${{ steps.vars.outputs.commit_count }}"
   deploy-console-next:
     runs-on: ubuntu-latest
     env:
