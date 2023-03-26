@@ -9,9 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Added
 - [MINOR] Added `additionalMetaTags` to global params to allow setting arbitrary tags on head
-- [MINOR] Updated `hero-buttons-1` to have new-style `logoImage`
 
 ### Changed
+- [MINOR] Updated `hero-buttons-1` to have new-style `logoImage`
 
 ### Removed
 
