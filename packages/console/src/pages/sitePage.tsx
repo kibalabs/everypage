@@ -55,7 +55,7 @@ export const SitePage = (): React.ReactElement => {
 
   const loadVersions = React.useCallback((): void => {
     everypageClient.listSiteVersions(site.siteId).then((siteVersions: SiteVersion[]) => {
-      setVersions(siteVersions.reverse());
+      setVersions(siteVersions);
     }).catch((error: KibaException): void => {
       console.error('error', error);
       setVersions([]);
