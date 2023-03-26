@@ -412,14 +412,18 @@ export class DeleteSiteVersionAssetsResponse extends ResponseData {
 
 
 export class PromoteSiteVersionRequest extends RequestData {
-  public constructor() {
+  readonly shouldUseNextBuilder?: boolean;
+
+  public constructor(shouldUseNextBuilder?: boolean) {
     super();
+    this.shouldUseNextBuilder = shouldUseNextBuilder;
   }
 
-  // public toObject = (): Record<string, unknown> => {
-  //   return {
-  //   };
-  // };
+  public toObject = (): Record<string, unknown> => {
+    return {
+      shouldUseNextBuilder: this.shouldUseNextBuilder,
+    };
+  };
 }
 
 export class PromoteSiteVersionResponse extends ResponseData {

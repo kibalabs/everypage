@@ -34,3 +34,115 @@ jobs:
       - name: Publish next package to npm
         if: steps.vars.outputs.commit_count != '0'
         run: docker run -v $(pwd)/.npmrc:/root/.npmrc $DOCKER_IMAGE /bin/bash -c "npm run publish-next -- --next-version ${{ steps.vars.outputs.commit_count }}"
+  deploy-console-next:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE_CONSOLE: ghcr.io/${{ github.repository }}-console:next
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push console docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=gha,scope=console
+          cache-to: type=gha,mode=max,scope=console
+          tags: ${{ env.DOCKER_IMAGE_CONSOLE }}
+          target: console
+  deploy-builder-api-next:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE_BUILDER_API: ghcr.io/${{ github.repository }}-builder-api:next
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push builder-api docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          cache-from: type=gha,scope=builder-api
+          cache-to: type=gha,mode=max,scope=builder-api
+          tags: ${{ env.DOCKER_IMAGE_BUILDER_API }}
+          target: builder-api
+  run-console-next:
+    needs: deploy-console-next
+    runs-on: ubuntu-latest
+    env:
+      NAME: everypage-console-next
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}-console:next
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.APIBOX_URL }}
+          username: ${{ secrets.APIBOX_USER }}
+          key: ${{ secrets.APIBOX_SSH_KEY }}
+          port: ${{ secrets.APIBOX_PORT }}
+          envs: DOCKER_IMAGE,NAME
+          script_stop: true
+          script: |
+            url="console-next.everypagehq.com"
+            docker pull ${DOCKER_IMAGE}
+            docker stop ${NAME} && docker rm ${NAME} || true
+            docker run \
+                --name ${NAME} \
+                --detach \
+                --publish-all \
+                --restart unless-stopped \
+                --env NAME=${NAME} \
+                --env VERSION=${VERSION} \
+                --env VIRTUAL_HOST=${url} \
+                --env LETSENCRYPT_HOST=${url} \
+                --env-file ~/.${NAME}.vars \
+                ${DOCKER_IMAGE}
+  run-builder-api-next:
+    needs: deploy-builder-api-next
+    runs-on: ubuntu-latest
+    env:
+      NAME: everypage-builder-api-next
+      DOCKER_IMAGE: ghcr.io/${{ github.repository }}-builder-api:next
+      NETWORK: everypage-network
+    steps:
+      - name: executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.WORKERBOX_URL }}
+          username: ${{ secrets.WORKERBOX_USER }}
+          key: ${{ secrets.WORKERBOX_SSH_KEY }}
+          port: ${{ secrets.WORKERBOX_PORT }}
+          envs: DOCKER_IMAGE,NAME,NETWORK
+          script_stop: true
+          script: |
+            docker network create ${NETWORK} || true
+            docker pull ${DOCKER_IMAGE}
+            docker stop ${NAME} && docker rm ${NAME} || true
+            docker run \
+                --name ${NAME} \
+                --detach \
+                --publish-all \
+                --restart unless-stopped \
+                --memory 768m \
+                --cpus 1.0 \
+                --net ${NETWORK} \
+                --env NAME=${NAME} \
+                --env VERSION=${VERSION} \
+                --env-file ~/.${NAME}.vars \
+                ${DOCKER_IMAGE}

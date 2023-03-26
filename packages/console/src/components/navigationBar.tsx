@@ -6,6 +6,7 @@ import { Alignment, BackgroundView, Button, ColorSettingView, Direction, Image, 
 import styled from 'styled-components';
 
 import { useGlobals } from '../globalsContext';
+import { getIsNextVersion } from '../util';
 
 interface IStyledNavBarProps {
   color?: string;
@@ -72,9 +73,14 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   return (
     <ColorSettingView variant='branded'>
       <StyledNavBar className='fixed'>
-        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
+        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Default}>
           <LinkBase target='/'>
-            <Image height='30px' source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
+            <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
+              <Image height={getIsNextVersion() ? '20px' : '30px'} source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
+              {getIsNextVersion() && (
+                <Text variant='bold'>NEXT</Text>
+              )}
+            </Stack>
           </LinkBase>
           <Stack.Item growthFactor={1} shrinkFactor={1} />
           <Button
