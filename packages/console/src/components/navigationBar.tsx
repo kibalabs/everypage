@@ -73,7 +73,7 @@ export const NavigationBar = React.memo((): React.ReactElement => {
   return (
     <ColorSettingView variant='branded'>
       <StyledNavBar className='fixed'>
-        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
+        <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Default}>
           <LinkBase target='/'>
             <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
               <Image height={getIsNextVersion() ? '20px' : '30px'} source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
