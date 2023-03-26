@@ -42,6 +42,7 @@ const globals = {
 declare global {
   export interface Window {
     KRT_VERSION?: string;
+    KRT_IS_NEXTg?: string;
   }
 }
 
@@ -57,7 +58,7 @@ export const App = (): React.ReactElement => {
 
   useInitialization((): void => {
     // eslint-disable-next-line no-console
-    console.log(`Running everypage console version: ${window.KRT_VERSION}`);
+    console.log(`Running everypage console version: ${window.KRT_VERSION}. IS_NEXT: ${window.KRT_IS_NEXT}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refreshToken().catch((error: KibaException): void => {
         if (error.message.includes('TOKEN_PAST_LAST_REFRESH_DATE')) {

@@ -108,6 +108,7 @@ jobs:
                 --publish-all \
                 --restart unless-stopped \
                 --env NAME=${NAME} \
+                --env VERSION=${VERSION} \
                 --env VIRTUAL_HOST=${url} \
                 --env LETSENCRYPT_HOST=${url} \
                 --env-file ~/.${NAME}.vars \
@@ -142,5 +143,6 @@ jobs:
                 --cpus 1.0 \
                 --net ${NETWORK} \
                 --env NAME=${NAME} \
+                --env VERSION=${VERSION} \
                 --env-file ~/.${NAME}.vars \
                 ${DOCKER_IMAGE}
