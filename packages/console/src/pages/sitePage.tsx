@@ -11,6 +11,7 @@ import { TemplateChooserModal } from '../components/templateChooserModal';
 import { IPlan } from '../consoleConfig';
 import { Account, Site, SiteVersion, Template } from '../everypageClient/resources';
 import { useGlobals } from '../globalsContext';
+import { getIsNextVersion } from '../util';
 
 export const SitePage = (): React.ReactElement => {
   const slug = useStringRouteParam('slug');
@@ -84,7 +85,7 @@ export const SitePage = (): React.ReactElement => {
 
   const onSetPrimaryClicked = (version: SiteVersion): void => {
     setIsLoading(true);
-    everypageClient.promoteSiteVersion(site.siteId, version.siteVersionId).then((): void => {
+    everypageClient.promoteSiteVersion(site.siteId, version.siteVersionId, getIsNextVersion()).then((): void => {
       setVersions(undefined);
       setPrimaryVersionId(undefined);
       loadSite();
@@ -373,7 +374,7 @@ export const SitePage = (): React.ReactElement => {
                     <Text variant='header3'>Site Versions</Text>
                     {authManager.getHasJwtPermission(`st-${site.siteId}-ed`) && <Button onClicked={onCreateNewVersionClicked} text='Create new version' />}
                   </Stack>
-                  { versions && versions.map((version: SiteVersion, index: number): React.ReactElement => {
+                  { versions && versions.map((version: SiteVersion, index: number): React.ReactElement | null => {
                     return version.archiveDate ? null : (
                       <Stack key={index} direction={Direction.Vertical} contentAlignment={Alignment.Start}>
                         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Start} shouldAddGutters={true} defaultGutter={PaddingSize.Wide}>

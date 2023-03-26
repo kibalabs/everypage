@@ -186,10 +186,10 @@ export class EverypageClient extends ServiceClient {
     await this.makeRequest(method, path, request, Endpoints.DeleteSiteVersionAssetsResponse);
   };
 
-  public promoteSiteVersion = async (siteId: number, siteVersionId: number): Promise<void> => {
+  public promoteSiteVersion = async (siteId: number, siteVersionId: number, shouldUseNextBuilder?: boolean): Promise<void> => {
     const method = RestMethod.POST;
     const path = `v1/sites/${siteId}/versions/${siteVersionId}/promote-deferred`;
-    const request = new Endpoints.PromoteSiteVersionRequest();
+    const request = new Endpoints.PromoteSiteVersionRequest(shouldUseNextBuilder);
     await this.makeRequest(method, path, request, Endpoints.PromoteSiteVersionResponse);
   };
 

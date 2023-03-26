@@ -24,6 +24,7 @@ import { SitePage } from './pages/sitePage';
 import { SiteVersionPreviewPage } from './pages/siteVersionPreviewPage';
 import { VerifyEmailPage } from './pages/verifyEmailPage';
 import { buildAppTheme } from './theme';
+import { getAppVersion, getIsNextVersion } from './util';
 
 const localStorageClient = new LocalStorageClient(window.localStorage);
 const requester = new Requester(undefined, undefined, false);
@@ -39,12 +40,6 @@ const globals = {
   consoleConfig,
 };
 
-declare global {
-  export interface Window {
-    KRT_VERSION?: string;
-    KRT_IS_NEXTg?: string;
-  }
-}
 
 // @ts-expect-error
 const extraComponentDefinitions: ComponentDefinition[] = [{
@@ -58,7 +53,7 @@ export const App = (): React.ReactElement => {
 
   useInitialization((): void => {
     // eslint-disable-next-line no-console
-    console.log(`Running everypage console version: ${window.KRT_VERSION}. IS_NEXT: ${window.KRT_IS_NEXT}`);
+    console.log(`Running everypage console version: ${getAppVersion()}. IS_NEXT: ${getIsNextVersion()}`);
     if (authManager.getIsUserLoggedIn()) {
       everypageClient.refreshToken().catch((error: KibaException): void => {
         if (error.message.includes('TOKEN_PAST_LAST_REFRESH_DATE')) {
