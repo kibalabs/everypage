@@ -34,6 +34,7 @@ export const buildAppTheme = (): ITheme => {
       branded: {
         background: '#4b6cb7',
         brandPrimary: '#ffffff',
+        text: '#ffffff',
       },
     },
     buttons: {

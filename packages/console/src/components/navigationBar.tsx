@@ -75,8 +75,8 @@ export const NavigationBar = React.memo((): React.ReactElement => {
       <StyledNavBar className='fixed'>
         <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} padding={PaddingSize.Wide1}>
           <LinkBase target='/'>
-            <Stack direction={Direction.Vertical}>
-              <Image height='30px' source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
+            <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
+              <Image height={getIsNextVersion() ? '30px' : '20px'} source='/assets/everypage-wordmark-dark.svg' alternativeText='Home' fitType='scale' />
               {getIsNextVersion() && (
                 <Text variant='bold'>NEXT</Text>
               )}
