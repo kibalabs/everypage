@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - [MINOR] Added `additionalMetaTags` to global params to allow setting arbitrary tags on head
 
 ### Changed
+- [MINOR] Updated `hero-buttons-1` to have new-style `logoImage`
 
 ### Removed
 
@@ -18,21 +19,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ### Changed
 - [MINOR] Moved padding props to `Section`
-- [MINOR] Add `shouldRemoveCenterPadding` to `HeroButtonsMediaHalf1`
-- [MINOR] Updated `TestimonialSlides1` to not show paging and buttons if there is only one testimonial
+- [MINOR] Add `shouldRemoveCenterPadding` to `hero-buttons-media-half1`
+- [MINOR] Updated `testimonial-slides-1` to not show paging and buttons if there is only one testimonial
 
 ## [0.9.8] - 2022-12-07
 
 ### Changed
-- [MINOR] Added `highlightText` to `FeatureMediaHalf1`
-- [MINOR] Update `CalendlyBooking1` to use colors correctly cos background is no longer transparent
-- [MINOR] Added `bodyText` to `FeatureBoxes1`
-- [MINOR] Added `autoplaySeconds` to `TestimonialSlides1`
+- [MINOR] Added `highlightText` to `feature-media-half1`
+- [MINOR] Update `calendly-booking1` to use colors correctly cos background is no longer transparent
+- [MINOR] Added `bodyText` to `feature-boxes1`
+- [MINOR] Added `autoplaySeconds` to `testimonial-slides1`
 
 ## [0.9.7] - 2022-06-29
 
 ### Added
-- [MINOR] Added `TeamBoxes1`
+- [MINOR] Added `team-boxes1`
 
 ## [0.9.6] - 2022-06-23
 
@@ -42,19 +43,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.9.5] - 2022-06-22
 
 ### Added
-- [MINOR] Added `isPhoneNumberOptional` to `Contact1` and `Contact2`
+- [MINOR] Added `isPhoneNumberOptional` to `contact1` and `contact2`
 - [MINOR] Added `shouldUseGeneratedFavicons` to `IWebsite` to allow direct favicon usage
-- [MINOR] Added `bodyText` to `Buttons1`
+- [MINOR] Added `bodyText` to `buttons1`
 
 ### Changed
-- [MINOR] Updated `Calendly1` to hide cookie banner
+- [MINOR] Updated `calendly1` to hide cookie banner
 
 ## [0.9.4] - 2022-06-01
 
 ### Added
-- [MINOR] Added `buttons` to `FeatureMediaHalf1`
-- [MINOR] Added `Footer3`
-- [MINOR] Added `HeroButtonsMediaHalf1`
+- [MINOR] Added `buttons` to `feature-media-half1`
+- [MINOR] Added `footer3`
+- [MINOR] Added `hero-buttons-media-half1`
 
 ## [0.9.3] - 2021-12-26
 
@@ -80,8 +81,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.8.5] - 2021-03-10
 
 ### Changed
-- [MINOR] Update `Navbar1` to close when an item is clicked
-- [MINOR] Added `shouldShowImageCaptions` to `ImageGallery1` to allow showing captions below images
+- [MINOR] Update `navbar1` to close when an item is clicked
+- [MINOR] Added `shouldShowImageCaptions` to `image-gallery1` to allow showing captions below images
 
 ## [0.8.4] - 2021-03-08
 
@@ -91,10 +92,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.8.3] - 2021-02-08
 
 ### Added
-- [MINOR] Created `FeatureIcons1` section
-- [MINOR] Created `FeatureIcons2` section
-- [MINOR] Created `Contact2` section
-- [MINOR] Created `Footer2` section
+- [MINOR] Created `feature-icons1` section
+- [MINOR] Created `feature-icons2` section
+- [MINOR] Created `contact2` section
+- [MINOR] Created `footer2` section
 
 ### Changed
 - [MINOR] Update to use react v17 for all packages
@@ -104,8 +105,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.8.2] - 2021-01-20
 
 ### Added
-- [MINOR] Created `ImagesGallery1` section
-- [MINOR] Created `Contact1` section
+- [MINOR] Created `images-gallery1` section
+- [MINOR] Created `contact1` section
 
 ### Changed
 - [MINOR] [Console] Optimized the Canvas experience
@@ -113,7 +114,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.8.1] - 2021-01-07
 
 ### Added
-- [MINOR] Created `GithubCorner` plugin
+- [MINOR] Created `github-corner` plugin
 
 ### Changed
 - [MINOR] Updated all code to pass linting check
@@ -182,17 +183,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.6.6] - 2020-12-01
 
 ### Changed
-- [PATCH] Add LazyImage, LazyVideo, LazyMedia and replace uses of ui-react
+- [PATCH] Add `LazyImage`, `LazyVideo`, `LazyMedia` and replace direct uses of ui-react
 
 ## [0.6.5] - 2020-11-12
 
 ### Changed
-- [MINOR] Added boxSizes option to feature-boxes-1
+- [MINOR] Added `boxSizes` option to `feature-boxes-1`
 
 ## [0.6.4] - 2020-11-12
 
 ### Added
-- [MINOR] Created `PanelbearAnalytics` plugin
+- [MINOR] Created `panelbear-analytics` plugin
 
 ## [0.6.3] - 2020-10-29
 
@@ -203,7 +204,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [0.6.2] - 2020-10-23
 
 ### Added
-- [PATCH] Added buttons to feature-boxes-1
+- [PATCH] Added buttons to `feature-boxes-1`
 
 ## [0.6.1] - 2020-10-23
 
