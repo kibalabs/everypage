@@ -31,7 +31,7 @@
     "@kibalabs/core": "^0.5.10",
     "@kibalabs/core-react": "^0.9.3",
     "@kibalabs/everypage": "0.9.9",
-    "@kibalabs/ui-react": "0.11.0-next.33",
+    "@kibalabs/ui-react": "^0.11.0-next.34",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^10.0.0",

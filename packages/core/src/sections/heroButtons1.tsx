@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getClassName } from '@kibalabs/core';
-import { Alignment, Button, Direction, IImageProps, KibaIcon, PaddingSize, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
+import { Alignment, Button, Direction, IImageProps, KibaIcon, PaddingSize, MarkdownText, ResponsiveContainingView, ResponsiveTextAlignmentView, Stack, TextAlignment } from '@kibalabs/ui-react';
 
 import { ISectionProps, Section } from '.';
 import { HeroLogo, HeroSectionSubtitleText, HeroSectionTitleText } from '../components';
@@ -21,6 +21,8 @@ interface IHeroButtons1Props extends ISectionProps {
   logoImage?: IImageProps;
   titleText?: string;
   subtitleText?: string;
+  bodyText?: string;
+  bodyTextVariant?: string;
   buttons?: IHeroButtons1Button[];
 }
 
@@ -32,8 +34,9 @@ export const HeroButtons1 = (props: IHeroButtons1Props): React.ReactElement => {
           <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
             {props.logoImage && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo {...props.logoImage} /></Stack.Item>}
             {!props.logoImage && props.logoImageUrl && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroLogo source={props.logoImageUrl} /></Stack.Item>}
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+            {props.titleText && <Stack.Item gutterAfter={props.subtitleText || props.bodyText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionTitleText text={props.titleText} /></Stack.Item>}
+            {props.subtitleText && <Stack.Item gutterAfter={props.bodyText ? PaddingSize.Wide : PaddingSize.Wide2}><HeroSectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+            {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide2}><MarkdownText textVariant={props.bodyTextVariant} source={props.bodyText} /></Stack.Item>}
             {props.buttons && props.buttons.length > 0 && (
               <Stack direction={Direction.Horizontal} childAlignment={Alignment.Center} contentAlignment={Alignment.Center} shouldAddGutters={true}>
                 {props.buttons.map((button: IHeroButtons1Button, index: number): React.ReactElement => (
