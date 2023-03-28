@@ -30,6 +30,7 @@ export * from './imageSlides1';
 export * from './imageGallery1';
 export * from './markdown1';
 export * from './navbar1';
+export * from './portfolioGrid1';
 export * from './pricingFeatures1';
 export * from './pricingMulti1';
 export * from './singlePageApp1';
