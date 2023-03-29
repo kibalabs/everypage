@@ -29,7 +29,7 @@
   "dependencies": {
     "@kibalabs/build": "0.12.1-next.5",
     "@kibalabs/core": "^0.5.10",
-    "@kibalabs/core-react": "^0.9.3",
+    "@kibalabs/core-react": "^0.9.4-next.1",
     "@kibalabs/everypage": "0.9.9",
     "@kibalabs/ui-react": "^0.11.0-next.34",
     "@loadable/component": "^5.14.1",
