@@ -81,7 +81,7 @@ export const PortfolioGrid1 = (props: IPortfolioGrid1Props): React.ReactElement 
         <Dialog key={item.id || index} id={String(index)} isOpen={location.hash === `#${props.id}-${item.id || index}`} isClosableByEscape={true} isClosableByBackdrop={true} isScrollableVertically={true} onCloseClicked={onDialogCloseClicked} maxWidth='calc(min(90vw, 650px))' maxHeight='calc(min(80vh, 1000px))'>
           <Stack direction={Direction.Vertical} shouldAddGutters={true}>
             <BackgroundView {...(item.background || {})}>
-              <Box theme={{ margin: '-2em -2em 0 -2em' }} height='250px' isFullWidth={false}>
+              <Box variant='unrounded' theme={{ margin: '-2em -2em 0 -2em' }} height='250px' isFullWidth={false}>
                 <Stack direction={Direction.Vertical} isFullHeight={true} contentAlignment={Alignment.Center} padding={PaddingSize.Wide4}>
                   <LazyMedia {...item.media} />
                 </Stack>
