@@ -50,7 +50,7 @@ export const PortfolioGrid1 = (props: IPortfolioGrid1Props): React.ReactElement 
   return (
     <React.Fragment>
       <Section {...props as ISectionProps} className={getClassName(PortfolioGrid1.displayName, props.className)}>
-        <ResponsiveContainingView sizeResponsive={{ base: 11, extraLarge: 12 }}>
+        <ResponsiveContainingView sizeResponsive={{ base: 11, large: 12 }}>
           <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
             <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
               <Box maxWidthResponsive={{ base: '100%', medium: '75%', extraLarge: '50%' }}>

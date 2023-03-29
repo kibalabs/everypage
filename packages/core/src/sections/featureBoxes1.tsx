@@ -43,12 +43,16 @@ export const FeatureBoxes1 = (props: IFeatureBoxes1Props): React.ReactElement =>
   }
   return (
     <Section {...props as ISectionProps} className={getClassName(FeatureBoxes1.displayName, props.className)}>
-      <ResponsiveContainingView sizeResponsive={{ base: 10, extraLarge: 8 }}>
+      <ResponsiveContainingView sizeResponsive={{ base: 11, extraLarge: 12 }}>
         <ResponsiveTextAlignmentView alignment={TextAlignment.Center}>
-          <Stack direction={Direction.Vertical}>
-            {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
-            {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
-            {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
+          <Stack direction={Direction.Vertical} childAlignment={Alignment.Center}>
+            <Box maxWidthResponsive={{ base: '100%', medium: '75%', extraLarge: '50%' }}>
+              <Stack direction={Direction.Vertical}>
+                {props.titleText && <Stack.Item gutterAfter={props.subtitleText ? PaddingSize.Wide : PaddingSize.Wide2}><SectionTitleText text={props.titleText} /></Stack.Item>}
+                {props.subtitleText && <Stack.Item gutterAfter={PaddingSize.Wide2}><SectionSubtitleText text={props.subtitleText} /></Stack.Item>}
+                {props.bodyText && <Stack.Item gutterAfter={PaddingSize.Wide}><MarkdownText textAlignment={TextAlignment.Left} source={props.bodyText} /></Stack.Item>}
+              </Stack>
+            </Box>
             <EqualGrid childAlignment={Alignment.Fill} shouldAddGutters={true} childSizeResponsive={sizes}>
               {props.features?.map((feature: IFeatureBoxes1Feature, index: number): React.ReactElement => (
                 <Box key={index} variant={boxVariant} isFullHeight={true}>
