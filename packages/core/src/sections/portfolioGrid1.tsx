@@ -83,7 +83,7 @@ export const PortfolioGrid1 = (props: IPortfolioGrid1Props): React.ReactElement 
             <BackgroundView {...(item.background || {})}>
               <Box variant='unrounded' theme={{ margin: '-2em -2em 0 -2em' }} height='250px' isFullWidth={false}>
                 <Stack direction={Direction.Vertical} isFullHeight={true} contentAlignment={Alignment.Center} padding={PaddingSize.Wide4}>
-                  <LazyMedia {...item.media} />
+                  <LazyMedia variant='unrounded' {...item.media} />
                 </Stack>
               </Box>
             </BackgroundView>

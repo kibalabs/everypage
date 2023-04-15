@@ -88,7 +88,7 @@ jobs:
           username: ${{ secrets.APIBOX_USER }}
           key: ${{ secrets.APIBOX_SSH_KEY }}
           port: ${{ secrets.APIBOX_PORT }}
-          envs: DOCKER_IMAGE,NAME
+          envs: DOCKER_IMAGE,NAME,VERSION
           script_stop: true
           script: |
             url="console.everypagehq.com"
@@ -120,7 +120,7 @@ jobs:
           username: ${{ secrets.WORKERBOX_USER }}
           key: ${{ secrets.WORKERBOX_SSH_KEY }}
           port: ${{ secrets.WORKERBOX_PORT }}
-          envs: DOCKER_IMAGE,NAME,NETWORK
+          envs: DOCKER_IMAGE,NAME,VERSION,NETWORK
           script_stop: true
           script: |
             docker network create ${NETWORK} || true
