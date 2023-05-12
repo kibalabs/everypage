@@ -43,6 +43,8 @@ export const CalendlyBooking1 = (props: ICalendlyBooking1Props): React.ReactElem
 };
 CalendlyBooking1.displayName = 'calendly-booking-1';
 CalendlyBooking1.defaultProps = {
+  paddingTop: EverypagePaddingSize.SectionTop,
+  paddingBottom: EverypagePaddingSize.SectionBottom,
 };
 
 interface ICalendlyEmbedProps {
@@ -113,6 +115,4 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
 };
 CalendlyEmbed.displayName = 'CalendlyEmbed';
 CalendlyEmbed.defaultProps = {
-  paddingTop: EverypagePaddingSize.SectionTop,
-  paddingBottom: EverypagePaddingSize.SectionBottom,
 };
