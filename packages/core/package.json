@@ -32,7 +32,7 @@
   "devDependencies": {
     "@kibalabs/build": "0.12.1-next.5",
     "@kibalabs/everyview-tracker": "^0.4.1",
-    "@kibalabs/ui-react": "^0.11.0-next.38",
+    "@kibalabs/ui-react": "0.11.0-next.38",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
     "@types/styled-components": "5.1.26",
@@ -41,7 +41,7 @@
     "styled-components": "^5.3.6"
   },
   "peerDependencies": {
-    "@kibalabs/ui-react": "^0.11.0-next.38",
+    "@kibalabs/ui-react": "0.11.0-next.38",
     "react": "^16.9.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.9.0 || ^17.0.0 || ^18.0.0",
     "styled-components": "^5.3.0"
