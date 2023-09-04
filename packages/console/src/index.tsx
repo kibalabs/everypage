@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createRoot, hydrateRoot } from 'react-dom/client';
 
-import { App } from './app';
+import { App } from './App';
 
 const renderedPath = window.KIBA_RENDERED_PATH;
 const pageData = window.KIBA_PAGE_DATA;
