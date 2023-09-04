@@ -27,11 +27,11 @@
     "publish": "kiba-publish"
   },
   "dependencies": {
-    "@kibalabs/build": "0.12.1-next.5",
-    "@kibalabs/core": "^0.5.10",
+    "@kibalabs/build": "0.13.1",
+    "@kibalabs/core": "^0.6.1",
     "@kibalabs/core-react": "^0.9.4-next.1",
     "@kibalabs/everypage": "0.9.9",
-    "@kibalabs/ui-react": "0.11.0-next.38",
+    "@kibalabs/ui-react": "^0.11.1",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",
     "commander": "^10.0.0",
@@ -39,7 +39,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^4.0.5",
     "serve-handler": "^6.1.5",
-    "styled-components": "^5.3.6",
+    "styled-components": "^6.0.7",
     "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
