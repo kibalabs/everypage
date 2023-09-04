@@ -92,10 +92,10 @@ jobs:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.APIBOX_URL }}
-          username: ${{ secrets.APIBOX_USER }}
-          key: ${{ secrets.APIBOX_SSH_KEY }}
-          port: ${{ secrets.APIBOX_PORT }}
+          host: ${{ secrets.KIBA_APP_BOX_URL }}
+          username: ${{ secrets.KIBA_APP_BOX_USER }}
+          key: ${{ secrets.KIBA_APP_BOX_SSH_KEY }}
+          port: ${{ secrets.KIBA_APP_BOX_PORT }}
           envs: DOCKER_IMAGE,NAME,VERSION
           script_stop: true
           script: |
@@ -124,10 +124,10 @@ jobs:
       - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.WORKERBOX_URL }}
-          username: ${{ secrets.WORKERBOX_USER }}
-          key: ${{ secrets.WORKERBOX_SSH_KEY }}
-          port: ${{ secrets.WORKERBOX_PORT }}
+          host: ${{ secrets.KIBA_APP_BOX_URL }}
+          username: ${{ secrets.KIBA_APP_BOX_USER }}
+          key: ${{ secrets.KIBA_APP_BOX_SSH_KEY }}
+          port: ${{ secrets.KIBA_APP_BOX_PORT }}
           envs: DOCKER_IMAGE,NAME,VERSION,NETWORK
           script_stop: true
           script: |
