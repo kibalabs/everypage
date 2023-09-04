@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
 
 import { IRoute, Router } from '@kibalabs/core-react';
 import { IndexPage, IWebsite } from '@kibalabs/everypage';
 import { IHeadRootProviderProps, ITheme } from '@kibalabs/ui-react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 
 export interface RouteData {
   path: string;
@@ -44,10 +44,10 @@ export const App = (props: IAppProps): React.ReactElement => {
 };
 
 if (typeof document !== 'undefined') {
-  const target = document.getElementById('root');
-  const renderMethod = target.hasChildNodes() ? ReactDOM.hydrate : ReactDOM.render;
-  const render = (Component: React.ReactElement): void => {
-    renderMethod(<Component />, target);
-  };
-  render(App);
+  const target = document.getElementById('root') as HTMLDivElement;
+  if (target.hasChildNodes()) { // && window.location.pathname === renderedPath) {
+    hydrateRoot(target, <React.StrictMode><App /></React.StrictMode>);
+  } else {
+    createRoot(target).render(<React.StrictMode><App /></React.StrictMode>);
+  }
 }
