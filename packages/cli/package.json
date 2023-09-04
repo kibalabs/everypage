@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-cli",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Build everypage sites",
   "license": "AGPLV3",
   "repository": {
@@ -30,7 +30,7 @@
     "@kibalabs/build": "0.12.1-next.5",
     "@kibalabs/core": "^0.5.10",
     "@kibalabs/core-react": "^0.9.4-next.1",
-    "@kibalabs/everypage": "0.9.9",
+    "@kibalabs/everypage": "0.9.10",
     "@kibalabs/ui-react": "0.11.0-next.38",
     "@loadable/component": "^5.14.1",
     "@loadable/server": "^5.13.2",

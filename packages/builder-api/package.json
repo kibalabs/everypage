@@ -1,6 +1,6 @@
 {
   "name": "@kibalabs/everypage-builder-api",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "private": true,
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -16,7 +16,7 @@
     "start-dev": "build-server --config-modifier ./config.build.js --start --dev"
   },
   "dependencies": {
-    "@kibalabs/everypage-cli": "0.9.9",
+    "@kibalabs/everypage-cli": "0.9.10",
     "@kibalabs/everyview-tracker": "^0.4.1",
     "archiver": "^4.0.1",
     "express": "^4.17.1",

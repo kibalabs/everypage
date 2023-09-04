@@ -8,14 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.9.10] - 2023-09-04
+
+### Added
 - [MINOR] Added `portfolio-grid-1`
 - [MINOR] Added `additionalMetaTags` to global params to allow setting arbitrary tags on head
 
 ### Changed
 - [MINOR] Updated `hero-buttons-1` to have new-style `logoImage`
 - [MINOR] Added `bodyText` to `hero-buttons-1`
-
-### Removed
 
 ## [0.9.9] - 2023-01-15
 
