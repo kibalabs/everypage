@@ -57,16 +57,16 @@ interface ICalendlyEmbedProps {
 }
 
 interface IStyledCalendlyEmbedProps {
-  embedHeight: string;
-  embedHeightMobile: string;
+  $embedHeight: string;
+  $embedHeightMobile: string;
 }
 
 const StyledCalendlyEmbed = styled.div<IStyledCalendlyEmbedProps>`
-  height: ${(props: IStyledCalendlyEmbedProps): string => props.embedHeightMobile};
+  height: ${(props: IStyledCalendlyEmbedProps): string => props.$embedHeightMobile};
   border-radius: 8px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
   @media (min-width: 827px) {
-    height: ${(props: IStyledCalendlyEmbedProps): string => props.embedHeight};
+    height: ${(props: IStyledCalendlyEmbedProps): string => props.$embedHeight};
     margin-bottom: -30px;
     /* NOTE(krishan711): this can't be enabled otherwise the background covers anything above */
     /* margin-top: -66px; */
@@ -95,8 +95,8 @@ const CalendlyEmbed = (props: ICalendlyEmbedProps): React.ReactElement => {
     <React.Fragment>
       <StyledCalendlyEmbed
         className={getClassName(CalendlyEmbed.displayName, 'calendly-inline-widget')}
-        embedHeight={embedHeight}
-        embedHeightMobile={embedHeightMobile}
+        $embedHeight={embedHeight}
+        $embedHeightMobile={embedHeightMobile}
         data-url={url}
       />
       <Head>
